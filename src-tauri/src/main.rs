@@ -8,48 +8,55 @@ mod shortcut;
 mod trayicon;
 
 use config::*;
+use once_cell::sync::OnceCell;
 use shortcut::*;
+use tauri::AppHandle;
 use tauri::GlobalShortcutManager;
 use tauri::Manager;
 use tauri::SystemTrayEvent;
 use trayicon::*;
 
+pub static APP: OnceCell<AppHandle> = OnceCell::new();
+
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
+            APP.get_or_init(|| app.handle());
             // 初始化设置
             let is_first = init_config();
+            match APP.get() {
+                Some(handle) => {
+                    // 根据label获取窗口实例
+                    let config = handle.get_window("config").unwrap();
 
-            // 根据label获取窗口实例
-            let config = app.get_window("config").unwrap();
-            let translator = app.get_window("translator").unwrap();
-
-            if is_first {
-                // 设置页面默认居中
-                config.center().unwrap();
-            } else {
-                // 不是首次打开默认关闭窗口
-                config.close().unwrap();
-            }
-            // 翻译窗口默认关闭
-            translator.close().unwrap();
-
-            // 注册全局快捷键
-            unsafe {
-                match &CONFIG {
-                    Some(c) => {
-                        app.global_shortcut_manager()
-                            .register(c.shortcut_translate.as_str(), translate)
-                            .unwrap();
-                        app.global_shortcut_manager()
-                            .register(c.shortcut_open_translate.as_str(), open_translate)
-                            .unwrap();
+                    if is_first {
+                        // 设置页面默认居中
+                        config.center().unwrap();
+                    } else {
+                        // 不是首次打开默认关闭窗口
+                        config.close().unwrap();
                     }
-                    None => {
-                        panic!()
+                    // 注册全局快捷键
+                    match CONFIG.get() {
+                        Some(v) => {
+                            handle
+                                .global_shortcut_manager()
+                                .register(v.shortcut_translate.as_str(), translate)
+                                .unwrap();
+                            handle
+                                .global_shortcut_manager()
+                                .register(v.shortcut_open_translate.as_str(), open_translate)
+                                .unwrap();
+                        }
+                        None => {
+                            panic!()
+                        }
                     }
                 }
-            }
+                None => {
+                    panic!()
+                }
+            };
 
             Ok(())
         })

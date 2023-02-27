@@ -71,17 +71,6 @@
         "title": "Config",
         "label": "config",
         "url": "index.html"
-      },
-      {
-        "fullscreen": false,
-        "height": 200,
-        "width": 600,
-        "minHeight": 200,
-        "minWidth": 600,
-        "resizable": true,
-        "title": "Translator",
-        "label": "translator",
-        "url": "index_translator.html"
       }
     ],
     "systemTray": {

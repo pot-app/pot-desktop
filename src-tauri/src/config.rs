@@ -1,8 +1,9 @@
+use once_cell::sync::OnceCell;
 use serde::{Deserialize, Serialize};
 use std::{fs, io::Read, io::Write};
 use tauri::api::path::config_dir;
 
-pub static mut CONFIG: Option<&mut Config> = None;
+pub static CONFIG: OnceCell<Config> = OnceCell::new();
 static APPID: &str = "cn.pylogmon.pot";
 
 #[derive(Deserialize, Debug, Serialize)]
@@ -45,16 +46,14 @@ fn check_config() -> Result<(fs::File, bool), String> {
     Ok((config_file, true))
 }
 
-fn read_config(mut file: fs::File) -> Option<&'static mut Config> {
+fn read_config(mut file: fs::File) {
     // 从文件读取配置
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
     // 对配置反序列化
     let config: Config = serde_json::from_str(contents.as_str()).unwrap();
     // 创建全局变量
-    let c = Box::new(config);
-
-    Some(Box::leak(c))
+    CONFIG.get_or_init(|| config);
 }
 
 pub fn init_config() -> bool {
@@ -64,10 +63,8 @@ pub fn init_config() -> bool {
             panic!("panic")
         }
     };
-    unsafe {
-        CONFIG = read_config(file);
-        println!("{:?}", CONFIG);
-    }
+    read_config(file);
+
     !flag
 }
 

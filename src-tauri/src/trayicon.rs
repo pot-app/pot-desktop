@@ -16,13 +16,16 @@ pub fn on_config_click(app: &AppHandle) {
             window.set_focus().unwrap();
         }
         None => {
-            let _main_window =
-                tauri::WindowBuilder::new(app, "main", tauri::WindowUrl::App("index.html".into()))
-                    .inner_size(800.0, 600.0)
-                    .min_inner_size(800.0, 600.0)
-                    .title("Config")
-                    .build()
-                    .unwrap();
+            let _main_window = tauri::WindowBuilder::new(
+                app,
+                "config",
+                tauri::WindowUrl::App("index.html".into()),
+            )
+            .inner_size(800.0, 600.0)
+            .min_inner_size(800.0, 600.0)
+            .title("Config")
+            .build()
+            .unwrap();
         }
     }
 }
