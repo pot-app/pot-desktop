@@ -8,14 +8,14 @@ static APPID: &str = "cn.pylogmon.pot";
 #[derive(Deserialize, Debug, Serialize)]
 #[allow(dead_code)]
 pub struct Config {
-    shortcut_translate: String,
-    shortcut_open_translate: String,
+    pub shortcut_translate: String,
+    pub shortcut_open_translate: String,
 }
 
 fn check_config() -> Result<(fs::File, bool), String> {
     let default_config = Config {
-        shortcut_translate: "Hello".to_owned(),
-        shortcut_open_translate: "hello1".to_owned(),
+        shortcut_translate: "CommandOrControl+D".to_owned(),
+        shortcut_open_translate: "CommandOrControl+Shift+D".to_owned(),
     };
     // 检查文件是否存在,不存在的话创建并写入默认配置
     let mut app_config_dir_path = match config_dir() {
