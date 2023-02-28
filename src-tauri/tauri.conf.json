@@ -60,19 +60,7 @@
     "updater": {
       "active": false
     },
-    "windows": [
-      {
-        "fullscreen": false,
-        "height": 600,
-        "width": 800,
-        "minHeight": 600,
-        "minWidth": 800,
-        "resizable": true,
-        "title": "Config",
-        "label": "config",
-        "url": "index.html"
-      }
-    ],
+    "windows": [],
     "systemTray": {
       "iconPath": "icons/icon.png",
       "iconAsTemplate": true

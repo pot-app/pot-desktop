@@ -9,10 +9,8 @@ mod trayicon;
 
 use config::*;
 use once_cell::sync::OnceCell;
-use shortcut::*;
+use shortcut::register_shortcut;
 use tauri::AppHandle;
-use tauri::GlobalShortcutManager;
-use tauri::Manager;
 use tauri::SystemTrayEvent;
 use trayicon::*;
 
@@ -22,42 +20,15 @@ fn main() {
     tauri::Builder::default()
         .setup(|app| {
             APP.get_or_init(|| app.handle());
+            let handle = APP.get().unwrap();
             // 初始化设置
             let is_first = init_config();
-            match APP.get() {
-                Some(handle) => {
-                    // 根据label获取窗口实例
-                    let config = handle.get_window("config").unwrap();
-
-                    if is_first {
-                        // 设置页面默认居中
-                        config.center().unwrap();
-                    } else {
-                        // 不是首次打开默认关闭窗口
-                        config.close().unwrap();
-                    }
-                    // 注册全局快捷键
-                    match CONFIG.get() {
-                        Some(v) => {
-                            handle
-                                .global_shortcut_manager()
-                                .register(v.shortcut_translate.as_str(), translate)
-                                .unwrap();
-                            handle
-                                .global_shortcut_manager()
-                                .register(v.shortcut_open_translate.as_str(), open_translate)
-                                .unwrap();
-                        }
-                        None => {
-                            panic!()
-                        }
-                    }
-                }
-                None => {
-                    panic!()
-                }
-            };
-
+            // 首次启动打开设置页面
+            if is_first {
+                on_config_click(handle);
+            }
+            // 注册全局快捷键
+            register_shortcut();
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![write_config])
@@ -66,6 +37,7 @@ fn main() {
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                PERSISTENT_WINDOW => on_persistent_click(app),
                 CONFIG_TRAY_ITEM => on_config_click(app),
                 QUIT_TRAY_ITEM => on_quit_click(),
                 _ => {}
