@@ -2,9 +2,9 @@
 name = "pot"
 version = "0.0.0"
 description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+authors = ["Pylogmon"]
+license = "GPLv3"
+repository = "https://github.com/Pylogmon/Pot"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

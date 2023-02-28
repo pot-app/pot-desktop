@@ -2,23 +2,20 @@ use once_cell::sync::OnceCell;
 use serde::{Deserialize, Serialize};
 use std::{fs, io::Read, io::Write};
 use tauri::api::path::config_dir;
-
+// 全局配置
 pub static CONFIG: OnceCell<Config> = OnceCell::new();
 static APPID: &str = "cn.pylogmon.pot";
 
+// 配置文件结构体
 #[derive(Deserialize, Debug, Serialize)]
 #[allow(dead_code)]
 pub struct Config {
     pub shortcut_translate: String,
     pub shortcut_open_translate: String,
 }
-
+// 检查配置文件是否存在
 fn check_config() -> Result<(fs::File, bool), String> {
-    let default_config = Config {
-        shortcut_translate: "CommandOrControl+D".to_owned(),
-        shortcut_open_translate: "CommandOrControl+Shift+D".to_owned(),
-    };
-    // 检查文件是否存在,不存在的话创建并写入默认配置
+    // 配置文件路径
     let mut app_config_dir_path = match config_dir() {
         Some(v) => v,
         None => todo!(),
@@ -35,39 +32,48 @@ fn check_config() -> Result<(fs::File, bool), String> {
         // 创建文件
         let mut config_file = fs::File::create(&app_config_file_path).unwrap();
         // 写入默认配置
+        let default_config = Config {
+            shortcut_translate: "CommandOrControl+D".to_owned(),
+            shortcut_open_translate: "CommandOrControl+Shift+D".to_owned(),
+        };
         config_file
             .write_all(serde_json::to_string(&default_config).unwrap().as_bytes())
             .unwrap();
         let config_file = fs::File::open(&app_config_file_path).unwrap();
         return Ok((config_file, false));
     }
-    #[allow(unused_mut)]
+
     let config_file = fs::File::open(&app_config_file_path).unwrap();
     Ok((config_file, true))
 }
 
+// 从文件读取配置
 fn read_config(mut file: fs::File) {
     // 从文件读取配置
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
     // 对配置反序列化
     let config: Config = serde_json::from_str(contents.as_str()).unwrap();
-    // 创建全局变量
+    // 写入全局变量
     CONFIG.get_or_init(|| config);
 }
 
+// 初始化配置
 pub fn init_config() -> bool {
+    // 获取配置文件
     let (file, flag) = match check_config() {
         Ok(v) => v,
         Err(_) => {
             panic!("panic")
         }
     };
+    // 读取配置文件
     read_config(file);
 
     !flag
 }
 
+// 写入配置
 #[tauri::command]
 pub fn write_config(config_str: &str) -> Result<(), String> {
     // 将新的配置写入文件

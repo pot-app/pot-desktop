@@ -1,6 +1,24 @@
 use crate::config::CONFIG;
 use crate::APP;
-use tauri::{GlobalShortcutManager, Manager};
+use tauri::{GlobalShortcutManager, Manager, WindowEvent};
+
+// 失去焦点自动关闭窗口
+fn on_lose_focus(event: &WindowEvent) {
+    match event {
+        WindowEvent::Focused(v) => {
+            if !v {
+                let handle = APP.get().unwrap();
+                match handle.get_window("translator") {
+                    Some(window) => {
+                        window.close().unwrap();
+                    }
+                    None => {}
+                }
+            }
+        }
+        _ => {}
+    }
+}
 
 // 划词翻译
 fn translate() {
@@ -10,7 +28,7 @@ fn translate() {
             window.close().unwrap();
         }
         None => {
-            let _window = tauri::WindowBuilder::new(
+            let window = tauri::WindowBuilder::new(
                 handle,
                 "translator",
                 tauri::WindowUrl::App("index_translator.html".into()),
@@ -22,9 +40,11 @@ fn translate() {
             .decorations(false)
             .skip_taskbar(true)
             .center()
+            .focused(true)
             .title("Translator")
             .build()
             .unwrap();
+            window.on_window_event(on_lose_focus);
         }
     };
 }
@@ -56,9 +76,10 @@ fn persistent_window() {
     };
 }
 
+// 注册全局快捷键
 pub fn register_shortcut() {
     let handle = APP.get().unwrap();
-    // 注册全局快捷键
+
     match CONFIG.get() {
         Some(v) => {
             handle
