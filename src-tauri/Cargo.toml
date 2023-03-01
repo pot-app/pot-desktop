@@ -19,6 +19,9 @@ tauri = { version = "1.2", features = ["global-shortcut-all", "notification", "s
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 once_cell = "1.17.1"
 
+[target.'cfg(windows)'.dependencies]
+window-shadows = "0.2"
+
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
