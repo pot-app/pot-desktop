@@ -5,9 +5,39 @@
 
 body {
     background-color: #eeeeee;
-    padding: 16px;
+    padding: 12px;
 }
 
 html {
+    border-radius: 10px;
+}
+
+.titlebar {
+    height: 40px;
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+}
+
+.sourcetext {
+    background-color: rgb(187, 187, 187);
+    padding: 8px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.targettext {
+    margin-top: 8px;
+    background-color: rgb(187, 187, 187);
+    padding: 8px;
+    height: 200px;
     border-radius: 10px;
 }

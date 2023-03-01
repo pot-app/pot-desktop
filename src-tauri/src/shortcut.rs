@@ -60,7 +60,7 @@ fn persistent_window() {
             let _window = tauri::WindowBuilder::new(
                 handle,
                 "persistent",
-                tauri::WindowUrl::App("index_persistent_translator.html".into()),
+                tauri::WindowUrl::App("index_persistent.html".into()),
             )
             .inner_size(400.0, 400.0)
             .min_inner_size(400.0, 400.0)
