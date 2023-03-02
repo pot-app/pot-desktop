@@ -22,6 +22,9 @@
       },
       "window": {
         "all": true
+      },
+      "clipboard": {
+        "all": true
       }
     },
     "bundle": {

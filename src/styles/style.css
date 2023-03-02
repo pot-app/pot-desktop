@@ -4,8 +4,9 @@
 }
 
 body {
-    background-color: #eeeeee;
+    background-color: #333436cc;
     padding: 12px;
+    padding-top: 0;
 }
 
 html {
@@ -24,20 +25,61 @@ html {
 .topbar {
     display: flex;
     justify-content: space-between;
-    height: 30px;
+    height: 40px;
+}
+
+.topbar-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: medium;
+    height: 40px;
+    color: #c0c1c5;
+}
+
+.control-button {
+    border: none;
+    background-color: transparent;
+    color: #c0c1c5;
 }
 
 .sourcetext {
-    background-color: rgb(187, 187, 187);
-    padding: 8px;
-    height: 100px;
+    background-color: #252628;
     border-radius: 10px;
+    color: #c0c1c5;
+}
+
+.language-selector {
+    margin-top: 8px;
+    background-color: #252628;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .targettext {
     margin-top: 8px;
-    background-color: rgb(187, 187, 187);
-    padding: 8px;
-    height: 200px;
+    background-color: #252628;
+    height: calc(100vh - 260px);
     border-radius: 10px;
+    /* overflow: auto; */
+}
+
+.textarea {
+    background-color: #252628;
+    color: #c0c1c5;
+}
+
+*::-webkit-scrollbar {
+    width: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #c0c1c5;
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #c0c1c5;
 }

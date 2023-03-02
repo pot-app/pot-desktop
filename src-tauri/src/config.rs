@@ -12,7 +12,11 @@ static APPID: &str = "cn.pylogmon.pot";
 pub struct Config {
     pub shortcut_translate: String,
     pub shortcut_open_translate: String,
+    pub target_language: String,
+    pub interface: String,
+    pub proxy: String,
 }
+
 // 检查配置文件是否存在
 fn check_config() -> Result<(fs::File, bool), String> {
     // 配置文件路径
@@ -35,6 +39,9 @@ fn check_config() -> Result<(fs::File, bool), String> {
         let default_config = Config {
             shortcut_translate: "CommandOrControl+D".to_owned(),
             shortcut_open_translate: "CommandOrControl+Shift+D".to_owned(),
+            target_language: "zh".to_owned(),
+            interface: "youdao_free".to_owned(),
+            proxy: "".to_owned(),
         };
         config_file
             .write_all(serde_json::to_string(&default_config).unwrap().as_bytes())
@@ -91,4 +98,11 @@ pub fn write_config(config_str: &str) -> Result<(), String> {
     init_config();
 
     Ok(())
+}
+
+// 前端获取配置
+#[tauri::command]
+pub fn get_config() -> Result<String, String> {
+    let config = CONFIG.get().unwrap();
+    Ok(serde_json::to_string(&config).unwrap())
 }
