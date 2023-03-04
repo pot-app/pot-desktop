@@ -2,7 +2,7 @@ import axios from 'axios';
 import { get } from '../global/config';
 
 const languageMap = {
-    "zh": "中文",
+    "zh-cn": "简体中文",
     "en": "英语",
 }
 
@@ -13,7 +13,7 @@ export default class chatgpt {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apikey}`,
         };
-        let prompt = `翻译成${languageMap[get("target_language", "zh")]}并适当润色`
+        let prompt = `翻译成${languageMap[get("target_language", "zh-cn")]}`
         const body = {
             model: "gpt-3.5-turbo",
             temperature: 0,
@@ -23,7 +23,7 @@ export default class chatgpt {
             presence_penalty: 1,
             messages: [
                 { role: "system", content: prompt },
-                { role: "user", content: `${text}` },
+                { role: "user", content: `“${text}”` },
             ]
         };
 

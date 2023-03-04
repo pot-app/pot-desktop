@@ -39,7 +39,7 @@ fn check_config() -> Result<(fs::File, bool), String> {
         let default_config = Config {
             shortcut_translate: "CommandOrControl+D".to_owned(),
             shortcut_persistent: "CommandOrControl+Shift+D".to_owned(),
-            target_language: "zh".to_owned(),
+            target_language: "zh-cn".to_owned(),
             interface: "youdao_free".to_owned(),
         };
         config_file
