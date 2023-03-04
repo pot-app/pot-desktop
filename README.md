@@ -27,6 +27,12 @@
 ## 使用截图
 ![example](asset/example.png)
 
+## 安装
+### Debian
+在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新deb包安装
+### Arch
+安装 [AUR](https://aur.archlinux.org/packages/pot-translation) 的 `pot-translation`包
+
 ## 手动编译
 ### 所需工具
 - rust
