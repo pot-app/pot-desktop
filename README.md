@@ -25,7 +25,7 @@
 - [ ] 阿里翻译
 
 ## 使用演示
-![example](./asset/example.webm)
+<video src="asset/example.webm" controls="controls" width="500" height="300"></video>
 
 ## 手动编译
 ### 所需工具
