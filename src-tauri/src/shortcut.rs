@@ -99,7 +99,7 @@ pub fn register_shortcut() {
                 .unwrap();
             handle
                 .global_shortcut_manager()
-                .register(v.shortcut_open_translate.as_str(), persistent_window)
+                .register(v.shortcut_persistent.as_str(), persistent_window)
                 .unwrap();
         }
         None => {

@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri';
+import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 
 let config = {};
 
@@ -21,8 +22,10 @@ export function set(key, value) {
     config[key] = value;
 }
 
-export function writeConfig() {
-    invoke('write_config', { configStr: JSON.stringify(config) }).then(
-        _ => { }
+export async function writeConfig() {
+    await writeTextFile(
+        'config.json',
+        JSON.stringify(config),
+        { dir: BaseDirectory.AppConfig }
     )
 }

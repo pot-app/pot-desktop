@@ -56,11 +56,7 @@ fn main() {
             Ok(())
         })
         // 注册Tauri Command
-        .invoke_handler(tauri::generate_handler![
-            write_config,
-            get_selection_text,
-            get_config
-        ])
+        .invoke_handler(tauri::generate_handler![get_selection_text, get_config])
         //加载托盘图标
         .system_tray(build_system_tray())
         //绑定托盘事件

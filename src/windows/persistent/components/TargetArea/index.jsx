@@ -6,12 +6,8 @@ import { CopyOutlined } from '@ant-design/icons';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { getTranslator } from '../../translators';
 import { get } from '../../../../global/config';
+import interface_map from '../../../../interfaces'
 import './style.css'
-
-const interface_map = [
-    { value: 'youdao_free', label: '有道翻译(免费)' },
-    { value: 'chatgpt', label: 'ChatGPT' },
-]
 
 export default function TargetArea() {
     const [translateInterface, setTranslateInterface] = useState(get('interface', 'youdao_free'));

@@ -32,6 +32,16 @@
           "https://api.openai.com/*",
           "https://fanyi.youdao.com/*"
         ]
+      },
+      "notification": {
+        "all": true
+      },
+      "fs": {
+        "all": false,
+        "scope": [
+          "$APPCONFIG/*"
+        ],
+        "writeFile": true
       }
     },
     "bundle": {
