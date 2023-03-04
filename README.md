@@ -8,9 +8,9 @@
 ## 支持平台
 
 |   |Linux|Windows|MacOS|
-|---|-----|-------|-----|
+| - |-----|-------|-----|
 |划词翻译|✅|☑️|☑️|
-|独立窗口翻译|✅|✅|✅|
+|独立窗口|✅|✅|✅|
 
 ## 支持接口
 - [x] 有道翻译(免费)
@@ -24,8 +24,8 @@
 - [ ] 彩云小译
 - [ ] 阿里翻译
 
-## 使用演示
-<video src="asset/example.webm" controls="controls" width="500" height="300"></video>
+## 使用截图
+![example](asset/example.png)
 
 ## 手动编译
 ### 所需工具
