@@ -75,7 +75,6 @@ fn persistent_window() {
             .always_on_top(true)
             .transparent(true)
             .decorations(false)
-            .skip_taskbar(true)
             .center()
             .title("Translator")
             .build()

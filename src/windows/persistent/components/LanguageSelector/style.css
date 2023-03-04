@@ -1,0 +1,12 @@
+.language-selector {
+    margin-top: 8px;
+    background-color: #252628;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.arrow-icon {
+    color: #c0c1c5;
+}

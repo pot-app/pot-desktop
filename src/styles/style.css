@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #333436cc;
+    background-color: #333436;
     padding: 12px;
     padding-top: 0;
 }
@@ -14,56 +14,12 @@ html {
 }
 
 .titlebar {
-    height: 40px;
+    height: 100vh;
     user-select: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    height: 40px;
-}
-
-.topbar-button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font-size: medium;
-    height: 40px;
-    color: #c0c1c5;
-}
-
-.control-button {
-    border: none;
-    background-color: transparent;
-    color: #c0c1c5;
-}
-
-.sourcetext {
-    background-color: #252628;
-    border-radius: 10px;
-    color: #c0c1c5;
-}
-
-.language-selector {
-    margin-top: 8px;
-    background-color: #252628;
-    padding: 8px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-.targettext {
-    margin-top: 8px;
-    background-color: #252628;
-    height: calc(100vh - 260px);
-    border-radius: 10px;
-    /* overflow: auto; */
 }
 
 .textarea {

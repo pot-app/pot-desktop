@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::{fs, io::Read, io::Write};
 use tauri::api::path::config_dir;
 // 全局配置
+pub static CONFIG_STR: OnceCell<String> = OnceCell::new();
 pub static CONFIG: OnceCell<Config> = OnceCell::new();
 static APPID: &str = "cn.pylogmon.pot";
 
@@ -12,9 +13,6 @@ static APPID: &str = "cn.pylogmon.pot";
 pub struct Config {
     pub shortcut_translate: String,
     pub shortcut_open_translate: String,
-    pub target_language: String,
-    pub interface: String,
-    pub proxy: String,
 }
 
 // 检查配置文件是否存在
@@ -39,9 +37,6 @@ fn check_config() -> Result<(fs::File, bool), String> {
         let default_config = Config {
             shortcut_translate: "CommandOrControl+D".to_owned(),
             shortcut_open_translate: "CommandOrControl+Shift+D".to_owned(),
-            target_language: "zh".to_owned(),
-            interface: "youdao_free".to_owned(),
-            proxy: "".to_owned(),
         };
         config_file
             .write_all(serde_json::to_string(&default_config).unwrap().as_bytes())
@@ -59,6 +54,7 @@ fn read_config(mut file: fs::File) {
     // 从文件读取配置
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
+    CONFIG_STR.get_or_init(|| contents.clone());
     // 对配置反序列化
     let config: Config = serde_json::from_str(contents.as_str()).unwrap();
     // 写入全局变量
@@ -103,6 +99,5 @@ pub fn write_config(config_str: &str) -> Result<(), String> {
 // 前端获取配置
 #[tauri::command]
 pub fn get_config() -> Result<String, String> {
-    let config = CONFIG.get().unwrap();
-    Ok(serde_json::to_string(&config).unwrap())
+    Ok(CONFIG_STR.get().unwrap().to_string())
 }

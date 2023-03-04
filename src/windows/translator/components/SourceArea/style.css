@@ -1,0 +1,11 @@
+.sourcearea {
+    background-color: #252628;
+    border-radius: 10px;
+    color: #c0c1c5;
+}
+
+.control-button {
+    border: none;
+    background-color: transparent;
+    color: #c0c1c5;
+}

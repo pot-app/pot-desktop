@@ -4,13 +4,11 @@
 )]
 
 mod config;
-mod fetch;
 mod selection;
 mod shortcut;
 mod trayicon;
 
 use config::*;
-use fetch::fetch;
 use once_cell::sync::OnceCell;
 use selection::get_selection_text;
 use shortcut::register_shortcut;
@@ -61,8 +59,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             write_config,
             get_selection_text,
-            get_config,
-            fetch
+            get_config
         ])
         //加载托盘图标
         .system_tray(build_system_tray())

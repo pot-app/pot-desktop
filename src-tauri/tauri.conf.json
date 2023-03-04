@@ -25,6 +25,13 @@
       },
       "clipboard": {
         "all": true
+      },
+      "http": {
+        "all": true,
+        "scope": [
+          "https://api.openai.com/*",
+          "https://fanyi.youdao.com/*"
+        ]
       }
     },
     "bundle": {
