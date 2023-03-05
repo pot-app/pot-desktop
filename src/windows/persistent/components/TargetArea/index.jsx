@@ -14,23 +14,26 @@ export default function TargetArea() {
     const [loading, setLoading] = useState(false);
     const [sourceText, setSourceText] = useState("");
     const [targetText, setTargetText] = useState("");
+    const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
 
     PubSub.subscribe('SourceText', (_, v) => {
         setSourceText(v)
     })
-
+    PubSub.subscribe('TargetLanguage', (_, v) => {
+        setTargetLanguage(v)
+    })
     useEffect(() => {
         if (sourceText != "") {
-            translate(sourceText);
+            translate(sourceText, targetLanguage);
         }
-    }, [sourceText, translateInterface])
+    }, [sourceText, translateInterface, targetLanguage])
 
-    function translate(text) {
+    function translate(text, lang) {
         setTargetText('');
         setLoading(true);
         //翻译
         let translator = getTranslator(translateInterface);
-        translator.translate(text).then(
+        translator.translate(text, lang).then(
             v => {
                 setTargetText(v);
                 setLoading(false);

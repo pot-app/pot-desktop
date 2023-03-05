@@ -3,17 +3,18 @@ import { get } from '../global/config';
 
 const languageMap = {
     "zh-cn": "简体中文",
+    "zh-tw": "繁体中文",
     "en": "英语",
 }
 
 export default class chatgpt {
-    async translate(text) {
+    async translate(text, lang) {
         const apikey = get('openai_apikey', "");
         const headers = {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apikey}`,
         };
-        let prompt = `翻译成${languageMap[get("target_language", "zh-cn")]}`
+        let prompt = `翻译成${languageMap[lang]}`
         const body = {
             model: "gpt-3.5-turbo",
             temperature: 0,

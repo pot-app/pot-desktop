@@ -1,4 +1,6 @@
 use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu};
+#[cfg(target_os = "windows")]
+use window_shadows::set_shadow;
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
@@ -28,16 +30,18 @@ pub fn on_persistent_click(app: &AppHandle) {
                 "persistent",
                 tauri::WindowUrl::App("index_persistent.html".into()),
             )
-            .inner_size(400.0, 400.0)
+            .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)
             .always_on_top(true)
             .transparent(true)
             .decorations(false)
-            .skip_taskbar(true)
             .center()
             .title("Translator")
             .build()
             .unwrap();
+            // css圆角对windows无效，需要单独设置
+            #[cfg(target_os = "windows")]
+            set_shadow(&_window, true).unwrap();
         }
     }
 }

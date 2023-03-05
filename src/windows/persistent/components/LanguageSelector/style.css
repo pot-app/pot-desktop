@@ -4,7 +4,7 @@
     padding: 8px;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .arrow-icon {

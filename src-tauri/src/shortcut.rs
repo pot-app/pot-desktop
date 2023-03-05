@@ -73,7 +73,7 @@ fn persistent_window() {
                 "persistent",
                 tauri::WindowUrl::App("index_persistent.html".into()),
             )
-            .inner_size(400.0, 400.0)
+            .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)
             .always_on_top(true)
             .transparent(true)

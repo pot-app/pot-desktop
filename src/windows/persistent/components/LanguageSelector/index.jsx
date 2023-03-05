@@ -1,11 +1,38 @@
 import React from 'react'
+import { Select, ConfigProvider, theme } from 'antd'
+import PubSub from 'pubsub-js';
 import { DoubleRightOutlined } from '@ant-design/icons';
+import language from '../../../../global/language';
+import { get } from '../../../../global/config'
 import './style.css'
 
 export default function LanguageSelector() {
     return (
         <div className="language-selector">
-            <DoubleRightOutlined className='arrow-icon' />
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                    token: {
+                        colorPrimaryBg: '#1677ff',
+                        colorText: '#c0c1c5'
+                    }
+                }}
+            >
+                <Select
+                    style={{ width: '100px' }}
+                    defaultValue='auto'
+                    bordered={false}
+                    options={[{ value: 'auto', label: '自动检测' }]}
+                />
+                <DoubleRightOutlined className='arrow-icon' />
+                <Select
+                    style={{ width: '100px' }}
+                    defaultValue={get('target_language', 'zh-cn')}
+                    bordered={false}
+                    options={language}
+                    onSelect={(v) => { PubSub.publish('TargetLanguage', v) }}
+                />
+            </ConfigProvider>
         </div>
     )
 }
