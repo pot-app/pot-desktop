@@ -1,11 +1,14 @@
 use crate::config::CONFIG;
 use crate::APP;
-use tauri::{GlobalShortcutManager, Manager, WindowEvent};
+#[cfg(target_os = "linux")]
+use tauri::WindowEvent;
+use tauri::{GlobalShortcutManager, Manager};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
+#[cfg(target_os = "linux")]
 fn on_lose_focus(event: &WindowEvent) {
     match event {
         WindowEvent::Focused(v) => {
