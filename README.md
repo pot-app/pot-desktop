@@ -27,19 +27,44 @@
 ## 使用截图
 ![example](asset/example.png)
 
+## 使用方法
+1. 鼠标选择需要翻译的内容
+2. 按下划词翻译快捷键（默认Ctrl+D）
+3. 完成翻译
+
 ## 安装
+
 ### Debian
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新deb包安装
+
+### Deepin
+Deepin V20 请下载 `pot_<version>_amd64_deepin.deb` 安装
+
 ### Arch
 安装 [AUR](https://aur.archlinux.org/packages/pot-translation) 的 `pot-translation`包
 
 ## 手动编译
+
 ### 所需工具
-- rust
+- rust 1.67.0
 - pnpm
-- nodejs
+- nodejs 19
 ### 编译步骤
+
+1. 克隆仓库
 ```bash
+git clone https://github.com/Pylogmon/pot.git
+```
+
+2. 安装构建依赖
+```bash
+sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+```
+
+3. 开始编译
+```bash
+cd pot
+
 pnpm install # 安装前端依赖
 
 pnpm tauri build # 编译打包
