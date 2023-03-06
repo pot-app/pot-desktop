@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { get, set, writeConfig } from '../../global/config'
-import { Button, Input, ConfigProvider, theme, Select } from 'antd'
+import { Button, TextField, Select, MenuItem } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import { notification } from '@tauri-apps/api'
+import { nanoid } from 'nanoid'
 import ConfigList from './components/ConfigList'
 import ConfigItem from './components/ConfigItem'
 import language from '../../global/language'
 import interfaces from '../../interfaces'
+import { light, dark } from '../themes';
 import './style.css'
 
 export default function App() {
@@ -15,11 +19,13 @@ export default function App() {
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [openaiApikey, setOpenaiApikey] = useState(get('openai_apikey', ''));
   const [openaiDomain, setOpenaiDomain] = useState(get('openai_domain', 'api.openai.com'));
+  const [theme, setTheme] = useState(get('theme', 'light'));
 
   function saveConfig() {
     set('shortcut_translate', shortcutTranslate);
     set('shortcut_persistent', shortcutPersistent);
     set('target_language', targetLanguage);
+    set('theme', theme);
     set('interface', _interface);
     set('openai_apikey', openaiApikey);
     set('openai_domain', openaiDomain);
@@ -41,53 +47,74 @@ export default function App() {
 
   }
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: theme.darkAlgorithm
-      }}
-    >
+    <ThemeProvider theme={theme == 'light' ? light : dark}>
+      <CssBaseline />
       <div className='content'>
         <ConfigList label="快捷键">
           <ConfigItem label="划词翻译">
-            <Input
+            <TextField
+              fullWidth
               value={shortcutTranslate}
               onChange={(e) => { setShortcutTranslate(e.target.value) }}
             />
           </ConfigItem>
           <ConfigItem label="独立翻译窗口">
-            <Input
+            <TextField
+              fullWidth
               value={shortcutPersistent}
               onChange={(e) => { setShortcutPersistent(e.target.value) }}
             />
           </ConfigItem>
         </ConfigList>
-        <ConfigList label="翻译设置">
+        <ConfigList label="应用设置">
           <ConfigItem label="目标语言">
             <Select
-              options={language}
+              fullWidth
               value={targetLanguage}
-              style={{ width: '100%' }}
-              onSelect={(v) => setTargetLanguage(v)}
-            />
+              onChange={(e) => setTargetLanguage(e.target.value)}
+            >
+              {
+                language.map(x => {
+                  return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                })
+              }
+            </Select>
           </ConfigItem>
           <ConfigItem label="默认接口">
             <Select
-              options={interfaces}
+              fullWidth
               value={_interface}
-              style={{ width: '100%' }}
-              onSelect={(v) => setInterface(v)}
-            />
+              onChange={(e) => setInterface(e.target.value)}
+            >
+              {
+                interfaces.map(x => {
+                  return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                })
+              }
+            </Select>
+          </ConfigItem>
+          <ConfigItem label="颜色主题">
+            <Select
+              fullWidth
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+            >
+              <MenuItem value='light'>明亮</MenuItem>
+              <MenuItem value='dark'>黑暗</MenuItem>
+            </Select>
           </ConfigItem>
         </ConfigList>
         <ConfigList label="接口设置">
           <ConfigItem label="OpenAI 自定义域名">
-            <Input
+            <TextField
+              fullWidth
               value={openaiDomain}
               onChange={(e) => { setOpenaiDomain(e.target.value) }}
             />
           </ConfigItem>
           <ConfigItem label="OpenAI ApiKey">
-            <Input
+            <TextField
+              fullWidth
               value={openaiApikey}
               type='password'
               onChange={(e) => { setOpenaiApikey(e.target.value) }}
@@ -97,14 +124,14 @@ export default function App() {
       </div>
       <div className='foot'>
         <Button
-          type='primary'
+          variant='contained'
           size='large'
           onClick={saveConfig}
         >
           保存设置
         </Button>
       </div>
-    </ConfigProvider>
+    </ThemeProvider>
   )
 }
 

@@ -14,7 +14,7 @@ export default function SourceArea() {
         invoke('get_selection_text').then(
             text => {
                 if (text != "") {
-                    setSourceText(text);
+                    setSourceText(text.trim());
                     PubSub.publish('SourceText', text);
                 }
             }
