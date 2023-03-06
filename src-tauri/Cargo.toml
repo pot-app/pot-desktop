@@ -1,7 +1,7 @@
 [package]
 name = "pot"
-version = "0.0.0"
-description = "A Tauri App"
+version = "0.0.2"
+description = "A cross-platform translation software"
 authors = ["Pylogmon"]
 license = "GPLv3"
 repository = "https://github.com/Pylogmon/Pot"

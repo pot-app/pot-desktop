@@ -2247,7 +2247,7 @@ dependencies = [
 
 [[package]]
 name = "pot"
-version = "0.0.0"
+version = "0.0.2"
 dependencies = [
  "once_cell",
  "reqwest",
