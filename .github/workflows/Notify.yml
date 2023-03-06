@@ -1,10 +1,13 @@
-name: matrix message
-
+name: Notify
 on:
-  discussion_comment:
-    types: [created]
+  issues:
+    types: opened
+  issue_comment:
+    types: created
+  pull_request_target:
+    types: opened
 jobs:
-  matrix_notify:
+  Notify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
