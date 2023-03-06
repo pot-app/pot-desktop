@@ -19,14 +19,14 @@ export default function LanguageSelector() {
                 }}
             >
                 <Select
-                    style={{ width: '100px' }}
+                    style={{ width: '150px' }}
                     defaultValue='auto'
                     bordered={false}
                     options={[{ value: 'auto', label: '自动检测' }]}
                 />
                 <DoubleRightOutlined className='arrow-icon' />
                 <Select
-                    style={{ width: '100px' }}
+                    style={{ width: '150px' }}
                     defaultValue={get('target_language', 'zh-cn')}
                     bordered={false}
                     options={language}

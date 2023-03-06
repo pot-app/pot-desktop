@@ -14,6 +14,7 @@ export default function App() {
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [openaiApikey, setOpenaiApikey] = useState(get('openai_apikey', ''));
+  const [openaiDomain, setOpenaiDomain] = useState(get('openai_domain', 'api.openai.com'));
 
   function saveConfig() {
     set('shortcut_translate', shortcutTranslate);
@@ -21,6 +22,8 @@ export default function App() {
     set('target_language', targetLanguage);
     set('interface', _interface);
     set('openai_apikey', openaiApikey);
+    set('openai_domain', openaiDomain);
+
     writeConfig().then(
       _ => {
         notification.sendNotification({
@@ -77,9 +80,16 @@ export default function App() {
           </ConfigItem>
         </ConfigList>
         <ConfigList label="接口设置">
-          <ConfigItem label="ChatGPT-ApiKey">
+          <ConfigItem label="OpenAI 自定义域名">
+            <Input
+              value={openaiDomain}
+              onChange={(e) => { setOpenaiDomain(e.target.value) }}
+            />
+          </ConfigItem>
+          <ConfigItem label="OpenAI ApiKey">
             <Input
               value={openaiApikey}
+              type='password'
               onChange={(e) => { setOpenaiApikey(e.target.value) }}
             />
           </ConfigItem>

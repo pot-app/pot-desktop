@@ -9,7 +9,9 @@ const languageMap = {
 
 export default class chatgpt {
     async translate(text, lang) {
+        const domain = get('openai_domain', "api.openai.com");
         const apikey = get('openai_apikey', "");
+
         const headers = {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apikey}`,
@@ -28,7 +30,7 @@ export default class chatgpt {
             ]
         };
 
-        const res = await axios.post("https://api.openai.com/v1/chat/completions", body, {
+        const res = await axios.post(`https://${domain}/v1/chat/completions`, body, {
             headers: headers,
             timeout: 30000,
         })
