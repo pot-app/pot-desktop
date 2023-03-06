@@ -25,7 +25,7 @@
 - [ ] 阿里翻译
 
 ## 使用截图
-![example](asset/example.png)
+![example](asset/example.gif)
 
 ## 使用方法
 1. 鼠标选择需要翻译的内容
