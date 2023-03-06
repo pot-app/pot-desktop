@@ -9,12 +9,12 @@
 
 |   |Linux|Windows|MacOS|
 | - |-----|-------|-----|
-|划词翻译|✅|☑️|☑️|
+|划词翻译|✅| | |
 |独立窗口|✅|✅|✅|
 
 ## 支持接口
 - [x] 有道翻译(免费)
-- [x] ChatGPT(gpt-3.5-turbo)
+- [x] ChatGPT(参考自[@yetone](https://github.com/yetone)大佬的[bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator))
 - [ ] 百度翻译
 - [ ] 火山翻译
 - [ ] 腾讯翻译
@@ -69,3 +69,10 @@ pnpm install # 安装前端依赖
 
 pnpm tauri build # 编译打包
 ```
+
+## 感谢
+
+- [Bob](https://github.com/ripperhe/Bob) 软件的灵感
+- [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) 项目的启发
+- [@uiYzzi](https://github.com/uiYzzi) 提供的实现思路
+- [Tauri](https://github.com/tauri-apps/tauri) 提供的好用的开发框架
