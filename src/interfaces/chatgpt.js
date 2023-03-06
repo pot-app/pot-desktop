@@ -16,7 +16,7 @@ export default class chatgpt {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apikey}`,
         };
-        let prompt = `翻译成${languageMap[lang]}`
+        let prompt = `翻译成${languageMap[lang]}:`
         const body = {
             model: "gpt-3.5-turbo",
             temperature: 0,
@@ -26,7 +26,7 @@ export default class chatgpt {
             presence_penalty: 1,
             messages: [
                 { role: "system", content: prompt },
-                { role: "user", content: `“${text}”` },
+                { role: "user", content: `"${text}"` },
             ]
         };
 
@@ -37,6 +37,14 @@ export default class chatgpt {
 
         const { choices } = res.data;
 
-        return choices[0].message.content.trim()
+        let target = choices[0].message.content.trim()
+
+        if (target.startsWith('"') || target.startsWith("「")) {
+            target = target.slice(1);
+        }
+        if (target.endsWith('"') || target.endsWith("」")) {
+            target = target.slice(0, -1);
+        }
+        return target
     }
 }
