@@ -1,38 +1,38 @@
-import React from 'react'
-import { Select, ConfigProvider, theme } from 'antd'
-import { DoubleRightOutlined } from '@ant-design/icons'
-import PubSub from 'pubsub-js'
+import React, { useState } from 'react'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { Card, Select, MenuItem } from '@mui/material';
 import language from '../../../../global/language'
 import { get } from '../../../../global/config'
+import PubSub from 'pubsub-js'
+import { nanoid } from 'nanoid'
 import './style.css'
 
 export default function LanguageSelector() {
+    const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
+
     return (
-        <div className="language-selector">
-            <ConfigProvider
-                theme={{
-                    algorithm: theme.darkAlgorithm,
-                    token: {
-                        colorPrimaryBg: '#1677ff',
-                        colorText: '#c0c1c5'
-                    }
+        <Card className="language-selector-area">
+            <Select
+                sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                className='language-selector'
+                value='auto'
+            >
+                <MenuItem value={'auto'}>自动检测</MenuItem>
+            </Select>
+            <KeyboardDoubleArrowRightIcon fontSize='large' className='arrow-icon' />
+            <Select
+                sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                className='language-selector'
+                value={targetLanguage}
+                onChange={(e) => {
+                    setTargetLanguage(e.target.value);
+                    PubSub.publish('TargetLanguage', e.target.value);
                 }}
             >
-                <Select
-                    style={{ width: '150px' }}
-                    defaultValue='auto'
-                    bordered={false}
-                    options={[{ value: 'auto', label: '自动检测' }]}
-                />
-                <DoubleRightOutlined className='arrow-icon' />
-                <Select
-                    style={{ width: '150px' }}
-                    defaultValue={get('target_language', 'zh-cn')}
-                    bordered={false}
-                    options={language}
-                    onSelect={(v) => { PubSub.publish('TargetLanguage', v) }}
-                />
-            </ConfigProvider>
-        </div>
+                {language.map(x => {
+                    return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                })}
+            </Select>
+        </Card>
     )
 }

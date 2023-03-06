@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { CopyOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
-const { TextArea } = Input;
-import PubSub from 'pubsub-js';
-import { invoke } from '@tauri-apps/api/tauri';
+import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { writeText } from '@tauri-apps/api/clipboard';
+import { invoke } from '@tauri-apps/api/tauri';
+import PubSub from 'pubsub-js';
 import './style.css'
 
 export default function SourceArea() {
     const [sourceText, setSourceText] = useState('');
+
     useEffect(() => {
         // 获取选中文本
         invoke('get_selection_text').then(
@@ -19,33 +19,43 @@ export default function SourceArea() {
                 }
             }
         )
-    }
-    )
-    function changeSource(e) {
-        setSourceText(e.target.value);
-    }
+    }, [])
+
+    // 重新翻译
     function reTranslate() {
         PubSub.publish('SourceText', sourceText);
     }
 
+    // 复制内容
     function copy(who) {
         writeText(who).then(
             _ => { console.log('success') }
         )
     }
     return (
-        <div className='sourcearea'>
-            <TextArea
-                className='textarea'
-                value={sourceText}
-                rows={4}
-                bordered={false}
-                onChange={changeSource}
-                onPressEnter={reTranslate}
-            />
-            <Button className='control-button' onClick={() => { copy(sourceText) }}>
-                <CopyOutlined />
-            </Button>
-        </div>
+        <Card className='sourcearea'>
+            <Box className='overflow-sourcearea'>
+                <InputBase
+                    multiline
+                    fullWidth
+                    value={sourceText}
+                    onChange={(e) => { setSourceText(e.target.value) }}
+                />
+            </Box>
+            <Box className='source-buttonarea'>
+                <IconButton className='source-button'
+                    onClick={() => { copy(sourceText) }}
+                >
+                    <ContentCopyIcon />
+                </IconButton>
+                <MuiButton
+                    variant="contained"
+                    size='small'
+                    onClick={reTranslate}
+                >
+                    翻译
+                </MuiButton>
+            </Box>
+        </Card>
     )
 }

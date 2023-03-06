@@ -1,14 +1,11 @@
 .topbar {
     display: flex;
     justify-content: space-between;
-    height: 40px;
+    height: 35px;
 }
 
 .topbar-button {
-    background-color: transparent;
-    border: none;
     padding: 0;
-    font-size: medium;
-    height: 40px;
-    color: #c0c1c5;
+    margin: 0;
+    width: 20px;
 }

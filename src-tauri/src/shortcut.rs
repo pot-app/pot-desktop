@@ -52,7 +52,7 @@ fn translate() {
             .unwrap();
             // Windows 下拖动窗口会失去焦点,此方法不适用
             #[cfg(target_os = "linux")]
-            window.on_window_event(on_lose_focus);
+            // window.on_window_event(on_lose_focus);
             // css圆角对windows无效，需要单独设置
             #[cfg(target_os = "windows")]
             set_shadow(&window, true).unwrap();
@@ -71,7 +71,7 @@ fn persistent_window() {
             let _window = tauri::WindowBuilder::new(
                 handle,
                 "persistent",
-                tauri::WindowUrl::App("index_persistent.html".into()),
+                tauri::WindowUrl::App("index_translator.html".into()),
             )
             .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)

@@ -21,7 +21,6 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, 'index.html'),
         translator: resolve(__dirname, 'index_translator.html'),
-        persistent: resolve(__dirname, 'index_persistent.html'),
       },
     },
     // Tauri supports es2021

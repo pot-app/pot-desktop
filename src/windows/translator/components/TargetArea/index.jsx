@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Input, Spin, Select, ConfigProvider, theme } from 'antd';
-const { TextArea } = Input;
+import { useTheme } from '@mui/material/styles';
+import { Card, Box, InputBase, Select, MenuItem, IconButton } from '@mui/material'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PulseLoader from "react-spinners/PulseLoader";
 import PubSub from 'pubsub-js';
-import { CopyOutlined } from '@ant-design/icons';
+import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
-import { getTranslator } from '../../translators';
+import interface_map, { getTranslator } from '../../../../interfaces';
 import { get } from '../../../../global/config';
 import './style.css'
-
-const interface_map = [
-    { value: 'youdao_free', label: '有道翻译(免费)' },
-    { value: 'chatgpt', label: 'ChatGPT' },
-]
 
 export default function TargetArea() {
     const [translateInterface, setTranslateInterface] = useState(get('interface', 'youdao_free'));
@@ -19,23 +16,24 @@ export default function TargetArea() {
     const [sourceText, setSourceText] = useState("");
     const [targetText, setTargetText] = useState("");
     const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
-
-    PubSub.subscribe('SourceText', (_, v) => {
-        setSourceText(v)
-    })
-    PubSub.subscribe('TargetLanguage', (_, v) => {
-        setTargetLanguage(v)
-    })
+    const theme = useTheme();
     useEffect(() => {
         if (sourceText != "") {
             translate(sourceText, targetLanguage);
         }
     }, [sourceText, translateInterface, targetLanguage])
-
+    // 订阅源文本改变事件
+    PubSub.subscribe('SourceText', (_, v) => {
+        setSourceText(v)
+    })
+    // 订阅目标语言改变事件
+    PubSub.subscribe('TargetLanguage', (_, v) => {
+        setTargetLanguage(v)
+    })
+    // 开始翻译的回调
     function translate(text, lang) {
         setTargetText('');
         setLoading(true);
-        //翻译
         let translator = getTranslator(translateInterface);
         translator.translate(text, lang).then(
             v => {
@@ -48,7 +46,7 @@ export default function TargetArea() {
             }
         )
     }
-
+    // 复制文本的回调
     function copy(who) {
         writeText(who).then(
             _ => { console.log('success') }
@@ -56,42 +54,45 @@ export default function TargetArea() {
     }
 
     return (
-        <div className='targetarea'>
-            <div>
-                <ConfigProvider
-                    theme={{
-                        algorithm: theme.darkAlgorithm,
-                        token: {
-                            colorPrimaryBg: '#1677ff',
-                            colorText: '#c0c1c5'
-                        }
-                    }}
+        <Card className='targetarea'>
+            <Box className='interface-selector-area'>
+                <Select
+                    sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                    className='interface-selector'
+                    value={translateInterface}
+                    onChange={(e) => { setTranslateInterface(e.target.value) }}
                 >
-                    <Select
-                        className='interface-selector'
-                        defaultValue={translateInterface}
-                        bordered={false}
-                        options={interface_map}
-                        onSelect={(v) => {
-                            setTranslateInterface(v);
-                        }}
-                    />
-                </ConfigProvider>
-                {
-                    loading ? <Spin /> : <></>
-                }
-            </div>
-            <div className="overflow-textarea">
-                <TextArea
-                    className='textarea'
+                    {
+                        interface_map.map((x) => {
+                            return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                        })
+                    }
+                </Select>
+                <PulseLoader
+                    loading={loading}
+                    color={theme.palette.text.primary}
+                    size={10}
+                    cssOverride={{
+                        display: 'inline-block',
+                        margin: 'auto',
+                        marginLeft: '20px'
+                    }} />
+            </Box>
+            <Box className="overflow-textarea">
+                <InputBase
+                    multiline
+                    fullWidth
                     value={targetText}
-                    autoSize
-                    bordered={false}
+                    onChange={(e) => { setTargetText(e.target.value) }}
                 />
-            </div>
-            <Button className='control-button' onClick={() => { copy(targetText) }}>
-                <CopyOutlined />
-            </Button>
-        </div>
+            </Box>
+            <Box className='target-buttonarea'>
+                <IconButton className='target-button'
+                    onClick={() => { copy(sourceText) }}
+                >
+                    <ContentCopyIcon />
+                </IconButton>
+            </Box>
+        </Card>
     )
 }

@@ -1,12 +1,15 @@
-.language-selector {
+.language-selector-area {
     margin-top: 8px;
-    background-color: #252628;
-    padding: 8px;
-    border-radius: 10px;
+    height: 40px;
     display: flex;
     justify-content: space-between;
 }
 
+.language-selector {
+    width: 150px;
+    height: 40px;
+}
+
 .arrow-icon {
-    color: #c0c1c5;
+    margin: auto;
 }

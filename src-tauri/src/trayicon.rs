@@ -28,7 +28,7 @@ pub fn on_persistent_click(app: &AppHandle) {
             let _window = tauri::WindowBuilder::new(
                 app,
                 "persistent",
-                tauri::WindowUrl::App("index_persistent.html".into()),
+                tauri::WindowUrl::App("index_translator.html".into()),
             )
             .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)

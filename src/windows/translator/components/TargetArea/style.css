@@ -1,21 +1,32 @@
 .targetarea {
     margin-top: 8px;
-    background-color: #252628;
-    height: calc(100vh - 270px);
-    border-radius: 10px;
+    padding: 8px;
+    height: calc(60vh - 44px);
+}
+
+.interface-selector-area {
+    height: 40px;
 }
 
 .interface-selector {
-    color: #c0c1c5;
-}
-
-.control-button {
-    border: none;
-    background-color: transparent;
-    color: #c0c1c5;
+    height: 40px;
 }
 
 .overflow-textarea {
     overflow: auto;
     height: calc(100% - 70px);
+}
+
+.target-buttonarea {
+    height: 30px;
+    display: flex;
+    justify-content: start;
+}
+
+.target-button {
+    padding: 0;
+}
+
+.loading {
+    margin-left: 20px;
 }

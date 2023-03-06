@@ -4,7 +4,6 @@
 }
 
 body {
-    background-color: #333436;
     padding: 12px;
     padding-top: 0;
 }
@@ -14,17 +13,12 @@ html {
 }
 
 .titlebar {
-    height: 100vh;
+    height: 35px;
     user-select: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-}
-
-.textarea {
-    background-color: #252628;
-    color: #c0c1c5;
 }
 
 *::-webkit-scrollbar {

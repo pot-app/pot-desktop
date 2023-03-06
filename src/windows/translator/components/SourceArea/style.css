@@ -1,11 +1,20 @@
 .sourcearea {
-    background-color: #252628;
-    border-radius: 10px;
-    color: #c0c1c5;
+    padding: 8px;
+    height: calc(40vh - 61px);
+    /* 原本应该是40vh-91px 加了CssBaseline之后不知道为什么多出了30px */
 }
 
-.control-button {
-    border: none;
-    background-color: transparent;
-    color: #c0c1c5;
+.overflow-sourcearea {
+    height: calc(100% - 30px);
+    overflow: auto;
+}
+
+.source-buttonarea {
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.source-button {
+    padding: 0;
 }
