@@ -1,0 +1,30 @@
+name: matrix message
+
+on:
+  discussion_comment:
+    types: [created]
+jobs:
+  matrix_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install qq-botpy
+      - name: send message
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.APPID }}
+          TOKEN: ${{ secrets.TOKEN }}
+          CHANNELID: ${{ secrets.CHANNELID }}
+          MESSAGE: |
+            🌟Pot 仓库有新动态🌟
+            
+            ${{ github.event.sender.login }}:
+            
+            ${{ github.event.comment.body }}
