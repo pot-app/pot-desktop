@@ -1,0 +1,13 @@
+## 0.0.3 (2023-03-06)
+
+### New feature:
+
+- 支持亮暗主题切换([`3467d87`](https://github.com/Pylogmon/pot/commit/3467d8762eebab4b8f2e14ebceeaf5483b92eb41)) (by 派了个萌)
+
+### Bugs fixed:
+
+- 修复chatgpt返回结果有引号的问题([`2a6169e`](https://github.com/Pylogmon/pot/commit/2a6169e77560c54c9b17297c5c1887ea343a5c6d)) (by 派了个萌)
+
+### Refactor
+
+- 改用MaterialUI构建界面([`d236c2d`](https://github.com/Pylogmon/pot/commit/d236c2d924c3fe684ee21d4d8468f53c13f325b8)) (by 派了个萌)
