@@ -2,7 +2,7 @@
 name: Bug 反馈
 about: 反馈软件使用过程中遇到的问题
 title: "[BUG] "
-labels: bug
+labels: bug, 待验证
 assignees: Pylogmon
 
 ---
