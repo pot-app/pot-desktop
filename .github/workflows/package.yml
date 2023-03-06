@@ -1,0 +1,132 @@
+name: Package
+on: push
+
+jobs:
+  change-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Change Version
+        run: |
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')\",/g" package.json
+
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/tauri.conf.json
+
+          sed -i "s/version.*/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/Cargo.toml
+
+          echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: source
+          path: ./*
+          if-no-files-found: error
+      
+      - name: Change Version for Windows
+        run: |
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\",/g" package.json
+
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/tauri.conf.json
+
+          sed -i "s/version.*/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/Cargo.toml
+
+          echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')
+
+      - name: Upload Artifacts for Windows
+        uses: actions/upload-artifact@v3
+        with:
+          name: source-win
+          path: ./*
+          if-no-files-found: error
+
+  build:
+    needs: change-version
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - platform: macos-latest
+            bundle: dmg
+          - platform: ubuntu-latest
+            bundle: deb
+          - platform: windows-latest
+            bundle: msi
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/download-artifact@v3
+        if: matrix.platform != 'windows-latest'
+        with:
+          name: source
+      
+      - uses: actions/download-artifact@v3
+        if: matrix.platform == 'windows-latest'
+        with:
+          name: source-win
+          
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+
+      - name: Install Rust Stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Tauri Dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build and Package
+        run: pnpm tauri build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot.${{ matrix.bundle }}
+          path: src-tauri/target/release/bundle/${{ matrix.bundle }}/*.${{ matrix.bundle }}
+          if-no-files-found: error
+
+      - name: Upload Artifacts(appimage)
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot.Appimage
+          path: src-tauri/target/release/bundle/appimage/*.AppImage
+          if-no-files-found: error
+
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: src-tauri/target/release/bundle/${{ matrix.bundle }}/*.${{ matrix.bundle }}
+
+      - name: Upload Release(appimage)
+        if: startsWith(github.ref, 'refs/tags') && matrix.platform == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: src-tauri/target/release/bundle/appimage/*.AppImage
