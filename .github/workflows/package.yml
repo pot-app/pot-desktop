@@ -21,7 +21,7 @@ jobs:
 
           sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/tauri.conf.json
 
-          sed -i "s/version.*/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/Cargo.toml
+          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/Cargo.toml
 
           echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')
 
@@ -38,7 +38,7 @@ jobs:
 
           sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/tauri.conf.json
 
-          sed -i "s/version.*/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/Cargo.toml
+          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/Cargo.toml
 
           echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')
 

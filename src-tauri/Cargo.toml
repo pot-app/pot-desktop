@@ -1,6 +1,6 @@
 [package]
 name = "pot"
-version = "0.0.2"
+version = "0.0.0"
 description = "A cross-platform translation software"
 authors = ["Pylogmon"]
 license = "GPLv3"
