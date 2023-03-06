@@ -52,7 +52,7 @@ fn translate() {
             .unwrap();
             // Windows 下拖动窗口会失去焦点,此方法不适用
             #[cfg(target_os = "linux")]
-            // window.on_window_event(on_lose_focus);
+            window.on_window_event(on_lose_focus);
             // css圆角对windows无效，需要单独设置
             #[cfg(target_os = "windows")]
             set_shadow(&window, true).unwrap();
