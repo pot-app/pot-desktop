@@ -13,16 +13,18 @@
 |独立窗口|✅|✅|✅|
 
 ## 支持接口
-- [x] 有道翻译(免费)
-- [x] ChatGPT(参考自[@yetone](https://github.com/yetone)大佬的[bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator))
-- [ ] 百度翻译
+- [x] 有道翻译(无需申请)
+- [x] ChatGPT(需要申请[API](https://platform.openai.com/account/api-keys) 0.002$/1000token)
+- [x] 百度翻译(需要申请[API](https://fanyi-api.baidu.com/product/11) 每月免费额度100万字符)
+- [x] 彩云小译(需要申请[API](https://docs.caiyunapp.com/blog/2018/09/03/lingocloud-api/) 每月免费额度100万字符)
 - [ ] 火山翻译
 - [ ] 腾讯翻译
 - [ ] 谷歌翻译
 - [ ] DeepL
 - [ ] 有道翻译
-- [x] 彩云小译([API](https://docs.caiyunapp.com/blog/2018/09/03/lingocloud-api/))
 - [ ] 阿里翻译
+
+> 由于使用api产生的费用本作者概不负责
 
 ## 使用截图
 ![example](asset/example1.gif)
