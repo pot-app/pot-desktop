@@ -54,10 +54,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [ ubuntu-latest, windows-latest]
         include:
-          - platform: macos-latest
-            bundle: dmg
           - platform: ubuntu-latest
             bundle: deb
           - platform: windows-latest
