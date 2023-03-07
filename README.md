@@ -2,6 +2,9 @@
     <img width="150" height="150" alt="Logo" src="public/icon.png"/>
     <h3 align="center" style="font-size:50px"><b>Pot</b></h3>
     <p align="center" style="font-size:18px">一个跨平台的划词翻译软件</p>
+    <a href="https://pot.pylogmon.cn/guide/">快速上手</a> |
+    <a href="https://github.com/Pylogmon/pot/releases">软件下载</a> |
+    <a href="https://pot.pylogmon.cn/guide/config.html">进阶配置</a>
     <hr>
 </div>
 
@@ -24,6 +27,7 @@
 - [ ] 有道翻译
 - [ ] 阿里翻译
 
+具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
 > 由于使用api产生的费用本作者概不负责
 
 ## 使用截图
