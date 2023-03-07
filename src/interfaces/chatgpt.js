@@ -4,6 +4,7 @@ import { get } from '../global/config';
 const languageMap = {
     "zh-cn": "简体中文",
     "zh-tw": "繁体中文",
+    "ja": "日本語",
     "en": "英语",
 }
 
@@ -11,7 +12,9 @@ export default class chatgpt {
     async translate(text, lang) {
         const domain = get('openai_domain', "api.openai.com");
         const apikey = get('openai_apikey', "");
-
+        if (apikey == "") {
+            return "请先配置apikey"
+        }
         const headers = {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apikey}`,

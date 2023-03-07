@@ -21,7 +21,7 @@
 - [ ] 谷歌翻译
 - [ ] DeepL
 - [ ] 有道翻译
-- [ ] 彩云小译
+- [x] 彩云小译([API](https://docs.caiyunapp.com/blog/2018/09/03/lingocloud-api/))
 - [ ] 阿里翻译
 
 ## 使用截图
