@@ -43,7 +43,7 @@
 > **注意：低版本系统请下载 `pot_<version>_amd64_universal.deb` 否则会因为`glibc`版本过低无法运行**
 
 #### Arch
-安装 [AUR](https://aur.archlinux.org/packages/pot-translation) 的 `pot-translation`包
+已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
 
 ### Windows
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
