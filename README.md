@@ -38,8 +38,7 @@
 ### Debian
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新deb包安装
 
-### Deepin
-Deepin V20 请下载 `pot_<version>_amd64_deepin.deb` 安装
+> **注意：低版本系统请下载 `pot_<version>_amd64_universal.deb` 否则会因为`glibc`版本过低无法运行**
 
 ### Arch
 安装 [AUR](https://aur.archlinux.org/packages/pot-translation) 的 `pot-translation`包
