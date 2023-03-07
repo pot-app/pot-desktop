@@ -19,6 +19,7 @@ export default function App() {
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [openaiApikey, setOpenaiApikey] = useState(get('openai_apikey', ''));
   const [openaiDomain, setOpenaiDomain] = useState(get('openai_domain', 'api.openai.com'));
+  const [caiyunToken, setCaiyunToken] = useState(get('caiyun_token', ''));
   const [theme, setTheme] = useState(get('theme', 'light'));
 
   function saveConfig() {
@@ -29,6 +30,7 @@ export default function App() {
     set('interface', _interface);
     set('openai_apikey', openaiApikey);
     set('openai_domain', openaiDomain);
+    set('caiyun_token', caiyunToken);
 
     writeConfig().then(
       _ => {
@@ -118,6 +120,14 @@ export default function App() {
               value={openaiApikey}
               type='password'
               onChange={(e) => { setOpenaiApikey(e.target.value) }}
+            />
+          </ConfigItem>
+          <ConfigItem label="彩云小译token">
+            <TextField
+              fullWidth
+              value={caiyunToken}
+              type='password'
+              onChange={(e) => { setCaiyunToken(e.target.value) }}
             />
           </ConfigItem>
         </ConfigList>
