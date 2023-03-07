@@ -20,6 +20,8 @@ export default function App() {
   const [openaiApikey, setOpenaiApikey] = useState(get('openai_apikey', ''));
   const [openaiDomain, setOpenaiDomain] = useState(get('openai_domain', 'api.openai.com'));
   const [caiyunToken, setCaiyunToken] = useState(get('caiyun_token', ''));
+  const [baiduAppid, setBaiduAppid] = useState(get('baidu_appid', ''));
+  const [baiduSecret, setBaiduSecret] = useState(get('baidu_secret', ''));
   const [theme, setTheme] = useState(get('theme', 'light'));
 
   function saveConfig() {
@@ -31,6 +33,8 @@ export default function App() {
     set('openai_apikey', openaiApikey);
     set('openai_domain', openaiDomain);
     set('caiyun_token', caiyunToken);
+    set('baidu_appid', baiduAppid);
+    set('baidu_secret', baiduSecret);
 
     writeConfig().then(
       _ => {
@@ -128,6 +132,21 @@ export default function App() {
               value={caiyunToken}
               type='password'
               onChange={(e) => { setCaiyunToken(e.target.value) }}
+            />
+          </ConfigItem>
+          <ConfigItem label="百度翻译Appid">
+            <TextField
+              fullWidth
+              value={baiduAppid}
+              onChange={(e) => { setBaiduAppid(e.target.value) }}
+            />
+          </ConfigItem>
+          <ConfigItem label="百度翻译密钥">
+            <TextField
+              fullWidth
+              value={baiduSecret}
+              type='password'
+              onChange={(e) => { setBaiduSecret(e.target.value) }}
             />
           </ConfigItem>
         </ConfigList>

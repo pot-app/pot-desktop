@@ -29,7 +29,7 @@
       "http": {
         "all": true,
         "scope": [
-          "https://api.openai.com/*",
+          "https://fanyi-api.baidu.com/*",
           "https://fanyi.youdao.com/*"
         ]
       },

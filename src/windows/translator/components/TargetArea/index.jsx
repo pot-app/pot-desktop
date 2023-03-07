@@ -15,27 +15,33 @@ export default function TargetArea() {
     const [loading, setLoading] = useState(false);
     const [sourceText, setSourceText] = useState("");
     const [targetText, setTargetText] = useState("");
+    const [sourceLanguage, setSourceLanguage] = useState('auto');
     const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
     const theme = useTheme();
+
     useEffect(() => {
         if (sourceText != "") {
-            translate(sourceText, targetLanguage);
+            translate(sourceText, sourceLanguage, targetLanguage);
         }
-    }, [sourceText, translateInterface, targetLanguage])
+    }, [sourceText, translateInterface, targetLanguage, sourceLanguage])
     // 订阅源文本改变事件
     PubSub.subscribe('SourceText', (_, v) => {
         setSourceText(v)
+    })
+    // 订阅源语言改变事件
+    PubSub.subscribe('SourceLanguage', (_, v) => {
+        setSourceLanguage(v)
     })
     // 订阅目标语言改变事件
     PubSub.subscribe('TargetLanguage', (_, v) => {
         setTargetLanguage(v)
     })
     // 开始翻译的回调
-    function translate(text, lang) {
+    function translate(text, from, to) {
         setTargetText('');
         setLoading(true);
         let translator = getTranslator(translateInterface);
-        translator.translate(text, lang).then(
+        translator.translate(text, from, to).then(
             v => {
                 setTargetText(v);
                 setLoading(false);

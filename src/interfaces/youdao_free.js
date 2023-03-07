@@ -1,8 +1,15 @@
 import { fetch } from '@tauri-apps/api/http';
 // 此接口只支持英汉互译
-
+const languageMap = {
+    "auto": "AUTO",
+    "zh-cn": "zh_CN",
+    "en": "en"
+}
 export default class youdao_free {
-    async translate(text, _) {
+    async translate(text, from, to) {
+        if (!(from in languageMap) || !(to in languageMap)) {
+            return '该接口只支持中英互译'
+        }
         let res = await fetch('https://fanyi.youdao.com/translate', {
             method: 'GET',
             timeout: 30,

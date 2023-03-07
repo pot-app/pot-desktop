@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid'
 import './style.css'
 
 export default function LanguageSelector() {
+    const [sourceLanguage, setSourceLanguage] = useState('auto');
     const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
 
     return (
@@ -15,9 +16,16 @@ export default function LanguageSelector() {
             <Select
                 sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
                 className='language-selector'
-                value='auto'
+                value={sourceLanguage}
+                onChange={(e) => {
+                    setSourceLanguage(e.target.value);
+                    PubSub.publish('SourceLanguage', e.target.value);
+                }}
             >
                 <MenuItem value={'auto'}>自动检测</MenuItem>
+                {language.map(x => {
+                    return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                })}
             </Select>
             <KeyboardDoubleArrowRightIcon fontSize='large' className='arrow-icon' />
             <Select
