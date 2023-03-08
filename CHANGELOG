@@ -1,7 +1,5 @@
-## 0.0.6 (2023-03-08)
+## 0.0.7 (2023-03-08)
 
-### New feature:
+### Bugs fixed:
 
-- 支持腾讯翻译君([`fc66042`](https://github.com/Pylogmon/pot/commit/fc660429d7a9a2e12001f68fcd14119a4a0d5b87)) (by 派了个萌)
-
-- 添加接口贡献指南([`85e00d8`](https://github.com/Pylogmon/pot/commit/85e00d85e939aa6f3abedcd38eff196cac99ba02)) (by 派了个萌)
+- 修复设置无法保存的问题([`64dc0ca`](https://github.com/Pylogmon/pot/commit/64dc0ca15fa3e6aef97db78e2e25368380eba930)) (by 派了个萌)
