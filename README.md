@@ -29,7 +29,8 @@
 
 具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
 > 由于使用api产生的费用本作者概不负责
-
+## 参与贡献
+参考 [接口贡献指南](./CONTRIBUTING.md)
 ## 使用截图
 ![example](asset/example1.gif)
 ![example](asset/example2.gif)
