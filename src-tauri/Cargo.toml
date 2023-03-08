@@ -22,6 +22,7 @@ reqwest = "0.11.14"
 
 [target.'cfg(windows)'.dependencies]
 window-shadows = "0.2"
+cli-clipboard = "0.4.0"
 rdev = "0.5.2"
 
 [features]
