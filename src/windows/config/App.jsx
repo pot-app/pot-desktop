@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { get, set, writeConfig } from '../../global/config'
 import { Button, TextField, Select, MenuItem } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid'
 import ConfigList from './components/ConfigList'
 import ConfigItem from './components/ConfigItem'
 import language from '../../global/language'
-import interfaces from '../../interfaces'
+import * as interfaces from '../../interfaces'
 import { light, dark } from '../themes';
 import './style.css'
 
@@ -17,12 +17,31 @@ export default function App() {
   const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', ''));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
-  const [openaiApikey, setOpenaiApikey] = useState(get('openai_apikey', ''));
-  const [openaiDomain, setOpenaiDomain] = useState(get('openai_domain', 'api.openai.com'));
-  const [caiyunToken, setCaiyunToken] = useState(get('caiyun_token', ''));
-  const [baiduAppid, setBaiduAppid] = useState(get('baidu_appid', ''));
-  const [baiduSecret, setBaiduSecret] = useState(get('baidu_secret', ''));
   const [theme, setTheme] = useState(get('theme', 'light'));
+  const [interfaceConfigs, setInterfaceConfigs] = useState([]);
+
+  useEffect(() => {
+    let interface_configs = [];
+    Object.keys(interfaces).map(
+      i => {
+        const needs = interfaces[i]['info']['needs'];
+        Object.keys(needs).map(
+          n => {
+            interface_configs.push({
+              'interface_name': i,
+              'interface_name_zh': interfaces[i]['info']['name'],
+              'needs_name': n,
+              'needs_name_zh': needs[n],
+              'needs_value': get(n, '')
+            })
+          }
+        )
+      }
+    )
+    console.log(interface_configs)
+    setInterfaceConfigs(interface_configs)
+  }, [])
+
 
   function saveConfig() {
     set('shortcut_translate', shortcutTranslate);
@@ -30,11 +49,11 @@ export default function App() {
     set('target_language', targetLanguage);
     set('theme', theme);
     set('interface', _interface);
-    set('openai_apikey', openaiApikey);
-    set('openai_domain', openaiDomain);
-    set('caiyun_token', caiyunToken);
-    set('baidu_appid', baiduAppid);
-    set('baidu_secret', baiduSecret);
+    interfaceConfigs.map(
+      x => {
+        set(x['needs_name'], x['needs_value'])
+      }
+    )
 
     writeConfig().then(
       _ => {
@@ -45,7 +64,7 @@ export default function App() {
         e => {
           notification.sendNotification({
             title: '设置保存失败',
-            body: `设置保存失败:重启应用后生效${e}`,
+            body: `设置保存失败:${e}`,
           })
         }
       }
@@ -93,9 +112,11 @@ export default function App() {
               onChange={(e) => setInterface(e.target.value)}
             >
               {
-                interfaces.map(x => {
-                  return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
-                })
+                Object.keys(interfaces).map(
+                  x => {
+                    return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                  }
+                )
               }
             </Select>
           </ConfigItem>
@@ -111,44 +132,20 @@ export default function App() {
           </ConfigItem>
         </ConfigList>
         <ConfigList label="接口设置">
-          <ConfigItem label="OpenAI 自定义域名">
-            <TextField
-              fullWidth
-              value={openaiDomain}
-              onChange={(e) => { setOpenaiDomain(e.target.value) }}
-            />
-          </ConfigItem>
-          <ConfigItem label="OpenAI ApiKey">
-            <TextField
-              fullWidth
-              value={openaiApikey}
-              type='password'
-              onChange={(e) => { setOpenaiApikey(e.target.value) }}
-            />
-          </ConfigItem>
-          <ConfigItem label="彩云小译token">
-            <TextField
-              fullWidth
-              value={caiyunToken}
-              type='password'
-              onChange={(e) => { setCaiyunToken(e.target.value) }}
-            />
-          </ConfigItem>
-          <ConfigItem label="百度翻译Appid">
-            <TextField
-              fullWidth
-              value={baiduAppid}
-              onChange={(e) => { setBaiduAppid(e.target.value) }}
-            />
-          </ConfigItem>
-          <ConfigItem label="百度翻译密钥">
-            <TextField
-              fullWidth
-              value={baiduSecret}
-              type='password'
-              onChange={(e) => { setBaiduSecret(e.target.value) }}
-            />
-          </ConfigItem>
+          {
+            interfaceConfigs.map(
+              x => {
+                return <ConfigItem label={`${x['interface_name_zh']} ${x['needs_name_zh']}`}>
+                  <TextField
+                    fullWidth
+                    type='password'
+                    defaultValue={x['needs_value']}
+                    onChange={(e) => { interfaceConfigs[x['needs_name']] = e.target.value }}
+                  />
+                </ConfigItem>
+              }
+            )
+          }
         </ConfigList>
       </div>
       <div className='foot'>

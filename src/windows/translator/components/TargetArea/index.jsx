@@ -6,7 +6,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import PubSub from 'pubsub-js';
 import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
-import interface_map, { getTranslator } from '../../../../interfaces';
+import * as interfaces from '../../../../interfaces';
 import { get } from '../../../../global/config';
 import './style.css'
 
@@ -40,7 +40,7 @@ export default function TargetArea() {
     function translate(text, from, to) {
         setTargetText('');
         setLoading(true);
-        let translator = getTranslator(translateInterface);
+        let translator = interfaces[translateInterface];
         translator.translate(text, from, to).then(
             v => {
                 setTargetText(v);
@@ -69,9 +69,11 @@ export default function TargetArea() {
                     onChange={(e) => { setTranslateInterface(e.target.value) }}
                 >
                     {
-                        interface_map.map((x) => {
-                            return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
-                        })
+                        Object.keys(interfaces).map(
+                            x => {
+                                return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                            }
+                        )
                     }
                 </Select>
                 <PulseLoader
