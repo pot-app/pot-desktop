@@ -1,6 +1,6 @@
 import { fetch } from '@tauri-apps/api/http';
 import { get } from "../global/config"
-import { nanoid } from "nanoid"
+
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
@@ -28,9 +28,9 @@ export async function translate(text, from, to) {
     const secret = get('example_secret', '');
     // 完成翻译过程
     // ......
-
+    // 遇到跨域问题考虑使用tauri提供的fetch代替axios
     // 返回翻译结果
     // return target
 }
-
+// 编写完成后请在index.js中暴露接口
 
