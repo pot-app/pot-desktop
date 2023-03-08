@@ -13,7 +13,17 @@ pub fn get_selection_text() -> Result<String, String> {
 #[cfg(target_os = "windows")]
 #[tauri::command]
 pub fn get_selection_text() -> Result<String, String> {
-    Ok("ToDo".to_string())
+    use crate::APP;
+    use rdev::{simulate, EventType, Key};
+    _ = simulate(&EventType::KeyPress(Key::ControlLeft));
+    _ = simulate(&EventType::KeyPress(Key::KeyC));
+    _ = simulate(&EventType::KeyRelease(Key::KeyC));
+    _ = simulate(&EventType::KeyRelease(Key::ControlLeft));
+    let clip_manager = APP.clipboard_manager();
+    match clip_manager.read_text() {
+        Ok(v) => return Ok(v),
+        Err(e) => return Err(format!("剪切板读取出错{}", e.to_string())),
+    }
 }
 
 // 获取选择的文本(MacOS)
