@@ -51,7 +51,8 @@
       "copyright": "GPLv3",
       "deb": {
         "depends": [
-          "xsel"
+          "xsel",
+          "xdotool"
         ]
       },
       "externalBin": [],

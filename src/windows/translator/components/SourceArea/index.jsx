@@ -36,6 +36,7 @@ export default function SourceArea() {
         <Card className='sourcearea'>
             <Box className='overflow-sourcearea'>
                 <InputBase
+                    autoFocus
                     multiline
                     fullWidth
                     value={sourceText}
