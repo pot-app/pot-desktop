@@ -1,8 +1,8 @@
 use crate::config::CONFIG;
 use crate::APP;
-use tauri::{GlobalShortcutManager, Manager};
 #[cfg(target_os = "linux")]
-use tauri::{PhysicalPosition, WindowEvent};
+use tauri::WindowEvent;
+use tauri::{GlobalShortcutManager, Manager, PhysicalPosition};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
@@ -64,9 +64,21 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
         .unwrap();
     return Ok((x, y));
 }
+#[cfg(target_os = "windows")]
+fn get_mouse_location() -> Result<(i32, i32), String> {
+    use windows::Win32::Foundation::POINT;
+    use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
+    let mut point = POINT { x: 0, y: 0 };
+    unsafe {
+        if GetCursorPos(&mut point).as_bool() {
+            return Ok((point.x, point.y));
+        } else {
+            return Err("error".to_string());
+        }
+    }
+}
 // 划词翻译
 fn translate() {
-    #[cfg(target_os = "linux")]
     let (x, y) = get_mouse_location().unwrap();
     // 复制操作必须在拉起窗口之前，否则焦点会丢失
     #[cfg(target_os = "windows")]
@@ -96,7 +108,6 @@ fn translate() {
             // Windows 下拖动窗口会失去焦点,此方法不适用
             #[cfg(target_os = "linux")]
             window.on_window_event(on_lose_focus);
-            #[cfg(target_os = "linux")]
             window.set_position(PhysicalPosition::new(x, y)).unwrap();
             // css圆角对windows无效，需要单独设置
             #[cfg(target_os = "windows")]

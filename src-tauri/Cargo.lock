@@ -2394,6 +2394,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-single-instance",
  "window-shadows",
+ "windows 0.44.0",
 ]
 
 [[package]]
