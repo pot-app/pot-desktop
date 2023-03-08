@@ -1,13 +1,9 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
-
+import { invoke } from '@tauri-apps/api/tauri';
 let config = {};
 
-export function readConfig() {
-    invoke('get_config').then(v => {
-        config = JSON.parse(v);
-    })
-
+export async function readConfig() {
+    config = JSON.parse(await invoke('get_config'));
 }
 
 export function get(name, dft) {
