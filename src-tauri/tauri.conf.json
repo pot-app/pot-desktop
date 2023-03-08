@@ -30,7 +30,8 @@
         "all": true,
         "scope": [
           "https://fanyi-api.baidu.com/*",
-          "https://fanyi.youdao.com/*"
+          "https://fanyi.youdao.com/*",
+          "https://tmt.tencentcloudapi.com/*"
         ]
       },
       "notification": {
