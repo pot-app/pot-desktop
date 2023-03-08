@@ -1,9 +1,7 @@
-## 0.0.5 (2023-03-08)
+## 0.0.6 (2023-03-08)
 
 ### New feature:
 
-- 支持Windows 屏幕取词([`e7aadc7`](https://github.com/Pylogmon/Pot/commit/e7aadc7c8664d9ce11902d8705275ea6179d9f90)) (by 派了个萌)
+- 支持腾讯翻译君([`fc66042`](https://github.com/Pylogmon/pot/commit/fc660429d7a9a2e12001f68fcd14119a4a0d5b87)) (by 派了个萌)
 
-### Bugs fixed:
-
-- 修复设置概率读取失败的问题([`6740958`](https://github.com/Pylogmon/Pot/commit/6740958581a8372d5584c5a4ed1e50336c447663)) (by 派了个萌)
+- 添加接口贡献指南([`85e00d8`](https://github.com/Pylogmon/pot/commit/85e00d85e939aa6f3abedcd38eff196cac99ba02)) (by 派了个萌)
