@@ -20,10 +20,11 @@ tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-wo
 once_cell = "1.17.1"
 reqwest = "0.11.14"
 
+
 [target.'cfg(windows)'.dependencies]
 window-shadows = "0.2"
+enigo = {git = "https://github.com/enigo-rs/enigo"}
 cli-clipboard = "0.4.0"
-rdev = "0.5.2"
 
 [features]
 # by default Tauri runs in production mode

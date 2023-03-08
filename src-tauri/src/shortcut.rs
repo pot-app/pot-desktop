@@ -25,9 +25,25 @@ fn on_lose_focus(event: &WindowEvent) {
         _ => {}
     }
 }
-
+#[cfg(target_os = "windows")]
+fn copy() {
+    use enigo::*;
+    let mut enigo = Enigo::new();
+    // 先释放按键
+    enigo.key_up(Key::Control);
+    enigo.key_up(Key::Alt);
+    enigo.key_up(Key::Shift);
+    enigo.key_up(Key::Space);
+    // 发送CtrlC
+    enigo.key_down(Key::Control);
+    enigo.key_click(Key::Layout('c'));
+    enigo.key_up(Key::Control);
+}
 // 划词翻译
 fn translate() {
+    // 复制操作必须在拉起窗口之前，否则焦点会丢失
+    #[cfg(target_os = "windows")]
+    copy();
     let handle = APP.get().unwrap();
     match handle.get_window("translator") {
         Some(window) => {

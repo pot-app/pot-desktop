@@ -14,14 +14,6 @@ pub fn get_selection_text() -> Result<String, String> {
 #[tauri::command]
 pub fn get_selection_text() -> Result<String, String> {
     use cli_clipboard::{ClipboardContext, ClipboardProvider};
-    use rdev::{simulate, EventType, Key};
-    use std::{thread, time::Duration};
-    _ = simulate(&EventType::KeyPress(Key::ControlLeft));
-    _ = simulate(&EventType::KeyPress(Key::KeyC));
-    _ = simulate(&EventType::KeyRelease(Key::KeyC));
-    _ = simulate(&EventType::KeyRelease(Key::ControlLeft));
-
-    thread::sleep(Duration::from_millis(200));
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
     match ctx.get_contents() {
         Ok(v) => return Ok(v),
