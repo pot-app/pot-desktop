@@ -21,6 +21,12 @@ export default function SourceArea() {
         )
     }, [])
 
+    // 按键回调
+    function keyDown(e) {
+        if (e.keyCode === 13) {
+            PubSub.publish('SourceText', sourceText);
+        }
+    }
     // 重新翻译
     function reTranslate() {
         PubSub.publish('SourceText', sourceText);
@@ -39,6 +45,7 @@ export default function SourceArea() {
                     autoFocus
                     multiline
                     fullWidth
+                    onKeyDown={(e) => { keyDown(e) }}
                     value={sourceText}
                     onChange={(e) => { setSourceText(e.target.value) }}
                 />
