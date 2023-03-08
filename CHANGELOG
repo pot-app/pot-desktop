@@ -1,7 +1,9 @@
-## 0.0.4 (2023-03-07)
+## 0.0.5 (2023-03-08)
 
 ### New feature:
 
-- 支持百度翻译([`5e76bce`](https://github.com/Pylogmon/pot/commit/5e76bce748f4a0cd0db42d06907f845237c1bb6a)) (by 派了个萌)
-- 支持设置翻译源语言([`5e76bce`](https://github.com/Pylogmon/pot/commit/5e76bce748f4a0cd0db42d06907f845237c1bb6a)) (by 派了个萌)
-- 支持彩云小译([`70a7760`](https://github.com/Pylogmon/pot/commit/70a776098ad8ae36c17156e6d3477e44cd2c6418)) (by 派了个萌)
+- 支持Windows 屏幕取词([`e7aadc7`](https://github.com/Pylogmon/Pot/commit/e7aadc7c8664d9ce11902d8705275ea6179d9f90)) (by 派了个萌)
+
+### Bugs fixed:
+
+- 修复设置概率读取失败的问题([`6740958`](https://github.com/Pylogmon/Pot/commit/6740958581a8372d5584c5a4ed1e50336c447663)) (by 派了个萌)
