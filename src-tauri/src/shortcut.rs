@@ -1,8 +1,8 @@
 use crate::config::CONFIG;
 use crate::APP;
-#[cfg(target_os = "linux")]
-use tauri::WindowEvent;
 use tauri::{GlobalShortcutManager, Manager};
+#[cfg(target_os = "linux")]
+use tauri::{PhysicalPosition, WindowEvent};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
@@ -25,6 +25,8 @@ fn on_lose_focus(event: &WindowEvent) {
         _ => {}
     }
 }
+
+// windows 复制操作
 #[cfg(target_os = "windows")]
 fn copy() {
     use enigo::*;
@@ -39,8 +41,33 @@ fn copy() {
     enigo.key_click(Key::Layout('c'));
     enigo.key_up(Key::Control);
 }
+// 获取鼠标坐标
+#[cfg(target_os = "linux")]
+fn get_mouse_location() -> Result<(i32, i32), String> {
+    use std::process::Command;
+    let output: String = match Command::new("xdotool").arg("getmouselocation").output() {
+        Ok(v) => String::from_utf8(v.stdout).unwrap(),
+        Err(e) => return Err(format!("xsel执行出错{}", e.to_string())),
+    };
+    let output: Vec<&str> = output.split_whitespace().collect();
+    let x = output
+        .get(0)
+        .unwrap()
+        .replace("x:", "")
+        .parse::<i32>()
+        .unwrap();
+    let y = output
+        .get(1)
+        .unwrap()
+        .replace("y:", "")
+        .parse::<i32>()
+        .unwrap();
+    return Ok((x, y));
+}
 // 划词翻译
 fn translate() {
+    #[cfg(target_os = "linux")]
+    let (x, y) = get_mouse_location().unwrap();
     // 复制操作必须在拉起窗口之前，否则焦点会丢失
     #[cfg(target_os = "windows")]
     copy();
@@ -69,6 +96,8 @@ fn translate() {
             // Windows 下拖动窗口会失去焦点,此方法不适用
             #[cfg(target_os = "linux")]
             window.on_window_event(on_lose_focus);
+            #[cfg(target_os = "linux")]
+            window.set_position(PhysicalPosition::new(x, y)).unwrap();
             // css圆角对windows无效，需要单独设置
             #[cfg(target_os = "windows")]
             set_shadow(&window, true).unwrap();
