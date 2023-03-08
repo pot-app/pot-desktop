@@ -38,7 +38,6 @@ export default function App() {
         )
       }
     )
-    console.log(interface_configs)
     setInterfaceConfigs(interface_configs)
   }, [])
 
@@ -140,7 +139,16 @@ export default function App() {
                     fullWidth
                     type='password'
                     defaultValue={x['needs_value']}
-                    onChange={(e) => { interfaceConfigs[x['needs_name']] = e.target.value }}
+                    onChange={(e) => {
+                      let configs = interfaceConfigs;
+                      for (let i in configs) {
+                        if (configs[i]['needs_name'] == x['needs_name']) {
+                          configs[i]['needs_value'] = e.target.value
+                          break;
+                        }
+                      }
+                      setInterfaceConfigs(configs)
+                    }}
                   />
                 </ConfigItem>
               }

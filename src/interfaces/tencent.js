@@ -96,7 +96,6 @@ export async function translate(text, from, to) {
         + canonicalHeaders + "\n"
         + signedHeaders + "\n"
         + hashedRequestPayload
-    console.log(canonicalRequest)
 
     // ************* 步骤 2：拼接待签名字符串 *************
     const algorithm = "TC3-HMAC-SHA256"
@@ -106,21 +105,18 @@ export async function translate(text, from, to) {
         timestamp + "\n" +
         credentialScope + "\n" +
         hashedCanonicalRequest
-    console.log(stringToSign)
 
     // ************* 步骤 3：计算签名 *************
     const kDate = sha256(date, 'TC3' + SecretKey)
     const kService = sha256(service, kDate)
     const kSigning = sha256('tc3_request', kService)
     const signature = hex.stringify(sha256(stringToSign, kSigning))
-    console.log(signature)
 
     // ************* 步骤 4：拼接 Authorization *************
     const authorization = algorithm + " " +
         "Credential=" + SecretId + "/" + credentialScope + ", " +
         "SignedHeaders=" + signedHeaders + ", " +
         "Signature=" + signature
-    console.log(authorization)
 
     let res = await fetch("https://" + endpoint, {
         method: "POST",
