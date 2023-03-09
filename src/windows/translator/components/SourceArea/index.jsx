@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { writeText } from '@tauri-apps/api/clipboard';
+import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
 import PubSub from 'pubsub-js';
 import './style.css'
@@ -10,15 +11,17 @@ export default function SourceArea() {
     const [sourceText, setSourceText] = useState('');
 
     useEffect(() => {
-        // 获取选中文本
-        invoke('get_selection_text').then(
-            text => {
-                if (text != "") {
-                    setSourceText(text.trim());
-                    PubSub.publish('SourceText', text);
+        if (appWindow.label == "translator") {
+            // 获取选中文本
+            invoke('get_selection_text').then(
+                text => {
+                    if (text != "") {
+                        setSourceText(text.trim());
+                        PubSub.publish('SourceText', text);
+                    }
                 }
-            }
-        )
+            )
+        }
     }, [])
 
     // 按键回调
