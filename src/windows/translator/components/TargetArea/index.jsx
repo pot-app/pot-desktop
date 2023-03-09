@@ -96,7 +96,7 @@ export default function TargetArea() {
             </Box>
             <Box className='target-buttonarea'>
                 <IconButton className='target-button'
-                    onClick={() => { copy(sourceText) }}
+                    onClick={() => { copy(targetText) }}
                 >
                     <ContentCopyIcon />
                 </IconButton>
