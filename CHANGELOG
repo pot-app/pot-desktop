@@ -1,8 +1,10 @@
-## 0.0.8 (2023-03-09)
+## 0.0.9 (2023-03-10)
 
-### New feature:
+### Bugs fixed:
 
-- windows支持在鼠标位置处出现窗口([`a10b914`](https://github.com/Pylogmon/Pot/commit/a10b914945313e43ef2a084cc401f774ed26547d)) (by 派了个萌)
-- 添加回车键翻译([`57192f9`](https://github.com/Pylogmon/Pot/commit/57192f95c9c1dfa986b1f046fe009929b892eb1c)) (by 派了个萌)
-- 翻译窗口打开后自动捕获焦点到输入框([`90c1b94`](https://github.com/Pylogmon/Pot/commit/90c1b947af54091f5f8a5b9f9f81c78ffb6acdac)) (by 派了个萌)
-- 翻译窗口出现在鼠标位置([`f8651a7`](https://github.com/Pylogmon/Pot/commit/f8651a7a136550561a5012a1fdc96feead59cb3b)) (by 派了个萌)
+- 修复独立窗口也会获取文本的问题([`3642369`](https://github.com/Pylogmon/pot/commit/3642369e3f3d89fecc23980e60bf95d2144998dc)) (by 派了个萌)
+- 修复译文复制错误的问题([`87cc8ce`](https://github.com/Pylogmon/pot/commit/87cc8ce26edeb5711d261422f9b50249920c95ef)) (by 派了个萌)
+
+### Performance improves:
+
+- 全部改用 tauri fetch 发送请求([`9200545`](https://github.com/Pylogmon/pot/commit/920054501e8ed88542e68163827f2ef2fabcffef)) (by 派了个萌)
