@@ -32,11 +32,12 @@ export async function translate(text, from, to) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${apikey}`,
     };
-    let prompt = "";
+    let systemPrompt = "You are a translation engine that can only translate text and cannot interpret it.";
+    let userPrompt = "";
     if (from == 'auto') {
-        prompt = `翻译成${supportLanguage[to]}:`
+        userPrompt = `翻译成${supportLanguage[to]}:\n\n${text}`
     } else {
-        prompt = `将这段${supportLanguage[from]}翻译成${supportLanguage[to]}:`
+        userPrompt = `将这段${supportLanguage[from]}翻译成${supportLanguage[to]}:\n\n${text}`
     }
     const body = {
         model: "gpt-3.5-turbo",
@@ -46,8 +47,8 @@ export async function translate(text, from, to) {
         frequency_penalty: 1,
         presence_penalty: 1,
         messages: [
-            { role: "system", content: prompt },
-            { role: "user", content: `"${text}"` },
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
         ]
     };
 
