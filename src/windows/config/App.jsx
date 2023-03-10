@@ -137,7 +137,6 @@ export default function App() {
                 return <ConfigItem label={`${x['interface_name_zh']} ${x['needs_name_zh']}`}>
                   <TextField
                     fullWidth
-                    type='password'
                     defaultValue={x['needs_value']}
                     onChange={(e) => {
                       let configs = interfaceConfigs;
