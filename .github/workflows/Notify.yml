@@ -6,6 +6,8 @@ on:
     types: created
   pull_request_target:
     types: opened
+  discussion_comment:
+    types: created
 jobs:
   Notify:
     runs-on: ubuntu-latest
