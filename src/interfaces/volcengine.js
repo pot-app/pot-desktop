@@ -38,6 +38,14 @@ export async function translate(text, from, to) {
     const appid = get('volcengine_id', ''); // https://console.volcengine.com/iam/keymanage/
     const secret = get('volcengine_secret', '');
 
+    if (appid == "" || secret == "") {
+        return '请先配置Access Id和Access Key'
+    }
+    if (!(from in supportLanguage) || !(to in supportLanguage)) {
+        return '该接口不支持该语言'
+    }
+
+
     const serviceVersion = "2020-06-01";
     const schema = "https";
     const host = "open.volcengineapi.com";
@@ -53,7 +61,7 @@ export async function translate(text, from, to) {
     };
     let body = {
         "TargetLanguage": supportLanguage[to],
-        "TextList": [ text ],
+        "TextList": [text],
     };
     let bodyStr = JSON.stringify(body) // 传入的body是字符串化的json
     let body_hash = CryptoJS.SHA256(bodyStr).toString(CryptoJS.enc.Hex);
@@ -64,7 +72,7 @@ export async function translate(text, from, to) {
     var md = { /* meta data */
         "algorithm": "HMAC-SHA256",
         "credential_scope": "",
-        "signed_headers":"",
+        "signed_headers": "",
         "date": format_date.slice(0, 8),
         "region": credentials["region"],
         "service": credentials["service"]
@@ -109,7 +117,7 @@ export async function translate(text, from, to) {
     let signing_str = md["algorithm"] + "\n" + format_date + "\n" + md["credential_scope"] + "\n" + hashed_canon_req;
     let sign = CryptoJS.HmacSHA256(signing_str, signing_key).toString(CryptoJS.enc.Hex);
     headers["Authorization"] = md["algorithm"] + " Credential=" + appid + "/" + md["credential_scope"] + ", SignedHeaders=" + md["signed_headers"] + ", Signature=" + sign;
-    
+
     // 发送请求
     let url = schema + "://" + host + path + "?" + "Action=TranslateText&Version=" + serviceVersion;
     let res = await fetch(url, {
@@ -130,11 +138,11 @@ export async function translate(text, from, to) {
     if (res.hasOwnProperty("data")) {
         data = res["data"];
     } else { errorOccered = true; }
-    
+
     if (data.hasOwnProperty("TranslationList")) {
         translationList = data["TranslationList"];
     } else { errorOccered = true; }
-    
+
     if (translationList != null && translationList.length > 0) {
         var cur = 0, last = 0;
         for (cur; cur < translationList.length; cur += 1) {
