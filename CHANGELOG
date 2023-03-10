@@ -1,10 +1,5 @@
-## 0.0.9 (2023-03-10)
+## 0.0.10 (2023-03-10)
 
-### Bugs fixed:
+### New feature:
 
-- 修复独立窗口也会获取文本的问题([`3642369`](https://github.com/Pylogmon/pot/commit/3642369e3f3d89fecc23980e60bf95d2144998dc)) (by 派了个萌)
-- 修复译文复制错误的问题([`87cc8ce`](https://github.com/Pylogmon/pot/commit/87cc8ce26edeb5711d261422f9b50249920c95ef)) (by 派了个萌)
-
-### Performance improves:
-
-- 全部改用 tauri fetch 发送请求([`9200545`](https://github.com/Pylogmon/pot/commit/920054501e8ed88542e68163827f2ef2fabcffef)) (by 派了个萌)
+- 添加OpenAI润色、总结、代码解释功能([`62cb361`](https://github.com/Pylogmon/Pot/commit/62cb36158bbd83ed8071b7f1341b30d3b248a23b)) (by 派了个萌)
