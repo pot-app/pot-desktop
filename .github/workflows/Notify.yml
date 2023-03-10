@@ -28,6 +28,4 @@ jobs:
           MESSAGE: |
             🌟Pot 仓库有新动态🌟
             
-            ${{ github.event.sender.login }}:
-            
-            ${{ github.event.comment.body }}
+            发送者：${{ github.event.sender.login }}
