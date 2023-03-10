@@ -1,5 +1,9 @@
-## 0.0.10 (2023-03-10)
+## 0.0.11 (2023-03-10)
 
 ### New feature:
 
-- 添加OpenAI润色、总结、代码解释功能([`62cb361`](https://github.com/Pylogmon/Pot/commit/62cb36158bbd83ed8071b7f1341b30d3b248a23b)) (by 派了个萌)
+- 添加火山翻译支持([`6a847ec`](https://github.com/Pylogmon/pot/commit/6a847ecfe430836817626bab02f886ec7d40d29c)) (by [Ccslykx](https://github.com/ccslykx))
+
+### Bugs fixed:
+
+- 添加密钥缺失判断([`2361a85`](https://github.com/Pylogmon/pot/commit/2361a859ac6d7c48eec4963e63abdb86b3ca1276)) (by 派了个萌)

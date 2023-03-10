@@ -30,14 +30,13 @@
 
 ## 支持接口
 - [x] 有道翻译(无需申请)
-- [x] ChatGPT(需要申请[API](https://platform.openai.com/account/api-keys) 0.002$/1000token)
-- [x] 百度翻译(需要申请[API](https://fanyi-api.baidu.com/product/11) 每月免费额度100万字符)
-- [x] 彩云小译(需要申请[API](https://docs.caiyunapp.com/blog/2018/09/03/lingocloud-api/) 每月免费额度100万字符)
-- [x] 腾讯翻译(需要申请[API](https://cloud.tencent.com/product/tmt) 每月免费额度500万字符)
-- [ ] 火山翻译
+- [x] Open AI(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
+- [x] 百度翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度100万字符)
+- [x] 彩云小译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度100万字符)
+- [x] 腾讯翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度500万字符)
+- [x] 火山翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度200万字符)
 - [ ] 谷歌翻译
 - [ ] DeepL
-- [ ] 有道翻译
 - [ ] 阿里翻译
 
 具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
