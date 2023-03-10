@@ -1,4 +1,4 @@
-import axios from "axios"
+import { fetch } from '@tauri-apps/api/http';
 import { get } from "../global/config"
 
 export const info = {
@@ -16,7 +16,7 @@ export const info = {
 
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
-    const url = "http://api.interpreter.caiyunai.com/v1/translator"
+    const url = "https://api.interpreter.caiyunai.com/v1/translator"
     const token = get('caiyun_token', '')
     if (token == "") {
         return '请先配置token'
@@ -36,10 +36,18 @@ export async function translate(text, from, to) {
         "content-type": "application/json",
         "x-authorization": "token " + token,
     }
-    const res = await axios.post(url, body, {
+
+    const res = await fetch(url, {
+        method: 'POST',
         headers: headers,
-        timeout: 30000,
+        body: {
+            type: 'Text',
+            payload: JSON.stringify(body)
+        },
+        timeout: 5
     })
+
+    console.log(res)
     const { target } = res.data;
 
     return target

@@ -47,7 +47,8 @@ export async function translate(text, from, to) {
             appid: appid,
             salt: salt,
             sign: sign
-        }
+        },
+        timeout: 5
     })
     let target = ""
     const { trans_result } = res.data;

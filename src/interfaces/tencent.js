@@ -132,7 +132,8 @@ export async function translate(text, from, to) {
         body: {
             type: "Text",
             payload: payload
-        }
+        },
+        timeout: 5
     })
     let { Response } = res.data;
     return Response['TargetText']

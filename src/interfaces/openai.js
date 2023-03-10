@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../global/config';
 
 export const info = {
@@ -51,9 +51,14 @@ export async function translate(text, from, to) {
         ]
     };
 
-    const res = await axios.post(`https://${domain}/v1/chat/completions`, body, {
+    const res = await fetch(`https://${domain}/v1/chat/completions`, {
+        method: 'POST',
         headers: headers,
-        timeout: 30000,
+        body: {
+            type: 'Json',
+            payload: body
+        },
+        timeout: 10
     })
 
     const { choices } = res.data;

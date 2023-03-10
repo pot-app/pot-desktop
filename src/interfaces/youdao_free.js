@@ -17,7 +17,7 @@ export async function translate(text, from, to) {
     }
     let res = await fetch('https://fanyi.youdao.com/translate', {
         method: 'GET',
-        timeout: 30,
+        timeout: 5,
         query: {
             "doctype": "json",
             "type": "AUTO",
