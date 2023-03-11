@@ -83,6 +83,9 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 }
 // 划词翻译
 fn translate() {
+    #[cfg(target_os = "windows")]
+    let (x, y) = get_mouse_location().unwrap();
+    #[cfg(target_os = "linux")]
     let (x, y) = get_mouse_location().unwrap();
     // 复制操作必须在拉起窗口之前，否则焦点会丢失
     #[cfg(target_os = "windows")]
