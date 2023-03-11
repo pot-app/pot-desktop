@@ -5,8 +5,16 @@ import { get } from '../global/config';
 export const info = {
     name: "谷歌翻译(免费)",
     supportLanguage: {
+        "auto": "auto",
         "zh-cn": "zh_CN",
-        "en": "en"
+        "zh-tw":"zh-TW",
+        "ja": "ja",
+        "en": "en",
+        "ko": "ko",
+        "fr": "fr",
+        "es": "es",
+        "ru": "ru",
+        "de": "de"
     },
     needs: {
         "google_proxy": "谷歌翻译镜像地址（http(s)://translate.xxx.xxx）"
