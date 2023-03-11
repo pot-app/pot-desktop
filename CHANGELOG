@@ -1,10 +1,7 @@
-## 0.0.12 (2023-03-11)
-
-### New feature:
-
-- 添加谷歌翻译([`86b882b`](https://github.com/Pylogmon/pot/commit/86b882ba81320fb5ab7f6b29a2cded57a69058f6)) (by [binw](https://github.com/binw666))
+## 0.0.13 (2023-03-11)
 
 ### Bugs fixed:
 
-- 修复谷歌翻译设置项读取失败及语言错误问题([`f2bc4f6`](https://github.com/Pylogmon/pot/commit/f2bc4f6975e0f4358ddf78086d8ba19d5ba37788)) (by 派了个萌)
-- 修复openai默认域名设置失效的问题([`f3b887e`](https://github.com/Pylogmon/pot/commit/f3b887ecf26ada710b8726d5f1144689c6db2360)) (by 派了个萌)
+- 修复openai axios没有导入的问题([`37157b6`](https://github.com/Pylogmon/pot/commit/37157b61a00eede2e660f6040d53d5a3bc71673c)) (by 派了个萌)
+- 修复macos构建失败([`0a5a1c2`](https://github.com/Pylogmon/pot/commit/0a5a1c2fd05b9a5fab4770fc2e4271c657e533dc)) (by 派了个萌)
+- 修复openai请求无法走系统代理的问题([`c03125d`](https://github.com/Pylogmon/pot/commit/c03125d009717d85f17c5bcd99c08290e7e0290e)) (by 派了个萌)
