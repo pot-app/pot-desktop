@@ -7,7 +7,7 @@ export const info = {
     supportLanguage: {
         "auto": "auto",
         "zh-cn": "zh_CN",
-        "zh-tw":"zh-TW",
+        "zh-tw": "zh-TW",
         "ja": "ja",
         "en": "en",
         "ko": "ko",
@@ -17,27 +17,29 @@ export const info = {
         "de": "de"
     },
     needs: {
-        "google_proxy": "谷歌翻译镜像地址（http(s)://translate.xxx.xxx）"
+        "google_proxy": "谷歌翻译镜像(eg:translate.google.com)"
     }
 }
 
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口只支持中英互译'
+        return '该接口不支持该语言'
     }
 
-    const domain = get('google_proxy', "https://translate.google.com");
-    
-    let res = await fetch(`${domain}/translate_a/single`, {
+    let domain = get('google_proxy', "translate.google.com");
+    if (domain == '') {
+        domain = "translate.google.com"
+    }
+    let res = await fetch(`https://${domain}/translate_a/single`, {
         method: 'GET',
         timeout: 5,
         query: {
             "client": "at",
-            "sl": from,
-            "tl": to,
-            "dt":"t",
-            "q":text
+            "sl": supportLanguage[from],
+            "tl": supportLanguage[to],
+            "dt": "t",
+            "q": text
         }
     });
     if (res.status == 200) {
@@ -50,5 +52,5 @@ export async function translate(text, from, to) {
     else {
         return "请求过于频繁，请求失败！"
     }
-    
+
 }
