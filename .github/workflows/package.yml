@@ -58,6 +58,8 @@ jobs:
         include:
           - platform: ubuntu-latest
             bundle: deb
+          - platform: macos-latest
+            bundle: dmg
           - platform: windows-latest
             bundle: msi
 

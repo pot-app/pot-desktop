@@ -2,13 +2,17 @@ use crate::config::CONFIG;
 use crate::APP;
 #[cfg(target_os = "linux")]
 use tauri::WindowEvent;
+#[cfg(target_os = "macos")]
+use tauri::WindowEvent;
 use tauri::{GlobalShortcutManager, Manager, PhysicalPosition};
 #[cfg(target_os = "windows")]
+use window_shadows::set_shadow;
+#[cfg(target_os = "macos")]
 use window_shadows::set_shadow;
 
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
-#[cfg(target_os = "linux")]
+#[cfg(all(unix))]
 fn on_lose_focus(event: &WindowEvent) {
     match event {
         WindowEvent::Focused(v) => {
@@ -89,7 +93,7 @@ fn translate() {
             window.close().unwrap();
         }
         None => {
-            let window = tauri::WindowBuilder::new(
+            let builder = tauri::WindowBuilder::new(
                 handle,
                 "translator",
                 tauri::WindowUrl::App("index_translator.html".into()),
@@ -97,21 +101,36 @@ fn translate() {
             .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)
             .always_on_top(true)
-            .transparent(true)
             .decorations(false)
             .skip_taskbar(true)
             .center()
             .focused(true)
-            .title("Translator")
-            .build()
-            .unwrap();
-            // Windows 下拖动窗口会失去焦点,此方法不适用
-            #[cfg(target_os = "linux")]
-            window.on_window_event(on_lose_focus);
-            window.set_position(PhysicalPosition::new(x, y)).unwrap();
-            // css圆角对windows无效，需要单独设置
+            .title("Translator");
+
+            #[cfg(target_os = "macos")]
+            {
+                let window = builder.build().unwrap();
+
+                set_shadow(&window, true).unwrap_or_default();
+
+                window.on_window_event(on_lose_focus);
+            }
+
             #[cfg(target_os = "windows")]
-            set_shadow(&window, true).unwrap();
+            {
+                let window = builder.build().unwrap();
+
+                set_shadow(&window, true).unwrap_or_default();
+
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+            #[cfg(target_os = "linux")]
+            {
+                let window = builder.transparent(true).build().unwrap();
+                // Windows 下拖动窗口会失去焦点,此方法不适用
+                window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
         }
     };
 }
@@ -124,7 +143,7 @@ fn persistent_window() {
             window.close().unwrap();
         }
         None => {
-            let _window = tauri::WindowBuilder::new(
+            let builder = tauri::WindowBuilder::new(
                 handle,
                 "persistent",
                 tauri::WindowUrl::App("index_translator.html".into()),
@@ -132,16 +151,28 @@ fn persistent_window() {
             .inner_size(400.0, 500.0)
             .min_inner_size(400.0, 400.0)
             .always_on_top(true)
-            .transparent(true)
             .decorations(false)
             .center()
-            .title("Translator")
-            .build()
-            .unwrap();
+            .title("Translator");
 
-            // css圆角对windows无效，需要单独设置
+            #[cfg(target_os = "macos")]
+            {
+                let window = builder.build().unwrap();
+
+                set_shadow(&window, true).unwrap_or_default();
+            }
+
             #[cfg(target_os = "windows")]
-            set_shadow(&_window, true).unwrap();
+            {
+                let window = builder.build().unwrap();
+
+                set_shadow(&window, true).unwrap_or_default();
+            }
+
+            #[cfg(target_os = "linux")]
+            {
+                let window = builder.transparent(true).build().unwrap();
+            }
         }
     };
 }
