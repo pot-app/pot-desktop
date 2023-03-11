@@ -20,7 +20,10 @@ export const info = {
 
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
-    const domain = get('openai_domain', "api.openai.com");
+    let domain = get('openai_domain', "api.openai.com");
+    if (domain == '') {
+        domain = "api.openai.com"
+    }
     const apikey = get('openai_apikey', "");
     if (apikey == "") {
         return "请先配置apikey"
