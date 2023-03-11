@@ -26,7 +26,7 @@ windows = {version="0.44.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Fo
 enigo = {git = "https://github.com/enigo-rs/enigo"}
 cli-clipboard = "0.4.0"
 
-[target.'cfg(macos)'.dependencies]
+[target.'cfg(target_os = "macos")'.dependencies ]
 window-shadows = "0.2"
 
 [features]
