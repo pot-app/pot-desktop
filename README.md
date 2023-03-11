@@ -35,7 +35,7 @@
 - [x] 彩云小译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度100万字符)
 - [x] 腾讯翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度500万字符)
 - [x] 火山翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度200万字符)
-- [ ] 谷歌翻译
+- [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
 - [ ] DeepL
 - [ ] 阿里翻译
 
