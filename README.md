@@ -62,6 +62,9 @@
 #### Arch
 已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
 
+#### 关于Wayland
+虽然本软件依赖于X11，但是得益于xwayland，实测wayland下通过`GDK_BACKEND=x11`启动是可以正常使用的。
+
 ### Windows
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
 ## 手动编译
