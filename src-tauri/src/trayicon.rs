@@ -1,6 +1,8 @@
 use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
+#[cfg(target_os = "macos")]
+use window_shadows::set_shadow;
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
@@ -52,7 +54,7 @@ pub fn on_persistent_click(app: &AppHandle) {
 
             #[cfg(target_os = "linux")]
             {
-                let window = builder.transparent(true).build().unwrap();
+                let _window = builder.transparent(true).build().unwrap();
             }
         }
     }
