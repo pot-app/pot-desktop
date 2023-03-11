@@ -1,4 +1,5 @@
 import { fetch } from '@tauri-apps/api/http';
+import axios from 'axios';
 import { get } from '../global/config';
 
 export const info = {
