@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
-import { Button, TextField, Select, MenuItem, Checkbox, FormControlLabel, Box } from '@mui/material'
+import { Button, TextField, Select, MenuItem } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { notification, app } from '@tauri-apps/api'
@@ -21,7 +21,6 @@ export default function App() {
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [theme, setTheme] = useState(get('theme', 'light'));
-  const [autoCheck, setAutoCheck] = useState(get('auto_check', false));
   const [interfaceConfigs, setInterfaceConfigs] = useState([]);
 
   useEffect(() => {
@@ -186,17 +185,9 @@ export default function App() {
         </ConfigList>
         <ConfigList label="应用信息">
           <ConfigItem label="应用版本">
-            <Box>
-              {`pot: ${version} tauri:${tauriVersion}   `}
-              <Button onClick={checkUpdate}>检查更新</Button>
-              <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button>前往下载</Button></a>
-            </Box>
-            <FormControlLabel control={
-              <Checkbox
-                checked={autoCheck}
-                onChange={(e) => { setAutoCheck(e.target.value) }}
-              />
-            } label="启动时检查更新" />
+            {`pot: ${version} tauri:${tauriVersion}   `}
+            <Button onClick={checkUpdate}>检查更新</Button>
+            <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button>前往下载</Button></a>
           </ConfigItem>
         </ConfigList>
       </div>
