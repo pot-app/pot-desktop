@@ -1,4 +1,4 @@
-use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu};
+use tauri::{AppHandle, CustomMenuItem, Manager, PhysicalSize, SystemTray, SystemTrayMenu};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
@@ -39,20 +39,30 @@ pub fn on_persistent_click(app: &AppHandle) {
             #[cfg(target_os = "macos")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
             }
 
             #[cfg(target_os = "windows")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
             }
 
             #[cfg(target_os = "linux")]
             {
                 let window = builder.transparent(true).build().unwrap();
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
             }
         }
     }

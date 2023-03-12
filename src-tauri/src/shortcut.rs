@@ -4,7 +4,7 @@ use crate::APP;
 use tauri::WindowEvent;
 #[cfg(target_os = "macos")]
 use tauri::WindowEvent;
-use tauri::{GlobalShortcutManager, Manager, PhysicalPosition};
+use tauri::{GlobalShortcutManager, Manager, PhysicalPosition, PhysicalSize};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 #[cfg(target_os = "macos")]
@@ -71,11 +71,35 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 #[cfg(target_os = "windows")]
 fn get_mouse_location() -> Result<(i32, i32), String> {
     use windows::Win32::Foundation::POINT;
-    use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
+    use windows::Win32::Foundation::RECT;
+    use windows::Win32::UI::WindowsAndMessaging::GetWindowRect;
+    use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetDesktopWindow};
     let mut point = POINT { x: 0, y: 0 };
+    let mut rect = RECT {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    };
     unsafe {
         if GetCursorPos(&mut point).as_bool() {
-            return Ok((point.x, point.y));
+            let mut x = point.x;
+            let mut y = point.y;
+            // 获取桌面窗口的句柄
+            let hwnd = GetDesktopWindow();
+            if GetWindowRect(hwnd, &mut rect).as_bool() {
+                println!("{:?}", point);
+                println!("{:?}", rect);
+
+                if point.x + 400 > rect.right {
+                    x = rect.right - 400;
+                }
+                if point.y + 500 > rect.bottom {
+                    y = rect.bottom - 500;
+                }
+            }
+            println!("{}{}", x, y);
+            return Ok((x, y));
         } else {
             return Err("error".to_string());
         }
@@ -101,8 +125,6 @@ fn translate() {
                 "translator",
                 tauri::WindowUrl::App("index_translator.html".into()),
             )
-            .inner_size(400.0, 500.0)
-            .min_inner_size(400.0, 400.0)
             .always_on_top(true)
             .decorations(false)
             .skip_taskbar(true)
@@ -113,7 +135,10 @@ fn translate() {
             #[cfg(target_os = "macos")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
 
                 window.on_window_event(on_lose_focus);
@@ -122,7 +147,10 @@ fn translate() {
             #[cfg(target_os = "windows")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
 
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
@@ -130,6 +158,10 @@ fn translate() {
             #[cfg(target_os = "linux")]
             {
                 let window = builder.transparent(true).build().unwrap();
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 // Windows 下拖动窗口会失去焦点,此方法不适用
                 window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
@@ -151,8 +183,6 @@ fn persistent_window() {
                 "persistent",
                 tauri::WindowUrl::App("index_translator.html".into()),
             )
-            .inner_size(400.0, 500.0)
-            .min_inner_size(400.0, 400.0)
             .always_on_top(true)
             .decorations(false)
             .center()
@@ -161,20 +191,30 @@ fn persistent_window() {
             #[cfg(target_os = "macos")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
             }
 
             #[cfg(target_os = "windows")]
             {
                 let window = builder.build().unwrap();
-
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
                 set_shadow(&window, true).unwrap_or_default();
             }
 
             #[cfg(target_os = "linux")]
             {
                 let window = builder.transparent(true).build().unwrap();
+                window.set_size(PhysicalSize::new(400, 500)).unwrap();
+                window
+                    .set_min_size(Some(PhysicalSize::new(400, 400)))
+                    .unwrap();
             }
         }
     };
