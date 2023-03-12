@@ -1,7 +1,9 @@
-## 0.0.13 (2023-03-11)
+## 0.0.14 (2023-03-12)
+
+### New feature:
+
+- 添加应用版本信息及检查更新按钮([`d45c72b`](https://github.com/Pylogmon/Pot/commit/d45c72bc9a704439afbc3e2b62be12312d693ec3)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复openai axios没有导入的问题([`37157b6`](https://github.com/Pylogmon/pot/commit/37157b61a00eede2e660f6040d53d5a3bc71673c)) (by 派了个萌)
-- 修复macos构建失败([`0a5a1c2`](https://github.com/Pylogmon/pot/commit/0a5a1c2fd05b9a5fab4770fc2e4271c657e533dc)) (by 派了个萌)
-- 修复openai请求无法走系统代理的问题([`c03125d`](https://github.com/Pylogmon/pot/commit/c03125d009717d85f17c5bcd99c08290e7e0290e)) (by 派了个萌)
+- 修复windows窗口大小，限制翻译窗口出现范围([`161b33b`](https://github.com/Pylogmon/Pot/commit/161b33b1933c9c28a7443e61802eecdb1fbaa2b9)) (by 派了个萌)
