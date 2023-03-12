@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
-import { Button, TextField, Select, MenuItem } from '@mui/material'
+import { Button, TextField, Select, MenuItem, Checkbox, FormControlLabel, Box } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { notification } from '@tauri-apps/api'
+import { notification, app } from '@tauri-apps/api'
 import { nanoid } from 'nanoid'
 import ConfigList from './components/ConfigList'
 import ConfigItem from './components/ConfigItem'
@@ -13,11 +14,14 @@ import { light, dark } from '../themes';
 import './style.css'
 
 export default function App() {
+  const [version, setVersion] = useState();
+  const [tauriVersion, setTauriVersion] = useState();
   const [shortcutTranslate, setShortcutTranslate] = useState(get('shortcut_translate', ''));
   const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', ''));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [theme, setTheme] = useState(get('theme', 'light'));
+  const [autoCheck, setAutoCheck] = useState(get('auto_check', false));
   const [interfaceConfigs, setInterfaceConfigs] = useState([]);
 
   useEffect(() => {
@@ -39,6 +43,8 @@ export default function App() {
       }
     )
     setInterfaceConfigs(interface_configs)
+    app.getVersion().then(v => { setVersion(v) })
+    app.getTauriVersion().then(v => { setTauriVersion(v) })
   }, [])
 
 
@@ -69,6 +75,30 @@ export default function App() {
       }
     )
 
+  }
+
+  function checkUpdate() {
+    axios.get('https://api.github.com/repos/Pylogmon/pot/releases/latest').then(
+      res => {
+        let remoteVersion = res.data['tag_name'];
+        if (remoteVersion == version) {
+          notification.sendNotification({
+            title: '已经是最新版本了'
+          })
+        } else {
+          notification.sendNotification({
+            title: '新版本可用',
+            body: `最新版本为：${remoteVersion}`,
+          })
+        }
+      },
+      err => {
+        notification.sendNotification({
+          title: '检查失败，请检查网络',
+          body: `${err}`
+        })
+      }
+    )
   }
   return (
     <ThemeProvider theme={theme == 'light' ? light : dark}>
@@ -153,6 +183,21 @@ export default function App() {
               }
             )
           }
+        </ConfigList>
+        <ConfigList label="应用信息">
+          <ConfigItem label="应用版本">
+            <Box>
+              {`pot: ${version} tauri:${tauriVersion}   `}
+              <Button onClick={checkUpdate}>检查更新</Button>
+              <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button>前往下载</Button></a>
+            </Box>
+            <FormControlLabel control={
+              <Checkbox
+                checked={autoCheck}
+                onChange={(e) => { setAutoCheck(e.target.value) }}
+              />
+            } label="启动时检查更新" />
+          </ConfigItem>
         </ConfigList>
       </div>
       <div className='foot'>
