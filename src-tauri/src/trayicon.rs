@@ -1,6 +1,8 @@
 use tauri::{AppHandle, CustomMenuItem, Manager, PhysicalSize, SystemTray, SystemTrayMenu};
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
+#[cfg(target_os = "macos")]
+use window_shadows::set_shadow;
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
