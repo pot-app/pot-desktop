@@ -88,9 +88,6 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             // 获取桌面窗口的句柄
             let hwnd = GetDesktopWindow();
             if GetWindowRect(hwnd, &mut rect).as_bool() {
-                println!("{:?}", point);
-                println!("{:?}", rect);
-
                 if point.x + 400 > rect.right {
                     x = rect.right - 400;
                 }
@@ -98,7 +95,6 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
                     y = rect.bottom - 500;
                 }
             }
-            println!("{}{}", x, y);
             return Ok((x, y));
         } else {
             return Err("error".to_string());
@@ -157,7 +153,13 @@ fn translate() {
             }
             #[cfg(target_os = "linux")]
             {
-                let window = builder.transparent(true).build().unwrap();
+                let window = builder
+                    .transparent(true)
+                    // x11根据inner_size这个初始值来判断窗口是否超出屏幕
+                    // 不设置的话会有一个默认尺寸，导致窗口出现位置不对
+                    .inner_size(400.0, 500.0)
+                    .build()
+                    .unwrap();
                 window.set_size(PhysicalSize::new(400, 500)).unwrap();
                 window
                     .set_min_size(Some(PhysicalSize::new(400, 400)))
