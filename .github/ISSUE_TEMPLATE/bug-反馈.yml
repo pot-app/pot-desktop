@@ -8,22 +8,19 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
+        ## 感谢反馈，pot因您的反馈变得更好！
   - type: textarea
-    id: what-happened
+    id: detials
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      label: 问题描述
+      description: 简单描述遇到的问题
+    validations:
+      required: true
+  - type: textarea
+    id: detials
+    attributes:
+      label: 如何复现
+      description: 详细描述复现问题的步骤
     validations:
       required: true
   - type: dropdown
@@ -45,8 +42,8 @@ body:
         - X11
         - Wayland
   - type: textarea
-    id: logs
+    id: ext
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      label: 补充信息
+      description: 其他需要补充的信息
       render: shell
