@@ -169,7 +169,7 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/${{ matrix.bundle }}/*.${{ matrix.ext }}
   build-for-windows:
-    needs: change-version
+    needs: change-version-for-windows
     strategy:
       fail-fast: false
       matrix:
