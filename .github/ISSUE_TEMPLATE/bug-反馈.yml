@@ -17,7 +17,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: detials
+    id: reproduce
     attributes:
       label: 如何复现
       description: 详细描述复现问题的步骤
