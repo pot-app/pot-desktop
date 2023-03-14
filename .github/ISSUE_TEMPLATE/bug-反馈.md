@@ -1,21 +1,52 @@
----
 name: Bug 反馈
-about: 反馈软件使用过程中遇到的问题
-title: "[BUG] "
-labels: bug
-assignees: Pylogmon
-
----
-
-**问题描述**
-简单描述遇到的问题，必要时附上截图
-
-**复现步骤**
-
-
-**环境**
- - 操作系统: [Linux/Windows/MacOS]
- - 窗口系统: [X11/Wayland] (Linux Only)
- - 软件版本: 
-
-**补充信息**
+description: 反馈使用过程中遇到的问题
+title: "[Bug]: "
+labels: ["bug", "待验证"]
+assignees:
+  - Pylogmon
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 操作系统
+      description: 你使用的操作系统
+      options:
+        - Windows (Default)
+        - Linux
+        - MacOS
+    validations:
+      required: true
+  - type: dropdown
+    id: window
+    attributes:
+      label: 窗口系统（Linux Only）
+      options:
+        - X11
+        - Wayland
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
