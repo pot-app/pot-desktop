@@ -73,8 +73,6 @@ jobs:
         include:
           - bundle: dmg
             ext: dmg
-          - bundle: macos
-            ext: app
 
     runs-on: ${{ matrix.platform }}
     steps:
