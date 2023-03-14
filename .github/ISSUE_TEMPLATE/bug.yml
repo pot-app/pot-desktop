@@ -1,8 +1,12 @@
 name: 🐞 Bug
-description: File a bug/issue
-title: "[BUG] <title>"
-labels: [Bug, Needs Triage]
+description: 反馈使用过程中遇到的问题
+title: "[BUG]: <标题>"
+labels: ["bug", "待验证"]
 body:
+- type: markdown
+  attributes:
+    value: |
+      ## 感谢反馈，pot因您的反馈变得更好！
 - type: textarea
   attributes:
     label: 问题描述
