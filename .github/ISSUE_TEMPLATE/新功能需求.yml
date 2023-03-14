@@ -1,0 +1,25 @@
+name: 新功能需求
+description: 提出改进建议或者新的需求
+title: "[Feature]: "
+labels: ["新需求", "待验证"]
+assignees:
+  - Pylogmon
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 感谢反馈，pot因您的反馈变得更好！
+  - type: textarea
+    id: detials
+    attributes:
+      label: 需求描述
+      description: 简单描述您的需求
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 应用场景
+      description: 为什么有这样的需求
+    validations:
+      required: true
