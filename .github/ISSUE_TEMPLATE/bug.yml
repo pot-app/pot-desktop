@@ -1,0 +1,37 @@
+name: 🐞 Bug
+description: File a bug/issue
+title: "[BUG] <title>"
+labels: [Bug, Needs Triage]
+body:
+- type: textarea
+  attributes:
+    label: 问题描述
+    description: 简单描述遇到的问题
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: 如何复现
+    description: 详细描述复现问题的步骤
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: 操作系统
+    description: 你使用的操作系统
+    options:
+      - Windows (Default)
+      - Linux
+      - MacOS
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: 窗口系统(Linux Only)
+    options:
+      - X11
+      - Wayland
+- type: textarea
+  attributes:
+    label: 补充信息
+    description: 其他需要补充的信息
