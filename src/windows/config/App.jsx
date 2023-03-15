@@ -163,7 +163,7 @@ export default function App() {
           {
             interfaceConfigs.map(
               x => {
-                return <ConfigItem label={`${x['interface_name_zh']} ${x['needs_name_zh']}`}>
+                return <ConfigItem key={nanoid()} label={`${x['interface_name_zh']} ${x['needs_name_zh']}`}>
                   <TextField
                     fullWidth
                     defaultValue={x['needs_value']}
