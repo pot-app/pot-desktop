@@ -46,17 +46,32 @@ fn main() {
             APP.get_or_init(|| app.handle());
             let handle = APP.get().unwrap();
             // 初始化设置
-            let is_first = init_config();
+            let is_first = !Config::init_config();
             // 首次启动打开设置页面
             if is_first {
                 on_config_click(handle);
             }
             // 注册全局快捷键
-            register_shortcut();
+            match register_shortcut() {
+                Ok(_) => {}
+                Err(e) => {
+                    Notification::new(&app.config().tauri.bundle.identifier)
+                        .title("快捷键注册失败")
+                        .body(e.to_string())
+                        .icon("pot")
+                        .show()
+                        .unwrap();
+                }
+            }
             Ok(())
         })
         // 注册Tauri Command
-        .invoke_handler(tauri::generate_handler![get_selection_text, get_config])
+        .invoke_handler(tauri::generate_handler![
+            get_selection_text,
+            get_config_str,
+            set_config,
+            write_config
+        ])
         //加载托盘图标
         .system_tray(build_system_tray())
         //绑定托盘事件

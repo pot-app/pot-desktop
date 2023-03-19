@@ -16,9 +16,9 @@ import './style.css'
 export default function App() {
   const [version, setVersion] = useState();
   const [tauriVersion, setTauriVersion] = useState();
-  const [shortcutTranslate, setShortcutTranslate] = useState(get('shortcut_translate', ''));
-  const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', ''));
-  const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh'));
+  const [shortcutTranslate, setShortcutTranslate] = useState(get('shortcut_translate', 'CommandOrControl+D'));
+  const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', 'CommandOrControl+Shift+D'));
+  const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [theme, setTheme] = useState(get('theme', 'light'));
   const [interfaceConfigs, setInterfaceConfigs] = useState([]);
@@ -47,15 +47,15 @@ export default function App() {
   }, [])
 
 
-  function saveConfig() {
-    set('shortcut_translate', shortcutTranslate);
-    set('shortcut_persistent', shortcutPersistent);
-    set('target_language', targetLanguage);
-    set('theme', theme);
-    set('interface', _interface);
+  async function saveConfig() {
+    await set('shortcut_translate', shortcutTranslate);
+    await set('shortcut_persistent', shortcutPersistent);
+    await set('target_language', targetLanguage);
+    await set('theme', theme);
+    await set('interface', _interface);
     interfaceConfigs.map(
-      x => {
-        set(x['needs_name'], x['needs_value'])
+      async x => {
+        await set(x['needs_name'], x['needs_value'])
       }
     )
 
@@ -63,17 +63,16 @@ export default function App() {
       _ => {
         notification.sendNotification({
           title: '设置保存成功',
-          body: '设置保存成功，重启应用后生效'
+          body: '设置保存成功'
         })
-        e => {
-          notification.sendNotification({
-            title: '设置保存失败',
-            body: `设置保存失败:${e}`,
-          })
-        }
+      },
+      e => {
+        notification.sendNotification({
+          title: '设置保存失败',
+          body: `设置保存失败:${e}`,
+        })
       }
     )
-
   }
 
   function checkUpdate() {

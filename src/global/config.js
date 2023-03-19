@@ -1,9 +1,9 @@
-import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { invoke } from '@tauri-apps/api/tauri';
+
 let config = {};
 
 export async function readConfig() {
-    config = JSON.parse(await invoke('get_config'));
+    config = await invoke('get_config_str')
 }
 
 export function get(name, dft) {
@@ -14,14 +14,10 @@ export function get(name, dft) {
     }
 }
 
-export function set(key, value) {
-    config[key] = value;
+export async function set(k, v) {
+    await invoke('set_config', { key: k, value: v });
 }
 
 export async function writeConfig() {
-    await writeTextFile(
-        'config.json',
-        JSON.stringify(config),
-        { dir: BaseDirectory.AppConfig }
-    )
+    await invoke('write_config');
 }

@@ -1,10 +1,11 @@
-use crate::config::CONFIG;
+use crate::config::get_config;
 use crate::APP;
 #[cfg(target_os = "linux")]
 use tauri::WindowEvent;
 #[cfg(target_os = "macos")]
 use tauri::WindowEvent;
 use tauri::{GlobalShortcutManager, Manager, PhysicalPosition, PhysicalSize};
+use toml::Value;
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 #[cfg(target_os = "macos")]
@@ -223,22 +224,38 @@ fn persistent_window() {
 }
 
 // 注册全局快捷键
-pub fn register_shortcut() {
+pub fn register_shortcut() -> Result<(), String> {
     let handle = APP.get().unwrap();
-
-    match CONFIG.get() {
-        Some(v) => {
-            handle
-                .global_shortcut_manager()
-                .register(v.shortcut_translate.as_str(), translate)
-                .unwrap();
-            handle
-                .global_shortcut_manager()
-                .register(v.shortcut_persistent.as_str(), persistent_window)
-                .unwrap();
-        }
-        None => {
-            panic!()
-        }
+    // 释放所有快捷键
+    handle.global_shortcut_manager().unregister_all().unwrap();
+    // 依次注册快捷键
+    let shortcut_translate = get_config(
+        "shortcut_translate",
+        Value::from("CommandOrControl+D"),
+        APP.get().unwrap().state(),
+    );
+    if shortcut_translate.as_str().unwrap() != "" {
+        match handle
+            .global_shortcut_manager()
+            .register(shortcut_translate.as_str().unwrap(), translate)
+        {
+            Ok(()) => {}
+            Err(e) => return Err(e.to_string()),
+        };
     }
+    let shortcut_persistent = get_config(
+        "shortcut_persistent",
+        Value::from("CommandOrControl+Shift+D"),
+        APP.get().unwrap().state(),
+    );
+    if shortcut_persistent.as_str().unwrap() != "" {
+        match handle
+            .global_shortcut_manager()
+            .register(shortcut_persistent.as_str().unwrap(), persistent_window)
+        {
+            Ok(()) => {}
+            Err(e) => return Err(e.to_string()),
+        };
+    }
+    Ok(())
 }
