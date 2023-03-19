@@ -179,7 +179,7 @@ pub fn persistent_window() {
 
             #[cfg(target_os = "linux")]
             {
-                let window = builder.transparent(true).build().unwrap();
+                let _window = builder.transparent(true).build().unwrap();
             }
         }
     };

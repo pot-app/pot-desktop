@@ -1,12 +1,14 @@
+use crate::config::get_config;
+use crate::window::{persistent_window, translate_window};
 use crate::APP;
-use crate::{config::get_config, window::persistent_window, window::translate_window};
 use tauri::{GlobalShortcutManager, Manager};
 use toml::Value;
 
 // 注册全局快捷键
 pub fn register_shortcut() -> Result<(), String> {
     let handle = APP.get().unwrap();
-    // 释放所有快捷键
+    // 释放所有快捷键 linux下会导致快捷键注册失效 https://github.com/tauri-apps/tauri/issues/6487
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
     handle.global_shortcut_manager().unregister_all().unwrap();
     // 依次注册快捷键
     let shortcut_translate = get_config(
