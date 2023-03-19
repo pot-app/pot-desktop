@@ -15,9 +15,9 @@ use selection::get_selection_text;
 use shortcut::register_shortcut;
 use tauri::api::notification::Notification;
 use tauri::AppHandle;
-use tauri::Manager;
 use tauri::SystemTrayEvent;
 use trayicon::*;
+use window::*;
 
 // 全局AppHandle
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
@@ -32,15 +32,18 @@ fn main() {
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
-            println!("{}, {argv:?}, {cwd}", app.package_info().name);
-            Notification::new(&app.config().tauri.bundle.identifier)
-                .title("程序已运行")
-                .body("程序已经在运行 请勿重复启动！")
-                .icon("pot")
-                .show()
-                .unwrap();
-            app.emit_all("single-instance", Payload { args: argv, cwd })
-                .unwrap();
+            if argv.contains(&"translate".to_string()) {
+                translate_window();
+            } else if argv.contains(&"persistent".to_string()) {
+                persistent_window();
+            } else {
+                Notification::new(&app.config().tauri.bundle.identifier)
+                    .title("程序已经在运行 请勿重复启动！")
+                    .body(cwd)
+                    .icon("pot")
+                    .show()
+                    .unwrap();
+            }
         }))
         .setup(|app| {
             // 初始化AppHandel
