@@ -104,6 +104,5 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
 
 #[tauri::command]
 pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
-    println!("{:?}", state.0.lock().unwrap().config_toml);
     return state.0.lock().unwrap().config_toml.clone();
 }

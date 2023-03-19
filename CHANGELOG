@@ -1,9 +1,14 @@
-## 0.0.15 (2023-03-14)
+## 0.1.0 (2023-03-19)
+
+### BREAK:
+
+- 本次更新重写了设置模块，安装之后需要重新设置
 
 ### New feature:
 
-- 添加Apple silicon支持([`db1fa50`](https://github.com/Pylogmon/pot/commit/db1fa5038e8732455481574cce9a28c131cd55cd)) (by 派了个萌)
+- 设置热重载([`a2b52cd`](https://github.com/Pylogmon/Pot/commit/a2b52cd1d471cc1f029289c852e044b267e1505c)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复Linux下窗口位置偏移的问题([`eee4494`](https://github.com/Pylogmon/pot/commit/eee449474e060a85580ae9c4b5716f0ffce2860e)) (by 派了个萌)
+- 修复windows 高分屏窗口过小的问题([`d743b20`](https://github.com/Pylogmon/Pot/commit/d743b208d6624729e421aeec7f760feb570ee838)) (by 派了个萌)
+- fix react warning([`922b267`](https://github.com/Pylogmon/Pot/commit/922b267123232681bb59b5c1170543f2f00416fc)) (by 派了个萌)

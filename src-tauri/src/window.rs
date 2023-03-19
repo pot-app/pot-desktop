@@ -1,7 +1,9 @@
 use crate::APP;
+use tauri::Manager;
+#[cfg(any(target_os = "linux", target_os = "windows"))]
+use tauri::PhysicalPosition;
 #[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
-use tauri::{Manager, PhysicalPosition};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
