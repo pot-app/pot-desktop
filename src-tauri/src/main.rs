@@ -7,6 +7,7 @@ mod config;
 mod selection;
 mod shortcut;
 mod trayicon;
+mod window;
 
 use config::*;
 use once_cell::sync::OnceCell;

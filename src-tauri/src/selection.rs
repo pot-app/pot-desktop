@@ -9,8 +9,8 @@ pub fn get_selection_text() -> Result<String, String> {
     };
 }
 
-// 获取选择的文本(Windows)
-#[cfg(target_os = "windows")]
+// 获取选择的文本(Windows,MacOS)
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 #[tauri::command]
 pub fn get_selection_text() -> Result<String, String> {
     use cli_clipboard::{ClipboardContext, ClipboardProvider};
@@ -21,9 +21,34 @@ pub fn get_selection_text() -> Result<String, String> {
     }
 }
 
-// 获取选择的文本(MacOS)
+// macos 复制操作
 #[cfg(target_os = "macos")]
-#[tauri::command]
-pub fn get_selection_text() -> Result<String, String> {
-    Ok("ToDo".to_string())
+pub fn copy() {
+    use enigo::*;
+    let mut enigo = Enigo::new();
+    // 先释放按键
+    enigo.key_up(Key::Command);
+    enigo.key_up(Key::Alt);
+    enigo.key_up(Key::Shift);
+    enigo.key_up(Key::Space);
+    // 发送CtrlC
+    enigo.key_down(Key::Command);
+    enigo.key_click(Key::Layout('c'));
+    enigo.key_up(Key::Command);
+}
+
+// windows 复制操作
+#[cfg(target_os = "windows")]
+pub fn copy() {
+    use enigo::*;
+    let mut enigo = Enigo::new();
+    // 先释放按键
+    enigo.key_up(Key::Control);
+    enigo.key_up(Key::Alt);
+    enigo.key_up(Key::Shift);
+    enigo.key_up(Key::Space);
+    // 发送CtrlC
+    enigo.key_down(Key::Control);
+    enigo.key_click(Key::Layout('c'));
+    enigo.key_up(Key::Control);
 }
