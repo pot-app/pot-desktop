@@ -1,14 +1,9 @@
-## 0.1.0 (2023-03-19)
-
-### BREAK:
-
-- 本次更新重写了设置模块，安装之后需要重新设置
+## 0.1.1 (2023-03-20)
 
 ### New feature:
 
-- 设置热重载([`a2b52cd`](https://github.com/Pylogmon/Pot/commit/a2b52cd1d471cc1f029289c852e044b267e1505c)) (by 派了个萌)
+- 支持命令行参数启动([`e2230d8`](https://github.com/Pylogmon/pot/commit/e2230d817f84f315b68fa07e5ab4ef62e81db034)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复windows 高分屏窗口过小的问题([`d743b20`](https://github.com/Pylogmon/Pot/commit/d743b208d6624729e421aeec7f760feb570ee838)) (by 派了个萌)
-- fix react warning([`922b267`](https://github.com/Pylogmon/Pot/commit/922b267123232681bb59b5c1170543f2f00416fc)) (by 派了个萌)
+- 修复linux下快捷键设置失效([`a3fe809`](https://github.com/Pylogmon/pot/commit/a3fe8094e46e35f78bf0fb5ca7fdbbac36e3c28c)) (by 派了个萌)
