@@ -2,14 +2,14 @@ use crate::shortcut::register_shortcut;
 use crate::APP;
 use std::sync::Mutex;
 use std::{fs, fs::OpenOptions, io::Read, io::Write, path::PathBuf};
+use tauri::api::notification::Notification;
 use tauri::{api::path::config_dir, Manager};
 use toml::{Table, Value};
 
-pub static APPID: &str = "cn.pylogmon.pot";
-
 fn get_app_config_dir() -> PathBuf {
+    let handle = APP.get().unwrap();
     let mut app_config_dir_path = config_dir().expect("Get Config Dir Failed");
-    app_config_dir_path.push(APPID);
+    app_config_dir_path.push(&handle.config().tauri.bundle.identifier);
     app_config_dir_path
 }
 
@@ -98,7 +98,19 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
 
 #[tauri::command]
 pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
-    register_shortcut().unwrap();
+    match register_shortcut() {
+        Ok(_) => {}
+        Err(e) => {
+            let handle = APP.get().unwrap();
+            Notification::new(&handle.config().tauri.bundle.identifier)
+                .title("快捷键注册失败")
+                .body(e.to_string())
+                .icon("pot")
+                .show()
+                .unwrap();
+        }
+    }
+
     state.0.lock().unwrap().write()
 }
 

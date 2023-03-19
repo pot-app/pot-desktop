@@ -11,7 +11,7 @@ pub fn register_shortcut() -> Result<(), String> {
     // 依次注册快捷键
     let shortcut_translate = get_config(
         "shortcut_translate",
-        Value::from("CommandOrControl+D"),
+        Value::from(""),
         APP.get().unwrap().state(),
     );
     if shortcut_translate.as_str().unwrap() != "" {
@@ -25,7 +25,7 @@ pub fn register_shortcut() -> Result<(), String> {
     }
     let shortcut_persistent = get_config(
         "shortcut_persistent",
-        Value::from("CommandOrControl+Shift+D"),
+        Value::from(""),
         APP.get().unwrap().state(),
     );
     if shortcut_persistent.as_str().unwrap() != "" {
