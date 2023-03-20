@@ -22,17 +22,21 @@ use window::*;
 // 全局AppHandle
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
 
-#[derive(Clone, serde::Serialize)]
-struct Payload {
-    args: Vec<String>,
-    cwd: String,
-}
-
 fn main() {
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
-            if argv.contains(&"translate".to_string()) {
+            if argv.contains(&"popclip".to_string()) {
+                #[cfg(target_os = "macos")]
+                {
+                    use tauri::Manager;
+                    popclip_window();
+                    APP.get()
+                        .unwrap()
+                        .emit_to("popclip", "popclip", argv.last().unwrap())
+                        .unwrap()
+                }
+            } else if argv.contains(&"translate".to_string()) {
                 translate_window();
             } else if argv.contains(&"persistent".to_string()) {
                 persistent_window();

@@ -4,6 +4,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
+import { listen } from '@tauri-apps/api/event'
 import PubSub from 'pubsub-js';
 import './style.css'
 
@@ -21,6 +22,11 @@ export default function SourceArea() {
                     }
                 }
             )
+        }
+        if (appWindow.label == "popclip") {
+            listen('popclip', (event) => {
+                setSourceText(event.payload);
+            }).then(_ => { })
         }
     }, [])
 

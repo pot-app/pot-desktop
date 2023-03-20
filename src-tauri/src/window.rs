@@ -1,9 +1,7 @@
 use crate::APP;
-use tauri::Manager;
-#[cfg(any(target_os = "linux", target_os = "windows"))]
-use tauri::PhysicalPosition;
 #[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
+use tauri::{Manager, PhysicalPosition};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
@@ -103,15 +101,15 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     let event =
         CGEvent::new(CGEventSource::new(CGEventSourceStateID::CombinedSessionState).unwrap());
     let point = event.unwrap().location();
-    let mut x = point.x as i32;
-    let mut y = point.y as i32;
-    if (point.x + WIDTH > rect.size.width as i32) {
-        x = rect.size.width as i32 - WIDTH;
+    let mut x = point.x;
+    let mut y = point.y;
+    if point.x + WIDTH > rect.size.width {
+        x = rect.size.width - WIDTH;
     }
-    if (point.y + HEIGHT > rect.size.height as i32) {
-        x = rect.size.height as i32 - HEIGHT;
+    if point.y + HEIGHT > rect.size.height {
+        x = rect.size.height - HEIGHT;
     }
-    return Ok((x, y));
+    return Ok((x as i32, y as i32));
 }
 
 // 划词翻译
@@ -202,6 +200,37 @@ pub fn persistent_window() {
             {
                 let _window = builder.transparent(true).build().unwrap();
             }
+        }
+    };
+}
+
+// popclip划词翻译
+#[cfg(target_os = "macos")]
+pub fn popclip_window() {
+    let (x, y) = get_mouse_location().unwrap();
+
+    let handle = APP.get().unwrap();
+    match handle.get_window("popclip") {
+        Some(window) => {
+            window.close().unwrap();
+        }
+        None => {
+            let window = tauri::WindowBuilder::new(
+                handle,
+                "popclip",
+                tauri::WindowUrl::App("index_translator.html".into()),
+            )
+            .inner_size(WIDTH, HEIGHT)
+            .always_on_top(true)
+            .decorations(false)
+            .skip_taskbar(true)
+            .focused(true)
+            .title("PopClip")
+            .build()
+            .unwrap();
+            set_shadow(&window, true).unwrap_or_default();
+            window.on_window_event(on_lose_focus);
+            window.set_position(PhysicalPosition::new(x, y)).unwrap();
         }
     };
 }
