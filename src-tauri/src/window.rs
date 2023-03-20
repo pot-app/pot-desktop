@@ -1,8 +1,12 @@
 use crate::StringWrapper;
 use crate::APP;
+#[cfg(target_os = "macos")]
+use tauri::LogicalPosition;
+use tauri::Manager;
+#[cfg(any(target_os = "linux", target_os = "windows"))]
+use tauri::PhysicalPosition;
 #[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
-use tauri::{Manager, PhysicalPosition};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
@@ -104,18 +108,18 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     use core_graphics::event::CGEvent;
     use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
     let display = CGDisplay::main();
-    let rect = display.bounds();
+    let mode = display.display_mode().unwrap();
     let event =
         CGEvent::new(CGEventSource::new(CGEventSourceStateID::CombinedSessionState).unwrap());
     let point = event.unwrap().location();
     let mut x = point.x;
     let mut y = point.y;
-    // if point.x + WIDTH > rect.size.width {
-    //     x = rect.size.width - WIDTH;
-    // }
-    // if point.y + HEIGHT > rect.size.height {
-    //     y = rect.size.height - HEIGHT;
-    // }
+    if point.x + WIDTH > mode.width().into() {
+        x = mode.width() as f64 - WIDTH;
+    }
+    if point.y + HEIGHT > mode.height().into() {
+        y = mode.height() as f64 - HEIGHT;
+    }
     return Ok((x as i32, y as i32));
 }
 
@@ -152,7 +156,7 @@ pub fn translate_window() {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
                 window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+                window.set_position(LogicalPosition::new(x, y)).unwrap();
             }
 
             #[cfg(target_os = "windows")]
