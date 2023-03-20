@@ -114,10 +114,10 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     let point = event.unwrap().location();
     let mut x = point.x;
     let mut y = point.y;
-    if point.x + WIDTH > mode.width().into() {
+    if point.x + WIDTH > mode.width() as f64 {
         x = mode.width() as f64 - WIDTH;
     }
-    if point.y + HEIGHT > mode.height().into() {
+    if point.y + HEIGHT > mode.height() as f64 {
         y = mode.height() as f64 - HEIGHT;
     }
     return Ok((x as i32, y as i32));
@@ -242,7 +242,7 @@ pub fn popclip_window(text: String) {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
                 window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+                window.set_position(LogicalPosition::new(x, y)).unwrap();
             }
 
             #[cfg(target_os = "windows")]

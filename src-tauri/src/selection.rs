@@ -27,14 +27,17 @@ pub fn copy() {
     use enigo::*;
     let mut enigo = Enigo::new();
     // 先释放按键
-    enigo.key_up(Key::Command);
+    enigo.key_up(Key::Control);
+    enigo.key_up(Key::Meta);
     enigo.key_up(Key::Alt);
     enigo.key_up(Key::Shift);
     enigo.key_up(Key::Space);
+    enigo.key_up(Key::Tab);
+    enigo.key_up(Key::Option);
     // 发送CtrlC
-    enigo.key_down(Key::Command);
+    enigo.key_down(Key::Meta);
     enigo.key_click(Key::Layout('c'));
-    enigo.key_up(Key::Command);
+    enigo.key_up(Key::Meta);
 }
 
 // windows 复制操作
