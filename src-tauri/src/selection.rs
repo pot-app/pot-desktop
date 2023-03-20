@@ -13,20 +13,42 @@ pub fn get_selection_text() -> Result<String, String> {
 // 获取选择的文本(Windows,MacOS)
 #[cfg(any(target_os = "windows", target_os = "macos"))]
 pub fn get_selection_text() -> Result<String, String> {
-    use cli_clipboard::{ClipboardContext, ClipboardProvider};
-    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
-    let old_data = match ctx.get_contents() {
-        Ok(v) => v,
-        Err(e) => return Err(format!("剪切板读取出错{}", e.to_string())),
-    };
+    use arboard::Clipboard;
+    // 读取旧内容
+    let mut old_clipboard1 = Clipboard::new().unwrap();
+    let mut old_clipboard2 = Clipboard::new().unwrap();
+    let old_text = old_clipboard1.get_text();
+    let old_image = old_clipboard2.get_image();
     copy();
-    let new_data = match ctx.get_contents() {
-        Ok(v) => v,
-        Err(e) => return Err(format!("剪切板读取出错{}", e.to_string())),
+    // 读取新内容
+    let mut new_clipboard = Clipboard::new().unwrap();
+    let new_data = new_clipboard.get_text();
+    // 回写旧内容
+    let mut write_clipboard = Clipboard::new().unwrap();
+    let old = match old_text {
+        Ok(text) => {
+            write_clipboard.set_text(text.clone()).unwrap();
+            text
+        }
+        _ => {
+            match old_image {
+                Ok(image) => write_clipboard.set_image(image).unwrap(),
+                _ => {}
+            };
+            "".to_string()
+        }
     };
-    match ctx.set_contents(old_data) {
-        Ok(_) => return Ok(new_data),
-        Err(e) => return Err(format!("剪切板写入出错{}", e.to_string())),
+
+    // 获取所需内容
+    match new_data {
+        Ok(new) => {
+            if new.trim() == old.trim() {
+                Ok("".to_string())
+            } else {
+                Ok(new)
+            }
+        }
+        _ => Ok("".to_string()),
     }
 }
 
