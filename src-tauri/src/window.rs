@@ -100,7 +100,7 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 
 #[cfg(target_os = "macos")]
 fn get_mouse_location() -> Result<(i32, i32), String> {
-    use core_graphics::display::{CGDirectDisplayID, CGDisplay};
+    use core_graphics::display::CGDisplay;
     use core_graphics::event::CGEvent;
     use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
     let display = CGDisplay::main();
@@ -110,12 +110,12 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     let point = event.unwrap().location();
     let mut x = point.x;
     let mut y = point.y;
-    if point.x + WIDTH > rect.size.width {
-        x = rect.size.width - WIDTH;
-    }
-    if point.y + HEIGHT > rect.size.height {
-        x = rect.size.height - HEIGHT;
-    }
+    // if point.x + WIDTH > rect.size.width {
+    //     x = rect.size.width - WIDTH;
+    // }
+    // if point.y + HEIGHT > rect.size.height {
+    //     y = rect.size.height - HEIGHT;
+    // }
     return Ok((x as i32, y as i32));
 }
 
