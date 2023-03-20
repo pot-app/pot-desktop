@@ -10,6 +10,7 @@ use window_shadows::set_shadow;
 // 后续从设置读取
 const WIDTH: f64 = 400.0;
 const HEIGHT: f64 = 500.0;
+
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
 #[cfg(any(target_os = "macos", target_os = "linux"))]
@@ -91,6 +92,28 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
         }
     }
 }
+
+#[cfg(target_os = "macos")]
+fn get_mouse_location() -> Result<(i32, i32), String> {
+    use core_graphics::display::{CGDirectDisplayID, CGDisplay};
+    use core_graphics::event::CGEvent;
+    use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
+    let display = CGDisplay::main();
+    let rect = display.bounds();
+    let event =
+        CGEvent::new(CGEventSource::new(CGEventSourceStateID::CombinedSessionState).unwrap());
+    let point = event.unwrap().location();
+    let mut x = point.x as i32;
+    let mut y = point.y as i32;
+    if (point.x + WIDTH > rect.size.width as i32) {
+        x = rect.size.width as i32 - WIDTH;
+    }
+    if (point.y + HEIGHT > rect.size.height as i32) {
+        x = rect.size.height as i32 - HEIGHT;
+    }
+    return Ok((x, y));
+}
+
 // 划词翻译
 pub fn translate_window() {
     #[cfg(any(target_os = "windows", target_os = "macos"))]
@@ -99,8 +122,6 @@ pub fn translate_window() {
         use crate::selection::copy;
         copy();
     }
-
-    #[cfg(any(target_os = "windows", target_os = "linux"))]
     let (x, y) = get_mouse_location().unwrap();
 
     let handle = APP.get().unwrap();
@@ -118,7 +139,6 @@ pub fn translate_window() {
             .always_on_top(true)
             .decorations(false)
             .skip_taskbar(true)
-            .center()
             .focused(true)
             .title("Translator");
 
@@ -127,6 +147,7 @@ pub fn translate_window() {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
                 window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
 
             #[cfg(target_os = "windows")]

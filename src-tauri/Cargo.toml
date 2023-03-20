@@ -30,6 +30,7 @@ window-shadows = "0.2"
 enigo = {git = "https://github.com/enigo-rs/enigo"}
 cli-clipboard = "0.4.0"
 window-shadows = "0.2"
+core-graphics = "0.22.3"
 
 [features]
 # by default Tauri runs in production mode
