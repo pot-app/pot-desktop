@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
-import { Button, TextField, Select, MenuItem } from '@mui/material'
+import { Button, TextField, Select, MenuItem, useMediaQuery } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { notification, app } from '@tauri-apps/api'
@@ -20,9 +20,9 @@ export default function App() {
   const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', 'CommandOrControl+Shift+D'));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
-  const [theme, setTheme] = useState(get('theme', 'light'));
+  const [theme, setTheme] = useState(get('theme', 'auto'));
   const [interfaceConfigs, setInterfaceConfigs] = useState([]);
-
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   useEffect(() => {
     let interface_configs = [];
     Object.keys(interfaces).map(
@@ -99,7 +99,7 @@ export default function App() {
     )
   }
   return (
-    <ThemeProvider theme={theme == 'light' ? light : dark}>
+    <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>
       <CssBaseline />
       <div className='content'>
         <ConfigList label="快捷键">
@@ -153,6 +153,7 @@ export default function App() {
               value={theme}
               onChange={(e) => setTheme(e.target.value)}
             >
+              <MenuItem value='auto'>跟随系统</MenuItem>
               <MenuItem value='light'>明亮</MenuItem>
               <MenuItem value='dark'>黑暗</MenuItem>
             </Select>
