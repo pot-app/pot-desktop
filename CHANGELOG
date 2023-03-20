@@ -1,9 +1,6 @@
-## 0.1.1 (2023-03-20)
+## 0.1.2 (2023-03-20)
 
 ### New feature:
 
-- 支持命令行参数启动([`e2230d8`](https://github.com/Pylogmon/pot/commit/e2230d817f84f315b68fa07e5ab4ef62e81db034)) (by 派了个萌)
-
-### Bugs fixed:
-
-- 修复linux下快捷键设置失效([`a3fe809`](https://github.com/Pylogmon/pot/commit/a3fe8094e46e35f78bf0fb5ca7fdbbac36e3c28c)) (by 派了个萌)
+- 支持deeplx([`101bdc5`](https://github.com/Pylogmon/pot/commit/101bdc57ec0c2a1d2260ae91dcc15457bb4917af)) (by 派了个萌)
+- 支持深色模式跟随系统([`46e68d8`](https://github.com/Pylogmon/pot/commit/46e68d83c8d293f1c78f406ac92a0b1d5a4cf015)) (by 派了个萌)
