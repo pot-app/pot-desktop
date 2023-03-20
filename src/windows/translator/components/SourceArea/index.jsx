@@ -24,9 +24,14 @@ export default function SourceArea() {
             )
         }
         if (appWindow.label == "popclip") {
-            listen('popclip', (event) => {
-                setSourceText(event.payload);
-            }).then(_ => { })
+            invoke('get_popclip_str').then(
+                text => {
+                    if (text != "") {
+                        setSourceText(text.trim());
+                        PubSub.publish('SourceText', text);
+                    }
+                }
+            )
         }
     }, [])
 

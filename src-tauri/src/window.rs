@@ -1,3 +1,4 @@
+use crate::StringWrapper;
 use crate::APP;
 #[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
@@ -18,6 +19,12 @@ fn on_lose_focus(event: &WindowEvent) {
             if !v {
                 let handle = APP.get().unwrap();
                 match handle.get_window("translator") {
+                    Some(window) => {
+                        window.close().unwrap();
+                    }
+                    None => {}
+                }
+                match handle.get_window("popclip") {
                     Some(window) => {
                         window.close().unwrap();
                     }
@@ -205,8 +212,7 @@ pub fn persistent_window() {
 }
 
 // popclip划词翻译
-#[cfg(target_os = "macos")]
-pub fn popclip_window() {
+pub fn popclip_window(text: String) {
     let (x, y) = get_mouse_location().unwrap();
 
     let handle = APP.get().unwrap();
@@ -215,7 +221,7 @@ pub fn popclip_window() {
             window.close().unwrap();
         }
         None => {
-            let window = tauri::WindowBuilder::new(
+            let builder = tauri::WindowBuilder::new(
                 handle,
                 "popclip",
                 tauri::WindowUrl::App("index_translator.html".into()),
@@ -225,12 +231,36 @@ pub fn popclip_window() {
             .decorations(false)
             .skip_taskbar(true)
             .focused(true)
-            .title("PopClip")
-            .build()
-            .unwrap();
-            set_shadow(&window, true).unwrap_or_default();
-            window.on_window_event(on_lose_focus);
-            window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            .title("PopClip");
+
+            #[cfg(target_os = "macos")]
+            {
+                let window = builder.build().unwrap();
+                set_shadow(&window, true).unwrap_or_default();
+                window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+
+            #[cfg(target_os = "windows")]
+            {
+                let window = builder.build().unwrap();
+                set_shadow(&window, true).unwrap_or_default();
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+
+            #[cfg(target_os = "linux")]
+            {
+                let window = builder.transparent(true).build().unwrap();
+                window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+            let state: tauri::State<StringWrapper> = handle.state();
+            state.0.lock().unwrap().replace_range(.., &text);
         }
     };
+}
+
+#[tauri::command]
+pub fn get_popclip_str(state: tauri::State<StringWrapper>) -> String {
+    return state.0.lock().unwrap().to_string();
 }

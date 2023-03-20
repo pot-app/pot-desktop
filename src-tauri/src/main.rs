@@ -13,29 +13,24 @@ use config::*;
 use once_cell::sync::OnceCell;
 use selection::get_selection_text;
 use shortcut::register_shortcut;
+use std::sync::Mutex;
 use tauri::api::notification::Notification;
 use tauri::AppHandle;
+use tauri::Manager;
 use tauri::SystemTrayEvent;
 use trayicon::*;
 use window::*;
 
 // 全局AppHandle
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
-
+// 存待翻译文本
+pub struct StringWrapper(pub Mutex<String>);
 fn main() {
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
             if argv.contains(&"popclip".to_string()) {
-                #[cfg(target_os = "macos")]
-                {
-                    use tauri::Manager;
-                    popclip_window();
-                    APP.get()
-                        .unwrap()
-                        .emit_to("popclip", "popclip", argv.last().unwrap())
-                        .unwrap()
-                }
+                popclip_window(argv.last().unwrap().to_owned());
             } else if argv.contains(&"translate".to_string()) {
                 translate_window();
             } else if argv.contains(&"persistent".to_string()) {
@@ -59,6 +54,7 @@ fn main() {
             if is_first {
                 on_config_click(handle);
             }
+            handle.manage(StringWrapper(Mutex::new("".to_string())));
             // 注册全局快捷键
             match register_shortcut() {
                 Ok(_) => {}
@@ -78,7 +74,8 @@ fn main() {
             get_selection_text,
             get_config_str,
             set_config,
-            write_config
+            write_config,
+            get_popclip_str
         ])
         //加载托盘图标
         .system_tray(build_system_tray())
