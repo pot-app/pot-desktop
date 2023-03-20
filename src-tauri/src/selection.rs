@@ -13,12 +13,20 @@ pub fn get_selection_text() -> Result<String, String> {
 // 获取选择的文本(Windows,MacOS)
 #[cfg(any(target_os = "windows", target_os = "macos"))]
 pub fn get_selection_text() -> Result<String, String> {
-    copy();
     use cli_clipboard::{ClipboardContext, ClipboardProvider};
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
-    match ctx.get_contents() {
-        Ok(v) => return Ok(v),
+    let old_data = match ctx.get_contents() {
+        Ok(v) => v,
         Err(e) => return Err(format!("剪切板读取出错{}", e.to_string())),
+    };
+    copy();
+    let new_data = match ctx.get_contents() {
+        Ok(v) => v,
+        Err(e) => return Err(format!("剪切板读取出错{}", e.to_string())),
+    };
+    match ctx.set_contents(old_data) {
+        Ok(_) => return Ok(new_data),
+        Err(e) => return Err(format!("剪切板写入出错{}", e.to_string())),
     }
 }
 
