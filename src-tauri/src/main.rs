@@ -11,7 +11,7 @@ mod window;
 
 use config::*;
 use once_cell::sync::OnceCell;
-use selection::get_selection_text;
+use selection::get_translate_text;
 use shortcut::register_shortcut;
 use std::sync::Mutex;
 use tauri::api::notification::Notification;
@@ -71,11 +71,10 @@ fn main() {
         })
         // 注册Tauri Command
         .invoke_handler(tauri::generate_handler![
-            get_selection_text,
+            get_translate_text,
             get_config_str,
             set_config,
-            write_config,
-            get_popclip_str
+            write_config
         ])
         //加载托盘图标
         .system_tray(build_system_tray())

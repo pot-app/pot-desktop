@@ -1,6 +1,7 @@
+use crate::StringWrapper;
+
 // 获取选择的文本(Linux)
 #[cfg(target_os = "linux")]
-#[tauri::command]
 pub fn get_selection_text() -> Result<String, String> {
     use std::process::Command;
     match Command::new("xsel").output() {
@@ -11,8 +12,8 @@ pub fn get_selection_text() -> Result<String, String> {
 
 // 获取选择的文本(Windows,MacOS)
 #[cfg(any(target_os = "windows", target_os = "macos"))]
-#[tauri::command]
 pub fn get_selection_text() -> Result<String, String> {
+    copy();
     use cli_clipboard::{ClipboardContext, ClipboardProvider};
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
     match ctx.get_contents() {
@@ -54,4 +55,9 @@ pub fn copy() {
     enigo.key_down(Key::Control);
     enigo.key_click(Key::Layout('c'));
     enigo.key_up(Key::Control);
+}
+
+#[tauri::command]
+pub fn get_translate_text(state: tauri::State<StringWrapper>) -> String {
+    return state.0.lock().unwrap().to_string();
 }

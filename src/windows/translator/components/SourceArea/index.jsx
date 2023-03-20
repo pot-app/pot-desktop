@@ -12,19 +12,9 @@ export default function SourceArea() {
     const [sourceText, setSourceText] = useState('');
 
     useEffect(() => {
-        if (appWindow.label == "translator") {
+        if (appWindow.label != "persistent") {
             // 获取选中文本
-            invoke('get_selection_text').then(
-                text => {
-                    if (text != "") {
-                        setSourceText(text.trim());
-                        PubSub.publish('SourceText', text);
-                    }
-                }
-            )
-        }
-        if (appWindow.label == "popclip") {
-            invoke('get_popclip_str').then(
+            invoke('get_translate_text').then(
                 text => {
                     if (text != "") {
                         setSourceText(text.trim());

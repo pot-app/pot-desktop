@@ -10,6 +10,8 @@ use tauri::WindowEvent;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
+use crate::selection::get_selection_text;
+
 // 后续从设置读取
 const WIDTH: f64 = 400.0;
 const HEIGHT: f64 = 500.0;
@@ -125,15 +127,15 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 
 // 划词翻译
 pub fn translate_window() {
-    #[cfg(any(target_os = "windows", target_os = "macos"))]
-    {
-        // 复制操作必须在拉起窗口之前，否则焦点会丢失
-        use crate::selection::copy;
-        copy();
-    }
+    // 获取鼠标坐标
     let (x, y) = get_mouse_location().unwrap();
-
+    // 获取选择文本
+    let text = get_selection_text().unwrap();
     let handle = APP.get().unwrap();
+    // 写入状态备用
+    let state: tauri::State<StringWrapper> = handle.state();
+    state.0.lock().unwrap().replace_range(.., &text);
+    // 创建窗口
     match handle.get_window("translator") {
         Some(window) => {
             window.close().unwrap();
@@ -220,6 +222,10 @@ pub fn popclip_window(text: String) {
     let (x, y) = get_mouse_location().unwrap();
 
     let handle = APP.get().unwrap();
+
+    let state: tauri::State<StringWrapper> = handle.state();
+    state.0.lock().unwrap().replace_range(.., &text);
+
     match handle.get_window("popclip") {
         Some(window) => {
             window.close().unwrap();
@@ -258,13 +264,6 @@ pub fn popclip_window(text: String) {
                 window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
-            let state: tauri::State<StringWrapper> = handle.state();
-            state.0.lock().unwrap().replace_range(.., &text);
         }
     };
-}
-
-#[tauri::command]
-pub fn get_popclip_str(state: tauri::State<StringWrapper>) -> String {
-    return state.0.lock().unwrap().to_string();
 }
