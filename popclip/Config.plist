@@ -5,8 +5,8 @@
         <key>Actions</key>
         <array>
             <dict>
-                <key>AppleScript File</key>
-                <string>Pot.applescript</string>
+                <key>Shell Script File</key>
+                <string>Pot.sh</string>
                 <key>Image File</key>
                 <string>Pot.png</string>
                 <key>Title</key>
@@ -30,7 +30,7 @@
         <string>Pot.png</string>
         <key>Extension Name</key>
         <string>Pot</string>
-        <key>Required OS Version	</key>
+        <key>Required OS Version</key>
         <string>10.13</string>
     </dict>
 </plist>
