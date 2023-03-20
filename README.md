@@ -26,7 +26,7 @@
 
 |   |Linux|Windows|MacOS|
 | - |-----|-------|-----|
-|划词翻译|✅|✅| |
+|划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
 
 ## 支持接口
@@ -37,7 +37,7 @@
 - [x] 腾讯翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度500万字符)
 - [x] 火山翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度200万字符)
 - [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
-- [ ] DeepL
+- [x] DeepLX(需要自己设置deeplx服务，参考[OwO-Network/DeepLX](https://github.com/OwO-Network/DeepLX))
 - [ ] 阿里翻译
 
 具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
@@ -64,7 +64,13 @@
 已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
 
 #### 关于Wayland
-虽然本软件依赖于X11，但是得益于xwayland，实测wayland下通过`GDK_BACKEND=x11`启动是可以正常使用的。
+由于tauri的全局快捷键暂时还不支持Wayland,所以现在有两种解决办法：
+1. 虽然本软件依赖于X11，但是得益于xwayland，实测wayland下通过`GDK_BACKEND=x11`启动是可以正常使用的。
+2. 最新版本已经支持了命令行参数，可以在设置中将快捷键留空，然后在系统设置中设置自定义快捷键（需要软件保持后台运行）
+    ```bash
+    pot translate # 划词翻译
+    pot persistent # 独立窗口
+    ```
 
 ### Windows
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
