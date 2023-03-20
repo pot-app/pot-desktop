@@ -29,7 +29,8 @@
       "http": {
         "all": true,
         "scope": [
-          "https://**"
+          "https://**",
+          "http://**"
         ]
       },
       "notification": {

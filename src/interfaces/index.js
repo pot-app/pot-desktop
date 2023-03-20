@@ -8,6 +8,7 @@ import * as _openai_code from './openai_code'
 import * as _tencent from './tencent'
 import * as _volcengine from './volcengine'
 import * as _google from './google'
+import * as _deeplx from './deeplx'
 
 export const baidu = _baidu
 export const caiyun = _caiyun
@@ -19,3 +20,4 @@ export const openai_code = _openai_code
 export const tencent = _tencent
 export const volcengine = _volcengine
 export const google = _google
+export const deeplx = _deeplx
