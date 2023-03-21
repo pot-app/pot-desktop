@@ -28,6 +28,7 @@
 | - |-----|-------|-----|
 |划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
+|插件调用| |[SnipDo](https://www.microsoft.com/store/productId/9NPZ2TVKJVT7)| |
 
 ## 支持接口
 - [x] 有道翻译(无需申请)
@@ -38,20 +39,11 @@
 - [x] 火山翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度200万字符)
 - [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
 - [x] DeepLX(需要自己设置deeplx服务，参考[OwO-Network/DeepLX](https://github.com/OwO-Network/DeepLX))
-- [ ] 阿里翻译
 
 具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
 > 由于使用api产生的费用本作者概不负责
 ## 参与贡献
 参考 [接口贡献指南](./CONTRIBUTING.md)
-## 使用截图
-![example](asset/example1.gif)
-![example](asset/example2.gif)
-
-## 使用方法
-1. 鼠标选择需要翻译的内容
-2. 按下划词翻译快捷键（默认Ctrl+D）
-3. 完成翻译
 
 ## 安装
 ### Linux
@@ -74,36 +66,17 @@
 
 ### Windows
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
-## 手动编译
 
-### 所需工具
-- rust 1.67.0
-- pnpm
-- nodejs 19
-### 编译步骤
-
-1. 克隆仓库
-```bash
-git clone https://github.com/Pylogmon/pot.git
-```
-
-2. 安装构建依赖
-```bash
-sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-```
-
-3. 开始编译
-```bash
-cd pot
-
-pnpm install # 安装前端依赖
-
-pnpm tauri build # 编译打包
-```
+## 使用方法
+| 方式 | 描述 | 预览 |
+| :---: | :---: | :---: |
+| 划词翻译 | 选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`） | ![划词翻译](asset/example1.gif) |
+| 输入翻译| 按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译 | ![输入翻译](asset/example2.gif) |
+| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](asset/example3.gif) |
 
 ## 感谢
 
-- [Bob](https://github.com/ripperhe/Bob) 软件的灵感
-- [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) 项目的启发
-- [@uiYzzi](https://github.com/uiYzzi) 提供的实现思路
-- [Tauri](https://github.com/tauri-apps/tauri) 提供的好用的开发框架
+- [Bob](https://github.com/ripperhe/Bob) 灵感来源
+- [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) OpenAI接口参考
+- [@uiYzzi](https://github.com/uiYzzi) 提供实现思路
+- [Tauri](https://github.com/tauri-apps/tauri) 好用的Gui框架
