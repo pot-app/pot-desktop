@@ -181,6 +181,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "auto-launch"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5904a4d734f0235edf29aab320a14899f3e090446e594ff96508a6215f76f89c"
+dependencies = [
+ "dirs",
+ "thiserror",
+ "winreg",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2334,6 +2345,7 @@ name = "pot"
 version = "0.0.0"
 dependencies = [
  "arboard",
+ "auto-launch",
  "core-graphics",
  "enigo",
  "once_cell",

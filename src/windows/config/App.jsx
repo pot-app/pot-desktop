@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
-import { Button, TextField, Select, MenuItem, useMediaQuery, Box } from '@mui/material'
+import { Button, TextField, Select, MenuItem, useMediaQuery, Box, FormControlLabel, Checkbox } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { notification, app } from '@tauri-apps/api'
@@ -18,6 +18,8 @@ export default function App() {
   const [tauriVersion, setTauriVersion] = useState();
   const [shortcutTranslate, setShortcutTranslate] = useState(get('shortcut_translate', 'CommandOrControl+D'));
   const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', 'CommandOrControl+Shift+D'));
+  const [autoStart, setAutoStart] = useState(get('auto_start', true));
+  const [autoCheck, setAutoCheck] = useState(get('auto_check', true));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
   const [windowWidth, setWindowWidth] = useState(get('window_width', 400));
@@ -52,6 +54,8 @@ export default function App() {
   async function saveConfig() {
     await set('shortcut_translate', shortcutTranslate);
     await set('shortcut_persistent', shortcutPersistent);
+    await set('auto_start', autoStart);
+    await set('auto_check', autoCheck);
     await set('target_language', targetLanguage);
     await set('theme', theme);
     await set('window_width', windowWidth);
@@ -123,6 +127,18 @@ export default function App() {
           </ConfigItem>
         </ConfigList>
         <ConfigList label="应用设置">
+          <ConfigItem>
+            <FormControlLabel
+              control={
+                <Checkbox checked={autoStart} onChange={(e) => { setAutoStart(e.target.checked) }} />
+              }
+              label="开机自启" />
+            <FormControlLabel
+              control={
+                <Checkbox checked={autoCheck} onChange={(e) => { setAutoCheck(e.target.checked) }} />
+              }
+              label="启动时检查更新" />
+          </ConfigItem>
           <ConfigItem label="目标语言">
             <Select
               fullWidth

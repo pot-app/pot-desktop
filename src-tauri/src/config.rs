@@ -1,3 +1,4 @@
+use crate::auto::set_auto_start;
 use crate::shortcut::register_shortcut;
 use crate::APP;
 use std::sync::Mutex;
@@ -106,6 +107,14 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
                 .unwrap();
         }
     }
+    let enable = state
+        .0
+        .lock()
+        .unwrap()
+        .get("auto_start", Value::Boolean(true))
+        .as_bool()
+        .unwrap();
+    set_auto_start(enable);
     state.0.lock().unwrap().write()
 }
 

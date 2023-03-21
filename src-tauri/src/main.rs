@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 
+mod auto;
 mod config;
 mod selection;
 mod shortcut;
