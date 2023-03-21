@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
-import { Button, TextField, Select, MenuItem, useMediaQuery } from '@mui/material'
+import { Button, TextField, Select, MenuItem, useMediaQuery, Box } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { notification, app } from '@tauri-apps/api'
@@ -20,6 +20,8 @@ export default function App() {
   const [shortcutPersistent, setShortcutPersistent] = useState(get('shortcut_persistent', 'CommandOrControl+Shift+D'));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
   const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
+  const [windowWidth, setWindowWidth] = useState(get('window_width', 400));
+  const [windowHeight, setWindowHeight] = useState(get('window_height', 500));
   const [theme, setTheme] = useState(get('theme', 'auto'));
   const [interfaceConfigs, setInterfaceConfigs] = useState([]);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -52,6 +54,8 @@ export default function App() {
     await set('shortcut_persistent', shortcutPersistent);
     await set('target_language', targetLanguage);
     await set('theme', theme);
+    await set('window_width', windowWidth);
+    await set('window_height', windowHeight);
     await set('interface', _interface);
     interfaceConfigs.map(
       async x => {
@@ -157,6 +161,31 @@ export default function App() {
               <MenuItem value='light'>明亮</MenuItem>
               <MenuItem value='dark'>黑暗</MenuItem>
             </Select>
+          </ConfigItem>
+          <ConfigItem label="翻译窗口默认大小">
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: "space-between"
+              }}
+            >
+              <TextField
+                label="宽"
+                sx={{ width: "calc(50% - 8px)" }}
+                value={windowWidth}
+                onChange={(event) => {
+                  setWindowWidth(Number(event.target.value));
+                }}
+              />
+              <TextField
+                label="高"
+                sx={{ width: "calc(50% - 8px)" }}
+                value={windowHeight}
+                onChange={(event) => {
+                  setWindowHeight(Number(event.target.value));
+                }}
+              />
+            </Box>
           </ConfigItem>
         </ConfigList>
         <ConfigList label="接口设置">

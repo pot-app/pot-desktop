@@ -1,3 +1,5 @@
+use crate::config::get_config;
+use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
 #[cfg(target_os = "macos")]
@@ -7,14 +9,24 @@ use tauri::Manager;
 use tauri::PhysicalPosition;
 #[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
+use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
-use crate::selection::get_selection_text;
-
-// 后续从设置读取
-const WIDTH: f64 = 400.0;
-const HEIGHT: f64 = 500.0;
+// 获取默认窗口大小
+fn get_window_size() -> (f64, f64) {
+    let width: f64 = get_config("window_width", Value::from(400), APP.get().unwrap().state())
+        .as_integer()
+        .unwrap() as f64;
+    let height: f64 = get_config(
+        "window_height",
+        Value::from(500),
+        APP.get().unwrap().state(),
+    )
+    .as_integer()
+    .unwrap() as f64;
+    return (width, height);
+}
 
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
@@ -73,6 +85,7 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     use windows::Win32::UI::HiDpi::GetDpiForWindow;
     use windows::Win32::UI::WindowsAndMessaging::GetWindowRect;
     use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetDesktopWindow};
+    let (width, height) = get_window_size();
     let mut point = POINT { x: 0, y: 0 };
     let mut rect = RECT {
         left: 0,
@@ -90,11 +103,11 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             let dpi = GetDpiForWindow(hwnd) as f64;
             if GetWindowRect(hwnd, &mut rect).as_bool() {
                 // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
-                if point.x as f64 + WIDTH * (dpi / 100.0) > (rect.right - rect.left) as f64 {
-                    x = (rect.right - rect.left) as f64 - WIDTH * (dpi / 100.0);
+                if point.x as f64 + width * (dpi / 100.0) > (rect.right - rect.left) as f64 {
+                    x = (rect.right - rect.left) as f64 - width * (dpi / 100.0);
                 }
-                if point.y as f64 + HEIGHT * (dpi / 100.0) > (rect.bottom - rect.top) as f64 {
-                    y = (rect.bottom - rect.top) as f64 - HEIGHT * (dpi / 100.0);
+                if point.y as f64 + height * (dpi / 100.0) > (rect.bottom - rect.top) as f64 {
+                    y = (rect.bottom - rect.top) as f64 - height * (dpi / 100.0);
                 }
             }
             return Ok((x as i32, y as i32));
@@ -116,17 +129,19 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     let point = event.unwrap().location();
     let mut x = point.x;
     let mut y = point.y;
-    if point.x + WIDTH > mode.width() as f64 {
-        x = mode.width() as f64 - WIDTH;
+    let (width, height) = get_window_size();
+    if point.x + width > mode.width() as f64 {
+        x = mode.width() as f64 - width;
     }
-    if point.y + HEIGHT > mode.height() as f64 {
-        y = mode.height() as f64 - HEIGHT;
+    if point.y + height > mode.height() as f64 {
+        y = mode.height() as f64 - height;
     }
     return Ok((x as i32, y as i32));
 }
 
 // 划词翻译
 pub fn translate_window() {
+    let (width, height) = get_window_size();
     // 获取鼠标坐标
     let (x, y) = get_mouse_location().unwrap();
     // 获取选择文本
@@ -146,7 +161,7 @@ pub fn translate_window() {
                 "translator",
                 tauri::WindowUrl::App("index_translator.html".into()),
             )
-            .inner_size(WIDTH, HEIGHT)
+            .inner_size(width, height)
             .always_on_top(true)
             .decorations(false)
             .skip_taskbar(true)
@@ -180,6 +195,7 @@ pub fn translate_window() {
 
 // 持久窗口
 pub fn persistent_window() {
+    let (width, height) = get_window_size();
     let handle = APP.get().unwrap();
     match handle.get_window("persistent") {
         Some(window) => {
@@ -191,7 +207,7 @@ pub fn persistent_window() {
                 "persistent",
                 tauri::WindowUrl::App("index_translator.html".into()),
             )
-            .inner_size(WIDTH, HEIGHT)
+            .inner_size(width, height)
             .always_on_top(true)
             .decorations(false)
             .center()
@@ -219,6 +235,7 @@ pub fn persistent_window() {
 
 // popclip划词翻译
 pub fn popclip_window(text: String) {
+    let (width, height) = get_window_size();
     let (x, y) = get_mouse_location().unwrap();
 
     let handle = APP.get().unwrap();
@@ -236,7 +253,7 @@ pub fn popclip_window(text: String) {
                 "popclip",
                 tauri::WindowUrl::App("index_translator.html".into()),
             )
-            .inner_size(WIDTH, HEIGHT)
+            .inner_size(width, height)
             .always_on_top(true)
             .decorations(false)
             .skip_taskbar(true)
