@@ -1,6 +1,13 @@
-## 0.1.2 (2023-03-20)
+## 0.1.3 (2023-03-21)
 
 ### New feature:
 
-- 支持deeplx([`101bdc5`](https://github.com/Pylogmon/pot/commit/101bdc57ec0c2a1d2260ae91dcc15457bb4917af)) (by 派了个萌)
-- 支持深色模式跟随系统([`46e68d8`](https://github.com/Pylogmon/pot/commit/46e68d83c8d293f1c78f406ac92a0b1d5a4cf015)) (by 派了个萌)
+- 添加自定义窗口大小([`0729cdc`](https://github.com/Pylogmon/pot/commit/0729cdcd3b17dcb2b28024070ffa8620265d9da1)) (by 派了个萌)
+- 支持macos在鼠标位置出现翻译窗口([`861bd50`](https://github.com/Pylogmon/pot/commit/861bd5082469256ceeb4d80f1c7fc7abce652b72)) (by 派了个萌)
+
+### Bugs fixed:
+
+- 修复配置文件写入出错的问题([`4df1a87`](https://github.com/Pylogmon/pot/commit/4df1a878fe63741eb02015accf3d38af032aceca)) (by 派了个萌)
+- 修复剪切板污染问题([`3385358`](https://github.com/Pylogmon/pot/commit/3385358bb26051663604c53a79e8aef570c43022)) (by 派了个萌)
+- 修复macos窗口位置错误([`c405a84`](https://github.com/Pylogmon/pot/commit/c405a843651ef5ddff3163487cff15e7fb0bf075)) (by 派了个萌)
+- 修复macos取词失败([`28cd2aa`](https://github.com/Pylogmon/pot/commit/28cd2aacf26cdb3bd3d66a687f6475f58e79be68)) (by 派了个萌)
