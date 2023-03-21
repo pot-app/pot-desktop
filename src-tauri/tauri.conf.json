@@ -91,7 +91,7 @@
     },
     "windows": [],
     "systemTray": {
-      "iconPath": "icons/icon.png",
+      "iconPath": "icons/tray128.png",
       "iconAsTemplate": true
     }
   }
