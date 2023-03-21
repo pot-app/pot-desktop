@@ -1,7 +1,7 @@
 use crate::shortcut::register_shortcut;
 use crate::APP;
 use std::sync::Mutex;
-use std::{fs, fs::OpenOptions, io::Read, io::Write, path::PathBuf};
+use std::{fs, io::Read, path::PathBuf};
 use tauri::api::notification::Notification;
 use tauri::{api::path::config_dir, Manager};
 use toml::{Table, Value};
@@ -75,14 +75,10 @@ impl Config {
     }
     pub fn write(&self) -> Result<(), String> {
         let app_config_file_path = get_app_config_file();
-        let mut config_file = OpenOptions::new()
-            .write(true)
-            .open(&app_config_file_path)
-            .expect("Open Config File Failed");
         let contents = self.config_toml.to_string();
-        match config_file.write_all(contents.as_bytes()) {
-            Ok(_) => return Ok(()),
-            Err(e) => return Err(e.to_string()),
+        match fs::write(app_config_file_path, contents) {
+            Ok(_) => Ok(()),
+            Err(e) => Err(e.to_string()),
         }
     }
 }
@@ -110,7 +106,6 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
                 .unwrap();
         }
     }
-
     state.0.lock().unwrap().write()
 }
 
