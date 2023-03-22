@@ -41,21 +41,10 @@ pub fn set_auto_start(enable: bool) {
         .build()
         .unwrap();
 
-    #[cfg(target_os = "macos")]
-    {
-        if enable && !auto.is_enabled().unwrap_or(false) {
-            // 避免重复设置登录项
-            let _ = auto.disable();
-            auto.enable().unwrap();
-        } else if !enable {
-            let _ = auto.disable();
-        }
-    }
-
-    #[cfg(not(target_os = "macos"))]
-    if enable {
+    if enable && !auto.is_enabled().unwrap_or(false) {
+        auto.disable().unwrap();
         auto.enable().unwrap();
-    } else {
+    } else if !enable {
         auto.disable().unwrap();
     }
 }
