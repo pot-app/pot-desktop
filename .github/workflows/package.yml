@@ -92,7 +92,7 @@ jobs:
         run: pnpm install
       - name: Change tray icon
         run: |
-          sed -i "s/\"iconPath\":.*/\"iconPath\": \"icons\/tray128\.png\",/g" src-tauri/tauri.conf.json
+          sed -i '' "s/\"iconPath\":.*/\"iconPath\": \"icons\/tray128.png\",/g" src-tauri/tauri.conf.json
       - name: Build and Package
         run: |
           pnpm tauri build --target ${{ matrix.target }}
