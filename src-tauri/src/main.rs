@@ -10,6 +10,7 @@ mod shortcut;
 mod trayicon;
 mod window;
 
+use auto::check_update;
 use config::*;
 use once_cell::sync::OnceCell;
 use selection::get_translate_text;
@@ -55,6 +56,7 @@ fn main() {
             if is_first {
                 on_config_click(handle);
             }
+            check_update().unwrap_or_default();
             handle.manage(StringWrapper(Mutex::new("".to_string())));
             // 注册全局快捷键
             match register_shortcut() {

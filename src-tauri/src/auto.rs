@@ -1,18 +1,20 @@
+use crate::{config::get_config, APP};
 use auto_launch::AutoLaunchBuilder;
 use dunce::canonicalize;
-use tauri::utils::platform::current_exe;
+use tauri::api::notification::Notification;
+use tauri::api::version::compare;
+use tauri::{utils::platform::current_exe, Manager};
+use toml::Value;
+
 pub fn set_auto_start(enable: bool) {
     let app_exe = current_exe().unwrap();
     let app_exe = canonicalize(app_exe).unwrap();
-    println!("{:?}", app_exe);
     let app_name = app_exe.file_stem().and_then(|f| f.to_str()).unwrap();
-    println!("{}", app_name);
     let app_path = app_exe.as_os_str().to_str().unwrap().to_string();
-    println!("{}", app_path);
 
     #[cfg(target_os = "windows")]
     let app_path = format!("\"{app_path}\"");
-    println!("{}", app_path);
+
     #[cfg(target_os = "macos")]
     let app_path = (|| -> Option<String> {
         let path = std::path::PathBuf::from(&app_path);
@@ -49,4 +51,43 @@ pub fn set_auto_start(enable: bool) {
     } else if !enable {
         auto.disable().unwrap_or_default();
     }
+}
+
+pub fn check_update() -> Result<(), String> {
+    let enable = get_config(
+        "auto_check",
+        Value::Boolean(true),
+        APP.get().unwrap().state(),
+    );
+    if enable.as_bool().unwrap() {
+        let client = reqwest::blocking::ClientBuilder::default().build().unwrap();
+        let res = match client
+            .get("https://api.github.com/repos/Pylogmon/pot/releases/latest")
+            .header("User-Agent", "reqwest")
+            .send()
+        {
+            Ok(v) => v,
+            Err(e) => return Err(e.to_string()),
+        };
+        if res.status().is_success() {
+            let res = res.json::<serde_json::Value>().unwrap();
+            let tag = res.get("tag_name").unwrap().as_str().unwrap();
+            let handle = APP.get().unwrap();
+            let version = match handle.config().package.version.clone() {
+                Some(v) => v,
+                None => "0.0.0".to_string(),
+            };
+            if compare(version.as_str(), tag).unwrap() == 1 {
+                Notification::new(&handle.config().tauri.bundle.identifier)
+                    .title("新版本可用")
+                    .body(tag)
+                    .icon("pot")
+                    .show()
+                    .unwrap();
+            }
+        } else {
+            return Err(res.status().to_string());
+        }
+    }
+    Ok(())
 }
