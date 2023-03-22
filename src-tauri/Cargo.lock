@@ -2347,6 +2347,7 @@ dependencies = [
  "arboard",
  "auto-launch",
  "core-graphics",
+ "dunce",
  "enigo",
  "once_cell",
  "reqwest",

@@ -1,16 +1,18 @@
 use auto_launch::AutoLaunchBuilder;
+use dunce::canonicalize;
 use tauri::utils::platform::current_exe;
-
 pub fn set_auto_start(enable: bool) {
     let app_exe = current_exe().unwrap();
-
+    let app_exe = canonicalize(app_exe).unwrap();
+    println!("{:?}", app_exe);
     let app_name = app_exe.file_stem().and_then(|f| f.to_str()).unwrap();
-
+    println!("{}", app_name);
     let app_path = app_exe.as_os_str().to_str().unwrap().to_string();
+    println!("{}", app_path);
 
     #[cfg(target_os = "windows")]
     let app_path = format!("\"{app_path}\"");
-
+    println!("{}", app_path);
     #[cfg(target_os = "macos")]
     let app_path = (|| -> Option<String> {
         let path = std::path::PathBuf::from(&app_path);
@@ -41,10 +43,10 @@ pub fn set_auto_start(enable: bool) {
         .build()
         .unwrap();
 
-    if enable && !auto.is_enabled().unwrap_or(false) {
-        auto.disable().unwrap();
+    if enable {
+        auto.disable().unwrap_or_default();
         auto.enable().unwrap();
     } else if !enable {
-        auto.disable().unwrap();
+        auto.disable().unwrap_or_default();
     }
 }
