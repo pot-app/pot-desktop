@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { get, set, writeConfig } from '../../global/config'
 import { Button, TextField, Select, MenuItem, useMediaQuery, Box, FormControlLabel, Checkbox } from '@mui/material'
+import { enable, isEnabled, disable } from "tauri-plugin-autostart-api";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { notification, app } from '@tauri-apps/api'
@@ -66,7 +67,29 @@ export default function App() {
         await set(x['needs_name'], x['needs_value'])
       }
     )
-
+    if (autoStart) {
+      isEnabled().then(v => {
+        if (!v) {
+          enable().then(_ => {
+            notification.sendNotification({
+              title: '设置开机启动',
+              body: '已设置为开机启动'
+            })
+          })
+        }
+      })
+    } else {
+      isEnabled().then(v => {
+        if (v) {
+          disable().then(_ => {
+            notification.sendNotification({
+              title: '取消开机启动',
+              body: '已取消开机启动'
+            })
+          })
+        }
+      })
+    }
     writeConfig().then(
       _ => {
         notification.sendNotification({

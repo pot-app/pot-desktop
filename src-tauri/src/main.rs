@@ -20,6 +20,7 @@ use tauri::api::notification::Notification;
 use tauri::AppHandle;
 use tauri::Manager;
 use tauri::SystemTrayEvent;
+use tauri_plugin_autostart::MacosLauncher;
 use trayicon::*;
 use window::*;
 
@@ -46,6 +47,10 @@ fn main() {
                     .unwrap();
             }
         }))
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec![]),
+        ))
         .setup(|app| {
             // 初始化AppHandel
             APP.get_or_init(|| app.handle());
