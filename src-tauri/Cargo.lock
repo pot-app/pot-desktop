@@ -2347,9 +2347,7 @@ name = "pot"
 version = "0.0.0"
 dependencies = [
  "arboard",
- "auto-launch",
  "core-graphics",
- "dunce",
  "enigo",
  "once_cell",
  "reqwest",
@@ -2357,6 +2355,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "tauri-build",
+ "tauri-plugin-autostart",
  "tauri-plugin-single-instance",
  "toml 0.7.3",
  "window-shadows",
@@ -3288,9 +3287,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-autostart"
+version = "0.1.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#5a6abd3203dc94c38f96d0c4bf7ecbef399f8c25"
+dependencies = [
+ "auto-launch",
+ "log",
+ "serde",
+ "serde_json",
+ "tauri",
+ "thiserror",
+]
+
+[[package]]
 name = "tauri-plugin-single-instance"
 version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#265acf745435dabe78321ff7cf1e0af92df566e2"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#5a6abd3203dc94c38f96d0c4bf7ecbef399f8c25"
 dependencies = [
  "log",
  "serde",
