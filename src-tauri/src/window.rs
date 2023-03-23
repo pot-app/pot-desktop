@@ -7,7 +7,7 @@ use tauri::LogicalPosition;
 use tauri::Manager;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 use tauri::PhysicalPosition;
-#[cfg(any(target_os = "macos", target_os = "linux"))]
+//#[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -30,7 +30,7 @@ fn get_window_size() -> (f64, f64) {
 
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
-#[cfg(any(target_os = "macos", target_os = "linux"))]
+// #[cfg(any(target_os = "macos", target_os = "linux"))]
 fn on_lose_focus(event: &WindowEvent) {
     match event {
         WindowEvent::Focused(v) => {
@@ -172,6 +172,7 @@ pub fn translate_window() {
             {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
+                window.set_focus().unwrap();
                 window.on_window_event(on_lose_focus);
                 window.set_position(LogicalPosition::new(x, y)).unwrap();
             }
@@ -180,12 +181,15 @@ pub fn translate_window() {
             {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
+                window.set_focus().unwrap();
+                window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
 
             #[cfg(target_os = "linux")]
             {
                 let window = builder.transparent(true).build().unwrap();
+                window.set_focus().unwrap();
                 window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
