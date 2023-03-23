@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use crate::{config::get_config, APP};
 use tauri::api::notification::Notification;
 use tauri::api::version::compare;
@@ -15,6 +17,7 @@ pub fn check_update() -> Result<(), String> {
         let res = match client
             .get("https://api.github.com/repos/Pylogmon/pot/releases/latest")
             .header("User-Agent", "reqwest")
+            .timeout(Duration::from_secs(2))
             .send()
         {
             Ok(v) => v,
