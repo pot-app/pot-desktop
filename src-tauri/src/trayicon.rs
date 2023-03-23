@@ -1,8 +1,5 @@
-use tauri::{AppHandle, CustomMenuItem, Manager, PhysicalSize, SystemTray, SystemTrayMenu};
-#[cfg(target_os = "windows")]
-use window_shadows::set_shadow;
-#[cfg(target_os = "macos")]
-use window_shadows::set_shadow;
+use crate::window::build_window;
+use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu};
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
@@ -27,45 +24,7 @@ pub fn on_persistent_click(app: &AppHandle) {
             window.close().unwrap();
         }
         None => {
-            let builder = tauri::WindowBuilder::new(
-                app,
-                "persistent",
-                tauri::WindowUrl::App("index_translator.html".into()),
-            )
-            .inner_size(400.0, 500.0)
-            .min_inner_size(400.0, 400.0)
-            .always_on_top(true)
-            .decorations(false)
-            .center()
-            .title("Translator");
-            #[cfg(target_os = "macos")]
-            {
-                let window = builder.build().unwrap();
-                window.set_size(PhysicalSize::new(400, 500)).unwrap();
-                window
-                    .set_min_size(Some(PhysicalSize::new(400, 400)))
-                    .unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-            }
-
-            #[cfg(target_os = "windows")]
-            {
-                let window = builder.build().unwrap();
-                window.set_size(PhysicalSize::new(400, 500)).unwrap();
-                window
-                    .set_min_size(Some(PhysicalSize::new(400, 400)))
-                    .unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-            }
-
-            #[cfg(target_os = "linux")]
-            {
-                let window = builder.transparent(true).build().unwrap();
-                window.set_size(PhysicalSize::new(400, 500)).unwrap();
-                window
-                    .set_min_size(Some(PhysicalSize::new(400, 400)))
-                    .unwrap();
-            }
+            let _window = build_window("persistent", "Persistent", app).unwrap();
         }
     }
 }

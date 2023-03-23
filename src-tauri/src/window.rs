@@ -15,7 +15,7 @@ use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
-fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, String> {
+pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, String> {
     let (width, height) = get_window_size();
     let (x, y) = get_mouse_location().unwrap();
     let builder = tauri::WindowBuilder::new(

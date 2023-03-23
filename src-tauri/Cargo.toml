@@ -29,8 +29,6 @@ arboard = "3.2.0"
 window-shadows = "0.2"
 
 [target.'cfg(target_os = "macos")'.dependencies ]
-enigo = {git = "https://github.com/enigo-rs/enigo"}
-arboard = "3.2.0"
 window-shadows = "0.2"
 core-graphics = "0.22.3"
 
