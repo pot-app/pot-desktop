@@ -11,6 +11,7 @@ pub fn get_selection_text() -> Result<String, String> {
 }
 
 // 获取选择的文本(MacOS)
+// 来自 https://github.com/yetone/openai-translator/blob/main/src-tauri/src/utils.rs
 #[cfg(target_os = "macos")]
 pub fn get_selection_text() -> Result<String, String> {
     use crate::APP;
