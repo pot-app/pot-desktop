@@ -10,8 +10,35 @@ pub fn get_selection_text() -> Result<String, String> {
     };
 }
 
-// 获取选择的文本(Windows,MacOS)
-#[cfg(any(target_os = "windows", target_os = "macos"))]
+// 获取选择的文本(MacOS)
+#[cfg(target_os = "macos")]
+pub fn get_selection_text() -> Result<String, String> {
+    use crate::APP;
+    let apple_script = APP
+        .get()
+        .unwrap()
+        .path_resolver()
+        .resolve_resource("resources/get-selected-text.applescript")
+        .expect("failed to resolve ocr binary resource");
+
+    let output = std::process::Command::new("osascript")
+        .arg(apple_script)
+        .output()
+        .expect("failed to execute get-selected-text.applescript");
+
+    // check exit code
+    if output.status.success() {
+        // get output content
+        let content = String::from_utf8(output.stdout)
+            .expect("failed to parse get-selected-text.applescript output");
+        Ok(content)
+    } else {
+        Err("failed to execute get-selected-text.applescript".into())
+    }
+}
+
+// 获取选择的文本(Windows)
+#[cfg(target_os = "windows")]
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
     // 读取旧内容
@@ -50,25 +77,6 @@ pub fn get_selection_text() -> Result<String, String> {
         }
         _ => Ok("".to_string()),
     }
-}
-
-// macos 复制操作
-#[cfg(target_os = "macos")]
-pub fn copy() {
-    use enigo::*;
-    let mut enigo = Enigo::new();
-    // 先释放按键
-    enigo.key_up(Key::Control);
-    enigo.key_up(Key::Meta);
-    enigo.key_up(Key::Alt);
-    enigo.key_up(Key::Shift);
-    enigo.key_up(Key::Space);
-    enigo.key_up(Key::Tab);
-    enigo.key_up(Key::Option);
-    // 发送CtrlC
-    enigo.key_down(Key::Meta);
-    enigo.key_click(Key::Layout('c'));
-    enigo.key_up(Key::Meta);
 }
 
 // windows 复制操作
