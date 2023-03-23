@@ -2,16 +2,100 @@ use crate::config::get_config;
 use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
+use tauri::AppHandle;
 #[cfg(target_os = "macos")]
 use tauri::LogicalPosition;
 use tauri::Manager;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 use tauri::PhysicalPosition;
+use tauri::Window;
 //#[cfg(any(target_os = "macos", target_os = "linux"))]
 use tauri::WindowEvent;
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
+
+fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, String> {
+    let (width, height) = get_window_size();
+    let (x, y) = get_mouse_location().unwrap();
+    let builder = tauri::WindowBuilder::new(
+        handle,
+        label,
+        tauri::WindowUrl::App("index_translator.html".into()),
+    )
+    .inner_size(width, height)
+    .always_on_top(true)
+    .focused(true)
+    .title(title);
+
+    #[cfg(target_os = "macos")]
+    {
+        let window = match label {
+            "persistent" => builder
+                .skip_taskbar(false)
+                .hidden_title(true)
+                .title_bar_style(tauri::TitleBarStyle::Overlay)
+                .build()
+                .unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
+        };
+        set_shadow(&window, true).unwrap_or_default();
+        window.set_focus().unwrap();
+        match label {
+            "persistent" => {
+                window.center().unwrap();
+            }
+            _ => {
+                window.on_window_event(on_lose_focus);
+                window.set_position(LogicalPosition::new(x, y)).unwrap();
+            }
+        };
+        Ok(window)
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        let builder = builder.transparent(true).decorations(false);
+        let window = match label {
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
+        };
+        set_shadow(&window, true).unwrap_or_default();
+        window.set_focus().unwrap();
+
+        match label {
+            "persistent" => {
+                window.center().unwrap();
+            }
+            _ => {
+                window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+        };
+        Ok(window)
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        let builder = builder.transparent(true).decorations(false);
+        let window = match label {
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
+        };
+
+        window.set_focus().unwrap();
+        match label {
+            "persistent" => {
+                window.center().unwrap();
+            }
+            _ => {
+                window.on_window_event(on_lose_focus);
+                window.set_position(PhysicalPosition::new(x, y)).unwrap();
+            }
+        };
+        Ok(window)
+    }
+}
 
 // 获取默认窗口大小
 fn get_window_size() -> (f64, f64) {
@@ -141,9 +225,6 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 
 // 划词翻译
 pub fn translate_window() {
-    let (width, height) = get_window_size();
-    // 获取鼠标坐标
-    let (x, y) = get_mouse_location().unwrap();
     // 获取选择文本
     let text = get_selection_text().unwrap();
     let handle = APP.get().unwrap();
@@ -156,92 +237,26 @@ pub fn translate_window() {
             window.close().unwrap();
         }
         None => {
-            let builder = tauri::WindowBuilder::new(
-                handle,
-                "translator",
-                tauri::WindowUrl::App("index_translator.html".into()),
-            )
-            .inner_size(width, height)
-            .always_on_top(true)
-            .decorations(false)
-            .skip_taskbar(true)
-            .focused(true)
-            .title("Translator");
-
-            #[cfg(target_os = "macos")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(LogicalPosition::new(x, y)).unwrap();
-            }
-
-            #[cfg(target_os = "windows")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
-            }
-
-            #[cfg(target_os = "linux")]
-            {
-                let window = builder.transparent(true).build().unwrap();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
-            }
+            let _window = build_window("translator", "Translator", handle).unwrap();
         }
     };
 }
 
 // 持久窗口
 pub fn persistent_window() {
-    let (width, height) = get_window_size();
     let handle = APP.get().unwrap();
     match handle.get_window("persistent") {
         Some(window) => {
             window.close().unwrap();
         }
         None => {
-            let builder = tauri::WindowBuilder::new(
-                handle,
-                "persistent",
-                tauri::WindowUrl::App("index_translator.html".into()),
-            )
-            .inner_size(width, height)
-            .always_on_top(true)
-            .decorations(false)
-            .center()
-            .title("Translator");
-
-            #[cfg(target_os = "macos")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-            }
-
-            #[cfg(target_os = "windows")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-            }
-
-            #[cfg(target_os = "linux")]
-            {
-                let _window = builder.transparent(true).build().unwrap();
-            }
+            let _window = build_window("persistent", "Persistent", handle).unwrap();
         }
     };
 }
 
 // popclip划词翻译
 pub fn popclip_window(text: String) {
-    let (width, height) = get_window_size();
-    let (x, y) = get_mouse_location().unwrap();
-
     let handle = APP.get().unwrap();
 
     let state: tauri::State<StringWrapper> = handle.state();
@@ -252,43 +267,7 @@ pub fn popclip_window(text: String) {
             window.close().unwrap();
         }
         None => {
-            let builder = tauri::WindowBuilder::new(
-                handle,
-                "popclip",
-                tauri::WindowUrl::App("index_translator.html".into()),
-            )
-            .inner_size(width, height)
-            .always_on_top(true)
-            .decorations(false)
-            .skip_taskbar(true)
-            .focused(true)
-            .title("PopClip");
-
-            #[cfg(target_os = "macos")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(LogicalPosition::new(x, y)).unwrap();
-            }
-
-            #[cfg(target_os = "windows")]
-            {
-                let window = builder.build().unwrap();
-                set_shadow(&window, true).unwrap_or_default();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
-            }
-
-            #[cfg(target_os = "linux")]
-            {
-                let window = builder.transparent(true).build().unwrap();
-                window.set_focus().unwrap();
-                window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
-            }
+            let _window = build_window("popclip", "PopClip", handle).unwrap();
         }
     };
 }
