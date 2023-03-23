@@ -268,6 +268,7 @@ pub fn popclip_window(text: String) {
             {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
+                window.set_focus().unwrap();
                 window.on_window_event(on_lose_focus);
                 window.set_position(LogicalPosition::new(x, y)).unwrap();
             }
@@ -276,12 +277,15 @@ pub fn popclip_window(text: String) {
             {
                 let window = builder.build().unwrap();
                 set_shadow(&window, true).unwrap_or_default();
+                window.set_focus().unwrap();
+                window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
 
             #[cfg(target_os = "linux")]
             {
                 let window = builder.transparent(true).build().unwrap();
+                window.set_focus().unwrap();
                 window.on_window_event(on_lose_focus);
                 window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
