@@ -1,7 +1,11 @@
-## 0.1.4 (2023-03-22)
+## 0.1.5 (2023-03-23)
 
 ### New feature:
 
-- 添加启动时检查更新选项([`8b93680`](https://github.com/Pylogmon/Pot/commit/8b9368087a31fa57c2afd742554cdfffce53bbf4)) (by 派了个萌)
-- 设置开机启动项([`597734f`](https://github.com/Pylogmon/Pot/commit/597734f10f750b602429b81fd182fe5c04852d89)) (by 派了个萌)
-- 更改MacOS托盘图标([`275bf73`](https://github.com/Pylogmon/Pot/commit/275bf73d37a89147406773733a072cc381c9e184)) (by 派了个萌)
+- 添加macos 窗口圆角([`7b7a095`](https://github.com/Pylogmon/Pot/commit/7b7a0958082c855ee1562ae33fd6512dc71c7501)) (by 派了个萌)
+- windows 失去焦点自动关闭([`ca4243f`](https://github.com/Pylogmon/Pot/commit/ca4243f9de8f39c321e8683517d31e950e945dad)) (by 派了个萌)
+
+### Bugs fixed:
+
+- 修复macos取词([`e2bed62`](https://github.com/Pylogmon/Pot/commit/e2bed62fa43970d5bd8b14ce5643f7c79800166c)) (by 派了个萌)
+- 修复无网络时检查更新卡死([`a3e6543`](https://github.com/Pylogmon/Pot/commit/a3e65433b10aa4148db9ac9a9d8974ac746656b1)) (by 派了个萌)
