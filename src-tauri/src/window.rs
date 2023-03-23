@@ -33,8 +33,8 @@ fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, 
         let window = match label {
             "persistent" => builder
                 .skip_taskbar(false)
+                .title_bar_style(tauri::TitleBarStyle::Transparent)
                 .hidden_title(true)
-                .title_bar_style(tauri::TitleBarStyle::Overlay)
                 .build()
                 .unwrap(),
             _ => builder.skip_taskbar(true).build().unwrap(),
@@ -55,7 +55,7 @@ fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, 
 
     #[cfg(target_os = "windows")]
     {
-        let builder = builder.transparent(true).decorations(false);
+        let builder = builder.decorations(false);
         let window = match label {
             "persistent" => builder.skip_taskbar(false).build().unwrap(),
             _ => builder.skip_taskbar(true).build().unwrap(),
