@@ -35,13 +35,6 @@
       },
       "notification": {
         "all": true
-      },
-      "fs": {
-        "all": true,
-        "scope": [
-          "$APPCONFIG/*",
-          "$RESOURCE/*"
-        ]
       }
     },
     "bundle": {
@@ -71,9 +64,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [
-        "resources/*"
-      ],
+      "resources": [],
       "shortDescription": "A cross-platform translation software",
       "targets": "all",
       "windows": {

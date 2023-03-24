@@ -3,43 +3,14 @@ use crate::StringWrapper;
 // 获取选择的文本(Linux)
 #[cfg(target_os = "linux")]
 pub fn get_selection_text() -> Result<String, String> {
-    use std::process::Command;
-    match Command::new("xsel").output() {
+    match std::process::Command::new("xsel").output() {
         Ok(v) => return Ok(String::from_utf8(v.stdout).unwrap()),
         Err(e) => return Err(format!("xsel执行出错{}", e.to_string())),
     };
 }
 
-// 获取选择的文本(MacOS)
-// 来自 https://github.com/yetone/openai-translator/blob/main/src-tauri/src/utils.rs
-#[cfg(target_os = "macos")]
-pub fn get_selection_text() -> Result<String, String> {
-    use crate::APP;
-    let apple_script = APP
-        .get()
-        .unwrap()
-        .path_resolver()
-        .resolve_resource("resources/get-selected-text.applescript")
-        .expect("failed to resolve ocr binary resource");
-
-    let output = std::process::Command::new("osascript")
-        .arg(apple_script)
-        .output()
-        .expect("failed to execute get-selected-text.applescript");
-
-    // check exit code
-    if output.status.success() {
-        // get output content
-        let content = String::from_utf8(output.stdout)
-            .expect("failed to parse get-selected-text.applescript output");
-        Ok(content)
-    } else {
-        Err("failed to execute get-selected-text.applescript".into())
-    }
-}
-
 // 获取选择的文本(Windows)
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
     // 读取旧内容
@@ -94,6 +65,26 @@ pub fn copy() {
     enigo.key_down(Key::Control);
     enigo.key_click(Key::Layout('c'));
     enigo.key_up(Key::Control);
+}
+
+// macos 复制操作
+#[cfg(target_os = "macos")]
+pub fn copy() {
+    use enigo::*;
+    let mut enigo = Enigo::new();
+    std::thread::sleep(std::time::Duration::from_millis(200));
+    // 先释放按键
+    enigo.key_up(Key::Control);
+    enigo.key_up(Key::Command);
+    enigo.key_up(Key::Option);
+    enigo.key_up(Key::Alt);
+    enigo.key_up(Key::Shift);
+    enigo.key_up(Key::Space);
+    // 发送CtrlC
+    enigo.key_down(Key::Command);
+    enigo.key_click(Key::Layout('c'));
+    enigo.key_up(Key::Command);
+    std::thread::sleep(std::time::Duration::from_millis(200));
 }
 
 #[tauri::command]
