@@ -28,7 +28,7 @@
 | - |-----|-------|-----|
 |划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
-|插件调用| |[SnipDo](https://www.microsoft.com/store/productId/9NPZ2TVKJVT7)| |
+|插件调用| |[SnipDo](https://www.microsoft.com/store/productId/9NPZ2TVKJVT7)|[PopClip](https://pilotmoon.com/popclip/)|
 
 ## 支持接口
 - [x] 有道翻译(无需申请)
@@ -65,6 +65,12 @@
     ```
 
 ### Windows
+#### WinGet
+pot 已经进入了winget仓库，可以直接使用winget安装
+```powershell
+winget install Pylogmon.pot
+```
+#### 手动安装
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
 
 ## 使用方法
