@@ -15,11 +15,13 @@ use once_cell::sync::OnceCell;
 use selection::get_translate_text;
 use shortcut::register_shortcut;
 use std::sync::Mutex;
+use std::thread;
 use tauri::api::notification::Notification;
 use tauri::AppHandle;
 use tauri::Manager;
 use tauri::SystemTrayEvent;
 use tauri_plugin_autostart::MacosLauncher;
+use tiny_http::{Response, Server};
 use trayicon::*;
 use utils::*;
 use window::*;
@@ -28,6 +30,7 @@ use window::*;
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
 // 存待翻译文本
 pub struct StringWrapper(pub Mutex<String>);
+
 fn main() {
     tauri::Builder::default()
         // 单例运行
@@ -75,6 +78,16 @@ fn main() {
                         .unwrap();
                 }
             }
+            thread::spawn(move || {
+                let server = Server::http("127.0.0.1:60828").unwrap();
+                for request in server.incoming_requests() {
+                    let mut text = request.url().to_string();
+                    text.remove(0);
+                    popclip_window(text);
+                    let response = Response::from_string("success");
+                    request.respond(response).unwrap();
+                }
+            });
             Ok(())
         })
         // 注册Tauri Command
