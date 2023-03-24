@@ -28,7 +28,7 @@
 | - |-----|-------|-----|
 |划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
-|插件调用| |[SnipDo](https://www.microsoft.com/store/productId/9NPZ2TVKJVT7)|[PopClip](https://pilotmoon.com/popclip/)|
+|插件调用| |[SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows)|[PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos)|
 
 ## 支持接口
 - [x] 有道翻译(无需申请)
