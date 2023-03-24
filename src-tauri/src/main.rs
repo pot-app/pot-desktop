@@ -3,14 +3,13 @@
     windows_subsystem = "windows"
 )]
 
-mod auto;
 mod config;
 mod selection;
 mod shortcut;
 mod trayicon;
+mod utils;
 mod window;
 
-use auto::check_update;
 use config::*;
 use once_cell::sync::OnceCell;
 use selection::get_translate_text;
@@ -22,6 +21,7 @@ use tauri::Manager;
 use tauri::SystemTrayEvent;
 use tauri_plugin_autostart::MacosLauncher;
 use trayicon::*;
+use utils::*;
 use window::*;
 
 // 全局AppHandle
@@ -82,7 +82,8 @@ fn main() {
             get_translate_text,
             get_config_str,
             set_config,
-            write_config
+            write_config,
+            is_macos,
         ])
         //加载托盘图标
         .system_tray(build_system_tray())

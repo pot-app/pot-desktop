@@ -4,6 +4,12 @@
     height: 35px;
 }
 
+.topbar-macos {
+    display: flex;
+    justify-content: right;
+    height: 35px;
+}
+
 .topbar-button {
     padding: 0;
     margin: 0;

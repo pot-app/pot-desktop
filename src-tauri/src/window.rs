@@ -30,13 +30,11 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
 
     #[cfg(target_os = "macos")]
     {
+        let builder = builder
+            .title_bar_style(tauri::TitleBarStyle::Overlay)
+            .hidden_title(true);
         let window = match label {
-            "persistent" => builder
-                .skip_taskbar(false)
-                .title_bar_style(tauri::TitleBarStyle::Transparent)
-                .hidden_title(true)
-                .build()
-                .unwrap(),
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
             _ => builder.skip_taskbar(true).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
