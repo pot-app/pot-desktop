@@ -37,12 +37,11 @@
         "all": true
       },
       "fs": {
-        "all": false,
+        "all": true,
         "scope": [
           "$APPCONFIG/*",
           "$RESOURCE/*"
-        ],
-        "writeFile": true
+        ]
       }
     },
     "bundle": {
