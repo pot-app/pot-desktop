@@ -80,10 +80,10 @@ fn main() {
             }
             thread::spawn(move || {
                 let server = Server::http("127.0.0.1:60828").unwrap();
-                for request in server.incoming_requests() {
-                    let mut text = request.url().to_string();
-                    text.remove(0);
-                    popclip_window(text);
+                for mut request in server.incoming_requests() {
+                    let mut content = String::new();
+                    request.as_reader().read_to_string(&mut content).unwrap();
+                    popclip_window(content);
                     let response = Response::from_string("success");
                     request.respond(response).unwrap();
                 }

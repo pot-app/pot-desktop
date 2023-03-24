@@ -8,7 +8,7 @@
                 <key>Shell Script File</key>
                 <string>Pot.sh</string>
                 <key>Image File</key>
-                <string>Pot.png</string>
+                <string>Pot.ico</string>
                 <key>Title</key>
                 <string>Pot Translate</string>
             </dict>
