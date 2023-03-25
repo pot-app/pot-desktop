@@ -1,11 +1,13 @@
-## 0.1.5 (2023-03-23)
+## 0.1.6 (2023-03-25)
 
 ### New feature:
 
-- 添加macos 窗口圆角([`7b7a095`](https://github.com/Pylogmon/Pot/commit/7b7a0958082c855ee1562ae33fd6512dc71c7501)) (by 派了个萌)
-- windows 失去焦点自动关闭([`ca4243f`](https://github.com/Pylogmon/Pot/commit/ca4243f9de8f39c321e8683517d31e950e945dad)) (by 派了个萌)
+- 支持popclip([`e61b614`](https://github.com/Pylogmon/pot/commit/e61b6140ebd7a2f123c89f8774fe87402ead828c)) (by 派了个萌)
+- 新增http调用(MacOS Only)([`e4f6679`](https://github.com/Pylogmon/pot/commit/e4f6679af11f02e9d3e9f8ed5db0bf704540cb5c)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复macos取词([`e2bed62`](https://github.com/Pylogmon/Pot/commit/e2bed62fa43970d5bd8b14ce5643f7c79800166c)) (by 派了个萌)
-- 修复无网络时检查更新卡死([`a3e6543`](https://github.com/Pylogmon/Pot/commit/a3e65433b10aa4148db9ac9a9d8974ac746656b1)) (by 派了个萌)
+- 修复macos窗口闪烁([`353db5c`](https://github.com/Pylogmon/pot/commit/353db5c8afb35841d8b6121ccf8df5b83fd91cd4)) (by 派了个萌)
+- 修复macos闪退([`4f4dd34`](https://github.com/Pylogmon/pot/commit/4f4dd340e5584b979f10398ba6755ec1c072dc81)) (by 派了个萌)
+- 修复macos标题栏样式([`6eab0f3`](https://github.com/Pylogmon/pot/commit/6eab0f3be9bb49e3d43e3aa8930ea9f391cc5b65)) (by 派了个萌)
+- 修复托盘启动窗口不一致([`d8c206b`](https://github.com/Pylogmon/pot/commit/d8c206bf82d752cf1f75b3c588ffb3d7889d4661)) (by 派了个萌)
