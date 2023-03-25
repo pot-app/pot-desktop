@@ -30,10 +30,9 @@ pub fn get_selection_text() -> Result<String, String> {
             text
         }
         _ => {
-            match old_image {
-                Ok(image) => write_clipboard.set_image(image).unwrap(),
-                _ => {}
-            };
+            if let Ok(image) = old_image {
+                write_clipboard.set_image(image).unwrap()
+            }
             "".to_string()
         }
     };

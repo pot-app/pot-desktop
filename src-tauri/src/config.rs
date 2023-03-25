@@ -113,3 +113,34 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
 pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
     return state.0.lock().unwrap().config_toml.clone();
 }
+
+#[cfg(target_os = "windows")]
+pub struct MonitorWrapper(pub Mutex<(u32, u32, f64)>);
+
+#[cfg(target_os = "windows")]
+pub fn set_monitor_info() {
+    let handle = APP.get().unwrap();
+    let util_window = match handle.get_window("util") {
+        Some(v) => v,
+        None => tauri::WindowBuilder::new(
+            handle,
+            "util",
+            tauri::WindowUrl::App("index_translator.html".into()),
+        )
+        .visible(false)
+        .build()
+        .unwrap(),
+    };
+    let monitor = util_window.current_monitor().unwrap().unwrap();
+    let size = monitor.size();
+    let dpi = monitor.scale_factor();
+    APP.get()
+        .unwrap()
+        .manage(MonitorWrapper(Mutex::new((size.width, size.height, dpi))));
+    util_window.close().unwrap();
+}
+
+#[cfg(target_os = "windows")]
+pub fn get_monitor_info(state: tauri::State<MonitorWrapper>) -> (u32, u32, f64) {
+    state.0.lock().unwrap().to_owned()
+}

@@ -55,7 +55,6 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
         };
         set_shadow(&window, true).unwrap_or_default();
         window.set_focus().unwrap();
-
         match label {
             "persistent" => {
                 window.center().unwrap();
@@ -148,39 +147,29 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 
 #[cfg(target_os = "windows")]
 fn get_mouse_location() -> Result<(i32, i32), String> {
+    use crate::config::get_monitor_info;
     use windows::Win32::Foundation::POINT;
-    use windows::Win32::Foundation::RECT;
-    use windows::Win32::UI::HiDpi::GetDpiForWindow;
-    use windows::Win32::UI::WindowsAndMessaging::GetWindowRect;
-    use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetDesktopWindow};
+    use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
+
     let (width, height) = get_window_size();
+    let handle = APP.get().unwrap();
+    let (size_width, size_height, dpi) = get_monitor_info(handle.state());
     let mut point = POINT { x: 0, y: 0 };
-    let mut rect = RECT {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-    };
 
     unsafe {
         if GetCursorPos(&mut point).as_bool() {
             let mut x = point.x as f64;
             let mut y = point.y as f64;
-            // 获取桌面窗口的句柄
-            let hwnd = GetDesktopWindow();
-            let dpi = GetDpiForWindow(hwnd) as f64;
-            if GetWindowRect(hwnd, &mut rect).as_bool() {
-                // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
-                if point.x as f64 + width * (dpi / 100.0) > (rect.right - rect.left) as f64 {
-                    x = (rect.right - rect.left) as f64 - width * (dpi / 100.0);
-                }
-                if point.y as f64 + height * (dpi / 100.0) > (rect.bottom - rect.top) as f64 {
-                    y = (rect.bottom - rect.top) as f64 - height * (dpi / 100.0);
-                }
+            // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
+            if point.x as f64 + width * dpi > size_width as f64 {
+                x = size_width as f64 - width * dpi;
             }
-            return Ok((x as i32, y as i32));
+            if point.y as f64 + height * dpi > size_height as f64 {
+                y = size_height as f64 - height * dpi;
+            }
+            Ok((x as i32, y as i32))
         } else {
-            return Err("error".to_string());
+            Err("get cursorpos error".to_string())
         }
     }
 }
