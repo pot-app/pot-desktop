@@ -2,15 +2,9 @@ use crate::config::get_config;
 use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
-use tauri::AppHandle;
-#[cfg(target_os = "macos")]
-use tauri::LogicalPosition;
-use tauri::Manager;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 use tauri::PhysicalPosition;
-use tauri::Window;
-//#[cfg(any(target_os = "macos", target_os = "linux"))]
-use tauri::WindowEvent;
+use tauri::{AppHandle, Manager, Window, WindowEvent};
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
@@ -34,18 +28,19 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
             .title_bar_style(tauri::TitleBarStyle::Overlay)
             .hidden_title(true);
         let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
+            "persistent" => builder.center().skip_taskbar(false).build().unwrap(),
+            _ => builder
+                .position(x as f64, y as f64)
+                .skip_taskbar(true)
+                .build()
+                .unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
         window.set_focus().unwrap();
         match label {
-            "persistent" => {
-                window.center().unwrap();
-            }
+            "persistent" => {}
             _ => {
                 window.on_window_event(on_lose_focus);
-                window.set_position(LogicalPosition::new(x, y)).unwrap();
             }
         };
         Ok(window)
