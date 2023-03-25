@@ -161,12 +161,19 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             let mut x = point.x as f64;
             let mut y = point.y as f64;
             // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
-            if point.x as f64 + width * dpi > size_width as f64 {
-                x = size_width as f64 - width * dpi;
+            if x + width * dpi > size_width as f64 {
+                x = point.x as f64 - width * dpi;
+                if x < 0.0 {
+                    x = 0.0;
+                }
             }
-            if point.y as f64 + height * dpi > size_height as f64 {
-                y = size_height as f64 - height * dpi;
+            if y + height * dpi > size_height as f64 {
+                y = point.y as f64 - height * dpi;
+                if y < 0.0 {
+                    y = 0.0;
+                }
             }
+
             Ok((x as i32, y as i32))
         } else {
             Err("get cursorpos error".to_string())
