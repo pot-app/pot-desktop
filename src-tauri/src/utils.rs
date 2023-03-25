@@ -13,7 +13,9 @@ pub fn check_update() -> Result<(), String> {
         APP.get().unwrap().state(),
     );
     if enable.as_bool().unwrap() {
-        let client = reqwest::blocking::ClientBuilder::default().build().unwrap();
+        let client = reqwest::blocking::ClientBuilder::default()
+            .build()
+            .unwrap_or_default();
         let res = match client
             .get("https://api.github.com/repos/Pylogmon/pot/releases/latest")
             .header("User-Agent", "reqwest")
@@ -24,20 +26,20 @@ pub fn check_update() -> Result<(), String> {
             Err(e) => return Err(e.to_string()),
         };
         if res.status().is_success() {
-            let res = res.json::<serde_json::Value>().unwrap();
-            let tag = res.get("tag_name").unwrap().as_str().unwrap();
+            let res = res.json::<serde_json::Value>().unwrap_or_default();
+            let tag = res.get("tag_name").unwrap().as_str().unwrap_or_default();
             let handle = APP.get().unwrap();
             let version = match handle.config().package.version.clone() {
                 Some(v) => v,
                 None => "0.0.0".to_string(),
             };
-            if compare(version.as_str(), tag).unwrap() == 1 {
+            if compare(version.as_str(), tag).unwrap_or_default() == 1 {
                 Notification::new(&handle.config().tauri.bundle.identifier)
                     .title("新版本可用")
                     .body(tag)
                     .icon("pot")
                     .show()
-                    .unwrap();
+                    .unwrap_or_default();
             }
         } else {
             return Err(res.status().to_string());
