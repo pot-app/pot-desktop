@@ -9,25 +9,8 @@ pub fn get_selection_text() -> Result<String, String> {
     };
 }
 
-// 获取选择的文本(MacOS)
-#[cfg(target_os = "windows")]
-pub fn get_selection_text() -> Result<String, String> {
-    match std::process::Command::new("osascript")
-        .arg("-e")
-        .arg(
-            r#"
-            tell application "System Events"
-                set selectedText to (value of attribute "AXSelectedText" of text area 1 of scroll area 1 of window 1 of (first process whose frontmost is true))
-            end tell
-            "#)
-        .output() {
-        Ok(v) => return Ok(String::from_utf8(v.stdout).unwrap()),
-        Err(e) => return Err(format!("applescript执行出错{}", e.to_string())),
-    };
-}
-
 // 获取选择的文本(Windows)
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
     // 读取旧内容
@@ -82,6 +65,26 @@ pub fn copy() {
     enigo.key_down(Key::Control);
     enigo.key_click(Key::Layout('c'));
     enigo.key_up(Key::Control);
+}
+
+// macos 复制操作
+#[cfg(target_os = "macos")]
+pub fn copy() {
+    use enigo::*;
+    let mut enigo = Enigo::new();
+    std::thread::sleep(std::time::Duration::from_millis(200));
+    // 先释放按键
+    enigo.key_up(Key::Control);
+    enigo.key_up(Key::Meta);
+    enigo.key_up(Key::Option);
+    enigo.key_up(Key::Alt);
+    enigo.key_up(Key::Shift);
+    enigo.key_up(Key::Space);
+    // 发送CtrlC
+    enigo.key_down(Key::Meta);
+    enigo.key_click(Key::Layout('c'));
+    enigo.key_up(Key::Meta);
+    std::thread::sleep(std::time::Duration::from_millis(200));
 }
 
 #[tauri::command]
