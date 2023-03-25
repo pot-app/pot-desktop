@@ -60,7 +60,7 @@ fn main() {
             let is_first = !Config::init_config();
             // 初始化翻译内容
             handle.manage(StringWrapper(Mutex::new("".to_string())));
-            #[cfg(target_os = "windows")]
+            #[cfg(any(target_os = "windows", target_os = "linux"))]
             set_monitor_info();
             // 首次启动打开设置页面
             if is_first {

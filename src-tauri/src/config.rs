@@ -114,10 +114,10 @@ pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
     return state.0.lock().unwrap().config_toml.clone();
 }
 
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub struct MonitorWrapper(pub Mutex<(u32, u32, f64)>);
 
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub fn set_monitor_info() {
     let handle = APP.get().unwrap();
     let util_window = match handle.get_window("util") {
@@ -140,7 +140,7 @@ pub fn set_monitor_info() {
     util_window.close().unwrap();
 }
 
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub fn get_monitor_info(state: tauri::State<MonitorWrapper>) -> (u32, u32, f64) {
     state.0.lock().unwrap().to_owned()
 }

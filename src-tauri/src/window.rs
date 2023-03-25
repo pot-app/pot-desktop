@@ -130,19 +130,35 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
         Err(e) => return Err(format!("xdotool执行出错{e}")),
     };
     let output: Vec<&str> = output.split_whitespace().collect();
-    let x = output
+    let mut x = output
         .first()
         .unwrap()
         .replace("x:", "")
-        .parse::<i32>()
+        .parse::<f64>()
         .unwrap();
-    let y = output
+    let mut y = output
         .get(1)
         .unwrap()
         .replace("y:", "")
-        .parse::<i32>()
+        .parse::<f64>()
         .unwrap();
-    Ok((x, y))
+    let (width, height) = get_window_size();
+    let handle = APP.get().unwrap();
+    let (size_width, size_height, dpi) = get_monitor_info(handle.state());
+    if x + width * dpi > size_width as f64 {
+        x -= width * dpi;
+        if x < 0.0 {
+            x = 0.0;
+        }
+    }
+    if y + height * dpi > size_height as f64 {
+        y -= height * dpi;
+        if y < 0.0 {
+            y = 0.0;
+        }
+    }
+
+    Ok((x as i32, y as i32))
 }
 
 #[cfg(target_os = "windows")]
@@ -162,13 +178,13 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             let mut y = point.y as f64;
             // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
             if x + width * dpi > size_width as f64 {
-                x = x - width * dpi;
+                x -= width * dpi;
                 if x < 0.0 {
                     x = 0.0;
                 }
             }
             if y + height * dpi > size_height as f64 {
-                y = y - height * dpi;
+                y -= height * dpi;
                 if y < 0.0 {
                     y = 0.0;
                 }
