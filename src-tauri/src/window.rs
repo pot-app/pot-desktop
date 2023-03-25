@@ -162,13 +162,13 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             let mut y = point.y as f64;
             // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
             if x + width * dpi > size_width as f64 {
-                x = point.x as f64 - width * dpi;
+                x = x - width * dpi;
                 if x < 0.0 {
                     x = 0.0;
                 }
             }
             if y + height * dpi > size_height as f64 {
-                y = point.y as f64 - height * dpi;
+                y = y - height * dpi;
                 if y < 0.0 {
                     y = 0.0;
                 }
@@ -194,11 +194,17 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     let mut x = point.x;
     let mut y = point.y;
     let (width, height) = get_window_size();
-    if point.x + width > mode.width() as f64 {
-        x = mode.width() as f64 - width;
+    if x + width > mode.width() as f64 {
+        x = x - width;
+        if x < 0.0 {
+            x = 0.0;
+        }
     }
-    if point.y + height > mode.height() as f64 {
-        y = mode.height() as f64 - height;
+    if y + height > mode.height() as f64 {
+        y = y - height;
+        if y < 0.0 {
+            y = 0.0;
+        }
     }
     return Ok((x as i32, y as i32));
 }
