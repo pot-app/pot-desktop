@@ -34,7 +34,7 @@ fn check_config() -> bool {
         fs::File::create(app_config_file_path).expect("Create Config File Failed");
         return false;
     }
-    return true;
+    true
 }
 
 pub struct ConfigWrapper(pub Mutex<Config>);
@@ -51,7 +51,7 @@ impl Config {
         let flag = check_config();
         // 读取配置文件
         let mut config_file =
-            fs::File::open(&app_config_file_path).expect("Open Config File Failed");
+            fs::File::open(app_config_file_path).expect("Open Config File Failed");
         let mut contents = String::new();
         config_file
             .read_to_string(&mut contents)
@@ -62,7 +62,7 @@ impl Config {
         }));
         // 写入状态
         APP.get().unwrap().manage(config);
-        return flag;
+        flag
     }
     pub fn get(&self, key: &str, default: Value) -> Value {
         match self.config_toml.get(key) {
@@ -100,7 +100,7 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
             let handle = APP.get().unwrap();
             Notification::new(&handle.config().tauri.bundle.identifier)
                 .title("快捷键注册失败")
-                .body(e.to_string())
+                .body(e)
                 .icon("pot")
                 .show()
                 .unwrap();

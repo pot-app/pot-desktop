@@ -4,9 +4,9 @@ use crate::StringWrapper;
 #[cfg(target_os = "linux")]
 pub fn get_selection_text() -> Result<String, String> {
     match std::process::Command::new("xsel").output() {
-        Ok(v) => return Ok(String::from_utf8(v.stdout).unwrap()),
-        Err(e) => return Err(format!("xsel执行出错{}", e.to_string())),
-    };
+        Ok(v) => Ok(String::from_utf8(v.stdout).unwrap()),
+        Err(e) => Err(format!("xsel执行出错{e}")),
+    }
 }
 
 // 获取选择的文本(Windows)

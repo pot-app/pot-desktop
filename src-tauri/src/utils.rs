@@ -49,8 +49,5 @@ pub fn check_update() -> Result<(), String> {
 #[tauri::command]
 pub fn is_macos() -> bool {
     let os = std::env::consts::OS;
-    match os {
-        "macos" => true,
-        _ => false,
-    }
+    matches!(os, "macos")
 }

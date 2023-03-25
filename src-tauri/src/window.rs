@@ -102,32 +102,23 @@ fn get_window_size() -> (f64, f64) {
     )
     .as_integer()
     .unwrap() as f64;
-    return (width, height);
+    (width, height)
 }
 
 // 失去焦点自动关闭窗口
 // Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
 // #[cfg(any(target_os = "macos", target_os = "linux"))]
 fn on_lose_focus(event: &WindowEvent) {
-    match event {
-        WindowEvent::Focused(v) => {
-            if !v {
-                let handle = APP.get().unwrap();
-                match handle.get_window("translator") {
-                    Some(window) => {
-                        window.close().unwrap();
-                    }
-                    None => {}
-                }
-                match handle.get_window("popclip") {
-                    Some(window) => {
-                        window.close().unwrap();
-                    }
-                    None => {}
-                }
+    if let WindowEvent::Focused(v) = event {
+        if !v {
+            let handle = APP.get().unwrap();
+            if let Some(window) = handle.get_window("translator") {
+                window.close().unwrap();
+            }
+            if let Some(window) = handle.get_window("popclip") {
+                window.close().unwrap();
             }
         }
-        _ => {}
     }
 }
 
@@ -137,11 +128,11 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
     use std::process::Command;
     let output: String = match Command::new("xdotool").arg("getmouselocation").output() {
         Ok(v) => String::from_utf8(v.stdout).unwrap(),
-        Err(e) => return Err(format!("xdotool执行出错{}", e.to_string())),
+        Err(e) => return Err(format!("xdotool执行出错{e}")),
     };
     let output: Vec<&str> = output.split_whitespace().collect();
     let x = output
-        .get(0)
+        .first()
         .unwrap()
         .replace("x:", "")
         .parse::<i32>()
@@ -152,7 +143,7 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
         .replace("y:", "")
         .parse::<i32>()
         .unwrap();
-    return Ok((x, y));
+    Ok((x, y))
 }
 
 #[cfg(target_os = "windows")]

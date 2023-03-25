@@ -58,28 +58,32 @@ fn main() {
             let handle = APP.get().unwrap();
             // 初始化设置
             let is_first = !Config::init_config();
+            // 初始化翻译内容
+            handle.manage(StringWrapper(Mutex::new("".to_string())));
             // 首次启动打开设置页面
             if is_first {
                 on_config_click(handle);
             }
             check_update().unwrap_or_default();
-            handle.manage(StringWrapper(Mutex::new("".to_string())));
+
             // 注册全局快捷键
             match register_shortcut() {
                 Ok(_) => {}
                 Err(e) => {
                     Notification::new(&app.config().tauri.bundle.identifier)
                         .title("快捷键注册失败")
-                        .body(e.to_string())
+                        .body(e)
                         .icon("pot")
                         .show()
                         .unwrap();
                 }
             }
+
             #[cfg(target_os = "macos")]
             {
                 use std::thread;
                 use tiny_http::{Response, Server};
+                handle.set_activation_policy(tauri::ActivationPolicy::Accessory);
                 thread::spawn(move || {
                     let server = Server::http("127.0.0.1:60828").unwrap();
                     for mut request in server.incoming_requests() {
@@ -104,22 +108,22 @@ fn main() {
         //加载托盘图标
         .system_tray(build_system_tray())
         //绑定托盘事件
-        .on_system_tray_event(|app, event| match event {
-            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-                PERSISTENT_WINDOW => on_persistent_click(app),
-                CONFIG_TRAY_ITEM => on_config_click(app),
-                QUIT_TRAY_ITEM => on_quit_click(),
-                _ => {}
-            },
-            _ => {}
+        .on_system_tray_event(|app, event| {
+            if let SystemTrayEvent::MenuItemClick { id, .. } = event {
+                match id.as_str() {
+                    PERSISTENT_WINDOW => on_persistent_click(app),
+                    CONFIG_TRAY_ITEM => on_config_click(app),
+                    QUIT_TRAY_ITEM => on_quit_click(),
+                    _ => {}
+                }
+            }
         })
         .build(tauri::generate_context!())
         .expect("error while running tauri application")
         // 窗口关闭不退出
-        .run(|_app_handle, event| match event {
-            tauri::RunEvent::ExitRequested { api, .. } => {
+        .run(|_app_handle, event| {
+            if let tauri::RunEvent::ExitRequested { api, .. } = event {
                 api.prevent_exit();
             }
-            _ => {}
         });
 }
