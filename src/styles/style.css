@@ -16,6 +16,7 @@ html {
     height: 35px;
     user-select: none;
     position: fixed;
+    margin: 1px;
     top: 0;
     left: 0;
     right: 0;

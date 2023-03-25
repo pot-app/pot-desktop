@@ -83,7 +83,7 @@ fn main() {
             {
                 use std::thread;
                 use tiny_http::{Response, Server};
-                handle.set_activation_policy(tauri::ActivationPolicy::Accessory);
+                app.set_activation_policy(tauri::ActivationPolicy::Accessory);
                 thread::spawn(move || {
                     let server = Server::http("127.0.0.1:60828").unwrap();
                     for mut request in server.incoming_requests() {
