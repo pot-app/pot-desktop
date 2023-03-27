@@ -1,13 +1,12 @@
-## 0.1.6 (2023-03-25)
+## 0.1.7 (2023-03-27)
 
 ### New feature:
 
-- 支持popclip([`e61b614`](https://github.com/Pylogmon/pot/commit/e61b6140ebd7a2f123c89f8774fe87402ead828c)) (by 派了个萌)
-- 新增http调用(MacOS Only)([`e4f6679`](https://github.com/Pylogmon/pot/commit/e4f6679af11f02e9d3e9f8ed5db0bf704540cb5c)) (by 派了个萌)
+- 添加文本朗读功能([`95699f5`](https://github.com/Pylogmon/pot/commit/95699f50ce12a4a9c0a0e6f5db9d7cf21bfa04c2)) (by 派了个萌)
+- fix round icon([`0e0f944`](https://github.com/Pylogmon/pot/commit/0e0f9445f8dc7fee6c63ad8150437e0a78474fcd)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复macos窗口闪烁([`353db5c`](https://github.com/Pylogmon/pot/commit/353db5c8afb35841d8b6121ccf8df5b83fd91cd4)) (by 派了个萌)
-- 修复macos闪退([`4f4dd34`](https://github.com/Pylogmon/pot/commit/4f4dd340e5584b979f10398ba6755ec1c072dc81)) (by 派了个萌)
-- 修复macos标题栏样式([`6eab0f3`](https://github.com/Pylogmon/pot/commit/6eab0f3be9bb49e3d43e3aa8930ea9f391cc5b65)) (by 派了个萌)
-- 修复托盘启动窗口不一致([`d8c206b`](https://github.com/Pylogmon/pot/commit/d8c206bf82d752cf1f75b3c588ffb3d7889d4661)) (by 派了个萌)
+- 修复检查更新失败闪退([`733ed1e`](https://github.com/Pylogmon/pot/commit/733ed1e83dd76d36ce360ec7ba4015f4c89decdc)) (by 派了个萌)
+- 修复windows dpi获取错误([`50102aa`](https://github.com/Pylogmon/pot/commit/50102aa425a00daf8142a3ab1f756ff81a4c033f)) (by 派了个萌)
+- fix resize on deepin([`91c893b`](https://github.com/Pylogmon/pot/commit/91c893bbe56007240e17c083aee268017f80bea4)) (by 派了个萌)
