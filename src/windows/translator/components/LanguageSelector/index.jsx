@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
 import language from '../../../../global/language'
 import { get } from '../../../../global/config'
@@ -27,7 +27,7 @@ export default function LanguageSelector() {
                     return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
                 })}
             </Select>
-            <KeyboardDoubleArrowRightIcon fontSize='large' className='arrow-icon' />
+            <KeyboardDoubleArrowRightRoundedIcon fontSize='large' className='arrow-icon' />
             <Select
                 sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
                 className='language-selector'

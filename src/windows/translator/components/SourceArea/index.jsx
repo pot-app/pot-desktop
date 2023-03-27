@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
@@ -57,7 +57,7 @@ export default function SourceArea() {
                 <IconButton className='source-button'
                     onClick={() => { copy(sourceText) }}
                 >
-                    <ContentCopyIcon />
+                    <ContentCopyRoundedIcon />
                 </IconButton>
                 <MuiButton
                     variant="contained"

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useTheme } from '@mui/material/styles';
 import { Card, Box, InputBase, Select, MenuItem, IconButton } from '@mui/material'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import PulseLoader from "react-spinners/PulseLoader";
+import { invoke } from '@tauri-apps/api/tauri';
 import PubSub from 'pubsub-js';
 import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
@@ -58,6 +60,10 @@ export default function TargetArea() {
             _ => { console.log('success') }
         )
     }
+    // TTS
+    function speak(text, lang) {
+        invoke('speak', { text, lang }).then(_ => { });
+    }
 
     return (
         <Card className='targetarea'>
@@ -96,9 +102,14 @@ export default function TargetArea() {
             </Box>
             <Box className='target-buttonarea'>
                 <IconButton className='target-button'
+                    onClick={() => { speak(targetText, targetLanguage) }}
+                >
+                    <GraphicEqRoundedIcon />
+                </IconButton>
+                <IconButton className='target-button'
                     onClick={() => { copy(targetText) }}
                 >
-                    <ContentCopyIcon />
+                    <ContentCopyRoundedIcon />
                 </IconButton>
             </Box>
         </Card>

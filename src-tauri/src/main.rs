@@ -106,6 +106,7 @@ fn main() {
             set_config,
             write_config,
             is_macos,
+            speak,
         ])
         //加载托盘图标
         .system_tray(build_system_tray())
