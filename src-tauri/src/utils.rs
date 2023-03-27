@@ -1,11 +1,9 @@
-use std::time::Duration;
-
 use crate::{config::get_config, APP};
+use std::time::Duration;
 use tauri::api::notification::Notification;
 use tauri::api::version::compare;
 use tauri::Manager;
 use toml::Value;
-use tts_rust::{languages::Languages, tts::GTTSClient};
 
 pub fn check_update() -> Result<(), String> {
     let enable = get_config(
@@ -58,18 +56,4 @@ pub fn check_update() -> Result<(), String> {
 pub fn is_macos() -> bool {
     let os = std::env::consts::OS;
     matches!(os, "macos")
-}
-
-#[tauri::command]
-pub fn speak(text: &str, lang: &str) {
-    let narrator: GTTSClient = GTTSClient {
-        volume: 1.0,
-        tld: "com",
-        language: match lang {
-            "en" => Languages::English,
-            "zh-cn" => Languages::Chinese,
-            _ => return,
-        },
-    };
-    narrator.speak(text).unwrap();
 }

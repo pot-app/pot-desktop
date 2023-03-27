@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+import speak from '../../../../global/speakClient';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
@@ -54,11 +56,19 @@ export default function SourceArea() {
                 />
             </Box>
             <Box className='source-buttonarea'>
-                <IconButton className='source-button'
-                    onClick={() => { copy(sourceText) }}
-                >
-                    <ContentCopyRoundedIcon />
-                </IconButton>
+                <Box>
+                    <IconButton className='source-button'
+                        onClick={() => { speak(sourceText) }}
+                    >
+                        <div id='audio'></div>
+                        <GraphicEqRoundedIcon />
+                    </IconButton>
+                    <IconButton className='source-button'
+                        onClick={() => { copy(sourceText) }}
+                    >
+                        <ContentCopyRoundedIcon />
+                    </IconButton>
+                </Box>
                 <MuiButton
                     variant="contained"
                     size='small'

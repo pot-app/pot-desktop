@@ -4,7 +4,7 @@ import { Card, Box, InputBase, Select, MenuItem, IconButton } from '@mui/materia
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import PulseLoader from "react-spinners/PulseLoader";
-import { invoke } from '@tauri-apps/api/tauri';
+import speak from '../../../../global/speakClient';
 import PubSub from 'pubsub-js';
 import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
@@ -60,10 +60,6 @@ export default function TargetArea() {
             _ => { console.log('success') }
         )
     }
-    // TTS
-    function speak(text, lang) {
-        invoke('speak', { text, lang }).then(_ => { });
-    }
 
     return (
         <Card className='targetarea'>
@@ -102,8 +98,9 @@ export default function TargetArea() {
             </Box>
             <Box className='target-buttonarea'>
                 <IconButton className='target-button'
-                    onClick={() => { speak(targetText, targetLanguage) }}
+                    onClick={() => { speak(targetText) }}
                 >
+                    <div id="audio"></div>
                     <GraphicEqRoundedIcon />
                 </IconButton>
                 <IconButton className='target-button'
