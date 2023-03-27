@@ -23,7 +23,7 @@ export default function TargetArea() {
 
     useEffect(() => {
         if (sourceText != "") {
-            translate(sourceText, sourceLanguage, targetLanguage);
+            translate(sourceText.trim(), sourceLanguage, targetLanguage);
         }
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage])
     // 订阅源文本改变事件
