@@ -13,38 +13,35 @@ pub fn get_selection_text() -> Result<String, String> {
 #[cfg(any(target_os = "windows", target_os = "macos"))]
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
-    // 读取旧内容
-    let mut old_clipboard1 = Clipboard::new().unwrap();
-    let mut old_clipboard2 = Clipboard::new().unwrap();
-    let old_text = old_clipboard1.get_text();
-    let old_image = old_clipboard2.get_image();
-    copy();
-    // 读取新内容
-    let mut new_clipboard = Clipboard::new().unwrap();
-    let new_data = new_clipboard.get_text();
-    // 回写旧内容
-    let mut write_clipboard = Clipboard::new().unwrap();
-    let old = match old_text {
-        Ok(text) => {
-            write_clipboard.set_text(text.clone()).unwrap();
-            text
-        }
-        _ => {
-            if let Ok(image) = old_image {
-                write_clipboard.set_image(image).unwrap()
-            }
-            "".to_string()
-        }
-    };
 
-    // 获取所需内容
-    match new_data {
-        Ok(new) => {
-            if new.trim() == old.trim() {
-                Ok("".to_string())
+    // Reads old content and stores it in a tuple
+    let old_clipboard = (
+        Clipboard::new().unwrap().get_text(),
+        Clipboard::new().unwrap().get_image(),
+    );
+    copy();
+
+    // Reads new content
+    let new_text = Clipboard::new().unwrap().get_text();
+
+    // Writes old content back to clipboard before returning
+    let mut write_clipboard = Clipboard::new().unwrap();
+    match old_clipboard {
+        (Ok(text), _) => {
+            write_clipboard.set_text(text.clone()).unwrap();
+            if let Ok(new) = new_text {
+                if new.trim() == text.trim() {
+                    Ok("".to_string())
+                } else {
+                    Ok(new)
+                }
             } else {
-                Ok(new)
+                Ok("".to_string())
             }
+        }
+        (_, Ok(image)) => {
+            write_clipboard.set_image(image).unwrap();
+            Ok("".to_string())
         }
         _ => Ok("".to_string()),
     }
