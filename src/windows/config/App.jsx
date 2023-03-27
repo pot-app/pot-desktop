@@ -22,7 +22,7 @@ export default function App() {
   const [autoStart, setAutoStart] = useState(get('auto_start', true));
   const [autoCheck, setAutoCheck] = useState(get('auto_check', true));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
-  const [_interface, setInterface] = useState(get('interface', 'youdao_free'));
+  const [_interface, setInterface] = useState(get('interface', 'deepl'));
   const [windowWidth, setWindowWidth] = useState(get('window_width', 400));
   const [windowHeight, setWindowHeight] = useState(get('window_height', 500));
   const [theme, setTheme] = useState(get('theme', 'auto'));

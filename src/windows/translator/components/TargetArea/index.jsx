@@ -13,7 +13,7 @@ import { get } from '../../../../global/config';
 import './style.css'
 
 export default function TargetArea() {
-    const [translateInterface, setTranslateInterface] = useState(get('interface', 'youdao_free'));
+    const [translateInterface, setTranslateInterface] = useState(get('interface', 'deepl'));
     const [loading, setLoading] = useState(false);
     const [sourceText, setSourceText] = useState("");
     const [targetText, setTargetText] = useState("");
