@@ -1,5 +1,5 @@
 import { fetch } from '@tauri-apps/api/http';
-
+import { searchWord } from "./dict";
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
@@ -59,35 +59,37 @@ export async function translate(text, from, to) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言'
     }
-
-    const url = 'https://www2.deepl.com/jsonrpc';
-    let id = getRandomNumber()
-    const post_data = initData(supportLanguage[from], supportLanguage[to]);
-    const translate_text = {
-        text: text,
-        requestAlternatives: 3
-    };
-    post_data.id = id;
-    post_data.params.texts = [translate_text];
-    post_data.params.timestamp = getTimeStamp(getICount(text));
-    let post_str = JSON.stringify(post_data);
-    if ((id + 5) % 29 === 0 || (id + 3) % 13 === 0) {
-        post_str = post_str.replace('"method":"', '"method" : "');
+    if (text.split(' ').length == 1) {
+        return await searchWord(text);
     } else {
-        post_str = post_str.replace('"method":"', '"method": "');
-    }
-
-    const response = await fetch(url, {
-        method: 'POST',
-        body: {
-            type: "Text",
-            payload: post_str,
-        },
-        headers: {
-            'Content-Type': 'application/json'
+        const url = 'https://www2.deepl.com/jsonrpc';
+        let id = getRandomNumber()
+        const post_data = initData(supportLanguage[from], supportLanguage[to]);
+        const translate_text = {
+            text: text,
+            requestAlternatives: 3
+        };
+        post_data.id = id;
+        post_data.params.texts = [translate_text];
+        post_data.params.timestamp = getTimeStamp(getICount(text));
+        let post_str = JSON.stringify(post_data);
+        if ((id + 5) % 29 === 0 || (id + 3) % 13 === 0) {
+            post_str = post_str.replace('"method":"', '"method" : "');
+        } else {
+            post_str = post_str.replace('"method":"', '"method": "');
         }
-    });
 
-    return response.data.result.texts[0].text;
+        const response = await fetch(url, {
+            method: 'POST',
+            body: {
+                type: "Text",
+                payload: post_str,
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
+        return response.data.result.texts[0].text;
+    }
 }

@@ -1,5 +1,6 @@
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../global/config';
+import { searchWord } from "./dict";
 
 // 此接口只支持英汉互译
 export const info = {
@@ -26,31 +27,33 @@ export async function translate(text, from, to) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言'
     }
-
-    let domain = get('google_proxy', "translate.google.com");
-    if (domain == '') {
-        domain = "translate.google.com"
-    }
-    let res = await fetch(`https://${domain}/translate_a/single`, {
-        method: 'GET',
-        timeout: 5,
-        query: {
-            "client": "at",
-            "sl": supportLanguage[from],
-            "tl": supportLanguage[to],
-            "dt": "t",
-            "q": text
+    if (text.split(' ').length == 1) {
+        return await searchWord(text);
+    } else {
+        let domain = get('google_proxy', "translate.google.com");
+        if (domain == '') {
+            domain = "translate.google.com"
         }
-    });
-    if (res.status == 200) {
-        let result = ""
-        for (let r of res.data[0]) {
-            result = result + r[0]
+        let res = await fetch(`https://${domain}/translate_a/single`, {
+            method: 'GET',
+            timeout: 5,
+            query: {
+                "client": "at",
+                "sl": supportLanguage[from],
+                "tl": supportLanguage[to],
+                "dt": "t",
+                "q": text
+            }
+        });
+        if (res.status == 200) {
+            let result = ""
+            for (let r of res.data[0]) {
+                result = result + r[0]
+            }
+            return result
         }
-        return result
+        else {
+            return "请求过于频繁，请求失败！"
+        }
     }
-    else {
-        return "请求过于频繁，请求失败！"
-    }
-
 }

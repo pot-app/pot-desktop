@@ -31,14 +31,13 @@
 |插件调用| |[SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows)|[PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos)|
 
 ## 支持接口
-- [x] 有道翻译(无需申请)
+- [x] DeepL(无需申请)
 - [x] Open AI(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
 - [x] 百度翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度100万字符)
 - [x] 彩云小译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度100万字符)
 - [x] 腾讯翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度500万字符)
 - [x] 火山翻译(需要申请 [api服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度200万字符)
 - [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
-- [x] DeepLX(需要自己设置deeplx服务，参考[OwO-Network/DeepLX](https://github.com/OwO-Network/DeepLX))
 
 具体的api服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
 > 由于使用api产生的费用本作者概不负责
