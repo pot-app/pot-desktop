@@ -1,4 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
+import { invoke } from '@tauri-apps/api';
 import CryptoJS from 'crypto-js';
 import { get } from "../global/config"
 import { searchWord } from "./dict";
@@ -123,23 +123,29 @@ export async function translate(text, from, to) {
 
         // 发送请求
         let url = schema + "://" + host + path + "?" + "Action=TranslateText&Version=" + serviceVersion;
-        let res = await fetch(url, {
-            method: method,
-            headers: headers,
-            body: {
-                type: "Text",
-                payload: bodyStr
-            }
-        });
 
+        let new_headers = []
+        for (let i of Object.keys(headers)) {
+            new_headers.push([i, headers[i]])
+        }
+        let proxy = get('proxy', '');
+        let res = await invoke('http_request', {
+            url: url, options: {
+                method: method,
+                body: bodyStr,
+                headers: new_headers,
+                proxy: proxy
+            }
+        })
+        let result = JSON.parse(res);
         // 整理翻译结果并返回
         var data = {};
         var translations = "";
         var translationList = []; // 返回的结果是个数组
         var errorOccered = false;
 
-        if (res.hasOwnProperty("data")) {
-            data = res["data"];
+        if (result.hasOwnProperty("data")) {
+            data = result["data"];
         } else { errorOccered = true; }
 
         if (data.hasOwnProperty("TranslationList")) {
@@ -150,7 +156,7 @@ export async function translate(text, from, to) {
             var cur = 0, last = 0;
             for (cur; cur < translationList.length; cur += 1) {
                 if (cur > last) {
-                    translation += "\n";
+                    translations += "\n";
                 }
                 let curTranslation = translationList[cur];
                 if (curTranslation.hasOwnProperty("Translation")) {

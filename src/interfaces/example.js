@@ -1,4 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
+import { invoke } from "@tauri-apps/api/tauri";
 import { get } from "../global/config"
 
 // 必须向外暴露info

@@ -1,5 +1,7 @@
-import { fetch } from '@tauri-apps/api/http';
 import { searchWord } from "./dict";
+import { invoke } from '@tauri-apps/api';
+import { get } from "../global/config";
+
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
@@ -79,17 +81,22 @@ export async function translate(text, from, to) {
             post_str = post_str.replace('"method":"', '"method": "');
         }
 
-        const response = await fetch(url, {
-            method: 'POST',
-            body: {
-                type: "Text",
-                payload: post_str,
-            },
-            headers: {
-                'Content-Type': 'application/json'
+        let proxy = get('proxy', '');
+        let res = await invoke('http_request', {
+            url: url, options: {
+                method: 'POST',
+                body: post_str,
+                headers: [
+                    ['Content-Type', 'application/json']
+                ],
+                proxy: proxy
             }
-        });
-
-        return response.data.result.texts[0].text;
+        })
+        let result = JSON.parse(res);
+        if (result && result.result && result.result.texts) {
+            return result.result.texts[0].text;
+        } else {
+            return JSON.stringify(result.error)
+        }
     }
 }

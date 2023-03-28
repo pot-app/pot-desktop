@@ -1,5 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
-import axios from 'axios';
+import { invoke } from '@tauri-apps/api';
 import { get } from '../global/config';
 
 export const info = {
@@ -51,21 +50,21 @@ export async function translate(text, from, to) {
         ]
     };
 
-    // const res = await fetch(`https://${domain}/v1/chat/completions`, {
-    //     method: 'POST',
-    //     headers: headers,
-    //     body: {
-    //         type: 'Json',
-    //         payload: body
-    //     }
-    // })
-
-    const res = await axios.post(`https://${domain}/v1/chat/completions`, body, {
-        headers: headers,
-        timeout: 30000
+    let proxy = get('proxy', '');
+    let res = await invoke('http_request', {
+        url: `https://${domain}/v1/chat/completions`, options: {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: [
+                ["Content-Type", "application/json"],
+                ["Authorization", `Bearer ${apikey}`]
+            ],
+            proxy: proxy
+        }
     })
 
-    const { choices } = res.data;
+    let result = JSON.parse(res);
+    const { choices } = result;
 
     let target = choices[0].message.content.trim()
 

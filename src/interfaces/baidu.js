@@ -1,4 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
+import { invoke } from "@tauri-apps/api/tauri";
 import { get } from "../global/config"
 import { searchWord } from "./dict";
 import { nanoid } from "nanoid"
@@ -42,20 +42,24 @@ export async function translate(text, from, to) {
     } else {
         const str = appid + text + salt + secret;
         const sign = md5(str);
-        const res = await fetch(url, {
-            method: "GET",
-            query: {
-                q: text,
-                from: supportLanguage[from],
-                to: supportLanguage[to],
-                appid: appid,
-                salt: salt,
-                sign: sign
-            },
-            timeout: 5
+
+        let proxy = get('proxy', '');
+        let res = await invoke('http_request', {
+            url: url, options: {
+                query: [
+                    ["q", text],
+                    ["from", supportLanguage[from]],
+                    ["to", supportLanguage[to]],
+                    ["appid", appid],
+                    ["salt", salt],
+                    ["sign", sign]
+                ],
+                proxy: proxy
+            }
         })
+        let result = JSON.parse(res);
         let target = ""
-        const { trans_result } = res.data;
+        const { trans_result } = result;
         for (let i in trans_result) {
             target = target + trans_result[i]['dst'] + "\n"
         }

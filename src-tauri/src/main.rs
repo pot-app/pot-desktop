@@ -4,6 +4,7 @@
 )]
 
 mod config;
+mod fetch;
 mod selection;
 mod shortcut;
 mod trayicon;
@@ -11,6 +12,7 @@ mod utils;
 mod window;
 
 use config::*;
+use fetch::http_request;
 use once_cell::sync::OnceCell;
 use selection::get_translate_text;
 use shortcut::register_shortcut;
@@ -105,7 +107,8 @@ fn main() {
             get_config_str,
             set_config,
             write_config,
-            is_macos
+            is_macos,
+            http_request
         ])
         //加载托盘图标
         .system_tray(build_system_tray())

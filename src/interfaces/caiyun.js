@@ -1,5 +1,5 @@
-import { fetch } from '@tauri-apps/api/http';
-import { get } from "../global/config"
+import { invoke } from "@tauri-apps/api/tauri";
+import { get } from "../global/config";
 import { searchWord } from "./dict";
 
 export const info = {
@@ -40,19 +40,21 @@ export async function translate(text, from, to) {
             "x-authorization": "token " + token,
         }
 
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: {
-                type: 'Text',
-                payload: JSON.stringify(body)
-            },
-            timeout: 5
+        let proxy = get('proxy', '');
+        let res = await invoke('http_request', {
+            url: url, options: {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: [
+                    ["content-type", "application/json"],
+                    ["x-authorization", "token " + token]
+                ],
+                proxy: proxy
+            }
         })
+        let result = JSON.parse(res);
+        const { target } = result;
 
-        console.log(res)
-        const { target } = res.data;
-
-        return target
+        return target;
     }
 }

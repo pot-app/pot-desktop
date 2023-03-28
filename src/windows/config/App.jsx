@@ -23,6 +23,7 @@ export default function App() {
   const [autoCheck, setAutoCheck] = useState(get('auto_check', true));
   const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
   const [_interface, setInterface] = useState(get('interface', 'deepl'));
+  const [proxy, setProxy] = useState(get('proxy', ''));
   const [windowWidth, setWindowWidth] = useState(get('window_width', 400));
   const [windowHeight, setWindowHeight] = useState(get('window_height', 500));
   const [theme, setTheme] = useState(get('theme', 'auto'));
@@ -62,6 +63,7 @@ export default function App() {
     await set('window_width', windowWidth);
     await set('window_height', windowHeight);
     await set('interface', _interface);
+    await set('proxy', proxy);
     interfaceConfigs.map(
       async x => {
         await set(x['needs_name'], x['needs_value'])
@@ -189,6 +191,13 @@ export default function App() {
                 )
               }
             </Select>
+          </ConfigItem>
+          <ConfigItem label="网络代理">
+            <TextField
+              fullWidth
+              value={proxy}
+              onChange={(e) => { setProxy(e.target.value) }}
+            />
           </ConfigItem>
           <ConfigItem label="颜色主题">
             <Select

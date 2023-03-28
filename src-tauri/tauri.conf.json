@@ -26,13 +26,6 @@
       "clipboard": {
         "all": true
       },
-      "http": {
-        "all": true,
-        "scope": [
-          "https://**",
-          "http://**"
-        ]
-      },
       "notification": {
         "all": true
       }

@@ -1,4 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
+import { invoke } from '@tauri-apps/api/tauri';
 import { get } from '../global/config';
 import { searchWord } from "./dict";
 
@@ -18,7 +18,7 @@ export const info = {
         "de": "de"
     },
     needs: {
-        "google_proxy": "谷歌翻译镜像(eg:translate.google.com)"
+        // "google_proxy": "谷歌翻译镜像(eg:translate.google.com)"
     }
 }
 
@@ -30,30 +30,30 @@ export async function translate(text, from, to) {
     if (text.split(' ').length == 1) {
         return await searchWord(text);
     } else {
-        let domain = get('google_proxy', "translate.google.com");
-        if (domain == '') {
-            domain = "translate.google.com"
-        }
-        let res = await fetch(`https://${domain}/translate_a/single`, {
-            method: 'GET',
-            timeout: 5,
-            query: {
-                "client": "at",
-                "sl": supportLanguage[from],
-                "tl": supportLanguage[to],
-                "dt": "t",
-                "q": text
+        // let domain = get('google_proxy', "translate.google.com");
+        // if (domain == '') {
+        //     domain = "translate.google.com"
+        // }
+
+        let proxy = get('proxy', '');
+        let res = await invoke('http_request', {
+            url: `https://translate.google.com/translate_a/single`, options: {
+                query: [
+                    ["client", "at"],
+                    ["sl", supportLanguage[from]],
+                    ["tl", supportLanguage[to]],
+                    ["dt", "t"],
+                    ["q", text]
+                ],
+                proxy: proxy
             }
-        });
-        if (res.status == 200) {
-            let result = ""
-            for (let r of res.data[0]) {
-                result = result + r[0]
-            }
-            return result
+        })
+
+        let result = JSON.parse(res);
+        let target = ""
+        for (let r of result[0]) {
+            target = target + r[0]
         }
-        else {
-            return "请求过于频繁，请求失败！"
-        }
+        return target
     }
 }
