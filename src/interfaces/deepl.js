@@ -1,5 +1,5 @@
+import request from './utils/request';
 import { searchWord } from "./dict";
-import { invoke } from '@tauri-apps/api';
 import { get } from "../global/config";
 
 // 必须向外暴露info
@@ -82,16 +82,15 @@ export async function translate(text, from, to) {
         }
 
         let proxy = get('proxy', '');
-        let res = await invoke('http_request', {
-            url: url, options: {
-                method: 'POST',
-                body: post_str,
-                headers: [
-                    ['Content-Type', 'application/json']
-                ],
-                proxy: proxy
-            }
+        let res = await request(url, {
+            method: 'POST',
+            body: post_str,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            proxy: proxy
         })
+
         let result = JSON.parse(res);
         if (result && result.result && result.result.texts) {
             return result.result.texts[0].text;

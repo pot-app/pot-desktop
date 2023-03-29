@@ -1,8 +1,8 @@
-import { invoke } from "@tauri-apps/api/tauri";
-import { get } from "../global/config"
+import request from './utils/request';
+import { get } from "../global/config";
 import { searchWord } from "./dict";
-import { nanoid } from "nanoid"
-import md5 from "md5"
+import { nanoid } from "nanoid";
+import md5 from "md5";
 
 export const info = {
     name: "百度翻译",
@@ -44,19 +44,18 @@ export async function translate(text, from, to) {
         const sign = md5(str);
 
         let proxy = get('proxy', '');
-        let res = await invoke('http_request', {
-            url: url, options: {
-                query: [
-                    ["q", text],
-                    ["from", supportLanguage[from]],
-                    ["to", supportLanguage[to]],
-                    ["appid", appid],
-                    ["salt", salt],
-                    ["sign", sign]
-                ],
-                proxy: proxy
-            }
+        let res = await request(url, {
+            query: {
+                q: text,
+                from: supportLanguage[from],
+                to: supportLanguage[to],
+                appid: appid,
+                salt: salt,
+                sign: sign
+            },
+            proxy: proxy
         })
+
         let result = JSON.parse(res);
         let target = ""
         const { trans_result } = result;

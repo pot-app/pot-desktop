@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api/tauri";
+import request from './utils/request';
 import { get } from "../global/config";
 import { searchWord } from "./dict";
 
@@ -41,17 +41,16 @@ export async function translate(text, from, to) {
         }
 
         let proxy = get('proxy', '');
-        let res = await invoke('http_request', {
-            url: url, options: {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: [
-                    ["content-type", "application/json"],
-                    ["x-authorization", "token " + token]
-                ],
-                proxy: proxy
-            }
+        let res = await request(url, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                "content-type": "application/json",
+                "x-authorization": "token " + token
+            },
+            proxy: proxy
         })
+
         let result = JSON.parse(res);
         const { target } = result;
 

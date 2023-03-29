@@ -1,5 +1,5 @@
-import { invoke } from "@tauri-apps/api/tauri";
-import { get } from "../global/config"
+import request from './utils/request';
+import { get } from "../../global/config"
 
 // 必须向外暴露info
 export const info = {

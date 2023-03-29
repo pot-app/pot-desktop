@@ -1,9 +1,9 @@
+import request from './utils/request';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex'
 import { get } from "../global/config"
 import { searchWord } from "./dict";
-import { invoke } from '@tauri-apps/api/tauri';
 
 // 必须向外暴露info
 export const info = {
@@ -121,22 +121,21 @@ export async function translate(text, from, to) {
             "SignedHeaders=" + signedHeaders + ", " +
             "Signature=" + signature
         let proxy = get('proxy', '');
-        let res = await invoke('http_request', {
-            url: "https://" + endpoint, options: {
-                method: 'POST',
-                body: payload,
-                headers: [
-                    ["Authorization", authorization],
-                    ["Content-Type", "application/json"],
-                    ["Host", endpoint],
-                    ["X-TC-Action", action],
-                    ["X-TC-Timestamp", timestamp.toString()],
-                    ["X-TC-Version", version],
-                    ["X-TC-Region", region]
-                ],
-                proxy: proxy
-            }
+        let res = await request("https://" + endpoint, {
+            method: 'POST',
+            body: payload,
+            headers: {
+                "Authorization": authorization,
+                "Content-Type": "application/json",
+                "Host": endpoint,
+                "X-TC-Action": action,
+                "X-TC-Timestamp": timestamp.toString(),
+                "X-TC-Version": version,
+                "X-TC-Region": region
+            },
+            proxy: proxy
         })
+
         let result = JSON.parse(res);
         let { Response } = result;
         return Response['TargetText']

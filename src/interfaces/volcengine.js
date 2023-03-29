@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api';
+import request from './utils/request';
 import CryptoJS from 'crypto-js';
 import { get } from "../global/config"
 import { searchWord } from "./dict";
@@ -124,29 +124,20 @@ export async function translate(text, from, to) {
         // 发送请求
         let url = schema + "://" + host + path + "?" + "Action=TranslateText&Version=" + serviceVersion;
 
-        let new_headers = []
-        for (let i of Object.keys(headers)) {
-            new_headers.push([i, headers[i]])
-        }
         let proxy = get('proxy', '');
-        let res = await invoke('http_request', {
-            url: url, options: {
-                method: method,
-                body: bodyStr,
-                headers: new_headers,
-                proxy: proxy
-            }
+        let res = await request(url, {
+            method: method,
+            body: bodyStr,
+            headers: headers,
+            proxy: proxy
         })
+
         let result = JSON.parse(res);
         // 整理翻译结果并返回
-        var data = {};
+        var data = result;
         var translations = "";
         var translationList = []; // 返回的结果是个数组
         var errorOccered = false;
-
-        if (result.hasOwnProperty("data")) {
-            data = result["data"];
-        } else { errorOccered = true; }
 
         if (data.hasOwnProperty("TranslationList")) {
             translationList = data["TranslationList"];
