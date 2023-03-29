@@ -196,6 +196,7 @@ export default function App() {
             <TextField
               fullWidth
               value={proxy}
+              placeholder="eg:http://127.0.0.1:7890"
               onChange={(e) => { setProxy(e.target.value) }}
             />
           </ConfigItem>
