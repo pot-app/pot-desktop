@@ -1,6 +1,6 @@
 import request from './utils/request';
 import { get } from "../global/config";
-import { searchWord } from "./dict";
+import { searchWord } from "./utils/dict";
 
 export const info = {
     name: "彩云小译",
@@ -26,34 +26,36 @@ export async function translate(text, from, to) {
         return '该接口不支持该语言'
     }
     if (text.split(' ').length == 1) {
-        return await searchWord(text);
-    } else {
-        const body = {
-            "source": [text],
-            "trans_type": `${supportLanguage[from]}2${supportLanguage[to]}`,
-            "request_id": "demo",
-            "detect": true,
+        let target = await searchWord(text);
+        if (target !== '') {
+            return target
         }
-
-        const headers = {
-            "content-type": "application/json",
-            "x-authorization": "token " + token,
-        }
-
-        let proxy = get('proxy', '');
-        let res = await request(url, {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: {
-                "content-type": "application/json",
-                "x-authorization": "token " + token
-            },
-            proxy: proxy
-        })
-
-        let result = JSON.parse(res);
-        const { target } = result;
-
-        return target;
     }
+    const body = {
+        "source": [text],
+        "trans_type": `${supportLanguage[from]}2${supportLanguage[to]}`,
+        "request_id": "demo",
+        "detect": true,
+    }
+
+    const headers = {
+        "content-type": "application/json",
+        "x-authorization": "token " + token,
+    }
+
+    let proxy = get('proxy', '');
+    let res = await request(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+            "content-type": "application/json",
+            "x-authorization": "token " + token
+        },
+        proxy: proxy
+    })
+
+    let result = JSON.parse(res);
+    const { target } = result;
+
+    return target;
 }

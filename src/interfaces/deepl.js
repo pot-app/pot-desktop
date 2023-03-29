@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { searchWord } from "./dict";
+import { searchWord } from "./utils/dict";
 import { get } from "../global/config";
 
 // 必须向外暴露info
@@ -62,40 +62,42 @@ export async function translate(text, from, to) {
         return '该接口不支持该语言'
     }
     if (text.split(' ').length == 1) {
-        return await searchWord(text);
+        let target = await searchWord(text);
+        if (target !== '') {
+            return target
+        }
+    }
+    const url = 'https://www2.deepl.com/jsonrpc';
+    let id = getRandomNumber()
+    const post_data = initData(supportLanguage[from], supportLanguage[to]);
+    const translate_text = {
+        text: text,
+        requestAlternatives: 3
+    };
+    post_data.id = id;
+    post_data.params.texts = [translate_text];
+    post_data.params.timestamp = getTimeStamp(getICount(text));
+    let post_str = JSON.stringify(post_data);
+    if ((id + 5) % 29 === 0 || (id + 3) % 13 === 0) {
+        post_str = post_str.replace('"method":"', '"method" : "');
     } else {
-        const url = 'https://www2.deepl.com/jsonrpc';
-        let id = getRandomNumber()
-        const post_data = initData(supportLanguage[from], supportLanguage[to]);
-        const translate_text = {
-            text: text,
-            requestAlternatives: 3
-        };
-        post_data.id = id;
-        post_data.params.texts = [translate_text];
-        post_data.params.timestamp = getTimeStamp(getICount(text));
-        let post_str = JSON.stringify(post_data);
-        if ((id + 5) % 29 === 0 || (id + 3) % 13 === 0) {
-            post_str = post_str.replace('"method":"', '"method" : "');
-        } else {
-            post_str = post_str.replace('"method":"', '"method": "');
-        }
+        post_str = post_str.replace('"method":"', '"method": "');
+    }
 
-        let proxy = get('proxy', '');
-        let res = await request(url, {
-            method: 'POST',
-            body: post_str,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            proxy: proxy
-        })
+    let proxy = get('proxy', '');
+    let res = await request(url, {
+        method: 'POST',
+        body: post_str,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        proxy: proxy
+    })
 
-        let result = JSON.parse(res);
-        if (result && result.result && result.result.texts) {
-            return result.result.texts[0].text;
-        } else {
-            return JSON.stringify(result.error)
-        }
+    let result = JSON.parse(res);
+    if (result && result.result && result.result.texts) {
+        return result.result.texts[0].text;
+    } else {
+        return JSON.stringify(result.error)
     }
 }

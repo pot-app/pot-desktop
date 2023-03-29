@@ -1,6 +1,6 @@
 import request from './utils/request';
 import { get } from '../global/config';
-import { searchWord } from "./dict";
+import { searchWord } from "./utils/dict";
 
 // 此接口只支持英汉互译
 export const info = {
@@ -28,30 +28,32 @@ export async function translate(text, from, to) {
         return '该接口不支持该语言'
     }
     if (text.split(' ').length == 1) {
-        return await searchWord(text);
-    } else {
-        let domain = get('google_proxy', "translate.google.com");
-        if (domain == '') {
-            domain = "translate.google.com"
+        let target = await searchWord(text);
+        if (target !== '') {
+            return target
         }
-
-        let proxy = get('proxy', '');
-        let res = await request(`https://${domain}/translate_a/single`, {
-            query: {
-                client: "at",
-                sl: supportLanguage[from],
-                tl: supportLanguage[to],
-                dt: "t",
-                q: text,
-            },
-            proxy: proxy
-        })
-
-        let result = JSON.parse(res);
-        let target = ""
-        for (let r of result[0]) {
-            target = target + r[0]
-        }
-        return target
     }
+    let domain = get('google_proxy', "translate.google.com");
+    if (domain == '') {
+        domain = "translate.google.com"
+    }
+
+    let proxy = get('proxy', '');
+    let res = await request(`https://${domain}/translate_a/single`, {
+        query: {
+            client: "at",
+            sl: supportLanguage[from],
+            tl: supportLanguage[to],
+            dt: "t",
+            q: text,
+        },
+        proxy: proxy
+    })
+
+    let result = JSON.parse(res);
+    let target = ""
+    for (let r of result[0]) {
+        target = target + r[0]
+    }
+    return target
 }

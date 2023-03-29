@@ -1,6 +1,6 @@
 import request from './utils/request';
 import { get } from "../global/config";
-import { searchWord } from "./dict";
+import { searchWord } from "./utils/dict";
 import { nanoid } from "nanoid";
 import md5 from "md5";
 
@@ -38,32 +38,33 @@ export async function translate(text, from, to) {
         return '该接口不支持该语言'
     }
     if (text.split(' ').length == 1) {
-        return await searchWord(text);
-    } else {
-        const str = appid + text + salt + secret;
-        const sign = md5(str);
-
-        let proxy = get('proxy', '');
-        let res = await request(url, {
-            query: {
-                q: text,
-                from: supportLanguage[from],
-                to: supportLanguage[to],
-                appid: appid,
-                salt: salt,
-                sign: sign
-            },
-            proxy: proxy
-        })
-
-        let result = JSON.parse(res);
-        let target = ""
-        const { trans_result } = result;
-        for (let i in trans_result) {
-            target = target + trans_result[i]['dst'] + "\n"
+        let target = await searchWord(text);
+        if (target !== '') {
+            return target
         }
+    }
+    const str = appid + text + salt + secret;
+    const sign = md5(str);
 
-        return target
+    let proxy = get('proxy', '');
+    let res = await request(url, {
+        query: {
+            q: text,
+            from: supportLanguage[from],
+            to: supportLanguage[to],
+            appid: appid,
+            salt: salt,
+            sign: sign
+        },
+        proxy: proxy
+    })
+
+    let result = JSON.parse(res);
+    let target = ""
+    const { trans_result } = result;
+    for (let i in trans_result) {
+        target = target + trans_result[i]['dst'] + "\n"
     }
 
+    return target
 }
