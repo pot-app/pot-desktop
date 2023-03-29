@@ -68,7 +68,7 @@ export async function translate(text, from, to) {
 
     let result = JSON.parse(res);
     if ("error" in result) {
-        return JSON.stringify(result.error);
+        return result.error.message;
     } else {
         const { choices } = result;
 
