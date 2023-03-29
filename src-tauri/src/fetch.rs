@@ -18,22 +18,25 @@ pub async fn http_request(url: String, options: Option<Options>) -> Result<Strin
     let mut client_builder = Client::builder();
 
     // 如果有proxy参数，设置代理
-    if let Some(proxy) = options.as_ref().and_then(|o| o.proxy.as_ref()) {
-        if !proxy.is_empty() {
-            if let Ok(proxy) = Proxy::all(proxy) {
-                client_builder = client_builder.proxy(proxy);
-            } else {
-                return Err("Set Proxy Error".to_string());
-            }
+    if let Some(proxy) = options
+        .as_ref()
+        .and_then(|o| o.proxy.as_ref())
+        .filter(|p| !p.is_empty())
+    {
+        if let Ok(proxy) = Proxy::all(proxy) {
+            client_builder = client_builder.proxy(proxy);
+        } else {
+            return Err("Set Proxy Error".to_string());
         }
     }
     let client = client_builder.build().unwrap();
 
     // 如果有method参数，解析为Method类型，否则默认为GET
-    let method = match options.as_ref().and_then(|o| o.method.as_ref()) {
-        Some(method) => method.parse::<Method>().unwrap(),
-        None => Method::GET,
-    };
+    let method = options
+        .as_ref()
+        .and_then(|o| o.method.as_ref())
+        .map(|m| m.parse::<Method>().unwrap())
+        .unwrap_or(Method::GET);
 
     // 创建一个请求构建器
     let mut request = client.request(method, url);

@@ -234,11 +234,3 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
-      - name: Publish to WinGet
-        if: startsWith(github.ref, 'refs/tags')
-        uses: vedantmgoyal2009/winget-releaser@v2
-        with:
-          identifier: Pylogmon.pot
-          max-versions-to-keep: 5
-          installers-regex: '\.msi$'
-          token: ${{ secrets.RELEASE_TOKEN }}
