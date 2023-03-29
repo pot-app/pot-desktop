@@ -1,12 +1,11 @@
-## 0.1.7 (2023-03-27)
+## 0.1.8 (2023-03-29)
 
 ### New feature:
 
-- 添加文本朗读功能([`95699f5`](https://github.com/Pylogmon/pot/commit/95699f50ce12a4a9c0a0e6f5db9d7cf21bfa04c2)) (by 派了个萌)
-- fix round icon([`0e0f944`](https://github.com/Pylogmon/pot/commit/0e0f9445f8dc7fee6c63ad8150437e0a78474fcd)) (by 派了个萌)
+- 添加网络代理设置([`0b50402`](https://github.com/Pylogmon/Pot/commit/0b504023cb9dfd9a80bc92e3be2fab7d3031db09)) (by 派了个萌)
+- 添加词典查词功能([`8b43bd4`](https://github.com/Pylogmon/Pot/commit/8b43bd40b7a69c636ae82da60bc1f927df4cfc74)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复检查更新失败闪退([`733ed1e`](https://github.com/Pylogmon/pot/commit/733ed1e83dd76d36ce360ec7ba4015f4c89decdc)) (by 派了个萌)
-- 修复windows dpi获取错误([`50102aa`](https://github.com/Pylogmon/pot/commit/50102aa425a00daf8142a3ab1f756ff81a4c033f)) (by 派了个萌)
-- fix resize on deepin([`91c893b`](https://github.com/Pylogmon/pot/commit/91c893bbe56007240e17c083aee268017f80bea4)) (by 派了个萌)
+- 修复因调用词典而翻译失败的问题([`d677d18`](https://github.com/Pylogmon/Pot/commit/d677d1818eb55c838c194ca465b3aaeb08aa247a)) (by 派了个萌)
+- 修复有空格时不调用词典([`44d17af`](https://github.com/Pylogmon/Pot/commit/44d17af3e1a017738bd356961602d62d378afd50)) (by 派了个萌)
