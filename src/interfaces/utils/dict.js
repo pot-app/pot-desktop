@@ -18,7 +18,7 @@ export async function searchWord(word) {
 
     let result = JSON.parse(res);
     let target = "";
-    if (result['message'] && result['message'][0]) {
+    if (result['message'] && result['message'][0] && result['message'][0]['means']) {
         for (let i of result['message'][0]["means"]) {
             target += i['part'] + " ";
             for (let j of i['means']) {

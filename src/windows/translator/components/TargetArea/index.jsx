@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useAtomValue } from 'jotai';
 import { useTheme } from '@mui/material/styles';
 import { Card, Box, InputBase, Select, MenuItem, IconButton } from '@mui/material'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import PulseLoader from "react-spinners/PulseLoader";
 import speak from '../../../../global/speakClient';
-import PubSub from 'pubsub-js';
 import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
 import * as interfaces from '../../../../interfaces';
-import { get } from '../../../../global/config';
+import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
+import { sourceTextAtom } from '../SourceArea';
+import { get } from '../../main';
 import './style.css'
 
 export default function TargetArea() {
-    const [translateInterface, setTranslateInterface] = useState(get('interface', 'deepl'));
+    const sourceText = useAtomValue(sourceTextAtom);
+    const sourceLanguage = useAtomValue(sourceLanguageAtom);
+    const targetLanguage = useAtomValue(targetLanguageAtom);
+
+    const [translateInterface, setTranslateInterface] = useState(get('interface') || 'deepl');
     const [loading, setLoading] = useState(false);
-    const [sourceText, setSourceText] = useState("");
     const [targetText, setTargetText] = useState("");
-    const [sourceLanguage, setSourceLanguage] = useState('auto');
-    const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
     const theme = useTheme();
 
     useEffect(() => {
@@ -26,18 +29,7 @@ export default function TargetArea() {
             translate(sourceText.trim(), sourceLanguage, targetLanguage);
         }
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage])
-    // 订阅源文本改变事件
-    PubSub.subscribe('SourceText', (_, v) => {
-        setSourceText(v)
-    })
-    // 订阅源语言改变事件
-    PubSub.subscribe('SourceLanguage', (_, v) => {
-        setSourceLanguage(v)
-    })
-    // 订阅目标语言改变事件
-    PubSub.subscribe('TargetLanguage', (_, v) => {
-        setTargetLanguage(v)
-    })
+
     // 开始翻译的回调
     function translate(text, from, to) {
         setTargetText('');

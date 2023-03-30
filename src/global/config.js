@@ -4,6 +4,7 @@ let config = {};
 
 export async function readConfig() {
     config = await invoke('get_config_str')
+    return config
 }
 
 export function get(name, dft) {

@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react';
+import { atom, useAtom } from 'jotai';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
 import language from '../../../../global/language'
-import { get } from '../../../../global/config'
-import PubSub from 'pubsub-js'
-import { nanoid } from 'nanoid'
-import './style.css'
+import { nanoid } from 'nanoid';
+import { get } from '../../main';
+import './style.css';
+
+export const sourceLanguageAtom = atom('auto');
+export const targetLanguageAtom = atom('zh-cn');
 
 export default function LanguageSelector() {
-    const [sourceLanguage, setSourceLanguage] = useState('auto');
-    const [targetLanguage, setTargetLanguage] = useState(get('target_language', 'zh-cn'));
+    const [sourceLanguage, setSourceLanguage] = useAtom(sourceLanguageAtom);
+    const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
+
+    useEffect(() => {
+        setTargetLanguage(get('target_language') || 'zh-cn');
+    }, [])
 
     return (
         <Card className="language-selector-area">
@@ -19,7 +26,6 @@ export default function LanguageSelector() {
                 value={sourceLanguage}
                 onChange={(e) => {
                     setSourceLanguage(e.target.value);
-                    PubSub.publish('SourceLanguage', e.target.value);
                 }}
             >
                 <MenuItem value={'auto'}>自动检测</MenuItem>
@@ -34,7 +40,6 @@ export default function LanguageSelector() {
                 value={targetLanguage}
                 onChange={(e) => {
                     setTargetLanguage(e.target.value);
-                    PubSub.publish('TargetLanguage', e.target.value);
                 }}
             >
                 {language.map(x => {
