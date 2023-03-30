@@ -35,6 +35,10 @@ arboard = "3.2.0"
 window-shadows = "0.2"
 core-graphics = "0.22.3"
 
+[target.'cfg(target_os = "linux")'.dependencies ]
+x11-clipboard = "0.7.1"
+wl-clipboard-rs = "0.7.0"
+
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL

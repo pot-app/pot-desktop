@@ -32,6 +32,21 @@ pub static APP: OnceCell<AppHandle> = OnceCell::new();
 pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
+    #[cfg(target_os = "macos")]
+    {
+        use std::thread;
+        use tiny_http::{Response, Server};
+        thread::spawn(move || {
+            let server = Server::http("127.0.0.1:60828").unwrap();
+            for mut request in server.incoming_requests() {
+                let mut content = String::new();
+                request.as_reader().read_to_string(&mut content).unwrap();
+                popclip_window(content);
+                let response = Response::from_string("success");
+                request.respond(response).unwrap();
+            }
+        });
+    }
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
@@ -55,6 +70,8 @@ fn main() {
             Some(vec![]),
         ))
         .setup(|app| {
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             // 初始化AppHandel
             APP.get_or_init(|| app.handle());
             let handle = APP.get().unwrap();
@@ -81,23 +98,6 @@ fn main() {
                         .show()
                         .unwrap();
                 }
-            }
-
-            #[cfg(target_os = "macos")]
-            {
-                use std::thread;
-                use tiny_http::{Response, Server};
-                app.set_activation_policy(tauri::ActivationPolicy::Accessory);
-                thread::spawn(move || {
-                    let server = Server::http("127.0.0.1:60828").unwrap();
-                    for mut request in server.incoming_requests() {
-                        let mut content = String::new();
-                        request.as_reader().read_to_string(&mut content).unwrap();
-                        popclip_window(content);
-                        let response = Response::from_string("success");
-                        request.respond(response).unwrap();
-                    }
-                });
             }
             Ok(())
         })
