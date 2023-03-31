@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from "../global/config";
+import { get } from '../windows/translator/main';
 import { searchWord } from "./utils/dict";
 
 export const info = {
@@ -18,7 +18,7 @@ export const info = {
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
     const url = "https://api.interpreter.caiyunai.com/v1/translator"
-    const token = get('caiyun_token', '')
+    const token = get('caiyun_token') || ''
     if (token == "") {
         return '请先配置token'
     }
@@ -43,15 +43,10 @@ export async function translate(text, from, to) {
         "x-authorization": "token " + token,
     }
 
-    let proxy = get('proxy', '');
     let res = await request(url, {
         method: 'POST',
         body: JSON.stringify(body),
-        headers: {
-            "content-type": "application/json",
-            "x-authorization": "token " + token
-        },
-        proxy: proxy
+        headers: headers
     })
 
     let result = JSON.parse(res);

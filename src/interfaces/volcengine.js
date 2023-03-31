@@ -1,6 +1,6 @@
 import request from './utils/request';
 import CryptoJS from 'crypto-js';
-import { get } from "../global/config"
+import { get } from '../windows/translator/main';
 import { searchWord } from "./utils/dict";
 
 // 必须向外暴露info
@@ -36,8 +36,8 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const appid = get('volcengine_id', ''); // https://console.volcengine.com/iam/keymanage/
-    const secret = get('volcengine_secret', '');
+    const appid = get('volcengine_id') || ''; // https://console.volcengine.com/iam/keymanage/
+    const secret = get('volcengine_secret') || '';
 
     if (appid == "" || secret == "") {
         return '请先配置Access Id和Access Key'
@@ -127,12 +127,10 @@ export async function translate(text, from, to) {
     // 发送请求
     let url = schema + "://" + host + path + "?" + "Action=TranslateText&Version=" + serviceVersion;
 
-    let proxy = get('proxy', '');
     let res = await request(url, {
         method: method,
         body: bodyStr,
-        headers: headers,
-        proxy: proxy
+        headers: headers
     })
 
     let result = JSON.parse(res);

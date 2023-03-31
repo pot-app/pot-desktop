@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from "../../global/config"
+import { get } from '../windows/translator/main';
 
 // 必须向外暴露info
 export const info = {
@@ -24,11 +24,11 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const appid = get('example_appid', '');
-    const secret = get('example_secret', '');
+    const appid = get('example_appid') || '';
+    const secret = get('example_secret') || '';
     // 完成翻译过程
     // ......
-    // 遇到跨域问题考虑使用tauri提供的fetch代替axios
+
     // 返回翻译结果
     // return target
 }

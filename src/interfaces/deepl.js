@@ -1,6 +1,6 @@
 import request from './utils/request';
 import { searchWord } from "./utils/dict";
-import { get } from "../global/config";
+import { get } from '../windows/translator/main';
 
 // 必须向外暴露info
 export const info = {
@@ -84,7 +84,7 @@ export async function translate(text, from, to) {
         post_str = post_str.replace('"method":"', '"method": "');
     }
 
-    let proxy = get('proxy', '');
+    let proxy = get('proxy') || '';
     let res = await request(url, {
         method: 'POST',
         body: post_str,

@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from "../global/config";
+import { get } from '../windows/translator/main';
 import { searchWord } from "./utils/dict";
 import { nanoid } from "nanoid";
 import md5 from "md5";
@@ -28,8 +28,8 @@ export const info = {
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
     const url = "https://fanyi-api.baidu.com/api/trans/vip/translate"
-    const appid = get('baidu_appid', '');
-    const secret = get('baidu_secret', '');
+    const appid = get('baidu_appid') || '';
+    const secret = get('baidu_secret') || '';
     const salt = nanoid();
     if (appid == "" || secret == "") {
         return '请先配置appid和secret'
@@ -46,7 +46,6 @@ export async function translate(text, from, to) {
     const str = appid + text + salt + secret;
     const sign = md5(str);
 
-    let proxy = get('proxy', '');
     let res = await request(url, {
         query: {
             q: text,
@@ -55,8 +54,7 @@ export async function translate(text, from, to) {
             appid: appid,
             salt: salt,
             sign: sign
-        },
-        proxy: proxy
+        }
     })
 
     let result = JSON.parse(res);

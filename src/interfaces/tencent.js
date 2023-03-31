@@ -2,7 +2,7 @@ import request from './utils/request';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex'
-import { get } from "../global/config"
+import { get } from '../windows/translator/main';
 import { searchWord } from "./utils/dict";
 
 // 必须向外暴露info
@@ -35,8 +35,8 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const SecretId = get('tencent_secretid', '');
-    const SecretKey = get('tencent_secretkey', '');
+    const SecretId = get('tencent_secretid') || '';
+    const SecretKey = get('tencent_secretkey') || '';
 
     if (SecretId == "" || SecretKey == "") {
         return '请先配置SecretId和SecretKey'
@@ -123,7 +123,7 @@ export async function translate(text, from, to) {
         "Credential=" + SecretId + "/" + credentialScope + ", " +
         "SignedHeaders=" + signedHeaders + ", " +
         "Signature=" + signature
-    let proxy = get('proxy', '');
+
     let res = await request("https://" + endpoint, {
         method: 'POST',
         body: payload,
@@ -135,8 +135,7 @@ export async function translate(text, from, to) {
             "X-TC-Timestamp": timestamp.toString(),
             "X-TC-Version": version,
             "X-TC-Region": region
-        },
-        proxy: proxy
+        }
     })
 
     let result = JSON.parse(res);

@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../global/config';
+import { get } from '../windows/translator/main';
 import { searchWord } from "./utils/dict";
 
 // 此接口只支持英汉互译
@@ -33,12 +33,12 @@ export async function translate(text, from, to) {
             return target
         }
     }
-    let domain = get('google_proxy', "translate.google.com");
+    let domain = get('google_proxy') || "translate.google.com";
     if (domain == '') {
         domain = "translate.google.com"
     }
 
-    let proxy = get('proxy', '');
+    let proxy = get('proxy') || '';
     let res = await request(`https://${domain}/translate_a/single`, {
         query: {
             client: "at",

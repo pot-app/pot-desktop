@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../global/config';
+import { get } from '../windows/translator/main';
 
 export const info = {
     name: "Open AI 翻译",
@@ -23,11 +23,11 @@ export const info = {
 
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
-    let domain = get('openai_domain', "api.openai.com");
+    let domain = get('openai_domain') || "api.openai.com";
     if (domain == '') {
         domain = "api.openai.com"
     }
-    const apikey = get('openai_apikey', "");
+    const apikey = get('openai_apikey') || "";
     if (apikey == "") {
         return "请先配置apikey"
     }
@@ -57,7 +57,7 @@ export async function translate(text, from, to) {
         ]
     };
 
-    let proxy = get('proxy', '');
+    let proxy = get('proxy') || '';
 
     let res = await request(`https://${domain}/v1/chat/completions`, {
         method: 'POST',
