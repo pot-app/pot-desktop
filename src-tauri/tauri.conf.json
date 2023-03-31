@@ -36,7 +36,6 @@
       "copyright": "GPLv3",
       "deb": {
         "depends": [
-          "xsel",
           "xdotool"
         ]
       },
