@@ -23,12 +23,15 @@ export const info = {
         "de": "de"
     },
     // 接口需要配置项
-    needs: {
-        // 配置项在配置文件中的代号:中文名称
-        // 在translate函数中可以用get函数获取到这些值
-        "tencent_secretid": "密钥ID",
-        "tencent_secretkey": "密钥值"
-    }
+    needs: [{
+        'config_key': 'tencent_secretid',
+        'place_hold': '',
+        'display_name': '密钥ID'
+    }, {
+        'config_key': 'tencent_secretkey',
+        'place_hold': '',
+        'display_name': '密钥值'
+    }]
 }
 //必须向外暴露translate
 export async function translate(text, from, to) {

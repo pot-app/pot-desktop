@@ -9,9 +9,8 @@ const configStore = createStore();
 const configAtom = atom({});
 
 export function get(key) {
-  console.log(key);
   let config = configStore.get(configAtom);
-  console.log(config);
+
   return config[key];
 }
 

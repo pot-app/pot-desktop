@@ -15,10 +15,15 @@ export const info = {
         "ru": "俄语",
         "de": "德语",
     },
-    needs: {
-        "openai_domain": "自定义域名",
-        "openai_apikey": "ApiKey"
-    }
+    needs: [{
+        'config_key': 'openai_domain',
+        'place_hold': 'api.openai.com',
+        'display_name': '自定义域名'
+    }, {
+        'config_key': 'openai_apikey',
+        'place_hold': '',
+        'display_name': 'ApiKey'
+    }]
 }
 
 export async function translate(text, from, to) {

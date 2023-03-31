@@ -23,12 +23,15 @@ export const info = {
         "de": "de"
     },
     // 接口需要配置项
-    needs: {
-        // 配置项在配置文件中的代号:中文名称
-        // 在translate函数中可以用get函数获取到这些值
-        "volcengine_id": "Access Id",
-        "volcengine_secret": "Access Key"
-    }
+    needs: [{
+        'config_key': 'volcengine_id',
+        'place_hold': '',
+        'display_name': 'Access Id'
+    }, {
+        'config_key': 'volcengine_secret',
+        'place_hold': '',
+        'display_name': 'Access Key'
+    }]
 }
 //必须向外暴露translate
 export async function translate(text, from, to) {

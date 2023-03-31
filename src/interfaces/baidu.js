@@ -19,10 +19,17 @@ export const info = {
         "ru": "ru",
         "de": "de"
     },
-    needs: {
-        "baidu_appid": "AppId",
-        "baidu_secret": "密钥"
-    }
+    needs: [
+        {
+            'config_key': 'baidu_appid',
+            'place_hold': '',
+            'display_name': 'AppID'
+        }, {
+            'config_key': 'baidu_secret',
+            'place_hold': '',
+            'display_name': '密钥'
+        }
+    ]
 }
 
 export async function translate(text, from, to) {

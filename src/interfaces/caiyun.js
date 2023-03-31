@@ -10,9 +10,11 @@ export const info = {
         "en": "en",
         "ja": "ja"
     },
-    needs: {
-        "caiyun_token": "Token"
-    }
+    needs: [{
+        'config_key': 'caiyun_token',
+        'place_hold': '',
+        'display_name': 'Token'
+    }]
 }
 
 export async function translate(text, from, to) {

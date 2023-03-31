@@ -15,7 +15,7 @@ export const info = {
         "ru": "俄语",
         "de": "德语",
     },
-    needs: {}
+    needs: []
 }
 
 export async function translate(text, from, to) {

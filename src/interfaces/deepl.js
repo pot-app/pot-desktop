@@ -19,7 +19,7 @@ export const info = {
         "ru": "RU",
     },
     // 接口需要配置项
-    needs: {}
+    needs: []
 }
 
 export async function translate(text, from, to) {

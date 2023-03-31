@@ -17,9 +17,11 @@ export const info = {
         "ru": "ru",
         "de": "de"
     },
-    needs: {
-        "google_proxy": "谷歌翻译镜像(eg:translate.google.com)"
-    }
+    needs: [{
+        'config_key': 'google_proxy',
+        'place_hold': 'eg: translate.google.com',
+        'display_name': '镜像站地址'
+    }]
 }
 
 export async function translate(text, from, to) {
