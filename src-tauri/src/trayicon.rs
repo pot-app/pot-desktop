@@ -41,8 +41,8 @@ pub fn on_config_click(app: &AppHandle) {
                 "config",
                 tauri::WindowUrl::App("index.html".into()),
             )
-            .inner_size(800.0, 600.0)
-            .min_inner_size(800.0, 600.0)
+            .inner_size(500.0, 500.0)
+            .min_inner_size(400.0, 300.0)
             .center()
             .title("设置")
             .build()

@@ -54,9 +54,13 @@ export default function App() {
     await set('window_height', windowHeight);
     await set('interface', defaultInterface);
     await set('proxy', proxy);
-    interfaceConfigs.map(
+    Object.keys(interfaceConfigs).map(
       async x => {
-        await set(x['needs_config_key'], x['needs_config_value'])
+        await set(`${x}_enable`, interfaceConfigs[x]['enable']);
+        interfaceConfigs[x]['needs'].map(
+          async y => {
+            await set(y['needs_config_key'], y['needs_config_value'])
+          })
       }
     )
     if (autoStart) {

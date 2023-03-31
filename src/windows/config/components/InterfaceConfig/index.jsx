@@ -1,27 +1,32 @@
+import { TextField, Switch, FormControlLabel } from '@mui/material';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
-import { TextField } from '@mui/material';
 import { nanoid } from 'nanoid';
 import * as interfaces from '../../../../interfaces';
 import { get } from '../../main';
 import ConfigList from '../ConfigList';
 import ConfigItem from '../ConfigItem';
 
-export const interfaceConfigsAtom = atom([]);
+export const interfaceConfigsAtom = atom({});
 
 export default function InterfaceConfig() {
     const [interfaceConfigs, setInterfaceConfigs] = useAtom(interfaceConfigsAtom);
 
     useEffect(() => {
-        let interface_configs = [];
+        let interface_configs = {};
+
         Object.keys(interfaces).map(
             i => {
+                interface_configs[i] = {
+                    'enable': get(`${i}_enable`) ?? true,
+                    'interface_key': i,
+                    'interface_name': interfaces[i]['info']['name'],
+                    'needs': []
+                }
                 const needs = interfaces[i]['info']['needs'];
                 needs.map(
                     n => {
-                        interface_configs.push({
-                            'interface_key': i,
-                            'interface_name': interfaces[i]['info']['name'],
+                        interface_configs[i]['needs'].push({
                             'needs_config_key': n['config_key'],
                             'needs_display_name': n['display_name'],
                             'needs_place_hold': n['place_hold'],
@@ -37,24 +42,49 @@ export default function InterfaceConfig() {
     return (
         <ConfigList label="接口设置">
             {
-                interfaceConfigs.map(
+                Object.keys(interfaceConfigs).map(
                     x => {
-                        return <ConfigItem key={nanoid()} label={`${x['interface_name']} ${x['needs_display_name']}`}>
-                            <TextField
-                                fullWidth
-                                placeholder={x['needs_place_hold']}
-                                defaultValue={x['needs_config_value']}
-                                onChange={(e) => {
-                                    let configs = interfaceConfigs;
-                                    for (let i in configs) {
-                                        if (configs[i]['needs_config_key'] == x['needs_config_key']) {
-                                            configs[i]['needs_config_value'] = e.target.value
-                                            break;
-                                        }
-                                    }
-                                    setInterfaceConfigs(configs)
-                                }}
-                            />
+                        return <ConfigItem
+                            key={nanoid()}
+                            label={interfaceConfigs[x]['interface_name']}
+                            labelItem={
+                                <FormControlLabel
+                                    label="启用"
+                                    control={
+                                        <Switch
+                                            defaultChecked={interfaceConfigs[x]['enable']}
+                                            onChange={e => {
+                                                let configs = interfaceConfigs;
+                                                configs[x]['enable'] = e.target.checked
+                                                setInterfaceConfigs(configs)
+                                            }}
+                                        />}
+                                />
+                            }
+                        >
+
+                            {
+                                interfaceConfigs[x]['needs'].map(y => {
+                                    return <TextField
+                                        fullWidth
+                                        sx={{ marginTop: '16px' }}
+                                        key={nanoid()}
+                                        label={y['needs_display_name']}
+                                        placeholder={y['needs_place_hold']}
+                                        defaultValue={y['needs_config_value']}
+                                        onChange={(e) => {
+                                            let configs = interfaceConfigs;
+                                            for (let j in configs[i]['needs']) {
+                                                if (configs[x]['needs'][j]['needs_config_key'] == y['needs_config_key']) {
+                                                    configs[x]['needs'][j]['needs_config_value'] = e.target.value
+                                                    break;
+                                                }
+                                            }
+                                            setInterfaceConfigs(configs)
+                                        }}
+                                    />
+                                })
+                            }
                         </ConfigItem>
                     }
                 )

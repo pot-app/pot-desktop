@@ -65,7 +65,9 @@ export default function TargetArea() {
                     {
                         Object.keys(interfaces).map(
                             x => {
-                                return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                                if (get(`${x}_enable`) && true) {
+                                    return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                                }
                             }
                         )
                     }
