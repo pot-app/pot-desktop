@@ -28,7 +28,7 @@ export default function LanguageSelector() {
                     setSourceLanguage(e.target.value);
                 }}
             >
-                <MenuItem value={'auto'}>自动检测</MenuItem>
+                <MenuItem value={'auto'}>🌟自动检测</MenuItem>
                 {language.map(x => {
                     return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
                 })}

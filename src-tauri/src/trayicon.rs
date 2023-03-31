@@ -7,9 +7,9 @@ pub const PERSISTENT_WINDOW: &str = "persistent";
 
 // 创建托盘菜单
 pub fn build_system_tray() -> SystemTray {
-    let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻译");
-    let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
-    let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
+    let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "🌏 翻译");
+    let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "⚙ 设置");
+    let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "💨 退出");
     let tray_menu = SystemTrayMenu::new()
         .add_item(persistent)
         .add_item(config)

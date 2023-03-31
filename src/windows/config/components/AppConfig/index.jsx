@@ -39,7 +39,7 @@ export default function AppConfig() {
     }, [])
 
     return (
-        <ConfigList label="应用设置">
+        <ConfigList label="💎应用设置💎">
             <ConfigItem>
                 <FormControlLabel
                     control={

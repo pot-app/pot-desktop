@@ -39,7 +39,7 @@ export default function AppInfo() {
     }
 
     return (
-        <ConfigList label="应用信息">
+        <ConfigList label="ℹ应用信息ℹ">
             <ConfigItem label="应用版本">
                 {`pot: ${version} tauri:${tauriVersion}   `}
                 <Button onClick={checkUpdate}>检查更新</Button>
