@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+a {
+    color: #3faaf2;
+}
+
 body {
     padding: 12px;
     padding-top: 0;

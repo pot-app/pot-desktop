@@ -45,6 +45,19 @@ export default function AppInfo() {
                 <Button onClick={checkUpdate}>检查更新</Button>
                 <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button>前往下载</Button></a>
             </ConfigItem>
+            <ConfigItem label="关于">
+                官网:&nbsp;&nbsp;
+                <a href='https://pot.pylogmon.cn' target="_blank">https://pot.pylogmon.cn</a>
+                <br />
+                仓库:&nbsp;&nbsp;
+                <a href='https://github.com/Pylogmon/pot' target="_blank">https://github.com/Pylogmon/pot</a>
+            </ConfigItem>
+            <ConfigItem label="联系作者">
+                Email:&nbsp;&nbsp;
+                <a href='mailto:pylogmon@outlook.com' target="_blank">pylogmon@outlook.com</a>
+                <br />
+                QQ群:&nbsp;&nbsp;767701966
+            </ConfigItem>
         </ConfigList>
     )
 }
