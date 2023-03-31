@@ -28,7 +28,7 @@
 | - |-----|-------|-----|
 |划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
-|插件调用| |[SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows)|[PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos)|
+|插件调用|❔|[SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows)|[PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos)|
 
 ## 支持接口
 - [x] DeepL(无需申请)
@@ -44,24 +44,14 @@
 ## 参与贡献
 参考 [接口贡献指南](./CONTRIBUTING.md)
 
+## 使用方法
+| 方式 | 描述 | 预览 |
+| :---: | :---: | :---: |
+| 划词翻译 | 选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`） | ![划词翻译](asset/example1.gif) |
+| 输入翻译| 按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译 | ![输入翻译](asset/example2.gif) |
+| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](asset/example3.gif) |
+
 ## 安装
-### Linux
-#### Debian
-在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新deb包安装
-
-> **注意：低版本系统请下载 `pot_<version>_amd64_universal.deb` 否则会因为`glibc`版本过低无法运行**
-
-#### Arch
-已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
-
-#### 关于Wayland
-由于tauri的全局快捷键暂时还不支持Wayland,所以现在有两种解决办法：
-1. 虽然本软件依赖于X11，但是得益于xwayland，实测wayland下通过`GDK_BACKEND=x11`启动是可以正常使用的。
-2. 最新版本已经支持了命令行参数，可以在设置中将快捷键留空，然后在系统设置中设置自定义快捷键（需要软件保持后台运行）
-    ```bash
-    pot translate # 划词翻译
-    pot persistent # 独立窗口
-    ```
 
 ### Windows
 #### WinGet
@@ -72,16 +62,34 @@ winget install Pylogmon.pot
 #### 手动安装
 在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新msi安装包安装
 
-## 使用方法
-| 方式 | 描述 | 预览 |
-| :---: | :---: | :---: |
-| 划词翻译 | 选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`） | ![划词翻译](asset/example1.gif) |
-| 输入翻译| 按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译 | ![输入翻译](asset/example2.gif) |
-| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](asset/example3.gif) |
+### Linux
+#### Debian/Ubuntu
+在 [Release](https://github.com/Pylogmon/pot/releases) 下载最新deb包安装
+
+> **注意：低版本系统请下载 `pot_<version>_amd64_universal.deb` 否则会因为`glibc`版本过低无法运行**
+
+#### Deepin
+Deepin V20用户请下载`pot_<version>_amd64_universal.deb`，Deepin V23可以下载正常的deb包。
+
+另外，pot已经上架Deepin应用商店，由[@Lichenkass](https://github.com/Lichenkass)进行维护。
+
+#### Arch/Manjaro
+已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
+
+#### 关于Wayland
+pot已经原生支持Wayland取词，但是Tauri的全局快捷键暂时还不支持Wayland，目前有两个办法：
+
+1. 通过`GDK_BACKEND=x11`启动，使软件运行在xwayland下，实测可以正常使用。
+2. 在软件设置中将快捷键留空，然后在系统设置中设置自定义快捷键（需要软件保持后台运行）
+    ```bash
+    pot translate # 划词翻译
+    pot persistent # 独立窗口
+    ```
 
 ## 感谢
 
 - [Bob](https://github.com/ripperhe/Bob) 灵感来源
 - [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) OpenAI接口参考
 - [@uiYzzi](https://github.com/uiYzzi) 提供实现思路
+- [@Lichenkass](https://github.com/Lichenkass) 维护Deepin应用商店版本
 - [Tauri](https://github.com/tauri-apps/tauri) 好用的Gui框架
