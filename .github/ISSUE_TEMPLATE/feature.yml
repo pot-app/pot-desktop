@@ -19,3 +19,7 @@ body:
     description: 为什么有这样的需求
   validations:
     required: true
+- type: textarea
+  attributes:
+    label: 参考资料
+    description: 必要时提供实现思路或参考文档

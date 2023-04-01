@@ -29,12 +29,22 @@ body:
       - MacOS
   validations:
     required: true
+- type: textarea
+  attributes:
+    label: 操作系统版本
+    description: 所使用操作系统版本，如：Windows11
+  validations:
+    required: true
 - type: dropdown
   attributes:
     label: 窗口系统(Linux Only)
     options:
       - X11
       - Wayland
+- type: textarea
+  attributes:
+    label: 软件版本
+    description: pot软件的版本，可以在设置页面最下方查看。
 - type: textarea
   attributes:
     label: 补充信息
