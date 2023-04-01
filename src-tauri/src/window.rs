@@ -125,12 +125,15 @@ fn on_lose_focus(event: &WindowEvent) {
 #[cfg(target_os = "linux")]
 fn get_mouse_location() -> Result<(i32, i32), String> {
     use crate::config::get_monitor_info;
-    use mouse_rs::Mouse;
+    use mouse_position::mouse_position::Mouse;
 
-    let mouse = Mouse::new();
-    let pos = mouse.get_position().unwrap();
-    let mut x = pos.x as f64;
-    let mut y = pos.y as f64;
+    let position = Mouse::get_mouse_position();
+    let mut x = 0.0;
+    let mut y = 0.0;
+    if let Mouse::Position { x: pos_x, y: pos_y } = position {
+        x = pos_x as f64;
+        y = pos_y as f64;
+    }
 
     let (width, height) = get_window_size();
     let handle = APP.get().unwrap();

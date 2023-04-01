@@ -36,9 +36,9 @@ window-shadows = "0.2"
 core-graphics = "0.22.3"
 
 [target.'cfg(target_os = "linux")'.dependencies ]
-mouse-rs = "0.4.2"
+mouse_position = "0.1.3"
 x11-clipboard = "0.7.1"
-wl-clipboard-rs = "0.7.0"
+# wl-clipboard-rs = "0.7.0"
 
 [features]
 # by default Tauri runs in production mode

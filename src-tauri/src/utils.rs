@@ -43,7 +43,7 @@ pub fn check_update() -> Result<(), String> {
                     .body(tag)
                     .icon("pot")
                     .show()
-                    .unwrap_or_else(|e| println!("Error creating notification: {}", e));
+                    .unwrap_or_else(|e| println!("Error creating notification: {e}"));
             }
         } else {
             return Err(res.status().to_string());

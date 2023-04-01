@@ -28,12 +28,12 @@ pub fn get_selection_text() -> Result<String, String> {
                     "",
                 )
                 .unwrap();
-            return Ok(v);
+            Ok(v)
         } else {
-            return Err("Clipboard Read Failed".to_string());
+            Err("Clipboard Read Failed".to_string())
         }
     } else {
-        return Err("Clipboard Create Failed".to_string());
+        Err("Clipboard Create Failed".to_string())
     }
     //         }
     //         "wayland" => {
