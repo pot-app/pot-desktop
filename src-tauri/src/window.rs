@@ -222,7 +222,10 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 // 划词翻译
 pub fn translate_window() {
     // 获取选择文本
-    let text = get_selection_text().unwrap();
+    let mut text = String::new();
+    if let Ok(v) = get_selection_text() {
+        text = v;
+    }
     let handle = APP.get().unwrap();
     // 写入状态备用
     let state: tauri::State<StringWrapper> = handle.state();
