@@ -32,6 +32,8 @@ pub static APP: OnceCell<AppHandle> = OnceCell::new();
 pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
+    #[cfg(target_os = "linux")]
+    std::env::set_var("GDK_BACKEND", "x11");
     #[cfg(target_os = "macos")]
     {
         use std::thread;

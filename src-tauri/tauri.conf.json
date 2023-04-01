@@ -35,9 +35,7 @@
       "category": "Utility",
       "copyright": "GPLv3",
       "deb": {
-        "depends": [
-          "xdotool"
-        ]
+        "depends": []
       },
       "externalBin": [],
       "icon": [

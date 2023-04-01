@@ -125,24 +125,13 @@ fn on_lose_focus(event: &WindowEvent) {
 #[cfg(target_os = "linux")]
 fn get_mouse_location() -> Result<(i32, i32), String> {
     use crate::config::get_monitor_info;
-    use std::process::Command;
-    let output: String = match Command::new("xdotool").arg("getmouselocation").output() {
-        Ok(v) => String::from_utf8(v.stdout).unwrap(),
-        Err(e) => return Err(format!("xdotool执行出错{e}")),
-    };
-    let output: Vec<&str> = output.split_whitespace().collect();
-    let mut x = output
-        .first()
-        .unwrap()
-        .replace("x:", "")
-        .parse::<f64>()
-        .unwrap();
-    let mut y = output
-        .get(1)
-        .unwrap()
-        .replace("y:", "")
-        .parse::<f64>()
-        .unwrap();
+    use mouse_rs::Mouse;
+
+    let mouse = Mouse::new();
+    let pos = mouse.get_position().unwrap();
+    let mut x = pos.x as f64;
+    let mut y = pos.y as f64;
+
     let (width, height) = get_window_size();
     let handle = APP.get().unwrap();
     let (size_width, size_height, dpi) = get_monitor_info(handle.state());

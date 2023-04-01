@@ -36,6 +36,7 @@ window-shadows = "0.2"
 core-graphics = "0.22.3"
 
 [target.'cfg(target_os = "linux")'.dependencies ]
+mouse-rs = "0.4.2"
 x11-clipboard = "0.7.1"
 wl-clipboard-rs = "0.7.0"
 
