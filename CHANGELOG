@@ -1,9 +1,6 @@
-## 0.1.9 (2023-03-31)
+## 0.1.10 (2023-04-01)
 
-### New feature:
+### Bugs fixed:
 
-- 添加接口启用开关([`9c5dd51`](https://github.com/Pylogmon/pot/commit/9c5dd517839b29bc82cce0e82c937401873a9e83)) (by 派了个萌)
-
-### Refactor:
-
-- 重构部分代码
+- 修复接口设置无法保存的问题([`96cf0af`](https://github.com/Pylogmon/Pot/commit/96cf0af6cb739b77960bae756f352bd9064f004f)) (by 派了个萌)
+- 修复Wayland取词失败([`07138f1`](https://github.com/Pylogmon/Pot/commit/07138f10e585b1d2f3572e886d3c15df2e2f6e44)) (by 派了个萌)
