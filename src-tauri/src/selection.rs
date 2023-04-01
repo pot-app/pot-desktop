@@ -3,71 +3,71 @@ use crate::StringWrapper;
 // 获取选择的文本(Linux)
 #[cfg(target_os = "linux")]
 pub fn get_selection_text() -> Result<String, String> {
-    use std::env::var;
-    if let Ok(session_type) = var("XDG_SESSION_TYPE") {
-        match session_type.as_str() {
-            "x11" => {
-                use std::time::Duration;
-                use x11_clipboard::Clipboard;
+    // use std::env::var;
+    // if let Ok(session_type) = var("XDG_SESSION_TYPE") {
+    //     match session_type.as_str() {
+    //         "x11" => {
+    use std::time::Duration;
+    use x11_clipboard::Clipboard;
 
-                if let Ok(clipboard) = Clipboard::new() {
-                    if let Ok(v) = clipboard.load(
-                        clipboard.getter.atoms.primary,
-                        clipboard.getter.atoms.utf8_string,
-                        clipboard.getter.atoms.property,
-                        Duration::from_millis(100),
-                    ) {
-                        let v = String::from_utf8_lossy(&v)
-                            .trim_matches('\u{0}')
-                            .trim()
-                            .to_string();
-                        clipboard
-                            .store(
-                                clipboard.getter.atoms.primary,
-                                clipboard.getter.atoms.utf8_string,
-                                "",
-                            )
-                            .unwrap();
-                        return Ok(v);
-                    } else {
-                        return Err("Clipboard Read Failed".to_string());
-                    }
-                } else {
-                    return Err("Clipboard Create Failed".to_string());
-                }
-            }
-            "wayland" => {
-                use std::io::Read;
-                use wl_clipboard_rs::paste::{get_contents, ClipboardType, Error, MimeType, Seat};
-
-                let result =
-                    get_contents(ClipboardType::Primary, Seat::Unspecified, MimeType::Text);
-
-                match result {
-                    Ok((mut pipe, _)) => {
-                        let mut contents = vec![];
-                        pipe.read_to_end(&mut contents).unwrap();
-                        let contents = String::from_utf8_lossy(&contents)
-                            .trim_matches('\u{0}')
-                            .trim()
-                            .to_string();
-                        return Ok(contents);
-                    }
-
-                    Err(Error::NoSeats) | Err(Error::ClipboardEmpty) | Err(Error::NoMimeType) => {
-                        return Ok("".to_string());
-                    }
-
-                    Err(err) => return Err(err.to_string()),
-                }
-            }
-            _ => {
-                return Err(format!("Unknown Session Type: {session_type}").to_string());
-            }
+    if let Ok(clipboard) = Clipboard::new() {
+        if let Ok(v) = clipboard.load(
+            clipboard.getter.atoms.primary,
+            clipboard.getter.atoms.utf8_string,
+            clipboard.getter.atoms.property,
+            Duration::from_millis(100),
+        ) {
+            let v = String::from_utf8_lossy(&v)
+                .trim_matches('\u{0}')
+                .trim()
+                .to_string();
+            clipboard
+                .store(
+                    clipboard.getter.atoms.primary,
+                    clipboard.getter.atoms.utf8_string,
+                    "",
+                )
+                .unwrap();
+            return Ok(v);
+        } else {
+            return Err("Clipboard Read Failed".to_string());
         }
     } else {
-        return Err("Get Session Type Failed".to_string());
+        return Err("Clipboard Create Failed".to_string());
     }
+    //         }
+    //         "wayland" => {
+    //             use std::io::Read;
+    //             use wl_clipboard_rs::paste::{get_contents, ClipboardType, Error, MimeType, Seat};
+
+    //             let result =
+    //                 get_contents(ClipboardType::Primary, Seat::Unspecified, MimeType::Text);
+
+    //             match result {
+    //                 Ok((mut pipe, _)) => {
+    //                     let mut contents = vec![];
+    //                     pipe.read_to_end(&mut contents).unwrap();
+    //                     let contents = String::from_utf8_lossy(&contents)
+    //                         .trim_matches('\u{0}')
+    //                         .trim()
+    //                         .to_string();
+    //                     return Ok(contents);
+    //                 }
+
+    //                 Err(Error::NoSeats) | Err(Error::ClipboardEmpty) | Err(Error::NoMimeType) => {
+    //                     return Ok("".to_string());
+    //                 }
+
+    //                 Err(err) => return Err(err.to_string()),
+    //             }
+    //         }
+    //         _ => {
+    //             return Err(format!("Unknown Session Type: {session_type}").to_string());
+    //         }
+    //     }
+    // } else {
+    //     return Err("Get Session Type Failed".to_string());
+    // }
 }
 
 // 获取选择的文本(Windows)
