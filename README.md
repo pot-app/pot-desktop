@@ -77,14 +77,11 @@ Deepin V20用户请下载`pot_<version>_amd64_universal.deb`，Deepin V23可以�
 已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
 
 #### 关于Wayland
-pot已经原生支持Wayland取词，但是Tauri的全局快捷键暂时还不支持Wayland，目前有两个办法：
-
-1. 通过`GDK_BACKEND=x11`启动，使软件运行在xwayland下，实测可以正常使用。
-2. 在软件设置中将快捷键留空，然后在系统设置中设置自定义快捷键（需要软件保持后台运行）
-    ```bash
-    pot translate # 划词翻译
-    pot persistent # 独立窗口
-    ```
+pot默认运行在xwayland下，如果发现在某些软件中快捷键不起作用，可以将pot设置中的快捷键清空，在系统设置中设置自定义快捷键：
+```bash
+pot translate # 划词翻译
+pot persistent # 独立窗口
+```
 
 ## 感谢
 
