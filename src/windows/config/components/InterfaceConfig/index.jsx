@@ -74,7 +74,7 @@ export default function InterfaceConfig() {
                                         defaultValue={y['needs_config_value']}
                                         onChange={(e) => {
                                             let configs = interfaceConfigs;
-                                            for (let j in configs[i]['needs']) {
+                                            for (let j in configs[x]['needs']) {
                                                 if (configs[x]['needs'][j]['needs_config_key'] == y['needs_config_key']) {
                                                     configs[x]['needs'][j]['needs_config_value'] = e.target.value
                                                     break;
