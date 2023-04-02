@@ -87,9 +87,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
-      - name: ssh
-        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
+          version: 8
       - name: Install Dependencies
         run: pnpm install
       - name: Change tray icon
@@ -156,9 +154,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
-      - name: ssh
-        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
+          version: 8
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -219,9 +215,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
-      - name: ssh
-        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
+          version: 8
       - name: Install Dependencies
         run: pnpm install
       - name: Build and Package
