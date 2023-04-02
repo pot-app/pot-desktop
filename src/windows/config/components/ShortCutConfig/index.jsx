@@ -33,7 +33,7 @@ export default function ShortCutConfig() {
     }
 
     return (
-        <ConfigList label="⌨快捷键⌨">
+        <ConfigList label="快捷键">
             <ConfigItem label="划词翻译">
                 <TextField
                     fullWidth

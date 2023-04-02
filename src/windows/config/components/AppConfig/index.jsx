@@ -29,8 +29,8 @@ export default function AppConfig() {
     const [theme, setTheme] = useAtom(themeAtom);
 
     useEffect(() => {
-        setAutoStart(get('auto_start') ?? true);
-        setAutoCheck(get('auto_check') ?? true);
+        setAutoStart(get('auto_start') ?? false);
+        setAutoCheck(get('auto_check') ?? false);
         setTargetLanguage(get('target_language') ?? 'zh-cn');
         setDefaultInterface(get('interface') ?? 'deepl');
         setProxy(get('proxy') ?? '');
@@ -40,7 +40,7 @@ export default function AppConfig() {
     }, [])
 
     return (
-        <ConfigList label="💎应用设置💎">
+        <ConfigList label="应用设置">
             <ConfigItem>
                 <FormControlLabel
                     control={

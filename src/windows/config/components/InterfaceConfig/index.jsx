@@ -40,7 +40,7 @@ export default function InterfaceConfig() {
     }, [])
 
     return (
-        <ConfigList label="🛠️接口设置🛠️">
+        <ConfigList label="接口设置">
             {
                 Object.keys(interfaceConfigs).map(
                     x => {
