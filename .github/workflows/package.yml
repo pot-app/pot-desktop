@@ -89,7 +89,7 @@ jobs:
         with:
           version: 7
       - name: ssh
-        run: ssh-keygen -t rsa -f id_rsa -N ' '
+        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
       - name: Install Dependencies
         run: pnpm install
       - name: Change tray icon
@@ -158,7 +158,7 @@ jobs:
         with:
           version: 7
       - name: ssh
-        run: ssh-keygen -t rsa -f id_rsa -N ' '
+        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -221,7 +221,7 @@ jobs:
         with:
           version: 7
       - name: ssh
-        run: ssh-keygen -t rsa -f id_rsa -N ' '
+        run: ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ' '
       - name: Install Dependencies
         run: pnpm install
       - name: Build and Package
