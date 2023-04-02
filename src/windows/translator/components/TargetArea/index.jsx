@@ -19,7 +19,7 @@ export default function TargetArea() {
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
 
-    const [translateInterface, setTranslateInterface] = useState(get('interface') || 'deepl');
+    const [translateInterface, setTranslateInterface] = useState(get('interface') ?? 'deepl');
     const [loading, setLoading] = useState(false);
     const [targetText, setTargetText] = useState("");
     const theme = useTheme();

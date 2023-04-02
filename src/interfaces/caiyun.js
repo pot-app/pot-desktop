@@ -20,7 +20,7 @@ export const info = {
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
     const url = "https://api.interpreter.caiyunai.com/v1/translator"
-    const token = get('caiyun_token') || ''
+    const token = get('caiyun_token') ?? ''
     if (token == "") {
         return '请先配置token'
     }

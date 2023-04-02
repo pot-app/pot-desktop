@@ -10,7 +10,7 @@ import { light, dark } from '../themes';
 import { get } from './main';
 
 export default function App() {
-  const theme = get('theme') || 'auto';
+  const theme = get('theme') ?? 'auto';
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   return (
     <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>

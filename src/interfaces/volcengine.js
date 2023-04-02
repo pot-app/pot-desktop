@@ -39,8 +39,8 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const appid = get('volcengine_id') || ''; // https://console.volcengine.com/iam/keymanage/
-    const secret = get('volcengine_secret') || '';
+    const appid = get('volcengine_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
+    const secret = get('volcengine_secret') ?? '';
 
     if (appid == "" || secret == "") {
         return '请先配置Access Id和Access Key'

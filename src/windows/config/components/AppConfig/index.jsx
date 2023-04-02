@@ -29,14 +29,14 @@ export default function AppConfig() {
     const [theme, setTheme] = useAtom(themeAtom);
 
     useEffect(() => {
-        setAutoStart(get('auto_start') || true);
-        setAutoCheck(get('auto_check') || true);
-        setTargetLanguage(get('target_language') || 'zh-cn');
-        setDefaultInterface(get('interface') || 'deepl');
-        setProxy(get('proxy') || '');
-        setWindowWidth(get('window_width') || 400);
-        setWindowHeight(get('window_height') || 500);
-        setTheme(get('theme') || 'auto');
+        setAutoStart(get('auto_start') ?? true);
+        setAutoCheck(get('auto_check') ?? true);
+        setTargetLanguage(get('target_language') ?? 'zh-cn');
+        setDefaultInterface(get('interface') ?? 'deepl');
+        setProxy(get('proxy') ?? '');
+        setWindowWidth(get('window_width') ?? 400);
+        setWindowHeight(get('window_height') ?? 500);
+        setTheme(get('theme') ?? 'auto');
     }, [])
 
     return (

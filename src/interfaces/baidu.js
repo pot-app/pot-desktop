@@ -35,8 +35,8 @@ export const info = {
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
     const url = "https://fanyi-api.baidu.com/api/trans/vip/translate"
-    const appid = get('baidu_appid') || '';
-    const secret = get('baidu_secret') || '';
+    const appid = get('baidu_appid') ?? '';
+    const secret = get('baidu_secret') ?? '';
     const salt = nanoid();
     if (appid == "" || secret == "") {
         return '请先配置appid和secret'

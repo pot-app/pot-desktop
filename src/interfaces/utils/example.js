@@ -24,8 +24,8 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const appid = get('example_appid') || '';
-    const secret = get('example_secret') || '';
+    const appid = get('example_appid') ?? '';
+    const secret = get('example_secret') ?? '';
     // 完成翻译过程
     // ......
 

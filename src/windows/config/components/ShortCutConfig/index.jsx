@@ -13,8 +13,8 @@ export default function ShortCutConfig() {
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
     const supportKey = ["Control", 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
     useEffect(() => {
-        setShortcutTranslate(get('shortcut_translate') || '');
-        setShortcutPersistent(get('shortcut_persistent') || '')
+        setShortcutTranslate(get('shortcut_translate') ?? '');
+        setShortcutPersistent(get('shortcut_persistent') ?? '')
     }, []);
 
     function keyDown(e, value, set) {

@@ -16,7 +16,7 @@ export default function LanguageSelector() {
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
 
     useEffect(() => {
-        setTargetLanguage(get('target_language') || 'zh-cn');
+        setTargetLanguage(get('target_language') ?? 'zh-cn');
     }, [])
 
     return (

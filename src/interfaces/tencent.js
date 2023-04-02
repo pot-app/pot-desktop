@@ -38,8 +38,8 @@ export async function translate(text, from, to) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const SecretId = get('tencent_secretid') || '';
-    const SecretKey = get('tencent_secretkey') || '';
+    const SecretId = get('tencent_secretid') ?? '';
+    const SecretKey = get('tencent_secretkey') ?? '';
 
     if (SecretId == "" || SecretKey == "") {
         return '请先配置SecretId和SecretKey'

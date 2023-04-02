@@ -84,7 +84,7 @@ export async function translate(text, from, to) {
         post_str = post_str.replace('"method":"', '"method": "');
     }
 
-    let proxy = get('proxy') || '';
+    let proxy = get('proxy') ?? '';
     let res = await request(url, {
         method: 'POST',
         body: post_str,

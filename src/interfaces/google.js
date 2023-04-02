@@ -35,12 +35,12 @@ export async function translate(text, from, to) {
             return target
         }
     }
-    let domain = get('google_proxy') || "translate.google.com";
+    let domain = get('google_proxy') ?? "translate.google.com";
     if (domain == '') {
         domain = "translate.google.com"
     }
 
-    let proxy = get('proxy') || '';
+    let proxy = get('proxy') ?? '';
     let res = await request(`https://${domain}/translate_a/single`, {
         query: {
             client: "at",

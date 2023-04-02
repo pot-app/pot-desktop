@@ -30,7 +30,7 @@ export default function InterfaceConfig() {
                             'needs_config_key': n['config_key'],
                             'needs_display_name': n['display_name'],
                             'needs_place_hold': n['place_hold'],
-                            'needs_config_value': get(n['config_key']) || ''
+                            'needs_config_value': get(n['config_key']) ?? ''
                         })
                     }
                 )
