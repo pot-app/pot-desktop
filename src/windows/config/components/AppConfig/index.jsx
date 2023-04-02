@@ -2,9 +2,9 @@ import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox } from '@m
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
 import * as interfaces from '../../../../interfaces';
 import language from '../../../../global/language';
+import "flag-icons/css/flag-icons.min.css";
 import ConfigList from '../ConfigList';
 import ConfigItem from '../ConfigItem';
 import { get } from '../../main';

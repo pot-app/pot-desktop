@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { atom, useAtom } from 'jotai';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import React, { useEffect } from 'react';
+import { atom, useAtom } from 'jotai';
+import "flag-icons/css/flag-icons.min.css";
 import language from '../../../../global/language'
 import { nanoid } from 'nanoid';
 import { get } from '../../main';

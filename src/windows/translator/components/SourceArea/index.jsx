@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useAtom, atom } from 'jotai';
 import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
-import speak from '../../../../global/speakClient';
+import React, { useEffect } from 'react';
+import { useAtom, atom } from 'jotai';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
+import speak from '../../../../global/speakClient';
 import './style.css'
 
 export const sourceTextAtom = atom('');
@@ -46,7 +46,6 @@ export default function SourceArea() {
                     autoFocus
                     multiline
                     fullWidth
-                    onKeyDown={(e) => { keyDown(e) }}
                     value={sourceText}
                     onChange={(e) => { setSourceText(e.target.value) }}
                 />
