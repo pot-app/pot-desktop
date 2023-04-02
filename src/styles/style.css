@@ -17,6 +17,11 @@ html {
     border-radius: 10px;
 }
 
+.fi {
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
 .titlebar {
     height: 35px;
     user-select: none;

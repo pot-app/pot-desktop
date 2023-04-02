@@ -2,6 +2,7 @@ import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox } from '@m
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 import * as interfaces from '../../../../interfaces';
 import language from '../../../../global/language';
 import ConfigList from '../ConfigList';
@@ -60,7 +61,9 @@ export default function AppConfig() {
                 >
                     {
                         language.map(x => {
-                            return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                            return <MenuItem value={x.value} key={nanoid()}>
+                                <span className={`fi fi-${x.code}`} /><span>{x.label}</span>
+                            </MenuItem>
                         })
                     }
                 </Select>

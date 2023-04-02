@@ -14,6 +14,7 @@ specifiers:
   '@vitejs/plugin-react': ^3.1.0
   axios: ^1.3.4
   crypto-js: ^4.1.1
+  flag-icons: ^6.6.6
   jotai: ^2.0.3
   md5: ^2.3.0
   nanoid: ^4.0.2
@@ -33,6 +34,7 @@ dependencies:
   '@types/md5': 2.3.2
   axios: 1.3.4
   crypto-js: 4.1.1
+  flag-icons: 6.6.6
   jotai: 2.0.3_react@18.2.0
   md5: 2.3.0
   nanoid: 4.0.2
@@ -1163,6 +1165,10 @@ packages:
     resolution: {integrity: sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==}
     dev: false
 
+  /flag-icons/6.6.6:
+    resolution: {integrity: sha512-4lHDKxldnQ7q617pf9Dx9nAetT+9zcMpUexbRrc9kjLw9KJgZ83zA5Dky3Vv7ZDzUjAiZ46x/cy5P0HnEnqA2A==}
+    dev: false
+
   /follow-redirects/1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -1562,7 +1568,7 @@ packages:
     dev: false
 
   github.com/tauri-apps/tauri-plugin-autostart/0c8e3ad92e00e7b0aed60fc8a639e77407105253:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/0c8e3ad92e00e7b0aed60fc8a639e77407105253}
+    resolution: {commit: 0c8e3ad92e00e7b0aed60fc8a639e77407105253, repo: git+ssh://git@github.com/tauri-apps/tauri-plugin-autostart.git, type: git}
     name: tauri-plugin-autostart-api
     version: 0.0.0
     dependencies:

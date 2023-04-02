@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 import language from '../../../../global/language'
 import { nanoid } from 'nanoid';
 import { get } from '../../main';
@@ -28,9 +29,11 @@ export default function LanguageSelector() {
                     setSourceLanguage(e.target.value);
                 }}
             >
-                <MenuItem value={'auto'}>🌟自动检测</MenuItem>
+                <MenuItem value={'auto'}>🌏 自动检测</MenuItem>
                 {language.map(x => {
-                    return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                    return <MenuItem value={x.value} key={nanoid()}>
+                        <span className={`fi fi-${x.code}`} /><span>{x.label}</span>
+                    </MenuItem>
                 })}
             </Select>
             <KeyboardDoubleArrowRightRoundedIcon fontSize='large' className='arrow-icon' />
@@ -43,7 +46,9 @@ export default function LanguageSelector() {
                 }}
             >
                 {language.map(x => {
-                    return <MenuItem value={x.value} key={nanoid()}>{x.label}</MenuItem>
+                    return <MenuItem value={x.value} key={nanoid()}>
+                        <span className={`fi fi-${x.code}`} /><span>{x.label}</span>
+                    </MenuItem>
                 })}
             </Select>
         </Card>
