@@ -1,6 +1,10 @@
-## 0.1.10 (2023-04-01)
+## 0.1.11 (2023-04-02)
+
+### New feature:
+
+- 实现按键设置快捷键([`b1c8857`](https://github.com/Pylogmon/Pot/commit/b1c88573629e2d8f3c7acc2573dfe153c157ad57)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复接口设置无法保存的问题([`96cf0af`](https://github.com/Pylogmon/Pot/commit/96cf0af6cb739b77960bae756f352bd9064f004f)) (by 派了个萌)
-- 修复Wayland取词失败([`07138f1`](https://github.com/Pylogmon/Pot/commit/07138f10e585b1d2f3572e886d3c15df2e2f6e44)) (by 派了个萌)
+- 修复某些设置无法正确显示的问题([`b4325da`](https://github.com/Pylogmon/Pot/commit/b4325da2f24fa94e087779987459221b62c8be8e)) (by 派了个萌)
+- 修复linux取词失败时闪退([`64f1e94`](https://github.com/Pylogmon/Pot/commit/64f1e94b93ea592020106ff51adbf5e0cc242584)) (by 派了个萌)
