@@ -2,8 +2,6 @@ use crate::config::get_config;
 use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
-#[cfg(any(target_os = "linux", target_os = "windows"))]
-use tauri::PhysicalPosition;
 use tauri::{AppHandle, Manager, Window, WindowEvent};
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -29,11 +27,7 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
             .hidden_title(true);
         let window = match label {
             "persistent" => builder.center().skip_taskbar(false).build().unwrap(),
-            _ => builder
-                .position(x as f64, y as f64)
-                .skip_taskbar(true)
-                .build()
-                .unwrap(),
+            _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
         window.set_focus().unwrap();
@@ -50,18 +44,15 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
     {
         let builder = builder.decorations(false);
         let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
+            "persistent" => builder.skip_taskbar(false).center().build().unwrap(),
+            _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
         window.set_focus().unwrap();
         match label {
-            "persistent" => {
-                window.center().unwrap();
-            }
+            "persistent" => {}
             _ => {
                 window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
         };
         Ok(window)
@@ -71,18 +62,15 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
     {
         let builder = builder.transparent(true).decorations(false);
         let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
+            "persistent" => builder.skip_taskbar(false).center().build().unwrap(),
+            _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
         };
 
         window.set_focus().unwrap();
         match label {
-            "persistent" => {
-                window.center().unwrap();
-            }
+            "persistent" => {}
             _ => {
                 window.on_window_event(on_lose_focus);
-                window.set_position(PhysicalPosition::new(x, y)).unwrap();
             }
         };
         Ok(window)
@@ -123,40 +111,41 @@ fn on_lose_focus(event: &WindowEvent) {
 
 // 获取鼠标坐标
 #[cfg(target_os = "linux")]
-fn get_mouse_location() -> Result<(i32, i32), String> {
+fn get_mouse_location() -> Result<(f64, f64), String> {
     use crate::config::get_monitor_info;
     use mouse_position::mouse_position::Mouse;
 
     let position = Mouse::get_mouse_position();
     let mut x = 0.0;
     let mut y = 0.0;
-    if let Mouse::Position { x: pos_x, y: pos_y } = position {
-        x = pos_x as f64;
-        y = pos_y as f64;
-    }
 
     let (width, height) = get_window_size();
     let handle = APP.get().unwrap();
     let (size_width, size_height, dpi) = get_monitor_info(handle.state());
 
-    if x + width * dpi > size_width as f64 {
-        x -= width * dpi;
+    if let Mouse::Position { x: pos_x, y: pos_y } = position {
+        x = pos_x as f64 / dpi;
+        y = pos_y as f64 / dpi;
+    }
+
+    if x + width > size_width as f64 / dpi {
+        x -= width;
         if x < 0.0 {
             x = 0.0;
         }
     }
-    if y + height * dpi > size_height as f64 {
-        y -= height * dpi;
+    if y + height > size_height as f64 / dpi {
+        y -= height;
         if y < 0.0 {
             y = 0.0;
         }
     }
 
-    Ok((x as i32, y as i32))
+    Ok((x, y))
 }
 
 #[cfg(target_os = "windows")]
-fn get_mouse_location() -> Result<(i32, i32), String> {
+fn get_mouse_location() -> Result<(f64, f64), String> {
     use crate::config::get_monitor_info;
     use windows::Win32::Foundation::POINT;
     use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
@@ -168,23 +157,22 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 
     unsafe {
         if GetCursorPos(&mut point).as_bool() {
-            let mut x = point.x as f64;
-            let mut y = point.y as f64;
+            let mut x = point.x as f64 / dpi;
+            let mut y = point.y as f64 / dpi;
             // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
-            if x + width * dpi > size_width as f64 {
-                x -= width * dpi;
+            if x + width > size_width as f64 / dpi {
+                x -= width;
                 if x < 0.0 {
                     x = 0.0;
                 }
             }
-            if y + height * dpi > size_height as f64 {
-                y -= height * dpi;
+            if y + height > size_height as f64 / dpi {
+                y -= height;
                 if y < 0.0 {
                     y = 0.0;
                 }
             }
-
-            Ok((x as i32, y as i32))
+            Ok((x, y))
         } else {
             Err("get cursorpos error".to_string())
         }
@@ -192,7 +180,7 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 }
 
 #[cfg(target_os = "macos")]
-fn get_mouse_location() -> Result<(i32, i32), String> {
+fn get_mouse_location() -> Result<(f64, f64), String> {
     use core_graphics::display::CGDisplay;
     use core_graphics::event::CGEvent;
     use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
@@ -216,7 +204,7 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
             y = 0.0;
         }
     }
-    return Ok((x as i32, y as i32));
+    return Ok((x, y));
 }
 
 // 划词翻译
