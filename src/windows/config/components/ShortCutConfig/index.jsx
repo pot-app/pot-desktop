@@ -7,14 +7,18 @@ import { get } from '../../main';
 
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
+export const shortcutOcrAtom = atom('');
 
 export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
+    const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
+
     const supportKey = ["Control", 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
     useEffect(() => {
         setShortcutTranslate(get('shortcut_translate') ?? '');
-        setShortcutPersistent(get('shortcut_persistent') ?? '')
+        setShortcutPersistent(get('shortcut_persistent') ?? '');
+        setShortcutOcr(get('shortcut_ocr') ?? '');
     }, []);
 
     function keyDown(e, value, set) {
@@ -38,7 +42,7 @@ export default function ShortCutConfig() {
                 <TextField
                     fullWidth
                     value={shortcutTranslate}
-                    placeholder='eg: CommandOrControl+D'
+                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     onKeyDown={(e) => { keyDown(e, shortcutTranslate, setShortcutTranslate) }}
                     onFocus={() => { setShortcutTranslate('') }}
                 />
@@ -46,10 +50,19 @@ export default function ShortCutConfig() {
             <ConfigItem label="独立翻译窗口">
                 <TextField
                     fullWidth
-                    placeholder='eg: CommandOrControl+Shift+D'
+                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}
                     onKeyDown={(e) => { keyDown(e, shortcutPersistent, setShortcutPersistent) }}
                     onFocus={() => { setShortcutPersistent('') }}
+                />
+            </ConfigItem>
+            <ConfigItem label="OCR">
+                <TextField
+                    fullWidth
+                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
+                    value={shortcutOcr}
+                    onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
+                    onFocus={() => { setShortcutOcr('') }}
                 />
             </ConfigItem>
         </ConfigList>

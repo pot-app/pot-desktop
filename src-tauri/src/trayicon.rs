@@ -1,17 +1,22 @@
-use crate::window::build_window;
-use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu};
+use crate::window::{build_ocr_window, build_translate_window};
+use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu, SystemTrayMenuItem};
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
 pub const PERSISTENT_WINDOW: &str = "persistent";
+pub const OCR_WINDOW: &str = "ocr";
 
 // 创建托盘菜单
 pub fn build_system_tray() -> SystemTray {
     let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "🌏 翻译");
+    let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "🖼 OCR");
     let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "⚙ 设置");
     let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "💨 退出");
     let tray_menu = SystemTrayMenu::new()
         .add_item(persistent)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(ocr)
+        .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(quit);
     SystemTray::new().with_menu(tray_menu)
@@ -24,7 +29,7 @@ pub fn on_persistent_click(app: &AppHandle) {
             window.close().unwrap();
         }
         None => {
-            let _window = build_window("persistent", "Persistent", app).unwrap();
+            let _window = build_translate_window("persistent", "Persistent", app).unwrap();
         }
     }
 }
@@ -44,6 +49,7 @@ pub fn on_config_click(app: &AppHandle) {
             .inner_size(500.0, 500.0)
             .min_inner_size(400.0, 300.0)
             .center()
+            .focused(true)
             .title("设置")
             .build()
             .unwrap();
@@ -51,6 +57,16 @@ pub fn on_config_click(app: &AppHandle) {
     }
 }
 
+pub fn on_ocr_click(app: &AppHandle) {
+    match app.get_window("ocr") {
+        Some(window) => {
+            window.close().unwrap();
+        }
+        None => {
+            let _window = build_ocr_window("tray", app).unwrap();
+        }
+    }
+}
 // 退出程序
 pub fn on_quit_click() {
     std::process::exit(0);

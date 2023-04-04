@@ -13,7 +13,8 @@ import AppInfo from './components/AppInfo';
 import { interfaceConfigsAtom } from './components/InterfaceConfig';
 import {
   shortcutTranslateAtom,
-  shortcutPersistentAtom
+  shortcutPersistentAtom,
+  shortcutOcrAtom
 } from './components/ShortCutConfig';
 import {
   themeAtom,
@@ -32,6 +33,7 @@ export default function App() {
   const interfaceConfigs = useAtomValue(interfaceConfigsAtom);
   const shortcutTranslate = useAtomValue(shortcutTranslateAtom);
   const shortcutPersistent = useAtomValue(shortcutPersistentAtom);
+  const shortcutOcr = useAtomValue(shortcutOcrAtom);
   const autoStart = useAtomValue(autoStartAtom);
   const autoCheck = useAtomValue(autoCheckAtom);
   const targetLanguage = useAtomValue(targetLanguageAtom);
@@ -46,6 +48,7 @@ export default function App() {
   async function saveConfig() {
     await set('shortcut_translate', shortcutTranslate);
     await set('shortcut_persistent', shortcutPersistent);
+    await set('shortcut_ocr', shortcutOcr);
     await set('auto_start', autoStart);
     await set('auto_check', autoCheck);
     await set('target_language', targetLanguage);

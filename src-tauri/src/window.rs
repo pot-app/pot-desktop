@@ -7,7 +7,11 @@ use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
-pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Window, String> {
+pub fn build_translate_window(
+    label: &str,
+    title: &str,
+    handle: &AppHandle,
+) -> Result<Window, String> {
     let (width, height) = get_window_size();
     let (x, y) = get_mouse_location().unwrap();
     let builder = tauri::WindowBuilder::new(
@@ -77,6 +81,26 @@ pub fn build_window(label: &str, title: &str, handle: &AppHandle) -> Result<Wind
     }
 }
 
+pub fn build_ocr_window(window_type: &str, handle: &AppHandle) -> Result<Window, String> {
+    let window = tauri::WindowBuilder::new(
+        handle,
+        "ocr",
+        tauri::WindowUrl::App("index_ocr.html".into()),
+    )
+    .inner_size(600.0, 400.0)
+    .min_inner_size(600.0, 400.0)
+    .center()
+    .focused(true)
+    .title("OCR")
+    .build()
+    .unwrap();
+    if window_type == "short" {
+        window.on_window_event(on_lose_focus);
+    }
+
+    Ok(window)
+}
+
 // 获取默认窗口大小
 fn get_window_size() -> (f64, f64) {
     let width: f64 = get_config("window_width", Value::from(400), APP.get().unwrap().state())
@@ -103,6 +127,9 @@ fn on_lose_focus(event: &WindowEvent) {
                 window.close().unwrap();
             }
             if let Some(window) = handle.get_window("popclip") {
+                window.close().unwrap();
+            }
+            if let Some(window) = handle.get_window("ocr") {
                 window.close().unwrap();
             }
         }
@@ -224,7 +251,7 @@ pub fn translate_window() {
             window.close().unwrap();
         }
         None => {
-            let _window = build_window("translator", "Translator", handle).unwrap();
+            let _window = build_translate_window("translator", "Translator", handle).unwrap();
         }
     };
 }
@@ -237,7 +264,7 @@ pub fn persistent_window() {
             window.close().unwrap();
         }
         None => {
-            let _window = build_window("persistent", "Persistent", handle).unwrap();
+            let _window = build_translate_window("persistent", "Persistent", handle).unwrap();
         }
     };
 }
@@ -254,7 +281,23 @@ pub fn popclip_window(text: String) {
             window.close().unwrap();
         }
         None => {
-            let _window = build_window("popclip", "PopClip", handle).unwrap();
+            let _window = build_translate_window("popclip", "PopClip", handle).unwrap();
+        }
+    };
+}
+
+// OCR
+pub fn ocr_window() {
+    let handle = APP.get().unwrap();
+
+    // 读取剪切板图片
+
+    match handle.get_window("ocr") {
+        Some(window) => {
+            window.close().unwrap();
+        }
+        None => {
+            let _main_window = build_ocr_window("short", handle).unwrap();
         }
     };
 }

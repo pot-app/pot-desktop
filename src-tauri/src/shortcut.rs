@@ -1,5 +1,5 @@
 use crate::config::get_config;
-use crate::window::{persistent_window, translate_window};
+use crate::window::{ocr_window, persistent_window, translate_window};
 use crate::APP;
 use tauri::{GlobalShortcutManager, Manager};
 use toml::Value;
@@ -34,6 +34,16 @@ pub fn register_shortcut() -> Result<(), String> {
         match handle
             .global_shortcut_manager()
             .register(shortcut_persistent.as_str().unwrap(), persistent_window)
+        {
+            Ok(()) => {}
+            Err(e) => return Err(e.to_string()),
+        };
+    }
+    let shortcut_ocr = get_config("shortcut_ocr", Value::from(""), APP.get().unwrap().state());
+    if shortcut_ocr.as_str().unwrap() != "" {
+        match handle
+            .global_shortcut_manager()
+            .register(shortcut_ocr.as_str().unwrap(), ocr_window)
         {
             Ok(()) => {}
             Err(e) => return Err(e.to_string()),

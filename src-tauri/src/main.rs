@@ -121,6 +121,7 @@ fn main() {
                     PERSISTENT_WINDOW => on_persistent_click(app),
                     CONFIG_TRAY_ITEM => on_config_click(app),
                     QUIT_TRAY_ITEM => on_quit_click(),
+                    OCR_WINDOW => on_ocr_click(app),
                     _ => {}
                 }
             }
