@@ -1,0 +1,12 @@
+{
+    "name": "Pot Translation",
+    "identifier": "cn.pylogmon.snipdoext.pot",
+    "icon": "pot.png",
+    "actions": [
+        {
+            "title": "Pot Translation",
+            "icon": "pot.png",
+            "powershellFile": "pot.ps1"
+        }
+    ]
+}

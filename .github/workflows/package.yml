@@ -62,6 +62,49 @@ jobs:
           path: ./*
           if-no-files-found: error
 
+  build-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Build Popclipext
+        run: |
+          cd popclip
+          bash ./build.sh
+          cd ..
+      - name: Build SnipDo
+        run: |
+          cd snipdo
+          bash ./build.sh
+          cd ..
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Pot.popclipextz
+          path: popclip/Pot.popclipextz
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot.pbar
+          path: snipdo/pot.pbar
+          if-no-files-found: error
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: popclip/Pot.popclipextz
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: snipdo/pot.pbar
   build-for-macos:
     needs: change-version
     strategy:
@@ -96,24 +139,12 @@ jobs:
       - name: Build and Package
         run: |
           pnpm tauri build --target ${{ matrix.target }}
-      - name: Build Popclipext
-        run: |
-          cd popclip
-          bash ./build.sh
-          cd ..
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.dmg
           path: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
           if-no-files-found: error
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Pot.popclipextz
-          path: popclip/Pot.popclipextz
-          if-no-files-found: error
-
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
@@ -121,13 +152,6 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
-          files: popclip/Pot.popclipextz
 
   build-for-linux:
     needs: change-version
