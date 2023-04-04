@@ -159,10 +159,19 @@ jobs:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        target: [x86_64-unknown-linux-gnu]
+        target: [x86_64-unknown-linux-gnu, aarch64-unknown-linux-gnu]
 
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Chroot
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debootstrap
+          sudo debootstrap --arch aarch64 buster ./aarch64
+          sudo chroot ./aarch64
+          apt-get update
+          apt-get install dpkg-dev
       - uses: actions/download-artifact@v3
         with:
           name: source
