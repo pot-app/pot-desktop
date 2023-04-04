@@ -168,7 +168,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y debootstrap
-          sudo debootstrap --arch aarch64 buster ./aarch64
+          sudo debootstrap --arch arm64 buster ./aarch64
           sudo chroot ./aarch64
           apt-get update
           apt-get install dpkg-dev
