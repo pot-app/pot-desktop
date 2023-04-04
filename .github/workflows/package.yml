@@ -169,7 +169,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y debootstrap fakechroot
           sudo debootstrap --arch arm64 --foreign buster ./aarch64
-          sudo fakechroot ./aarch64
+          sudo chroot ./aarch64
           apt-get update
           apt-get install dpkg-dev
       - uses: actions/download-artifact@v3
