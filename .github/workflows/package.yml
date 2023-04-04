@@ -171,8 +171,11 @@ jobs:
           sudo debootstrap --arch arm64 --foreign buster ./aarch64
           sudo cp -a /usr/bin/qemu-aarch64-static ./aarch64/usr/bin/qemu-aarch64-static
           sudo chroot ./aarch64
-          apt-get update
-          apt-get install dpkg-dev
+          debootstrap/debootstrap --second-stage
+          exit
+          sudo chroot ./aarch64
+          sudo apt-get update
+          sudo apt-get install dpkg-dev
       - uses: actions/download-artifact@v3
         with:
           name: source
