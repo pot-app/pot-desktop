@@ -34,6 +34,8 @@ jobs:
 
   change-version-for-windows:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.outputstep.outputs.VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,7 +46,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y git
-
+      - id: outputstep
+        run: |
+          $VERSION=$(git describe --tags)
+          echo "VERSION=\"${ VERSION }\"" >> "$GITHUB_OUTPUT"
       - name: Change Version for Windows
         run: |
           sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\",/g" package.json
@@ -257,15 +262,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
-      - name: Get Version
-        if: startsWith(github.ref, 'refs/tags')
-        run: |
-          echo "VERSION=""$(git describe --tags)""" >> $GITHUB_ENV
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
+        env:
+          VERSION: ${{needs.change-version-for-windows.outputs.version}}
         with:
           identifier: Pylogmon.pot
-          version: ${{ env.VERSION }}
+          version: ${ VERSION }
           installers-regex: '\.msi$'
           token: ${{ secrets.RELEASE_TOKEN }}
