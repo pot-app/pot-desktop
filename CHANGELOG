@@ -1,10 +1,11 @@
-## 0.1.11 (2023-04-02)
+## 0.1.12 (2023-04-05)
 
 ### New feature:
 
-- 实现按键设置快捷键([`b1c8857`](https://github.com/Pylogmon/Pot/commit/b1c88573629e2d8f3c7acc2573dfe153c157ad57)) (by 派了个萌)
+- 优化Google翻译([`3d00e6b`](https://github.com/Pylogmon/pot/commit/3d00e6b39780f633bea60c3b8f55775c1659f805)) (by 派了个萌)
+- 添加OCR窗口(未完工，只有界面)([`68bb98f`](https://github.com/Pylogmon/pot/commit/68bb98f72a6fc9ffd48a054cc3b0480499b38261)) (by 派了个萌)
+- 添加SnipDo扩展([`11b7b7a`](https://github.com/Pylogmon/pot/commit/11b7b7abd654e64fe654a89e7647bf7e9bc3ed32)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复某些设置无法正确显示的问题([`b4325da`](https://github.com/Pylogmon/Pot/commit/b4325da2f24fa94e087779987459221b62c8be8e)) (by 派了个萌)
-- 修复linux取词失败时闪退([`64f1e94`](https://github.com/Pylogmon/Pot/commit/64f1e94b93ea592020106ff51adbf5e0cc242584)) (by 派了个萌)
+- 修复windows窗口出现时先闪烁再移动到正确位置的问题([`b776383`](https://github.com/Pylogmon/pot/commit/b776383a05b7cd150cb97c6711e1e4d818bd4029)) (by 派了个萌)
