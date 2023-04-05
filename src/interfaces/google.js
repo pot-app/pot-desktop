@@ -59,17 +59,17 @@ export async function translate(text, from, to) {
     if (result[1]) {
         for (let i of result[1]) {
             // 词性
-            target = target + '【' + i[0] + '】\n【释义】';
+            target = target + '【词性】' + i[0] + '\n【释义】';
             for (let r of i[1]) {
                 target = target + r + ', ';
             }
             target = target + '\n【联想】\n';
             for (let r of i[2]) {
-                target = target + r[0] + ':  ';
+                target = target + '  ' + r[0] + ':  ';
                 for (let j of r[1]) {
                     target = target + j + ', ';
                 }
-                target = target + '\n';
+                target += '\n';
             }
             target += '\n';
         }
