@@ -257,11 +257,15 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+      - name: Get Version
+        if: startsWith(github.ref, 'refs/tags')
+        run: |
+          echo "VERSION=\"$(git describe --tags)\"" >> $GITHUB_ENV
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: Pylogmon.pot
-          version: ${{ github.ref }}
+          version: ${{ env.VERSION }}
           installers-regex: '\.msi$'
           token: ${{ secrets.RELEASE_TOKEN }}
