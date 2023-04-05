@@ -48,8 +48,7 @@ jobs:
           sudo apt-get install -y git
       - id: outputstep
         run: |
-          $VERSION=$(git describe --tags)
-          echo "VERSION=\"${ VERSION }\"" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$(git describe --tags)" >> "$GITHUB_OUTPUT"
       - name: Change Version for Windows
         run: |
           sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\",/g" package.json
