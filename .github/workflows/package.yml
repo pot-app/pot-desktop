@@ -260,7 +260,7 @@ jobs:
       - name: Get Version
         if: startsWith(github.ref, 'refs/tags')
         run: |
-          echo "VERSION=\"$(git describe --tags)\"" >> $GITHUB_ENV
+          echo "VERSION=""$(git describe --tags)""" >> $GITHUB_ENV
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
