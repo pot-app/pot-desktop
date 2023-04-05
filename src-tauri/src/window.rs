@@ -87,7 +87,7 @@ pub fn build_ocr_window(window_type: &str, handle: &AppHandle) -> Result<Window,
         "ocr",
         tauri::WindowUrl::App("index_ocr.html".into()),
     )
-    .inner_size(600.0, 400.0)
+    .inner_size(800.0, 400.0)
     .min_inner_size(600.0, 400.0)
     .center()
     .focused(true)

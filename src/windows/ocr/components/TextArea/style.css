@@ -1,0 +1,12 @@
+.text-content {
+    height: calc(100% - 30px);
+    overflow: auto;
+}
+
+.text-control {
+    height: 30px;
+}
+
+.control-button {
+    padding: 0;
+}

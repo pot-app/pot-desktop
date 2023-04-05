@@ -1,5 +1,6 @@
 import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import React, { useEffect } from 'react';
 import { useAtom, atom } from 'jotai';
@@ -68,6 +69,7 @@ export default function SourceArea() {
                     variant="contained"
                     size='small'
                     onClick={reTranslate}
+                    startIcon={<TranslateRoundedIcon />}
                 >
                     翻译
                 </MuiButton>

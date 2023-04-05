@@ -19,7 +19,6 @@ readConfig().then(
     configStore.set(configAtom, v);
     ReactDOM.createRoot(document.getElementById("root")).render(
       <React.StrictMode>
-        <div data-tauri-drag-region className="titlebar" />
         <Provider store={configStore}>
           <App />
         </Provider>

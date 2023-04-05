@@ -1,0 +1,11 @@
+.image-content {
+    height: calc(100% - 30px);
+}
+
+.image-control {
+    height: 30px;
+}
+
+.control-button {
+    padding: 0;
+}
