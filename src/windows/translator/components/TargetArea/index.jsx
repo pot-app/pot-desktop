@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { useTheme } from '@mui/material/styles';
-import { Card, Box, InputBase, Select, MenuItem, IconButton } from '@mui/material'
+import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip } from '@mui/material'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import PulseLoader from "react-spinners/PulseLoader";
@@ -95,12 +95,16 @@ export default function TargetArea() {
                     onClick={() => { speak(targetText) }}
                 >
                     <div id="audio"></div>
-                    <GraphicEqRoundedIcon />
+                    <Tooltip title="朗读">
+                        <GraphicEqRoundedIcon />
+                    </Tooltip>
                 </IconButton>
                 <IconButton className='target-button'
                     onClick={() => { copy(targetText) }}
                 >
-                    <ContentCopyRoundedIcon />
+                    <Tooltip title="复制">
+                        <ContentCopyRoundedIcon />
+                    </Tooltip>
                 </IconButton>
             </Box>
         </Card>

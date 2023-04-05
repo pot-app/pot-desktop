@@ -1,5 +1,6 @@
-import { Card, Box, InputBase, IconButton, Button as MuiButton } from '@mui/material';
+import { Card, Box, InputBase, IconButton, Button as MuiButton, Tooltip } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import React, { useEffect } from 'react';
@@ -57,12 +58,23 @@ export default function SourceArea() {
                         onClick={() => { speak(sourceText) }}
                     >
                         <div id='audio'></div>
-                        <GraphicEqRoundedIcon />
+                        <Tooltip title="朗读">
+                            <GraphicEqRoundedIcon />
+                        </Tooltip>
                     </IconButton>
                     <IconButton className='source-button'
                         onClick={() => { copy(sourceText) }}
                     >
-                        <ContentCopyRoundedIcon />
+                        <Tooltip title="复制">
+                            <ContentCopyRoundedIcon />
+                        </Tooltip>
+                    </IconButton>
+                    <IconButton className='source-button'
+                        onClick={() => { setSourceText(sourceText.replaceAll('\n', ' ')) }}
+                    >
+                        <Tooltip title="清除所有换行">
+                            <SmartButtonRoundedIcon />
+                        </Tooltip>
                     </IconButton>
                 </Box>
                 <MuiButton
