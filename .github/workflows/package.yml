@@ -264,10 +264,8 @@ jobs:
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
-        env:
-          VERSION: ${{needs.change-version-for-windows.outputs.version}}
         with:
           identifier: Pylogmon.pot
-          version: ${ VERSION }
+          version: ${{needs.change-version-for-windows.outputs.version}}
           installers-regex: '\.msi$'
           token: ${{ secrets.RELEASE_TOKEN }}
