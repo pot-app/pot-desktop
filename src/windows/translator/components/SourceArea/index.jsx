@@ -70,9 +70,14 @@ export default function SourceArea() {
                         </Tooltip>
                     </IconButton>
                     <IconButton className='source-button'
-                        onClick={() => { setSourceText(sourceText.replaceAll('\n', ' ')) }}
+                        onClick={() => {
+                            let temp = sourceText.replaceAll('  ', '');
+                            temp = temp.replaceAll('\r', ' ');
+                            temp = temp.replaceAll('\n', '');
+                            setSourceText(temp);
+                        }}
                     >
-                        <Tooltip title="清除所有换行">
+                        <Tooltip title="删除多余空格及换行">
                             <SmartButtonRoundedIcon />
                         </Tooltip>
                     </IconButton>
