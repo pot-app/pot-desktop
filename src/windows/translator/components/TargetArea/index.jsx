@@ -66,7 +66,12 @@ export default function TargetArea() {
                         Object.keys(interfaces).map(
                             x => {
                                 if (get(`${x}_enable`) && true) {
-                                    return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                                    return <MenuItem value={x} key={nanoid()}>
+                                        <Box>
+                                            <img src={`/${x}.svg`} className='interface-icon' />
+                                            <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                        </Box>
+                                    </MenuItem>
                                 }
                             }
                         )

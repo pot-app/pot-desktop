@@ -1,11 +1,21 @@
 .targetarea {
     margin-top: 8px;
-    padding: 8px;
+    padding: 8px 0;
     height: calc(60vh - 44px);
 }
 
 .interface-selector-area {
     height: 40px;
+}
+
+.interface-icon {
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.interface-name {
+    vertical-align: middle;
 }
 
 .interface-selector {
@@ -14,6 +24,7 @@
 
 .overflow-textarea {
     overflow: auto;
+    margin: 0 8px;
     height: calc(100% - 70px);
 }
 
