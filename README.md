@@ -13,7 +13,7 @@
 [![Release](https://img.shields.io/github/v/release/Pylogmon/pot)](https://github.com/Pylogmon/pot/releases)
 [![License](https://img.shields.io/github/license/Pylogmon/pot)](https://github.com/Pylogmon/pot/blob/main/LICENSE)
 [![CI](https://github.com/Pylogmon/pot/actions/workflows/package.yml/badge.svg)](https://github.com/Pylogmon/pot/actions/workflows/package.yml)
-![QQ](https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-767701966-blue?style=flat&logo=tencentqq)
+[![QQ](https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-767701966-blue?style=flat&logo=tencentqq)](asset/qq_group.jpg)
 
 [![AUR version](https://img.shields.io/aur/version/pot-translation?label=pot-translation&logo=archlinux)](https://aur.archlinux.org/packages/pot-translation)
 [![AUR version](https://img.shields.io/aur/version/pot-translation-bin?label=pot-translation-bin&logo=archlinux)](https://aur.archlinux.org/packages/pot-translation-bin)
