@@ -30,6 +30,11 @@ pub fn check_update() -> Result<(), String> {
                 return Err("Check Update Failed".to_string());
             }
             let tag = res["tag_name"].as_str().unwrap_or_default();
+            let body = res["body"]
+                .as_str()
+                .unwrap_or_default()
+                .replace("#", "")
+                .replace("\n\n", "\n");
             let handle = APP.get().unwrap();
             let version = handle
                 .config()
@@ -39,8 +44,8 @@ pub fn check_update() -> Result<(), String> {
                 .unwrap_or_else(|| "0.0.0".to_string());
             if compare(version.as_str(), tag).unwrap_or_default() == 1 {
                 Notification::new(&handle.config().tauri.bundle.identifier)
-                    .title("新版本可用")
-                    .body(tag)
+                    .title(format!("新版本可用 {tag}"))
+                    .body(body)
                     .icon("pot")
                     .show()
                     .unwrap_or_else(|e| println!("Error creating notification: {e}"));

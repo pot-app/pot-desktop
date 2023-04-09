@@ -18,14 +18,15 @@ export default function AppInfo() {
         axios.get('https://api.github.com/repos/Pylogmon/pot/releases/latest').then(
             res => {
                 let remoteVersion = res.data['tag_name'];
+                let body = res.data['body'].replaceAll('#', '').replaceAll('\n\n', '\n');
                 if (remoteVersion == version) {
                     notification.sendNotification({
                         title: '已经是最新版本了'
                     })
                 } else {
                     notification.sendNotification({
-                        title: '新版本可用',
-                        body: `最新版本为：${remoteVersion}`,
+                        title: `新版本可用 ${remoteVersion}`,
+                        body: body,
                     })
                 }
             },
