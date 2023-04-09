@@ -2,6 +2,7 @@
 
 ### New feature:
 
+- 添加Esc关闭翻译窗口([`27099b9`](https://github.com/Pylogmon/Pot/commit/27099b9ff646ba53c8c72c8636f2d678feed14c8)) (by 派了个萌)
 - 添加翻译接口图标([`362b4ab`](https://github.com/Pylogmon/Pot/commit/362b4ab540afafb5909369bafee6f581e25e66fd)) (by 派了个萌)
 - 添加清除换行符按钮([`093548a`](https://github.com/Pylogmon/Pot/commit/093548a7f30a118ef23bd8099f3e8cd7da0964e3)) (by 派了个萌)
 
