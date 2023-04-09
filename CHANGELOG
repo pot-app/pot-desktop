@@ -1,11 +1,10 @@
-## 0.1.12 (2023-04-05)
+## 0.1.13 (2023-04-09)
 
 ### New feature:
 
-- 优化Google翻译([`3d00e6b`](https://github.com/Pylogmon/pot/commit/3d00e6b39780f633bea60c3b8f55775c1659f805)) (by 派了个萌)
-- 添加OCR窗口(未完工，只有界面)([`68bb98f`](https://github.com/Pylogmon/pot/commit/68bb98f72a6fc9ffd48a054cc3b0480499b38261)) (by 派了个萌)
-- 添加SnipDo扩展([`11b7b7a`](https://github.com/Pylogmon/pot/commit/11b7b7abd654e64fe654a89e7647bf7e9bc3ed32)) (by 派了个萌)
+- 添加翻译接口图标([`362b4ab`](https://github.com/Pylogmon/Pot/commit/362b4ab540afafb5909369bafee6f581e25e66fd)) (by 派了个萌)
+- 添加清除换行符按钮([`093548a`](https://github.com/Pylogmon/Pot/commit/093548a7f30a118ef23bd8099f3e8cd7da0964e3)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复windows窗口出现时先闪烁再移动到正确位置的问题([`b776383`](https://github.com/Pylogmon/pot/commit/b776383a05b7cd150cb97c6711e1e4d818bd4029)) (by 派了个萌)
+- 删除无用的Emoji([`f21a5e9`](https://github.com/Pylogmon/Pot/commit/f21a5e962eb128c79b1b3289b59ee13f2e831c9b)) (by 派了个萌)
