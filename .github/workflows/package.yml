@@ -287,37 +287,11 @@ jobs:
         run: |
           name=$(ls src-tauri/target/release/bundle/deb/*.deb)
           new_name=${name%.*}_${{ matrix.target }}.deb
-          mv src-tauri/target/release/bundle/deb/*.deb ${new_name}
+          sudo mv src-tauri/target/release/bundle/deb/*.deb ${new_name}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.deb
-          path: src-tauri/target/release/bundle/deb/*.deb
-          if-no-files-found: error
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
-          files: src-tauri/target/release/bundle/deb/*.deb
-  build-for-arm:
-    needs: change-version
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [ubuntu-latest]
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: source
-      - name: Build for ARM
-        uses: ./actions/build-for-arm
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot_arm.deb
           path: src-tauri/target/release/bundle/deb/*.deb
           if-no-files-found: error
       - name: Upload Release
