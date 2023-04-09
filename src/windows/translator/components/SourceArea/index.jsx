@@ -71,10 +71,8 @@ export default function SourceArea() {
                     </IconButton>
                     <IconButton className='source-button'
                         onClick={() => {
-                            let temp = sourceText.replaceAll('  ', '');
-                            temp = temp.replaceAll('\r', ' ');
-                            temp = temp.replaceAll('\n', '');
-                            setSourceText(temp);
+                            // /s匹配空格和换行符 /g表示全局匹配
+                            setSourceText(sourceText.replace(/\s+/g, ' '));
                         }}
                     >
                         <Tooltip title="删除多余空格及换行">
