@@ -269,3 +269,35 @@ jobs:
           version: ${{needs.change-version-for-windows.outputs.version}}
           installers-regex: '\.msi$'
           token: ${{ secrets.RELEASE_TOKEN }}
+  build-for-deepin:
+    needs: change-version
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+        target: [universal]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: source
+      - name: Build for Deepin
+        uses: ./build-for-deepin
+      - name: Change Name
+        run: |
+          name=$(ls src-tauri/target/release/bundle/deb/*.deb)
+          new_name=${name%.*}_${{ matrix.target }}.deb
+          mv src-tauri/target/release/bundle/deb/*.deb src-tauri/target/release/bundle/deb/${new_name}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot_${{ matrix.target }}.deb
+          path: src-tauri/target/release/bundle/deb/*.deb
+          if-no-files-found: error
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: src-tauri/target/release/bundle/deb/*.deb
