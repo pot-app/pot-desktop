@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { useTheme } from '@mui/material/styles';
-import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip } from '@mui/material'
+import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip, Snackbar, Alert } from '@mui/material'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import PulseLoader from "react-spinners/PulseLoader";
@@ -21,6 +21,7 @@ export default function TargetArea() {
 
     const [translateInterface, setTranslateInterface] = useState(get('interface') ?? 'deepl');
     const [loading, setLoading] = useState(false);
+    const [copyed, setCopyed] = useState(false);
     const [targetText, setTargetText] = useState("");
     const theme = useTheme();
 
@@ -29,6 +30,25 @@ export default function TargetArea() {
             translate(sourceText.trim(), sourceLanguage, targetLanguage);
         }
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage])
+
+    useEffect(() => {
+        let autoCopy = get('auto_copy') ?? 4;
+        if (autoCopy == 4) {
+            return;
+        } else if (autoCopy == 1) {
+            if (sourceText != '') {
+                copy(sourceText);
+            }
+        } else if (autoCopy == 2) {
+            if (targetText != '') {
+                copy(targetText);
+            }
+        } else {
+            if (targetText && sourceText != '') {
+                copy(sourceText + '\n\n' + targetText);
+            }
+        }
+    }, [targetText])
 
     // 开始翻译的回调
     function translate(text, from, to) {
@@ -49,12 +69,24 @@ export default function TargetArea() {
     // 复制文本的回调
     function copy(who) {
         writeText(who).then(
-            _ => { console.log('success') }
+            _ => { setCopyed(true) }
         )
     }
 
     return (
         <Card className='targetarea'>
+            <Snackbar
+                open={copyed}
+                autoHideDuration={2000}
+                onClose={() => { setCopyed(false) }}
+                anchorOrigin={{
+                    vertical: 'bottom', horizontal: 'right'
+                }}
+            >
+                <Alert onClose={() => { setCopyed(false) }} severity="success">
+                    已写入剪切板
+                </Alert>
+            </Snackbar>
             <Box className='interface-selector-area'>
                 <Select
                     sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}

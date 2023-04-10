@@ -11,6 +11,7 @@ import { get } from '../../main';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
+export const autoCopyAtom = atom(4);
 export const targetLanguageAtom = atom('zh-cn');
 export const defaultInterfaceAtom = atom('deepl');
 export const proxyAtom = atom('');
@@ -21,6 +22,7 @@ export const windowHeightAtom = atom(500);
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
+    const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
@@ -31,6 +33,7 @@ export default function AppConfig() {
     useEffect(() => {
         setAutoStart(get('auto_start') ?? false);
         setAutoCheck(get('auto_check') ?? false);
+        setAutoCopy(get('auto_copy') ?? 4);
         setTargetLanguage(get('target_language') ?? 'zh-cn');
         setDefaultInterface(get('interface') ?? 'deepl');
         setProxy(get('proxy') ?? '');
@@ -81,6 +84,18 @@ export default function AppConfig() {
                             }
                         )
                     }
+                </Select>
+            </ConfigItem>
+            <ConfigItem label="翻译后自动复制">
+                <Select
+                    fullWidth
+                    value={autoCopy}
+                    onChange={(e) => setAutoCopy(e.target.value)}
+                >
+                    <MenuItem value={1} >原文</MenuItem>
+                    <MenuItem value={2} >译文</MenuItem>
+                    <MenuItem value={3} >原文+译文</MenuItem>
+                    <MenuItem value={4} >关闭</MenuItem>
                 </Select>
             </ConfigItem>
             <ConfigItem label="网络代理">

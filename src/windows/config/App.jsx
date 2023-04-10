@@ -20,6 +20,7 @@ import {
   themeAtom,
   autoStartAtom,
   autoCheckAtom,
+  autoCopyAtom,
   targetLanguageAtom,
   defaultInterfaceAtom,
   proxyAtom,
@@ -36,6 +37,7 @@ export default function App() {
   const shortcutOcr = useAtomValue(shortcutOcrAtom);
   const autoStart = useAtomValue(autoStartAtom);
   const autoCheck = useAtomValue(autoCheckAtom);
+  const autoCopy = useAtomValue(autoCopyAtom);
   const targetLanguage = useAtomValue(targetLanguageAtom);
   const defaultInterface = useAtomValue(defaultInterfaceAtom);
   const proxy = useAtomValue(proxyAtom);
@@ -51,6 +53,7 @@ export default function App() {
     await set('shortcut_ocr', shortcutOcr);
     await set('auto_start', autoStart);
     await set('auto_check', autoCheck);
+    await set('auto_copy', autoCopy);
     await set('target_language', targetLanguage);
     await set('theme', theme);
     await set('window_width', windowWidth);
