@@ -71,6 +71,8 @@ fn main() {
             MacosLauncher::LaunchAgent,
             Some(vec![]),
         ))
+        //加载托盘图标
+        .system_tray(build_system_tray())
         .setup(|app| {
             #[cfg(target_os = "macos")]
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
@@ -101,6 +103,10 @@ fn main() {
                         .unwrap();
                 }
             }
+            let copy_mode = get_config("auto_copy", toml::Value::Integer(4), handle.state())
+                .as_integer()
+                .unwrap();
+            update_tray(handle, copy_mode);
             Ok(())
         })
         // 注册Tauri Command
@@ -112,8 +118,6 @@ fn main() {
             is_macos,
             http_request
         ])
-        //加载托盘图标
-        .system_tray(build_system_tray())
         //绑定托盘事件
         .on_system_tray_event(|app, event| {
             if let SystemTrayEvent::MenuItemClick { id, .. } = event {
@@ -122,6 +126,10 @@ fn main() {
                     CONFIG_TRAY_ITEM => on_config_click(app),
                     QUIT_TRAY_ITEM => on_quit_click(),
                     OCR_WINDOW => on_ocr_click(app),
+                    COPY_SOURCE => on_auto_copy_click(app, 1),
+                    COPY_TARGET => on_auto_copy_click(app, 2),
+                    COPY_SOURCE_TARGET => on_auto_copy_click(app, 3),
+                    COPY_CLOSE => on_auto_copy_click(app, 4),
                     _ => {}
                 }
             }

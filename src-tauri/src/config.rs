@@ -1,4 +1,5 @@
 use crate::shortcut::register_shortcut;
+use crate::trayicon::update_tray;
 use crate::APP;
 use std::sync::Mutex;
 use std::{fs, io::Read, path::PathBuf};
@@ -89,6 +90,10 @@ pub fn get_config(key: &str, default: Value, state: tauri::State<ConfigWrapper>)
 
 #[tauri::command]
 pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
+    if key == "auto_copy" {
+        let copy_mode = value.clone().as_integer().unwrap();
+        update_tray(APP.get().unwrap(), copy_mode);
+    }
     state.0.lock().unwrap().set(key, value);
 }
 
