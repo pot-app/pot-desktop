@@ -2,7 +2,7 @@ import request from './utils/request';
 import { get } from '../windows/translator/main';
 
 export const info = {
-    name: "Open AI 总结",
+    name: "OpenAI 总结",
     supportLanguage: {
         "zh-cn": "简体中文",
         "zh-tw": "繁体中文",

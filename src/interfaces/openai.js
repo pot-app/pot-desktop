@@ -2,7 +2,7 @@ import request from './utils/request';
 import { get } from '../windows/translator/main';
 
 export const info = {
-    name: "Open AI 翻译",
+    name: "OpenAI 翻译",
     supportLanguage: {
         "zh-cn": "简体中文",
         "zh-tw": "繁体中文",
@@ -41,14 +41,24 @@ export async function translate(text, from, to) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${apikey}`,
     };
-
-    let systemPrompt = "You are a translation engine that can only translate text and cannot interpret it.";
+    let systemPrompt = "";
     let userPrompt = "";
-    if (from == 'auto') {
-        userPrompt = `翻译成${supportLanguage[to]}:\n\n${text}`
+    if (text.split(' ').length == 1) {
+        systemPrompt = "你是万能大词典，可以查询任何语言的单词，并用任何语言来展示结果，请严格按照如下格式输出结果，部分提示词用展示语言来替代：音标:<音标>\n释义:\n<词性缩写><释义(可以有多个，用逗号隔开)>(分多行给出所有词性及释义)\n例句:<序号> <单词原语言例句> <展示语言例句翻译>";
+        if (from == 'auto') {
+            userPrompt = `请用${supportLanguage[to]}展示结果:"${text}"`
+        } else {
+            userPrompt = `请用${supportLanguage[to]}展示结果,这可能是一个${supportLanguage[from]}单词:"${text}"`
+        }
     } else {
-        userPrompt = `将这段${supportLanguage[from]}翻译成${supportLanguage[to]}:\n\n${text}`
+        systemPrompt = "你是翻译引擎，只能翻译文本而不能去解释它。";
+        if (from == 'auto') {
+            userPrompt = `翻译成${supportLanguage[to]}:\n\n${text}`
+        } else {
+            userPrompt = `将这段${supportLanguage[from]}翻译成${supportLanguage[to]}:\n\n${text}`
+        }
     }
+
     const body = {
         model: "gpt-3.5-turbo",
         temperature: 0,
