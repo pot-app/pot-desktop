@@ -95,6 +95,9 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
         update_tray(APP.get().unwrap(), copy_mode);
     }
     state.0.lock().unwrap().set(key, value);
+    if key == "auto_copy" {
+        let _ = write_config(state);
+    }
 }
 
 #[tauri::command]
