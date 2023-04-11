@@ -31,3 +31,5 @@ jobs:
             🌟Pot 仓库有新动态🌟
             
             发送者：${{ github.event.sender.login }}
+
+            ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
