@@ -75,22 +75,25 @@ pub fn get_selection_text() -> Result<String, String> {
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
 
-    // Reads old content and stores it in a tuple
+    // 读取旧的剪切板
     let old_clipboard = (
         Clipboard::new().unwrap().get_text(),
         Clipboard::new().unwrap().get_image(),
     );
     copy();
 
-    // Reads new content
+    // 读取新的剪切板
     let new_text = Clipboard::new().unwrap().get_text();
 
-    // Writes old content back to clipboard before returning
+    // 创建用于回写的剪切板
     let mut write_clipboard = Clipboard::new().unwrap();
+
     match old_clipboard {
         (Ok(text), _) => {
+            // 旧剪切板为文本
             write_clipboard.set_text(text.clone()).unwrap();
             if let Ok(new) = new_text {
+                //新旧剪切板相同说明没有复制新内容
                 if new.trim() == text.trim() {
                     Ok("".to_string())
                 } else {
@@ -101,10 +104,23 @@ pub fn get_selection_text() -> Result<String, String> {
             }
         }
         (_, Ok(image)) => {
+            // 旧剪切板为图片
             write_clipboard.set_image(image).unwrap();
-            Ok("".to_string())
+            if let Ok(new) = new_text {
+                Ok(new)
+            } else {
+                Ok("".to_string())
+            }
         }
-        _ => Ok("".to_string()),
+        _ => {
+            // 旧剪切板为空
+            write_clipboard.clear().unwrap();
+            if let Ok(new) = new_text {
+                Ok(new)
+            } else {
+                Ok("".to_string())
+            }
+        }
     }
 }
 
