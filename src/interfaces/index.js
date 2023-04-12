@@ -8,6 +8,7 @@ import * as _tencent from './tencent'
 import * as _volcengine from './volcengine'
 import * as _google from './google'
 import * as _deepl from './deepl'
+import * as _alibaba from './alibaba'
 
 export const baidu = _baidu
 export const caiyun = _caiyun
@@ -19,3 +20,4 @@ export const tencent = _tencent
 export const volcengine = _volcengine
 export const google = _google
 export const deepl = _deepl
+export const alibaba = _alibaba
