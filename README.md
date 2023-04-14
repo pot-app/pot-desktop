@@ -77,16 +77,17 @@ Deepin V20用户请下载`pot_<version>_amd64_universal.deb`，Deepin V23可以�
 #### Arch/Manjaro
 已提供 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 包
 
-### MacOS
-在 [Release](https://github.com/Pylogmon/pot/releases) 根据自己CPU型号选择对应的dmg包下载安装
-
-Intel芯片下载`pot_<version>_x64.dmg`，M系列芯片下载`pot_<version>_aarch64.dmg`
 #### 关于Wayland
 pot默认运行在xwayland下，如果发现在某些软件中快捷键不起作用，可以将pot设置中的快捷键清空，在系统设置中设置自定义快捷键：
 ```bash
 pot translate # 划词翻译
 pot persistent # 独立窗口
 ```
+
+### MacOS
+在 [Release](https://github.com/Pylogmon/pot/releases) 根据自己CPU型号选择对应的dmg包下载安装
+
+Intel芯片下载`pot_<version>_x64.dmg`，M系列芯片下载`pot_<version>_aarch64.dmg`
 
 ## 感谢
 
