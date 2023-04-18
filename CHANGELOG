@@ -1,12 +1,7 @@
-## 0.1.14 (2023-04-11)
+## 0.1.15 (2023-04-18)
 
 ### New feature:
 
-- 添加OpenAI查词功能([`6e5ce5e`](https://github.com/Pylogmon/Pot/commit/6e5ce5ef03833c968149747700f439c449ef0979)) (by 派了个萌)
-- 托盘设置自动复制模式([`d3d418c`](https://github.com/Pylogmon/Pot/commit/d3d418c9a2470c09d5eddbfbc9d730e7d037f7b2)) (by 派了个萌)
-- 提供翻译后自动复制选项([`2697c4c`](https://github.com/Pylogmon/Pot/commit/2697c4c0f69658ad7d5f7186255f9dafa8340d10)) (by 派了个萌)
-
-### Bugs fixed:
-
-- 修复windows下某些情况下取词失败的问题([`2d79151`](https://github.com/Pylogmon/Pot/commit/2d79151625feb595697e79345a85924738bbd575)) (by 派了个萌)
-- 修复空格及换行删除错误([`3507d1c`](https://github.com/Pylogmon/Pot/commit/3507d1c4a1331cb6e096b570e0482ac4fb7da693)) (by 派了个萌)
+- 禁用右键菜单以及webview快捷键([`2344f40`](https://github.com/Pylogmon/Pot/commit/2344f407b8db28bb3d8d69dc968c4af0d29f0a18)) (by 派了个萌)
+- 添加动态翻译开关([`fe3d9c9`](https://github.com/Pylogmon/Pot/commit/fe3d9c9b621959e9d4acdb5f5c3315d72e029042)) (by 派了个萌)
+- 添加阿里翻译接口([`ac65c75`](https://github.com/Pylogmon/Pot/commit/ac65c75e52b7bea0a4f48cfed5935fb533eadb7f)) (by 派了个萌)
