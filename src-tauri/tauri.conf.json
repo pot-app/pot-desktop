@@ -28,6 +28,15 @@
       },
       "notification": {
         "all": true
+      },
+      "dialog": {
+        "open": true
+      },
+      "fs": {
+        "readFile": true,
+        "scope": [
+          "*"
+        ]
       }
     },
     "bundle": {

@@ -2,6 +2,12 @@
     height: calc(100% - 30px);
 }
 
+.image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
 .image-control {
     height: 30px;
 }

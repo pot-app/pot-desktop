@@ -14,7 +14,7 @@ tauri-build = { version = "1.2", features = [] }
 
 [dependencies]
 serde_json = "1.0"
-tauri = { version = "1.2", features = ["clipboard-all", "global-shortcut-all", "notification", "notification-all", "shell-open", "system-tray", "window-all"] }
+tauri = { version = "1.2", features = ["clipboard-all", "dialog-open", "fs-read-file", "global-shortcut-all", "notification", "notification-all", "shell-open", "system-tray", "window-all"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 reqwest = { version = "0.11", features = ["blocking", "json"] }

@@ -17,12 +17,12 @@ export default function App() {
     <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>
       <CssBaseline />
       <Grid container className='display-area'>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ height: "100%" }}>
           <Card className='image-area' >
             <ImageArea />
           </Card>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ height: "100%" }}>
           <Card className='text-area' >
             <TextArea />
           </Card>
