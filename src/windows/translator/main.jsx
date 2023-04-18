@@ -1,5 +1,4 @@
 import { atom, createStore, Provider } from "jotai";
-import { appWindow } from "@tauri-apps/api/window";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { readConfig } from "../../global/config";
@@ -22,13 +21,7 @@ readConfig().then(
       <React.StrictMode>
         <div data-tauri-drag-region className="titlebar" />
         <Provider store={configStore}>
-          <div tabIndex={0} onKeyDown={(e) => {
-            if (e.key == 'Escape') {
-              appWindow.close();
-            }
-          }}>
-            <App />
-          </div>
+          <App />
         </Provider>
       </React.StrictMode>
     );

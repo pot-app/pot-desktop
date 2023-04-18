@@ -30,6 +30,7 @@ import {
 } from './components/AppConfig';
 import { light, dark } from '../themes';
 import './style.css'
+import { useEffect } from "react";
 
 export default function App() {
   const interfaceConfigs = useAtomValue(interfaceConfigsAtom);
@@ -112,6 +113,19 @@ export default function App() {
       }
     )
   }
+
+  useEffect(() => {
+    document.addEventListener('contextmenu', (e) => { e.preventDefault() });
+    document.addEventListener('keydown', (e) => {
+      let allowKeys = ['c', 'v', 'x', 'a'];
+      if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
+        e.preventDefault();
+      }
+      if (e.key.startsWith("F")) {
+        e.preventDefault();
+      }
+    })
+  }, [])
 
   return (
     <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>
