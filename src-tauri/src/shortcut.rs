@@ -9,6 +9,7 @@ use toml::Value;
 pub fn register_shortcut() -> Result<(), String> {
     let handle = APP.get().unwrap();
     // 释放所有快捷键 linux下会导致快捷键注册失效 https://github.com/tauri-apps/tauri/issues/6487
+    // 修复即将Release https://github.com/tauri-apps/tao/pull/724
     #[cfg(any(target_os = "macos", target_os = "windows"))]
     handle.global_shortcut_manager().unregister_all().unwrap();
     // 依次注册快捷键
