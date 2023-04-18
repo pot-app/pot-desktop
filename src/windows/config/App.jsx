@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { notification } from '@tauri-apps/api'
 import { useAtomValue } from 'jotai';
 import React from 'react'
-import { set, writeConfig } from '../../global/config'
+import { readConfig, set, writeConfig } from '../../global/config'
 import ShortCutConfig from './components/ShortCutConfig';
 import InterfaceConfig from './components/InterfaceConfig';
 import AppConfig from './components/AppConfig';
@@ -20,6 +20,7 @@ import {
   themeAtom,
   autoStartAtom,
   autoCheckAtom,
+  dynamicTranslateAtom,
   autoCopyAtom,
   targetLanguageAtom,
   defaultInterfaceAtom,
@@ -37,6 +38,7 @@ export default function App() {
   const shortcutOcr = useAtomValue(shortcutOcrAtom);
   const autoStart = useAtomValue(autoStartAtom);
   const autoCheck = useAtomValue(autoCheckAtom);
+  const dynamicTranslate = useAtomValue(dynamicTranslateAtom);
   const autoCopy = useAtomValue(autoCopyAtom);
   const targetLanguage = useAtomValue(targetLanguageAtom);
   const defaultInterface = useAtomValue(defaultInterfaceAtom);
@@ -48,11 +50,14 @@ export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   async function saveConfig() {
+    let oldConfig = await readConfig();
+    let shortcut = !(oldConfig['shortcut_translate'] == shortcutTranslate && oldConfig['shortcut_persistent'] == shortcutPersistent && oldConfig['shortcut_ocr'] == shortcutOcr);
     await set('shortcut_translate', shortcutTranslate);
     await set('shortcut_persistent', shortcutPersistent);
     await set('shortcut_ocr', shortcutOcr);
     await set('auto_start', autoStart);
     await set('auto_check', autoCheck);
+    await set('dynamic_translate', dynamicTranslate);
     await set('auto_copy', autoCopy);
     await set('target_language', targetLanguage);
     await set('theme', theme);
@@ -92,7 +97,7 @@ export default function App() {
         }
       })
     }
-    writeConfig().then(
+    writeConfig(shortcut).then(
       _ => {
         notification.sendNotification({
           title: '设置保存成功',

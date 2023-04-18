@@ -96,22 +96,24 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
     }
     state.0.lock().unwrap().set(key, value);
     if key == "auto_copy" {
-        let _ = write_config(state);
+        let _ = write_config(state, false);
     }
 }
 
 #[tauri::command]
-pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
-    match register_shortcut() {
-        Ok(_) => {}
-        Err(e) => {
-            let handle = APP.get().unwrap();
-            Notification::new(&handle.config().tauri.bundle.identifier)
-                .title("快捷键注册失败")
-                .body(e)
-                .icon("pot")
-                .show()
-                .unwrap();
+pub fn write_config(state: tauri::State<ConfigWrapper>, shortcut: bool) -> Result<(), String> {
+    if shortcut {
+        match register_shortcut() {
+            Ok(_) => {}
+            Err(e) => {
+                let handle = APP.get().unwrap();
+                Notification::new(&handle.config().tauri.bundle.identifier)
+                    .title("快捷键注册失败")
+                    .body(e)
+                    .icon("pot")
+                    .show()
+                    .unwrap();
+            }
         }
     }
     state.0.lock().unwrap().write()

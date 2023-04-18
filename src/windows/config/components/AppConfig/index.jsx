@@ -11,6 +11,7 @@ import { get } from '../../main';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
+export const dynamicTranslateAtom = atom(false);
 export const autoCopyAtom = atom(4);
 export const targetLanguageAtom = atom('zh-cn');
 export const defaultInterfaceAtom = atom('deepl');
@@ -22,6 +23,7 @@ export const windowHeightAtom = atom(500);
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
+    const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
@@ -33,6 +35,7 @@ export default function AppConfig() {
     useEffect(() => {
         setAutoStart(get('auto_start') ?? false);
         setAutoCheck(get('auto_check') ?? false);
+        setDynamicTranslate(get('dynamic_translate') ?? false);
         setAutoCopy(get('auto_copy') ?? 4);
         setTargetLanguage(get('target_language') ?? 'zh-cn');
         setDefaultInterface(get('interface') ?? 'deepl');
@@ -55,6 +58,11 @@ export default function AppConfig() {
                         <Checkbox checked={autoCheck} onChange={(e) => { setAutoCheck(e.target.checked) }} />
                     }
                     label="启动时检查更新" />
+                <FormControlLabel
+                    control={
+                        <Checkbox checked={dynamicTranslate} onChange={(e) => { setDynamicTranslate(e.target.checked) }} />
+                    }
+                    label="动态翻译" />
             </ConfigItem>
             <ConfigItem label="目标语言">
                 <Select

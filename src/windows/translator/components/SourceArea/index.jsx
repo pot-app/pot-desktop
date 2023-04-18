@@ -4,18 +4,21 @@ import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import React, { useState, useEffect } from 'react';
-import { useAtom, atom } from 'jotai';
+import { atom, useSetAtom } from 'jotai';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
 import speak from '../../../../global/speakClient';
+import { get } from '../../main';
 import './style.css'
 
 export const sourceTextAtom = atom('');
 
 export default function SourceArea() {
-    const [sourceText, setSourceText] = useAtom(sourceTextAtom);
+    const [dynamicTranslate, _] = useState(get('dynamic_translate') ?? false);
+    const setSourceText = useSetAtom(sourceTextAtom);
     const [copyed, setCopyed] = useState(false);
+    const [text, setText] = useState('');
 
     useEffect(() => {
         if (appWindow.label != "persistent") {
@@ -24,22 +27,24 @@ export default function SourceArea() {
                 text => {
                     if (text != "") {
                         setSourceText(text.trim());
+                        setText(text.trim());
                     }
                 }
             )
         }
     }, [])
 
-    // 重新翻译
-    function reTranslate() {
-        setSourceText(sourceText + " ");
-    }
-
     // 复制内容
     function copy(who) {
         writeText(who).then(
             _ => { setCopyed(true) }
         )
+    }
+
+    function keyDown(event) {
+        if (event.key == "Enter") {
+            setSourceText(event.target.value);
+        }
     }
 
     return (
@@ -61,14 +66,21 @@ export default function SourceArea() {
                     autoFocus
                     multiline
                     fullWidth
-                    value={sourceText}
-                    onChange={(e) => { setSourceText(e.target.value) }}
+                    value={text}
+                    onKeyDown={keyDown}
+                    onChange={(e) => {
+                        setText(e.target.value);
+                        console.log(dynamicTranslate);
+                        if (dynamicTranslate) {
+                            setSourceText(e.target.value)
+                        }
+                    }}
                 />
             </Box>
             <Box className='source-buttonarea'>
                 <Box>
                     <IconButton className='source-button'
-                        onClick={() => { speak(sourceText) }}
+                        onClick={() => { speak(text) }}
                     >
                         <div id='audio'></div>
                         <Tooltip title="朗读">
@@ -76,7 +88,7 @@ export default function SourceArea() {
                         </Tooltip>
                     </IconButton>
                     <IconButton className='source-button'
-                        onClick={() => { copy(sourceText) }}
+                        onClick={() => { copy(text) }}
                     >
                         <Tooltip title="复制">
                             <ContentCopyRoundedIcon />
@@ -85,7 +97,9 @@ export default function SourceArea() {
                     <IconButton className='source-button'
                         onClick={() => {
                             // /s匹配空格和换行符 /g表示全局匹配
-                            setSourceText(sourceText.replace(/\s+/g, ' '));
+                            let newText = text.replace(/\s+/g, ' ');
+                            setText(newText);
+                            setSourceText(newText);
                         }}
                     >
                         <Tooltip title="删除多余空格及换行">
@@ -96,7 +110,7 @@ export default function SourceArea() {
                 <MuiButton
                     variant="contained"
                     size='small'
-                    onClick={reTranslate}
+                    onClick={() => { setSourceText(text) }}
                     startIcon={<TranslateRoundedIcon />}
                 >
                     翻译

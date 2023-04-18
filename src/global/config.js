@@ -9,6 +9,6 @@ export async function set(k, v) {
     await invoke('set_config', { key: k, value: v });
 }
 
-export async function writeConfig() {
-    await invoke('write_config');
+export async function writeConfig(shortcut) {
+    await invoke('write_config', { shortcut: shortcut });
 }
