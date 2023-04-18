@@ -1,10 +1,11 @@
 use crate::shortcut::register_shortcut;
 use crate::trayicon::update_tray;
 use crate::APP;
+use dirs::config_dir;
 use std::sync::Mutex;
 use std::{fs, io::Read, path::PathBuf};
 use tauri::api::notification::Notification;
-use tauri::{api::path::config_dir, Manager};
+use tauri::Manager;
 use toml::{Table, Value};
 
 fn get_app_config_dir() -> PathBuf {
