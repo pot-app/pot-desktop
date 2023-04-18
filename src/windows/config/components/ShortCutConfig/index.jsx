@@ -56,7 +56,7 @@ export default function ShortCutConfig() {
                     onFocus={() => { setShortcutPersistent('') }}
                 />
             </ConfigItem>
-            <ConfigItem label="OCR">
+            {/* <ConfigItem label="OCR">
                 <TextField
                     fullWidth
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
@@ -64,7 +64,7 @@ export default function ShortCutConfig() {
                     onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
                     onFocus={() => { setShortcutOcr('') }}
                 />
-            </ConfigItem>
+            </ConfigItem> */}
         </ConfigList>
     )
 }
