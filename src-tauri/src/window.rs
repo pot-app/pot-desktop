@@ -287,7 +287,6 @@ pub fn popclip_window(text: String) {
 }
 
 // OCR
-#[allow(dead_code)]
 pub fn ocr_window() {
     let handle = APP.get().unwrap();
 

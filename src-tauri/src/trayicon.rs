@@ -19,7 +19,7 @@ pub const COPY_CLOSE: &str = "copy_close";
 // 创建托盘菜单
 pub fn build_system_tray() -> SystemTray {
     let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻译");
-    // let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "OCR");
+    let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "OCR");
     let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
     let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
 
@@ -36,8 +36,8 @@ pub fn build_system_tray() -> SystemTray {
                 ))
                 .add_item(CustomMenuItem::new(COPY_CLOSE.to_string(), "关闭")),
         ))
-        // .add_native_item(SystemTrayMenuItem::Separator)
-        // .add_item(ocr)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(ocr)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(quit);
