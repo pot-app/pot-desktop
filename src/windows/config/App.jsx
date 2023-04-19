@@ -52,7 +52,7 @@ export default function App() {
 
   async function saveConfig() {
     let oldConfig = await readConfig();
-    let shortcut = !(oldConfig['shortcut_translate'] == shortcutTranslate && oldConfig['shortcut_persistent'] == shortcutPersistent && oldConfig['shortcut_ocr'] == shortcutOcr);
+    let shortcut = !(oldConfig['shortcut_translate'] == shortcutTranslate && oldConfig['shortcut_persistent'] == shortcutPersistent);
     await set('shortcut_translate', shortcutTranslate);
     await set('shortcut_persistent', shortcutPersistent);
     await set('shortcut_ocr', shortcutOcr);
