@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="150" height="150" alt="Logo" src="public/icon.png"/>
+    <img width="150" height="150" alt="Logo" src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/public/icon.png"/>
     <h3 align="center" style="font-size:50px"><b>Pot</b></h3>
     <p align="center" style="font-size:18px">一个跨平台的划词翻译软件</p>
     <a href="https://pot.pylogmon.cn/guide/">快速上手</a> |
@@ -48,9 +48,9 @@
 ## 使用方法
 | 方式 | 描述 | 预览 |
 | :---: | :---: | :---: |
-| 划词翻译 | 选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`） | ![划词翻译](asset/example1.gif) |
-| 输入翻译| 按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译 | ![输入翻译](asset/example2.gif) |
-| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](asset/example3.gif) |
+| 划词翻译 | 选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`） | ![划词翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif) |
+| 输入翻译| 按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译 | ![输入翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif) |
+| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif) |
 
 ## 安装
 
