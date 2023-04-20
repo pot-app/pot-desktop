@@ -89,6 +89,34 @@ pot persistent # 独立窗口
 
 Intel芯片下载`pot_<version>_x64.dmg`，M系列芯片下载`pot_<version>_aarch64.dmg`
 
+## 手动编译
+
+### 所需工具
+- rust 1.67.0
+- pnpm 8
+- nodejs 19
+### 编译步骤
+
+1. 克隆仓库
+```bash
+git clone https://github.com/Pylogmon/pot.git
+```
+
+2. 安装构建依赖(Linux Only)
+```bash
+sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+```
+
+3. 开始编译
+```bash
+cd pot
+
+pnpm install # 安装前端依赖
+
+# pnpm tauri dev # 调试
+pnpm tauri build # 编译打包
+```
+
 ## 感谢
 
 - [Bob](https://github.com/ripperhe/Bob) 灵感来源
