@@ -134,10 +134,13 @@ pub fn copy() {
     enigo.key_up(Key::Alt);
     enigo.key_up(Key::Shift);
     enigo.key_up(Key::Space);
+    enigo.key_up(Key::Meta);
+    enigo.key_up(Key::Tab);
+    enigo.key_up(Key::Escape);
+    enigo.key_up(Key::CapsLock);
+    enigo.key_up(Key::Option);
     // 发送CtrlC
-    enigo.key_down(Key::Control);
-    enigo.key_click(Key::Layout('c'));
-    enigo.key_up(Key::Control);
+    enigo.key_sequence_parse("{+CTRL}c{-CTRL}");
 }
 
 // macos 复制操作
@@ -145,19 +148,18 @@ pub fn copy() {
 pub fn copy() {
     use enigo::*;
     let mut enigo = Enigo::new();
-    std::thread::sleep(std::time::Duration::from_millis(200));
     // 先释放按键
     enigo.key_up(Key::Control);
-    enigo.key_up(Key::Meta);
-    enigo.key_up(Key::Option);
     enigo.key_up(Key::Alt);
     enigo.key_up(Key::Shift);
     enigo.key_up(Key::Space);
-    // 发送CtrlC
-    enigo.key_down(Key::Meta);
-    enigo.key_click(Key::Layout('c'));
     enigo.key_up(Key::Meta);
-    std::thread::sleep(std::time::Duration::from_millis(200));
+    enigo.key_up(Key::Tab);
+    enigo.key_up(Key::Escape);
+    enigo.key_up(Key::CapsLock);
+    enigo.key_up(Key::Option);
+    // 发送CtrlC
+    enigo.key_sequence_parse("{+COMMAND}c{-COMMAND}");
 }
 
 #[tauri::command]

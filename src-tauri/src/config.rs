@@ -20,8 +20,8 @@ fn get_app_config_file() -> PathBuf {
     let exe_path = current_exe().expect("Get Exe Path Failed");
     let exe_dir_path = exe_path.parent().expect("Get Exe Dir Failed");
     let mut exe_config_path = exe_dir_path.to_path_buf();
-    exe_config_path.push("config.toml");
     exe_config_path = dunce::canonicalize(exe_config_path).unwrap();
+    exe_config_path.push("config.toml");
 
     if exe_config_path.exists() {
         return exe_config_path;
