@@ -1,0 +1,11 @@
+.side-bar {
+    height: 100%;
+    width: 150px;
+    overflow: auto;
+    padding-right: 12px;
+    padding-top: 12px;
+}
+
+.side-bar button {
+    margin-bottom: 12px;
+}

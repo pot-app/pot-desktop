@@ -1,11 +1,3 @@
 .content {
-    height: calc(100vh - 64px);
-    overflow: auto;
-}
-
-.foot {
-    height: 40px;
-    margin-top: 12px;
-    display: flex;
-    justify-content: end;
+    height: calc(100vh - 24px);
 }

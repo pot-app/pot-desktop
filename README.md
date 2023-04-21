@@ -5,7 +5,6 @@
     <a href="https://pot.pylogmon.cn/guide/">快速上手</a> |
     <a href="https://github.com/Pylogmon/pot/releases">软件下载</a> |
     <a href="https://pot.pylogmon.cn/guide/config.html">进阶配置</a>
-    
 </div>
 <div align="center">
 

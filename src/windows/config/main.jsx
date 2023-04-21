@@ -1,4 +1,5 @@
 import { atom, createStore, Provider } from "jotai";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { readConfig } from "../../global/config";
@@ -22,7 +23,9 @@ readConfig().then(
     root.render(
       <React.StrictMode>
         <Provider store={configStore}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </Provider>
       </React.StrictMode>
     );

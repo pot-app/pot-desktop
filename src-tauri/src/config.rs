@@ -6,7 +6,7 @@ use std::sync::Mutex;
 use std::{fs, io::Read, path::PathBuf};
 use tauri::api::notification::Notification;
 use tauri::utils::platform::current_exe;
-use tauri::Manager;
+use tauri::{GlobalShortcutManager, Manager};
 use toml::{Table, Value};
 
 fn get_app_config_dir() -> PathBuf {
@@ -105,19 +105,17 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
         let copy_mode = value.clone().as_integer().unwrap();
         update_tray(APP.get().unwrap(), copy_mode);
     }
-    state.0.lock().unwrap().set(key, value);
-    if key == "auto_copy" {
-        let _ = write_config(state, false);
-    }
-}
-
-#[tauri::command]
-pub fn write_config(state: tauri::State<ConfigWrapper>, shortcut: bool) -> Result<(), String> {
-    if shortcut {
-        match register_shortcut() {
+    if key.starts_with("shortcut") {
+        let handle = APP.get().unwrap();
+        let old_shortcut = get_config(key, Value::from(""), APP.get().unwrap().state());
+        handle
+            .global_shortcut_manager()
+            .unregister(old_shortcut.as_str().unwrap())
+            .unwrap();
+        state.0.lock().unwrap().set(key, value);
+        match register_shortcut(key) {
             Ok(_) => {}
             Err(e) => {
-                let handle = APP.get().unwrap();
                 Notification::new(&handle.config().tauri.bundle.identifier)
                     .title("快捷键注册失败")
                     .body(e)
@@ -126,7 +124,16 @@ pub fn write_config(state: tauri::State<ConfigWrapper>, shortcut: bool) -> Resul
                     .unwrap();
             }
         }
+    } else {
+        state.0.lock().unwrap().set(key, value);
     }
+    if key == "auto_copy" {
+        let _ = write_config(state);
+    }
+}
+
+#[tauri::command]
+pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
     state.0.lock().unwrap().write()
 }
 

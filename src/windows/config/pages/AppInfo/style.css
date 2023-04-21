@@ -1,0 +1,8 @@
+.logo {
+    height: 100px;
+    text-align: center;
+}
+
+li {
+    list-style-position: inside;
+}

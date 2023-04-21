@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
-import { atom, useAtom } from 'jotai';
-import { TextField } from '@mui/material';
-import ConfigItem from '../ConfigItem';
-import ConfigList from '../ConfigList';
-import { get } from '../../main';
-
-export const shortcutTranslateAtom = atom('');
-export const shortcutPersistentAtom = atom('');
-export const shortcutOcrAtom = atom('');
+import React from 'react';
+import { useAtom } from 'jotai';
+import { TextField, Button, InputAdornment } from '@mui/material';
+import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../../App';
+import ConfigItem from '../../components/ConfigItem';
+import ConfigList from '../../components/ConfigList';
+import { set } from '../../../../global/config';
 
 export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
@@ -15,11 +12,6 @@ export default function ShortCutConfig() {
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
 
     const supportKey = ["Control", 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
-    useEffect(() => {
-        setShortcutTranslate(get('shortcut_translate') ?? '');
-        setShortcutPersistent(get('shortcut_persistent') ?? '');
-        setShortcutOcr(get('shortcut_ocr') ?? '');
-    }, []);
 
     function keyDown(e, value, set) {
         if (e.key.length == 1 || supportKey.includes(e.key)) {
@@ -45,6 +37,15 @@ export default function ShortCutConfig() {
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     onKeyDown={(e) => { keyDown(e, shortcutTranslate, setShortcutTranslate) }}
                     onFocus={() => { setShortcutTranslate('') }}
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end">
+                            <Button
+                                variant='outlined'
+                                onClick={() => {
+                                    set('shortcut_translate', shortcutTranslate);
+                                }}>确认</Button>
+                        </InputAdornment>)
+                    }}
                 />
             </ConfigItem>
             <ConfigItem label="独立翻译窗口">
@@ -54,6 +55,15 @@ export default function ShortCutConfig() {
                     value={shortcutPersistent}
                     onKeyDown={(e) => { keyDown(e, shortcutPersistent, setShortcutPersistent) }}
                     onFocus={() => { setShortcutPersistent('') }}
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end">
+                            <Button
+                                variant='outlined'
+                                onClick={() => {
+                                    set('shortcut_persistent', shortcutPersistent);
+                                }}>确认</Button>
+                        </InputAdornment>)
+                    }}
                 />
             </ConfigItem>
             {/* <ConfigItem label="OCR">

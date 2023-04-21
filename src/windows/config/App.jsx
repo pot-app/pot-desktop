@@ -1,118 +1,49 @@
-import { enable, isEnabled, disable } from "tauri-plugin-autostart-api";
-import { Button, useMediaQuery } from '@mui/material'
+import { useMediaQuery, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { notification } from '@tauri-apps/api'
-import { useAtomValue } from 'jotai';
-import React from 'react'
-import { readConfig, set, writeConfig } from '../../global/config'
-import ShortCutConfig from './components/ShortCutConfig';
-import InterfaceConfig from './components/InterfaceConfig';
-import AppConfig from './components/AppConfig';
-import AppInfo from './components/AppInfo';
-import { interfaceConfigsAtom } from './components/InterfaceConfig';
-import {
-  shortcutTranslateAtom,
-  shortcutPersistentAtom,
-  shortcutOcrAtom
-} from './components/ShortCutConfig';
-import {
-  themeAtom,
-  autoStartAtom,
-  autoCheckAtom,
-  dynamicTranslateAtom,
-  autoCopyAtom,
-  targetLanguageAtom,
-  defaultInterfaceAtom,
-  proxyAtom,
-  windowWidthAtom,
-  windowHeightAtom
-} from './components/AppConfig';
+import { useRoutes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useAtom, useSetAtom, atom } from 'jotai';
+import * as interfaces from '../../interfaces';
+import SideBar from './components/SideBar';
 import { light, dark } from '../themes';
-import './style.css'
-import { useEffect } from "react";
+import routes from './routes';
+import { get } from './main';
+import './style.css';
+
+export const autoStartAtom = atom(true);
+export const autoCheckAtom = atom(true);
+export const dynamicTranslateAtom = atom(false);
+export const autoCopyAtom = atom(4);
+export const targetLanguageAtom = atom('zh-cn');
+export const defaultInterfaceAtom = atom('deepl');
+export const proxyAtom = atom('');
+export const themeAtom = atom('auto');
+export const windowWidthAtom = atom(400);
+export const windowHeightAtom = atom(500);
+export const interfaceConfigsAtom = atom({});
+export const shortcutTranslateAtom = atom('');
+export const shortcutPersistentAtom = atom('');
+export const shortcutOcrAtom = atom('');
 
 export default function App() {
-  const interfaceConfigs = useAtomValue(interfaceConfigsAtom);
-  const shortcutTranslate = useAtomValue(shortcutTranslateAtom);
-  const shortcutPersistent = useAtomValue(shortcutPersistentAtom);
-  const shortcutOcr = useAtomValue(shortcutOcrAtom);
-  const autoStart = useAtomValue(autoStartAtom);
-  const autoCheck = useAtomValue(autoCheckAtom);
-  const dynamicTranslate = useAtomValue(dynamicTranslateAtom);
-  const autoCopy = useAtomValue(autoCopyAtom);
-  const targetLanguage = useAtomValue(targetLanguageAtom);
-  const defaultInterface = useAtomValue(defaultInterfaceAtom);
-  const proxy = useAtomValue(proxyAtom);
-  const windowWidth = useAtomValue(windowWidthAtom);
-  const windowHeight = useAtomValue(windowHeightAtom);
-  const theme = useAtomValue(themeAtom);
+  const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
+  const setShortcutPersistent = useSetAtom(shortcutPersistentAtom);
+  const setShortcutOcr = useSetAtom(shortcutOcrAtom);
+  const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
+  const setAutoStart = useSetAtom(autoStartAtom);
+  const setAutoCheck = useSetAtom(autoCheckAtom);
+  const setDynamicTranslate = useSetAtom(dynamicTranslateAtom);
+  const setAutoCopy = useSetAtom(autoCopyAtom);
+  const setTargetLanguage = useSetAtom(targetLanguageAtom);
+  const setDefaultInterface = useSetAtom(defaultInterfaceAtom);
+  const setProxy = useSetAtom(proxyAtom);
+  const setWindowWidth = useSetAtom(windowWidthAtom);
+  const setWindowHeight = useSetAtom(windowHeightAtom);
+  const [theme, setTheme] = useAtom(themeAtom);
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  async function saveConfig() {
-    let oldConfig = await readConfig();
-    let shortcut = !(oldConfig['shortcut_translate'] == shortcutTranslate && oldConfig['shortcut_persistent'] == shortcutPersistent);
-    await set('shortcut_translate', shortcutTranslate);
-    await set('shortcut_persistent', shortcutPersistent);
-    await set('shortcut_ocr', shortcutOcr);
-    await set('auto_start', autoStart);
-    await set('auto_check', autoCheck);
-    await set('dynamic_translate', dynamicTranslate);
-    await set('auto_copy', autoCopy);
-    await set('target_language', targetLanguage);
-    await set('theme', theme);
-    await set('window_width', windowWidth);
-    await set('window_height', windowHeight);
-    await set('interface', defaultInterface);
-    await set('proxy', proxy);
-    Object.keys(interfaceConfigs).map(
-      async x => {
-        await set(`${x}_enable`, interfaceConfigs[x]['enable']);
-        interfaceConfigs[x]['needs'].map(
-          async y => {
-            await set(y['needs_config_key'], y['needs_config_value'])
-          })
-      }
-    )
-    if (autoStart) {
-      isEnabled().then(v => {
-        if (!v) {
-          enable().then(_ => {
-            notification.sendNotification({
-              title: '设置开机启动',
-              body: '已设置为开机启动'
-            })
-          })
-        }
-      })
-    } else {
-      isEnabled().then(v => {
-        if (v) {
-          disable().then(_ => {
-            notification.sendNotification({
-              title: '取消开机启动',
-              body: '已取消开机启动'
-            })
-          })
-        }
-      })
-    }
-    writeConfig(shortcut).then(
-      _ => {
-        notification.sendNotification({
-          title: '设置保存成功',
-          body: '设置保存成功'
-        })
-      },
-      e => {
-        notification.sendNotification({
-          title: '设置保存失败',
-          body: `设置保存失败:${e}`,
-        })
-      }
-    )
-  }
+  const page = useRoutes(routes);
 
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => { e.preventDefault() });
@@ -125,26 +56,57 @@ export default function App() {
         e.preventDefault();
       }
     })
+
+    setShortcutTranslate(get('shortcut_translate') ?? '');
+    setShortcutPersistent(get('shortcut_persistent') ?? '');
+    setShortcutOcr(get('shortcut_ocr') ?? '');
+    setAutoStart(get('auto_start') ?? false);
+    setAutoCheck(get('auto_check') ?? false);
+    setDynamicTranslate(get('dynamic_translate') ?? false);
+    setAutoCopy(get('auto_copy') ?? 4);
+    setTargetLanguage(get('target_language') ?? 'zh-cn');
+    setDefaultInterface(get('interface') ?? 'deepl');
+    setProxy(get('proxy') ?? '');
+    setWindowWidth(get('window_width') ?? 400);
+    setWindowHeight(get('window_height') ?? 500);
+    setTheme(get('theme') ?? 'auto');
+    let interface_configs = {};
+
+    Object.keys(interfaces).map(
+      i => {
+        interface_configs[i] = {
+          'enable': get(`${i}_enable`) ?? true,
+          'interface_key': i,
+          'interface_name': interfaces[i]['info']['name'],
+          'needs': []
+        }
+        const needs = interfaces[i]['info']['needs'];
+        needs.map(
+          n => {
+            interface_configs[i]['needs'].push({
+              'needs_config_key': n['config_key'],
+              'needs_display_name': n['display_name'],
+              'needs_place_hold': n['place_hold'],
+              'needs_config_value': get(n['config_key']) ?? ''
+            })
+          }
+        )
+      }
+    )
+    setInterfaceConfigs(interface_configs);
   }, [])
 
   return (
     <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>
       <CssBaseline />
-      <div className='content'>
-        <ShortCutConfig />
-        <AppConfig />
-        <InterfaceConfig />
-        <AppInfo />
-      </div>
-      <div className='foot'>
-        <Button
-          variant='contained'
-          size='large'
-          onClick={saveConfig}
-        >
-          保存设置
-        </Button>
-      </div>
+      <Grid className="content" container>
+        <Grid item xs='auto' sx={{ height: "100%" }}>
+          <SideBar />
+        </Grid>
+        <Grid item xs sx={{ height: "100%", overflow: 'auto' }}>
+          {page}
+        </Grid>
+      </Grid>
     </ThemeProvider>
   )
 }

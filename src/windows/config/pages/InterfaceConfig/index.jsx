@@ -1,46 +1,17 @@
 import { TextField, Switch, FormControlLabel } from '@mui/material';
-import React, { useEffect } from 'react';
-import { atom, useAtom } from 'jotai';
+import React from 'react';
+import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
-import * as interfaces from '../../../../interfaces';
-import { get } from '../../main';
-import ConfigList from '../ConfigList';
-import ConfigItem from '../ConfigItem';
-
-export const interfaceConfigsAtom = atom({});
+import ConfigList from '../../components/ConfigList';
+import ConfigItem from '../../components/ConfigItem';
+import { interfaceConfigsAtom } from '../../App';
+import { set } from '../../../../global/config';
 
 export default function InterfaceConfig() {
     const [interfaceConfigs, setInterfaceConfigs] = useAtom(interfaceConfigsAtom);
 
-    useEffect(() => {
-        let interface_configs = {};
-
-        Object.keys(interfaces).map(
-            i => {
-                interface_configs[i] = {
-                    'enable': get(`${i}_enable`) ?? true,
-                    'interface_key': i,
-                    'interface_name': interfaces[i]['info']['name'],
-                    'needs': []
-                }
-                const needs = interfaces[i]['info']['needs'];
-                needs.map(
-                    n => {
-                        interface_configs[i]['needs'].push({
-                            'needs_config_key': n['config_key'],
-                            'needs_display_name': n['display_name'],
-                            'needs_place_hold': n['place_hold'],
-                            'needs_config_value': get(n['config_key']) ?? ''
-                        })
-                    }
-                )
-            }
-        )
-        setInterfaceConfigs(interface_configs)
-    }, [])
-
     return (
-        <ConfigList label="接口设置">
+        <ConfigList label="翻译接口">
             {
                 Object.keys(interfaceConfigs).map(
                     x => {
@@ -56,7 +27,8 @@ export default function InterfaceConfig() {
                                             onChange={e => {
                                                 let configs = interfaceConfigs;
                                                 configs[x]['enable'] = e.target.checked
-                                                setInterfaceConfigs(configs)
+                                                setInterfaceConfigs(configs);
+                                                set(`${x}_enable`, e.target.checked);
                                             }}
                                         />}
                                 />
@@ -80,7 +52,8 @@ export default function InterfaceConfig() {
                                                     break;
                                                 }
                                             }
-                                            setInterfaceConfigs(configs)
+                                            setInterfaceConfigs(configs);
+                                            set(`${y['needs_config_key']}`, e.target.value);
                                         }}
                                     />
                                 })

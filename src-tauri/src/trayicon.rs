@@ -1,9 +1,10 @@
-use crate::config::set_config;
+use crate::config::{set_config, write_config};
 use crate::window::{build_ocr_window, build_translate_window};
-
+use crate::APP;
+use tauri::api::notification::Notification;
 use tauri::{
     AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayMenu, SystemTrayMenuItem,
-    SystemTraySubmenu,
+    SystemTraySubmenu, WindowEvent,
 };
 use toml::Value;
 
@@ -56,6 +57,19 @@ pub fn on_persistent_click(app: &AppHandle) {
     }
 }
 
+fn on_window_close(event: &WindowEvent) {
+    let handle = APP.get().unwrap();
+    if let WindowEvent::CloseRequested { .. } = event {
+        if let Err(e) = write_config(handle.state()) {
+            Notification::new(&handle.config().tauri.bundle.identifier)
+                .title("配置写入失败")
+                .body(e)
+                .icon("pot")
+                .show()
+                .unwrap();
+        }
+    }
+}
 // 打开设置
 pub fn on_config_click(app: &AppHandle) {
     match app.get_window("config") {
@@ -63,18 +77,19 @@ pub fn on_config_click(app: &AppHandle) {
             window.set_focus().unwrap();
         }
         None => {
-            let _main_window = tauri::WindowBuilder::new(
+            let config_window = tauri::WindowBuilder::new(
                 app,
                 "config",
                 tauri::WindowUrl::App("index.html".into()),
             )
-            .inner_size(500.0, 500.0)
-            .min_inner_size(400.0, 300.0)
+            .inner_size(600.0, 400.0)
+            .min_inner_size(400.0, 400.0)
             .center()
             .focused(true)
             .title("设置")
             .build()
             .unwrap();
+            config_window.on_window_event(on_window_close);
         }
     }
 }

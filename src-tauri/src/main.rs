@@ -92,7 +92,7 @@ fn main() {
             check_update().unwrap_or_default();
 
             // 注册全局快捷键
-            match register_shortcut() {
+            match register_shortcut("all") {
                 Ok(_) => {}
                 Err(e) => {
                     Notification::new(&app.config().tauri.bundle.identifier)
