@@ -1,3 +1,4 @@
+import { writeText } from '@tauri-apps/api/clipboard';
 import { notification, app } from '@tauri-apps/api';
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@mui/material';
@@ -14,6 +15,13 @@ export default function AppInfo() {
         app.getVersion().then(v => { setVersion(v) })
         app.getTauriVersion().then(v => { setTauriVersion(v) })
     }, [])
+
+    // 复制内容
+    function copy(who) {
+        writeText(who).then(
+            _ => { setCopyed(true) }
+        )
+    }
 
     function checkUpdate() {
         axios.get('https://api.github.com/repos/Pylogmon/pot/releases/latest').then(
@@ -59,10 +67,11 @@ export default function AppInfo() {
                     <li>Pot:&nbsp;&nbsp;{version}</li>
                     <li>Tauri:&nbsp;&nbsp;{tauriVersion}</li>
                     <li>
-                        <Button onClick={checkUpdate} variant='outlined' size='small'>检查更新</Button>&nbsp;
-                        <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button variant='outlined' size='small' >前往下载</Button></a>
+                        <Button size="small" onClick={() => copy(`pot:${version}  Tauri:${tauriVersion}`)}>一键复制</Button>
                     </li>
                 </ul>
+                <Button onClick={checkUpdate} variant='outlined' size='small'>检查更新</Button>&nbsp;
+                <a href='https://github.com/Pylogmon/pot/releases' target="_blank"><Button variant='outlined' size='small' >前往下载</Button></a>
             </ConfigItem>
             <ConfigItem label="相关站点">
                 <ul>
