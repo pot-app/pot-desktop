@@ -34,25 +34,24 @@ pub struct StringWrapper(pub Mutex<String>);
 fn main() {
     #[cfg(target_os = "linux")]
     std::env::set_var("GDK_BACKEND", "x11");
-    #[cfg(target_os = "macos")]
-    {
-        use std::thread;
-        use tiny_http::{Response, Server};
-        thread::spawn(move || {
-            let server = Server::http("127.0.0.1:60828").unwrap();
-            for mut request in server.incoming_requests() {
-                let mut content = String::new();
-                request.as_reader().read_to_string(&mut content).unwrap();
-                popclip_window(content);
-                let response = Response::from_string("success");
-                request.respond(response).unwrap();
-            }
-        });
-    }
+    use std::thread;
+    use tiny_http::{Response, Server};
+    thread::spawn(move || {
+        let server = Server::http("127.0.0.1:60828").unwrap();
+        for mut request in server.incoming_requests() {
+            let mut content = String::new();
+            request.as_reader().read_to_string(&mut content).unwrap();
+            println!("{content}");
+            popclip_window(content);
+            let response = Response::from_string("success");
+            request.respond(response).unwrap();
+        }
+    });
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
             if argv.contains(&"popclip".to_string()) {
+                println!("{argv:?}");
                 popclip_window(argv.last().unwrap().to_owned());
             } else if argv.contains(&"translate".to_string()) {
                 translate_window();

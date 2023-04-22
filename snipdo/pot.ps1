@@ -2,12 +2,6 @@ param(
 [string]$PLAIN_TEXT
 )
 
-$RegPath = 'HKEY_CURRENT_USER\Software\pylogmon\pot'
+$encode_text = [System.Text.Encoding]::UTF8.GetBytes($PLAIN_TEXT)
 
-$key = Get-ItemProperty -Path "Registry::$RegPath"
-
-$potDir = $key.InstallDir
-
-$potExe = $potDir+"pot.exe"
-
-& $potExe popclip "$PLAIN_TEXT"
+curl 127.0.0.1:60828 -Method POST -Body $encode_text
