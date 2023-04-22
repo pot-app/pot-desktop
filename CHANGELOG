@@ -1,7 +1,11 @@
-## 0.1.15 (2023-04-18)
+## 0.1.16 (2023-04-22)
 
 ### New feature:
 
-- 禁用右键菜单以及webview快捷键([`2344f40`](https://github.com/Pylogmon/Pot/commit/2344f407b8db28bb3d8d69dc968c4af0d29f0a18)) (by 派了个萌)
-- 添加动态翻译开关([`fe3d9c9`](https://github.com/Pylogmon/Pot/commit/fe3d9c9b621959e9d4acdb5f5c3315d72e029042)) (by 派了个萌)
-- 添加阿里翻译接口([`ac65c75`](https://github.com/Pylogmon/Pot/commit/ac65c75e52b7bea0a4f48cfed5935fb533eadb7f)) (by 派了个萌)
+- 添加一键复制版本信息([`1ef5837`](https://github.com/Pylogmon/pot/commit/1ef583706b422762108d9d2c9175b2416c83b272)) (by 派了个萌)
+- 优化设置界面([`2353c71`](https://github.com/Pylogmon/pot/commit/2353c71d95cbca52c9191a40121059a9ba7f9516)) (by 派了个萌)
+- 读取app所在目录下的配置文件([`21134a6`](https://github.com/Pylogmon/pot/commit/21134a680fb0abf645cfa9227be2802f85755fa0)) (by 派了个萌)
+
+### Performance improves:
+
+- 优化复制逻辑([`cb406bf`](https://github.com/Pylogmon/pot/commit/cb406bfecfba49bc66071ceeea161040e0327e1a)) (by 派了个萌)
