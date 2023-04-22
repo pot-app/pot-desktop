@@ -3,7 +3,8 @@ import { Card, Select, MenuItem } from '@mui/material';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 import "flag-icons/css/flag-icons.min.css";
-import language from '../../../../global/language'
+import language from '../../../../global/language';
+import { set } from '../../../../global/config';
 import { nanoid } from 'nanoid';
 import { get } from '../../main';
 import './style.css';
@@ -42,7 +43,11 @@ export default function LanguageSelector() {
                 className='language-selector'
                 value={targetLanguage}
                 onChange={(e) => {
-                    setTargetLanguage(e.target.value);
+                    set('target_language', e.target.value).then(
+                        _ => {
+                            setTargetLanguage(e.target.value);
+                        }
+                    )
                 }}
             >
                 {language.map(x => {
