@@ -253,8 +253,7 @@ jobs:
       - name: portable zip
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r pot_portable_x64.zip pot.exe config.toml
-          working-directory: src-tauri/target/${{ matrix.target }}/release
+          args: zip -qq -r pot_portable_x64.zip src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
