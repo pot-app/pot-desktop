@@ -248,11 +248,24 @@ jobs:
       - name: Build and Package
         run: |
           pnpm tauri build --target ${{ matrix.target }}
+      - name: touch config file
+        run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
+      - name: portable zip
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r pot_portable_x64.zip pot.exe config.toml
+          working-directory: src-tauri/target/${{ matrix.target }}/release
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.msi
           path: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot_portable_x64.zip
+          path: pot_portable_x64.zip
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -261,6 +274,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: pot_portable_x64.zip
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
