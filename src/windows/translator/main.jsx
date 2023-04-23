@@ -7,7 +7,10 @@ import "../../styles/style.css"
 import App from "./App";
 
 document.addEventListener('DOMContentLoaded', () => {
-  appWindow.show();
+  let label = appWindow.label;
+  if (label == 'translator' || label == 'popclip' || label == 'persistent') {
+    appWindow.show();
+  }
 })
 
 const configStore = createStore();

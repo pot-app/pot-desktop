@@ -86,6 +86,7 @@ pub fn on_config_click(app: &AppHandle) {
             .min_inner_size(400.0, 400.0)
             .center()
             .focused(true)
+            .visible(false)
             .title("设置")
             .build()
             .unwrap();
