@@ -100,7 +100,7 @@ pub fn on_ocr_click(app: &AppHandle) {
             window.close().unwrap();
         }
         None => {
-            let _window = build_ocr_window("tray", app).unwrap();
+            let _window = build_ocr_window(app).unwrap();
         }
     }
 }

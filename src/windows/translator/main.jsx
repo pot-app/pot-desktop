@@ -1,9 +1,14 @@
 import { atom, createStore, Provider } from "jotai";
+import { appWindow } from "@tauri-apps/api/window";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { readConfig } from "../../global/config";
 import "../../styles/style.css"
 import App from "./App";
+
+document.addEventListener('DOMContentLoaded', () => {
+  appWindow.show();
+})
 
 const configStore = createStore();
 const configAtom = atom({});

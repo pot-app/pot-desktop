@@ -2,7 +2,7 @@ use crate::config::get_config;
 use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
-use tauri::{AppHandle, Manager, Window, WindowEvent};
+use tauri::{AppHandle, Manager, Window};
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
@@ -22,6 +22,7 @@ pub fn build_translate_window(
     .inner_size(width, height)
     .always_on_top(true)
     .focused(true)
+    .visible(false)
     .title(title);
 
     #[cfg(target_os = "macos")]
@@ -34,14 +35,6 @@ pub fn build_translate_window(
             _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
-        window.set_focus().unwrap();
-        match label {
-            "persistent" => {}
-            _ => {
-                window.on_window_event(on_lose_focus);
-            }
-        };
-        Ok(window)
     }
 
     #[cfg(target_os = "windows")]
@@ -52,13 +45,6 @@ pub fn build_translate_window(
             _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
-        window.set_focus().unwrap();
-        match label {
-            "persistent" => {}
-            _ => {
-                window.on_window_event(on_lose_focus);
-            }
-        };
         Ok(window)
     }
 
@@ -69,19 +55,11 @@ pub fn build_translate_window(
             "persistent" => builder.skip_taskbar(false).center().build().unwrap(),
             _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
         };
-
-        window.set_focus().unwrap();
-        match label {
-            "persistent" => {}
-            _ => {
-                window.on_window_event(on_lose_focus);
-            }
-        };
         Ok(window)
     }
 }
 
-pub fn build_ocr_window(window_type: &str, handle: &AppHandle) -> Result<Window, String> {
+pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
     let window = tauri::WindowBuilder::new(
         handle,
         "ocr",
@@ -94,10 +72,6 @@ pub fn build_ocr_window(window_type: &str, handle: &AppHandle) -> Result<Window,
     .title("OCR")
     .build()
     .unwrap();
-    if window_type == "short" {
-        window.on_window_event(on_lose_focus);
-    }
-
     Ok(window)
 }
 
@@ -114,26 +88,6 @@ fn get_window_size() -> (f64, f64) {
     .as_integer()
     .unwrap() as f64;
     (width, height)
-}
-
-// 失去焦点自动关闭窗口
-// Gnome 下存在焦点捕获失败bug，windows下拖动窗口会失去焦点
-// #[cfg(any(target_os = "macos", target_os = "linux"))]
-fn on_lose_focus(event: &WindowEvent) {
-    if let WindowEvent::Focused(v) = event {
-        if !v {
-            let handle = APP.get().unwrap();
-            if let Some(window) = handle.get_window("translator") {
-                window.close().unwrap();
-            }
-            if let Some(window) = handle.get_window("popclip") {
-                window.close().unwrap();
-            }
-            if let Some(window) = handle.get_window("ocr") {
-                window.close().unwrap();
-            }
-        }
-    }
 }
 
 // 获取鼠标坐标
@@ -298,7 +252,7 @@ pub fn ocr_window() {
             window.close().unwrap();
         }
         None => {
-            let _main_window = build_ocr_window("short", handle).unwrap();
+            let _main_window = build_ocr_window(handle).unwrap();
         }
     };
 }
