@@ -251,7 +251,7 @@ jobs:
       - name: touch config file
         run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
       - name: portable zip
-      - uses: montudor/action-zip@v1
+        uses: montudor/action-zip@v1
         with:
           args: zip -qq -r pot_portable_x64.zip pot.exe config.toml
           working-directory: src-tauri/target/${{ matrix.target }}/release
