@@ -251,9 +251,10 @@ jobs:
       - name: touch config file
         run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
       - name: portable zip
-        uses: montudor/action-zip@v1
+        uses: vimtor/action-zip@v1
         with:
-          args: zip -qq -r pot_portable_x64.zip src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
+          files: src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
+          dest: pot_portable_x64.zip
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
