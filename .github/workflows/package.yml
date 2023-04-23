@@ -251,7 +251,7 @@ jobs:
       - name: touch config file
         run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
       - name: portable zip
-        uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@v1.1
         with:
           files: src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
           dest: pot_portable_x64.zip
