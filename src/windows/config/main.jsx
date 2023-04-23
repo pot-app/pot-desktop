@@ -10,6 +10,7 @@ import App from "./App";
 document.addEventListener('DOMContentLoaded', () => {
   if (appWindow.label == 'config') {
     appWindow.show();
+    appWindow.setFocus();
   }
 })
 

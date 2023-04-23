@@ -3,13 +3,14 @@ import { appWindow } from "@tauri-apps/api/window";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { readConfig } from "../../global/config";
-import "../../styles/style.css"
+import "../../styles/style.css";
 import App from "./App";
 
 document.addEventListener('DOMContentLoaded', () => {
   let label = appWindow.label;
   if (label == 'translator' || label == 'popclip' || label == 'persistent') {
     appWindow.show();
+    appWindow.setFocus();
   }
 })
 
