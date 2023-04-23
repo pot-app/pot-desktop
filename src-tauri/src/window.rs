@@ -35,6 +35,7 @@ pub fn build_translate_window(
             _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
         };
         set_shadow(&window, true).unwrap_or_default();
+        Ok(window)
     }
 
     #[cfg(target_os = "windows")]
