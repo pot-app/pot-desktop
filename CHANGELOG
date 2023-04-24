@@ -1,15 +1,13 @@
-## 0.1.17 (2023-04-23)
+## 0.1.18 (2023-04-24)
 
 ### New feature:
 
-- 提供Windows便携版软件包([`7c3f9c5`](https://github.com/Pylogmon/pot/commit/7c3f9c503f48029dcfd623a87ac60a669d3b83d6)) (by Pylogmon)
-- 记住目标语言([`8a5629b`](https://github.com/Pylogmon/pot/commit/8a5629b18c68308042c2f59fac3f55e1dc5d2e8e)) (by Pylogmon)
+- 添加Anki支持([`42d1704`](https://github.com/Pylogmon/pot/commit/42d1704e1f17ac79f1477092ea4d284ba8e6dcd6)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复翻译窗口Pin无效的问题([`996d9f9`](https://github.com/Pylogmon/pot/commit/996d9f93ba90a029760ce9a31fe76ed0b045bd7d)) (by Pylogmon)
-- 修复Windows插件调用取词包含引号时出错的问题(需要重新下载安装SnipDo插件)([`e997563`](https://github.com/Pylogmon/pot/commit/e9975635717a99bd38a5689a7c1ab032dd5e91e8)) (by 派了个萌)
+- 修复Windows翻译窗口出现时闪烁的问题([`c4c360f`](https://github.com/Pylogmon/pot/commit/c4c360f4549be995f9b9711aeb3e285cba91c8e7)) (by 派了个萌)
 
 ### Performance improves:
 
-- 优化窗口加载逻辑([`7b2fc8f`](https://github.com/Pylogmon/pot/commit/7b2fc8f712c1c503e66b89c784c2011650afcdf3)) (by Pylogmon)
+- 改善窗口出现时先显示空白的问题([`ae9c808`](https://github.com/Pylogmon/pot/commit/ae9c808d4a54c313cfeacd63c6254a70ce4bb956)) (by 派了个萌)
