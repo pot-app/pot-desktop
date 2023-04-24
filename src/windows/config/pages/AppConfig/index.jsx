@@ -20,6 +20,7 @@ import {
     proxyAtom,
     windowHeightAtom,
     windowWidthAtom,
+    ankiEnableAtom,
     themeAtom
 } from '../../App'
 export default function AppConfig() {
@@ -32,6 +33,7 @@ export default function AppConfig() {
     const [proxy, setProxy] = useAtom(proxyAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
+    const [ankiEnable, setAnkiEnable] = useAtom(ankiEnableAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     return (
@@ -81,6 +83,16 @@ export default function AppConfig() {
                                 }} />
                         }
                         label="启动时检查更新" />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={ankiEnable}
+                                onChange={(e) => {
+                                    setAnkiEnable(e.target.checked);
+                                    set('anki_enable', e.target.checked);
+                                }} />
+                        }
+                        label="启用Anki支持" />
                 </ConfigItem>
 
                 <ConfigItem label="网络代理">

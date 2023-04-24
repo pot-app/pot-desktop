@@ -21,6 +21,7 @@ export const proxyAtom = atom('');
 export const themeAtom = atom('auto');
 export const windowWidthAtom = atom(400);
 export const windowHeightAtom = atom(500);
+export const ankiEnableAtom = atom(true);
 export const interfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
@@ -40,6 +41,7 @@ export default function App() {
   const setProxy = useSetAtom(proxyAtom);
   const setWindowWidth = useSetAtom(windowWidthAtom);
   const setWindowHeight = useSetAtom(windowHeightAtom);
+  const setAnkiEnable = useSetAtom(ankiEnableAtom);
   const [theme, setTheme] = useAtom(themeAtom);
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -69,6 +71,7 @@ export default function App() {
     setProxy(get('proxy') ?? '');
     setWindowWidth(get('window_width') ?? 400);
     setWindowHeight(get('window_height') ?? 500);
+    setAnkiEnable(get('anki_enable') ?? true);
     setTheme(get('theme') ?? 'auto');
     let interface_configs = {};
 

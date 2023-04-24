@@ -70,7 +70,6 @@ export default function SourceArea() {
                     onKeyDown={keyDown}
                     onChange={(e) => {
                         setText(e.target.value);
-                        console.log(dynamicTranslate);
                         if (dynamicTranslate) {
                             setSourceText(e.target.value)
                         }

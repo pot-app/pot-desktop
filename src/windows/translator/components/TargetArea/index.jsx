@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useAtomValue } from 'jotai';
-import { useTheme } from '@mui/material/styles';
-import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip, Snackbar, Alert } from '@mui/material'
+import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip, Snackbar, Alert } from '@mui/material';
+import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import LibraryAddRoundedIcon from '@mui/icons-material/LibraryAddRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
-import PulseLoader from "react-spinners/PulseLoader";
-import speak from '../../../../global/speakClient';
-import { nanoid } from 'nanoid';
 import { writeText } from '@tauri-apps/api/clipboard';
-import * as interfaces from '../../../../interfaces';
+import PulseLoader from "react-spinners/PulseLoader";
+import React, { useState, useEffect } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { useAtomValue } from 'jotai';
+import { nanoid } from 'nanoid';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
+import { ankiConnect } from '../../../../global/ankiConnect';
+import * as interfaces from '../../../../interfaces';
+import speak from '../../../../global/speakClient';
 import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../main';
 import './style.css'
@@ -21,8 +24,11 @@ export default function TargetArea() {
 
     const [translateInterface, setTranslateInterface] = useState(get('interface') ?? 'deepl');
     const [loading, setLoading] = useState(false);
-    const [copyed, setCopyed] = useState(false);
+    const [toasted, setToasted] = useState(false);
+    const [msgSeverity, setMsgSeverity] = useState('success');
+    const [message, setMessage] = useState('');
     const [targetText, setTargetText] = useState("");
+    const [addedAnki, setAddedAnki] = useState(false);
     const theme = useTheme();
 
     useEffect(() => {
@@ -53,6 +59,7 @@ export default function TargetArea() {
     // 开始翻译的回调
     function translate(text, from, to) {
         setTargetText('');
+        setAddedAnki(false);
         setLoading(true);
         let translator = interfaces[translateInterface];
         translator.translate(text, from, to).then(
@@ -66,25 +73,50 @@ export default function TargetArea() {
             }
         )
     }
+    function toast(msg, severity) {
+        setMessage(msg);
+        setMsgSeverity(severity);
+        setToasted(true);
+    }
     // 复制文本的回调
     function copy(who) {
         writeText(who).then(
-            _ => { setCopyed(true) }
+            _ => { toast('已写入剪切板', 'success') }
+        )
+    }
+
+    function addToAnki() {
+        ankiConnect('createDeck', 6, { "deck": "Pot" }).then(
+            _ => {
+                ankiConnect('addNote', 6, {
+                    "note": {
+                        "deckName": "Pot",
+                        "modelName": "Basic",
+                        "fields": {
+                            "Front": sourceText,
+                            "Back": targetText
+                        }
+                    }
+                }).then(_ => { setAddedAnki(true); })
+            },
+            e => {
+                toast('Anki没有启动或配置错误', 'warning')
+            }
         )
     }
 
     return (
         <Card className='targetarea'>
             <Snackbar
-                open={copyed}
+                open={toasted}
                 autoHideDuration={2000}
-                onClose={() => { setCopyed(false) }}
+                onClose={() => { setToasted(false) }}
                 anchorOrigin={{
                     vertical: 'bottom', horizontal: 'right'
                 }}
             >
-                <Alert onClose={() => { setCopyed(false) }} severity="success">
-                    已写入剪切板
+                <Alert onClose={() => { setToasted(false) }} severity={msgSeverity}>
+                    {message}
                 </Alert>
             </Snackbar>
             <Box className='interface-selector-area'>
@@ -143,6 +175,21 @@ export default function TargetArea() {
                         <ContentCopyRoundedIcon />
                     </Tooltip>
                 </IconButton>
+                {
+                    get('anki_enable') ?? true ? (addedAnki ?
+                        <IconButton className='target-button'>
+                            <Tooltip title="已添加到Anki">
+                                <LibraryAddCheckRoundedIcon color='primary' />
+                            </Tooltip>
+                        </IconButton>
+                        :
+                        <IconButton className='target-button' onClick={addToAnki}>
+                            <Tooltip title="添加到Anki">
+                                <LibraryAddRoundedIcon />
+                            </Tooltip>
+                        </IconButton>
+                    ) : <></>
+                }
             </Box>
         </Card>
     )
