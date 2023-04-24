@@ -14,7 +14,8 @@ const windowRouter = {
     "translator": <Translator />,
     "popclip": <Translator />,
     "config": <Config />,
-    "ocr": <Ocr />
+    "ocr": <Ocr />,
+    "util": <></>
 }
 
 const configStore = createStore();

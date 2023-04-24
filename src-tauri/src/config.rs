@@ -158,7 +158,11 @@ pub fn set_monitor_info() {
         Some(v) => v,
         None => {
             tauri::WindowBuilder::new(handle, "util", tauri::WindowUrl::App("index.html".into()))
-                .visible(false)
+                .min_inner_size(0.0, 0.0)
+                .inner_size(0.0, 0.0)
+                .position(0.0, 0.0)
+                .decorations(false)
+                .skip_taskbar(true)
                 .build()
                 .unwrap()
         }
@@ -169,7 +173,7 @@ pub fn set_monitor_info() {
     APP.get()
         .unwrap()
         .manage(MonitorWrapper(Mutex::new((size.width, size.height, dpi))));
-    util_window.close().unwrap();
+    util_window.hide().unwrap();
 }
 
 #[cfg(any(target_os = "windows", target_os = "linux"))]
