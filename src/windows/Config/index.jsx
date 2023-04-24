@@ -1,6 +1,7 @@
 import { useMediaQuery, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { appWindow } from '@tauri-apps/api/window';
 import { useRoutes } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useAtom, useSetAtom, atom } from 'jotai';
@@ -8,8 +9,15 @@ import * as interfaces from '../../interfaces';
 import SideBar from './components/SideBar';
 import { light, dark } from '../themes';
 import routes from './routes';
-import { get } from './main';
+import { get } from '../main';
 import './style.css';
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (appWindow.label == 'config') {
+    appWindow.show();
+    appWindow.setFocus();
+  }
+})
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
@@ -48,17 +56,6 @@ export default function App() {
   const page = useRoutes(routes);
 
   useEffect(() => {
-    document.addEventListener('contextmenu', (e) => { e.preventDefault() });
-    document.addEventListener('keydown', (e) => {
-      let allowKeys = ['c', 'v', 'x', 'a'];
-      if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
-        e.preventDefault();
-      }
-      if (e.key.startsWith("F")) {
-        e.preventDefault();
-      }
-    })
-
     setShortcutTranslate(get('shortcut_translate') ?? '');
     setShortcutPersistent(get('shortcut_persistent') ?? '');
     setShortcutOcr(get('shortcut_ocr') ?? '');

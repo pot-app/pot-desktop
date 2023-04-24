@@ -2,7 +2,7 @@ import request from './utils/request';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex'
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 import { searchWord } from "./utils/dict";
 
 // 必须向外暴露info

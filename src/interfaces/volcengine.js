@@ -1,6 +1,6 @@
 import request from './utils/request';
 import CryptoJS from 'crypto-js';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 import { searchWord } from "./utils/dict";
 
 // 必须向外暴露info

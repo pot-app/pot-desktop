@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 
 export const info = {
     name: "OpenAI 翻译",

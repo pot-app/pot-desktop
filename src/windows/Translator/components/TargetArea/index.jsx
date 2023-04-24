@@ -14,7 +14,7 @@ import { ankiConnect } from '../../../../global/ankiConnect';
 import * as interfaces from '../../../../interfaces';
 import speak from '../../../../global/speakClient';
 import { sourceTextAtom } from '../SourceArea';
-import { get } from '../../main';
+import { get } from '../../../main';
 import './style.css'
 
 export default function TargetArea() {

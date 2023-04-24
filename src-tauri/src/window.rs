@@ -14,16 +14,13 @@ pub fn build_translate_window(
 ) -> Result<Window, String> {
     let (width, height) = get_window_size();
     let (x, y) = get_mouse_location().unwrap();
-    let builder = tauri::WindowBuilder::new(
-        handle,
-        label,
-        tauri::WindowUrl::App("index_translator.html".into()),
-    )
-    .inner_size(width, height)
-    .always_on_top(true)
-    .focused(true)
-    .visible(false)
-    .title(title);
+    let builder =
+        tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
+            .inner_size(width, height)
+            .always_on_top(true)
+            .focused(true)
+            .visible(false)
+            .title(title);
 
     #[cfg(target_os = "macos")]
     {
@@ -61,18 +58,15 @@ pub fn build_translate_window(
 }
 
 pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
-    let window = tauri::WindowBuilder::new(
-        handle,
-        "ocr",
-        tauri::WindowUrl::App("index_ocr.html".into()),
-    )
-    .inner_size(800.0, 400.0)
-    .min_inner_size(600.0, 400.0)
-    .center()
-    .focused(true)
-    .title("OCR")
-    .build()
-    .unwrap();
+    let window =
+        tauri::WindowBuilder::new(handle, "ocr", tauri::WindowUrl::App("index.html".into()))
+            .inner_size(800.0, 400.0)
+            .min_inner_size(600.0, 400.0)
+            .center()
+            .focused(true)
+            .title("OCR")
+            .build()
+            .unwrap();
     Ok(window)
 }
 

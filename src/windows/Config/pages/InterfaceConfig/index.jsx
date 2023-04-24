@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
-import { interfaceConfigsAtom } from '../../App';
+import { interfaceConfigsAtom } from '../..';
 import { set } from '../../../../global/config';
 
 export default function InterfaceConfig() {

@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 
 // 必须向外暴露info
 export const info = {

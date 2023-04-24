@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 import { searchWord } from "./utils/dict";
 import { nanoid } from "nanoid";
 import md5 from "md5";

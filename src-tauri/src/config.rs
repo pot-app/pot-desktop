@@ -156,14 +156,12 @@ pub fn set_monitor_info() {
     let handle = APP.get().unwrap();
     let util_window = match handle.get_window("util") {
         Some(v) => v,
-        None => tauri::WindowBuilder::new(
-            handle,
-            "util",
-            tauri::WindowUrl::App("index_translator.html".into()),
-        )
-        .visible(false)
-        .build()
-        .unwrap(),
+        None => {
+            tauri::WindowBuilder::new(handle, "util", tauri::WindowUrl::App("index.html".into()))
+                .visible(false)
+                .build()
+                .unwrap()
+        }
     };
     let monitor = util_window.current_monitor().unwrap().unwrap();
     let size = monitor.size();

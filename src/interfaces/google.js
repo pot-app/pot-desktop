@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 
 // 此接口只支持英汉互译
 export const info = {

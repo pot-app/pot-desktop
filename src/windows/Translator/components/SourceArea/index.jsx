@@ -9,7 +9,7 @@ import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri';
 import speak from '../../../../global/speakClient';
-import { get } from '../../main';
+import { get } from '../../../main';
 import './style.css'
 
 export const sourceTextAtom = atom('');

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAtom } from 'jotai';
 import { TextField, Button, InputAdornment } from '@mui/material';
-import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../../App';
+import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../..';
 import ConfigItem from '../../components/ConfigItem';
 import ConfigList from '../../components/ConfigList';
 import { set } from '../../../../global/config';

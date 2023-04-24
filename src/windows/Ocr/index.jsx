@@ -7,7 +7,7 @@ import OcrController from './components/OcrController';
 import ImageArea from './components/ImageArea';
 import TextArea from './components/TextArea';
 import { light, dark } from '../themes';
-import { get } from './main';
+import { get } from '../main';
 import './style.css';
 
 export default function App() {

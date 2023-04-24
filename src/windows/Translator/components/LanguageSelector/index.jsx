@@ -6,7 +6,7 @@ import "flag-icons/css/flag-icons.min.css";
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
 import { nanoid } from 'nanoid';
-import { get } from '../../main';
+import { get } from '../../../main';
 import './style.css';
 
 export const sourceLanguageAtom = atom('auto');

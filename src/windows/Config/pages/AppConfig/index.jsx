@@ -22,7 +22,7 @@ import {
     windowWidthAtom,
     ankiEnableAtom,
     themeAtom
-} from '../../App'
+} from '../..'
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);

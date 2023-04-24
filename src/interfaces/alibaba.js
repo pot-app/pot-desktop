@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { get } from '../windows/translator/main';
+import { get } from '../windows/main';
 import { searchWord } from "./utils/dict";
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
