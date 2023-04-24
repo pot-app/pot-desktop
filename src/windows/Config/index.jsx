@@ -12,13 +12,6 @@ import routes from './routes';
 import { get } from '../main';
 import './style.css';
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (appWindow.label == 'config') {
-    appWindow.show();
-    appWindow.setFocus();
-  }
-})
-
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
 export const dynamicTranslateAtom = atom(false);
@@ -35,7 +28,7 @@ export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
 export const shortcutOcrAtom = atom('');
 
-export default function App() {
+export default function Config() {
   const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
   const setShortcutPersistent = useSetAtom(shortcutPersistentAtom);
   const setShortcutOcr = useSetAtom(shortcutOcrAtom);
@@ -56,6 +49,9 @@ export default function App() {
   const page = useRoutes(routes);
 
   useEffect(() => {
+    appWindow.show();
+    appWindow.setFocus();
+
     setShortcutTranslate(get('shortcut_translate') ?? '');
     setShortcutPersistent(get('shortcut_persistent') ?? '');
     setShortcutOcr(get('shortcut_ocr') ?? '');
