@@ -28,7 +28,7 @@
 |划词翻译|✅|✅|✅|
 |独立窗口|✅|✅|✅|
 |插件调用|❔|[SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows)|[PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos)|
-|添加到Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#Anki))|✅|✅|✅|
+|添加到Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#anki))|✅|✅|✅|
 
 ## 支持接口
 - [x] DeepL(无需申请)
