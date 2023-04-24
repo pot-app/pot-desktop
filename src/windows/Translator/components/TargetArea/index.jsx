@@ -88,16 +88,32 @@ export default function TargetArea() {
     function addToAnki() {
         ankiConnect('createDeck', 6, { "deck": "Pot" }).then(
             _ => {
-                ankiConnect('addNote', 6, {
-                    "note": {
-                        "deckName": "Pot",
-                        "modelName": "Basic",
-                        "fields": {
-                            "Front": sourceText,
-                            "Back": targetText
+                ankiConnect('createModel', 6, {
+                    "modelName": "Pot Card",
+                    "inOrderFields": ["Front", "Back"],
+                    "isCloze": false,
+                    "cardTemplates": [
+                        {
+                            "Name": "Pot Card",
+                            "Front": "{{Front}}",
+                            "Back": "{{Back}}"
                         }
-                    }
-                }).then(_ => { setAddedAnki(true); })
+                    ]
+                }).then(x => {
+                    ankiConnect('addNote', 6, {
+                        "note": {
+                            "deckName": "Pot",
+                            "modelName": "Pot Card",
+                            "fields": {
+                                "Front": sourceText,
+                                "Back": targetText
+                            }
+                        }
+                    }).then(v => {
+                        setAddedAnki(true);
+                    })
+                })
+
             },
             e => {
                 toast('Anki没有启动或配置错误', 'warning')
