@@ -114,7 +114,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest]
+        platform: [macos-latest-xl]
         target: [aarch64-apple-darwin, x86_64-apple-darwin]
 
     runs-on: ${{ matrix.platform }}
