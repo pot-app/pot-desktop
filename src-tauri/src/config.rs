@@ -148,7 +148,6 @@ pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
     return state.0.lock().unwrap().config_toml.clone();
 }
 
-#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub struct MonitorWrapper(pub Mutex<(u32, u32, f64)>);
 
 pub fn set_monitor_info() {
