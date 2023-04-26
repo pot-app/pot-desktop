@@ -49,8 +49,10 @@ export default function Config() {
   const page = useRoutes(routes);
 
   useEffect(() => {
-    appWindow.show();
-    appWindow.setFocus();
+    if (appWindow.label != 'util') {
+      appWindow.show();
+      appWindow.setFocus();
+    }
 
     setShortcutTranslate(get('shortcut_translate') ?? '');
     setShortcutPersistent(get('shortcut_persistent') ?? '');

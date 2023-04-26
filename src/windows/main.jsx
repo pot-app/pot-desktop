@@ -15,7 +15,7 @@ const windowRouter = {
     "popclip": <Translator />,
     "config": <Config />,
     "ocr": <Ocr />,
-    "util": <></>
+    "util": <><Translator /><Config /><Ocr /></>
 }
 
 const configStore = createStore();
@@ -33,9 +33,9 @@ document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
         e.preventDefault();
     }
-    if (e.key.startsWith("F")) {
-        e.preventDefault();
-    }
+    // if (e.key.startsWith("F")) {
+    //     e.preventDefault();
+    // }
     if (e.key === 'Escape') {
         appWindow.close();
     }

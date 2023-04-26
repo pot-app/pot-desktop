@@ -151,18 +151,14 @@ pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
 #[cfg(any(target_os = "windows", target_os = "linux"))]
 pub struct MonitorWrapper(pub Mutex<(u32, u32, f64)>);
 
-#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub fn set_monitor_info() {
     let handle = APP.get().unwrap();
     let util_window = match handle.get_window("util") {
         Some(v) => v,
         None => {
             tauri::WindowBuilder::new(handle, "util", tauri::WindowUrl::App("index.html".into()))
-                .min_inner_size(0.0, 0.0)
-                .inner_size(0.0, 0.0)
-                .position(0.0, 0.0)
-                .decorations(false)
                 .skip_taskbar(true)
+                .visible(false)
                 .build()
                 .unwrap()
         }
@@ -173,10 +169,8 @@ pub fn set_monitor_info() {
     APP.get()
         .unwrap()
         .manage(MonitorWrapper(Mutex::new((size.width, size.height, dpi))));
-    util_window.hide().unwrap();
 }
 
-#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub fn get_monitor_info(state: tauri::State<MonitorWrapper>) -> (u32, u32, f64) {
     state.0.lock().unwrap().to_owned()
 }

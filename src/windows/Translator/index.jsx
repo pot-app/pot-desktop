@@ -14,8 +14,10 @@ export default function Translator() {
   const theme = get('theme') ?? 'auto';
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   useEffect(() => {
-    appWindow.show();
-    appWindow.setFocus();
+    if (appWindow.label != 'util') {
+      appWindow.show();
+      appWindow.setFocus();
+    }
   }, [])
   return (
     <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : (theme == 'dark' ? dark : light)}>
