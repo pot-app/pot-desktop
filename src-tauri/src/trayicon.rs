@@ -35,6 +35,7 @@ pub fn build_system_tray() -> SystemTray {
                     COPY_SOURCE_TARGET.to_string(),
                     "原文+译文",
                 ))
+                .add_native_item(SystemTrayMenuItem::Separator)
                 .add_item(CustomMenuItem::new(COPY_CLOSE.to_string(), "关闭")),
         ))
         // .add_native_item(SystemTrayMenuItem::Separator)
