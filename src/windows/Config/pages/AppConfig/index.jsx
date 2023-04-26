@@ -17,12 +17,14 @@ import {
     dynamicTranslateAtom,
     targetLanguageAtom,
     defaultInterfaceAtom,
+    rememberTargetLanguageAtom,
     proxyAtom,
     windowHeightAtom,
     windowWidthAtom,
     ankiEnableAtom,
     themeAtom
-} from '../..'
+} from '../..';
+import './style.css';
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
@@ -30,6 +32,7 @@ export default function AppConfig() {
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
+    const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
@@ -160,6 +163,16 @@ export default function AppConfig() {
                                 }} />
                         }
                         label="动态翻译" />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={rememberTargetLanguage}
+                                onChange={(e) => {
+                                    setRememberTargetLanguage(e.target.checked);
+                                    set('remember_target_language', e.target.checked);
+                                }} />
+                        }
+                        label="记住目标语言" />
                 </ConfigItem>
                 <ConfigItem label="目标语言">
                     <Select
@@ -191,7 +204,12 @@ export default function AppConfig() {
                         {
                             Object.keys(interfaces).map(
                                 x => {
-                                    return <MenuItem value={x} key={nanoid()}>{interfaces[x]['info']['name']}</MenuItem>
+                                    return <MenuItem value={x} key={nanoid()}>
+                                        <Box>
+                                            <img src={`/${x}.svg`} className='interface-icon' />
+                                            <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                        </Box>
+                                    </MenuItem>
                                 }
                             )
                         }

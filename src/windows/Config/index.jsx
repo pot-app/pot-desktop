@@ -18,6 +18,7 @@ export const dynamicTranslateAtom = atom(false);
 export const autoCopyAtom = atom(4);
 export const targetLanguageAtom = atom('zh-cn');
 export const defaultInterfaceAtom = atom('deepl');
+export const rememberTargetLanguageAtom = atom(true);
 export const proxyAtom = atom('');
 export const themeAtom = atom('auto');
 export const windowWidthAtom = atom(400);
@@ -39,6 +40,7 @@ export default function Config() {
   const setAutoCopy = useSetAtom(autoCopyAtom);
   const setTargetLanguage = useSetAtom(targetLanguageAtom);
   const setDefaultInterface = useSetAtom(defaultInterfaceAtom);
+  const setRememberTargetLanguage = useSetAtom(rememberTargetLanguageAtom);
   const setProxy = useSetAtom(proxyAtom);
   const setWindowWidth = useSetAtom(windowWidthAtom);
   const setWindowHeight = useSetAtom(windowHeightAtom);
@@ -63,6 +65,7 @@ export default function Config() {
     setAutoCopy(get('auto_copy') ?? 4);
     setTargetLanguage(get('target_language') ?? 'zh-cn');
     setDefaultInterface(get('interface') ?? 'deepl');
+    setRememberTargetLanguage(get('remember_target_language') ?? true);
     setProxy(get('proxy') ?? '');
     setWindowWidth(get('window_width') ?? 400);
     setWindowHeight(get('window_height') ?? 500);

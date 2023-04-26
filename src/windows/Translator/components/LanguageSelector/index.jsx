@@ -43,11 +43,10 @@ export default function LanguageSelector() {
                 className='language-selector'
                 value={targetLanguage}
                 onChange={(e) => {
-                    set('target_language', e.target.value).then(
-                        _ => {
-                            setTargetLanguage(e.target.value);
-                        }
-                    )
+                    setTargetLanguage(e.target.value);
+                    if (get('remember_target_language') ?? true) {
+                        set('target_language', e.target.value);
+                    }
                 }}
             >
                 {language.map(x => {
