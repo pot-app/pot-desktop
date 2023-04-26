@@ -53,8 +53,8 @@
 
 |   方式   |                                                                    描述                                                                     |                                       预览                                       |
 | :------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-| 划词翻译 |                                      选中需要翻译的文本之后，按下划词翻译快捷键即可（默认 `Ctrl + D`）                                      | ![划词翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif) |
-| 输入翻译 |                              按下输入翻译快捷键（默认 `Ctrl + Shift + D`），输入需要翻译的文本，`Enter` 键翻译                              | ![输入翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif) |
+| 划词翻译 |                                               选中需要翻译的文本之后，按下划词翻译快捷键即可                                                | ![划词翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif) |
+| 输入翻译 |                                           按下输入翻译快捷键，输入需要翻译的文本，`Enter` 键翻译                                            | ![输入翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif) |
 | 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif) |
 
 ## 安装
