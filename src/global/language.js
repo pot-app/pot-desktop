@@ -11,4 +11,4 @@ export default [
     { value: 'es', label: '西班牙语', code: 'es' },
     { value: 'ru', label: '俄语', code: 'ru' },
     { value: 'de', label: '德语', code: 'de' },
-]
+];

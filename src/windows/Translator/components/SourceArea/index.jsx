@@ -6,11 +6,11 @@ import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import React, { useState, useEffect } from 'react';
 import { atom, useSetAtom } from 'jotai';
 import { writeText } from '@tauri-apps/api/clipboard';
-import { appWindow } from '@tauri-apps/api/window'
+import { appWindow } from '@tauri-apps/api/window';
 import { invoke } from '@tauri-apps/api/tauri';
 import speak from '../../../../global/speakClient';
 import { get } from '../../../main';
-import './style.css'
+import './style.css';
 
 export const sourceTextAtom = atom('');
 
@@ -21,28 +21,26 @@ export default function SourceArea() {
     const [text, setText] = useState('');
 
     useEffect(() => {
-        if (appWindow.label != "persistent") {
+        if (appWindow.label != 'persistent') {
             // 获取选中文本
-            invoke('get_translate_text').then(
-                text => {
-                    if (text != "") {
-                        setSourceText(text.trim());
-                        setText(text.trim());
-                    }
+            invoke('get_translate_text').then((text) => {
+                if (text != '') {
+                    setSourceText(text.trim());
+                    setText(text.trim());
                 }
-            )
+            });
         }
-    }, [])
+    }, []);
 
     // 复制内容
     function copy(who) {
-        writeText(who).then(
-            _ => { setCopyed(true) }
-        )
+        writeText(who).then((_) => {
+            setCopyed(true);
+        });
     }
 
     function keyDown(event) {
-        if (event.key == "Enter") {
+        if (event.key == 'Enter') {
             setSourceText(event.target.value);
         }
     }
@@ -52,12 +50,20 @@ export default function SourceArea() {
             <Snackbar
                 open={copyed}
                 autoHideDuration={2000}
-                onClose={() => { setCopyed(false) }}
+                onClose={() => {
+                    setCopyed(false);
+                }}
                 anchorOrigin={{
-                    vertical: 'bottom', horizontal: 'right'
+                    vertical: 'bottom',
+                    horizontal: 'right',
                 }}
             >
-                <Alert onClose={() => { setCopyed(false) }} severity="success">
+                <Alert
+                    onClose={() => {
+                        setCopyed(false);
+                    }}
+                    severity='success'
+                >
                     已写入剪切板
                 </Alert>
             </Snackbar>
@@ -71,29 +77,36 @@ export default function SourceArea() {
                     onChange={(e) => {
                         setText(e.target.value);
                         if (dynamicTranslate) {
-                            setSourceText(e.target.value)
+                            setSourceText(e.target.value);
                         }
                     }}
                 />
             </Box>
             <Box className='source-buttonarea'>
                 <Box>
-                    <IconButton className='source-button'
-                        onClick={() => { speak(text) }}
+                    <IconButton
+                        className='source-button'
+                        onClick={() => {
+                            speak(text);
+                        }}
                     >
                         <div id='audio'></div>
-                        <Tooltip title="朗读">
+                        <Tooltip title='朗读'>
                             <GraphicEqRoundedIcon />
                         </Tooltip>
                     </IconButton>
-                    <IconButton className='source-button'
-                        onClick={() => { copy(text) }}
+                    <IconButton
+                        className='source-button'
+                        onClick={() => {
+                            copy(text);
+                        }}
                     >
-                        <Tooltip title="复制">
+                        <Tooltip title='复制'>
                             <ContentCopyRoundedIcon />
                         </Tooltip>
                     </IconButton>
-                    <IconButton className='source-button'
+                    <IconButton
+                        className='source-button'
                         onClick={() => {
                             // /s匹配空格和换行符 /g表示全局匹配
                             let newText = text.replace(/\s+/g, ' ');
@@ -101,20 +114,22 @@ export default function SourceArea() {
                             setSourceText(newText);
                         }}
                     >
-                        <Tooltip title="删除多余空格及换行">
+                        <Tooltip title='删除多余空格及换行'>
                             <SmartButtonRoundedIcon />
                         </Tooltip>
                     </IconButton>
                 </Box>
                 <MuiButton
-                    variant="contained"
+                    variant='contained'
                     size='small'
-                    onClick={() => { setSourceText(text) }}
+                    onClick={() => {
+                        setSourceText(text);
+                    }}
                     startIcon={<TranslateRoundedIcon />}
                 >
                     翻译
                 </MuiButton>
             </Box>
         </Card>
-    )
+    );
 }

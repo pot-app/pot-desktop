@@ -1,26 +1,26 @@
 import request from './utils/request';
-import { searchWord } from "./utils/dict";
+import { searchWord } from './utils/dict';
 import { get } from '../windows/main';
 
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: "DeepL",
+    name: 'DeepL',
     // 接口支持语言及映射
     supportLanguage: {
-        "auto": "auto",
-        "zh-tw": "ZH",
-        "zh-cn": "ZH",
-        "de": "DE",
-        "en": "EN",
-        "es": "ES",
-        "fr": "FR",
-        "ja": "JA",
-        "ru": "RU",
+        auto: 'auto',
+        'zh-tw': 'ZH',
+        'zh-cn': 'ZH',
+        de: 'DE',
+        en: 'EN',
+        es: 'ES',
+        fr: 'FR',
+        ja: 'JA',
+        ru: 'RU',
     },
     // 接口需要配置项
-    needs: []
-}
+    needs: [],
+};
 
 export async function translate(text, from, to) {
     const { supportLanguage } = info;
@@ -33,9 +33,9 @@ export async function translate(text, from, to) {
                 splitting: 'newlines',
                 lang: {
                     source_lang_user_selected: source_lang,
-                    target_lang: target_lang
-                }
-            }
+                    target_lang: target_lang,
+                },
+            },
         };
     }
 
@@ -59,20 +59,20 @@ export async function translate(text, from, to) {
     }
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言'
+        return '该接口不支持该语言';
     }
     if (text.split(' ').length == 1) {
         let target = await searchWord(text);
         if (target !== '') {
-            return target
+            return target;
         }
     }
     const url = 'https://www2.deepl.com/jsonrpc';
-    let id = getRandomNumber()
+    let id = getRandomNumber();
     const post_data = initData(supportLanguage[from], supportLanguage[to]);
     const translate_text = {
         text: text,
-        requestAlternatives: 3
+        requestAlternatives: 3,
     };
     post_data.id = id;
     post_data.params.texts = [translate_text];
@@ -89,15 +89,15 @@ export async function translate(text, from, to) {
         method: 'POST',
         body: post_str,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        proxy: proxy
-    })
+        proxy: proxy,
+    });
 
     let result = JSON.parse(res);
     if (result && result.result && result.result.texts) {
         return result.result.texts[0].text;
     } else {
-        return JSON.stringify(result.error)
+        return JSON.stringify(result.error);
     }
 }

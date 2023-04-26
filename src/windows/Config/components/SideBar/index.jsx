@@ -12,39 +12,55 @@ export default function SideBar() {
     const location = useLocation();
 
     function setStyle(pathname) {
-        return location.pathname.includes(pathname) ? "contained" : "text"
+        return location.pathname.includes(pathname) ? 'contained' : 'text';
     }
 
     return (
-        <Box className="side-bar">
+        <Box className='side-bar'>
             <Button
                 fullWidth
                 size='large'
-                variant={setStyle("/application")}
+                variant={setStyle('/application')}
                 startIcon={<WidgetsRoundedIcon />}
-                onClick={() => { navigate('/application') }}
-            >应用设置</Button>
+                onClick={() => {
+                    navigate('/application');
+                }}
+            >
+                应用设置
+            </Button>
             <Button
                 fullWidth
                 size='large'
-                variant={setStyle("/shortcut")}
+                variant={setStyle('/shortcut')}
                 startIcon={<KeyboardRoundedIcon />}
-                onClick={() => { navigate('/shortcut') }}
-            >热键设置</Button>
+                onClick={() => {
+                    navigate('/shortcut');
+                }}
+            >
+                热键设置
+            </Button>
             <Button
                 fullWidth
                 size='large'
-                variant={setStyle("/interface")}
+                variant={setStyle('/interface')}
                 startIcon={<ExtensionRoundedIcon />}
-                onClick={() => { navigate('/interface') }}
-            >接口设置</Button>
+                onClick={() => {
+                    navigate('/interface');
+                }}
+            >
+                接口设置
+            </Button>
             <Button
                 fullWidth
                 size='large'
-                variant={setStyle("/about")}
+                variant={setStyle('/about')}
                 startIcon={<InfoRoundedIcon />}
-                onClick={() => { navigate('/about') }}
-            >关于应用</Button>
-        </Box >
-    )
+                onClick={() => {
+                    navigate('/about');
+                }}
+            >
+                关于应用
+            </Button>
+        </Box>
+    );
 }

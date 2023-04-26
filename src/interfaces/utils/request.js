@@ -14,18 +14,19 @@ export default async function request(url, options) {
     if ('query' in options) {
         let temp = [];
         for (let i of Object.keys(options['query'])) {
-            temp.push([i, options['query'][i]])
+            temp.push([i, options['query'][i]]);
         }
         new_options['query'] = temp;
     }
     if ('headers' in options) {
         let temp = [];
         for (let i of Object.keys(options['headers'])) {
-            temp.push([i, options['headers'][i]])
+            temp.push([i, options['headers'][i]]);
         }
         new_options['headers'] = temp;
     }
     return await invoke('http_request', {
-        url: url, options: new_options
-    })
+        url: url,
+        options: new_options,
+    });
 }

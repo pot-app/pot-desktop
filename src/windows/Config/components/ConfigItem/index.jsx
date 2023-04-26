@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Box } from '@mui/material';
-import './style.css'
+import './style.css';
 
 export default function ConfigItem(props) {
     const { label, children, labelItem } = props;
@@ -12,5 +12,5 @@ export default function ConfigItem(props) {
             </Box>
             {children}
         </>
-    )
+    );
 }

@@ -2,7 +2,7 @@ import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDou
 import { Card, Select, MenuItem } from '@mui/material';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
-import "flag-icons/css/flag-icons.min.css";
+import 'flag-icons/css/flag-icons.min.css';
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
 import { nanoid } from 'nanoid';
@@ -18,10 +18,10 @@ export default function LanguageSelector() {
 
     useEffect(() => {
         setTargetLanguage(get('target_language') ?? 'zh-cn');
-    }, [])
+    }, []);
 
     return (
-        <Card className="language-selector-area">
+        <Card className='language-selector-area'>
             <Select
                 sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
                 className='language-selector'
@@ -31,13 +31,22 @@ export default function LanguageSelector() {
                 }}
             >
                 <MenuItem value={'auto'}>🌏 自动检测</MenuItem>
-                {language.map(x => {
-                    return <MenuItem value={x.value} key={nanoid()}>
-                        <span className={`fi fi-${x.code}`} /><span>{x.label}</span>
-                    </MenuItem>
+                {language.map((x) => {
+                    return (
+                        <MenuItem
+                            value={x.value}
+                            key={nanoid()}
+                        >
+                            <span className={`fi fi-${x.code}`} />
+                            <span>{x.label}</span>
+                        </MenuItem>
+                    );
                 })}
             </Select>
-            <KeyboardDoubleArrowRightRoundedIcon fontSize='large' className='arrow-icon' />
+            <KeyboardDoubleArrowRightRoundedIcon
+                fontSize='large'
+                className='arrow-icon'
+            />
             <Select
                 sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
                 className='language-selector'
@@ -49,12 +58,18 @@ export default function LanguageSelector() {
                     }
                 }}
             >
-                {language.map(x => {
-                    return <MenuItem value={x.value} key={nanoid()}>
-                        <span className={`fi fi-${x.code}`} /><span>{x.label}</span>
-                    </MenuItem>
+                {language.map((x) => {
+                    return (
+                        <MenuItem
+                            value={x.value}
+                            key={nanoid()}
+                        >
+                            <span className={`fi fi-${x.code}`} />
+                            <span>{x.label}</span>
+                        </MenuItem>
+                    );
                 })}
             </Select>
         </Card>
-    )
+    );
 }

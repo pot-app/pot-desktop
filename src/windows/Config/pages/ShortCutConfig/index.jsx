@@ -11,7 +11,7 @@ export default function ShortCutConfig() {
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
 
-    const supportKey = ["Control", 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
+    const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
 
     function keyDown(e, value, set) {
         if (e.key.length == 1 || supportKey.includes(e.key)) {
@@ -29,40 +29,58 @@ export default function ShortCutConfig() {
     }
 
     return (
-        <ConfigList label="快捷键">
-            <ConfigItem label="划词翻译">
+        <ConfigList label='快捷键'>
+            <ConfigItem label='划词翻译'>
                 <TextField
                     fullWidth
                     value={shortcutTranslate}
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
-                    onKeyDown={(e) => { keyDown(e, shortcutTranslate, setShortcutTranslate) }}
-                    onFocus={() => { setShortcutTranslate('') }}
+                    onKeyDown={(e) => {
+                        keyDown(e, shortcutTranslate, setShortcutTranslate);
+                    }}
+                    onFocus={() => {
+                        setShortcutTranslate('');
+                    }}
                     InputProps={{
-                        endAdornment: (<InputAdornment position="end">
-                            <Button
-                                variant='outlined'
-                                onClick={() => {
-                                    set('shortcut_translate', shortcutTranslate);
-                                }}>确认</Button>
-                        </InputAdornment>)
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button
+                                    variant='outlined'
+                                    onClick={() => {
+                                        set('shortcut_translate', shortcutTranslate);
+                                    }}
+                                >
+                                    确认
+                                </Button>
+                            </InputAdornment>
+                        ),
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label="独立翻译窗口">
+            <ConfigItem label='独立翻译窗口'>
                 <TextField
                     fullWidth
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}
-                    onKeyDown={(e) => { keyDown(e, shortcutPersistent, setShortcutPersistent) }}
-                    onFocus={() => { setShortcutPersistent('') }}
+                    onKeyDown={(e) => {
+                        keyDown(e, shortcutPersistent, setShortcutPersistent);
+                    }}
+                    onFocus={() => {
+                        setShortcutPersistent('');
+                    }}
                     InputProps={{
-                        endAdornment: (<InputAdornment position="end">
-                            <Button
-                                variant='outlined'
-                                onClick={() => {
-                                    set('shortcut_persistent', shortcutPersistent);
-                                }}>确认</Button>
-                        </InputAdornment>)
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button
+                                    variant='outlined'
+                                    onClick={() => {
+                                        set('shortcut_persistent', shortcutPersistent);
+                                    }}
+                                >
+                                    确认
+                                </Button>
+                            </InputAdornment>
+                        ),
                     }}
                 />
             </ConfigItem>
@@ -76,5 +94,5 @@ export default function ShortCutConfig() {
                 />
             </ConfigItem> */}
         </ConfigList>
-    )
+    );
 }

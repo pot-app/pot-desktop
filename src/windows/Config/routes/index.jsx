@@ -6,25 +6,25 @@ import AppInfo from '../pages/AppInfo';
 
 const routes = [
     {
-        path: "/application",
+        path: '/application',
         element: <AppConfig />,
     },
     {
-        path: "/shortcut",
+        path: '/shortcut',
         element: <ShortCutConfig />,
     },
     {
-        path: "/interface",
+        path: '/interface',
         element: <InterfaceConfig />,
     },
     {
-        path: "/about",
+        path: '/about',
         element: <AppInfo />,
     },
     {
-        path: "/",
-        element: <Navigate to='/application' />
-    }
-]
+        path: '/',
+        element: <Navigate to='/application' />,
+    },
+];
 
-export default routes
+export default routes;

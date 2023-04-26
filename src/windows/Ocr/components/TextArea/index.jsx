@@ -6,9 +6,9 @@ import './style.css';
 
 // 复制内容
 function copy(who) {
-    writeText(who).then(
-        _ => { console.log('success') }
-    )
+    writeText(who).then((_) => {
+        console.log('success');
+    });
 }
 
 export default function TextArea() {
@@ -21,18 +21,21 @@ export default function TextArea() {
                     multiline
                     fullWidth
                     value={resultText}
-                    onChange={(e) => { setResultText(e.target.value) }}
+                    onChange={(e) => {
+                        setResultText(e.target.value);
+                    }}
                 />
             </Box>
             <Box className='text-control'>
                 <IconButton
                     className='control-button'
-                    onClick={() => { copy(resultText) }}
+                    onClick={() => {
+                        copy(resultText);
+                    }}
                 >
                     <ContentCopyRoundedIcon />
                 </IconButton>
             </Box>
         </>
-
-    )
+    );
 }

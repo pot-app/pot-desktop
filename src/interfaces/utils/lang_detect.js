@@ -3,14 +3,14 @@ import { get } from '../windows/main';
 
 export async function detect(text) {
     supportLanguage = {
-        "ZH": "zh-cn",
-        "DE": "de",
-        "EN": "en",
-        "ES": "es",
-        "FR": "fr",
-        "JA": "ja",
-        "RU": "ru",
-    }
+        ZH: 'zh-cn',
+        DE: 'de',
+        EN: 'en',
+        ES: 'es',
+        FR: 'fr',
+        JA: 'ja',
+        RU: 'ru',
+    };
 
     function initData(source_lang, target_lang) {
         return {
@@ -20,9 +20,9 @@ export async function detect(text) {
                 splitting: 'newlines',
                 lang: {
                     source_lang_user_selected: source_lang,
-                    target_lang: target_lang
-                }
-            }
+                    target_lang: target_lang,
+                },
+            },
         };
     }
 
@@ -46,11 +46,11 @@ export async function detect(text) {
     }
 
     const url = 'https://www2.deepl.com/jsonrpc';
-    let id = getRandomNumber()
+    let id = getRandomNumber();
     const post_data = initData('auto', 'ZH');
     const translate_text = {
         text: text,
-        requestAlternatives: 3
+        requestAlternatives: 3,
     };
     post_data.id = id;
     post_data.params.texts = [translate_text];
@@ -67,16 +67,16 @@ export async function detect(text) {
         method: 'POST',
         body: post_str,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        proxy: proxy
-    })
+        proxy: proxy,
+    });
 
     let result = JSON.parse(res);
 
     if (result && result.result && result.result.lang) {
         return result.result.lang;
     } else {
-        return JSON.stringify(result.error)
+        return JSON.stringify(result.error);
     }
 }
