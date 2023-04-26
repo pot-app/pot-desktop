@@ -23,10 +23,10 @@ export default function InterfaceConfig() {
                                     label="启用"
                                     control={
                                         <Switch
-                                            defaultChecked={interfaceConfigs[x]['enable']}
+                                            checked={interfaceConfigs[x]['enable']}
                                             onChange={e => {
-                                                let configs = interfaceConfigs;
-                                                configs[x]['enable'] = e.target.checked
+                                                let i = { ...interfaceConfigs[x], enable: e.target.checked };
+                                                let configs = { ...interfaceConfigs, [x]: i };
                                                 setInterfaceConfigs(configs);
                                                 set(`${x}_enable`, e.target.checked);
                                             }}
@@ -44,6 +44,7 @@ export default function InterfaceConfig() {
                                         label={y['needs_display_name']}
                                         placeholder={y['needs_place_hold']}
                                         defaultValue={y['needs_config_value']}
+                                        disabled={!interfaceConfigs[x]['enable']}
                                         onChange={(e) => {
                                             let configs = interfaceConfigs;
                                             for (let j in configs[x]['needs']) {
@@ -62,6 +63,6 @@ export default function InterfaceConfig() {
                     }
                 )
             }
-        </ConfigList>
+        </ConfigList >
     )
 }
