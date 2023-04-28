@@ -124,7 +124,7 @@ pub fn get_selection_text() -> Result<String, String> {
     }
 }
 #[cfg(target_os = "macos")]
-pub fn get_selection_text()->Result<String,String>{
+pub fn get_selection_text() -> Result<String, String> {
     let apple_script = r#"
 use sys : application "System Events"
 

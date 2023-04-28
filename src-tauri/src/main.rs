@@ -116,24 +116,20 @@ fn main() {
             http_request
         ])
         //绑定托盘事件
-        .on_system_tray_event(|app, event| {
-            match event{
-                SystemTrayEvent::LeftClick{..} => on_tray_click(app),
-                SystemTrayEvent::MenuItemClick { id, .. }=>{
-                    match id.as_str() {
-                    PERSISTENT_WINDOW => on_persistent_click(app),
-                    CONFIG_TRAY_ITEM => on_config_click(app),
-                    QUIT_TRAY_ITEM => on_quit_click(),
-                    OCR_WINDOW => on_ocr_click(app),
-                    COPY_SOURCE => on_auto_copy_click(app, 1),
-                    COPY_TARGET => on_auto_copy_click(app, 2),
-                    COPY_SOURCE_TARGET => on_auto_copy_click(app, 3),
-                    COPY_CLOSE => on_auto_copy_click(app, 4),
-                    _ => {}
-                }
-                }
-                _=>{}
-            }
+        .on_system_tray_event(|app, event| match event {
+            SystemTrayEvent::LeftClick { .. } => on_tray_click(app),
+            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                PERSISTENT_WINDOW => on_persistent_click(app),
+                CONFIG_TRAY_ITEM => on_config_click(app),
+                QUIT_TRAY_ITEM => on_quit_click(),
+                OCR_WINDOW => on_ocr_click(app),
+                COPY_SOURCE => on_auto_copy_click(app, 1),
+                COPY_TARGET => on_auto_copy_click(app, 2),
+                COPY_SOURCE_TARGET => on_auto_copy_click(app, 3),
+                COPY_CLOSE => on_auto_copy_click(app, 4),
+                _ => {}
+            },
+            _ => {}
         })
         .build(tauri::generate_context!())
         .expect("error while running tauri application")

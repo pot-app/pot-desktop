@@ -1,5 +1,5 @@
-use crate::config::{set_config, write_config, get_config};
-use crate::window::{build_ocr_window, build_translate_window, persistent_window, ocr_window};
+use crate::config::{get_config, set_config, write_config};
+use crate::window::{build_ocr_window, build_translate_window, ocr_window, persistent_window};
 use crate::APP;
 use tauri::api::notification::Notification;
 use tauri::{
@@ -72,14 +72,14 @@ fn on_window_close(event: &WindowEvent) {
     }
 }
 
-pub fn on_tray_click(app:&AppHandle){
-    let label=get_config("default_window", Value::from("config"), app.state());
-    match label.as_str(){
-        Some("config")=>{on_config_click(app)}
-        Some("persistent")=>{persistent_window()}
-        Some("ocr")=>{ocr_window()}
-        Some(_)=>{}
-        None=>{}
+pub fn on_tray_click(app: &AppHandle) {
+    let label = get_config("default_window", Value::from("config"), app.state());
+    match label.as_str() {
+        Some("config") => on_config_click(app),
+        Some("persistent") => persistent_window(),
+        Some("ocr") => ocr_window(),
+        Some(_) => {}
+        None => {}
     }
 }
 

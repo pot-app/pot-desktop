@@ -33,7 +33,7 @@ pub fn check_update() -> Result<(), String> {
             let body = res["body"]
                 .as_str()
                 .unwrap_or_default()
-                .replace("#", "")
+                .replace('#', "")
                 .replace("\n\n", "\n");
             let handle = APP.get().unwrap();
             let version = handle

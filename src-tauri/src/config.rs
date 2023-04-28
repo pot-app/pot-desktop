@@ -102,7 +102,7 @@ pub fn get_config(key: &str, default: Value, state: tauri::State<ConfigWrapper>)
 #[tauri::command]
 pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
     if key == "auto_copy" {
-        let copy_mode = value.clone().as_integer().unwrap();
+        let copy_mode = value.as_integer().unwrap();
         update_tray(APP.get().unwrap(), copy_mode);
     }
     if key.starts_with("shortcut") {
