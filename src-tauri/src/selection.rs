@@ -71,7 +71,7 @@ pub fn get_selection_text() -> Result<String, String> {
 }
 
 // 获取选择的文本(Windows)
-#[cfg(any(target_os = "windows", target_os = "macos"))]
+#[cfg(target_os = "windows")]
 pub fn get_selection_text() -> Result<String, String> {
     use arboard::Clipboard;
 
@@ -123,7 +123,112 @@ pub fn get_selection_text() -> Result<String, String> {
         }
     }
 }
+#[cfg(target_os = "macos")]
+pub fn get_selection_text()->Result<String,String>{
+    let apple_script = r#"
+use sys : application "System Events"
 
+-- Use the following delay to choose an application window
+-- and highlight some text.  Then ensure that the window remains
+-- in focus until the script terminates.
+-- delay 5
+
+set P to the first application process whose frontmost is true
+
+set appName to name of P
+
+if appName is equal to "Mail" then
+	error "not support " & appName
+end
+
+if appName is equal to "Safari" then
+	try
+		tell application "Safari"
+			set theText to (do JavaScript "getSelection().toString()" in document 1)
+		end tell
+		return theText
+	end try
+	error "not support Safari"
+end
+
+if appName is equal to "Google Chrome" then
+	try
+		tell application "Google Chrome" to tell active tab of window 1
+			set theText to (execute javascript "getSelection().toString()")
+		end tell
+		return theText
+	end try
+	error "not support Google Chrome"
+end
+
+if appName is equal to "Microsoft Edge" then
+	try
+		tell application "Microsoft Edge" to tell active tab of window 1
+			set theText to (execute javascript "getSelection().toString()")
+		end tell
+		return theText
+	end try
+	error "not support Microsoft Edge"
+end
+
+set _W to a reference to the first window of P
+
+set _U to a reference to ¬
+	(UI elements of P whose ¬
+		name of attributes contains "AXSelectedText" and ¬
+		value of attribute "AXSelectedText" is not "" and ¬
+		class of value of attribute "AXSelectedText" is not class)
+
+tell sys to if (count _U) ≠ 0 then ¬
+	return the value of ¬
+		attribute "AXSelectedText" of ¬
+		_U's contents's first item
+
+set _U to a reference to UI elements of _W
+
+with timeout of 1 seconds
+	tell sys to repeat while (_U exists)
+		tell (a reference to ¬
+			(_U whose ¬
+				name of attributes contains "AXSelectedText" and ¬
+				value of attribute "AXSelectedText" is not "" and ¬
+				class of value of attribute "AXSelectedText" is not class)) ¬
+			to if (count) ≠ 0 then return the value of ¬
+			attribute "AXSelectedText" of its contents's first item
+		
+		set _U to a reference to (UI elements of _U)
+	end repeat
+end timeout
+
+error "not found AXSelectedText"
+"#;
+
+    match std::process::Command::new("osascript")
+        .arg(apple_script)
+        .output()
+    {
+        Ok(output) => {
+            // check exit code
+            if output.status.success() {
+                // get output content
+                let content = String::from_utf8(output.stdout)
+                    .expect("failed to parse get-selected-text-by-ax.applescript output");
+                // trim content
+                let content = content.trim();
+                Ok(content.to_string())
+            } else {
+                let err = output
+                    .stderr
+                    .into_iter()
+                    .map(|c| c as char)
+                    .collect::<String>()
+                    .into();
+                Err(err)
+            }
+        }
+        Err(e) => Err(e.to_string()),
+    }
+}
 // windows 复制操作
 #[cfg(target_os = "windows")]
 pub fn copy() {
@@ -141,25 +246,6 @@ pub fn copy() {
     enigo.key_up(Key::Option);
     // 发送CtrlC
     enigo.key_sequence_parse("{+CTRL}c{-CTRL}");
-}
-
-// macos 复制操作
-#[cfg(target_os = "macos")]
-pub fn copy() {
-    use enigo::*;
-    let mut enigo = Enigo::new();
-    // 先释放按键
-    enigo.key_up(Key::Control);
-    enigo.key_up(Key::Alt);
-    enigo.key_up(Key::Shift);
-    enigo.key_up(Key::Space);
-    enigo.key_up(Key::Meta);
-    enigo.key_up(Key::Tab);
-    enigo.key_up(Key::Escape);
-    enigo.key_up(Key::CapsLock);
-    enigo.key_up(Key::Option);
-    // 发送CtrlC
-    enigo.key_sequence_parse("{+COMMAND}c{-COMMAND}");
 }
 
 #[tauri::command]
