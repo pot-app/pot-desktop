@@ -19,6 +19,7 @@ import {
     defaultInterfaceAtom,
     rememberTargetLanguageAtom,
     proxyAtom,
+    defaultWindowAtom,
     windowHeightAtom,
     windowWidthAtom,
     ankiEnableAtom,
@@ -34,6 +35,7 @@ export default function AppConfig() {
     const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
+    const [defaultWindow, setDefaultWindow] = useAtom(defaultWindowAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
     const [ankiEnable, setAnkiEnable] = useAtom(ankiEnableAtom);
@@ -114,6 +116,20 @@ export default function AppConfig() {
                             set('proxy', e.target.value);
                         }}
                     />
+                </ConfigItem>
+                <ConfigItem label='托盘单击事件'>
+                    <Select
+                        fullWidth
+                        value={defaultWindow}
+                        onChange={(e) => {
+                            setDefaultWindow(e.target.value);
+                            set('default_window', e.target.value);
+                        }}
+                    >
+                        <MenuItem value='none'>None</MenuItem>
+                        <MenuItem value='config'>设置</MenuItem>
+                        <MenuItem value='persistent'>翻译</MenuItem>
+                    </Select>
                 </ConfigItem>
                 <ConfigItem label='颜色主题'>
                     <Select

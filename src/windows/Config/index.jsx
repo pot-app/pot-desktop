@@ -20,6 +20,7 @@ export const targetLanguageAtom = atom('zh-cn');
 export const defaultInterfaceAtom = atom('deepl');
 export const rememberTargetLanguageAtom = atom(true);
 export const proxyAtom = atom('');
+export const defaultWindowAtom = atom('config');
 export const themeAtom = atom('auto');
 export const windowWidthAtom = atom(400);
 export const windowHeightAtom = atom(500);
@@ -42,6 +43,7 @@ export default function Config() {
     const setDefaultInterface = useSetAtom(defaultInterfaceAtom);
     const setRememberTargetLanguage = useSetAtom(rememberTargetLanguageAtom);
     const setProxy = useSetAtom(proxyAtom);
+    const setDefaultWindow = useSetAtom(defaultWindowAtom);
     const setWindowWidth = useSetAtom(windowWidthAtom);
     const setWindowHeight = useSetAtom(windowHeightAtom);
     const setAnkiEnable = useSetAtom(ankiEnableAtom);
@@ -67,6 +69,7 @@ export default function Config() {
         setDefaultInterface(get('interface') ?? 'deepl');
         setRememberTargetLanguage(get('remember_target_language') ?? true);
         setProxy(get('proxy') ?? '');
+        setDefaultWindow(get('default_window') ?? 'config');
         setWindowWidth(get('window_width') ?? 400);
         setWindowHeight(get('window_height') ?? 500);
         setAnkiEnable(get('anki_enable') ?? true);

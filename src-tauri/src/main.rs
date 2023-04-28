@@ -117,8 +117,10 @@ fn main() {
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| {
-            if let SystemTrayEvent::MenuItemClick { id, .. } = event {
-                match id.as_str() {
+            match event{
+                SystemTrayEvent::LeftClick{..} => on_tray_click(app),
+                SystemTrayEvent::MenuItemClick { id, .. }=>{
+                    match id.as_str() {
                     PERSISTENT_WINDOW => on_persistent_click(app),
                     CONFIG_TRAY_ITEM => on_config_click(app),
                     QUIT_TRAY_ITEM => on_quit_click(),
@@ -129,6 +131,8 @@ fn main() {
                     COPY_CLOSE => on_auto_copy_click(app, 4),
                     _ => {}
                 }
+                }
+                _=>{}
             }
         })
         .build(tauri::generate_context!())
