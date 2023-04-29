@@ -9,6 +9,7 @@ import * as _volcengine from './volcengine';
 import * as _google from './google';
 import * as _deepl from './deepl';
 import * as _alibaba from './alibaba';
+import * as _bing from './bing';
 
 export const baidu = _baidu;
 export const caiyun = _caiyun;
@@ -21,3 +22,4 @@ export const volcengine = _volcengine;
 export const google = _google;
 export const deepl = _deepl;
 export const alibaba = _alibaba;
+export const bing = _bing;
