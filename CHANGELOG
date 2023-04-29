@@ -1,13 +1,13 @@
-## 0.1.18 (2023-04-24)
+## 0.1.19 (2023-04-30)
 
 ### New feature:
 
-- 添加Anki支持([`42d1704`](https://github.com/Pylogmon/pot/commit/42d1704e1f17ac79f1477092ea4d284ba8e6dcd6)) (by 派了个萌)
+-   添加必应词典接口([`9bb58f4`](https://github.com/Pylogmon/pot/commit/9bb58f42d9f115c386e76490c146ff7347a3a6c0)) (by Pylogmon)
+-   添加托盘单击事件([`b34c44b`](https://github.com/Pylogmon/pot/commit/b34c44b9effd93d1298baaa363cbdaf172f688b3)) (by 派了个萌)
+-   添加记住目标语言设置项([`02bb09e`](https://github.com/Pylogmon/pot/commit/02bb09e6d6f6138cb96e6977319c8455b079231e)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复Windows翻译窗口出现时闪烁的问题([`c4c360f`](https://github.com/Pylogmon/pot/commit/c4c360f4549be995f9b9711aeb3e285cba91c8e7)) (by 派了个萌)
-
-### Performance improves:
-
-- 改善窗口出现时先显示空白的问题([`ae9c808`](https://github.com/Pylogmon/pot/commit/ae9c808d4a54c313cfeacd63c6254a70ce4bb956)) (by 派了个萌)
+-   修复首次打开接口 enable 失效的问题([`f7b2c57`](https://github.com/Pylogmon/pot/commit/f7b2c579de77f316d0d7bd720a36ed76c381165b)) (by Pylogmon)
+-   修复 MacOS 取词失败的问题([`7bca96c`](https://github.com/Pylogmon/pot/commit/7bca96cf0b57d1e8fec76043ccd9d1166ed2a336)) (by 派了个萌)
+-   完全修复窗口闪烁问题([`8b35bae`](https://github.com/Pylogmon/pot/commit/8b35bae2ba4a76e1d7b08bceee04a3971deff7c2)) (by 派了个萌)
