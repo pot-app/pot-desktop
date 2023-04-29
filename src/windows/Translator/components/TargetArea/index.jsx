@@ -152,7 +152,7 @@ export default function TargetArea() {
                     }}
                 >
                     {Object.keys(interfaces).map((x) => {
-                        if (get(`${x}_enable`) && true) {
+                        if (get(`${x}_enable`) ?? true) {
                             return (
                                 <MenuItem
                                     value={x}
