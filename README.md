@@ -18,7 +18,7 @@
 <br/>
 <hr/>
 <div align="center">
-    <img src="asset/example.png"/>
+    <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example.png"/>
 </div>
 
 ## 支持特性
