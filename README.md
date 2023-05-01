@@ -2,7 +2,7 @@
 
 # Pot (Translator of Pylogmon)
 
-> 一个跨平台的划词翻译软件 [
+> 🌈 一个跨平台的划词翻译软件 [
 > [快速上手](https://pot.pylogmon.cn/guide/)|
 > [软件下载](https://github.com/Pylogmon/pot/releases)|
 > [进阶配置](https://pot.pylogmon.cn/guide/config.html)]
@@ -24,9 +24,11 @@
     <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/dark.png">
 </table>
 
+## 使用方法
+
 <table>
 <tr>
-    <td>使用方法
+    <td>
     <td>描述
     <td>预览
 <tr>
@@ -83,7 +85,9 @@
 -   [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
 -   [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
 -   [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
-        具体的 api 服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
+-   [x]必应词典(无需申请，只能查词)
+
+具体的 api 服务申请步骤，见[申请指南](https://pot.pylogmon.cn/guide/api/)
 
 > 由于使用 api 产生的费用本作者概不负责
 
