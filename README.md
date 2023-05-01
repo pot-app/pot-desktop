@@ -21,8 +21,9 @@
 <div align="center">
 <table>
 <tr>
-    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/light.png">
     <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/dark.png">
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example.png">
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/light.png">
 </table>
 
 ## 使用方法
