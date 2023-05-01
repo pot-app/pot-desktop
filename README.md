@@ -1,34 +1,24 @@
-<div align="center">
-    <img width="150" height="150" alt="Logo" src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/public/icon.png"/>
-    <h3 align="center" style="font-size:50px"><b>Pot</b></h3>
-    <p align="center" style="font-size:18px">一个跨平台的划词翻译软件</p>
-    <a href="https://pot.pylogmon.cn/guide/">快速上手</a> |
-    <a href="https://github.com/Pylogmon/pot/releases">软件下载</a> |
-    <a href="https://pot.pylogmon.cn/guide/config.html">进阶配置</a>
-</div>
-<div align="center">
+<img width="150px" src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/public/icon.png" align="left"/>
 
-[![Downloads](https://img.shields.io/github/downloads/Pylogmon/pot/total?color=blue)](https://github.com/Pylogmon/pot/releases)
-[![Release](https://img.shields.io/github/v/release/Pylogmon/pot)](https://github.com/Pylogmon/pot/releases)
-[![License](https://img.shields.io/github/license/Pylogmon/pot)](https://github.com/Pylogmon/pot/blob/main/LICENSE)
-[![CI](https://github.com/Pylogmon/pot/actions/workflows/package.yml/badge.svg)](https://github.com/Pylogmon/pot/actions/workflows/package.yml)
-[![QQ](https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-767701966-blue?style=flat&logo=tencentqq)](https://raw.githubusercontent.com/Pylogmon/pot/master/asset/qq_group.jpg)
+# Pot (Translator of Pylogmon)
 
-[![AUR version](https://img.shields.io/aur/version/pot-translation?label=pot-translation&logo=archlinux)](https://aur.archlinux.org/packages/pot-translation)
-[![AUR version](https://img.shields.io/aur/version/pot-translation-bin?label=pot-translation-bin&logo=archlinux)](https://aur.archlinux.org/packages/pot-translation-bin)
-[![AUR version](https://img.shields.io/aur/version/pot-translation-git?label=pot-translation-git&logo=archlinux)](https://aur.archlinux.org/packages/pot-translation-git)
+> 一个跨平台的划词翻译软件 [
+> [快速上手](https://pot.pylogmon.cn/guide/)|
+> [软件下载](https://github.com/Pylogmon/pot/releases)|
+> [进阶配置](https://pot.pylogmon.cn/guide/config.html)]
 
-</div>
+![License](https://img.shields.io/github/license/Pylogmon/pot.svg)
+![Tauri](https://img.shields.io/badge/Tauri-1.2.4-blue?logo=tauri)
+![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
+![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
+![MacOS](https://img.shields.io/badge/-macOS-red?&logo=apple&logoColor=white)
+![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
+
+<br/>
 <hr/>
 
-## 支持特性
-
-|                                                                         | Linux | Windows                                                            | MacOS                                                              |
-| ----------------------------------------------------------------------- | ----- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| 划词翻译                                                                | ✅    | ✅                                                                 | ✅                                                                 |
-| 独立窗口                                                                | ✅    | ✅                                                                 | ✅                                                                 |
-| 插件调用                                                                | ❔    | [SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows) | [PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos) |
-| 添加到 Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#anki)) | ✅    | ✅                                                                 | ✅                                                                 |
+<img height="450px" src="asset/example.png" align="left"/>
 
 ## 支持接口
 
@@ -48,6 +38,18 @@
 ## 参与贡献
 
 参考 [接口贡献指南](./CONTRIBUTING.md)
+
+<br/>
+<hr/>
+
+## 支持特性
+
+|                                                                         | Linux | Windows                                                            | MacOS                                                              |
+| ----------------------------------------------------------------------- | ----- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| 划词翻译                                                                | ✅    | ✅                                                                 | ✅                                                                 |
+| 独立窗口                                                                | ✅    | ✅                                                                 | ✅                                                                 |
+| 插件调用                                                                | ❔    | [SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows) | [PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos) |
+| 添加到 Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#anki)) | ✅    | ✅                                                                 | ✅                                                                 |
 
 ## 使用方法
 
