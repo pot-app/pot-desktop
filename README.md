@@ -49,17 +49,23 @@
 
 </div>
 
-## 贡献者
-
-<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-contributions.svg" width="70%"/>
-
-参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
-
 <div align="center">
-    <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-stars.svg" width="70%"/>
+
+## 贡献者
 </div>
 
+<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-contributions.svg" width="80%"/>
+
+参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
+<div align="center">
+<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-stars.svg" width="80%"/>
+</div>
+
+
+<div align="center">
+
 ## 感谢
+</div>
 
 -   [Bob](https://github.com/ripperhe/Bob) 灵感来源
 -   [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) OpenAI 接口参考
@@ -67,7 +73,9 @@
 -   [@Lichenkass](https://github.com/Lichenkass) 维护 Deepin 应用商店版本
 -   [Tauri](https://github.com/tauri-apps/tauri) 好用的 Gui 框架
 
-## 支持作者
+
 <div align="center">
-    <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/.github/FUNDING/qrcode.png" width="100%"/>
+
+## 支持作者
+<img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/.github/FUNDING/qrcode.png" width="100%"/>
 </div>
