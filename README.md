@@ -5,7 +5,8 @@
 > 🌈 一个跨平台的划词翻译软件 [
 > [快速上手](https://pot.pylogmon.cn/guide/)|
 > [软件下载](https://github.com/Pylogmon/pot/releases)|
-> [进阶配置](https://pot.pylogmon.cn/guide/config.html)]
+> [进阶配置](https://pot.pylogmon.cn/guide/config.html)|
+> [![QQ](https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-767701966-blue?style=flat&logo=tencentqq)](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/qq_group.jpg)]
 
 ![License](https://img.shields.io/github/license/Pylogmon/pot.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-1.2.4-blue?logo=tauri)
