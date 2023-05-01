@@ -1,4 +1,4 @@
-<img width="150px" src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/public/icon.png" align="left"/>
+<img width="200px" src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/public/icon.png" align="left"/>
 
 # Pot (Translator of Pylogmon)
 
