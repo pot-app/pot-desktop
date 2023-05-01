@@ -18,51 +18,76 @@
 <br/>
 <hr/>
 <div align="center">
-    <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example.png"/>
+<table>
+<tr>
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/light.png">
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/dark.png">
+</table>
+
+<table>
+<tr>
+    <td>支持特性
+    <td>Linux
+    <td>Windows
+    <td>MacOS
+<tr>
+    <td>划词翻译
+    <td>✅
+    <td>✅
+    <td>✅
+<tr>
+    <td>独立窗口
+    <td>✅
+    <td>✅
+    <td>✅
+<tr>
+    <td>插件调用
+    <td>❔
+    <td> <a href="https://pot.pylogmon.cn/guide/config.html#snipdo-windows">SnipDo</a>
+    <td> <a href="https://pot.pylogmon.cn/guide/config.html#popclip-macos">PopClip</a>
+<tr>
+    <td>添加到 Anki
+    <td colspan="3"> <a href="https://pot.pylogmon.cn/guide/config.html#anki" target="_blank">配置指南</a>
+</table>
+
+<table>
+<tr>
+    <td>使用方法
+    <td>描述
+    <td>预览
+<tr>
+    <td>划词翻译
+    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
+<tr>
+    <td>输入翻译
+    <td>按下输入翻译快捷键，输入需要翻译的文本，Enter 键翻译
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
+<tr>
+    <td>插件调用
+    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
+</table>
+
 </div>
-
-## 支持特性
-
-|                                                                         | Linux | Windows                                                            | MacOS                                                              |
-| ----------------------------------------------------------------------- | ----- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| 划词翻译                                                                | ✅    | ✅                                                                 | ✅                                                                 |
-| 独立窗口                                                                | ✅    | ✅                                                                 | ✅                                                                 |
-| 插件调用                                                                | ❔    | [SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows) | [PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos) |
-| 添加到 Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#anki)) | ✅    | ✅                                                                 | ✅                                                                 |
 
 ## 支持接口
 
--  [x] DeepL(无需申请)
-
--  [x] Open AI(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
-
--  [x] 阿里翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
-
--  [x] 百度翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
-
--  [x] 彩云小译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
-
--  [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
-
--  [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
-
--  [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
-
-具体的 api 服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
+-   [x] DeepL(无需申请)
+-   [x] Open AI(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
+-   [x] 阿里翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+-   [x] 百度翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+-   [x] 彩云小译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+-   [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
+-   [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
+-   [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
+        具体的 api 服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
 
 > 由于使用 api 产生的费用本作者概不负责
 
 ## 参与贡献
 
 参考 [接口贡献指南](./CONTRIBUTING.md)
-
-## 使用方法
-
-|   方式   |                                                                    描述                                                                     |                                       预览                                       |
-| :------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-| 划词翻译 |                                               选中需要翻译的文本之后，按下划词翻译快捷键即可                                                | ![划词翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif) |
-| 输入翻译 |                                           按下输入翻译快捷键，输入需要翻译的文本，`Enter` 键翻译                                            | ![输入翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif) |
-| 插件调用 | 选中需要翻译的文本之后，点击插件图标即可，详情见 [插件调用](https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8) | ![插件翻译](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif) |
 
 ## 安装
 
