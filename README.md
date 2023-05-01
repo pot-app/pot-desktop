@@ -26,6 +26,29 @@
 
 <table>
 <tr>
+    <td>使用方法
+    <td>描述
+    <td>预览
+<tr>
+    <td>划词翻译
+    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
+<tr>
+    <td>输入翻译
+    <td>按下输入翻译快捷键，输入需要翻译的文本，<code>Enter</code> 键翻译
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif"/>
+<tr>
+    <td>插件调用
+    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif"/>
+</table>
+
+</div>
+
+## 支持特性
+
+<table>
+<tr>
     <td>支持特性
     <td>Linux
     <td>Windows
@@ -47,29 +70,8 @@
     <td> <a href="https://pot.pylogmon.cn/guide/config.html#popclip-macos">PopClip</a>
 <tr>
     <td>添加到 Anki
-    <td colspan="3"> <a href="https://pot.pylogmon.cn/guide/config.html#anki" target="_blank">配置指南</a>
+    <td colspan="3" align="center"> <a href="https://pot.pylogmon.cn/guide/config.html#anki" target="_blank">配置指南</a>
 </table>
-
-<table>
-<tr>
-    <td>使用方法
-    <td>描述
-    <td>预览
-<tr>
-    <td>划词翻译
-    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
-    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
-<tr>
-    <td>输入翻译
-    <td>按下输入翻译快捷键，输入需要翻译的文本，Enter 键翻译
-    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
-<tr>
-    <td>插件调用
-    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
-    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
-</table>
-
-</div>
 
 ## 支持接口
 
