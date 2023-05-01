@@ -87,7 +87,7 @@
 -   [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
 -   [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
 -   [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
--   [x]必应词典(无需申请，只能查词)
+-   [x] 必应词典(无需申请，只能查词)
 
 具体的 api 服务申请步骤，见[申请指南](https://pot.pylogmon.cn/guide/api/)
 
