@@ -51,14 +51,12 @@
 
 ## 贡献者
 
-<div align="center">
-    <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-contributions.svg" width="100%"/>
-</div>
+<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-contributions.svg" width="70%"/>
 
 参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
 
 <div align="center">
-    <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-stars.svg" width="100%"/>
+    <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-stars.svg" width="70%"/>
 </div>
 
 ## 感谢
