@@ -17,30 +17,9 @@
 
 <br/>
 <hr/>
-
-<img height="450px" src="asset/example.png" align="left"/>
-
-## 支持接口
-
--   [x] DeepL(无需申请)
--   [x] Open AI(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
--   [x] 阿里翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
--   [x] 百度翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
--   [x] 彩云小译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
--   [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
--   [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
--   [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
-
-具体的 api 服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
-
-> 由于使用 api 产生的费用本作者概不负责
-
-## 参与贡献
-
-参考 [接口贡献指南](./CONTRIBUTING.md)
-
-<br/>
-<hr/>
+<div align="center">
+    <img src="asset/example.png"/>
+</div>
 
 ## 支持特性
 
@@ -50,6 +29,32 @@
 | 独立窗口                                                                | ✅    | ✅                                                                 | ✅                                                                 |
 | 插件调用                                                                | ❔    | [SnipDo](https://pot.pylogmon.cn/guide/config.html#snipdo-windows) | [PopClip](https://pot.pylogmon.cn/guide/config.html#popclip-macos) |
 | 添加到 Anki([配置指南](https://pot.pylogmon.cn/guide/config.html#anki)) | ✅    | ✅                                                                 | ✅                                                                 |
+
+## 支持接口
+
+-  [x] DeepL(无需申请)
+
+-  [x] Open AI(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 0.002$/1000token)
+
+-  [x] 阿里翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+
+-  [x] 百度翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+
+-  [x] 彩云小译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 100 万字符)
+
+-  [x] 腾讯翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 500 万字符)
+
+-  [x] 火山翻译(需要申请 [api 服务](https://pot.pylogmon.cn/guide/api/) 每月免费额度 200 万字符)
+
+-  [x] 谷歌翻译(无需申请，但需要自己解决网络问题，已提供镜像站地址设置选项)
+
+具体的 api 服务申请，请看[申请指南](https://pot.pylogmon.cn/guide/api/)
+
+> 由于使用 api 产生的费用本作者概不负责
+
+## 参与贡献
+
+参考 [接口贡献指南](./CONTRIBUTING.md)
 
 ## 使用方法
 
