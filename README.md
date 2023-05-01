@@ -5,7 +5,7 @@
 > 🌈 一个跨平台的划词翻译软件 (
 > [快速上手](https://pot.pylogmon.cn/guide/)|
 > [软件下载](https://github.com/Pylogmon/pot/releases)|
-> [进阶配置](https://pot.pylogmon.cn/guide/config.html)|
+> [安装指南](https://pot.pylogmon.cn/guide/install.html)|
 > [QQ 交流群](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/qq_group.jpg))
 
 ![License](https://img.shields.io/github/license/Pylogmon/pot.svg)
@@ -30,20 +30,13 @@
 
 <table>
 <tr>
-    <td>
-    <td>描述
-    <td>预览
-<tr>
     <td>划词翻译
-    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
     <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
 <tr>
     <td>输入翻译
-    <td>按下输入翻译快捷键，输入需要翻译的文本，<code>Enter</code> 键翻译
     <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif"/>
 <tr>
-    <td>插件调用
-    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
+    <td><a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
     <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif"/>
 </table>
 
@@ -60,7 +53,6 @@
 <div align="center">
 <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/master/pot-stars.svg" width="80%"/>
 </div>
-
 
 <div align="center">
 
