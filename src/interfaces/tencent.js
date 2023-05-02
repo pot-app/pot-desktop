@@ -157,5 +157,9 @@ export async function translate(text, from, to) {
 
     let result = JSON.parse(res);
     let { Response } = result;
-    return Response['TargetText'];
+    if (Response['TargetText']) {
+        return Response['TargetText'];
+    } else {
+        return res;
+    }
 }
