@@ -1,13 +1,11 @@
-## 0.1.19 (2023-04-30)
+## 0.2.0 (2023-05-02)
 
 ### New feature:
 
--   添加必应词典接口([`9bb58f4`](https://github.com/Pylogmon/pot/commit/9bb58f42d9f115c386e76490c146ff7347a3a6c0)) (by Pylogmon)
--   添加托盘单击事件([`b34c44b`](https://github.com/Pylogmon/pot/commit/b34c44b9effd93d1298baaa363cbdaf172f688b3)) (by 派了个萌)
--   添加记住目标语言设置项([`02bb09e`](https://github.com/Pylogmon/pot/commit/02bb09e6d6f6138cb96e6977319c8455b079231e)) (by 派了个萌)
+- 添加第二目标语言作为，当源语言与目标语言相同时自动翻译为第二目标语言([`846ed43`](https://github.com/Pylogmon/pot/commit/846ed434b04c1acae80b73bcf8689821d42d9ca3)) (by 派了个萌)
+- 添加OpenAI自定义Prompt选项([`edee34b`](https://github.com/Pylogmon/pot/commit/edee34bee25ae9596e59e2cb40a0e51340214864)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复首次打开接口 enable 失效的问题([`f7b2c57`](https://github.com/Pylogmon/pot/commit/f7b2c579de77f316d0d7bd720a36ed76c381165b)) (by Pylogmon)
--   修复 MacOS 取词失败的问题([`7bca96c`](https://github.com/Pylogmon/pot/commit/7bca96cf0b57d1e8fec76043ccd9d1166ed2a336)) (by 派了个萌)
--   完全修复窗口闪烁问题([`8b35bae`](https://github.com/Pylogmon/pot/commit/8b35bae2ba4a76e1d7b08bceee04a3971deff7c2)) (by 派了个萌)
+- 修复阿里翻译特殊字符翻译失败的问题([`b22ea6c`](https://github.com/Pylogmon/pot/commit/b22ea6ccfb288e4b2ba031f74d7c6d4c84941de5)) (by 派了个萌)
+- 完善腾讯翻译错误处理([`34756b7`](https://github.com/Pylogmon/pot/commit/34756b7a8d5ff1355df42af388555f709e607193)) (by 派了个萌)
