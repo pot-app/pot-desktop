@@ -31,12 +31,15 @@
 <table>
 <tr>
     <td>划词翻译
+    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
     <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output1.gif"/>
 <tr>
     <td>输入翻译
+    <td>按下输入翻译快捷键，输入需要翻译的文本，<code>Enter</code> 键翻译
     <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output2.gif"/>
 <tr>
-    <td><a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
+    <td>插件调用
+    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
     <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output3.gif"/>
 </table>
 
