@@ -31,13 +31,13 @@
 <table>
 <tr>
     <td>划词翻译
-    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example1.gif"/>
+    <td> <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output1.gif"/>
 <tr>
     <td>输入翻译
-    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example2.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output2.gif"/>
 <tr>
     <td><a href="https://pot.pylogmon.cn/guide/config.html#%E6%8F%92%E4%BB%B6%E8%B0%83%E7%94%A8" target="_blank">插件调用</a>
-    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/example3.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/output3.gif"/>
 </table>
 
 </div>
@@ -45,11 +45,13 @@
 <div align="center">
 
 ## 贡献者
+
 </div>
 
 <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/main/pot-contributions.svg" width="80%"/>
 
 参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
+
 <div align="center">
 <img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/main/pot-stars.svg" width="80%"/>
 </div>
@@ -57,6 +59,7 @@
 <div align="center">
 
 ## 感谢
+
 </div>
 
 -   [Bob](https://github.com/ripperhe/Bob) 灵感来源
@@ -65,9 +68,9 @@
 -   [@Lichenkass](https://github.com/Lichenkass) 维护 Deepin 应用商店版本
 -   [Tauri](https://github.com/tauri-apps/tauri) 好用的 Gui 框架
 
-
 <div align="center">
 
 ## 支持作者
+
 <img src="https://cdn.staticaly.com/gh/Pylogmon/pot/master/.github/FUNDING/qrcode.png" width="100%"/>
 </div>
