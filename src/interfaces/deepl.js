@@ -1,5 +1,4 @@
 import request from './utils/request';
-import { searchWord } from './utils/dict';
 import { get } from '../windows/main';
 
 // 必须向外暴露info
@@ -61,12 +60,7 @@ export async function translate(text, from, to) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
     }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
-    }
+
     const url = 'https://www2.deepl.com/jsonrpc';
     let id = getRandomNumber();
     const post_data = initData(supportLanguage[from], supportLanguage[to]);
@@ -95,7 +89,13 @@ export async function translate(text, from, to) {
     });
 
     let result = JSON.parse(res);
-    if (result && result.result && result.result.texts) {
+    if (result && result.result && result.result.texts && result.result.lang) {
+        if (result.result.lang == supportLanguage[to]) {
+            let secondLanguage = get('second_language') ?? 'en';
+            if (secondLanguage != to) {
+                return translate(text, from, secondLanguage);
+            }
+        }
         return result.result.texts[0].text;
     } else {
         return JSON.stringify(result.error);

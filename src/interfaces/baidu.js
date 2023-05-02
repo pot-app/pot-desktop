@@ -1,6 +1,5 @@
 import request from './utils/request';
 import { get } from '../windows/main';
-import { searchWord } from './utils/dict';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
 
@@ -45,12 +44,7 @@ export async function translate(text, from, to) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
     }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
-    }
+
     const str = appid + text + salt + secret;
     const sign = md5(str);
 
@@ -67,6 +61,13 @@ export async function translate(text, from, to) {
 
     let result = JSON.parse(res);
     let target = '';
+    let sourceLanguage = result['from'];
+    if (sourceLanguage == supportLanguage[to]) {
+        let secondLanguage = get('second_language') ?? 'en';
+        if (secondLanguage != to) {
+            return translate(text, from, secondLanguage);
+        }
+    }
     const { trans_result } = result;
     for (let i in trans_result) {
         target = target + trans_result[i]['dst'] + '\n';

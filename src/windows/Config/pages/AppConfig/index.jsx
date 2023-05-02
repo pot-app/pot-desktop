@@ -1,4 +1,4 @@
-import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip } from '@mui/material';
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import { notification } from '@tauri-apps/api';
 import { useAtom } from 'jotai';
@@ -16,6 +16,7 @@ import {
     autoStartAtom,
     dynamicTranslateAtom,
     targetLanguageAtom,
+    secondLanguageAtom,
     defaultInterfaceAtom,
     rememberTargetLanguageAtom,
     proxyAtom,
@@ -32,6 +33,7 @@ export default function AppConfig() {
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
+    const [secondLanguage, setSecondLanguage] = useAtom(secondLanguageAtom);
     const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
@@ -175,18 +177,20 @@ export default function AppConfig() {
             </ConfigList>
             <ConfigList label='翻译设置'>
                 <ConfigItem>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={dynamicTranslate}
-                                onChange={(e) => {
-                                    setDynamicTranslate(e.target.checked);
-                                    set('dynamic_translate', e.target.checked);
-                                }}
-                            />
-                        }
-                        label='动态翻译'
-                    />
+                    <Tooltip title='输入后实时翻译，无需其他操作'>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={dynamicTranslate}
+                                    onChange={(e) => {
+                                        setDynamicTranslate(e.target.checked);
+                                        set('dynamic_translate', e.target.checked);
+                                    }}
+                                />
+                            }
+                            label='动态翻译'
+                        />
+                    </Tooltip>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -221,6 +225,31 @@ export default function AppConfig() {
                             );
                         })}
                     </Select>
+                </ConfigItem>
+
+                <ConfigItem label='第二目标语言'>
+                    <Tooltip title='当检测到翻译结果与源语言相同时自动翻译为第二目标语言'>
+                        <Select
+                            fullWidth
+                            value={secondLanguage}
+                            onChange={(e) => {
+                                setSecondLanguage(e.target.value);
+                                set('second_language', e.target.value);
+                            }}
+                        >
+                            {language.map((x) => {
+                                return (
+                                    <MenuItem
+                                        value={x.value}
+                                        key={nanoid()}
+                                    >
+                                        <span className={`fi fi-${x.code}`} />
+                                        <span>{x.label}</span>
+                                    </MenuItem>
+                                );
+                            })}
+                        </Select>
+                    </Tooltip>
                 </ConfigItem>
                 <ConfigItem label='默认接口'>
                     <Select

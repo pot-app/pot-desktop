@@ -3,7 +3,6 @@ import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
 import { get } from '../windows/main';
-import { searchWord } from './utils/dict';
 
 // 必须向外暴露info
 export const info = {
@@ -49,12 +48,6 @@ export async function translate(text, from, to) {
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
-    }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
     }
 
     function sha256(message, secret = '') {
@@ -156,8 +149,15 @@ export async function translate(text, from, to) {
     });
 
     let result = JSON.parse(res);
+
     let { Response } = result;
-    if (Response['TargetText']) {
+    if (Response['TargetText'] && Response['Source']) {
+        if (Response['Source'] == supportLanguage[to]) {
+            let secondLanguage = get('second_language') ?? 'en';
+            if (secondLanguage != to) {
+                return translate(text, from, secondLanguage);
+            }
+        }
         return Response['TargetText'];
     } else {
         return res;

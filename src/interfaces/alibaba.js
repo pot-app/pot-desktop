@@ -1,6 +1,5 @@
 import request from './utils/request';
 import { get } from '../windows/main';
-import { searchWord } from './utils/dict';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
 
@@ -53,12 +52,7 @@ export async function translate(text, from, to) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
     }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
-    }
+
     let today = new Date();
     let timestamp = today.toISOString().replaceAll(/\.[0-9]*/g, '');
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
@@ -87,6 +81,12 @@ export async function translate(text, from, to) {
     });
     let result = JSON.parse(res);
     if (result['Code'] == '200') {
+        if (result['Data']['Translated'] == text) {
+            let secondLanguage = get('second_language') ?? 'en';
+            if (to != secondLanguage) {
+                return translate(text, from, secondLanguage);
+            }
+        }
         return result['Data']['Translated'];
     } else {
         return res;

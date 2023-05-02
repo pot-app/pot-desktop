@@ -6,7 +6,7 @@ export const info = {
     name: '谷歌翻译(免费)',
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh_CN',
+        'zh-cn': 'zh-CN',
         'zh-tw': 'zh-TW',
         ja: 'ja',
         en: 'en',
@@ -62,6 +62,14 @@ export async function translate(text, from, to) {
 
     let result = JSON.parse(res);
     let target = '';
+    if (result[2]) {
+        if (result[2] == supportLanguage[to]) {
+            let secondLanguage = get('second_language') ?? 'en';
+            if (secondLanguage != to) {
+                return translate(text, from, secondLanguage);
+            }
+        }
+    }
     // 词典模式
     if (result[1]) {
         for (let i of result[1]) {

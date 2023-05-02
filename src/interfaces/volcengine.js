@@ -1,7 +1,6 @@
 import request from './utils/request';
 import CryptoJS from 'crypto-js';
 import { get } from '../windows/main';
-import { searchWord } from './utils/dict';
 
 // 必须向外暴露info
 export const info = {
@@ -49,12 +48,6 @@ export async function translate(text, from, to) {
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
-    }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
     }
 
     const serviceVersion = '2020-06-01';
@@ -164,19 +157,18 @@ export async function translate(text, from, to) {
     });
 
     let result = JSON.parse(res);
+    console.log(result);
     // 整理翻译结果并返回
-    var data = result;
     var translations = '';
-    var translationList = []; // 返回的结果是个数组
-    var errorOccered = false;
 
-    if (data.hasOwnProperty('TranslationList')) {
-        translationList = data['TranslationList'];
-    } else {
-        errorOccered = true;
-    }
-
-    if (translationList != null && translationList.length > 0) {
+    if (result['TranslationList']) {
+        let translationList = result['TranslationList'];
+        if (translationList[0]['DetectedSourceLanguage'] == supportLanguage[to]) {
+            let secondLanguage = get('second_language') ?? 'en';
+            if (secondLanguage != to) {
+                return translate(text, from, secondLanguage);
+            }
+        }
         var cur = 0,
             last = 0;
         for (cur; cur < translationList.length; cur += 1) {
@@ -184,18 +176,13 @@ export async function translate(text, from, to) {
                 translations += '\n';
             }
             let curTranslation = translationList[cur];
-            if (curTranslation.hasOwnProperty('Translation')) {
+            if (curTranslation['Translation']) {
                 translations += curTranslation['Translation'];
-            } else {
-                errorOccered = true;
             }
             last = cur;
         }
-    }
-
-    if (!errorOccered) {
         return translations;
     } else {
-        return JSON.stringify(res);
+        return res;
     }
 }

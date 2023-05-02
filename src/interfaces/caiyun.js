@@ -1,6 +1,5 @@
 import request from './utils/request';
 import { get } from '../windows/main';
-import { searchWord } from './utils/dict';
 
 export const info = {
     name: '彩云小译',
@@ -29,12 +28,7 @@ export async function translate(text, from, to) {
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
         return '该接口不支持该语言';
     }
-    if (text.split(' ').length == 1) {
-        let target = await searchWord(text);
-        if (target !== '') {
-            return target;
-        }
-    }
+
     const body = {
         source: [text],
         trans_type: `${supportLanguage[from]}2${supportLanguage[to]}`,
@@ -55,6 +49,11 @@ export async function translate(text, from, to) {
 
     let result = JSON.parse(res);
     const { target } = result;
-
+    if (target == text) {
+        let secondLanguage = get('second_language') ?? 'en';
+        if (to != secondLanguage) {
+            return translate(text, from, secondLanguage);
+        }
+    }
     return target;
 }
