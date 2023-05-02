@@ -23,10 +23,15 @@ export default function SourceArea() {
     useEffect(() => {
         if (appWindow.label != 'persistent') {
             // 获取选中文本
-            invoke('get_translate_text').then((text) => {
-                if (text != '') {
-                    setSourceText(text.trim());
-                    setText(text.trim());
+            invoke('get_translate_text').then((v) => {
+                if (v != '') {
+                    let source = v.trim();
+                    if (get('delete_newline') ?? false) {
+                        // /s匹配空格和换行符 /g表示全局匹配
+                        source = source.replace(/\s+/g, ' ');
+                    }
+                    setSourceText(source);
+                    setText(source);
                 }
             });
         }

@@ -15,6 +15,7 @@ import {
     autoCopyAtom,
     autoStartAtom,
     dynamicTranslateAtom,
+    deleteNewlineAtom,
     targetLanguageAtom,
     secondLanguageAtom,
     defaultInterfaceAtom,
@@ -31,6 +32,7 @@ export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
+    const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [secondLanguage, setSecondLanguage] = useAtom(secondLanguageAtom);
@@ -189,6 +191,20 @@ export default function AppConfig() {
                                 />
                             }
                             label='动态翻译'
+                        />
+                    </Tooltip>
+                    <Tooltip title='取词后自动删除内容中的换行符及多余空格'>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={deleteNewline}
+                                    onChange={(e) => {
+                                        setDeleteNewline(e.target.checked);
+                                        set('delete_newline', e.target.checked);
+                                    }}
+                                />
+                            }
+                            label='删除换行'
                         />
                     </Tooltip>
                     <FormControlLabel
