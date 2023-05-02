@@ -51,12 +51,12 @@
 
 </div>
 
-<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/main/pot-contributions.svg" width="80%"/>
+<img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-contributions.svg?raw=true" width="80%"/>
 
 参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
 
 <div align="center">
-<img src="https://cdn.staticaly.com/gh/Pylogmon/Pylogmon/main/pot-stars.svg" width="80%"/>
+<img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-stars.svg?raw=true" width="80%"/>
 </div>
 
 <div align="center">
