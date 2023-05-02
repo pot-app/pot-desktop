@@ -15,7 +15,13 @@ export const info = {
         ru: '俄语',
         de: '德语',
     },
-    needs: [],
+    needs: [
+        {
+            config_key: 'openai_code_prompt',
+            place_hold: 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.',
+            display_name: 'Prompt',
+        }
+    ],
 };
 
 export async function translate(text, from, to) {
@@ -28,14 +34,16 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-
+    const prompt = get('openai_code_prompt') ?? 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+    if (prompt == '') {
+        prompt = 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+    }
     const headers = {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apikey}`,
     };
 
-    let systemPrompt =
-        'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+    let systemPrompt = prompt;
     let userPrompt = `用${supportLanguage[to]}解释此段代码、正则表达式或脚本。如果内容不是代码，请返回错误提示。如果代码有明显的错误，请指出:\n\n${text}`;
 
     const body = {

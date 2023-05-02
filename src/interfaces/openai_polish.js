@@ -15,7 +15,13 @@ export const info = {
         ru: '俄语',
         de: '德语',
     },
-    needs: [],
+    needs: [
+        {
+            config_key: 'openai_polish_prompt',
+            place_hold: 'You are a text embellisher, you can only embellish the text, don\'t interpret it.',
+            display_name: 'Prompt',
+        }
+    ],
 };
 
 export async function translate(text, from, to) {
@@ -28,13 +34,16 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-
+    const prompt = get('openai_polish_prompt') ?? 'You are a text embellisher, you can only embellish the text, don\'t interpret it.';
+    if (prompt == '') {
+        prompt = 'You are a text embellisher, you can only embellish the text, don\'t interpret it.';
+    }
     const headers = {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apikey}`,
     };
 
-    let systemPrompt = "You are a text embellisher, you can only embellish the text, don't interpret it.";
+    let systemPrompt = prompt;
     let userPrompt = `用${supportLanguage[to]}润色此句:\n\n${text}`;
 
     const body = {

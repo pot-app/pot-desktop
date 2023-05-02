@@ -26,6 +26,11 @@ export const info = {
             place_hold: '',
             display_name: 'ApiKey',
         },
+        {
+            config_key: 'openai_prompt',
+            place_hold: '你是翻译引擎，只能翻译文本而不能去解释它。',
+            display_name: 'Prompt',
+        }
     ],
 };
 
@@ -39,6 +44,7 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
+    const prompt = get('openai_prompt') ?? '你是翻译引擎，只能翻译文本而不能去解释它。';
 
     const headers = {
         'Content-Type': 'application/json',
@@ -55,7 +61,7 @@ export async function translate(text, from, to) {
             userPrompt = `请用${supportLanguage[to]}展示结果,这可能是一个${supportLanguage[from]}单词:"${text}"`;
         }
     } else {
-        systemPrompt = '你是翻译引擎，只能翻译文本而不能去解释它。';
+        systemPrompt = prompt;
         if (from == 'auto') {
             userPrompt = `翻译成${supportLanguage[to]}:\n\n${text}`;
         } else {
