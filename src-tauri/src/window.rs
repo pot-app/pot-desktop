@@ -35,7 +35,7 @@ pub fn build_translate_window(
             _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
         };
         // 获取窗口所在的显示器信息
-        let monitor = window.current_monitor().unwrap().unwrap();
+        let _monitor = window.current_monitor().unwrap().unwrap();
         // 获取到显示器信息之后再移动窗口，确保窗口大小正确
         window
             .set_position(tauri::LogicalPosition::new(x, y))
@@ -128,6 +128,7 @@ fn get_window_size() -> (f64, f64) {
     (width, height)
 }
 
+#[cfg(any(target_os = "linux", target_os = "windows"))]
 fn convert_mouse_location(
     location: (f64, f64),
     monitor: tauri::Monitor,
