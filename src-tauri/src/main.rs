@@ -80,8 +80,8 @@ fn main() {
             let is_first = !Config::init_config();
             // 初始化翻译内容
             handle.manage(StringWrapper(Mutex::new("".to_string())));
-            // 获取显示器信息
-            set_monitor_info();
+            // 创建驻留窗口，防止后续创建窗口时闪烁
+            create_background_window();
             // 首次启动打开设置页面
             if is_first {
                 on_config_click(handle);

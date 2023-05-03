@@ -13,6 +13,9 @@ pub fn build_translate_window(
     handle: &AppHandle,
 ) -> Result<Window, String> {
     let (width, height) = get_window_size();
+    // 对于Mac来说这里获取直接可用的逻辑坐标
+    // 对于Windows和Linux，这里仅获取物理坐标，用于确保窗口创建在指定的显示器上
+    // 获取到真实的显示器信息之后再做转换
     let (x, y) = get_mouse_location().unwrap();
     let builder =
         tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
@@ -31,6 +34,12 @@ pub fn build_translate_window(
             "persistent" => builder.center().skip_taskbar(false).build().unwrap(),
             _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
         };
+        // 获取窗口所在的显示器信息
+        let monitor = window.current_monitor().unwrap().unwrap();
+        // 获取到显示器信息之后再移动窗口，确保窗口大小正确
+        window
+            .set_position(tauri::LogicalPosition::new(x, y))
+            .unwrap();
         set_shadow(&window, true).unwrap_or_default();
         Ok(window)
     }
@@ -39,9 +48,26 @@ pub fn build_translate_window(
     {
         let builder = builder.decorations(false);
         let window = match label {
-            "persistent" => builder.skip_taskbar(false).center().build().unwrap(),
-            _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
         };
+        // 移动窗口到鼠标所在显示器上
+        window
+            .set_position(tauri::PhysicalPosition::new(x, y))
+            .unwrap();
+        // 获取窗口所在的显示器信息
+        let monitor = window.current_monitor().unwrap().unwrap();
+        match label {
+            "persistent" => window.center().unwrap(),
+            _ => {
+                // 用显示器信息将物理坐标做转换
+                let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
+                // 获取到显示器信息之后再移动窗口，确保窗口大小正确
+                window
+                    .set_position(tauri::LogicalPosition::new(x, y))
+                    .unwrap();
+            }
+        }
         set_shadow(&window, true).unwrap_or_default();
         Ok(window)
     }
@@ -50,9 +76,26 @@ pub fn build_translate_window(
     {
         let builder = builder.transparent(true).decorations(false);
         let window = match label {
-            "persistent" => builder.skip_taskbar(false).center().build().unwrap(),
-            _ => builder.skip_taskbar(true).position(x, y).build().unwrap(),
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
         };
+        // 移动窗口到鼠标所在显示器上
+        window
+            .set_position(tauri::PhysicalPosition::new(x, y))
+            .unwrap();
+        // 获取窗口所在的显示器信息
+        let monitor = window.current_monitor().unwrap().unwrap();
+        match label {
+            "persistent" => window.center().unwrap(),
+            _ => {
+                // 用显示器信息将物理坐标做转换
+                let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
+                // 获取到显示器信息之后再移动窗口，确保窗口大小正确
+                window
+                    .set_position(tauri::LogicalPosition::new(x, y))
+                    .unwrap();
+            }
+        }
         Ok(window)
     }
 }
@@ -85,32 +128,23 @@ fn get_window_size() -> (f64, f64) {
     (width, height)
 }
 
-// 获取鼠标坐标
-#[cfg(target_os = "linux")]
-fn get_mouse_location() -> Result<(f64, f64), String> {
-    use crate::config::get_monitor_info;
-    use mouse_position::mouse_position::Mouse;
-
-    let position = Mouse::get_mouse_position();
-    let mut x = 0.0;
-    let mut y = 0.0;
-
+fn convert_mouse_location(
+    location: (f64, f64),
+    monitor: tauri::Monitor,
+) -> Result<(f64, f64), String> {
+    let (mut x, mut y) = location;
     let (width, height) = get_window_size();
-    let handle = APP.get().unwrap();
-    let (size_width, size_height, dpi) = get_monitor_info(handle.state());
-
-    if let Mouse::Position { x: pos_x, y: pos_y } = position {
-        x = pos_x as f64 / dpi;
-        y = pos_y as f64 / dpi;
-    }
-
-    if x + width > size_width as f64 / dpi {
+    let monitor_size = monitor.size();
+    let dpi = monitor.scale_factor();
+    x /= dpi;
+    y /= dpi;
+    if x + width > monitor_size.width as f64 / dpi {
         x -= width;
         if x < 0.0 {
             x = 0.0;
         }
     }
-    if y + height > size_height as f64 / dpi {
+    if y + height > monitor_size.height as f64 / dpi {
         y -= height;
         if y < 0.0 {
             y = 0.0;
@@ -119,42 +153,35 @@ fn get_mouse_location() -> Result<(f64, f64), String> {
 
     Ok((x, y))
 }
+// 获取鼠标物理坐标
+#[cfg(target_os = "linux")]
+fn get_mouse_location() -> Result<(f64, f64), String> {
+    use mouse_position::mouse_position::Mouse;
 
+    let position = Mouse::get_mouse_position();
+    if let Mouse::Position { x: pos_x, y: pos_y } = position {
+        Ok(pos_x as f64, pos_y as f64)
+    } else {
+        Err("get cursorpos error".to_string())
+    }
+}
+// 获取鼠标物理坐标
 #[cfg(target_os = "windows")]
 fn get_mouse_location() -> Result<(f64, f64), String> {
-    use crate::config::get_monitor_info;
     use windows::Win32::Foundation::POINT;
     use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
-    let (width, height) = get_window_size();
-    let handle = APP.get().unwrap();
-    let (size_width, size_height, dpi) = get_monitor_info(handle.state());
     let mut point = POINT { x: 0, y: 0 };
 
     unsafe {
         if GetCursorPos(&mut point).as_bool() {
-            let mut x = point.x as f64 / dpi;
-            let mut y = point.y as f64 / dpi;
-            // 由于获取到的屏幕大小以及鼠标坐标为物理像素，所以需要转换
-            if x + width > size_width as f64 / dpi {
-                x -= width;
-                if x < 0.0 {
-                    x = 0.0;
-                }
-            }
-            if y + height > size_height as f64 / dpi {
-                y -= height;
-                if y < 0.0 {
-                    y = 0.0;
-                }
-            }
-            Ok((x, y))
+            Ok((point.x as f64, point.y as f64))
         } else {
             Err("get cursorpos error".to_string())
         }
     }
 }
-
+// 获取鼠标逻辑坐标
 #[cfg(target_os = "macos")]
 fn get_mouse_location() -> Result<(f64, f64), String> {
     use core_graphics::display::CGDisplay;

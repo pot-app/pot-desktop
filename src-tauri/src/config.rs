@@ -148,11 +148,9 @@ pub fn get_config_str(state: tauri::State<ConfigWrapper>) -> Table {
     return state.0.lock().unwrap().config_toml.clone();
 }
 
-pub struct MonitorWrapper(pub Mutex<(u32, u32, f64)>);
-
-pub fn set_monitor_info() {
+pub fn create_background_window() {
     let handle = APP.get().unwrap();
-    let util_window = match handle.get_window("util") {
+    let _util_window = match handle.get_window("util") {
         Some(v) => v,
         None => {
             tauri::WindowBuilder::new(handle, "util", tauri::WindowUrl::App("index.html".into()))
@@ -162,14 +160,4 @@ pub fn set_monitor_info() {
                 .unwrap()
         }
     };
-    let monitor = util_window.current_monitor().unwrap().unwrap();
-    let size = monitor.size();
-    let dpi = monitor.scale_factor();
-    APP.get()
-        .unwrap()
-        .manage(MonitorWrapper(Mutex::new((size.width, size.height, dpi))));
-}
-
-pub fn get_monitor_info(state: tauri::State<MonitorWrapper>) -> (u32, u32, f64) {
-    state.0.lock().unwrap().to_owned()
 }
