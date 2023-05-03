@@ -1,11 +1,12 @@
-## 0.2.0 (2023-05-02)
+## 0.2.1 (2023-05-03)
 
 ### New feature:
 
-- 添加第二目标语言作为，当源语言与目标语言相同时自动翻译为第二目标语言([`846ed43`](https://github.com/Pylogmon/pot/commit/846ed434b04c1acae80b73bcf8689821d42d9ca3)) (by 派了个萌)
-- 添加OpenAI自定义Prompt选项([`edee34b`](https://github.com/Pylogmon/pot/commit/edee34bee25ae9596e59e2cb40a0e51340214864)) (by 派了个萌)
+-   支持设置 F1-F12 作为快捷键([`ed78b39`](https://github.com/Pylogmon/pot/commit/ed78b39609639a4f145299a0336cd9e0027e11c5)) (by Pylogmon)
+-   添加默认删除换行设置项([`c3d20fe`](https://github.com/Pylogmon/pot/commit/c3d20fe548e4b252f23261ba35adc831e768a4ff)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复阿里翻译特殊字符翻译失败的问题([`b22ea6c`](https://github.com/Pylogmon/pot/commit/b22ea6ccfb288e4b2ba031f74d7c6d4c84941de5)) (by 派了个萌)
-- 完善腾讯翻译错误处理([`34756b7`](https://github.com/Pylogmon/pot/commit/34756b7a8d5ff1355df42af388555f709e607193)) (by 派了个萌)
+-   修复多显示器窗口大小不一致的问题([`8fd8138`](https://github.com/Pylogmon/pot/commit/8fd81386ec91c66bda7ac6b69e444e3ab09344dd)) (by 派了个萌)
+-   修复检查更新闪退([`8ba2dc1`](https://github.com/Pylogmon/pot/commit/8ba2dc18085e6896b54d2c845d2fdcfdc1c562e1)) (by 派了个萌)
+-   完善快捷键输入逻辑([`7980232`](https://github.com/Pylogmon/pot/commit/7980232c3bd21ccd282e2ab5622d05042a095f87)) (by 派了个萌)
