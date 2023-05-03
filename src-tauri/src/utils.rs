@@ -26,29 +26,31 @@ pub fn check_update() -> Result<(), String> {
         };
         if res.status().is_success() {
             let res = res.json::<serde_json::Value>().unwrap_or_default();
-            if !res.as_object().unwrap().contains_key("tag_name") {
-                return Err("Check Update Failed".to_string());
-            }
-            let tag = res["tag_name"].as_str().unwrap_or_default();
-            let body = res["body"]
-                .as_str()
-                .unwrap_or_default()
-                .replace('#', "")
-                .replace("\n\n", "\n");
-            let handle = APP.get().unwrap();
-            let version = handle
-                .config()
-                .package
-                .version
-                .clone()
-                .unwrap_or_else(|| "0.0.0".to_string());
-            if compare(version.as_str(), tag).unwrap_or_default() == 1 {
-                Notification::new(&handle.config().tauri.bundle.identifier)
-                    .title(format!("新版本可用 {tag}"))
-                    .body(body)
-                    .icon("pot")
-                    .show()
-                    .unwrap_or_else(|e| println!("Error creating notification: {e}"));
+            if let Some(res_obj) = res.as_object() {
+                if !res_obj.contains_key("tag_name") {
+                    return Err("Check Update Failed".to_string());
+                }
+                let tag = res["tag_name"].as_str().unwrap_or_default();
+                let body = res["body"]
+                    .as_str()
+                    .unwrap_or_default()
+                    .replace('#', "")
+                    .replace("\n\n", "\n");
+                let handle = APP.get().unwrap();
+                let version = handle
+                    .config()
+                    .package
+                    .version
+                    .clone()
+                    .unwrap_or_else(|| "0.0.0".to_string());
+                if compare(version.as_str(), tag).unwrap_or_default() == 1 {
+                    Notification::new(&handle.config().tauri.bundle.identifier)
+                        .title(format!("新版本可用 {tag}"))
+                        .body(body)
+                        .icon("pot")
+                        .show()
+                        .unwrap_or_else(|e| println!("Error creating notification: {e}"));
+                }
             }
         } else {
             return Err(res.status().to_string());
