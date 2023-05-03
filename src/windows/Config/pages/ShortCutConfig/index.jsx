@@ -14,9 +14,11 @@ export default function ShortCutConfig() {
     const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
 
     function keyDown(e, value, set) {
-        if (e.key.length == 1 || supportKey.includes(e.key)) {
+        if (e.key.length == 1 || supportKey.includes(e.key) || e.key.startsWith('F')) {
             if (value) {
-                set(value + '+' + e.key);
+                if (!value.startsWith('F')) {
+                    set(value + '+' + e.key);
+                }
             } else {
                 if (e.key.length != 1) {
                     set(e.key);
