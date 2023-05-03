@@ -14,19 +14,33 @@ export default function ShortCutConfig() {
     const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
 
     function keyDown(e, value, set) {
-        if (e.key.length == 1 || supportKey.includes(e.key) || e.key.startsWith('F')) {
+        if (e.key.length == 1) {
             if (value) {
-                if (!value.startsWith('F')) {
-                    set(value + '+' + e.key);
-                }
-            } else {
-                if (e.key.length != 1) {
-                    set(e.key);
+                let values = value.toUpperCase().split('+');
+                let key = e.key.toUpperCase();
+                if (!value.startsWith('F') && !values.includes(key)) {
+                    set(value + '+' + key);
                 }
             }
-        }
-        if (e.keyCode == 8) {
-            set('');
+        } else {
+            if (supportKey.includes(e.key)) {
+                if (value) {
+                    let values = value.split('+');
+                    if (!value.startsWith('F') && !values.includes(e.key)) {
+                        set(value + '+' + e.key);
+                    } else {
+                        set(e.key);
+                    }
+                } else {
+                    set(e.key);
+                }
+            } else if (e.key.startsWith('F')) {
+                set(e.key);
+            } else {
+                if (e.keyCode == 8) {
+                    set('');
+                }
+            }
         }
     }
 
