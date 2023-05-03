@@ -160,7 +160,7 @@ fn get_mouse_location() -> Result<(f64, f64), String> {
 
     let position = Mouse::get_mouse_position();
     if let Mouse::Position { x: pos_x, y: pos_y } = position {
-        Ok(pos_x as f64, pos_y as f64)
+        Ok((pos_x as f64, pos_y as f64))
     } else {
         Err("get cursorpos error".to_string())
     }
