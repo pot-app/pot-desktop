@@ -10,9 +10,9 @@ async function resolveUpdater() {
     let version = await getVersion(TOKEN);
     let changelog = await getChangeLog(TOKEN);
 
-    const darwin_aarch64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot.aarch64.app.tar.gz`;
+    const darwin_aarch64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_aarch64.app.tar.gz`;
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
-    const darwin_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot.x86_64.app.tar.gz`;
+    const darwin_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_x86_64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
     const linux_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
     const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
