@@ -28,15 +28,7 @@ export default function AppInfo() {
     }
 
     function checkUpdate() {
-        emit('tauri://update').then(
-            (_) => {},
-            (e) => {
-                notification.sendNotification({
-                    title: '检查失败，请检查网络',
-                    body: `${e}`,
-                });
-            }
-        );
+        emit('tauri://update').then((_) => {});
     }
 
     return (

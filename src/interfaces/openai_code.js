@@ -34,7 +34,7 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-    const prompt = get('openai_code_prompt') ?? 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+    let prompt = get('openai_code_prompt') ?? 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     if (prompt == '') {
         prompt = 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     }

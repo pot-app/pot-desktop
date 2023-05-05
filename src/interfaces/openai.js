@@ -44,7 +44,10 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-    const prompt = get('openai_prompt') ?? '你是翻译引擎，只能翻译文本而不能去解释它。';
+    let prompt = get('openai_prompt') ?? '你是翻译引擎，只能翻译文本而不能去解释它。';
+    if (prompt == '') {
+        prompt = '你是翻译引擎，只能翻译文本而不能去解释它。';
+    }
 
     const headers = {
         'Content-Type': 'application/json',

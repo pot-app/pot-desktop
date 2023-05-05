@@ -34,7 +34,7 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-    const prompt = get('openai_polish_prompt') ?? 'You are a text embellisher, you can only embellish the text, don\'t interpret it.';
+    let prompt = get('openai_polish_prompt') ?? 'You are a text embellisher, you can only embellish the text, don\'t interpret it.';
     if (prompt == '') {
         prompt = 'You are a text embellisher, you can only embellish the text, don\'t interpret it.';
     }
