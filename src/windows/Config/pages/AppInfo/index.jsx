@@ -1,8 +1,8 @@
 import { writeText } from '@tauri-apps/api/clipboard';
 import { notification, app } from '@tauri-apps/api';
+import { emit } from '@tauri-apps/api/event';
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@mui/material';
-import axios from 'axios';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import './style.css';
@@ -28,25 +28,12 @@ export default function AppInfo() {
     }
 
     function checkUpdate() {
-        axios.get('https://api.github.com/repos/Pylogmon/pot/releases/latest').then(
-            (res) => {
-                let remoteVersion = res.data['tag_name'];
-                let body = res.data['body'].replaceAll('#', '').replaceAll('\n\n', '\n');
-                if (remoteVersion == version) {
-                    notification.sendNotification({
-                        title: '已经是最新版本了',
-                    });
-                } else {
-                    notification.sendNotification({
-                        title: `新版本可用 ${remoteVersion}`,
-                        body: body,
-                    });
-                }
-            },
-            (err) => {
+        emit('tauri://update').then(
+            (_) => {},
+            (e) => {
                 notification.sendNotification({
                     title: '检查失败，请检查网络',
-                    body: `${err}`,
+                    body: `${e}`,
                 });
             }
         );

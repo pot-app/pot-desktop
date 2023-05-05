@@ -11,7 +11,6 @@ import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';
 import {
-    autoCheckAtom,
     autoCopyAtom,
     autoStartAtom,
     dynamicTranslateAtom,
@@ -30,7 +29,6 @@ import {
 import './style.css';
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
-    const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
@@ -83,18 +81,6 @@ export default function AppConfig() {
                             />
                         }
                         label='开机自启'
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={autoCheck}
-                                onChange={(e) => {
-                                    setAutoCheck(e.target.checked);
-                                    set('auto_check', e.target.checked);
-                                }}
-                            />
-                        }
-                        label='启动时检查更新'
                     />
                     <FormControlLabel
                         control={

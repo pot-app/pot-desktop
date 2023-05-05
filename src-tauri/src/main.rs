@@ -86,7 +86,6 @@ fn main() {
             if is_first {
                 on_config_click(handle);
             }
-            check_update().unwrap_or_default();
 
             // 注册全局快捷键
             match register_shortcut("all") {

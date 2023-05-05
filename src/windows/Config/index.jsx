@@ -13,7 +13,6 @@ import { get } from '../main';
 import './style.css';
 
 export const autoStartAtom = atom(true);
-export const autoCheckAtom = atom(true);
 export const dynamicTranslateAtom = atom(false);
 export const deleteNewlineAtom = atom(false);
 export const autoCopyAtom = atom(4);
@@ -38,7 +37,6 @@ export default function Config() {
     const setShortcutOcr = useSetAtom(shortcutOcrAtom);
     const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
     const setAutoStart = useSetAtom(autoStartAtom);
-    const setAutoCheck = useSetAtom(autoCheckAtom);
     const setDynamicTranslate = useSetAtom(dynamicTranslateAtom);
     const setDeleteNewline = useSetAtom(deleteNewlineAtom);
     const setAutoCopy = useSetAtom(autoCopyAtom);
@@ -66,7 +64,6 @@ export default function Config() {
         setShortcutPersistent(get('shortcut_persistent') ?? '');
         setShortcutOcr(get('shortcut_ocr') ?? '');
         setAutoStart(get('auto_start') ?? false);
-        setAutoCheck(get('auto_check') ?? false);
         setDynamicTranslate(get('dynamic_translate') ?? false);
         setDeleteNewline(get('delete_newline') ?? false);
         setAutoCopy(get('auto_copy') ?? 4);
