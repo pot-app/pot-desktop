@@ -10,6 +10,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: pnpm install
         run: pnpm install
 
@@ -22,5 +32,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
+          tag_name: $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')
           token: ${{ secrets.RELEASE_TOKEN }}
           files: update.json
