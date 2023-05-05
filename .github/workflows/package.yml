@@ -144,6 +144,8 @@ jobs:
           sed -i '' "s/\"iconPath\":.*/\"iconPath\": \"icons\/tray.ico\",/g" src-tauri/tauri.conf.json
       - name: Build and Package
         run: |
+          export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+          export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -158,6 +160,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
 
   build-for-linux:
     needs: change-version
@@ -194,6 +203,8 @@ jobs:
         run: pnpm prettier --write .
       - name: Build and Package
         run: |
+          export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+          export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -220,7 +231,7 @@ jobs:
         with:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
   build-for-windows:
     needs: change-version-for-windows
     strategy:
@@ -253,6 +264,8 @@ jobs:
         run: pnpm prettier --write .
       - name: Build and Package
         run: |
+          $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+          $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
       - name: touch config file
         run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
@@ -279,7 +292,7 @@ jobs:
         with:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi.*
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
