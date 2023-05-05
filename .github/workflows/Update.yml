@@ -1,0 +1,26 @@
+name: Updater
+
+on: workflow_dispatch
+
+jobs:
+  release-update:
+    runs-on: ubuntu-latest
+    if: startsWith(github.repository, 'Pylogmon')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: Release updater file
+        run: pnpm run updater
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: update.json
