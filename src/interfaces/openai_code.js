@@ -19,7 +19,7 @@ export const info = {
         {
             config_key: 'openai_code_prompt',
             place_hold: 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.',
-            display_name: 'Prompt',
+            display_name: '自定义Prompt',
         }
     ],
 };

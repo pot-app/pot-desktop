@@ -19,7 +19,7 @@ export const info = {
         {
             config_key: 'openai_summary_prompt',
             place_hold: 'You are a text summarizer, you can only summarize the text, don\'t interpret it.',
-            display_name: 'Prompt',
+            display_name: '自定义Prompt',
         }
     ],
 };

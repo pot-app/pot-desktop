@@ -19,7 +19,7 @@ export const info = {
         {
             config_key: 'openai_polish_prompt',
             place_hold: 'You are a text embellisher, you can only embellish the text, don\'t interpret it.',
-            display_name: 'Prompt',
+            display_name: '自定义Prompt',
         }
     ],
 };

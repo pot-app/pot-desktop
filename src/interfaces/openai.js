@@ -29,7 +29,7 @@ export const info = {
         {
             config_key: 'openai_prompt',
             place_hold: '你是翻译引擎，只能翻译文本而不能去解释它。',
-            display_name: 'Prompt',
+            display_name: '自定义Prompt',
         }
     ],
 };
