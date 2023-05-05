@@ -15,6 +15,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y git
 
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
+          
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -32,6 +36,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          tag_name: $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')
+          tag_name: ${{ env.VERSION }}
           token: ${{ secrets.RELEASE_TOKEN }}
           files: update.json
