@@ -147,6 +147,16 @@ jobs:
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
+      - name: Change File Name
+        if: matrix.target == 'aarch64-apple-darwin'
+        run: |
+          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.aarch64.app.tar.gz
+          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.aarch64.app.tar.gz.sig
+      - name: Change File Name
+        if: matrix.target == 'x86_64-apple-darwin'
+        run: |
+          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.x86_64.app.tar.gz
+          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.x86_64.app.tar.gz.sig
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
