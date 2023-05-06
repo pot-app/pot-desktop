@@ -122,6 +122,7 @@ fn main() {
                                     update.body().unwrap(),
                                     |isok| {
                                         if isok {
+                                            let app_handle = app_handle.clone();
                                             Notification::new(
                                                 &app_handle.config().tauri.bundle.identifier,
                                             )
@@ -130,7 +131,23 @@ fn main() {
                                             .show()
                                             .unwrap();
                                             tauri::async_runtime::block_on(async move {
-                                                update_.download_and_install().await.unwrap();
+                                                match update_.download_and_install().await {
+                                                    Ok(_) => {}
+                                                    Err(e) => {
+                                                        Notification::new(
+                                                            &app_handle
+                                                                .config()
+                                                                .tauri
+                                                                .bundle
+                                                                .identifier,
+                                                        )
+                                                        .title("更新出错")
+                                                        .body(e.to_string())
+                                                        .icon("pot")
+                                                        .show()
+                                                        .unwrap();
+                                                    }
+                                                }
                                             });
                                         }
                                     },

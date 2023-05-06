@@ -43,7 +43,16 @@ export default function AppInfo() {
                                 title: '正在下载更新，请耐心等待',
                                 icon: 'pot',
                             });
-                            installUpdate().then((_) => {});
+                            installUpdate().then(
+                                (_) => {},
+                                (e) => {
+                                    notification.sendNotification({
+                                        title: '更新出错',
+                                        body: e,
+                                        icon: 'pot',
+                                    });
+                                }
+                            );
                         }
                     });
                 } else {
