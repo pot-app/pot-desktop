@@ -12,7 +12,6 @@ import { nanoid } from 'nanoid';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
 import { ankiConnect } from '../../../../global/ankiConnect';
 import * as interfaces from '../../../../interfaces';
-import speak from '../../../../global/speakClient';
 import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../../main';
 import './style.css';
@@ -195,10 +194,13 @@ export default function TargetArea() {
                 <IconButton
                     className='target-button'
                     onClick={() => {
-                        speak(targetText);
+                        new Audio(
+                            `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
+                                targetText
+                            )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
+                        ).play();
                     }}
                 >
-                    <div id='audio'></div>
                     <Tooltip title='朗读'>
                         <GraphicEqRoundedIcon />
                     </Tooltip>

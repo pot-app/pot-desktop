@@ -8,7 +8,6 @@ import { atom, useSetAtom } from 'jotai';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window';
 import { invoke } from '@tauri-apps/api/tauri';
-import speak from '../../../../global/speakClient';
 import { get } from '../../../main';
 import './style.css';
 
@@ -92,10 +91,13 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         onClick={() => {
-                            speak(text);
+                            new Audio(
+                                `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
+                                    text
+                                )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
+                            ).play();
                         }}
                     >
-                        <div id='audio'></div>
                         <Tooltip title='朗读'>
                             <GraphicEqRoundedIcon />
                         </Tooltip>
