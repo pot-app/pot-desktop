@@ -25,6 +25,8 @@ jobs:
 
           echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')
 
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -144,19 +146,21 @@ jobs:
           sed -i '' "s/\"iconPath\":.*/\"iconPath\": \"icons\/tray.ico\",/g" src-tauri/tauri.conf.json
       - name: Build and Package
         run: |
+          echo ${{ env.VERSION }}
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
       - name: Change File Name
         if: matrix.target == 'aarch64-apple-darwin'
         run: |
-          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version-for-windows.outputs.version}}_aarch64.app.tar.gz
-          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version-for-windows.outputs.version}}_aarch64.app.tar.gz.sig
+          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{ env.VERSION }}_aarch64.app.tar.gz
+          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{ env.VERSION }}_aarch64.app.tar.gz.sig
       - name: Change File Name
         if: matrix.target == 'x86_64-apple-darwin'
         run: |
-          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version-for-windows.outputs.version}}_x86_64.app.tar.gz
-          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version-for-windows.outputs.version}}_x86_64.app.tar.gz.sig
+          echo ${{ env.VERSION }}
+          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{ env.VERSION }}_x86_64.app.tar.gz
+          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{ env.VERSION }}_x86_64.app.tar.gz.sig
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
