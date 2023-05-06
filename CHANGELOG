@@ -1,5 +1,7 @@
-## 0.2.3 (2023-05-06)
+## 0.2.4 (2023-05-06)
 
-### Test:
+### New feature:
 
-- 仅更新版本号，测试应用内更新
+-   改用搜狗 tts 引擎，修复不能朗读中文的问题([`968d369`](https://github.com/Pylogmon/pot/commit/968d369b294f0f190ce6d1af423ca63b6921a7e8)) (by Pylogmon)
+-   完善检查更新逻辑([`31d39cc`](https://github.com/Pylogmon/pot/commit/31d39cc37f86745f1d0a770a6214c3d02339034c)) (by 派了个萌)
+-   应用内更新改用镜像地址加速下载([`346e5fd`](https://github.com/Pylogmon/pot/commit/346e5fd9a4fa0f390994edddb9818e81c6e5cb5f)) (by 派了个萌)
