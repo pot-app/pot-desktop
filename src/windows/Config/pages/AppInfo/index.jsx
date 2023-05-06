@@ -140,7 +140,7 @@ export default function AppInfo() {
                 />
                 &nbsp;
                 <a
-                    href='https://github.com/Pylogmon/pot/releases'
+                    href='https://github.com/Pylogmon/pot/releases/latest'
                     target='_blank'
                 >
                     <Button
@@ -154,7 +154,7 @@ export default function AppInfo() {
             <ConfigItem label='相关站点'>
                 <ul>
                     <li>
-                        官网:&nbsp;&nbsp;
+                        官网&文档:&nbsp;&nbsp;
                         <a
                             href='https://pot.pylogmon.cn'
                             target='_blank'
