@@ -50,7 +50,7 @@ pub fn build_system_tray() -> SystemTray {
 pub fn on_persistent_click(app: &AppHandle) {
     match app.get_window("persistent") {
         Some(window) => {
-            window.close().unwrap();
+            window.set_focus().unwrap();
         }
         None => {
             let _window = build_translate_window("persistent", "Persistent", app).unwrap();

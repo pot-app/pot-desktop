@@ -224,7 +224,7 @@ pub fn translate_window() {
     // 创建窗口
     match handle.get_window("translator") {
         Some(window) => {
-            window.close().unwrap();
+            window.set_focus().unwrap();
         }
         None => {
             let _window = build_translate_window("translator", "Translator", handle).unwrap();
@@ -237,7 +237,7 @@ pub fn persistent_window() {
     let handle = APP.get().unwrap();
     match handle.get_window("persistent") {
         Some(window) => {
-            window.close().unwrap();
+            window.set_focus().unwrap();
         }
         None => {
             let _window = build_translate_window("persistent", "Persistent", handle).unwrap();
@@ -254,7 +254,7 @@ pub fn popclip_window(text: String) {
 
     match handle.get_window("popclip") {
         Some(window) => {
-            window.close().unwrap();
+            window.set_focus().unwrap();
         }
         None => {
             let _window = build_translate_window("popclip", "PopClip", handle).unwrap();
