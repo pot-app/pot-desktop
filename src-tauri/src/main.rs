@@ -75,18 +75,17 @@ fn main() {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             // 初始化AppHandel
             APP.get_or_init(|| app.handle());
-            let handle = APP.get().unwrap();
+            let app_handle = APP.get().unwrap();
             // 初始化设置
             let is_first = !Config::init_config();
             // 初始化翻译内容
-            handle.manage(StringWrapper(Mutex::new("".to_string())));
+            app_handle.manage(StringWrapper(Mutex::new("".to_string())));
             // 创建驻留窗口，防止后续创建窗口时闪烁
             create_background_window();
             // 首次启动打开设置页面
             if is_first {
-                on_config_click(handle);
+                on_config_click(app_handle);
             }
-
             // 注册全局快捷键
             match register_shortcut("all") {
                 Ok(_) => {}
@@ -99,10 +98,51 @@ fn main() {
                         .unwrap();
                 }
             }
-            let copy_mode = get_config("auto_copy", toml::Value::Integer(4), handle.state())
+            let copy_mode = get_config("auto_copy", toml::Value::Integer(4), app_handle.state())
                 .as_integer()
                 .unwrap();
-            update_tray(handle, copy_mode);
+            update_tray(app_handle, copy_mode);
+            let handle = app.handle();
+            // 检查更新
+            let enable = get_config(
+                "auto_check",
+                toml::Value::Boolean(true),
+                APP.get().unwrap().state(),
+            );
+            if enable.as_bool().unwrap() {
+                tauri::async_runtime::spawn(async move {
+                    match tauri::updater::builder(handle).check().await {
+                        Ok(update) => {
+                            if update.is_update_available() {
+                                let window = app_handle.get_window("util").unwrap();
+                                let update_ = update.clone();
+                                tauri::api::dialog::ask(
+                                    Some(&window),
+                                    "新版本可用,是否更新？",
+                                    update.body().unwrap(),
+                                    |isok| {
+                                        if isok {
+                                            Notification::new(
+                                                &app_handle.config().tauri.bundle.identifier,
+                                            )
+                                            .title("正在下载更新，请耐心等待")
+                                            .icon("pot")
+                                            .show()
+                                            .unwrap();
+                                            tauri::async_runtime::block_on(async move {
+                                                update_.download_and_install().await.unwrap();
+                                            });
+                                        }
+                                    },
+                                );
+                            }
+                        }
+                        Err(e) => {
+                            println!("failed to get update: {}", e);
+                        }
+                    }
+                });
+            }
             Ok(())
         })
         // 注册Tauri Command

@@ -13,6 +13,7 @@ import { set } from '../../../../global/config';
 import {
     autoCopyAtom,
     autoStartAtom,
+    autoCheckAtom,
     dynamicTranslateAtom,
     deleteNewlineAtom,
     targetLanguageAtom,
@@ -29,6 +30,7 @@ import {
 import './style.css';
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
+    const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
@@ -93,6 +95,18 @@ export default function AppConfig() {
                             />
                         }
                         label='启用Anki支持'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={autoCheck}
+                                onChange={(e) => {
+                                    setAutoCheck(e.target.checked);
+                                    set('auto_check', e.target.checked);
+                                }}
+                            />
+                        }
+                        label='启动时检查更新'
                     />
                 </ConfigItem>
 

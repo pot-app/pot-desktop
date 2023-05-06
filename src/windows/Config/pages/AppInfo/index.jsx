@@ -1,15 +1,20 @@
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
+import PulseLoader from 'react-spinners/PulseLoader';
 import { writeText } from '@tauri-apps/api/clipboard';
+import { ask } from '@tauri-apps/api/dialog';
 import { notification, app } from '@tauri-apps/api';
-import { emit } from '@tauri-apps/api/event';
 import React, { useState, useEffect } from 'react';
+import { useTheme } from '@mui/material/styles';
 import { Button, Box } from '@mui/material';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import './style.css';
 
 export default function AppInfo() {
-    const [version, setVersion] = useState();
-    const [tauriVersion, setTauriVersion] = useState();
+    const [version, setVersion] = useState('');
+    const [tauriVersion, setTauriVersion] = useState('');
+    const [checking, setChecking] = useState(false);
+    const theme = useTheme();
 
     useEffect(() => {
         app.getVersion().then((v) => {
@@ -27,8 +32,37 @@ export default function AppInfo() {
         });
     }
 
-    function checkUpdate() {
-        emit('tauri://update').then((_) => {});
+    function checkUpdateHandler() {
+        setChecking(true);
+        checkUpdate().then(
+            (update) => {
+                if (update.shouldUpdate) {
+                    ask(update.manifest.body, { title: '新版本可用,是否更新？', type: 'info' }).then((install) => {
+                        if (install) {
+                            notification.sendNotification({
+                                title: '正在下载更新，请耐心等待',
+                                icon: 'pot',
+                            });
+                            installUpdate().then((_) => {});
+                        }
+                    });
+                } else {
+                    notification.sendNotification({
+                        title: '已经是最新版本',
+                        icon: 'pot',
+                    });
+                }
+                setChecking(false);
+            },
+            (e) => {
+                setChecking(false);
+                notification.sendNotification({
+                    title: '检查更新失败，请检查网络设置',
+                    icon: 'pot',
+                    body: e,
+                });
+            }
+        );
     }
 
     return (
@@ -78,12 +112,23 @@ export default function AppInfo() {
                     </li>
                 </ul>
                 <Button
-                    onClick={checkUpdate}
+                    onClick={checkUpdateHandler}
                     variant='outlined'
+                    disabled={checking}
                     size='small'
                 >
                     检查更新
                 </Button>
+                <PulseLoader
+                    loading={checking}
+                    color={theme.palette.text.primary}
+                    size={5}
+                    cssOverride={{
+                        display: 'inline-block',
+                        margin: 'auto',
+                        marginLeft: '8px',
+                    }}
+                />
                 &nbsp;
                 <a
                     href='https://github.com/Pylogmon/pot/releases'
