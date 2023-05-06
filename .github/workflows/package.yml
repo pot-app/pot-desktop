@@ -287,7 +287,7 @@ jobs:
         uses: vimtor/action-zip@v1.1
         with:
           files: src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
-          dest: pot_portable_x64.zip
+          dest: pot_${{needs.change-version-for-windows.outputs.version}}_x86_64_portable.zip
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -297,8 +297,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: pot_portable_x64.zip
-          path: pot_portable_x64.zip
+          name: pot_${{needs.change-version-for-windows.outputs.version}}_x86_64_portable.zip
+          path: pot_${{needs.change-version-for-windows.outputs.version}}_x86_64_portable.zip
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -313,7 +313,7 @@ jobs:
         with:
           body_path: CHANGELOG
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: pot_portable_x64.zip
+          files: pot_${{needs.change-version-for-windows.outputs.version}}_x86_64_portable.zip
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
