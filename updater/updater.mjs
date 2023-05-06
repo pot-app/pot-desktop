@@ -24,10 +24,10 @@ async function resolveUpdater() {
         notes: changelog,
         pub_date: new Date().toISOString(),
         platforms: {
-            "darwin-aarch64": { signature: darwin_aarch64_sig, url: darwin_aarch64 },
-            "darwin-x86_64": { signature: darwin_x86_64_sig, url: darwin_x86_64 },
-            "linux-x86_64": { signature: linux_x86_64_sig, url: linux_x86_64 },
-            "windows-x86_64": { signature: windows_x86_64_sig, url: windows_x86_64 },
+            "darwin-aarch64": { signature: darwin_aarch64_sig, url: 'https://gh.pylogmon.cn/' + darwin_aarch64 },
+            "darwin-x86_64": { signature: darwin_x86_64_sig, url: 'https://gh.pylogmon.cn/' + darwin_x86_64 },
+            "linux-x86_64": { signature: linux_x86_64_sig, url: 'https://gh.pylogmon.cn/' + linux_x86_64 },
+            "windows-x86_64": { signature: windows_x86_64_sig, url: 'https://gh.pylogmon.cn/' + windows_x86_64 },
         },
     };
 
