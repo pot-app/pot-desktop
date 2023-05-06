@@ -14,6 +14,7 @@ import {
     autoCopyAtom,
     autoStartAtom,
     autoCheckAtom,
+    defaultPinedAtom,
     dynamicTranslateAtom,
     deleteNewlineAtom,
     targetLanguageAtom,
@@ -31,6 +32,7 @@ import './style.css';
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
+    const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
@@ -107,6 +109,18 @@ export default function AppConfig() {
                             />
                         }
                         label='启动时检查更新'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={defaultPined}
+                                onChange={(e) => {
+                                    setDefaultPined(e.target.checked);
+                                    set('default_pined', e.target.checked);
+                                }}
+                            />
+                        }
+                        label='独立翻译窗口默认置顶'
                     />
                 </ConfigItem>
 

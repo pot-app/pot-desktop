@@ -5,6 +5,7 @@ import { appWindow } from '@tauri-apps/api/window';
 import { listen } from '@tauri-apps/api/event';
 import { Box, IconButton } from '@mui/material';
 import { invoke } from '@tauri-apps/api/tauri';
+import { get } from '../../../main';
 import './style.css';
 
 let unlisten = listen('tauri://blur', () => {
@@ -14,13 +15,16 @@ let unlisten = listen('tauri://blur', () => {
 });
 
 export default function TopBar() {
-    const [pined, setPined] = useState(appWindow.label == 'persistent' ? true : false);
+    const [pined, setPined] = useState(appWindow.label == 'persistent' ? get('default_pined') ?? true : false);
     const [ismacos, setIsmacos] = useState(false);
 
     useEffect(() => {
         invoke('is_macos').then((v) => {
             setIsmacos(v);
         });
+        if (appWindow.label != 'config' && appWindow.label != 'util') {
+            appWindow.setAlwaysOnTop(pined);
+        }
     }, []);
 
     return ismacos ? (

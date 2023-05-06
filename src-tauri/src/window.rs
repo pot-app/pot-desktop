@@ -20,7 +20,6 @@ pub fn build_translate_window(
     let builder =
         tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
             .inner_size(width, height)
-            .always_on_top(true)
             .focused(true)
             .visible(false)
             .title(title);
