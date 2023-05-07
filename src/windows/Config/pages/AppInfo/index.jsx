@@ -140,7 +140,7 @@ export default function AppInfo() {
                 />
                 &nbsp;
                 <a
-                    href='https://github.com/Pylogmon/pot/releases/latest'
+                    href='https://pot.pylogmon.cn/download'
                     target='_blank'
                 >
                     <Button
@@ -208,6 +208,15 @@ export default function AppInfo() {
             <ConfigItem label='社区交流'>
                 <ul>
                     <li>QQ群:&nbsp;&nbsp;767701966</li>
+                    <li>
+                        Telegram群组:&nbsp;&nbsp;
+                        <a
+                            href='https://t.me/Pot_Pylogmon'
+                            target='_blank'
+                        >
+                            t.me/Pot_Pylogmon
+                        </a>
+                    </li>
                 </ul>
             </ConfigItem>
         </ConfigList>
