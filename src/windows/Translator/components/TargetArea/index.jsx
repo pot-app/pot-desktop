@@ -11,6 +11,7 @@ import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
 import { ankiConnect } from '../../../../global/ankiConnect';
+import { addToEudic } from '../../../../global/addToEudic';
 import * as interfaces from '../../../../interfaces';
 import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../../main';
@@ -28,6 +29,7 @@ export default function TargetArea() {
     const [message, setMessage] = useState('');
     const [targetText, setTargetText] = useState('');
     const [addedAnki, setAddedAnki] = useState(false);
+    const [addedEudic, setAddedEudic] = useState(false);
     const theme = useTheme();
 
     useEffect(() => {
@@ -113,7 +115,7 @@ export default function TargetArea() {
                     });
                 });
             },
-            (e) => {
+            (_) => {
                 toast('Anki没有启动或配置错误', 'warning');
             }
         );
@@ -228,6 +230,36 @@ export default function TargetArea() {
                             onClick={addToAnki}
                         >
                             <Tooltip title='添加到Anki'>
+                                <LibraryAddRoundedIcon />
+                            </Tooltip>
+                        </IconButton>
+                    )
+                ) : (
+                    <></>
+                )}
+                {get('eudic_enable') ?? true ? (
+                    addedEudic ? (
+                        <IconButton className='target-button'>
+                            <Tooltip title='已添加到欧路词典'>
+                                <LibraryAddCheckRoundedIcon color='primary' />
+                            </Tooltip>
+                        </IconButton>
+                    ) : (
+                        <IconButton
+                            className='target-button'
+                            onClick={() => {
+                                addToEudic(sourceText).then(
+                                    (v) => {
+                                        toast(v, 'success');
+                                        setAddedEudic(true);
+                                    },
+                                    (e) => {
+                                        toast(String(e), 'warning');
+                                    }
+                                );
+                            }}
+                        >
+                            <Tooltip title='添加到欧路词典'>
                                 <LibraryAddRoundedIcon />
                             </Tooltip>
                         </IconButton>

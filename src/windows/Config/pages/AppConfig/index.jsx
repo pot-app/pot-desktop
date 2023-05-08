@@ -26,6 +26,9 @@ import {
     windowHeightAtom,
     windowWidthAtom,
     ankiEnableAtom,
+    eudicEnableAtom,
+    eudicCategoryNameAtom,
+    eudicTokenAtom,
     themeAtom,
 } from '../..';
 import './style.css';
@@ -45,6 +48,9 @@ export default function AppConfig() {
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
     const [ankiEnable, setAnkiEnable] = useAtom(ankiEnableAtom);
+    const [eudicEnable, setEudicEnable] = useAtom(eudicEnableAtom);
+    const [eudicCategoryName, setEudicCategoryName] = useAtom(eudicCategoryNameAtom);
+    const [eudicToken, setEudicToken] = useAtom(eudicTokenAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     return (
@@ -101,6 +107,18 @@ export default function AppConfig() {
                     <FormControlLabel
                         control={
                             <Checkbox
+                                checked={eudicEnable}
+                                onChange={(e) => {
+                                    setEudicEnable(e.target.checked);
+                                    set('eudic_enable', e.target.checked);
+                                }}
+                            />
+                        }
+                        label='启用欧路词典生词本'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
                                 checked={autoCheck}
                                 onChange={(e) => {
                                     setAutoCheck(e.target.checked);
@@ -123,7 +141,28 @@ export default function AppConfig() {
                         label='独立翻译窗口默认置顶'
                     />
                 </ConfigItem>
-
+                <ConfigItem label='欧路词典生词本名称'>
+                    <TextField
+                        fullWidth
+                        value={eudicCategoryName}
+                        placeholder='pot'
+                        onChange={(e) => {
+                            setEudicCategoryName(e.target.value);
+                            set('eudic_category_name', e.target.value);
+                        }}
+                    />
+                </ConfigItem>
+                <ConfigItem label='欧路词典Token'>
+                    <TextField
+                        fullWidth
+                        placeholder='请前往pot官网查看获取Token教程'
+                        value={eudicToken}
+                        onChange={(e) => {
+                            setEudicToken(e.target.value);
+                            set('eudic_token', e.target.value);
+                        }}
+                    />
+                </ConfigItem>
                 <ConfigItem label='网络代理'>
                     <TextField
                         fullWidth

@@ -28,6 +28,9 @@ export const themeAtom = atom('auto');
 export const windowWidthAtom = atom(400);
 export const windowHeightAtom = atom(500);
 export const ankiEnableAtom = atom(true);
+export const eudicEnableAtom = atom(true);
+export const eudicCategoryNameAtom = atom('');
+export const eudicTokenAtom = atom('');
 export const interfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
@@ -53,6 +56,9 @@ export default function Config() {
     const setWindowWidth = useSetAtom(windowWidthAtom);
     const setWindowHeight = useSetAtom(windowHeightAtom);
     const setAnkiEnable = useSetAtom(ankiEnableAtom);
+    const setEudicEnable = useSetAtom(eudicEnableAtom);
+    const setEudicCategoryName = useSetAtom(eudicCategoryNameAtom);
+    const setEudicToken = useSetAtom(eudicTokenAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -82,6 +88,9 @@ export default function Config() {
         setWindowWidth(get('window_width') ?? 400);
         setWindowHeight(get('window_height') ?? 500);
         setAnkiEnable(get('anki_enable') ?? true);
+        setEudicEnable(get('eudic_enable') ?? true);
+        setEudicCategoryName(get('eudic_category_name') ?? 'pot');
+        setEudicToken(get('eudic_token') ?? '');
         setTheme(get('theme') ?? 'auto');
         let interface_configs = {};
 
