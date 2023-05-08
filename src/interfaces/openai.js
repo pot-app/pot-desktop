@@ -1,19 +1,19 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
     name: 'OpenAI 翻译',
     supportLanguage: {
-        'zh-cn': '简体中文',
-        'zh-tw': '繁体中文',
-        yue: '粤语',
-        ja: '日本語',
-        en: '英语',
-        ko: '韩语',
-        fr: '法语',
-        es: '西班牙语',
-        ru: '俄语',
-        de: '德语',
+        'zh-cn': 'Simplified Chinese',
+        'zh-tw': 'Traditional Chinese',
+        yue: 'Cantonese',
+        ja: 'Japanese ',
+        en: 'English',
+        ko: 'Korean',
+        fr: 'French',
+        es: 'Spanish',
+        ru: 'Russian',
+        de: 'German',
     },
     needs: [
         {
@@ -26,15 +26,16 @@ export const info = {
             place_hold: '',
             display_name: 'ApiKey',
         },
+
         {
             config_key: 'openai_prompt',
-            place_hold: '你是翻译引擎，只能翻译文本而不能去解释它。',
+            place_hold: 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
             display_name: '自定义Prompt',
         }
     ],
 };
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, set) {
     const { supportLanguage } = info;
     let domain = get('openai_domain') ?? 'api.openai.com';
     if (domain == '') {
@@ -44,9 +45,9 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-    let prompt = get('openai_prompt') ?? '你是翻译引擎，只能翻译文本而不能去解释它。';
+    let prompt = get('openai_prompt') ?? '';
     if (prompt == '') {
-        prompt = '你是翻译引擎，只能翻译文本而不能去解释它。';
+        prompt = 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
 
     const headers = {
@@ -55,21 +56,11 @@ export async function translate(text, from, to) {
     };
     let systemPrompt = '';
     let userPrompt = '';
-    if (text.split(' ').length == 1) {
-        systemPrompt =
-            '你是万能大词典，可以查询任何语言的单词，并用任何语言来展示结果，请严格按照如下格式输出结果，部分提示词用展示语言来替代：音标:<音标>\n释义:\n<词性缩写><释义(可以有多个，用逗号隔开)>(分多行给出所有词性及释义)\n例句:<序号> <单词原语言例句> <展示语言例句翻译>';
-        if (from == 'auto') {
-            userPrompt = `请用${supportLanguage[to]}展示结果:"${text}"`;
-        } else {
-            userPrompt = `请用${supportLanguage[to]}展示结果,这可能是一个${supportLanguage[from]}单词:"${text}"`;
-        }
+    systemPrompt = prompt;
+    if (from == 'auto') {
+        userPrompt = `Translate to ${supportLanguage[to]},Content:"""\n{${text}}\n"""`;
     } else {
-        systemPrompt = prompt;
-        if (from == 'auto') {
-            userPrompt = `翻译成${supportLanguage[to]}:\n\n${text}`;
-        } else {
-            userPrompt = `将这段${supportLanguage[from]}翻译成${supportLanguage[to]}:\n\n${text}`;
-        }
+        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]},Content:"""\n{${text}}\n"""`;
     }
 
     const body = {
@@ -85,16 +76,13 @@ export async function translate(text, from, to) {
         ],
     };
 
-    let proxy = get('proxy') ?? '';
-
-    let res = await request(`https://${domain}/v1/chat/completions`, {
+    let res = await fetch(`https://${domain}/v1/chat/completions`, {
         method: 'POST',
-        body: JSON.stringify(body),
         headers: headers,
-        proxy: proxy,
-    });
+        body: { type: 'Json', payload: body }
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     if ('error' in result) {
         return result.error.message;
     } else {
@@ -102,12 +90,6 @@ export async function translate(text, from, to) {
 
         let target = choices[0].message.content.trim();
 
-        if (target.startsWith('"') || target.startsWith('「')) {
-            target = target.slice(1);
-        }
-        if (target.endsWith('"') || target.endsWith('」')) {
-            target = target.slice(0, -1);
-        }
         return target;
     }
 }

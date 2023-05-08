@@ -35,6 +35,11 @@
             "fs": {
                 "readFile": true,
                 "scope": ["*"]
+            },
+            "http": {
+                "all": true,
+                "request": true,
+                "scope": ["http://**", "https://**"]
             }
         },
         "bundle": {

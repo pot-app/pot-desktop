@@ -102,13 +102,23 @@ fn main() {
                 .as_integer()
                 .unwrap();
             update_tray(app_handle, copy_mode);
-            let handle = app.handle();
+            // 设置代理
+            let proxy = get_config(
+                "proxy",
+                toml::Value::String(String::from("")),
+                app_handle.state(),
+            );
+            std::env::set_var("http_proxy",proxy.as_str().unwrap());
+            std::env::set_var("https_proxy",proxy.as_str().unwrap());
+            std::env::set_var("all_proxy",proxy.as_str().unwrap());
             // 检查更新
             let enable = get_config(
                 "auto_check",
                 toml::Value::Boolean(true),
-                APP.get().unwrap().state(),
+                app_handle.state(),
             );
+            let handle = app.handle();
+
             if enable.as_bool().unwrap() {
                 tauri::async_runtime::spawn(async move {
                     match tauri::updater::builder(handle).check().await {
