@@ -4,7 +4,6 @@
 )]
 
 mod config;
-mod fetch;
 mod selection;
 mod shortcut;
 mod trayicon;
@@ -12,7 +11,6 @@ mod utils;
 mod window;
 
 use config::*;
-use fetch::http_request;
 use once_cell::sync::OnceCell;
 use selection::get_translate_text;
 use shortcut::register_shortcut;
@@ -178,8 +176,7 @@ fn main() {
             get_config_str,
             set_config,
             write_config,
-            is_macos,
-            http_request
+            is_macos
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

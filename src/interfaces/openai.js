@@ -58,9 +58,9 @@ export async function translate(text, from, to, set) {
     let userPrompt = '';
     systemPrompt = prompt;
     if (from == 'auto') {
-        userPrompt = `Translate to ${supportLanguage[to]},Content:"""\n{${text}}\n"""`;
+        userPrompt = `Translate to ${supportLanguage[to]}:"""\n{${text}}\n"""`;
     } else {
-        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]},Content:"""\n{${text}}\n"""`;
+        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]}:"""\n{${text}}\n"""`;
     }
 
     const body = {

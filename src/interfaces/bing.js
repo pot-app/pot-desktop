@@ -1,5 +1,4 @@
-import request from './utils/request';
-import { get } from '../windows/main';
+import { fetch } from '@tauri-apps/api/http';
 
 // 必须向外暴露info
 export const info = {
@@ -27,15 +26,15 @@ export async function translate(text, from, to) {
         return '该接口只支持查词';
     }
 
-    let proxy = get('proxy') ?? '';
-    let res = await request('https://cn.bing.com/dict/search', {
+    let res = await fetch('https://cn.bing.com/dict/search', {
         method: 'GET',
         query: {
             mkt: supportLanguage[to],
             q: text,
         },
-        proxy: proxy,
-    });
+        responseType: 2
+    })
+    res = res.data;
     const descReg = /<meta name="description" content="([^"]+?)" \/>/;
     let content = res.match(descReg)[1];
     content = content.replace(`必应词典为您提供${text}的释义，`, '');

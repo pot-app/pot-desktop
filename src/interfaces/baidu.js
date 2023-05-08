@@ -1,8 +1,8 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
-
+// 有跨域，用fetch
 export const info = {
     name: '百度翻译',
     supportLanguage: {
@@ -48,7 +48,7 @@ export async function translate(text, from, to) {
     const str = appid + text + salt + secret;
     const sign = md5(str);
 
-    let res = await request(url, {
+    let res = await fetch(url, {
         query: {
             q: text,
             from: supportLanguage[from],
@@ -56,10 +56,10 @@ export async function translate(text, from, to) {
             appid: appid,
             salt: salt,
             sign: sign,
-        },
-    });
+        }
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     let target = '';
     let sourceLanguage = result['from'];
     if (sourceLanguage == supportLanguage[to]) {

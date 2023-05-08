@@ -1,8 +1,11 @@
-import request from '../interfaces/utils/request';
-
+import { fetch } from '@tauri-apps/api/http';
 export async function ankiConnect(action, version, params = {}) {
-    return await request('http://127.0.0.1:8765', {
+    let res = await fetch('http://127.0.0.1:8765', {
         method: 'POST',
-        body: JSON.stringify({ action, version, params }),
-    });
+        body: {
+            type: 'Json',
+            payload: { action, version, params }
+        }
+    })
+    return res.data;
 }

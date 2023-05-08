@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 // 必须向外暴露info
@@ -44,7 +44,7 @@ export async function translate(text, from, to) {
     // ......
     // 使用request发送请求 示例代码如下
     let proxy = get('proxy') ?? '';
-    let res = await request(url, {
+    let res = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -54,13 +54,11 @@ export async function translate(text, from, to) {
             source: supportLanguage[from],
             target: supportLanguage[to],
         },
-        // body一定要stringify
-        body: JSON.stringify({
-            text: text,
-        }),
+
+        body: { type: 'Json', payload: body },
         proxy: proxy,
     });
-    let result = JSON.parse(res);
+    let result = res.data;
     // 返回翻译结果
     // return target
 }

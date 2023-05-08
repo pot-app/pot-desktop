@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 // 必须向外暴露info
@@ -78,17 +78,18 @@ export async function translate(text, from, to) {
         post_str = post_str.replace('"method":"', '"method": "');
     }
 
-    let proxy = get('proxy') ?? '';
-    let res = await request(url, {
+    let res = await fetch(url, {
         method: 'POST',
-        body: post_str,
+        body: {
+            type: 'Text',
+            payload: post_str
+        },
         headers: {
             'Content-Type': 'application/json',
-        },
-        proxy: proxy,
-    });
+        }
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     if (result && result.result && result.result.texts && result.result.lang) {
         if (result.result.lang == supportLanguage[to]) {
             let secondLanguage = get('second_language') ?? 'en';

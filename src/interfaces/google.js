@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 // 此接口只支持英汉互译
@@ -36,31 +36,24 @@ export async function translate(text, from, to) {
         domain = 'translate.google.com';
     }
 
-    let proxy = get('proxy') ?? '';
-    let res = await request(
-        `https://${domain}/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
-        {
-            headers: {
-                'User-Agent': `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36`,
-            },
-            query: {
-                client: 'gtx',
-                sl: supportLanguage[from],
-                tl: supportLanguage[to],
-                hl: supportLanguage[to],
-                ie: 'UTF-8',
-                oe: 'UTF-8',
-                otf: '1',
-                ssel: '0',
-                tsel: '0',
-                kc: '7',
-                q: text,
-            },
-            proxy: proxy,
+    let res = await fetch(`https://${domain}/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`, {
+        method: 'GET',
+        query: {
+            client: 'gtx',
+            sl: supportLanguage[from],
+            tl: supportLanguage[to],
+            hl: supportLanguage[to],
+            ie: 'UTF-8',
+            oe: 'UTF-8',
+            otf: '1',
+            ssel: '0',
+            tsel: '0',
+            kc: '7',
+            q: text,
         }
-    );
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     let target = '';
     if (result[2]) {
         if (result[2] == supportLanguage[to]) {

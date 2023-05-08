@@ -1,8 +1,8 @@
-import request from './utils/request';
+import axios from 'axios';
 import { get } from '../windows/main';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
-
+// 不能走代理，所以用axios
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
@@ -76,10 +76,8 @@ export async function translate(text, from, to) {
 
     CanonicalizedQueryString = CanonicalizedQueryString + '&Signature=' + encodeURIComponent(signature);
 
-    let res = await request(CanonicalizedQueryString, {
-        method: 'GET',
-    });
-    let result = JSON.parse(res);
+    let res = await axios.get(CanonicalizedQueryString)
+    let result = res.data;
     if (result['Code'] == '200') {
         if (result['Data']['Translated'] == text) {
             let secondLanguage = get('second_language') ?? 'en';
@@ -89,6 +87,6 @@ export async function translate(text, from, to) {
         }
         return result['Data']['Translated'];
     } else {
-        return res;
+        return res.data;
     }
 }

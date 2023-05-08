@@ -1,4 +1,4 @@
-import request from './utils/request';
+import axios from 'axios';
 import { get } from '../windows/main';
 
 export const info = {
@@ -41,13 +41,11 @@ export async function translate(text, from, to) {
         'x-authorization': 'token ' + token,
     };
 
-    let res = await request(url, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: headers,
-    });
+    let res = await axios.post(url, body, {
+        headers: headers
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     const { target } = result;
     if (target == text) {
         let secondLanguage = get('second_language') ?? 'en';

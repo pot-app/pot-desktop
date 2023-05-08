@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import CryptoJS from 'crypto-js';
 import { get } from '../windows/main';
 
@@ -150,14 +150,14 @@ export async function translate(text, from, to) {
     // 发送请求
     let url = schema + '://' + host + path + '?' + 'Action=TranslateText&Version=' + serviceVersion;
 
-    let res = await request(url, {
+    let res = await fetch(url, {
         method: method,
-        body: bodyStr,
         headers: headers,
-    });
+        body: { type: 'Text', payload: bodyStr }
+    })
 
-    let result = JSON.parse(res);
-    console.log(result);
+    let result = res.data;
+
     // 整理翻译结果并返回
     var translations = '';
 
@@ -183,6 +183,6 @@ export async function translate(text, from, to) {
         }
         return translations;
     } else {
-        return res;
+        return JSON.stringify(result);
     }
 }

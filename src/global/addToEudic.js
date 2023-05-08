@@ -1,4 +1,4 @@
-import request from '../interfaces/utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export async function addToEudic(text) {
@@ -15,7 +15,8 @@ async function checkCategory(token) {
     if (name == '') {
         name = 'pot';
     }
-    let res = await request('https://api.frdic.com/api/open/v1/studylist/category', {
+
+    let res = await fetch('https://api.frdic.com/api/open/v1/studylist/category', {
         method: 'GET',
         query: {
             'language': 'en'
@@ -24,9 +25,9 @@ async function checkCategory(token) {
             'Content-Type': 'application/json',
             'Authorization': token
         }
-    });
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     if (result.data) {
         for (let i of result.data) {
             if (i.name == name) {
@@ -34,18 +35,21 @@ async function checkCategory(token) {
             }
         }
         // 创建生词本
-        let res1 = await request('https://api.frdic.com/api/open/v1/studylist/category', {
+        let res1 = await fetch('https://api.frdic.com/api/open/v1/studylist/category', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token
             },
-            body: JSON.stringify({
-                "language": "en",
-                "name": name
-            })
+            body: {
+                type: 'Json',
+                payload: {
+                    "language": "en",
+                    "name": name
+                }
+            }
         });
-        let result1 = JSON.parse(res1);
+        let result1 = res.data;
         if (result1.data) {
             return result1.data.id;
         } else {
@@ -57,18 +61,20 @@ async function checkCategory(token) {
 }
 
 async function addWordToCategory(id, word, token) {
-    let res = await request('https://api.frdic.com/api/open/v1/studylist/words', {
+    let res = await fetch('https://api.frdic.com/api/open/v1/studylist/words', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token
         },
-        body: JSON.stringify({
-            'id': id,
-            'language': 'en',
-            'words': [word]
-        })
+        body: {
+            type: 'Json', payload: {
+                'id': id,
+                'language': 'en',
+                'words': [word]
+            }
+        }
     });
-    let result = JSON.parse(res);
+    let result = res.data;
     return result.message;
 }

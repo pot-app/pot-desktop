@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
@@ -134,21 +134,24 @@ export async function translate(text, from, to) {
         'Signature=' +
         signature;
 
-    let res = await request('https://' + endpoint, {
+    let res = await fetch('https://' + endpoint, {
         method: 'POST',
-        body: payload,
         headers: {
             Authorization: authorization,
-            'Content-Type': 'application/json',
+            'content-type': 'application/json',
             Host: endpoint,
             'X-TC-Action': action,
             'X-TC-Timestamp': timestamp.toString(),
             'X-TC-Version': version,
-            'X-TC-Region': region,
+            'X-TC-Region': region
         },
-    });
+        body: {
+            type: 'Text',
+            payload: payload
+        }
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
 
     let { Response } = result;
     if (Response['TargetText'] && Response['Source']) {
@@ -160,6 +163,6 @@ export async function translate(text, from, to) {
         }
         return Response['TargetText'];
     } else {
-        return res;
+        return JSON.stringify(result);
     }
 }

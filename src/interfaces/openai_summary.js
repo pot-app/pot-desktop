@@ -1,4 +1,4 @@
-import request from './utils/request';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
@@ -59,15 +59,13 @@ export async function translate(text, from, to) {
         ],
     };
 
-    let proxy = get('proxy') ?? '';
-    let res = await request(`https://${domain}/v1/chat/completions`, {
+    let res = await fetch(`https://${domain}/v1/chat/completions`, {
         method: 'POST',
-        body: JSON.stringify(body),
         headers: headers,
-        proxy: proxy,
-    });
+        body: { type: 'Json', payload: body }
+    })
 
-    let result = JSON.parse(res);
+    let result = res.data;
     if ('error' in result) {
         return result.error.message;
     } else {
