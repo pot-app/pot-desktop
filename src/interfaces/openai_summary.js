@@ -69,8 +69,14 @@ export async function translate(text, from, to) {
         let result = res.data;
         const { choices } = result;
         if (choices) {
-            const target = choices[0].message.content.trim();
+            let target = choices[0].message.content.trim();
             if (target) {
+                if (target.startsWith('"') || target.startsWith('{')) {
+                    target = target.slice(1);
+                }
+                if (target.endsWith('"') || target.endsWith('}')) {
+                    target = target.slice(0, -1);
+                }
                 return target;
             } else {
                 throw JSON.stringify(choices);
