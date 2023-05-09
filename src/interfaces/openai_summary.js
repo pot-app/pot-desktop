@@ -72,6 +72,7 @@ export async function translate(text, from, to, setText) {
             let target = '';
             const reader = res.body.getReader()
             try {
+                let temp = '';
                 while (true) {
                     const { done, value } = await reader.read()
                     if (done) {
@@ -79,18 +80,30 @@ export async function translate(text, from, to, setText) {
                     }
                     const str = new TextDecoder().decode(value)
                     let datas = str.split('data: ');
-
                     for (let data of datas) {
                         if (data.trim() != '' && data.trim() != '[DONE]') {
-                            let result = JSON.parse(data.trim())
-                            if (result.choices[0].delta.content) {
-                                target += result.choices[0].delta.content;
-                                setText(target);
+                            try {
+                                if (temp != '') {
+                                    data = temp + data.trim();
+                                    let result = JSON.parse(data.trim())
+                                    if (result.choices[0].delta.content) {
+                                        target += result.choices[0].delta.content;
+                                        setText(target);
+                                    }
+                                    temp = '';
+                                } else {
+
+                                    let result = JSON.parse(data.trim())
+                                    if (result.choices[0].delta.content) {
+                                        target += result.choices[0].delta.content;
+                                        setText(target);
+                                    }
+                                }
+                            } catch {
+                                temp = data.trim()
                             }
                         }
-
                     }
-
                 }
             } finally {
                 reader.releaseLock()
