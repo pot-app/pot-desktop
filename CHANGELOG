@@ -1,10 +1,16 @@
-## 0.2.5 (2023-05-08)
+## 0.2.6 (2023-05-09)
 
 ### New feature:
 
-- 新增添加到欧路词典生词本功能([`e721618`](https://github.com/Pylogmon/pot/commit/e7216186e33a887de72c5b6160a851183b1ef314)) (by 派了个萌)
-- 添加独立窗口是否默认置顶设置项([`6cf0914`](https://github.com/Pylogmon/pot/commit/6cf091412fa46532850cd99d514468f0216461da)) (by 派了个萌)
+- 添加OpenAI流式输出([`3777f0e`](https://github.com/Pylogmon/pot/commit/3777f0e51c890a60b03eb836f3f1d20ba8386352)) (by 派了个萌)
 
-### Refactor:
+### Bugs fixed:
 
-- 改变窗口逻辑，当窗口存在时再创建窗口不会关闭窗口而是将窗口聚焦([`ab36522`](https://github.com/Pylogmon/pot/commit/ab36522ad3ab4fa02c2e2f4bcb63b4fb4c69a30c)) (by 派了个萌)
+- 修复错误输出([`1df8bc4`](https://github.com/Pylogmon/pot/commit/1df8bc40e8530be425a6a7d11e8ec01d6ead34e7)) (by 派了个萌)
+- 修复openai翻译结果有{}([`85001b2`](https://github.com/Pylogmon/pot/commit/85001b2b905f93c33cc6e1642958448b06be6f8b)) (by Pylogmon)
+
+### Performance improves:
+
+- 优化OpenAI Other Prompt([`4bee271`](https://github.com/Pylogmon/pot/commit/4bee271a4b1309c8b4468f249d73e63698d70498)) (by Pylogmon)
+- 完善所有接口错误处理([`cde8e05`](https://github.com/Pylogmon/pot/commit/cde8e05fbfe7572941a6154d2dc44a783070ce79)) (by Pylogmon)
+- 优化OpenAI 翻译 Prompt，改善翻译质量([`bcb36fb`](https://github.com/Pylogmon/pot/commit/bcb36fb1ee49ccea2cc92625653ce3ebd8c44a32)) (by 派了个萌)
