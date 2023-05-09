@@ -1,8 +1,9 @@
-import axios from 'axios';
-import { get } from '../windows/main';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
+import { get } from '../windows/main';
 // 不能走代理，所以用axios
+import axios from 'axios';
+
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
@@ -76,17 +77,21 @@ export async function translate(text, from, to) {
 
     CanonicalizedQueryString = CanonicalizedQueryString + '&Signature=' + encodeURIComponent(signature);
 
-    let res = await axios.get(CanonicalizedQueryString)
-    let result = res.data;
-    if (result['Code'] == '200') {
-        if (result['Data']['Translated'] == text) {
-            let secondLanguage = get('second_language') ?? 'en';
-            if (to != secondLanguage) {
-                return translate(text, from, secondLanguage);
+    let res = await axios.get(CanonicalizedQueryString);
+    if (res.status == 200) {
+        let result = res.data;
+        if (result['Code'] == '200') {
+            if (result['Data']['Translated'] == text) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (to != secondLanguage) {
+                    return translate(text, from, secondLanguage);
+                }
             }
+            return result['Data']['Translated'];
+        } else {
+            throw JSON.stringify(result)
         }
-        return result['Data']['Translated'];
     } else {
-        return res.data;
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

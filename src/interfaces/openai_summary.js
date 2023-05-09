@@ -65,14 +65,20 @@ export async function translate(text, from, to) {
         body: { type: 'Json', payload: body }
     })
 
-    let result = res.data;
-    if ('error' in result) {
-        return result.error.message;
-    } else {
+    if (res.ok) {
+        let result = res.data;
         const { choices } = result;
-
-        let target = choices[0].message.content.trim();
-
-        return target;
+        if (choices) {
+            const target = choices[0].message.content.trim();
+            if (target) {
+                return target;
+            } else {
+                throw JSON.stringify(choices);
+            }
+        } else {
+            throw JSON.stringify(result);
+        }
+    } else {
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

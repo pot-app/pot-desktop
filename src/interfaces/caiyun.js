@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
@@ -41,17 +41,30 @@ export async function translate(text, from, to) {
         'x-authorization': 'token ' + token,
     };
 
-    let res = await axios.post(url, body, {
-        headers: headers
+    let res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: {
+            type: 'Json',
+            payload: body
+        }
     })
 
-    let result = res.data;
-    const { target } = result;
-    if (target == text) {
-        let secondLanguage = get('second_language') ?? 'en';
-        if (to != secondLanguage) {
-            return translate(text, from, secondLanguage);
+    if (res.ok) {
+        let result = res.data;
+        const { target } = result;
+        if (target) {
+            if (target == text) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (to != secondLanguage) {
+                    return translate(text, from, secondLanguage);
+                }
+            }
+            return target;
+        } else {
+            throw JSON.stringify(result);
         }
+    } else {
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
-    return target;
 }

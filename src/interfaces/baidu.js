@@ -2,7 +2,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
-// 有跨域，用fetch
+
 export const info = {
     name: '百度翻译',
     supportLanguage: {
@@ -58,20 +58,27 @@ export async function translate(text, from, to) {
             sign: sign,
         }
     })
-
-    let result = res.data;
-    let target = '';
-    let sourceLanguage = result['from'];
-    if (sourceLanguage == supportLanguage[to]) {
-        let secondLanguage = get('second_language') ?? 'en';
-        if (secondLanguage != to) {
-            return translate(text, from, secondLanguage);
+    if (res.ok) {
+        console.log(res)
+        let result = res.data;
+        let target = '';
+        if (result['from']) {
+            let sourceLanguage = result['from'];
+            if (sourceLanguage == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    return translate(text, from, secondLanguage);
+                }
+            }
+            const { trans_result } = result;
+            for (let i in trans_result) {
+                target = target + trans_result[i]['dst'] + '\n';
+            }
+            return target;
+        } else {
+            throw JSON.stringify(result);
         }
+    } else {
+        throw 'http请求出错\n' + JSON.stringify(res)
     }
-    const { trans_result } = result;
-    for (let i in trans_result) {
-        target = target + trans_result[i]['dst'] + '\n';
-    }
-
-    return target;
 }

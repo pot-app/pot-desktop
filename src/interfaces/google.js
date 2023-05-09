@@ -3,7 +3,7 @@ import { get } from '../windows/main';
 
 // 此接口只支持英汉互译
 export const info = {
-    name: '谷歌翻译(免费)',
+    name: '谷歌翻译',
     supportLanguage: {
         auto: 'auto',
         'zh-cn': 'zh-CN',
@@ -52,42 +52,45 @@ export async function translate(text, from, to) {
             q: text,
         }
     })
-
-    let result = res.data;
-    let target = '';
-    if (result[2]) {
-        if (result[2] == supportLanguage[to]) {
-            let secondLanguage = get('second_language') ?? 'en';
-            if (secondLanguage != to) {
-                return translate(text, from, secondLanguage);
+    if (res.ok) {
+        let result = res.data;
+        let target = '';
+        if (result[2]) {
+            if (result[2] == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    return translate(text, from, secondLanguage);
+                }
             }
         }
-    }
-    // 词典模式
-    if (result[1]) {
-        for (let i of result[1]) {
-            // 词性
-            target = target + '【词性】' + i[0] + '\n【释义】';
-            for (let r of i[1]) {
-                target = target + r + ', ';
-            }
-            target = target + '\n【联想】\n';
-            for (let r of i[2]) {
-                target = target + '  ' + r[0] + ':  ';
-                for (let j of r[1]) {
-                    target = target + j + ', ';
+        // 词典模式
+        if (result[1]) {
+            for (let i of result[1]) {
+                // 词性
+                target = target + '【词性】' + i[0] + '\n【释义】';
+                for (let r of i[1]) {
+                    target = target + r + ', ';
+                }
+                target = target + '\n【联想】\n';
+                for (let r of i[2]) {
+                    target = target + '  ' + r[0] + ':  ';
+                    for (let j of r[1]) {
+                        target = target + j + ', ';
+                    }
+                    target += '\n';
                 }
                 target += '\n';
             }
-            target += '\n';
+            return target;
+        }
+        // 翻译模式
+        for (let r of result[0]) {
+            if (r[0]) {
+                target = target + r[0];
+            }
         }
         return target;
+    } else {
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
-    // 翻译模式
-    for (let r of result[0]) {
-        if (r[0]) {
-            target = target + r[0];
-        }
-    }
-    return target;
 }

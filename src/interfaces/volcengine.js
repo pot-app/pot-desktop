@@ -156,33 +156,35 @@ export async function translate(text, from, to) {
         body: { type: 'Text', payload: bodyStr }
     })
 
-    let result = res.data;
-
-    // 整理翻译结果并返回
-    var translations = '';
-
-    if (result['TranslationList']) {
-        let translationList = result['TranslationList'];
-        if (translationList[0]['DetectedSourceLanguage'] == supportLanguage[to]) {
-            let secondLanguage = get('second_language') ?? 'en';
-            if (secondLanguage != to) {
-                return translate(text, from, secondLanguage);
+    if (res.ok) {
+        let result = res.data;
+        // 整理翻译结果并返回
+        var translations = '';
+        let { TranslationList } = result;
+        if (TranslationList) {
+            if (TranslationList[0]['DetectedSourceLanguage'] == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    return translate(text, from, secondLanguage);
+                }
             }
+            var cur = 0,
+                last = 0;
+            for (cur; cur < TranslationList.length; cur += 1) {
+                if (cur > last) {
+                    translations += '\n';
+                }
+                let curTranslation = TranslationList[cur];
+                if (curTranslation['Translation']) {
+                    translations += curTranslation['Translation'];
+                }
+                last = cur;
+            }
+            return translations;
+        } else {
+            throw JSON.stringify(result);
         }
-        var cur = 0,
-            last = 0;
-        for (cur; cur < translationList.length; cur += 1) {
-            if (cur > last) {
-                translations += '\n';
-            }
-            let curTranslation = translationList[cur];
-            if (curTranslation['Translation']) {
-                translations += curTranslation['Translation'];
-            }
-            last = cur;
-        }
-        return translations;
     } else {
-        return JSON.stringify(result);
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

@@ -88,17 +88,20 @@ export async function translate(text, from, to) {
             'Content-Type': 'application/json',
         }
     })
-
-    let result = res.data;
-    if (result && result.result && result.result.texts && result.result.lang) {
-        if (result.result.lang == supportLanguage[to]) {
-            let secondLanguage = get('second_language') ?? 'en';
-            if (secondLanguage != to) {
-                return translate(text, from, secondLanguage);
+    if (res.ok) {
+        let result = res.data;
+        if (result && result.result && result.result.texts && result.result.lang) {
+            if (result.result.lang == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    return translate(text, from, secondLanguage);
+                }
             }
+            return result.result.texts[0].text;
+        } else {
+            throw JSON.stringify(result);
         }
-        return result.result.texts[0].text;
     } else {
-        return JSON.stringify(result.error);
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

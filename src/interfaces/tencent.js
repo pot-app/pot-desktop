@@ -150,19 +150,21 @@ export async function translate(text, from, to) {
             payload: payload
         }
     })
-
-    let result = res.data;
-
-    let { Response } = result;
-    if (Response['TargetText'] && Response['Source']) {
-        if (Response['Source'] == supportLanguage[to]) {
-            let secondLanguage = get('second_language') ?? 'en';
-            if (secondLanguage != to) {
-                return translate(text, from, secondLanguage);
+    if (res.ok) {
+        let result = res.data;
+        let { Response } = result;
+        if (Response && Response['TargetText'] && Response['Source']) {
+            if (Response['Source'] == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    return translate(text, from, secondLanguage);
+                }
             }
+            return Response['TargetText'];
+        } else {
+            throw JSON.stringify(result);
         }
-        return Response['TargetText'];
     } else {
-        return JSON.stringify(result);
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

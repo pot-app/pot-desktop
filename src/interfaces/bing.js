@@ -32,12 +32,21 @@ export async function translate(text, from, to) {
             mkt: supportLanguage[to],
             q: text,
         },
-        responseType: 2
+        responseType: 2// 返回Text而不是Json
     })
-    res = res.data;
-    const descReg = /<meta name="description" content="([^"]+?)" \/>/;
-    let content = res.match(descReg)[1];
-    content = content.replace(`必应词典为您提供${text}的释义，`, '');
-    let result = content.replaceAll('； ', '；\n');
-    return result.replaceAll(']，', ']\n');
+    if (res.ok) {
+        let result = res.data;
+        const descReg = /<meta name="description" content="([^"]+?)" \/>/;
+        let content = result.match(descReg)[1];
+        content = content.replace(`必应词典为您提供${text}的释义，`, '');
+        content = content.replaceAll('； ', '；\n');
+        content = content.replaceAll(']，', ']\n');
+        if (content.trim().split(' ') == 1) {
+            throw '查词失败';
+        } else {
+            return content;
+        }
+    } else {
+        throw 'http请求出错\n' + JSON.stringify(res);
+    }
 }
