@@ -49,7 +49,7 @@ async function checkCategory(token) {
                 }
             }
         });
-        let result1 = res.data;
+        let result1 = res1.data;
         if (result1.data) {
             return result1.data.id;
         } else {
