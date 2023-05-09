@@ -4,16 +4,16 @@ import { get } from '../windows/main';
 export const info = {
     name: 'OpenAI 代码解释',
     supportLanguage: {
-        'zh-cn': '简体中文',
-        'zh-tw': '繁体中文',
-        yue: '粤语',
-        ja: '日本語',
-        en: '英语',
-        ko: '韩语',
-        fr: '法语',
-        es: '西班牙语',
-        ru: '俄语',
-        de: '德语',
+        'zh-cn': 'Simplified Chinese',
+        'zh-tw': 'Traditional Chinese',
+        yue: 'Cantonese',
+        ja: 'Japanese ',
+        en: 'English',
+        ko: 'Korean',
+        fr: 'French',
+        es: 'Spanish',
+        ru: 'Russian',
+        de: 'German',
     },
     needs: [
         {
@@ -34,7 +34,7 @@ export async function translate(text, from, to) {
     if (apikey == '') {
         return '请先配置apikey';
     }
-    let prompt = get('openai_code_prompt') ?? 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+    let prompt = get('openai_code_prompt') ?? '';
     if (prompt == '') {
         prompt = 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     }
@@ -42,9 +42,9 @@ export async function translate(text, from, to) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apikey}`,
     };
-
+    用中文解释以下代码
     let systemPrompt = prompt;
-    let userPrompt = `用${supportLanguage[to]}解释此段代码、正则表达式或脚本。如果内容不是代码，请返回错误提示。如果代码有明显的错误，请指出:\n\n${text}`;
+    let userPrompt = `Explain the following code in ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
     const body = {
         model: 'gpt-3.5-turbo',
@@ -71,10 +71,10 @@ export async function translate(text, from, to) {
         if (choices) {
             let target = choices[0].message.content.trim();
             if (target) {
-                if (target.startsWith('"') || target.startsWith('{')) {
+                if (target.startsWith('"')) {
                     target = target.slice(1);
                 }
-                if (target.endsWith('"') || target.endsWith('}')) {
+                if (target.endsWith('"')) {
                     target = target.slice(0, -1);
                 }
                 return target;

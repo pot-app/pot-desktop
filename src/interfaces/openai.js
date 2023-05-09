@@ -58,9 +58,9 @@ export async function translate(text, from, to, set) {
     let userPrompt = '';
     systemPrompt = prompt;
     if (from == 'auto') {
-        userPrompt = `Translate to ${supportLanguage[to]}:\n"""\n{${text}}\n"""`;
+        userPrompt = `Translate to ${supportLanguage[to]}:\n"""\n${text}\n"""`;
     } else {
-        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]}:\n"""\n{${text}}\n"""`;
+        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]}:\n"""\n${text}\n"""`;
     }
 
     const body = {
@@ -88,10 +88,10 @@ export async function translate(text, from, to, set) {
         if (choices) {
             let target = choices[0].message.content.trim();
             if (target) {
-                if (target.startsWith('{')) {
+                if (target.startsWith('"')) {
                     target = target.slice(1);
                 }
-                if (target.endsWith('}')) {
+                if (target.endsWith('"')) {
                     target = target.slice(0, -1);
                 }
                 return target;
