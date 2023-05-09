@@ -14,7 +14,7 @@ export const info = {
     needs: [],
 };
 //必须向外暴露translate
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     // 获取语言映射
     const { supportLanguage } = info;
 
@@ -44,7 +44,7 @@ export async function translate(text, from, to) {
         if (content.trim().split(' ') == 1) {
             throw '查词失败';
         } else {
-            return content;
+            setText(content);
         }
     } else {
         throw 'http请求出错\n' + JSON.stringify(res);

@@ -21,7 +21,7 @@ export const info = {
     needs: [],
 };
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
 
     function initData(source_lang, target_lang) {
@@ -94,10 +94,11 @@ export async function translate(text, from, to) {
             if (result.result.lang == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    return translate(text, from, secondLanguage);
+                    await translate(text, from, secondLanguage, setText);
+                    return
                 }
             }
-            return result.result.texts[0].text;
+            setText(result.result.texts[0].text);
         } else {
             throw JSON.stringify(result);
         }

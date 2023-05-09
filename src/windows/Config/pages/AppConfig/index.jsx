@@ -17,6 +17,7 @@ import {
     defaultPinedAtom,
     dynamicTranslateAtom,
     deleteNewlineAtom,
+    openaiStreamAtom,
     targetLanguageAtom,
     secondLanguageAtom,
     defaultInterfaceAtom,
@@ -38,6 +39,7 @@ export default function AppConfig() {
     const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
     const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
+    const [openaiStream, setOpenaiStream] = useAtom(openaiStreamAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [secondLanguage, setSecondLanguage] = useAtom(secondLanguageAtom);
@@ -272,6 +274,20 @@ export default function AppConfig() {
                         }
                         label='记住目标语言'
                     />
+                    <Tooltip title='开启流式输出后无法使用软件内代理，只能开启全局代理'>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={openaiStream}
+                                    onChange={(e) => {
+                                        setOpenaiStream(e.target.checked);
+                                        set('openai_stream', e.target.checked);
+                                    }}
+                                />
+                            }
+                            label='OpenAI 流式输出'
+                        />
+                    </Tooltip>
                 </ConfigItem>
                 <ConfigItem label='目标语言'>
                     <Select

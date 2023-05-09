@@ -25,7 +25,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         return '该接口不支持该语言';
@@ -59,7 +59,8 @@ export async function translate(text, from, to) {
             if (result[2] == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    return translate(text, from, secondLanguage);
+                    await translate(text, from, secondLanguage, setText);
+                    return
                 }
             }
         }
@@ -81,15 +82,16 @@ export async function translate(text, from, to) {
                 }
                 target += '\n';
             }
-            return target;
-        }
-        // 翻译模式
-        for (let r of result[0]) {
-            if (r[0]) {
-                target = target + r[0];
+            setText(target);
+        } else {
+            // 翻译模式
+            for (let r of result[0]) {
+                if (r[0]) {
+                    target = target + r[0];
+                }
             }
+            setText(target);
         }
-        return target;
     } else {
         throw 'http请求出错\n' + JSON.stringify(res);
     }

@@ -36,7 +36,7 @@ export const info = {
     ],
 };
 //必须向外暴露translate
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
@@ -157,10 +157,11 @@ export async function translate(text, from, to) {
             if (Response['Source'] == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    return translate(text, from, secondLanguage);
+                    await translate(text, from, secondLanguage, setText);
+                    return
                 }
             }
-            return Response['TargetText'];
+            setText(Response['TargetText']);
         } else {
             throw JSON.stringify(result);
         }

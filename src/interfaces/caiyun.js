@@ -18,7 +18,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
     const token = get('caiyun_token') ?? '';
@@ -57,10 +57,11 @@ export async function translate(text, from, to) {
             if (target == text) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {
-                    return translate(text, from, secondLanguage);
+                    await translate(text, from, secondLanguage, setText);
+                    return
                 }
             }
-            return target;
+            setText(target);
         } else {
             throw JSON.stringify(result);
         }

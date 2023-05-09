@@ -63,9 +63,9 @@ export default function TargetArea() {
         setAddedAnki(false);
         setLoading(true);
         let translator = interfaces[translateInterface];
-        translator.translate(text, from, to).then(
+        translator.translate(text, from, to, setTargetText).then(
             (v) => {
-                setTargetText(v);
+                // setTargetText(v);
                 setLoading(false);
             },
             (e) => {

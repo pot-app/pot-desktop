@@ -26,7 +26,6 @@ export const info = {
             place_hold: '',
             display_name: 'ApiKey',
         },
-
         {
             config_key: 'openai_prompt',
             place_hold: 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
@@ -35,7 +34,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to, set) {
+export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
     let domain = get('openai_domain') ?? 'api.openai.com';
     if (domain == '') {
@@ -49,6 +48,7 @@ export async function translate(text, from, to, set) {
     if (prompt == '') {
         prompt = 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
+    const stream = get('openai_stream') ?? false;
 
     const headers = {
         'Content-Type': 'application/json',
@@ -67,6 +67,7 @@ export async function translate(text, from, to, set) {
         model: 'gpt-3.5-turbo',
         temperature: 0,
         max_tokens: 1000,
+        stream: stream,
         top_p: 1,
         frequency_penalty: 1,
         presence_penalty: 1,
@@ -76,32 +77,70 @@ export async function translate(text, from, to, set) {
         ],
     };
 
-    let res = await fetch(`https://${domain}/v1/chat/completions`, {
-        method: 'POST',
-        headers: headers,
-        body: { type: 'Json', payload: body }
-    })
+    if (stream) {
+        const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body),
+            proxy: 'http://127.0.0.1:7890'
+        })
+        if (res.ok) {
+            let target = '';
+            const reader = res.body.getReader()
+            try {
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) {
+                        break
+                    }
+                    const str = new TextDecoder().decode(value)
+                    let datas = str.split('data: ');
 
-    if (res.ok) {
-        let result = res.data;
-        const { choices } = result;
-        if (choices) {
-            let target = choices[0].message.content.trim();
-            if (target) {
-                if (target.startsWith('"')) {
-                    target = target.slice(1);
+                    for (let data of datas) {
+                        if (data.trim() != '' && data.trim() != '[DONE]') {
+                            let result = JSON.parse(data.trim())
+                            if (result.choices[0].delta.content) {
+                                target += result.choices[0].delta.content;
+                                setText(target);
+                            }
+                        }
+
+                    }
+
                 }
-                if (target.endsWith('"')) {
-                    target = target.slice(0, -1);
-                }
-                return target;
-            } else {
-                throw JSON.stringify(choices);
+            } finally {
+                reader.releaseLock()
             }
         } else {
-            throw JSON.stringify(result);
+            throw 'http请求出错\n' + JSON.stringify(res);
         }
     } else {
-        throw 'http请求出错\n' + JSON.stringify(res);
+        let res = await fetch(`https://${domain}/v1/chat/completions`, {
+            method: 'POST',
+            headers: headers,
+            body: { type: 'Json', payload: body }
+        })
+        if (res.ok) {
+            let result = res.data;
+            const { choices } = result;
+            if (choices) {
+                let target = choices[0].message.content.trim();
+                if (target) {
+                    if (target.startsWith('"')) {
+                        target = target.slice(1);
+                    }
+                    if (target.endsWith('"')) {
+                        target = target.slice(0, -1);
+                    }
+                    setText(target);
+                } else {
+                    throw JSON.stringify(choices);
+                }
+            } else {
+                throw JSON.stringify(result);
+            }
+        } else {
+            throw 'http请求出错\n' + JSON.stringify(res);
+        }
     }
 }

@@ -32,7 +32,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
     const url = 'https://fanyi-api.baidu.com/api/trans/vip/translate';
     const appid = get('baidu_appid') ?? '';
@@ -67,14 +67,15 @@ export async function translate(text, from, to) {
             if (sourceLanguage == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    return translate(text, from, secondLanguage);
+                    await translate(text, from, secondLanguage, setText);
+                    return
                 }
             }
             const { trans_result } = result;
             for (let i in trans_result) {
                 target = target + trans_result[i]['dst'] + '\n';
             }
-            return target;
+            setText(target);
         } else {
             throw JSON.stringify(result);
         }
