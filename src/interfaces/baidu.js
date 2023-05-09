@@ -39,10 +39,10 @@ export async function translate(text, from, to, setText) {
     const secret = get('baidu_secret') ?? '';
     const salt = nanoid();
     if (appid == '' || secret == '') {
-        return '请先配置appid和secret';
+        throw '请先配置appid和secret';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     const str = appid + text + salt + secret;

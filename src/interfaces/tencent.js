@@ -44,10 +44,10 @@ export async function translate(text, from, to, setText) {
     const SecretKey = get('tencent_secretkey') ?? '';
 
     if (SecretId == '' || SecretKey == '') {
-        return '请先配置SecretId和SecretKey';
+        throw '请先配置SecretId和SecretKey';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     function sha256(message, secret = '') {

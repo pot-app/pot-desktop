@@ -28,7 +28,7 @@ export const info = {
 export async function translate(text, from, to, setText) {
     const { supportLanguage } = info;
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     let domain = get('google_proxy') ?? 'translate.google.com';

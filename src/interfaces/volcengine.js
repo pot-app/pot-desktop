@@ -44,10 +44,10 @@ export async function translate(text, from, to, setText) {
     const secret = get('volcengine_secret') ?? '';
 
     if (appid == '' || secret == '') {
-        return '请先配置Access Id和Access Key';
+        throw '请先配置Access Id和Access Key';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     const serviceVersion = '2020-06-01';

@@ -23,10 +23,10 @@ export async function translate(text, from, to, setText) {
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
     const token = get('caiyun_token') ?? '';
     if (token == '') {
-        return '请先配置token';
+        throw '请先配置token';
     }
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     const body = {

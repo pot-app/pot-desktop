@@ -58,7 +58,7 @@ export async function translate(text, from, to, setText) {
     }
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     const url = 'https://www2.deepl.com/jsonrpc';

@@ -20,10 +20,10 @@ export async function translate(text, from, to, setText) {
 
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
     if (text.split(' ').length != 1) {
-        return '该接口只支持查词';
+        throw '该接口只支持查词';
     }
 
     let res = await fetch('https://cn.bing.com/dict/search', {

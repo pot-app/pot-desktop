@@ -48,10 +48,10 @@ export async function translate(text, from, to, setText) {
         return rand * 1000;
     }
     if (accesskey_id == '' || accesskey_secret == '') {
-        return '请先配置AccessKey ID和AccessKey Secret';
+        throw '请先配置AccessKey ID和AccessKey Secret';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        return '该接口不支持该语言';
+        throw '该接口不支持该语言';
     }
 
     let today = new Date();

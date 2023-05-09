@@ -32,7 +32,7 @@ export async function translate(text, from, to, setText) {
     }
     const apikey = get('openai_apikey') ?? '';
     if (apikey == '') {
-        return '请先配置apikey';
+        throw '请先配置apikey';
     }
     let prompt = get('openai_code_prompt') ?? '';
     if (prompt == '') {
