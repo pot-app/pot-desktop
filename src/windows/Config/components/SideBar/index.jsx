@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import PhonelinkRoundedIcon from '@mui/icons-material/PhonelinkRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
+import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import KeyboardRoundedIcon from '@mui/icons-material/KeyboardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
@@ -27,6 +29,28 @@ export default function SideBar() {
                 }}
             >
                 应用设置
+            </Button>
+            <Button
+                fullWidth
+                size='large'
+                variant={setStyle('/translate')}
+                startIcon={<TranslateRoundedIcon />}
+                onClick={() => {
+                    navigate('/translate');
+                }}
+            >
+                翻译设置
+            </Button>
+            <Button
+                fullWidth
+                size='large'
+                variant={setStyle('/external')}
+                startIcon={<PhonelinkRoundedIcon />}
+                onClick={() => {
+                    navigate('/external');
+                }}
+            >
+                外联设置
             </Button>
             <Button
                 fullWidth
