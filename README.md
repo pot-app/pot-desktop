@@ -9,11 +9,11 @@
 > [QQ 交流群](https://cdn.staticaly.com/gh/Pylogmon/pot/master/asset/qq_group.jpg))
 
 ![License](https://img.shields.io/github/license/Pylogmon/pot.svg)
-![Tauri](https://img.shields.io/badge/Tauri-1.2.4-blue?logo=tauri)
+![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
-![MacOS](https://img.shields.io/badge/-macOS-red?&logo=apple&logoColor=white)
+![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
 
 <br/>
