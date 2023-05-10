@@ -116,7 +116,7 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
         match register_shortcut(key) {
             Ok(_) => {
                 Notification::new(&handle.config().tauri.bundle.identifier)
-                    .title("快捷键设置成功")
+                    .title("快捷键注册成功")
                     .icon("pot")
                     .show()
                     .unwrap();

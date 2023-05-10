@@ -1,4 +1,4 @@
-import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip, Snackbar, Alert } from '@mui/material';
+import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip } from '@mui/material';
 import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import LibraryAddRoundedIcon from '@mui/icons-material/LibraryAddRounded';
@@ -6,6 +6,7 @@ import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
@@ -24,9 +25,6 @@ export default function TargetArea() {
 
     const [translateInterface, setTranslateInterface] = useState(get('interface') ?? 'deepl');
     const [loading, setLoading] = useState(false);
-    const [toasted, setToasted] = useState(false);
-    const [msgSeverity, setMsgSeverity] = useState('success');
-    const [message, setMessage] = useState('');
     const [targetText, setTargetText] = useState('');
     const [addedAnki, setAddedAnki] = useState(false);
     const [addedEudic, setAddedEudic] = useState(false);
@@ -64,8 +62,7 @@ export default function TargetArea() {
         setLoading(true);
         let translator = interfaces[translateInterface];
         translator.translate(text, from, to, setTargetText).then(
-            (v) => {
-                // setTargetText(v);
+            (_) => {
                 setLoading(false);
             },
             (e) => {
@@ -74,15 +71,16 @@ export default function TargetArea() {
             }
         );
     }
-    function toast(msg, severity) {
-        setMessage(msg);
-        setMsgSeverity(severity);
-        setToasted(true);
-    }
+
     // 复制文本的回调
     function copy(who) {
         writeText(who).then((_) => {
-            toast('已写入剪切板', 'success');
+            toast.success('已写入剪切板', {
+                style: {
+                    background: theme.palette.background.default,
+                    color: theme.palette.text.primary,
+                },
+            });
         });
     }
 
@@ -116,33 +114,19 @@ export default function TargetArea() {
                 });
             },
             (_) => {
-                toast('Anki没有启动或配置错误', 'warning');
+                toast.error('Anki没有启动或配置错误', {
+                    style: {
+                        background: theme.palette.background.default,
+                        color: theme.palette.text.primary,
+                    },
+                });
             }
         );
     }
 
     return (
         <Card className='targetarea'>
-            <Snackbar
-                open={toasted}
-                autoHideDuration={2000}
-                onClose={() => {
-                    setToasted(false);
-                }}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-            >
-                <Alert
-                    onClose={() => {
-                        setToasted(false);
-                    }}
-                    severity={msgSeverity}
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
+            <Toaster />
             <Box className='interface-selector-area'>
                 <Select
                     sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
@@ -250,11 +234,21 @@ export default function TargetArea() {
                             onClick={() => {
                                 addToEudic(sourceText).then(
                                     (v) => {
-                                        toast(v, 'success');
+                                        toast.success(v, {
+                                            style: {
+                                                background: theme.palette.background.default,
+                                                color: theme.palette.text.primary,
+                                            },
+                                        });
                                         setAddedEudic(true);
                                     },
                                     (e) => {
-                                        toast(String(e), 'warning');
+                                        toast.error(String(e), {
+                                            style: {
+                                                background: theme.palette.background.default,
+                                                color: theme.palette.text.primary,
+                                            },
+                                        });
                                     }
                                 );
                             }}

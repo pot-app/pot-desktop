@@ -1,6 +1,7 @@
 import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip } from '@mui/material';
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
-import { notification } from '@tauri-apps/api';
+import toast, { Toaster } from 'react-hot-toast';
+import { useTheme } from '@mui/material/styles';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import React from 'react';
@@ -54,9 +55,11 @@ export default function AppConfig() {
     const [eudicCategoryName, setEudicCategoryName] = useAtom(eudicCategoryNameAtom);
     const [eudicToken, setEudicToken] = useAtom(eudicTokenAtom);
     const [theme, setTheme] = useAtom(themeAtom);
+    const muitheme = useTheme();
 
     return (
         <>
+            <Toaster />
             <ConfigList label='应用设置'>
                 <ConfigItem>
                     <FormControlLabel
@@ -69,9 +72,11 @@ export default function AppConfig() {
                                         isEnabled().then((v) => {
                                             if (!v) {
                                                 enable().then((_) => {
-                                                    notification.sendNotification({
-                                                        title: '设置开机启动',
-                                                        body: '已设置为开机启动',
+                                                    toast.success('已设置开机启动', {
+                                                        style: {
+                                                            background: muitheme.palette.background.default,
+                                                            color: muitheme.palette.text.primary,
+                                                        },
                                                     });
                                                 });
                                             }
@@ -80,9 +85,11 @@ export default function AppConfig() {
                                         isEnabled().then((v) => {
                                             if (v) {
                                                 disable().then((_) => {
-                                                    notification.sendNotification({
-                                                        title: '取消开机启动',
-                                                        body: '已取消开机启动',
+                                                    toast.success('已取消开机启动', {
+                                                        style: {
+                                                            background: muitheme.palette.background.default,
+                                                            color: muitheme.palette.text.primary,
+                                                        },
                                                     });
                                                 });
                                             }

@@ -1,9 +1,11 @@
-import { Card, Box, InputBase, IconButton, Button as MuiButton, Tooltip, Snackbar, Alert } from '@mui/material';
+import { Card, Box, InputBase, IconButton, Button as MuiButton, Tooltip } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import React, { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useTheme } from '@mui/material/styles';
 import { atom, useSetAtom } from 'jotai';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { appWindow } from '@tauri-apps/api/window';
@@ -16,8 +18,8 @@ export const sourceTextAtom = atom('');
 export default function SourceArea() {
     const [dynamicTranslate, _] = useState(get('dynamic_translate') ?? false);
     const setSourceText = useSetAtom(sourceTextAtom);
-    const [copyed, setCopyed] = useState(false);
     const [text, setText] = useState('');
+    const theme = useTheme();
 
     useEffect(() => {
         if (appWindow.label != 'persistent') {
@@ -39,7 +41,12 @@ export default function SourceArea() {
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {
-            setCopyed(true);
+            toast.success('已写入剪切板', {
+                style: {
+                    background: theme.palette.background.default,
+                    color: theme.palette.text.primary,
+                },
+            });
         });
     }
 
@@ -51,26 +58,7 @@ export default function SourceArea() {
 
     return (
         <Card className='sourcearea'>
-            <Snackbar
-                open={copyed}
-                autoHideDuration={2000}
-                onClose={() => {
-                    setCopyed(false);
-                }}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-            >
-                <Alert
-                    onClose={() => {
-                        setCopyed(false);
-                    }}
-                    severity='success'
-                >
-                    已写入剪切板
-                </Alert>
-            </Snackbar>
+            <Toaster />
             <Box className='overflow-sourcearea'>
                 <InputBase
                     autoFocus

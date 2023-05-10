@@ -26,6 +26,7 @@
         "nanoid": "^4.0.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-hot-toast": "^2.4.1",
         "react-router-dom": "^6.10.0",
         "react-spinners": "^0.13.8",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart"

@@ -1,8 +1,9 @@
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { writeText } from '@tauri-apps/api/clipboard';
+import toast, { Toaster } from 'react-hot-toast';
 import { ask } from '@tauri-apps/api/dialog';
-import { notification, app } from '@tauri-apps/api';
+import { app } from '@tauri-apps/api';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Button, Box } from '@mui/material';
@@ -28,7 +29,12 @@ export default function AppInfo() {
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {
-            setCopyed(true);
+            toast.success('已写入剪切板', {
+                style: {
+                    background: theme.palette.background.default,
+                    color: theme.palette.text.primary,
+                },
+            });
         });
     }
 
@@ -39,36 +45,42 @@ export default function AppInfo() {
                 if (update.shouldUpdate) {
                     ask(update.manifest.body, { title: '新版本可用,是否更新？', type: 'info' }).then((install) => {
                         if (install) {
-                            notification.sendNotification({
-                                title: '正在下载更新，请耐心等待',
-                                icon: 'pot',
+                            toast.loading('正在下载更新，请耐心等待', {
+                                style: {
+                                    background: theme.palette.background.default,
+                                    color: theme.palette.text.primary,
+                                },
                             });
                             installUpdate().then(
                                 (_) => {},
                                 (e) => {
-                                    notification.sendNotification({
-                                        title: '更新出错',
-                                        body: e,
-                                        icon: 'pot',
+                                    toast.error('更新出错\n' + e, {
+                                        style: {
+                                            background: theme.palette.background.default,
+                                            color: theme.palette.text.primary,
+                                        },
                                     });
                                 }
                             );
                         }
                     });
                 } else {
-                    notification.sendNotification({
-                        title: '已经是最新版本',
-                        icon: 'pot',
+                    toast.success('已经是最新版本', {
+                        style: {
+                            background: theme.palette.background.default,
+                            color: theme.palette.text.primary,
+                        },
                     });
                 }
                 setChecking(false);
             },
             (e) => {
                 setChecking(false);
-                notification.sendNotification({
-                    title: '检查更新失败，请检查网络设置',
-                    icon: 'pot',
-                    body: e,
+                toast.error(`检查更新失败，请检查网络设置\n${e}`, {
+                    style: {
+                        background: theme.palette.background.default,
+                        color: theme.palette.text.primary,
+                    },
                 });
             }
         );
@@ -76,6 +88,7 @@ export default function AppInfo() {
 
     return (
         <ConfigList>
+            <Toaster />
             <Box className='logo'>
                 <img
                     src='icon.png'
