@@ -1,16 +1,9 @@
-## 0.2.6 (2023-05-09)
-
-### New feature:
-
-- 添加OpenAI流式输出([`3777f0e`](https://github.com/Pylogmon/pot/commit/3777f0e51c890a60b03eb836f3f1d20ba8386352)) (by 派了个萌)
+## 0.2.7 (2023-05-11)
 
 ### Bugs fixed:
 
-- 修复错误输出([`1df8bc4`](https://github.com/Pylogmon/pot/commit/1df8bc40e8530be425a6a7d11e8ec01d6ead34e7)) (by 派了个萌)
-- 修复openai翻译结果有{}([`85001b2`](https://github.com/Pylogmon/pot/commit/85001b2b905f93c33cc6e1642958448b06be6f8b)) (by Pylogmon)
+- 修复Linux下OpenAI Stream出错的问题([`e4d0272`](https://github.com/Pylogmon/pot/commit/e4d02720bc4b30e6259ebbdc69f9cc75aa1cf686)) (by Pylogmon)
 
-### Performance improves:
+## Refactor:
 
-- 优化OpenAI Other Prompt([`4bee271`](https://github.com/Pylogmon/pot/commit/4bee271a4b1309c8b4468f249d73e63698d70498)) (by Pylogmon)
-- 完善所有接口错误处理([`cde8e05`](https://github.com/Pylogmon/pot/commit/cde8e05fbfe7572941a6154d2dc44a783070ce79)) (by Pylogmon)
-- 优化OpenAI 翻译 Prompt，改善翻译质量([`bcb36fb`](https://github.com/Pylogmon/pot/commit/bcb36fb1ee49ccea2cc92625653ce3ebd8c44a32)) (by 派了个萌)
+- 优化设置页面分类([`1c6c8eb`](https://github.com/Pylogmon/pot/commit/1c6c8eb30efb65fb199ab4bfd64de5a944834e18)) (by Pylogmon)
