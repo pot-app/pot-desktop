@@ -15,15 +15,18 @@ let unlisten = listen('tauri://blur', () => {
 });
 
 export default function TopBar() {
-    const [pined, setPined] = useState(appWindow.label == 'persistent' ? get('default_pined') ?? true : false);
+    const [pined, setPined] = useState(get('default_pined') ?? true);
     const [ismacos, setIsmacos] = useState(false);
 
     useEffect(() => {
         invoke('is_macos').then((v) => {
             setIsmacos(v);
         });
-        if (appWindow.label != 'config' && appWindow.label != 'util') {
+        if (appWindow.label == 'persistent') {
             appWindow.setAlwaysOnTop(pined);
+        }
+        if (appWindow.label == 'translator') {
+            appWindow.setAlwaysOnTop(true);
         }
     }, []);
 
