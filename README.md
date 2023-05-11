@@ -52,7 +52,7 @@
 
 <img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-contributions.svg?raw=true" width="80%"/>
 
-参与贡献请阅读 [接口贡献指南](./CONTRIBUTING.md)
+参与贡献请阅读 [接口贡献指南](https://pot.pylogmon.cn/docs/contribute/intro)
 
 <div align="center">
 <img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-stars.svg?raw=true" width="80%"/>
