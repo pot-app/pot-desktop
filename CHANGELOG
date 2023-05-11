@@ -1,9 +1,7 @@
-## 0.2.7 (2023-05-11)
+## 0.2.8 (2023-05-11)
 
 ### Bugs fixed:
 
-- 修复Linux下OpenAI Stream出错的问题([`e4d0272`](https://github.com/Pylogmon/pot/commit/e4d02720bc4b30e6259ebbdc69f9cc75aa1cf686)) (by Pylogmon)
+-   修复 Gnome 下窗口无法置顶([`15f80a5`](https://github.com/Pylogmon/pot/commit/15f80a56b8d291f43a003aec79f2ec6e938292d3)) (by Pylogmon)
 
-## Refactor:
-
-- 优化设置页面分类([`1c6c8eb`](https://github.com/Pylogmon/pot/commit/1c6c8eb30efb65fb199ab4bfd64de5a944834e18)) (by Pylogmon)
+-   修复新版本发布期间无法检查更新的问题([`8b60b46`](https://github.com/Pylogmon/pot/commit/8b60b46958a68e06e15d8cf5556063139cd7b6a1)) (by Pylogmon)
