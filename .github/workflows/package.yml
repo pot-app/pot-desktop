@@ -362,7 +362,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-          
+        with:
+          fetch-depth: 0
+
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -379,7 +391,7 @@ jobs:
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: CHANGELOG
+          body: ${{env.VERSION}}
           tag_name: updater
           token: ${{ secrets.RELEASE_TOKEN }}
           files: update.json
