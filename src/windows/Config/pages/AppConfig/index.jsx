@@ -2,9 +2,9 @@ import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox } from '@m
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import React from 'react';
-import 'flag-icons/css/flag-icons.min.css';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';

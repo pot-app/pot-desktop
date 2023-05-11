@@ -1,12 +1,12 @@
 import { Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip } from '@mui/material';
+import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import * as interfaces from '../../../../interfaces';
-import language from '../../../../global/language';
-import 'flag-icons/css/flag-icons.min.css';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
+import language from '../../../../global/language';
 import { set } from '../../../../global/config';
 import {
     autoCopyAtom,

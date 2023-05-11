@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appWindow } from '@tauri-apps/api/window';
-import TopBar from './components/TopBar';
-import SourceArea from './components/SourceArea';
+import { useMediaQuery } from '@mui/material';
+import React, { useEffect } from 'react';
 import LanguageSelector from './components/LanguageSelector';
 import TargetArea from './components/TargetArea';
+import SourceArea from './components/SourceArea';
+import TopBar from './components/TopBar';
 import { light, dark } from '../themes';
 import { get } from '../main';
 

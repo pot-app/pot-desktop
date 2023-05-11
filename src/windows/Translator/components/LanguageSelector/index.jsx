@@ -1,11 +1,11 @@
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
+import 'flag-icons/css/flag-icons.min.css';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
-import 'flag-icons/css/flag-icons.min.css';
+import { nanoid } from 'nanoid';
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
-import { nanoid } from 'nanoid';
 import { get } from '../../../main';
 import './style.css';
 

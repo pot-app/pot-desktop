@@ -1,6 +1,6 @@
-import React from 'react';
-import { useAtom } from 'jotai';
 import { TextField, Button, InputAdornment } from '@mui/material';
+import { useAtom } from 'jotai';
+import React from 'react';
 import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../..';
 import ConfigItem from '../../components/ConfigItem';
 import ConfigList from '../../components/ConfigList';
@@ -13,13 +13,13 @@ export default function ShortCutConfig() {
 
     const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
 
-    function keyDown(e, value, set) {
+    function keyDown(e, value, setKey) {
         if (e.key.length == 1) {
             if (value) {
                 let values = value.toUpperCase().split('+');
                 let key = e.key.toUpperCase();
                 if (!value.startsWith('F') && !values.includes(key)) {
-                    set(value + '+' + key);
+                    setKey(value + '+' + key);
                 }
             }
         } else {
@@ -27,18 +27,18 @@ export default function ShortCutConfig() {
                 if (value) {
                     let values = value.split('+');
                     if (!value.startsWith('F') && !values.includes(e.key)) {
-                        set(value + '+' + e.key);
+                        setKey(value + '+' + e.key);
                     } else {
-                        set(e.key);
+                        setKey(e.key);
                     }
                 } else {
-                    set(e.key);
+                    setKey(e.key);
                 }
             } else if (e.key.startsWith('F')) {
-                set(e.key);
+                setKey(e.key);
             } else {
                 if (e.keyCode == 8) {
-                    set('');
+                    setKey('');
                 }
             }
         }

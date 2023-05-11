@@ -3,13 +3,13 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
+import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
-import { atom, useSetAtom } from 'jotai';
-import { writeText } from '@tauri-apps/api/clipboard';
-import { appWindow } from '@tauri-apps/api/window';
 import { invoke } from '@tauri-apps/api/tauri';
+import { atom, useSetAtom } from 'jotai';
 import { get } from '../../../main';
 import './style.css';
 

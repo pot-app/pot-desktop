@@ -1,11 +1,11 @@
 import { TextField, Switch, FormControlLabel } from '@mui/material';
-import React from 'react';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
+import React from 'react';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
-import { interfaceConfigsAtom } from '../..';
 import { set } from '../../../../global/config';
+import { interfaceConfigsAtom } from '../..';
 
 export default function InterfaceConfig() {
     const [interfaceConfigs, setInterfaceConfigs] = useAtom(interfaceConfigsAtom);

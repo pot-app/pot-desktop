@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
-import { listen } from '@tauri-apps/api/event';
 import { Box, IconButton } from '@mui/material';
+import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
 import { get } from '../../../main';
 import './style.css';
@@ -25,8 +25,12 @@ export default function TopBar() {
         if (appWindow.label == 'persistent') {
             appWindow.setAlwaysOnTop(pined);
         }
+        // 使划词翻译窗口置顶，但是pined图标显示为false
+        // 这样一来pin在划词翻译窗口的作用相当于控制是否在失去焦点的时候关闭
+        // 而且对于划词翻译窗口确实需要使其一直处于置顶状态
         if (appWindow.label == 'translator') {
             appWindow.setAlwaysOnTop(true);
+            setPined(false);
         }
     }, []);
 

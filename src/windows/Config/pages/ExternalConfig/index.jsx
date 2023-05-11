@@ -1,11 +1,11 @@
 import { TextField, FormControlLabel, Checkbox } from '@mui/material';
+import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import React from 'react';
-import 'flag-icons/css/flag-icons.min.css';
+import { ankiEnableAtom, eudicEnableAtom, eudicCategoryNameAtom, eudicTokenAtom } from '../..';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';
-import { ankiEnableAtom, eudicEnableAtom, eudicCategoryNameAtom, eudicTokenAtom } from '../..';
 
 export default function ExternalConfig() {
     const [ankiEnable, setAnkiEnable] = useAtom(ankiEnableAtom);

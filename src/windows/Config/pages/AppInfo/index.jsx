@@ -1,12 +1,12 @@
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
-import PulseLoader from 'react-spinners/PulseLoader';
 import { writeText } from '@tauri-apps/api/clipboard';
-import toast, { Toaster } from 'react-hot-toast';
-import { ask } from '@tauri-apps/api/dialog';
-import { app } from '@tauri-apps/api';
+import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { ask } from '@tauri-apps/api/dialog';
 import { Button, Box } from '@mui/material';
+import { app } from '@tauri-apps/api';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import './style.css';
