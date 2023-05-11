@@ -1,3 +1,5 @@
+// 原则上都用tauri提供的fetch发送请求，因为只要这样才能使软件内代理生效
+// 实在不行就用axios吧
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -42,7 +44,7 @@ export async function translate(text, from, to) {
     }
     // 完成翻译过程
     // ......
-    // 使用request发送请求 示例代码如下
+
     let proxy = get('proxy') ?? '';
     let res = await fetch(url, {
         method: 'POST',
