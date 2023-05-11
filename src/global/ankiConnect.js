@@ -4,8 +4,8 @@ export async function ankiConnect(action, version, params = {}) {
         method: 'POST',
         body: {
             type: 'Json',
-            payload: { action, version, params }
-        }
-    })
+            payload: { action, version, params },
+        },
+    });
     return res.data;
 }

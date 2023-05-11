@@ -1,9 +1,9 @@
-import fetch from "node-fetch";
-import fs from "fs";
+import fetch from 'node-fetch';
+import fs from 'fs';
 
 async function resolveUpdater() {
     if (process.env.GITHUB_TOKEN === undefined) {
-        throw new Error("GITHUB_TOKEN is required");
+        throw new Error('GITHUB_TOKEN is required');
     }
 
     const TOKEN = process.env.GITHUB_TOKEN;
@@ -12,7 +12,7 @@ async function resolveUpdater() {
 
     const darwin_aarch64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_aarch64.app.tar.gz`;
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
-    const darwin_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_x86_64.app.tar.gz`;
+    const darwin_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
     const linux_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
     const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
@@ -24,23 +24,25 @@ async function resolveUpdater() {
         notes: changelog,
         pub_date: new Date().toISOString(),
         platforms: {
-            "darwin-aarch64": { signature: darwin_aarch64_sig, url: 'https://gh.pylogmon.cn/' + darwin_aarch64 },
-            "darwin-x86_64": { signature: darwin_x86_64_sig, url: 'https://gh.pylogmon.cn/' + darwin_x86_64 },
-            "linux-x86_64": { signature: linux_x86_64_sig, url: 'https://gh.pylogmon.cn/' + linux_x86_64 },
-            "windows-x86_64": { signature: windows_x86_64_sig, url: 'https://gh.pylogmon.cn/' + windows_x86_64 },
+            'darwin-aarch64': { signature: darwin_aarch64_sig, url: 'https://gh.pylogmon.cn/' + darwin_aarch64 },
+            'darwin-x86_64': { signature: darwin_x86_64_sig, url: 'https://gh.pylogmon.cn/' + darwin_x86_64 },
+            'linux-x86_64': { signature: linux_x86_64_sig, url: 'https://gh.pylogmon.cn/' + linux_x86_64 },
+            'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://gh.pylogmon.cn/' + windows_x86_64 },
         },
     };
 
-    fs.writeFile('./update.json', JSON.stringify(updateData), e => { console.log(e) });
+    fs.writeFile('./update.json', JSON.stringify(updateData), (e) => {
+        console.log(e);
+    });
 }
 
 async function getVersion(token) {
     const res = await fetch('https://api.github.com/repos/Pylogmon/pot/releases/latest', {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
     if (res.ok) {
         let data = await res.json();
@@ -54,9 +56,9 @@ async function getChangeLog(token) {
     const res = await fetch('https://api.github.com/repos/Pylogmon/pot/releases/latest', {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
     if (res.ok) {
         let data = await res.json();
@@ -76,8 +78,8 @@ async function getChangeLog(token) {
 
 async function getSignature(url) {
     const response = await fetch(url, {
-        method: "GET",
-        headers: { "Content-Type": "application/octet-stream" },
+        method: 'GET',
+        headers: { 'Content-Type': 'application/octet-stream' },
     });
 
     return response.text();

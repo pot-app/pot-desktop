@@ -143,13 +143,13 @@ export async function translate(text, from, to, setText) {
             'X-TC-Action': action,
             'X-TC-Timestamp': timestamp.toString(),
             'X-TC-Version': version,
-            'X-TC-Region': region
+            'X-TC-Region': region,
         },
         body: {
             type: 'Text',
-            payload: payload
-        }
-    })
+            payload: payload,
+        },
+    });
     if (res.ok) {
         let result = res.data;
         let { Response } = result;
@@ -158,7 +158,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             setText(Response['TargetText']);

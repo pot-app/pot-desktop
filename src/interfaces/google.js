@@ -36,22 +36,25 @@ export async function translate(text, from, to, setText) {
         domain = 'translate.google.com';
     }
 
-    let res = await fetch(`https://${domain}/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`, {
-        method: 'GET',
-        query: {
-            client: 'gtx',
-            sl: supportLanguage[from],
-            tl: supportLanguage[to],
-            hl: supportLanguage[to],
-            ie: 'UTF-8',
-            oe: 'UTF-8',
-            otf: '1',
-            ssel: '0',
-            tsel: '0',
-            kc: '7',
-            q: text,
+    let res = await fetch(
+        `https://${domain}/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
+        {
+            method: 'GET',
+            query: {
+                client: 'gtx',
+                sl: supportLanguage[from],
+                tl: supportLanguage[to],
+                hl: supportLanguage[to],
+                ie: 'UTF-8',
+                oe: 'UTF-8',
+                otf: '1',
+                ssel: '0',
+                tsel: '0',
+                kc: '7',
+                q: text,
+            },
         }
-    })
+    );
     if (res.ok) {
         let result = res.data;
         let target = '';
@@ -60,7 +63,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
         }

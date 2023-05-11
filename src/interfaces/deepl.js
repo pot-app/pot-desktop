@@ -82,12 +82,12 @@ export async function translate(text, from, to, setText) {
         method: 'POST',
         body: {
             type: 'Text',
-            payload: post_str
+            payload: post_str,
         },
         headers: {
             'Content-Type': 'application/json',
-        }
-    })
+        },
+    });
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {
@@ -95,7 +95,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             setText(result.result.texts[0].text);

@@ -6,9 +6,9 @@ export const info = {
     name: '必应词典',
     // 接口支持语言及映射
     supportLanguage: {
-        'auto': 'auto',
+        auto: 'auto',
         'zh-cn': 'zh-cn',
-        'en': 'en-us',
+        en: 'en-us',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)
     needs: [],
@@ -32,8 +32,8 @@ export async function translate(text, from, to, setText) {
             mkt: supportLanguage[to],
             q: text,
         },
-        responseType: 2// 返回Text而不是Json
-    })
+        responseType: 2, // 返回Text而不是Json
+    });
     if (res.ok) {
         let result = res.data;
         const descReg = /<meta name="description" content="([^"]+?)" \/>/;

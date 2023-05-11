@@ -46,9 +46,9 @@ export async function translate(text, from, to, setText) {
         headers: headers,
         body: {
             type: 'Json',
-            payload: body
-        }
-    })
+            payload: body,
+        },
+    });
 
     if (res.ok) {
         let result = res.data;
@@ -58,7 +58,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             setText(target);

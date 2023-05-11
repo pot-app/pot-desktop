@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 export async function addToEudic(text) {
     let token = get('eudic_token') ?? '';
     if (token == '') {
-        throw '请先设置Token'
+        throw '请先设置Token';
     }
     let categoryId = await checkCategory(token);
     return await addWordToCategory(categoryId, text, token);
@@ -19,13 +19,13 @@ async function checkCategory(token) {
     let res = await fetch('https://api.frdic.com/api/open/v1/studylist/category', {
         method: 'GET',
         query: {
-            'language': 'en'
+            language: 'en',
         },
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
-        }
-    })
+            Authorization: token,
+        },
+    });
 
     let result = res.data;
     if (result.data) {
@@ -39,15 +39,15 @@ async function checkCategory(token) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token
+                Authorization: token,
             },
             body: {
                 type: 'Json',
                 payload: {
-                    "language": "en",
-                    "name": name
-                }
-            }
+                    language: 'en',
+                    name: name,
+                },
+            },
         });
         let result1 = res1.data;
         if (result1.data) {
@@ -65,15 +65,16 @@ async function addWordToCategory(id, word, token) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
+            Authorization: token,
         },
         body: {
-            type: 'Json', payload: {
-                'id': id,
-                'language': 'en',
-                'words': [word]
-            }
-        }
+            type: 'Json',
+            payload: {
+                id: id,
+                language: 'en',
+                words: [word],
+            },
+        },
     });
     let result = res.data;
     return result.message;

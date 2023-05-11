@@ -18,9 +18,10 @@ export const info = {
     needs: [
         {
             config_key: 'openai_code_prompt',
-            place_hold: 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.',
+            place_hold:
+                'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.',
             display_name: '自定义Prompt',
-        }
+        },
     ],
 };
 
@@ -36,7 +37,8 @@ export async function translate(text, from, to, setText) {
     }
     let prompt = get('openai_code_prompt') ?? '';
     if (prompt == '') {
-        prompt = 'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
+        prompt =
+            'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     }
     const stream = get('openai_stream') ?? false;
     const headers = {
@@ -66,47 +68,46 @@ export async function translate(text, from, to, setText) {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body),
-            proxy: 'http://127.0.0.1:7890'
-        })
+            proxy: 'http://127.0.0.1:7890',
+        });
         if (res.ok) {
             let target = '';
-            const reader = res.body.getReader()
+            const reader = res.body.getReader();
             try {
                 let temp = '';
                 while (true) {
-                    const { done, value } = await reader.read()
+                    const { done, value } = await reader.read();
                     if (done) {
-                        break
+                        break;
                     }
-                    const str = new TextDecoder().decode(value)
+                    const str = new TextDecoder().decode(value);
                     let datas = str.split('data: ');
                     for (let data of datas) {
                         if (data.trim() != '' && data.trim() != '[DONE]') {
                             try {
                                 if (temp != '') {
                                     data = temp + data.trim();
-                                    let result = JSON.parse(data.trim())
+                                    let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
                                         setText(target);
                                     }
                                     temp = '';
                                 } else {
-
-                                    let result = JSON.parse(data.trim())
+                                    let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
                                         setText(target);
                                     }
                                 }
                             } catch {
-                                temp = data.trim()
+                                temp = data.trim();
                             }
                         }
                     }
                 }
             } finally {
-                reader.releaseLock()
+                reader.releaseLock();
             }
         } else {
             throw 'http请求出错\n' + JSON.stringify(res);
@@ -115,8 +116,8 @@ export async function translate(text, from, to, setText) {
         let res = await fetch(`https://${domain}/v1/chat/completions`, {
             method: 'POST',
             headers: headers,
-            body: { type: 'Json', payload: body }
-        })
+            body: { type: 'Json', payload: body },
+        });
         if (res.ok) {
             let result = res.data;
             const { choices } = result;

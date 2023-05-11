@@ -56,10 +56,10 @@ export async function translate(text, from, to, setText) {
             appid: appid,
             salt: salt,
             sign: sign,
-        }
-    })
+        },
+    });
     if (res.ok) {
-        console.log(res)
+        console.log(res);
         let result = res.data;
         let target = '';
         if (result['from']) {
@@ -68,7 +68,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             const { trans_result } = result;
@@ -80,6 +80,6 @@ export async function translate(text, from, to, setText) {
             throw JSON.stringify(result);
         }
     } else {
-        throw 'http请求出错\n' + JSON.stringify(res)
+        throw 'http请求出错\n' + JSON.stringify(res);
     }
 }

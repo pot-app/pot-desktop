@@ -59,19 +59,23 @@ export async function translate(text, from, to, setText) {
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${supportLanguage[from]}&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(timestamp)}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
+        supportLanguage[from]
+    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
+        timestamp
+    )}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 
     let stringToSign = 'GET' + '&' + encodeURIComponent('/') + '&' + encodeURIComponent(query);
 
-    stringToSign = stringToSign.replaceAll("!", "%2521");
-    stringToSign = stringToSign.replaceAll("'", "%2527");
-    stringToSign = stringToSign.replaceAll("(", "%2528");
-    stringToSign = stringToSign.replaceAll(")", "%2529");
-    stringToSign = stringToSign.replaceAll("*", "%252A");
-    stringToSign = stringToSign.replaceAll("+", "%252B");
-    stringToSign = stringToSign.replaceAll(",", "%252C");
+    stringToSign = stringToSign.replaceAll('!', '%2521');
+    stringToSign = stringToSign.replaceAll("'", '%2527');
+    stringToSign = stringToSign.replaceAll('(', '%2528');
+    stringToSign = stringToSign.replaceAll(')', '%2529');
+    stringToSign = stringToSign.replaceAll('*', '%252A');
+    stringToSign = stringToSign.replaceAll('+', '%252B');
+    stringToSign = stringToSign.replaceAll(',', '%252C');
 
     let signature = base64.stringify(HmacSHA1(stringToSign, accesskey_secret + '&'));
 
@@ -85,12 +89,12 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             setText(result['Data']['Translated']);
         } else {
-            throw JSON.stringify(result)
+            throw JSON.stringify(result);
         }
     } else {
         throw 'http请求出错\n' + JSON.stringify(res);

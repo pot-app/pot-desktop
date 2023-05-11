@@ -153,8 +153,8 @@ export async function translate(text, from, to, setText) {
     let res = await fetch(url, {
         method: method,
         headers: headers,
-        body: { type: 'Text', payload: bodyStr }
-    })
+        body: { type: 'Text', payload: bodyStr },
+    });
 
     if (res.ok) {
         let result = res.data;
@@ -166,7 +166,7 @@ export async function translate(text, from, to, setText) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText);
-                    return
+                    return;
                 }
             }
             var cur = 0,
