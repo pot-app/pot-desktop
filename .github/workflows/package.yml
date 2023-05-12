@@ -104,14 +104,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: popclip/Pot.popclipextz
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: snipdo/pot.pbar
   build-for-macos:
     needs: change-version
@@ -172,14 +172,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
 
   build-for-linux:
@@ -237,14 +237,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
   build-for-windows:
     needs: change-version-for-windows
@@ -305,14 +305,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi*
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: pot_${{needs.change-version-for-windows.outputs.version}}_x64_portable.zip
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
@@ -321,7 +321,7 @@ jobs:
           identifier: Pylogmon.pot
           version: ${{needs.change-version-for-windows.outputs.version}}
           installers-regex: '\.msi$'
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
   build-for-deepin:
     needs: change-version
     strategy:
@@ -352,7 +352,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: src-tauri/target/release/bundle/deb/*.deb
 
   release-update:
@@ -386,12 +386,12 @@ jobs:
       - name: Release updater file
         run: pnpm run updater
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
           body: ${{env.VERSION}}
           tag_name: updater
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           files: update.json

@@ -24,9 +24,9 @@ jobs:
       - name: send message
         run: python3 .github/notify.py
         env:
-          APPID: ${{ secrets.APPID }}
-          TOKEN: ${{ secrets.TOKEN }}
-          CHANNELID: ${{ secrets.CHANNELID }}
+          APPID: ${{ secrets.QQ_APPID }}
+          TOKEN: ${{ secrets.QQ_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
           MESSAGE: |
             🌟Pot 仓库有新动态🌟
             
