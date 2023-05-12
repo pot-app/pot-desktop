@@ -29,6 +29,7 @@ pub fn get_selection_text() -> Result<String, String> {
             // 如果Primary没有变化，就尝试复制一次
             if result.is_empty() || result == last {
                 copy();
+                std::thread::sleep(std::time::Duration::from_millis(200));
                 if let Ok(main_clipboard) = clipboard.load(
                     clipboard.getter.atoms.clipboard,
                     clipboard.getter.atoms.utf8_string,
