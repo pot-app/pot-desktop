@@ -322,7 +322,7 @@ jobs:
           version: ${{needs.change-version-for-windows.outputs.version}}
           installers-regex: '\.msi$'
           token: ${{ secrets.TOKEN }}
-        continue-on-error: true
+          fork-user: Pylogmon
   build-for-deepin:
     needs: change-version
     strategy:
@@ -362,7 +362,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
