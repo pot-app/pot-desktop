@@ -1,5 +1,4 @@
 use crate::StringWrapper;
-use crate::APP;
 
 // 获取选择的文本(Linux)
 #[cfg(target_os = "linux")]
@@ -11,6 +10,7 @@ pub fn get_selection_text() -> Result<String, String> {
     use std::time::Duration;
     use tauri::Manager;
     use x11_clipboard::Clipboard;
+    use crate::APP;
 
     if let Ok(clipboard) = Clipboard::new() {
         if let Ok(primary) = clipboard.load(

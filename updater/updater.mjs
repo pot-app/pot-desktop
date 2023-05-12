@@ -10,13 +10,13 @@ async function resolveUpdater() {
     let version = await getVersion(TOKEN);
     let changelog = await getChangeLog(TOKEN);
 
-    const darwin_aarch64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_aarch64.app.tar.gz`;
+    const darwin_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_aarch64.app.tar.gz`;
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
-    const darwin_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
+    const darwin_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
-    const linux_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
+    const linux_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
     const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
-    const windows_x86_64 = `https://github.com/Pylogmon/pot/releases/download/${version}/pot_${version}_x64_zh-CN.msi.zip`;
+    const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_zh-CN.msi.zip`;
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
 
     let updateData = {
@@ -37,7 +37,7 @@ async function resolveUpdater() {
 }
 
 async function getVersion(token) {
-    const res = await fetch('https://api.github.com/repos/Pylogmon/pot/releases/latest', {
+    const res = await fetch('https://api.github.com/repos/pot-app/pot-desktop/releases/latest', {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ async function getVersion(token) {
 }
 
 async function getChangeLog(token) {
-    const res = await fetch('https://api.github.com/repos/Pylogmon/pot/releases/latest', {
+    const res = await fetch('https://api.github.com/repos/pot-app/pot-desktop/releases/latest', {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,

@@ -111,7 +111,7 @@ export default function AppInfo() {
                     <li>
                         开源协议:&nbsp;&nbsp;
                         <a
-                            href='https://github.com/Pylogmon/pot/blob/master/LICENSE'
+                            href='https://github.com/pot-app/pot-desktop/blob/master/LICENSE'
                             target='_blank'
                         >
                             GPL-3.0
@@ -178,10 +178,10 @@ export default function AppInfo() {
                     <li>
                         Github:&nbsp;&nbsp;
                         <a
-                            href='https://github.com/Pylogmon/pot'
+                            href='https://github.com/pot-app/pot-desktop'
                             target='_blank'
                         >
-                            https://github.com/Pylogmon/pot
+                            https://github.com/pot-app/pot-desktop
                         </a>
                     </li>
                 </ul>
@@ -191,7 +191,7 @@ export default function AppInfo() {
                     <li>
                         提交Bug:&nbsp;&nbsp;
                         <a
-                            href='https://github.com/Pylogmon/pot/issues/new?template=bug.yml'
+                            href='https://github.com/pot-app/pot-desktop/issues/new?template=bug.yml'
                             target='_blank'
                         >
                             提交Issue
@@ -200,7 +200,7 @@ export default function AppInfo() {
                     <li>
                         需求建议:&nbsp;&nbsp;
                         <a
-                            href='https://github.com/Pylogmon/pot/issues/new?template=feature.yml'
+                            href='https://github.com/pot-app/pot-desktop/issues/new?template=feature.yml'
                             target='_blank'
                         >
                             提交Issue

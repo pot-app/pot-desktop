@@ -85,9 +85,9 @@
             "active": true,
             "dialog": false,
             "endpoints": [
-                "https://gh.pylogmon.cn/https://github.com/Pylogmon/pot/releases/download/updater/update.json",
-                "https://github.moeyy.xyz/https://github.com/Pylogmon/pot/releases/download/updater/update.json",
-                "https://github.com/Pylogmon/pot/releases/download/updater/update.json"
+                "https://gh.pylogmon.cn/https://github.com/pot-app/pot-desktop/releases/download/updater/update.json",
+                "https://github.moeyy.xyz/https://github.com/pot-app/pot-desktop/releases/download/updater/update.json",
+                "https://github.com/pot-app/pot-desktop/releases/download/updater/update.json"
             ],
             "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVBRTQxQTNDQjM5QzQzM0EKUldRNlE1eXpQQnJrV21mM1Bram5LRlF6UDA3K0Jab2FYL2lZSWhXTE5McWs2NUdJS0dtYkd5VGMK"
         },

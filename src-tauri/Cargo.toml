@@ -4,7 +4,7 @@ version = "0.0.0"
 description = "A cross-platform translation software"
 authors = ["Pylogmon"]
 license = "GPLv3"
-repository = "https://github.com/Pylogmon/Pot"
+repository = "https://github.com/pot-app/pot-desktop"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

@@ -2,6 +2,6 @@
 
 ### Bugs fixed:
 
--   修复 Gnome 下窗口无法置顶([`15f80a5`](https://github.com/Pylogmon/pot/commit/15f80a56b8d291f43a003aec79f2ec6e938292d3)) (by Pylogmon)
+-   修复 Gnome 下窗口无法置顶([`15f80a5`](https://github.com/pot-app/pot-desktop/commit/15f80a56b8d291f43a003aec79f2ec6e938292d3)) (by Pylogmon)
 
--   修复新版本发布期间无法检查更新的问题([`8b60b46`](https://github.com/Pylogmon/pot/commit/8b60b46958a68e06e15d8cf5556063139cd7b6a1)) (by Pylogmon)
+-   修复新版本发布期间无法检查更新的问题([`8b60b46`](https://github.com/pot-app/pot-desktop/commit/8b60b46958a68e06e15d8cf5556063139cd7b6a1)) (by Pylogmon)
