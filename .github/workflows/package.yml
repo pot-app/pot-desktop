@@ -322,6 +322,7 @@ jobs:
           version: ${{needs.change-version-for-windows.outputs.version}}
           installers-regex: '\.msi$'
           token: ${{ secrets.TOKEN }}
+        continue-on-error: true
   build-for-deepin:
     needs: change-version
     strategy:
