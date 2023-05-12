@@ -50,12 +50,12 @@
 
 </div>
 
-<img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-contributions.svg?raw=true" width="80%"/>
+<img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true" width="80%"/>
 
 参与贡献请阅读 [接口贡献指南](https://pot.pylogmon.cn/docs/contribute/intro)
 
 <div align="center">
-<img src="https://github.com/Pylogmon/Pylogmon/blob/main/pot-stars.svg?raw=true" width="80%"/>
+<img src="https://github.com/pot-app/.github/blob/master/pot-desktop-stars.svg?raw=true" width="80%"/>
 </div>
 
 <div align="center">
