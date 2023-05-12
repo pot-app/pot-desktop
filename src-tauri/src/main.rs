@@ -106,15 +106,11 @@ fn main() {
                 toml::Value::String(String::from("")),
                 app_handle.state(),
             );
-            std::env::set_var("http_proxy",proxy.as_str().unwrap());
-            std::env::set_var("https_proxy",proxy.as_str().unwrap());
-            std::env::set_var("all_proxy",proxy.as_str().unwrap());
+            std::env::set_var("http_proxy", proxy.as_str().unwrap());
+            std::env::set_var("https_proxy", proxy.as_str().unwrap());
+            std::env::set_var("all_proxy", proxy.as_str().unwrap());
             // 检查更新
-            let enable = get_config(
-                "auto_check",
-                toml::Value::Boolean(true),
-                app_handle.state(),
-            );
+            let enable = get_config("auto_check", toml::Value::Boolean(true), app_handle.state());
             let handle = app.handle();
 
             if enable.as_bool().unwrap() {

@@ -1,4 +1,5 @@
 use crate::StringWrapper;
+use crate::APP;
 
 // 获取选择的文本(Linux)
 #[cfg(target_os = "linux")]
@@ -8,27 +9,39 @@ pub fn get_selection_text() -> Result<String, String> {
     //     match session_type.as_str() {
     //         "x11" => {
     use std::time::Duration;
+    use tauri::Manager;
     use x11_clipboard::Clipboard;
 
     if let Ok(clipboard) = Clipboard::new() {
-        if let Ok(v) = clipboard.load(
+        if let Ok(primary) = clipboard.load(
             clipboard.getter.atoms.primary,
             clipboard.getter.atoms.utf8_string,
             clipboard.getter.atoms.property,
             Duration::from_millis(100),
         ) {
-            let v = String::from_utf8_lossy(&v)
+            let mut result = String::from_utf8_lossy(&primary)
                 .trim_matches('\u{0}')
                 .trim()
                 .to_string();
-            clipboard
-                .store(
-                    clipboard.getter.atoms.primary,
+
+            let app_handle = APP.get().unwrap();
+            let last = get_translate_text(app_handle.state());
+            // 如果Primary没有变化，就尝试复制一次
+            if result.is_empty() || result == last {
+                copy();
+                if let Ok(main_clipboard) = clipboard.load(
+                    clipboard.getter.atoms.clipboard,
                     clipboard.getter.atoms.utf8_string,
-                    "",
-                )
-                .unwrap();
-            Ok(v)
+                    clipboard.getter.atoms.property,
+                    Duration::from_millis(100),
+                ) {
+                    result = String::from_utf8_lossy(&main_clipboard)
+                        .trim_matches('\u{0}')
+                        .trim()
+                        .to_string();
+                }
+            }
+            Ok(result)
         } else {
             Err("Clipboard Read Failed".to_string())
         }
@@ -123,6 +136,7 @@ pub fn get_selection_text() -> Result<String, String> {
         }
     }
 }
+
 #[cfg(target_os = "macos")]
 pub fn get_selection_text() -> Result<String, String> {
     let apple_script = r#"
@@ -229,8 +243,9 @@ error "not found AXSelectedText"
         Err(e) => Err(e.to_string()),
     }
 }
-// windows 复制操作
-#[cfg(target_os = "windows")]
+
+// 复制操作
+#[cfg(any(target_os = "windows", target_os = "linux"))]
 pub fn copy() {
     use enigo::*;
     let mut enigo = Enigo::new();
@@ -243,7 +258,6 @@ pub fn copy() {
     enigo.key_up(Key::Tab);
     enigo.key_up(Key::Escape);
     enigo.key_up(Key::CapsLock);
-    enigo.key_up(Key::Option);
     // 发送CtrlC
     enigo.key_sequence_parse("{+CTRL}c{-CTRL}");
 }

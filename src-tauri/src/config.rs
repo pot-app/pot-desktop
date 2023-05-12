@@ -140,12 +140,15 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
 
 #[tauri::command]
 pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
-    let proxy=state.0.lock().unwrap().get("proxy", Value::String(String::from("")));
-    std::env::set_var("http_proxy",proxy.as_str().unwrap());
-    std::env::set_var("https_proxy",proxy.as_str().unwrap());
-    std::env::set_var("all_proxy",proxy.as_str().unwrap());
+    let proxy = state
+        .0
+        .lock()
+        .unwrap()
+        .get("proxy", Value::String(String::from("")));
+    std::env::set_var("http_proxy", proxy.as_str().unwrap());
+    std::env::set_var("https_proxy", proxy.as_str().unwrap());
+    std::env::set_var("all_proxy", proxy.as_str().unwrap());
     state.0.lock().unwrap().write()
-
 }
 
 #[tauri::command]
