@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
 import { atom, useSetAtom } from 'jotai';
 import { get } from '../../../main';
@@ -20,6 +21,11 @@ export default function SourceArea() {
     const setSourceText = useSetAtom(sourceTextAtom);
     const [text, setText] = useState('');
     const theme = useTheme();
+
+    listen('new_selection', (event) => {
+        setSourceText(event.payload);
+        setText(event.payload);
+    });
 
     useEffect(() => {
         if (appWindow.label != 'persistent') {
