@@ -34,50 +34,43 @@ export default function TopBar() {
         }
     }, []);
 
-    return ismacos ? (
-        <Box className='topbar-macos'>
-            <IconButton
-                className='topbar-button'
-                onClick={() => {
-                    appWindow.setAlwaysOnTop(!pined).then((_) => {
-                        setPined(!pined);
-                    });
-                }}
-            >
-                <PushPinRoundedIcon color={pined ? 'primary' : ''} />
-            </IconButton>
-        </Box>
-    ) : (
-        <Box className='topbar'>
-            <IconButton
-                className='topbar-button'
-                onClick={() => {
-                    appWindow.setAlwaysOnTop(!pined).then((_) => {
-                        if (!pined) {
-                            unlisten.then((f) => {
-                                f();
-                            });
-                        } else {
-                            unlisten = listen('tauri://blur', () => {
-                                if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
-                                    appWindow.close();
-                                }
-                            });
-                        }
-                        setPined(!pined);
-                    });
-                }}
-            >
-                <PushPinRoundedIcon color={pined ? 'primary' : ''} />
-            </IconButton>
-            <IconButton
-                className='topbar-button'
-                onClick={() => {
-                    appWindow.close();
-                }}
-            >
-                <CancelRoundedIcon />
-            </IconButton>
+    return (
+        <Box className={ismacos ? 'topbar-macos' : 'topbar'}>
+            <Box>
+                <IconButton
+                    className='topbar-button'
+                    onClick={() => {
+                        appWindow.setAlwaysOnTop(!pined).then((_) => {
+                            if (!pined) {
+                                unlisten.then((f) => {
+                                    f();
+                                });
+                            } else {
+                                unlisten = listen('tauri://blur', () => {
+                                    if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
+                                        appWindow.close();
+                                    }
+                                });
+                            }
+                            setPined(!pined);
+                        });
+                    }}
+                >
+                    <PushPinRoundedIcon color={pined ? 'primary' : ''} />
+                </IconButton>
+            </Box>
+            {ismacos ? (
+                <></>
+            ) : (
+                <IconButton
+                    className='topbar-button'
+                    onClick={() => {
+                        appWindow.close();
+                    }}
+                >
+                    <CancelRoundedIcon />
+                </IconButton>
+            )}
         </Box>
     );
 }
