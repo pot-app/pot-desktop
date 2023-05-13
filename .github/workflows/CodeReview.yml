@@ -6,12 +6,16 @@ permissions:
 
 on:
   pull_request_target:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 jobs:
-  test:
+  Code-Review:
     runs-on: ubuntu-latest
     steps:
+      - name: Hello
+        run: |
+          echo Hello OpenAI
+          echo Hello Pot
       - uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
