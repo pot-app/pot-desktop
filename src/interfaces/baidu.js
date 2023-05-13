@@ -59,7 +59,6 @@ export async function translate(text, from, to, setText) {
         },
     });
     if (res.ok) {
-        console.log(res);
         let result = res.data;
         let target = '';
         if (result['from']) {
