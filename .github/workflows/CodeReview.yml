@@ -18,3 +18,4 @@ jobs:
           OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Chinese
+          MODEL: gpt-3.5-turbo
