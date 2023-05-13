@@ -15,5 +15,6 @@ jobs:
       - uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Chinese
