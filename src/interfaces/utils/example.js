@@ -45,7 +45,6 @@ export async function translate(text, from, to) {
     // 完成翻译过程
     // ......
 
-    let proxy = get('proxy') ?? '';
     let res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -58,7 +57,6 @@ export async function translate(text, from, to) {
         },
 
         body: { type: 'Json', payload: body },
-        proxy: proxy,
     });
     let result = res.data;
     // 返回翻译结果

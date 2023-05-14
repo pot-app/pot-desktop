@@ -65,8 +65,7 @@ export async function translate(text, from, to, setText) {
         const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify(body),
-            proxy: 'http://127.0.0.1:7890',
+            body: JSON.stringify(body)
         });
         if (res.ok) {
             let target = '';
