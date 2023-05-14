@@ -145,9 +145,7 @@ pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
         .lock()
         .unwrap()
         .get("proxy", Value::String(String::from("")));
-    std::env::set_var("http_proxy", proxy.as_str().unwrap());
-    std::env::set_var("https_proxy", proxy.as_str().unwrap());
-    std::env::set_var("all_proxy", proxy.as_str().unwrap());
+    set_proxy(proxy.as_str().unwrap()).unwrap();
     state.0.lock().unwrap().write()
 }
 
@@ -168,4 +166,12 @@ pub fn create_background_window() {
                 .unwrap()
         }
     };
+}
+
+#[tauri::command]
+pub fn set_proxy(proxy:&str)->Result<(),()> {
+    std::env::set_var("http_proxy", proxy);
+    std::env::set_var("https_proxy", proxy);
+    std::env::set_var("all_proxy", proxy);
+    Ok(())
 }

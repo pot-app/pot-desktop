@@ -106,9 +106,7 @@ fn main() {
                 toml::Value::String(String::from("")),
                 app_handle.state(),
             );
-            std::env::set_var("http_proxy", proxy.as_str().unwrap());
-            std::env::set_var("https_proxy", proxy.as_str().unwrap());
-            std::env::set_var("all_proxy", proxy.as_str().unwrap());
+            set_proxy(proxy.as_str().unwrap()).unwrap();
             // 检查更新
             let enable = get_config("auto_check", toml::Value::Boolean(true), app_handle.state());
             let handle = app.handle();
@@ -172,6 +170,7 @@ fn main() {
             get_config_str,
             set_config,
             write_config,
+            set_proxy,
             is_macos
         ])
         //绑定托盘事件

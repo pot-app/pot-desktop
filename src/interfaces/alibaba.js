@@ -1,8 +1,8 @@
+import { invoke } from '@tauri-apps/api/tauri';
+import { fetch } from '@tauri-apps/api/http';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
 import { get } from '../windows/main';
-// 不能走代理，所以用axios
-import axios from 'axios';
 
 // 必须向外暴露info
 export const info = {
@@ -59,11 +59,10 @@ export async function translate(text, from, to, setText) {
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
-        supportLanguage[from]
-    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
-        timestamp
-    )}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${supportLanguage[from]
+        }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
+            timestamp
+        )}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 
@@ -80,9 +79,18 @@ export async function translate(text, from, to, setText) {
     let signature = base64.stringify(HmacSHA1(stringToSign, accesskey_secret + '&'));
 
     CanonicalizedQueryString = CanonicalizedQueryString + '&Signature=' + encodeURIComponent(signature);
+    // 由于设置代理之后阿里翻译会报错，所以先取消代理再发送请求
+    let noproxy = await invoke('set_proxy', { proxy: '' });
+    let res = await fetch(CanonicalizedQueryString, {
+        method: 'GET',
+        noproxy: noproxy
+        // 添加noproxy确保set_proxy已经执行完毕，fetch不会读取这个noproxy
+    })
+    // 还原代理设置
+    let proxy = get('proxy') ?? '';
+    await invoke('set_proxy', { proxy });
 
-    let res = await axios.get(CanonicalizedQueryString);
-    if (res.status == 200) {
+    if (res.ok) {
         let result = res.data;
         if (result['Code'] == '200') {
             if (result['Data']['Translated'] == text) {
