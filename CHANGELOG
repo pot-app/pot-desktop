@@ -1,10 +1,13 @@
-## 0.3.0 (2023-05-12)
+## 0.3.1 (2023-05-14)
+
+### New feature:
+
+- 添加增量翻译功能 (#74)([`529b856`](https://github.com/pot-app/pot-desktop/commit/529b856c7e48c93763d601dfd7ffdf0703ff38d0)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复 Linux 复制失败([`226eba0`](https://github.com/pot-app/pot-desktop/commit/226eba03e51da0081a544d085ede1d53d1791b0f)) (by Pylogmon)
--   完善 Linux 取词逻辑，修复部分应用内无法取词的问题([`5a77610`](https://github.com/pot-app/pot-desktop/commit/5a77610fb955255df82ce5f1b9d8957ee207051f)) (by Pylogmon)
+- 修复MacOS下pin按钮无效 (#75)([`63b1078`](https://github.com/pot-app/pot-desktop/commit/63b1078f567be82123685049b0465bfde16cf9a8)) (by 派了个萌)
 
-### BREAK:
+### Performance improves:
 
--   软件仓库已经转移到 github 组织 pot-app，由于地址变动，请尽快更新到该版本，否则后续将无法收到更新。
+- 改用ghproxy.com加速检查更新及更新下载 (#76)([`7e5c42d`](https://github.com/pot-app/pot-desktop/commit/7e5c42d52b92ccc4bfaf01665ab00c14f193d996)) (by 派了个萌)
