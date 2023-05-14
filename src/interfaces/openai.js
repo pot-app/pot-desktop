@@ -56,14 +56,9 @@ export async function translate(text, from, to, setText) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apikey}`,
     };
-    let systemPrompt = '';
-    let userPrompt = '';
-    systemPrompt = prompt;
-    if (from == 'auto') {
-        userPrompt = `Translate to ${supportLanguage[to]}:\n"""\n${text}\n"""`;
-    } else {
-        userPrompt = `Translate from ${supportLanguage[from]} to ${supportLanguage[to]}:\n"""\n${text}\n"""`;
-    }
+    let systemPrompt = prompt;
+
+    let userPrompt = `If the content is in ${supportLanguage[to]}, then translate into ${supportLanguage[get('second_language') ?? 'en']}. Otherwise, translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
     const body = {
         model: 'gpt-3.5-turbo',
@@ -83,8 +78,7 @@ export async function translate(text, from, to, setText) {
         const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify(body),
-            proxy: 'http://127.0.0.1:7890',
+            body: JSON.stringify(body)
         });
         if (res.ok) {
             let target = '';
