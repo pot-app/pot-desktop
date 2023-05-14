@@ -1,5 +1,7 @@
 name: Package
-on: push
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   change-version:
