@@ -9,27 +9,35 @@ on:
   discussion_comment:
     types: created
 jobs:
-  Notify:
+  notify:
+    name: Notify
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: get issue_comment content
+        if: github.event_name == 'issue_comment'
+        run: |
+          echo "CONTENT=\"${{ github.event.comment.body }}\"" >> $GITHUB_ENV
+      - name: get discussion_comment content
+        if: github.event_name == 'discussion_comment'
+        run: |
+          echo "CONTENT=\"${{ github.event.comment.body }}\"" >> $GITHUB_ENV
+      - name: get issues content
+        if: github.event_name == 'issues'
+        run: |
+          echo "CONTENT=${{ github.event.issue.title }}" >> $GITHUB_ENV
+      - name: get pull_request content
+        if: github.event_name == 'pull_request_target'
+        run: |
+          echo "CONTENT=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+      - uses: colutius/Telegram-Msg@main
         with:
-          fetch-depth: 0
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - run: pip install qq-botpy
-      - name: send message
-        run: python3 .github/notify.py
-        env:
-          APPID: ${{ secrets.QQ_APPID }}
-          TOKEN: ${{ secrets.QQ_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            🌟Pot 仓库有新动态🌟
-            
-            发送者：${{ github.event.sender.login }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          chatid: ${{ secrets.TELEGRAM_CHATID }}
+          message: |
+            🌟pot-desktop 仓库有新的 ${{github.event_name}}🌟
 
             ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
+
+            ${{ github.event.sender.login }}:
+
+            ${{ env.CONTENT }}
