@@ -33,11 +33,14 @@ jobs:
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           chatid: ${{ secrets.TELEGRAM_CHATID }}
+          button: true
           message: |
             📣 New ${{github.event_name}} in pot-desktop
 
             💡Title: ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
 
-            👤User: ${{ github.event.sender.login }}:
+            👤User: ${{ github.event.sender.login }}
 
             📄Body: ${{ env.CONTENT }}
+          button_name: 👀前往查看👀
+          button_url: https://github.com/${{ github.repository }}
