@@ -13,22 +13,6 @@ jobs:
     name: Notify
     runs-on: ubuntu-latest
     steps:
-      - name: get issue_comment content
-        if: github.event_name == 'issue_comment'
-        run: |
-          echo "CONTENT=\"${{ github.event.comment.body }}\"" >> $GITHUB_ENV
-      - name: get discussion_comment content
-        if: github.event_name == 'discussion_comment'
-        run: |
-          echo "CONTENT=\"${{ github.event.comment.body }}\"" >> $GITHUB_ENV
-      - name: get issues content
-        if: github.event_name == 'issues'
-        run: |
-          echo "CONTENT=${{ github.event.issue.body }}" >> $GITHUB_ENV
-      - name: get pull_request content
-        if: github.event_name == 'pull_request_target'
-        run: |
-          echo "CONTENT=${{ github.event.pull_request.body }}" >> $GITHUB_ENV
       - uses: colutius/Telegram-Msg@main
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
@@ -41,6 +25,6 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            📄Body: ${{ env.CONTENT }}
+            📄Body: ${{ github.event.comment.body }}${{ github.event.issue.body }}${{ github.event.pull_request.body }}
           button_name: 👀前往查看👀
           button_url: https://github.com/${{ github.repository }}
