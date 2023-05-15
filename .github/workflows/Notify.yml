@@ -24,20 +24,20 @@ jobs:
       - name: get issues content
         if: github.event_name == 'issues'
         run: |
-          echo "CONTENT=${{ github.event.issue.title }}" >> $GITHUB_ENV
+          echo "CONTENT=${{ github.event.issue.body }}" >> $GITHUB_ENV
       - name: get pull_request content
         if: github.event_name == 'pull_request_target'
         run: |
-          echo "CONTENT=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "CONTENT=${{ github.event.pull_request.body }}" >> $GITHUB_ENV
       - uses: colutius/Telegram-Msg@main
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           chatid: ${{ secrets.TELEGRAM_CHATID }}
           message: |
-            🌟pot-desktop 仓库有新的 ${{github.event_name}}🌟
+            📣 New ${{github.event_name}} in pot-desktop
 
-            ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
+            💡Title: ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
 
-            ${{ github.event.sender.login }}:
+            👤User: ${{ github.event.sender.login }}:
 
-            ${{ env.CONTENT }}
+            📄Body: ${{ env.CONTENT }}
