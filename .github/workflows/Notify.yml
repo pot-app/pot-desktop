@@ -8,12 +8,15 @@ on:
     types: opened
   discussion_comment:
     types: created
+
 jobs:
   notify:
     name: Notify
     runs-on: ubuntu-latest
     steps:
+      # issue
       - uses: colutius/Telegram-Msg@main
+        if: github.event_name == 'issue_comment'
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           chatid: ${{ secrets.TELEGRAM_CHATID }}
@@ -25,6 +28,57 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            📄Body: ${{ github.event.comment.body }}${{ github.event.issue.body }}${{ github.event.pull_request.body }}
+            ${{ github.event.comment.body }}
           button_name: 👀前往查看👀
-          button_url: https://github.com/${{ github.repository }}
+          button_url: https://github.com/${{ github.repository }}/issues
+      # discussion
+      - uses: colutius/Telegram-Msg@main
+        if: github.event_name == 'discussion_comment'
+        with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          chatid: ${{ secrets.TELEGRAM_CHATID }}
+          button: true
+          message: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.comment.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.comment.body }}
+          button_name: 👀前往查看👀
+          button_url: https://github.com/${{ github.repository }}/discussions
+      # issue
+      - uses: colutius/Telegram-Msg@main
+        if: github.event_name == 'issues'
+        with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          chatid: ${{ secrets.TELEGRAM_CHATID }}
+          button: true
+          message: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.issue.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.issue.body }}
+          button_name: 👀前往查看👀
+          button_url: https://github.com/${{ github.repository }}/issues
+      # pull_request
+      - uses: colutius/Telegram-Msg@main
+        if: github.event_name == 'pull_request_target'
+        with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          chatid: ${{ secrets.TELEGRAM_CHATID }}
+          button: true
+          message: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.pull_request.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.pull_request.body }}
+          button_name: 👀前往查看👀
+          button_url: https://github.com/${{ github.repository }}/pulls
