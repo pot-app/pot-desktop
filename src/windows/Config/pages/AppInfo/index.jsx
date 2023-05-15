@@ -153,7 +153,7 @@ export default function AppInfo() {
                 />
                 &nbsp;
                 <a
-                    href='https://pot.pylogmon.cn/download'
+                    href='https://pot.pylogmon.com/download'
                     target='_blank'
                 >
                     <Button
@@ -169,10 +169,10 @@ export default function AppInfo() {
                     <li>
                         官网&文档:&nbsp;&nbsp;
                         <a
-                            href='https://pot.pylogmon.cn'
+                            href='https://pot.pylogmon.com'
                             target='_blank'
                         >
-                            https://pot.pylogmon.cn
+                            https://pot.pylogmon.com
                         </a>
                     </li>
                     <li>

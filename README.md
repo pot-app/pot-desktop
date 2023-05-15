@@ -3,9 +3,9 @@
 # Pot (Translator of Pylogmon)
 
 > 🌈 一个跨平台的划词翻译软件 (
-> [快速上手](https://pot.pylogmon.cn/docs/tutorial/intro)|
-> [软件下载](https://pot.pylogmon.cn/download)|
-> [进阶配置](https://pot.pylogmon.cn/docs/category/软件配置))
+> [快速上手](https://pot.pylogmon.com/docs/tutorial/intro)|
+> [软件下载](https://pot.pylogmon.com/download)|
+> [进阶配置](https://pot.pylogmon.com/docs/category/软件配置))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
@@ -38,7 +38,7 @@
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/output2.gif"/>
 <tr>
     <td>插件调用
-    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.cn/docs/tutorial/config/plugin_config" target="_blank">插件调用</a>
+    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">插件调用</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/output3.gif"/>
 </table>
 
@@ -52,7 +52,7 @@
 
 <img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true" width="80%"/>
 
-参与贡献请阅读 [接口贡献指南](https://pot.pylogmon.cn/docs/contribute/intro)
+参与贡献请阅读 [接口贡献指南](https://pot.pylogmon.com/docs/contribute/intro)
 
 <div align="center">
 <img src="https://github.com/pot-app/.github/blob/master/pot-desktop-stars.svg?raw=true" width="80%"/>
