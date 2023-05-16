@@ -1,13 +1,11 @@
-## 0.3.1 (2023-05-14)
+## 0.3.2 (2023-05-16)
 
 ### New feature:
 
-- 添加增量翻译功能 (#74)([`529b856`](https://github.com/pot-app/pot-desktop/commit/529b856c7e48c93763d601dfd7ffdf0703ff38d0)) (by 派了个萌)
+-   添加必应翻译 (#83)([`8db1f57`](https://github.com/pot-app/pot-desktop/commit/8db1f570b74ba8d601992cc4a56e1fdff76166a7)) (by 派了个萌)
 
 ### Bugs fixed:
 
-- 修复MacOS下pin按钮无效 (#75)([`63b1078`](https://github.com/pot-app/pot-desktop/commit/63b1078f567be82123685049b0465bfde16cf9a8)) (by 派了个萌)
-
-### Performance improves:
-
-- 改用ghproxy.com加速检查更新及更新下载 (#76)([`7e5c42d`](https://github.com/pot-app/pot-desktop/commit/7e5c42d52b92ccc4bfaf01665ab00c14f193d996)) (by 派了个萌)
+-   删除 windows 剪切板判断逻辑([`91fbe0b`](https://github.com/pot-app/pot-desktop/commit/91fbe0b078ee64253f3526329b5feb8fa891cab4)) (by 派了个萌)
+-   修复阿里翻译请求失败的问题 (#79)([`d6c34f9`](https://github.com/pot-app/pot-desktop/commit/d6c34f9d77b4c1cace0bfea9f81654dad5f59664)) (by 派了个萌)
+-   修复 OpenAI 接口第二语言设置无效 (#78)([`f9ea4b1`](https://github.com/pot-app/pot-desktop/commit/f9ea4b1c649e99c450ebc0bd50e63bb7cd038954)) (by 派了个萌)
