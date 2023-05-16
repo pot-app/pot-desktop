@@ -2,6 +2,7 @@ name: Package
 on:
   push:
     branches: [ master ]
+    tags: [ ** ]
 
 jobs:
   change-version:
