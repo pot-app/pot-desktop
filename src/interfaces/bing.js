@@ -1,52 +1,92 @@
 import { fetch } from '@tauri-apps/api/http';
+import { get } from '../windows/main';
 
-// 必须向外暴露info
 export const info = {
-    // 接口中文名称
-    name: '必应词典',
-    // 接口支持语言及映射
+    name: 'Bing翻译',
+
     supportLanguage: {
-        auto: 'auto',
-        'zh-cn': 'zh-cn',
-        en: 'en-us',
+        auto: '',
+        'zh-cn': 'zh-Hans',
+        'zh-tw': 'zh-Hant',
+        yue: 'yue',
+        en: 'en',
+        ja: 'ja',
+        ko: 'ko',
+        fr: 'fr',
+        es: 'es',
+        ru: 'ru',
+        de: 'de',
     },
-    // 接口需要配置项(会在设置中出现设置项来获取)
+
     needs: [],
 };
-//必须向外暴露translate
+
 export async function translate(text, from, to, setText) {
-    // 获取语言映射
+
     const { supportLanguage } = info;
 
-    // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        throw '该接口不支持该语言';
+        return '该接口不支持该语言';
     }
-    if (text.split(' ').length != 1) {
-        throw '该接口只支持查词';
-    }
+    const token_url = 'https://edge.microsoft.com/translate/auth';
 
-    let res = await fetch('https://cn.bing.com/dict/search', {
+    let token = await fetch(token_url, {
         method: 'GET',
-        query: {
-            mkt: supportLanguage[to],
-            q: text,
+        headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42"
         },
-        responseType: 2, // 返回Text而不是Json
-    });
-    if (res.ok) {
-        let result = res.data;
-        const descReg = /<meta name="description" content="([^"]+?)" \/>/;
-        let content = result.match(descReg)[1];
-        content = content.replace(`必应词典为您提供${text}的释义，`, '');
-        content = content.replaceAll('； ', '；\n');
-        content = content.replaceAll(']，', ']\n');
-        if (content.trim().split(' ') == 1) {
-            throw '查词失败';
+        responseType: 2
+    })
+    if (token.ok) {
+        const url = "https://api-edge.cognitive.microsofttranslator.com/translate"
+
+        let res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "accept": "*/*",
+                "accept-language": "zh-TW,zh;q=0.9,ja;q=0.8,zh-CN;q=0.7,en-US;q=0.6,en;q=0.5",
+                "authorization": "Bearer " + token.data,
+                "cache-control": "no-cache",
+                "content-type": "application/json",
+                "pragma": "no-cache",
+                "sec-ch-ua": "\"Microsoft Edge\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "cross-site",
+                "Referer": "https://appsumo.com/",
+                "Referrer-Policy": "strict-origin-when-cross-origin",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42"
+            },
+            query: {
+                from: supportLanguage[from],
+                to: supportLanguage[to],
+                'api-version': '3.0',
+                includeSentenceLength: 'true'
+            },
+            body: { type: 'Json', payload: [{ 'Text': text }] },
+        });
+
+        if (res.ok) {
+            let result = res.data;
+            console.log(result);
+            if (result[0].detectedLanguage && result[0].translations) {
+                if (result[0].detectedLanguage.language == supportLanguage[to]) {
+                    let secondLanguage = get('second_language') ?? 'en';
+                    if (secondLanguage != to) {
+                        await translate(text, from, secondLanguage, setText);
+                        return;
+                    }
+                }
+                setText(result[0].translations[0].text);
+            } else {
+                throw JSON.stringify(result);
+            }
         } else {
-            setText(content);
+            throw 'http请求出错\n' + JSON.stringify(res);
         }
     } else {
-        throw 'http请求出错\n' + JSON.stringify(res);
+        throw 'token获取失败';
     }
 }
