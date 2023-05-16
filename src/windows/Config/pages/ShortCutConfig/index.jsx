@@ -109,6 +109,22 @@ export default function ShortCutConfig() {
                     onFocus={() => { setShortcutOcr('') }}
                 />
             </ConfigItem> */}
+            <ConfigItem label='插件调用'>
+                <p>
+                    想要更流畅的翻译体验，请查阅
+                    <a
+                        href='https://pot.pylogmon.com/docs/tutorial/config/plugin_config'
+                        target='_blank'
+                    >
+                        插件调用
+                    </a>
+                    文档
+                </p>
+                <img
+                    src='plugin.gif'
+                    style={{ width: '100%' }}
+                ></img>
+            </ConfigItem>
         </ConfigList>
     );
 }
