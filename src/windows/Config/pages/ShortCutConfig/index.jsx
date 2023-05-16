@@ -1,6 +1,7 @@
 import { TextField, Button, InputAdornment } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { invoke } from '@tauri-apps/api/tauri';
 import { useAtom } from 'jotai';
-import React from 'react';
 import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../..';
 import ConfigItem from '../../components/ConfigItem';
 import ConfigList from '../../components/ConfigList';
@@ -10,8 +11,15 @@ export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
+    const [ismacos, setIsmacos] = useState(false);
 
     const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
+
+    useEffect(() => {
+        invoke('is_macos').then((v) => {
+            setIsmacos(v);
+        });
+    });
 
     function keyDown(e, value, setKey) {
         if (e.key.length == 1) {
@@ -24,6 +32,9 @@ export default function ShortCutConfig() {
             }
         } else {
             if (supportKey.includes(e.key)) {
+                if (e.key == 'Meta' && !ismacos) {
+                    e.key = 'Super';
+                }
                 if (value) {
                     let values = value.split('+');
                     if (!value.startsWith('F') && !values.includes(e.key)) {
