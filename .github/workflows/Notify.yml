@@ -12,6 +12,7 @@ on:
 jobs:
   notify:
     name: Notify
+    if: github.event.sender.login != 'Pylogmon'
     runs-on: ubuntu-latest
     steps:
       # issue
