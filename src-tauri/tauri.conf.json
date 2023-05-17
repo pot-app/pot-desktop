@@ -75,6 +75,10 @@
                 "timestampUrl": "",
                 "wix": {
                     "language": "zh-CN"
+                },
+                "webviewInstallMode": {
+                    "silent": true,
+                    "type": "embedBootstrapper"
                 }
             }
         },
