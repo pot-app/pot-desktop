@@ -222,18 +222,12 @@ jobs:
         run: |
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
-          pnpm tauri build --target ${{ matrix.target }}
+          pnpm tauri build --target ${{ matrix.target }} -b deb
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.deb
           path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
-          if-no-files-found: error
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot_${{ matrix.target }}.AppImage
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -242,13 +236,6 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
   build-for-windows:
     needs: change-version-for-windows
     strategy:
@@ -367,9 +354,16 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/release/bundle/deb/*.deb
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.TOKEN }}
+          files: src-tauri/target/release/bundle/appimage/*.AppImage*
 
   release-update:
-    needs: [build-for-macos, build-for-linux, build-for-windows]
+    needs: [build-for-macos, build-for-deepin, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
