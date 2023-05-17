@@ -84,7 +84,7 @@ export default function TopBar() {
                             setInt(
                                 setInterval(async () => {
                                     const text = await readText();
-                                    if (text != currentClipboard) {
+                                    if (text && text != currentClipboard) {
                                         setCurrentClipboard(text);
                                         emit('new_selection', text);
                                     }
