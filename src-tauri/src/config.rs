@@ -140,12 +140,6 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
 
 #[tauri::command]
 pub fn write_config(state: tauri::State<ConfigWrapper>) -> Result<(), String> {
-    let proxy = state
-        .0
-        .lock()
-        .unwrap()
-        .get("proxy", Value::String(String::from("")));
-    set_proxy(proxy.as_str().unwrap()).unwrap();
     state.0.lock().unwrap().write()
 }
 
