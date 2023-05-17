@@ -340,6 +340,9 @@ jobs:
           name: source
       - name: Build for Deepin
         uses: ./actions/build-for-deepin
+        env:
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
       - name: Change Name
         run: |
           name=$(ls src-tauri/target/release/bundle/deb/*.deb)
@@ -350,6 +353,12 @@ jobs:
         with:
           name: pot_${{ matrix.target }}.deb
           path: src-tauri/target/release/bundle/deb/*.deb
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot.AppImage
+          path: src-tauri/target/release/bundle/appimage/*.AppImage
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
