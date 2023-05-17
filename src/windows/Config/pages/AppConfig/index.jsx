@@ -1,4 +1,4 @@
-import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Select, MenuItem, Box, FormControlLabel, Checkbox, InputAdornment, Button } from '@mui/material';
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
@@ -18,6 +18,7 @@ import {
     windowWidthAtom,
     themeAtom,
 } from '../..';
+import { invoke } from '@tauri-apps/api/tauri';
 
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
@@ -107,6 +108,20 @@ export default function AppConfig() {
                         onChange={(e) => {
                             setProxy(e.target.value);
                             set('proxy', e.target.value);
+                        }}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <Button
+                                        variant='outlined'
+                                        onClick={async () => {
+                                            await invoke('set_proxy', { proxy });
+                                        }}
+                                    >
+                                        应用
+                                    </Button>
+                                </InputAdornment>
+                            ),
                         }}
                     />
                 </ConfigItem>
