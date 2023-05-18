@@ -70,7 +70,6 @@ export async function translate(text, from, to, setText) {
 
         if (res.ok) {
             let result = res.data;
-            console.log(result);
             if (result[0].detectedLanguage && result[0].translations) {
                 if (result[0].detectedLanguage.language == supportLanguage[to]) {
                     let secondLanguage = get('second_language') ?? 'en';
