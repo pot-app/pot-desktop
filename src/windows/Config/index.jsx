@@ -32,6 +32,7 @@ export const ankiEnableAtom = atom(true);
 export const eudicEnableAtom = atom(true);
 export const eudicCategoryNameAtom = atom('');
 export const eudicTokenAtom = atom('');
+export const openaiServiceAtom = atom('openai');
 export const interfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
@@ -41,6 +42,7 @@ export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
     const setShortcutPersistent = useSetAtom(shortcutPersistentAtom);
     const setShortcutOcr = useSetAtom(shortcutOcrAtom);
+    const setOpenaiService = useSetAtom(openaiServiceAtom);
     const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
     const setAutoStart = useSetAtom(autoStartAtom);
     const setAutoCheck = useSetAtom(autoCheckAtom);
@@ -95,6 +97,7 @@ export default function Config() {
         setEudicCategoryName(get('eudic_category_name') ?? 'pot');
         setEudicToken(get('eudic_token') ?? '');
         setTheme(get('theme') ?? 'auto');
+        setOpenaiService(get('openai_service') ?? 'openai');
         let interface_configs = {};
 
         Object.keys(interfaces).map((i) => {

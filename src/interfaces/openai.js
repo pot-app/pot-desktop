@@ -18,8 +18,13 @@ export const info = {
     needs: [
         {
             config_key: 'openai_domain',
-            place_hold: 'api.openai.com',
+            place_hold: 'api.openai.com(不要加协议头,使用OpenAI官方api此项留空即可)',
             display_name: '自定义域名',
+        },
+        {
+            config_key: 'openai_path',
+            place_hold: '/v1/chat/completions(一般不需要改,留空即可,Azure用户根据自己情况修改)',
+            display_name: '请求路径',
         },
         {
             config_key: 'openai_apikey',
@@ -41,26 +46,35 @@ export async function translate(text, from, to, setText) {
     if (domain == '') {
         domain = 'api.openai.com';
     }
+    if (domain.startsWith('http')) {
+        domain = domain.replace('https://', '').replace('http://', '');
+    }
+    let path = get('openai_path') ?? '/v1/chat/completions';
+    if (path == '') {
+        path = '/v1/chat/completions';
+    }
     const apikey = get('openai_apikey') ?? '';
     if (apikey == '') {
         throw '请先配置apikey';
     }
-    let prompt = get('openai_prompt') ?? '';
-    if (prompt == '') {
-        prompt =
-            'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
+    let systemPrompt = get('openai_prompt') ?? '';
+    if (systemPrompt == '') {
+        systemPrompt = 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
-    const stream = get('openai_stream') ?? false;
-
-    const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apikey}`,
-    };
-    let systemPrompt = prompt;
-
     let userPrompt = `If the content is in ${supportLanguage[to]}, then translate into ${supportLanguage[get('second_language') ?? 'en']}. Otherwise, translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
-    const body = {
+    const stream = get('openai_stream') ?? false;
+    const service = get('openai_service') ?? 'openai';
+
+    const headers = service == 'openai' ? {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apikey}`,
+    } : {
+        'Content-Type': 'application/json',
+        Authorization: `api-key: ${apikey}`,
+    }
+
+    const body = service == 'openai' ? {
         model: 'gpt-3.5-turbo',
         temperature: 0,
         max_tokens: 1000,
@@ -72,10 +86,15 @@ export async function translate(text, from, to, setText) {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
         ],
-    };
+    } : {
+        messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+        ]
+    }
 
     if (stream) {
-        const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
+        const res = await window.fetch(`https://${domain}${path}`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body)
@@ -123,7 +142,7 @@ export async function translate(text, from, to, setText) {
             throw 'http请求出错\n' + JSON.stringify(res);
         }
     } else {
-        let res = await fetch(`https://${domain}/v1/chat/completions`, {
+        let res = await fetch(`https://${domain}${path}`, {
             method: 'POST',
             headers: headers,
             body: { type: 'Json', payload: body },
