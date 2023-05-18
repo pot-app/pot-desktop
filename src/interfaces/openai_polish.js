@@ -54,7 +54,7 @@ export async function translate(text, from, to, setText) {
         Authorization: `Bearer ${apikey}`,
     } : {
         'Content-Type': 'application/json',
-        Authorization: `api-key: ${apikey}`,
+        'api-key': apikey,
     }
 
     const body = service == 'openai' ? {
@@ -90,6 +90,7 @@ export async function translate(text, from, to, setText) {
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) {
+                        setText(target);
                         break;
                     }
                     const str = new TextDecoder().decode(value);
@@ -102,14 +103,14 @@ export async function translate(text, from, to, setText) {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        setText(target);
+                                        setText(target + '_');
                                     }
                                     temp = '';
                                 } else {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        setText(target);
+                                        setText(target + '_');
                                     }
                                 }
                             } catch {

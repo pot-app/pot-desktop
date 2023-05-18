@@ -37,20 +37,22 @@ export default function TargetArea() {
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage]);
 
     useEffect(() => {
-        let autoCopy = get('auto_copy') ?? 4;
-        if (autoCopy == 4) {
-            return;
-        } else if (autoCopy == 1) {
-            if (sourceText != '') {
-                copy(sourceText);
-            }
-        } else if (autoCopy == 2) {
-            if (targetText != '') {
-                copy(targetText);
-            }
-        } else {
-            if (targetText && sourceText != '') {
-                copy(sourceText + '\n\n' + targetText);
+        if (!targetText.endsWith('_')) {
+            let autoCopy = get('auto_copy') ?? 4;
+            if (autoCopy == 4) {
+                return;
+            } else if (autoCopy == 1) {
+                if (sourceText != '') {
+                    copy(sourceText);
+                }
+            } else if (autoCopy == 2) {
+                if (targetText != '') {
+                    copy(targetText);
+                }
+            } else {
+                if (targetText && sourceText != '') {
+                    copy(sourceText + '\n\n' + targetText);
+                }
             }
         }
     }, [targetText]);
