@@ -40,6 +40,10 @@
     <td>插件调用
     <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">插件调用</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/output3.gif"/>
+<tr>
+    <td>剪切板监听模式
+    <td>打开翻译窗口，启动剪切板监听模式，复制想要翻译的内容即可
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/output4.gif"/>
 </table>
 
 </div>
