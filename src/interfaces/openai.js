@@ -74,23 +74,21 @@ export async function translate(text, from, to, setText) {
         'api-key': apikey,
     }
 
-    const body = service == 'openai' ? {
-        model: 'gpt-3.5-turbo',
+    let body = {
         temperature: 0,
         max_tokens: 1000,
         stream: stream,
         top_p: 1,
         frequency_penalty: 1,
         presence_penalty: 1,
-        messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userPrompt },
-        ],
-    } : {
+        stream: stream,
         messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
         ]
+    };
+    if (service == 'openai') {
+        body['model'] = 'gpt-3.5-turbo';
     }
 
     if (stream) {
@@ -111,6 +109,7 @@ export async function translate(text, from, to, setText) {
                         break;
                     }
                     const str = new TextDecoder().decode(value);
+                    console.log(str);
                     let datas = str.split('data: ');
                     for (let data of datas) {
                         if (data.trim() != '' && data.trim() != '[DONE]') {
