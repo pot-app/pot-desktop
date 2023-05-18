@@ -13,7 +13,7 @@ export default function ShortCutConfig() {
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
     const [ismacos, setIsmacos] = useState(false);
 
-    const supportKey = ['Control', 'Shift', 'Alt', 'Command', 'Meta', 'Option'];
+    const supportKey = ['Control', 'Shift', 'Alt', 'Meta'];
 
     useEffect(() => {
         invoke('is_macos').then((v) => {
@@ -33,7 +33,11 @@ export default function ShortCutConfig() {
         } else {
             if (supportKey.includes(e.key)) {
                 if (e.key == 'Meta' && !ismacos) {
-                    e.key = 'Super';
+                    if (ismacos) {
+                        e.key = 'Command';
+                    } else {
+                        e.key = 'Super';
+                    }
                 }
                 if (value) {
                     let values = value.split('+');
@@ -45,7 +49,7 @@ export default function ShortCutConfig() {
                 } else {
                     setKey(e.key);
                 }
-            } else if (e.key.startsWith('F')) {
+            } else if (e.key.startsWith('F') && !ismacos) {
                 setKey(e.key);
             } else {
                 if (e.keyCode == 8) {
