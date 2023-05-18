@@ -1,17 +1,33 @@
-import { TextField, Switch, FormControlLabel } from '@mui/material';
+import { TextField, Switch, FormControlLabel, Select, MenuItem, Tooltip } from '@mui/material';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import React from 'react';
+import { interfaceConfigsAtom, openaiServiceAtom } from '../..';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';
-import { interfaceConfigsAtom } from '../..';
 
 export default function InterfaceConfig() {
     const [interfaceConfigs, setInterfaceConfigs] = useAtom(interfaceConfigsAtom);
+    const [openaiService, setOpenaiService] = useAtom(openaiServiceAtom);
 
     return (
         <ConfigList label='翻译接口'>
+            <ConfigItem label='OpenAI 服务提供商'>
+                <Tooltip title='仅在你明确清楚自己使用的是Azure的OpenAI Service的时候需要设置此项，其他情况下一律使用默认openai服务'>
+                    <Select
+                        fullWidth
+                        value={openaiService}
+                        onChange={(e) => {
+                            setOpenaiService(e.target.value);
+                            set('openai_service', e.target.value);
+                        }}
+                    >
+                        <MenuItem value='openai'>OpenAI</MenuItem>
+                        <MenuItem value='azure'>Azure</MenuItem>
+                    </Select>
+                </Tooltip>
+            </ConfigItem>
             {Object.keys(interfaceConfigs).map((x) => {
                 return (
                     <ConfigItem

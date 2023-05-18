@@ -30,24 +30,34 @@ export async function translate(text, from, to, setText) {
     if (domain == '') {
         domain = 'api.openai.com';
     }
+    if (domain.startsWith('http')) {
+        domain = domain.replace('https://', '').replace('http://', '');
+    }
+    let path = get('openai_path') ?? '/v1/chat/completions';
+    if (path == '') {
+        path = '/v1/chat/completions';
+    }
     const apikey = get('openai_apikey') ?? '';
     if (apikey == '') {
         throw '请先配置apikey';
     }
-    let prompt = get('openai_summary_prompt') ?? '';
-    if (prompt == '') {
-        prompt = "You are a text summarizer, you can only summarize the text, don't interpret it.";
+    let systemPrompt = get('openai_summary_prompt') ?? '';
+    if (systemPrompt == '') {
+        systemPrompt = "You are a text summarizer, you can only summarize the text, don't interpret it.";
     }
+    let userPrompt = `Summarize in ${supportLanguage[to]}:\n"""\n${text}\n"""`;
     const stream = get('openai_stream') ?? false;
-    const headers = {
+    const service = get('openai_service') ?? 'openai';
+
+    const headers = service == 'openai' ? {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apikey}`,
-    };
+    } : {
+        'Content-Type': 'application/json',
+        Authorization: `api-key: ${apikey}`,
+    }
 
-    let systemPrompt = prompt;
-    let userPrompt = `Summarize in ${supportLanguage[to]}:\n"""\n${text}\n"""`;
-
-    const body = {
+    const body = service == 'openai' ? {
         model: 'gpt-3.5-turbo',
         temperature: 0,
         max_tokens: 1000,
@@ -59,7 +69,12 @@ export async function translate(text, from, to, setText) {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
         ],
-    };
+    } : {
+        messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+        ]
+    }
 
     if (stream) {
         const res = await window.fetch(`https://${domain}/v1/chat/completions`, {

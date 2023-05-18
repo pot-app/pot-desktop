@@ -31,25 +31,36 @@ export async function translate(text, from, to, setText) {
     if (domain == '') {
         domain = 'api.openai.com';
     }
+    if (domain.startsWith('http')) {
+        domain = domain.replace('https://', '').replace('http://', '');
+    }
+    let path = get('openai_path') ?? '/v1/chat/completions';
+    if (path == '') {
+        path = '/v1/chat/completions';
+    }
     const apikey = get('openai_apikey') ?? '';
     if (apikey == '') {
         throw '请先配置apikey';
     }
-    let prompt = get('openai_code_prompt') ?? '';
-    if (prompt == '') {
-        prompt =
+    let systemPrompt = get('openai_code_prompt') ?? '';
+    if (systemPrompt == '') {
+        systemPrompt =
             'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     }
-    const stream = get('openai_stream') ?? false;
-    const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apikey}`,
-    };
-
-    let systemPrompt = prompt;
     let userPrompt = `Explain the following code in ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
-    const body = {
+    const stream = get('openai_stream') ?? false;
+    const service = get('openai_service') ?? 'openai';
+
+    const headers = service == 'openai' ? {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apikey}`,
+    } : {
+        'Content-Type': 'application/json',
+        Authorization: `api-key: ${apikey}`,
+    }
+
+    const body = service == 'openai' ? {
         model: 'gpt-3.5-turbo',
         temperature: 0,
         max_tokens: 1000,
@@ -61,7 +72,12 @@ export async function translate(text, from, to, setText) {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
         ],
-    };
+    } : {
+        messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+        ]
+    }
 
     if (stream) {
         const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
