@@ -25,7 +25,7 @@
         <key>Extension Description</key>
         <string>Translate text with Pot.</string>
         <key>Extension Identifier</key>
-        <string>cn.pylogmon.popclip.extension.pot</string>
+        <string>com.pylogmon.popclip.extension.pot</string>
         <key>Extension Image File</key>
         <string>Pot.png</string>
         <key>Extension Name</key>

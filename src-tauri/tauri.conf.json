@@ -57,7 +57,7 @@
                 "icons/icon.icns",
                 "icons/icon.ico"
             ],
-            "identifier": "cn.pylogmon.pot",
+            "identifier": "com.pylogmon.pot",
             "longDescription": "A cross-platform translation software",
             "macOS": {
                 "entitlements": null,
