@@ -32,11 +32,10 @@ export default function TopBar() {
         });
         if (appWindow.label == 'persistent') {
             appWindow.setAlwaysOnTop(pined);
-        }
-        // 使划词翻译窗口置顶，但是pined图标显示为false
-        // 这样一来pin在划词翻译窗口的作用相当于控制是否在失去焦点的时候关闭
-        // 而且对于划词翻译窗口确实需要使其一直处于置顶状态
-        if (appWindow.label == 'translator') {
+        } else {
+            // 使划词翻译窗口置顶，但是pined图标显示为false
+            // 这样一来pin在划词翻译窗口的作用相当于控制是否在失去焦点的时候关闭
+            // 而且对于划词翻译窗口确实需要使其一直处于置顶状态
             appWindow.setAlwaysOnTop(true);
             setPined(false);
         }
