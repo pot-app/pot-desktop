@@ -75,7 +75,7 @@ export async function translate(text, from, to, setText) {
     }
 
     if (stream) {
-        const res = await window.fetch(`https://${domain}/v1/chat/completions`, {
+        const res = await window.fetch(`https://${domain}${path}`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body)
@@ -124,7 +124,7 @@ export async function translate(text, from, to, setText) {
             throw 'http请求出错\n' + JSON.stringify(res);
         }
     } else {
-        let res = await fetch(`https://${domain}/v1/chat/completions`, {
+        let res = await fetch(`https://${domain}${path}`, {
             method: 'POST',
             headers: headers,
             body: { type: 'Json', payload: body },
