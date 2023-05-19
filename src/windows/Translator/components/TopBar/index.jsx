@@ -83,9 +83,13 @@ export default function TopBar() {
                             setListenCopy(true);
                             setInt(
                                 setInterval(async () => {
-                                    const text = await readText();
+                                    let text = await readText();
                                     if (text && text != currentClipboard) {
                                         currentClipboard = text;
+                                        if (get('delete_newline') ?? false) {
+                                            // /s匹配空格和换行符 /g表示全局匹配
+                                            text = text.replace(/\s+/g, ' ');
+                                        }
                                         await emit('new_selection', text);
                                     }
                                 }, 200)
