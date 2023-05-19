@@ -5,7 +5,7 @@ import { get } from '../windows/main';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: 'DeepL',
+    name: 'DeepL Write',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
@@ -89,7 +89,6 @@ export async function translate(text, from, to, setText, id) {
             'Content-Type': 'application/json',
         },
     });
-    console.log(res);
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {

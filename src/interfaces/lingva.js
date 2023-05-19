@@ -60,6 +60,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw 'http请求出错\n' + JSON.stringify(res);
+        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
