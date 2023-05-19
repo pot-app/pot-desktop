@@ -182,7 +182,7 @@ export async function translate(text, from, to, setText, id) {
                 }
                 last = cur;
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(translations);
             }
         } else {

@@ -101,7 +101,7 @@ export async function translate(text, from, to, setText, id) {
                     return;
                 }
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(result['Data']['Translated']);
             }
         } else {

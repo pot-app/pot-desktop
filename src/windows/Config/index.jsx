@@ -21,7 +21,7 @@ export const openaiStreamAtom = atom(false);
 export const autoCopyAtom = atom(4);
 export const targetLanguageAtom = atom('zh-cn');
 export const secondLanguageAtom = atom('en');
-export const defaultInterfaceAtom = atom('deepl');
+export const defaultInterfaceListAtom = atom(['deepl', 'bing']);
 export const rememberTargetLanguageAtom = atom(true);
 export const proxyAtom = atom('');
 export const defaultWindowAtom = atom('config');
@@ -53,7 +53,7 @@ export default function Config() {
     const setAutoCopy = useSetAtom(autoCopyAtom);
     const setTargetLanguage = useSetAtom(targetLanguageAtom);
     const setSecondLanguage = useSetAtom(secondLanguageAtom);
-    const setDefaultInterface = useSetAtom(defaultInterfaceAtom);
+    const setDefaultInterfaceList = useSetAtom(defaultInterfaceListAtom);
     const setRememberTargetLanguage = useSetAtom(rememberTargetLanguageAtom);
     const setProxy = useSetAtom(proxyAtom);
     const setDefaultWindow = useSetAtom(defaultWindowAtom);
@@ -86,7 +86,7 @@ export default function Config() {
         setAutoCopy(get('auto_copy') ?? 4);
         setTargetLanguage(get('target_language') ?? 'zh-cn');
         setSecondLanguage(get('second_language') ?? 'en');
-        setDefaultInterface(get('interface') ?? 'deepl');
+        setDefaultInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
         setRememberTargetLanguage(get('remember_target_language') ?? true);
         setProxy(get('proxy') ?? '');
         setDefaultWindow(get('default_window') ?? 'config');

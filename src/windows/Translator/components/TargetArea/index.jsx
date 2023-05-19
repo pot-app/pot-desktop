@@ -18,14 +18,16 @@ import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../../main';
 import './style.css';
 
-export let translateID = '';
+export let translateID = [];
 
-export default function TargetArea() {
+export default function TargetArea(props) {
+    const { i, q } = props;
+    const defaultInterfaceList = get('default_interface_list') ?? ['deepl', 'bing'];
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
 
-    const [translateInterface, setTranslateInterface] = useState(get('interface') ?? 'deepl');
+    const [translateInterface, setTranslateInterface] = useState(i);
     const [loading, setLoading] = useState(false);
     const [targetText, setTargetText] = useState('');
     const [addedAnki, setAddedAnki] = useState(false);
@@ -66,7 +68,7 @@ export default function TargetArea() {
         setLoading(true);
         let translator = interfaces[translateInterface];
         let id = nanoid();
-        translateID = id;
+        translateID[q] = id;
         translator.translate(text, from, to, setTargetText, id).then(
             (_) => {
                 setLoading(false);
@@ -131,10 +133,17 @@ export default function TargetArea() {
     }
 
     return (
-        <Card className='targetarea'>
+        <Card
+            style={{
+                height: defaultInterfaceList.length == 1 && '100%',
+                marginTop: q && '8px',
+                padding: '8px 0',
+            }}
+        >
             <Toaster />
             <Box className='interface-selector-area'>
                 <Select
+                    size='small'
                     sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
                     className='interface-selector'
                     value={translateInterface}
@@ -172,102 +181,106 @@ export default function TargetArea() {
                     }}
                 />
             </Box>
-            <Box className='overflow-textarea'>
-                <InputBase
-                    multiline
-                    fullWidth
-                    value={targetText}
-                    onChange={(e) => {
-                        setTargetText(e.target.value);
-                    }}
-                />
-            </Box>
-            <Box className='target-buttonarea'>
-                <IconButton
-                    className='target-button'
-                    onClick={() => {
-                        new Audio(
-                            `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
-                                targetText
-                            )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
-                        ).play();
-                    }}
-                >
-                    <Tooltip title='朗读'>
-                        <GraphicEqRoundedIcon />
-                    </Tooltip>
-                </IconButton>
-                <IconButton
-                    className='target-button'
-                    onClick={() => {
-                        copy(targetText);
-                    }}
-                >
-                    <Tooltip title='复制'>
-                        <ContentCopyRoundedIcon />
-                    </Tooltip>
-                </IconButton>
-                {get('anki_enable') ?? true ? (
-                    addedAnki ? (
-                        <IconButton className='target-button'>
-                            <Tooltip title='已添加到Anki'>
-                                <LibraryAddCheckRoundedIcon color='primary' />
-                            </Tooltip>
-                        </IconButton>
-                    ) : (
-                        <IconButton
-                            className='target-button'
-                            onClick={addToAnki}
-                        >
-                            <Tooltip title='添加到Anki'>
-                                <LibraryAddRoundedIcon />
-                            </Tooltip>
-                        </IconButton>
-                    )
-                ) : (
-                    <></>
-                )}
-                {get('eudic_enable') ?? true ? (
-                    addedEudic ? (
-                        <IconButton className='target-button'>
-                            <Tooltip title='已添加到欧路词典'>
-                                <LibraryAddCheckRoundedIcon color='primary' />
-                            </Tooltip>
-                        </IconButton>
-                    ) : (
+            {targetText != '' && (
+                <>
+                    <Box className='overflow-textarea'>
+                        <InputBase
+                            multiline
+                            fullWidth
+                            value={targetText}
+                            onChange={(e) => {
+                                setTargetText(e.target.value);
+                            }}
+                        />
+                    </Box>
+                    <Box className='target-buttonarea'>
                         <IconButton
                             className='target-button'
                             onClick={() => {
-                                addToEudic(sourceText).then(
-                                    (v) => {
-                                        toast.success(v, {
-                                            style: {
-                                                background: theme.palette.background.default,
-                                                color: theme.palette.text.primary,
-                                            },
-                                        });
-                                        setAddedEudic(true);
-                                    },
-                                    (e) => {
-                                        toast.error(String(e), {
-                                            style: {
-                                                background: theme.palette.background.default,
-                                                color: theme.palette.text.primary,
-                                            },
-                                        });
-                                    }
-                                );
+                                new Audio(
+                                    `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
+                                        targetText
+                                    )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
+                                ).play();
                             }}
                         >
-                            <Tooltip title='添加到欧路词典'>
-                                <LibraryAddRoundedIcon />
+                            <Tooltip title='朗读'>
+                                <GraphicEqRoundedIcon />
                             </Tooltip>
                         </IconButton>
-                    )
-                ) : (
-                    <></>
-                )}
-            </Box>
+                        <IconButton
+                            className='target-button'
+                            onClick={() => {
+                                copy(targetText);
+                            }}
+                        >
+                            <Tooltip title='复制'>
+                                <ContentCopyRoundedIcon />
+                            </Tooltip>
+                        </IconButton>
+                        {get('anki_enable') ?? true ? (
+                            addedAnki ? (
+                                <IconButton className='target-button'>
+                                    <Tooltip title='已添加到Anki'>
+                                        <LibraryAddCheckRoundedIcon color='primary' />
+                                    </Tooltip>
+                                </IconButton>
+                            ) : (
+                                <IconButton
+                                    className='target-button'
+                                    onClick={addToAnki}
+                                >
+                                    <Tooltip title='添加到Anki'>
+                                        <LibraryAddRoundedIcon />
+                                    </Tooltip>
+                                </IconButton>
+                            )
+                        ) : (
+                            <></>
+                        )}
+                        {get('eudic_enable') ?? true ? (
+                            addedEudic ? (
+                                <IconButton className='target-button'>
+                                    <Tooltip title='已添加到欧路词典'>
+                                        <LibraryAddCheckRoundedIcon color='primary' />
+                                    </Tooltip>
+                                </IconButton>
+                            ) : (
+                                <IconButton
+                                    className='target-button'
+                                    onClick={() => {
+                                        addToEudic(sourceText).then(
+                                            (v) => {
+                                                toast.success(v, {
+                                                    style: {
+                                                        background: theme.palette.background.default,
+                                                        color: theme.palette.text.primary,
+                                                    },
+                                                });
+                                                setAddedEudic(true);
+                                            },
+                                            (e) => {
+                                                toast.error(String(e), {
+                                                    style: {
+                                                        background: theme.palette.background.default,
+                                                        color: theme.palette.text.primary,
+                                                    },
+                                                });
+                                            }
+                                        );
+                                    }}
+                                >
+                                    <Tooltip title='添加到欧路词典'>
+                                        <LibraryAddRoundedIcon />
+                                    </Tooltip>
+                                </IconButton>
+                            )
+                        ) : (
+                            <></>
+                        )}
+                    </Box>
+                </>
+            )}
         </Card>
     );
 }

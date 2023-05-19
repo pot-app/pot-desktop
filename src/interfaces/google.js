@@ -86,7 +86,7 @@ export async function translate(text, from, to, setText, id) {
                 }
                 target += '\n';
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(target);
             }
         } else {
@@ -96,7 +96,7 @@ export async function translate(text, from, to, setText, id) {
                     target = target + r[0];
                 }
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(target);
             }
         }

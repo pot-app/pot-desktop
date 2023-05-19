@@ -75,7 +75,7 @@ export async function translate(text, from, to, setText, id) {
             for (let i in trans_result) {
                 target = target + trans_result[i]['dst'] + '\n';
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(target);
             }
         } else {

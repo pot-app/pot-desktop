@@ -99,7 +99,7 @@ export async function translate(text, from, to, setText, id) {
                     return;
                 }
             }
-            if (id == translateID) {
+            if (translateID.includes(id)) {
                 setText(result.result.texts[0].text);
             }
         } else {

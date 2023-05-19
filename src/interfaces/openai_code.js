@@ -92,7 +92,7 @@ export async function translate(text, from, to, setText, id) {
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) {
-                        if (id == translateID) {
+                        if (translateID.includes(id)) {
                             setText(target);
                         }
                         break;
@@ -107,7 +107,7 @@ export async function translate(text, from, to, setText, id) {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        if (id == translateID) {
+                                        if (translateID.includes(id)) {
                                             setText(target + '_');
                                         }
                                     }
@@ -116,7 +116,7 @@ export async function translate(text, from, to, setText, id) {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        if (id == translateID) {
+                                        if (translateID.includes(id)) {
                                             setText(target + '_');
                                         }
                                     }
@@ -151,7 +151,7 @@ export async function translate(text, from, to, setText, id) {
                     if (target.endsWith('"')) {
                         target = target.slice(0, -1);
                     }
-                    if (id == translateID) {
+                    if (translateID.includes(id)) {
                         setText(target);
                     }
                 } else {

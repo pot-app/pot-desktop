@@ -79,7 +79,7 @@ export async function translate(text, from, to, setText, id) {
                         return;
                     }
                 }
-                if (id == translateID) {
+                if (translateID.includes(id)) {
                     setText(result[0].translations[0].text);
                 }
             } else {

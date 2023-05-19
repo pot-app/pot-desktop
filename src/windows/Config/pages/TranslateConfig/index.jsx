@@ -1,4 +1,4 @@
-import { Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip } from '@mui/material';
+import { Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip, Chip } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
@@ -15,7 +15,7 @@ import {
     openaiStreamAtom,
     targetLanguageAtom,
     secondLanguageAtom,
-    defaultInterfaceAtom,
+    defaultInterfaceListAtom,
     rememberTargetLanguageAtom,
 } from '../..';
 import './style.css';
@@ -27,7 +27,7 @@ export default function TranslateConfig() {
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const [secondLanguage, setSecondLanguage] = useAtom(secondLanguageAtom);
-    const [defaultInterface, setDefaultInterface] = useAtom(defaultInterfaceAtom);
+    const [defaultInterfaceList, setDefaultInterfaceList] = useAtom(defaultInterfaceListAtom);
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
 
     return (
@@ -91,11 +91,22 @@ export default function TranslateConfig() {
             <ConfigItem label='默认接口'>
                 <Select
                     fullWidth
-                    value={defaultInterface}
+                    multiple
+                    value={defaultInterfaceList}
                     onChange={(e) => {
-                        setDefaultInterface(e.target.value);
-                        set('interface', e.target.value);
+                        setDefaultInterfaceList(e.target.value);
+                        set('default_interface_list', e.target.value);
                     }}
+                    renderValue={(selected) => (
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                            {selected.map((value) => (
+                                <Chip
+                                    key={value}
+                                    label={interfaces[value]['info']['name']}
+                                />
+                            ))}
+                        </Box>
+                    )}
                 >
                     {Object.keys(interfaces).map((x) => {
                         return (
