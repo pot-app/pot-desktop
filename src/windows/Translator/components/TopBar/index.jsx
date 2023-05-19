@@ -18,12 +18,13 @@ let unlisten = listen('tauri://blur', () => {
     }
 });
 
+let currentClipboard = '';
+
 export default function TopBar() {
     const [pined, setPined] = useState(get('default_pined') ?? true);
     const [ismacos, setIsmacos] = useState(false);
     const [listenCopy, setListenCopy] = useState(false);
     const [int, setInt] = useState();
-    const [currentClipboard, setCurrentClipboard] = useState('');
     const theme = useTheme();
 
     useEffect(() => {
@@ -84,8 +85,8 @@ export default function TopBar() {
                                 setInterval(async () => {
                                     const text = await readText();
                                     if (text && text != currentClipboard) {
-                                        setCurrentClipboard(text);
-                                        emit('new_selection', text);
+                                        currentClipboard = text;
+                                        await emit('new_selection', text);
                                     }
                                 }, 200)
                             );
