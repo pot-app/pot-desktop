@@ -18,12 +18,13 @@ let unlisten = listen('tauri://blur', () => {
     }
 });
 
+let currentClipboard = '';
+
 export default function TopBar() {
     const [pined, setPined] = useState(get('default_pined') ?? true);
     const [ismacos, setIsmacos] = useState(false);
     const [listenCopy, setListenCopy] = useState(false);
     const [int, setInt] = useState();
-    const [currentClipboard, setCurrentClipboard] = useState('');
     const theme = useTheme();
 
     useEffect(() => {
@@ -82,10 +83,14 @@ export default function TopBar() {
                             setListenCopy(true);
                             setInt(
                                 setInterval(async () => {
-                                    const text = await readText();
+                                    let text = await readText();
                                     if (text && text != currentClipboard) {
-                                        setCurrentClipboard(text);
-                                        emit('new_selection', text);
+                                        currentClipboard = text;
+                                        if (get('delete_newline') ?? false) {
+                                            // /s匹配空格和换行符 /g表示全局匹配
+                                            text = text.replace(/\s+/g, ' ');
+                                        }
+                                        await emit('new_selection', text);
                                     }
                                 }, 200)
                             );
