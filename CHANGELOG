@@ -1,18 +1,17 @@
-## 0.3.3 (2023-05-18)
+## Unreleased (2023-05-19)
+
+### BREAK:
+
+-   本次更新了 APPID：cn.pylogmon.pot->com.pylogmon.pot,所以配置文件路径会发生改变，需要迁移配置文件请看官网 faq 找配置文件路径。
 
 ### New feature:
 
--   添加 Azure OpenAI Service 支持 (#93)([`092aee2`](https://github.com/pot-app/pot-desktop/commit/092aee2ab2d226e3d6bad850737f761ef2e18305)) (by 派了个萌)
--   添加剪切板监听模式 (#92)([`3d30f4f`](https://github.com/pot-app/pot-desktop/commit/3d30f4f0f8a3ecfa961f7fb420744e1d2655002d)) (by 派了个萌)
+-   添加多接口同时翻译 (#90)([`d58100e`](https://github.com/pot-app/pot-desktop/commit/d58100ee02d878dedfd84f5a56077c257a43ed26)) (by Pylogmon)
+-   添加 Lingva 翻译接口 (#103)([`1f2682b`](https://github.com/pot-app/pot-desktop/commit/1f2682bebd4f63c8c01433eeda1c7c275111616d)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   添加 Windows7 支持([`0125fd6`](https://github.com/pot-app/pot-desktop/commit/0125fd6ab4a09fc8a00186ea9024eee062a7c9bd)) (by Pylogmon)
--   修复 Windows 下无法设置 win 快捷键([`5b98a4a`](https://github.com/pot-app/pot-desktop/commit/5b98a4aa5be6516af22266d7caca6c54d1c02fc5)) (by Pylogmon)
--   修复某些发行版 AppImage 无法启动的问题([`3501739`](https://github.com/pot-app/pot-desktop/commit/3501739a09314a83714448f2f1b8aa227898ed01)) (by Pylogmon)
-
-### Performance improves:
-
--   添加网络代理确认按钮([`a7fd181`](https://github.com/pot-app/pot-desktop/commit/a7fd181c7065b4d7b62e7a5594af35efabb18e2e)) (by Pylogmon)
-
--   添加插件调用文档提示([`8e1a690`](https://github.com/pot-app/pot-desktop/commit/8e1a690c7bafdb9b9a6e37fa14a7eade432e4424)) (by Pylogmon)
+-   修复翻译未完成时切换翻译接口不会切断之前翻译的问题([`b2e6ccb`](https://github.com/pot-app/pot-desktop/commit/b2e6ccbc7110939f6627d808f04fc71f4b755b9b)) (by Pylogmon)
+-   修复 Linux 下插件调用窗口不置顶的问题 (#102)([`ea6e4b6`](https://github.com/pot-app/pot-desktop/commit/ea6e4b64b747fe2b7df7f1673547fa9551059ab3)) (by 派了个萌)
+-   修复 azure (#99)([`87bfe30`](https://github.com/pot-app/pot-desktop/commit/87bfe30f348981016c2604d840981b1b41125932)) (by 派了个萌)
+-   修复 MacOS 无法设置 Command 快捷键及设置某些快捷键后闪退的问题([`17fbfd8`](https://github.com/pot-app/pot-desktop/commit/17fbfd8df04ef7031d8925ae00fa79aefb7107a0)) (by Pylogmon)
