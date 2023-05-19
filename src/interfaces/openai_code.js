@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -25,7 +26,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     let domain = get('openai_domain') ?? 'api.openai.com';
     if (domain == '') {
@@ -91,7 +92,9 @@ export async function translate(text, from, to, setText) {
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) {
-                        setText(target);
+                        if (id == translateID) {
+                            setText(target);
+                        }
                         break;
                     }
                     const str = new TextDecoder().decode(value);
@@ -104,14 +107,18 @@ export async function translate(text, from, to, setText) {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        setText(target + '_');
+                                        if (id == translateID) {
+                                            setText(target + '_');
+                                        }
                                     }
                                     temp = '';
                                 } else {
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {
                                         target += result.choices[0].delta.content;
-                                        setText(target + '_');
+                                        if (id == translateID) {
+                                            setText(target + '_');
+                                        }
                                     }
                                 }
                             } catch {
@@ -144,7 +151,9 @@ export async function translate(text, from, to, setText) {
                     if (target.endsWith('"')) {
                         target = target.slice(0, -1);
                     }
-                    setText(target);
+                    if (id == translateID) {
+                        setText(target);
+                    }
                 } else {
                     throw JSON.stringify(choices);
                 }

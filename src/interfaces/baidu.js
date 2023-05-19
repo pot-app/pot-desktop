@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { nanoid } from 'nanoid';
@@ -32,7 +33,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     const url = 'https://fanyi-api.baidu.com/api/trans/vip/translate';
     const appid = get('baidu_appid') ?? '';
@@ -66,7 +67,7 @@ export async function translate(text, from, to, setText) {
             if (sourceLanguage == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
@@ -74,7 +75,9 @@ export async function translate(text, from, to, setText) {
             for (let i in trans_result) {
                 target = target + trans_result[i]['dst'] + '\n';
             }
-            setText(target);
+            if (id == translateID) {
+                setText(target);
+            }
         } else {
             throw JSON.stringify(result);
         }

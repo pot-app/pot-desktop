@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -21,7 +22,7 @@ export const info = {
     needs: [],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
 
     const { supportLanguage } = info;
 
@@ -74,11 +75,13 @@ export async function translate(text, from, to, setText) {
                 if (result[0].detectedLanguage.language == supportLanguage[to]) {
                     let secondLanguage = get('second_language') ?? 'en';
                     if (secondLanguage != to) {
-                        await translate(text, from, secondLanguage, setText);
+                        await translate(text, from, secondLanguage, setText, id);
                         return;
                     }
                 }
-                setText(result[0].translations[0].text);
+                if (id == translateID) {
+                    setText(result[0].translations[0].text);
+                }
             } else {
                 throw JSON.stringify(result);
             }

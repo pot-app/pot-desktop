@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import CryptoJS from 'crypto-js';
 import { get } from '../windows/main';
@@ -36,7 +37,7 @@ export const info = {
     ],
 };
 //必须向外暴露translate
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
@@ -165,7 +166,7 @@ export async function translate(text, from, to, setText) {
             if (TranslationList[0]['DetectedSourceLanguage'] == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
@@ -181,7 +182,9 @@ export async function translate(text, from, to, setText) {
                 }
                 last = cur;
             }
-            setText(translations);
+            if (id == translateID) {
+                setText(translations);
+            }
         } else {
             throw JSON.stringify(result);
         }

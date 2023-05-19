@@ -18,6 +18,8 @@ import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../../main';
 import './style.css';
 
+export let translateID = '';
+
 export default function TargetArea() {
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
@@ -63,7 +65,9 @@ export default function TargetArea() {
         setAddedAnki(false);
         setLoading(true);
         let translator = interfaces[translateInterface];
-        translator.translate(text, from, to, setTargetText).then(
+        let id = nanoid();
+        translateID = id;
+        translator.translate(text, from, to, setTargetText, id).then(
             (_) => {
                 setLoading(false);
             },

@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -18,7 +19,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
     const token = get('caiyun_token') ?? '';
@@ -53,15 +54,20 @@ export async function translate(text, from, to, setText) {
     if (res.ok) {
         let result = res.data;
         const { target } = result;
-        if (target) {
-            if (target == text) {
+        if (target[0]) {
+            console.log(text);
+            console.log(target[0])
+            if (target[0] == text) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
-            setText(target);
+
+            if (id == translateID) {
+                setText(target[0]);
+            }
         } else {
             throw JSON.stringify(result);
         }

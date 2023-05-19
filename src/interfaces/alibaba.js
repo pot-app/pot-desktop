@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
@@ -36,7 +37,7 @@ export const info = {
     ],
 };
 //必须向外暴露translate
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
@@ -96,11 +97,13 @@ export async function translate(text, from, to, setText) {
             if (result['Data']['Translated'] == text) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
-            setText(result['Data']['Translated']);
+            if (id == translateID) {
+                setText(result['Data']['Translated']);
+            }
         } else {
             throw JSON.stringify(result);
         }

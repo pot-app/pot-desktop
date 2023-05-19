@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -21,7 +22,7 @@ export const info = {
     needs: [],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
 
     function initData(source_lang, target_lang) {
@@ -62,17 +63,17 @@ export async function translate(text, from, to, setText) {
     }
 
     const url = 'https://www2.deepl.com/jsonrpc';
-    let id = getRandomNumber();
+    let rand = getRandomNumber();
     const post_data = initData(supportLanguage[from], supportLanguage[to]);
     const translate_text = {
         text: text,
         requestAlternatives: 3,
     };
-    post_data.id = id;
+    post_data[id] = rand;
     post_data.params.texts = [translate_text];
     post_data.params.timestamp = getTimeStamp(getICount(text));
     let post_str = JSON.stringify(post_data);
-    if ((id + 5) % 29 === 0 || (id + 3) % 13 === 0) {
+    if ((rand + 5) % 29 === 0 || (rand + 3) % 13 === 0) {
         post_str = post_str.replace('"method":"', '"method" : "');
     } else {
         post_str = post_str.replace('"method":"', '"method": "');
@@ -94,11 +95,13 @@ export async function translate(text, from, to, setText) {
             if (result.result.lang == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
-            setText(result.result.texts[0].text);
+            if (id == translateID) {
+                setText(result.result.texts[0].text);
+            }
         } else {
             throw JSON.stringify(result);
         }

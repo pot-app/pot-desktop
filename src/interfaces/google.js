@@ -1,3 +1,4 @@
+import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
@@ -25,7 +26,7 @@ export const info = {
     ],
 };
 
-export async function translate(text, from, to, setText) {
+export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw '该接口不支持该语言';
@@ -62,7 +63,7 @@ export async function translate(text, from, to, setText) {
             if (result[2] == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
-                    await translate(text, from, secondLanguage, setText);
+                    await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
@@ -85,7 +86,9 @@ export async function translate(text, from, to, setText) {
                 }
                 target += '\n';
             }
-            setText(target);
+            if (id == translateID) {
+                setText(target);
+            }
         } else {
             // 翻译模式
             for (let r of result[0]) {
@@ -93,7 +96,9 @@ export async function translate(text, from, to, setText) {
                     target = target + r[0];
                 }
             }
-            setText(target);
+            if (id == translateID) {
+                setText(target);
+            }
         }
     } else {
         throw 'http请求出错\n' + JSON.stringify(res);
