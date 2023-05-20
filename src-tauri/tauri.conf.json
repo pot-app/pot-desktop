@@ -47,7 +47,7 @@
             "category": "Utility",
             "copyright": "GPLv3",
             "deb": {
-                "depends": []
+                "depends": ["libxdo-dev"]
             },
             "externalBin": [],
             "icon": [
