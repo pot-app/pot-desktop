@@ -18,6 +18,8 @@ export const defaultPinedAtom = atom(true);
 export const dynamicTranslateAtom = atom(false);
 export const deleteNewlineAtom = atom(false);
 export const openaiStreamAtom = atom(false);
+export const hideSourceAtom = atom(false);
+export const hideLanguageAtom = atom(false);
 export const autoCopyAtom = atom(4);
 export const targetLanguageAtom = atom('zh-cn');
 export const secondLanguageAtom = atom('en');
@@ -50,6 +52,8 @@ export default function Config() {
     const setDynamicTranslate = useSetAtom(dynamicTranslateAtom);
     const setDeleteNewline = useSetAtom(deleteNewlineAtom);
     const setOpenaiStream = useSetAtom(openaiStreamAtom);
+    const setHideSource = useSetAtom(hideSourceAtom);
+    const setHideLanguage = useSetAtom(hideLanguageAtom);
     const setAutoCopy = useSetAtom(autoCopyAtom);
     const setTargetLanguage = useSetAtom(targetLanguageAtom);
     const setSecondLanguage = useSetAtom(secondLanguageAtom);
@@ -83,6 +87,8 @@ export default function Config() {
         setDynamicTranslate(get('dynamic_translate') ?? false);
         setDeleteNewline(get('delete_newline') ?? false);
         setOpenaiStream(get('openai_stream') ?? false);
+        setHideSource(get('hide_source') ?? false);
+        setHideLanguage(get('hide_language') ?? false);
         setAutoCopy(get('auto_copy') ?? 4);
         setTargetLanguage(get('target_language') ?? 'zh-cn');
         setSecondLanguage(get('second_language') ?? 'en');
