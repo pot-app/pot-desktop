@@ -33,6 +33,7 @@ export default function Translator() {
                 container
                 direction='column'
                 height='calc(100vh - 50px)'
+                style={{ overflow: 'hidden' }}
             >
                 <Grid style={{ width: '100%', display: get('hide_source') ?? false ? 'none' : '' }}>
                     <SourceArea />

@@ -1,17 +1,12 @@
-## 0.3.4 (2023-05-19)
-
-### BREAK:
-
--   本次更新了 APPID：cn.pylogmon.pot->com.pylogmon.pot,所以配置文件路径会发生改变，需要迁移配置文件请看官网 faq 找配置文件路径。
+## 0.3.5 (2023-05-20)
 
 ### New feature:
 
--   添加多接口同时翻译 (#90)([`d58100e`](https://github.com/pot-app/pot-desktop/commit/d58100ee02d878dedfd84f5a56077c257a43ed26)) (by Pylogmon)
--   添加 Lingva 翻译接口 (#103)([`1f2682b`](https://github.com/pot-app/pot-desktop/commit/1f2682bebd4f63c8c01433eeda1c7c275111616d)) (by 派了个萌)
+-   使用 Grid 优化布局 (#112)([`31891c3`](https://github.com/pot-app/pot-desktop/commit/31891c3d0965b2de9a8ac51f443abbd7c7a11fd7)) (by 派了个萌)
+-   添加隐藏原文本和隐藏语言栏选项(极简模式) (#112)([`31891c3`](https://github.com/pot-app/pot-desktop/commit/31891c3d0965b2de9a8ac51f443abbd7c7a11fd7)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复翻译未完成时切换翻译接口不会切断之前翻译的问题([`b2e6ccb`](https://github.com/pot-app/pot-desktop/commit/b2e6ccbc7110939f6627d808f04fc71f4b755b9b)) (by Pylogmon)
--   修复 Linux 下插件调用窗口不置顶的问题 (#102)([`ea6e4b6`](https://github.com/pot-app/pot-desktop/commit/ea6e4b64b747fe2b7df7f1673547fa9551059ab3)) (by 派了个萌)
--   修复 azure (#99)([`87bfe30`](https://github.com/pot-app/pot-desktop/commit/87bfe30f348981016c2604d840981b1b41125932)) (by 派了个萌)
--   修复 MacOS 无法设置 Command 快捷键及设置某些快捷键后闪退的问题([`17fbfd8`](https://github.com/pot-app/pot-desktop/commit/17fbfd8df04ef7031d8925ae00fa79aefb7107a0)) (by Pylogmon)
+-   修复某些报错信息会导致白屏的问题([`9a8e443`](https://github.com/pot-app/pot-desktop/commit/9a8e443452f4a9f3508ed538b1df998664859c60)) (by Pylogmon)
+-   修复 deb 包依赖缺失([`84a5eb5`](https://github.com/pot-app/pot-desktop/commit/84a5eb582799853359464dce7df5292334838f5c)) (by Pylogmon)
+-   修复剪切板监听模式无法自动格式化 (#106)([`2ed88f0`](https://github.com/pot-app/pot-desktop/commit/2ed88f0782afa499d354ca32dc09b5d9a1a2a941)) (by 派了个萌)
