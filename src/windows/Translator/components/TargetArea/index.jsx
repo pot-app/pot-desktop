@@ -74,7 +74,7 @@ export default function TargetArea(props) {
                 setLoading(false);
             },
             (e) => {
-                setTargetText(e);
+                setTargetText(e.toString());
                 setLoading(false);
             }
         );
