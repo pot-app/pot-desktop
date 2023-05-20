@@ -17,6 +17,8 @@ import {
     windowHeightAtom,
     windowWidthAtom,
     themeAtom,
+    hideSourceAtom,
+    hideLanguageAtom,
 } from '../..';
 import { invoke } from '@tauri-apps/api/tauri';
 
@@ -28,6 +30,8 @@ export default function AppConfig() {
     const [defaultWindow, setDefaultWindow] = useAtom(defaultWindowAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
+    const [hideSource, setHideSource] = useAtom(hideSourceAtom);
+    const [hideLanguage, setHideLanguage] = useAtom(hideLanguageAtom);
     const [theme, setTheme] = useAtom(themeAtom);
     const muitheme = useTheme();
 
@@ -98,6 +102,30 @@ export default function AppConfig() {
                             />
                         }
                         label='独立翻译窗口默认置顶'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={hideSource}
+                                onChange={(e) => {
+                                    setHideSource(e.target.checked);
+                                    set('hide_source', e.target.checked);
+                                }}
+                            />
+                        }
+                        label='隐藏原文本'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={hideLanguage}
+                                onChange={(e) => {
+                                    setHideLanguage(e.target.checked);
+                                    set('hide_language', e.target.checked);
+                                }}
+                            />
+                        }
+                        label='隐藏语言栏'
                     />
                 </ConfigItem>
                 <ConfigItem label='网络代理'>
