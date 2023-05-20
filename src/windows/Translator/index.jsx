@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appWindow } from '@tauri-apps/api/window';
-import { useMediaQuery, Box } from '@mui/material';
+import { useMediaQuery, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import LanguageSelector from './components/LanguageSelector';
 import TargetArea from './components/TargetArea';
@@ -29,25 +29,36 @@ export default function Translator() {
                 className='titlebar'
             />
             <TopBar />
-            <SourceArea />
-            <LanguageSelector />
-            <Box
-                style={{
-                    marginTop: '8px',
-                    height: 'calc(60vh - 44px)',
-                    overflow: 'auto',
-                }}
+            <Grid
+                container
+                direction='column'
+                height='calc(100vh - 50px)'
             >
-                {interfaceList.map((x, index) => {
-                    return (
-                        <TargetArea
-                            i={x}
-                            q={index}
-                            key={x}
-                        />
-                    );
-                })}
-            </Box>
+                <Grid style={{ width: '100%' }}>
+                    <SourceArea />
+                </Grid>
+                <Grid style={{ width: '100%' }}>
+                    <LanguageSelector />
+                </Grid>
+                <Grid
+                    style={{
+                        width: '100%',
+                        overflow: 'auto',
+                        marginTop: '8px',
+                    }}
+                    xs
+                >
+                    {interfaceList.map((x, index) => {
+                        return (
+                            <TargetArea
+                                i={x}
+                                q={index}
+                                key={x}
+                            />
+                        );
+                    })}
+                </Grid>
+            </Grid>
         </ThemeProvider>
     );
 }

@@ -26,7 +26,7 @@ html {
     height: 35px;
     user-select: none;
     position: fixed;
-    margin: 1px;
+    margin: 5px;
     top: 0;
     left: 0;
     right: 0;
@@ -37,10 +37,10 @@ html {
 }
 
 *::-webkit-scrollbar-thumb {
-    background: #c0c1c5;
+    background: #c0c1c550;
     border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: #c0c1c5;
+    background: #c0c1c550;
 }
