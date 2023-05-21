@@ -153,22 +153,20 @@ export default function TargetArea(props) {
                     }}
                 >
                     {Object.keys(interfaces).map((x) => {
-                        if (get(`${x}_enable`) ?? true) {
-                            return (
-                                <MenuItem
-                                    value={x}
-                                    key={nanoid()}
-                                >
-                                    <Box>
-                                        <img
-                                            src={`/${x}.svg`}
-                                            className='interface-icon'
-                                        />
-                                        <span className='interface-name'>{interfaces[x]['info']['name']}</span>
-                                    </Box>
-                                </MenuItem>
-                            );
-                        }
+                        return (
+                            <MenuItem
+                                value={x}
+                                key={nanoid()}
+                            >
+                                <Box>
+                                    <img
+                                        src={`/${x}.svg`}
+                                        className='interface-icon'
+                                    />
+                                    <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                </Box>
+                            </MenuItem>
+                        );
                     })}
                 </Select>
                 <PulseLoader

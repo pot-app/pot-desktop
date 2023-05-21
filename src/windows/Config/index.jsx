@@ -108,7 +108,6 @@ export default function Config() {
 
         Object.keys(interfaces).map((i) => {
             interface_configs[i] = {
-                enable: get(`${i}_enable`) ?? true,
                 interface_key: i,
                 interface_name: interfaces[i]['info']['name'],
                 needs: [],
