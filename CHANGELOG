@@ -1,12 +1,15 @@
-## 0.3.5 (2023-05-20)
+## 0.3.6 (2023-05-21)
 
 ### New feature:
 
--   使用 Grid 优化布局 (#112)([`31891c3`](https://github.com/pot-app/pot-desktop/commit/31891c3d0965b2de9a8ac51f443abbd7c7a11fd7)) (by 派了个萌)
--   添加隐藏原文本和隐藏语言栏选项(极简模式) (#112)([`31891c3`](https://github.com/pot-app/pot-desktop/commit/31891c3d0965b2de9a8ac51f443abbd7c7a11fd7)) (by 派了个萌)
+-   改用 lingva 实现朗读，支持除粤语外所有语言。([`301ba6e`](https://github.com/pot-app/pot-desktop/commit/301ba6e266964d52d0f30a1256ce9c5c82fc386f)) (by Pylogmon)
+-   DeepL 支持设置 API Key (#114)([`92c3ea6`](https://github.com/pot-app/pot-desktop/commit/92c3ea6a6229c6cc27859e3ce7a284c70b5b851c)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复某些报错信息会导致白屏的问题([`9a8e443`](https://github.com/pot-app/pot-desktop/commit/9a8e443452f4a9f3508ed538b1df998664859c60)) (by Pylogmon)
--   修复 deb 包依赖缺失([`84a5eb5`](https://github.com/pot-app/pot-desktop/commit/84a5eb582799853359464dce7df5292334838f5c)) (by Pylogmon)
--   修复剪切板监听模式无法自动格式化 (#106)([`2ed88f0`](https://github.com/pot-app/pot-desktop/commit/2ed88f0782afa499d354ca32dc09b5d9a1a2a941)) (by 派了个萌)
+-   将不支持繁体中文的接口 fallback 到简体中文([`f4831f5`](https://github.com/pot-app/pot-desktop/commit/f4831f5b119fb7de708978ba65d2263a8e7ed518)) (by Pylogmon)
+-   修复极简模式输入翻译窗口也会隐藏输入框的问题([`d5e5f2b`](https://github.com/pot-app/pot-desktop/commit/d5e5f2b0c626f456eacef8f32ebb5237d940e24b)) (by Pylogmon)
+
+### Performance improves:
+
+-   优化设置页面样式([`9a37783`](https://github.com/pot-app/pot-desktop/commit/9a377835a4ba06ca4f0492f92851c90b02796172)) (by Pylogmon)
