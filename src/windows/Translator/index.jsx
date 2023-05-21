@@ -35,10 +35,20 @@ export default function Translator() {
                 height='calc(100vh - 50px)'
                 style={{ overflow: 'hidden' }}
             >
-                <Grid style={{ width: '100%', display: get('hide_source') ?? false ? 'none' : '' }}>
+                <Grid
+                    style={{
+                        width: '100%',
+                        display: appWindow.label != 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
+                    }}
+                >
                     <SourceArea />
                 </Grid>
-                <Grid style={{ width: '100%', display: get('hide_language') ?? false ? 'none' : '' }}>
+                <Grid
+                    style={{
+                        width: '100%',
+                        display: appWindow.label != 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
+                    }}
+                >
                     <LanguageSelector />
                 </Grid>
                 <Grid
