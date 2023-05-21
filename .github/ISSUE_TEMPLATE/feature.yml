@@ -1,6 +1,6 @@
 name: 🌟 Feature
 description: 提出改进建议或者新的需求
-title: "[Feature]: <标题>"
+title: "[Feature]: 标题"
 labels: ["新需求"]
 body:
 - type: markdown
