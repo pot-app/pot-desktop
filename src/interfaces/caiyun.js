@@ -55,8 +55,6 @@ export async function translate(text, from, to, setText, id) {
         let result = res.data;
         const { target } = result;
         if (target[0]) {
-            console.log(text);
-            console.log(target[0])
             if (target[0] == text) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (to != secondLanguage) {

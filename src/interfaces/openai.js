@@ -112,7 +112,6 @@ export async function translate(text, from, to, setText, id) {
                         break;
                     }
                     const str = new TextDecoder().decode(value);
-                    console.log(str);
                     let datas = str.split('data: ');
                     for (let data of datas) {
                         if (data.trim() != '' && data.trim() != '[DONE]') {
