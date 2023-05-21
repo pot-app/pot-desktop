@@ -44,7 +44,6 @@ export default function InterfaceConfig() {
                                         label={y['needs_display_name']}
                                         placeholder={y['needs_place_hold']}
                                         defaultValue={y['needs_config_value']}
-                                        disabled={!interfaceConfigs[x]['enable']}
                                         onChange={(e) => {
                                             let configs = interfaceConfigs;
                                             for (let j in configs[x]['needs']) {

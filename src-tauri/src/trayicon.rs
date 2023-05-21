@@ -95,7 +95,7 @@ pub fn on_config_click(app: &AppHandle) {
                 "config",
                 tauri::WindowUrl::App("index.html".into()),
             )
-            .inner_size(600.0, 400.0)
+            .inner_size(600.0, 600.0)
             .min_inner_size(400.0, 400.0)
             .center()
             .focused(true)
