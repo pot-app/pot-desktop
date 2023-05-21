@@ -4,7 +4,7 @@ import { fetch } from '@tauri-apps/api/http';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: '必应词典',
+    name: 'Bing词典',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
