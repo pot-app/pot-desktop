@@ -7,6 +7,7 @@ import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
+import { speak } from '../../../../global/speak';
 import { useTheme } from '@mui/material/styles';
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
@@ -84,12 +85,8 @@ export default function SourceArea() {
                 <Box>
                     <IconButton
                         className='source-button'
-                        onClick={() => {
-                            new Audio(
-                                `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
-                                    text
-                                )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
-                            ).play();
+                        onClick={async () => {
+                            await speak(text);
                         }}
                     >
                         <Tooltip title='朗读'>

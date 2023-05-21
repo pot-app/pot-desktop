@@ -14,6 +14,7 @@ import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
 import { ankiConnect } from '../../../../global/ankiConnect';
 import { addToEudic } from '../../../../global/addToEudic';
 import * as interfaces from '../../../../interfaces';
+import { speak } from '../../../../global/speak';
 import { sourceTextAtom } from '../SourceArea';
 import { get } from '../../../main';
 import './style.css';
@@ -196,12 +197,8 @@ export default function TargetArea(props) {
                     <Box className='target-buttonarea'>
                         <IconButton
                             className='target-button'
-                            onClick={() => {
-                                new Audio(
-                                    `https://fanyi.sogou.com/reventondc/synthesis?text=${encodeURIComponent(
-                                        targetText
-                                    )}&speed=1&lang=zh-CHS&from=translateweb&speaker=6`
-                                ).play();
+                            onClick={async () => {
+                                await speak(targetText);
                             }}
                         >
                             <Tooltip title='朗读'>

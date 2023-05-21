@@ -52,6 +52,7 @@ export default function Translator() {
                     <LanguageSelector />
                 </Grid>
                 <Grid
+                    item
                     style={{
                         width: '100%',
                         overflow: 'auto',
