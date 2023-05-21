@@ -19,10 +19,23 @@ export const info = {
         ru: 'RU',
     },
     // 接口需要配置项
-    needs: [],
+    needs: [
+        {
+            config_key: 'deepl_key',
+            place_hold: '没有请留空，使用自己的Key可以避免频繁请求导致的返回错误问题',
+            display_name: 'Auth Key',
+        },
+    ],
 };
 
 export async function translate(text, from, to, setText, id) {
+    const key = get('deepl_key') ?? '';
+
+    if (key != '') {
+        await translate_by_key(text, from, to, setText, id, key);
+        return;
+    }
+
     const { supportLanguage } = info;
 
     function initData(source_lang, target_lang) {
@@ -89,7 +102,7 @@ export async function translate(text, from, to, setText, id) {
             'Content-Type': 'application/json',
         },
     });
-    console.log(res);
+
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {
@@ -102,6 +115,52 @@ export async function translate(text, from, to, setText, id) {
             }
             if (translateID.includes(id)) {
                 setText(result.result.texts[0].text);
+            }
+        } else {
+            throw JSON.stringify(result);
+        }
+    } else {
+        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+    }
+}
+
+async function translate_by_key(text, from, to, setText, id, key) {
+    const { supportLanguage } = info;
+
+    if (!(from in supportLanguage) || !(to in supportLanguage)) {
+        throw '该接口不支持该语言';
+    }
+    const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `DeepL-Auth-Key ${key}`
+    }
+    let body = {
+        'text': [text],
+        'target_lang': supportLanguage[to]
+    }
+    if (from != 'auto') {
+        body['source_lang'] = supportLanguage[from];
+    }
+    let res = await fetch('https://api-free.deepl.com/v2/translate', {
+        method: 'POST',
+        body: {
+            type: 'Json',
+            payload: body,
+        },
+        headers: headers
+    });
+    if (res.ok) {
+        const result = res.data;
+        if (result.translations, result.translations[0]) {
+            if (result.translations[0]['detected_source_language'] == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (secondLanguage != to) {
+                    await translate_by_key(text, from, secondLanguage, setText, id, key);
+                    return;
+                }
+            }
+            if (translateID.includes(id)) {
+                setText(result.translations[0].text);
             }
         } else {
             throw JSON.stringify(result);
