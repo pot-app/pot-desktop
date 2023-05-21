@@ -1,4 +1,4 @@
-import { Select, MenuItem, Box, FormControlLabel, Checkbox, Tooltip, Chip } from '@mui/material';
+import { Select, MenuItem, Box, Chip, Switch } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
@@ -32,66 +32,56 @@ export default function TranslateConfig() {
 
     return (
         <ConfigList label='翻译设置'>
-            <ConfigItem>
-                <Tooltip title='输入后实时翻译，无需其他操作'>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={dynamicTranslate}
-                                onChange={(e) => {
-                                    setDynamicTranslate(e.target.checked);
-                                    set('dynamic_translate', e.target.checked);
-                                }}
-                            />
-                        }
-                        label='动态翻译'
-                    />
-                </Tooltip>
-                <Tooltip title='取词后自动删除内容中的换行符及多余空格'>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={deleteNewline}
-                                onChange={(e) => {
-                                    setDeleteNewline(e.target.checked);
-                                    set('delete_newline', e.target.checked);
-                                }}
-                            />
-                        }
-                        label='删除换行'
-                    />
-                </Tooltip>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={rememberTargetLanguage}
-                            onChange={(e) => {
-                                setRememberTargetLanguage(e.target.checked);
-                                set('remember_target_language', e.target.checked);
-                            }}
-                        />
-                    }
-                    label='记住目标语言'
+            <ConfigItem
+                label='动态翻译'
+                help='输入后实时翻译，无需其他操作'
+            >
+                <Switch
+                    checked={dynamicTranslate}
+                    onChange={(e) => {
+                        setDynamicTranslate(e.target.checked);
+                        set('dynamic_translate', e.target.checked);
+                    }}
                 />
-                <Tooltip title='开启流式输出后无法使用软件内代理，只能开启全局代理'>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={openaiStream}
-                                onChange={(e) => {
-                                    setOpenaiStream(e.target.checked);
-                                    set('openai_stream', e.target.checked);
-                                }}
-                            />
-                        }
-                        label='OpenAI 流式输出'
-                    />
-                </Tooltip>
+            </ConfigItem>
+            <ConfigItem
+                label='删除换行'
+                help='取词后自动删除内容中的换行符及多余空格'
+            >
+                <Switch
+                    checked={deleteNewline}
+                    onChange={(e) => {
+                        setDeleteNewline(e.target.checked);
+                        set('delete_newline', e.target.checked);
+                    }}
+                />
+            </ConfigItem>
+            <ConfigItem label='记住目标语言'>
+                <Switch
+                    checked={rememberTargetLanguage}
+                    onChange={(e) => {
+                        setRememberTargetLanguage(e.target.checked);
+                        set('remember_target_language', e.target.checked);
+                    }}
+                />
+            </ConfigItem>
+            <ConfigItem
+                label='OpenAI 流式输出'
+                help='开启流式输出后无法使用软件内代理，只能开启全局代理'
+            >
+                <Switch
+                    checked={openaiStream}
+                    onChange={(e) => {
+                        setOpenaiStream(e.target.checked);
+                        set('openai_stream', e.target.checked);
+                    }}
+                />
             </ConfigItem>
             <ConfigItem label='默认接口'>
                 <Select
-                    fullWidth
                     multiple
+                    size='small'
+                    sx={{ width: '300px' }}
                     value={defaultInterfaceList}
                     onChange={(e) => {
                         setDefaultInterfaceList(e.target.value);
@@ -128,7 +118,8 @@ export default function TranslateConfig() {
             </ConfigItem>
             <ConfigItem label='目标语言'>
                 <Select
-                    fullWidth
+                    size='small'
+                    sx={{ width: '300px' }}
                     value={targetLanguage}
                     onChange={(e) => {
                         setTargetLanguage(e.target.value);
@@ -149,33 +140,36 @@ export default function TranslateConfig() {
                 </Select>
             </ConfigItem>
 
-            <ConfigItem label='第二目标语言'>
-                <Tooltip title='当检测到翻译结果与源语言相同时自动翻译为第二目标语言'>
-                    <Select
-                        fullWidth
-                        value={secondLanguage}
-                        onChange={(e) => {
-                            setSecondLanguage(e.target.value);
-                            set('second_language', e.target.value);
-                        }}
-                    >
-                        {language.map((x) => {
-                            return (
-                                <MenuItem
-                                    value={x.value}
-                                    key={nanoid()}
-                                >
-                                    <span className={`fi fi-${x.code}`} />
-                                    <span>{x.label}</span>
-                                </MenuItem>
-                            );
-                        })}
-                    </Select>
-                </Tooltip>
+            <ConfigItem
+                label='第二目标语言'
+                help='当检测到翻译结果与源语言相同时自动翻译为第二目标语言'
+            >
+                <Select
+                    size='small'
+                    sx={{ width: '300px' }}
+                    value={secondLanguage}
+                    onChange={(e) => {
+                        setSecondLanguage(e.target.value);
+                        set('second_language', e.target.value);
+                    }}
+                >
+                    {language.map((x) => {
+                        return (
+                            <MenuItem
+                                value={x.value}
+                                key={nanoid()}
+                            >
+                                <span className={`fi fi-${x.code}`} />
+                                <span>{x.label}</span>
+                            </MenuItem>
+                        );
+                    })}
+                </Select>
             </ConfigItem>
             <ConfigItem label='翻译后自动复制'>
                 <Select
-                    fullWidth
+                    size='small'
+                    sx={{ width: '300px' }}
                     value={autoCopy}
                     onChange={(e) => {
                         setAutoCopy(e.target.value);

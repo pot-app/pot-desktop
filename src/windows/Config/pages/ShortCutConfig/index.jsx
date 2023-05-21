@@ -60,10 +60,11 @@ export default function ShortCutConfig() {
     }
 
     return (
-        <ConfigList label='快捷键'>
+        <ConfigList label='翻译快捷键'>
             <ConfigItem label='划词翻译'>
                 <TextField
-                    fullWidth
+                    size='small'
+                    sx={{ width: '300px' }}
                     value={shortcutTranslate}
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     onKeyDown={(e) => {
@@ -76,6 +77,7 @@ export default function ShortCutConfig() {
                         endAdornment: (
                             <InputAdornment position='end'>
                                 <Button
+                                    size='small'
                                     variant='outlined'
                                     onClick={() => {
                                         set('shortcut_translate', shortcutTranslate);
@@ -90,7 +92,8 @@ export default function ShortCutConfig() {
             </ConfigItem>
             <ConfigItem label='独立翻译窗口'>
                 <TextField
-                    fullWidth
+                    size='small'
+                    sx={{ width: '300px' }}
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}
                     onKeyDown={(e) => {
@@ -103,6 +106,7 @@ export default function ShortCutConfig() {
                         endAdornment: (
                             <InputAdornment position='end'>
                                 <Button
+                                    size='small'
                                     variant='outlined'
                                     onClick={() => {
                                         set('shortcut_persistent', shortcutPersistent);
@@ -124,22 +128,21 @@ export default function ShortCutConfig() {
                     onFocus={() => { setShortcutOcr('') }}
                 />
             </ConfigItem> */}
-            <ConfigItem label='插件调用'>
-                <p>
-                    想要更流畅的翻译体验，请查阅
-                    <a
-                        href='https://pot.pylogmon.com/docs/tutorial/config/plugin_config'
-                        target='_blank'
-                    >
-                        插件调用
-                    </a>
-                    文档
-                </p>
-                <img
-                    src='plugin.gif'
-                    style={{ width: '100%' }}
-                ></img>
-            </ConfigItem>
+            <p>
+                想要更流畅的翻译体验，请查阅
+                <a
+                    href='https://pot.pylogmon.com/docs/tutorial/config/plugin_config'
+                    target='_blank'
+                >
+                    插件调用
+                </a>
+                文档
+            </p>
+
+            <img
+                src='plugin.gif'
+                style={{ width: '100%' }}
+            ></img>
         </ConfigList>
     );
 }

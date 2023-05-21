@@ -8,7 +8,6 @@ import { ask } from '@tauri-apps/api/dialog';
 import { Button, Box } from '@mui/material';
 import { app } from '@tauri-apps/api';
 import ConfigList from '../../components/ConfigList';
-import ConfigItem from '../../components/ConfigItem';
 import './style.css';
 
 export default function AppInfo() {
@@ -95,143 +94,137 @@ export default function AppInfo() {
                     className='logo'
                 />
             </Box>
-
-            <ConfigItem label='应用简介'>
-                <ul>
-                    <li>应用名称:&nbsp;&nbsp;pot</li>
-                    <li>
-                        作者:&nbsp;&nbsp;
-                        <a
-                            href='https://github.com/Pylogmon'
-                            target='_blank'
-                        >
-                            @Pylogmon
-                        </a>
-                    </li>
-                    <li>
-                        开源协议:&nbsp;&nbsp;
-                        <a
-                            href='https://github.com/pot-app/pot-desktop/blob/master/LICENSE'
-                            target='_blank'
-                        >
-                            GPL-3.0
-                        </a>
-                    </li>
-                    <li>描述:&nbsp;&nbsp;pot是一款跨平台的划词翻译软件</li>
-                </ul>
-            </ConfigItem>
-            <ConfigItem label='应用版本'>
-                <ul>
-                    <li>Pot:&nbsp;&nbsp;{version}</li>
-                    <li>Tauri:&nbsp;&nbsp;{tauriVersion}</li>
-                    <li>
-                        <Button
-                            size='small'
-                            onClick={() => copy(`pot:${version}  Tauri:${tauriVersion}`)}
-                        >
-                            一键复制
-                        </Button>
-                    </li>
-                </ul>
+            <h3>应用简介</h3>
+            <ul>
+                <li>应用名称:&nbsp;&nbsp;pot</li>
+                <li>
+                    作者:&nbsp;&nbsp;
+                    <a
+                        href='https://github.com/Pylogmon'
+                        target='_blank'
+                    >
+                        @Pylogmon
+                    </a>
+                </li>
+                <li>
+                    开源协议:&nbsp;&nbsp;
+                    <a
+                        href='https://github.com/pot-app/pot-desktop/blob/master/LICENSE'
+                        target='_blank'
+                    >
+                        GPL-3.0
+                    </a>
+                </li>
+                <li>描述:&nbsp;&nbsp;pot是一款跨平台的划词翻译软件</li>
+            </ul>
+            <h3>应用版本</h3>
+            <ul>
+                <li>Pot:&nbsp;&nbsp;{version}</li>
+                <li>Tauri:&nbsp;&nbsp;{tauriVersion}</li>
+                <li>
+                    <Button
+                        size='small'
+                        onClick={() => copy(`pot:${version}  Tauri:${tauriVersion}`)}
+                    >
+                        一键复制
+                    </Button>
+                </li>
+            </ul>
+            <Button
+                onClick={checkUpdateHandler}
+                variant='outlined'
+                disabled={checking}
+                size='small'
+            >
+                检查更新
+            </Button>
+            <PulseLoader
+                loading={checking}
+                color={theme.palette.text.primary}
+                size={5}
+                cssOverride={{
+                    display: 'inline-block',
+                    margin: 'auto',
+                    marginLeft: '8px',
+                }}
+            />
+            &nbsp;
+            <a
+                href='https://pot.pylogmon.com/download'
+                target='_blank'
+            >
                 <Button
-                    onClick={checkUpdateHandler}
                     variant='outlined'
-                    disabled={checking}
                     size='small'
                 >
-                    检查更新
+                    前往下载
                 </Button>
-                <PulseLoader
-                    loading={checking}
-                    color={theme.palette.text.primary}
-                    size={5}
-                    cssOverride={{
-                        display: 'inline-block',
-                        margin: 'auto',
-                        marginLeft: '8px',
-                    }}
-                />
-                &nbsp;
-                <a
-                    href='https://pot.pylogmon.com/download'
-                    target='_blank'
-                >
-                    <Button
-                        variant='outlined'
-                        size='small'
+            </a>
+            <h3>相关站点</h3>
+            <ul>
+                <li>
+                    官网&文档:&nbsp;&nbsp;
+                    <a
+                        href='https://pot.pylogmon.com'
+                        target='_blank'
                     >
-                        前往下载
-                    </Button>
-                </a>
-            </ConfigItem>
-            <ConfigItem label='相关站点'>
-                <ul>
-                    <li>
-                        官网&文档:&nbsp;&nbsp;
-                        <a
-                            href='https://pot.pylogmon.com'
-                            target='_blank'
-                        >
-                            https://pot.pylogmon.com
-                        </a>
-                    </li>
-                    <li>
-                        Github:&nbsp;&nbsp;
-                        <a
-                            href='https://github.com/pot-app/pot-desktop'
-                            target='_blank'
-                        >
-                            https://github.com/pot-app/pot-desktop
-                        </a>
-                    </li>
-                </ul>
-            </ConfigItem>
-            <ConfigItem label='使用反馈'>
-                <ul>
-                    <li>
-                        提交Bug:&nbsp;&nbsp;
-                        <a
-                            href='https://github.com/pot-app/pot-desktop/issues/new?template=bug.yml'
-                            target='_blank'
-                        >
-                            提交Issue
-                        </a>
-                    </li>
-                    <li>
-                        需求建议:&nbsp;&nbsp;
-                        <a
-                            href='https://github.com/pot-app/pot-desktop/issues/new?template=feature.yml'
-                            target='_blank'
-                        >
-                            提交Issue
-                        </a>
-                    </li>
-                    <li>
-                        联系作者:&nbsp;&nbsp;
-                        <a
-                            href='mailto:pylogmon@outlook.com'
-                            target='_blank'
-                        >
-                            pylogmon@outlook.com
-                        </a>
-                        <br />
-                    </li>
-                </ul>
-            </ConfigItem>
-            <ConfigItem label='社区交流'>
-                <ul>
-                    <li>QQ群:&nbsp;&nbsp;767701966</li>
-                    <li>
-                        Telegram群组:&nbsp;&nbsp;
-                        <a
-                            href='https://t.me/Pot_Pylogmon'
-                            target='_blank'
-                        >
-                            t.me/Pot_Pylogmon
-                        </a>
-                    </li>
-                </ul>
-            </ConfigItem>
+                        https://pot.pylogmon.com
+                    </a>
+                </li>
+                <li>
+                    Github:&nbsp;&nbsp;
+                    <a
+                        href='https://github.com/pot-app/pot-desktop'
+                        target='_blank'
+                    >
+                        https://github.com/pot-app/pot-desktop
+                    </a>
+                </li>
+            </ul>
+            <h3>使用反馈</h3>
+            <ul>
+                <li>
+                    提交Bug:&nbsp;&nbsp;
+                    <a
+                        href='https://github.com/pot-app/pot-desktop/issues'
+                        target='_blank'
+                    >
+                        提交Issue
+                    </a>
+                </li>
+                <li>
+                    需求建议:&nbsp;&nbsp;
+                    <a
+                        href='https://github.com/pot-app/pot-desktop/issues'
+                        target='_blank'
+                    >
+                        提交Issue
+                    </a>
+                </li>
+                <li>
+                    联系作者:&nbsp;&nbsp;
+                    <a
+                        href='mailto:pylogmon@outlook.com'
+                        target='_blank'
+                    >
+                        pylogmon@outlook.com
+                    </a>
+                    <br />
+                </li>
+            </ul>
+            <h3>社区交流</h3>
+            <ul>
+                <li>QQ群:&nbsp;&nbsp;767701966</li>
+                <li>
+                    Telegram群组:&nbsp;&nbsp;
+                    <a
+                        href='https://t.me/Pot_Pylogmon'
+                        target='_blank'
+                    >
+                        t.me/Pot_Pylogmon
+                    </a>
+                </li>
+            </ul>
         </ConfigList>
     );
 }

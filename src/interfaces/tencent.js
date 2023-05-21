@@ -8,7 +8,7 @@ import { get } from '../windows/main';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: '腾讯翻译君',
+    name: '腾讯翻译',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',

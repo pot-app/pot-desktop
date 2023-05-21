@@ -3,7 +3,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: 'OpenAI 翻译',
+    name: 'OpenAI',
     supportLanguage: {
         'zh-cn': 'Simplified Chinese',
         'zh-tw': 'Traditional Chinese',
@@ -36,7 +36,7 @@ export const info = {
             config_key: 'openai_prompt',
             place_hold:
                 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
-            display_name: '自定义Prompt',
+            display_name: '自定义翻译Prompt',
         },
     ],
 };

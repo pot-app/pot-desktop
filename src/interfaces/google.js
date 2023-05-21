@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 
 // 此接口只支持英汉互译
 export const info = {
-    name: '谷歌翻译',
+    name: 'Google',
     supportLanguage: {
         auto: 'auto',
         'zh-cn': 'zh-CN',

@@ -3,7 +3,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: 'Lingva翻译',
+    name: 'Lingva',
 
     supportLanguage: {
         auto: 'auto',
