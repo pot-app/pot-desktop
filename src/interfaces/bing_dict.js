@@ -9,6 +9,7 @@ export const info = {
     supportLanguage: {
         auto: 'auto',
         'zh-cn': 'zh-cn',
+        'zh-tw': 'zh-cn',
         en: 'en-us',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)

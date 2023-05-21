@@ -7,6 +7,7 @@ export const info = {
     supportLanguage: {
         auto: 'auto',
         'zh-cn': 'zh',
+        'zh-tw': 'zh',
         en: 'en',
         ja: 'ja',
     },
