@@ -7,6 +7,15 @@ body:
   attributes:
     value: |
       ## 感谢反馈，pot因您的反馈变得更好！
+- type: checkboxes
+  attributes:
+    label: 提交新Issue前请确认一下事项
+    description: |
+      1. 我已认真查阅官网使用文档。
+      2. 我已查找历史issue但没有找到答案。
+    options:
+      - label: 我已确认以上事项
+        required: true
 - type: textarea
   attributes:
     label: 问题描述
