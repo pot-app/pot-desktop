@@ -71,14 +71,17 @@ export async function translate(text, from, to, setText, id) {
 
         if (res.ok) {
             let result = res.data;
-            if (result[0].detectedLanguage && result[0].translations) {
-                if (result[0].detectedLanguage.language == supportLanguage[to]) {
-                    let secondLanguage = get('second_language') ?? 'en';
-                    if (secondLanguage != to) {
-                        await translate(text, from, secondLanguage, setText, id);
-                        return;
+            if (result[0].translations) {
+                if (result[0].detectedLanguage) {
+                    if (result[0].detectedLanguage.language == supportLanguage[to]) {
+                        let secondLanguage = get('second_language') ?? 'en';
+                        if (secondLanguage != to) {
+                            await translate(text, from, secondLanguage, setText, id);
+                            return;
+                        }
                     }
                 }
+
                 if (translateID.includes(id)) {
                     setText(result[0].translations[0].text);
                 }
