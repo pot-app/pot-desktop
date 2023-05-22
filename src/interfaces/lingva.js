@@ -38,8 +38,8 @@ export async function translate(text, from, to, setText, id) {
     if (domain == '') {
         domain = 'lingva.ml';
     }
-
-    let res = await fetch(`https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(text)}`, {
+    let plainText = text.replaceAll('/', '@@');
+    let res = await fetch(`https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(plainText)}`, {
         method: 'GET'
     })
 
@@ -54,7 +54,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result.translation);
+                setText(result.translation.replaceAll('@@', '/'));
             }
         } else {
             throw JSON.stringify(result);
