@@ -19,6 +19,7 @@ import {
     themeAtom,
     hideSourceAtom,
     hideLanguageAtom,
+    rememberWindowSizeAtom,
 } from '../..';
 import { invoke } from '@tauri-apps/api/tauri';
 
@@ -32,6 +33,7 @@ export default function AppConfig() {
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
     const [hideSource, setHideSource] = useAtom(hideSourceAtom);
     const [hideLanguage, setHideLanguage] = useAtom(hideLanguageAtom);
+    const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
     const muitheme = useTheme();
 
@@ -108,6 +110,15 @@ export default function AppConfig() {
                         onChange={(e) => {
                             setHideLanguage(e.target.checked);
                             set('hide_language', e.target.checked);
+                        }}
+                    />
+                </ConfigItem>
+                <ConfigItem label='记住翻译窗口大小'>
+                    <Switch
+                        checked={rememberWindowSize}
+                        onChange={(e) => {
+                            setRememberWindowSize(e.target.checked);
+                            set('remember_window_size', e.target.checked);
                         }}
                     />
                 </ConfigItem>

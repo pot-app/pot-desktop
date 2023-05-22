@@ -25,6 +25,7 @@ export const targetLanguageAtom = atom('zh-cn');
 export const secondLanguageAtom = atom('en');
 export const defaultInterfaceListAtom = atom(['deepl', 'bing']);
 export const rememberTargetLanguageAtom = atom(true);
+export const rememberWindowSizeAtom = atom(false);
 export const proxyAtom = atom('');
 export const defaultWindowAtom = atom('config');
 export const themeAtom = atom('auto');
@@ -59,6 +60,7 @@ export default function Config() {
     const setSecondLanguage = useSetAtom(secondLanguageAtom);
     const setDefaultInterfaceList = useSetAtom(defaultInterfaceListAtom);
     const setRememberTargetLanguage = useSetAtom(rememberTargetLanguageAtom);
+    const setRememberWindowSize = useSetAtom(rememberWindowSizeAtom);
     const setProxy = useSetAtom(proxyAtom);
     const setDefaultWindow = useSetAtom(defaultWindowAtom);
     const setWindowWidth = useSetAtom(windowWidthAtom);
@@ -94,6 +96,7 @@ export default function Config() {
         setSecondLanguage(get('second_language') ?? 'en');
         setDefaultInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
         setRememberTargetLanguage(get('remember_target_language') ?? true);
+        setRememberWindowSize(get('remember_window_size') ?? false);
         setProxy(get('proxy') ?? '');
         setDefaultWindow(get('default_window') ?? 'config');
         setWindowWidth(get('window_width') ?? 400);

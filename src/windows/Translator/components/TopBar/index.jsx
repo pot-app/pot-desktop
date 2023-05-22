@@ -9,12 +9,23 @@ import { appWindow } from '@tauri-apps/api/window';
 import { toast, Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import { invoke } from '@tauri-apps/api/tauri';
+import { set } from '../../../../global/config';
 import { get } from '../../../main';
 import './style.css';
 
 let unlisten = listen('tauri://blur', () => {
     if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
         appWindow.close();
+    }
+});
+
+listen('tauri://resize', async (e) => {
+    if (get('remember_window_size') ?? false) {
+        if (appWindow.label == 'translator' || appWindow.label == 'popclip' || appWindow.label == 'persistent') {
+            const size = e.payload;
+            await set('window_height', size.height);
+            await set('window_width', size.width);
+        }
     }
 });
 
