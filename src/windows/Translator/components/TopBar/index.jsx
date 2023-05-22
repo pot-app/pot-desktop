@@ -33,15 +33,17 @@ listen('tauri://resize', async () => {
 
 let currentClipboard = '';
 
-const isMacos = await invoke('is_macos');
-
 export default function TopBar() {
     const [pined, setPined] = useState(get('default_pined') ?? true);
     const [listenCopy, setListenCopy] = useState(false);
+    const [isMacos, setIsMacos] = useState(false);
     const [int, setInt] = useState();
     const theme = useTheme();
 
     useEffect(() => {
+        invoke('is_macos').then((v) => {
+            setIsMacos(v);
+        });
         if (appWindow.label == 'persistent') {
             appWindow.setAlwaysOnTop(pined);
         } else {

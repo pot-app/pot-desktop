@@ -30,8 +30,6 @@ pub static APP: OnceCell<AppHandle> = OnceCell::new();
 pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
-    #[cfg(target_os = "linux")]
-    std::env::set_var("GDK_BACKEND", "x11");
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
@@ -172,7 +170,8 @@ fn main() {
             write_config,
             set_proxy,
             is_macos,
-            is_linux
+            is_linux,
+            is_wayland,
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

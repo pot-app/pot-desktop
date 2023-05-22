@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';
@@ -23,9 +23,8 @@ import {
 } from '../..';
 import { invoke } from '@tauri-apps/api/tauri';
 
-const isLinux = await invoke('is_linux');
-
 export default function AppConfig() {
+    const [isLinux, setIsLinux] = useState(false);
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
@@ -38,6 +37,12 @@ export default function AppConfig() {
     const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
     const muitheme = useTheme();
+
+    useEffect(() => {
+        invoke('is_linux').then((v) => {
+            setIsLinux(v);
+        });
+    });
 
     return (
         <>
