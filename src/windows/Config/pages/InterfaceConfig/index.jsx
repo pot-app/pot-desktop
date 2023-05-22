@@ -24,7 +24,7 @@ export default function InterfaceConfig() {
                 <Tooltip>
                     <Select
                         size='small'
-                        sx={{ width: '300px' }}
+                        sx={{ width: '50%' }}
                         value={openaiService}
                         onChange={(e) => {
                             setOpenaiService(e.target.value);
@@ -43,13 +43,13 @@ export default function InterfaceConfig() {
                             return (
                                 <ConfigItem
                                     label={`${interfaceConfigs[x]['interface_name']}-${y['needs_display_name']}`}
+                                    help={y['needs_place_hold']}
                                 >
                                     <TextField
                                         size='small'
                                         type={visible ? 'text' : 'password'}
-                                        sx={{ width: '300px' }}
+                                        sx={{ width: '50%' }}
                                         key={nanoid()}
-                                        placeholder={y['needs_place_hold']}
                                         defaultValue={y['needs_config_value']}
                                         onChange={(e) => {
                                             let configs = interfaceConfigs;

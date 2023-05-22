@@ -20,7 +20,7 @@ export const info = {
     needs: [
         {
             config_key: 'lingva_domain',
-            place_hold: 'lingva.ml',
+            place_hold: 'default: lingva.ml',
             display_name: '自定义域名',
         },
     ],
