@@ -20,7 +20,7 @@ export const info = {
     needs: [
         {
             config_key: 'lingva_domain',
-            place_hold: 'lingva.ml',
+            place_hold: 'default: lingva.ml',
             display_name: '自定义域名',
         },
     ],
@@ -38,23 +38,25 @@ export async function translate(text, from, to, setText, id) {
     if (domain == '') {
         domain = 'lingva.ml';
     }
-
-    let res = await fetch(`https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(text)}`, {
+    let plainText = text.replaceAll('/', '@@');
+    let res = await fetch(`https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(plainText)}`, {
         method: 'GET'
     })
 
     if (res.ok) {
         let result = res.data;
-        if (result.translation && result.info && result.info.detectedSource) {
-            if (result.info.detectedSource == supportLanguage[to]) {
-                let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
-                    await translate(text, from, secondLanguage, setText, id);
-                    return;
+        if (result.translation) {
+            if (result.info && result.info.detectedSource) {
+                if (result.info.detectedSource == supportLanguage[to]) {
+                    let secondLanguage = get('second_language') ?? 'en';
+                    if (secondLanguage != to) {
+                        await translate(text, from, secondLanguage, setText, id);
+                        return;
+                    }
                 }
             }
             if (translateID.includes(id)) {
-                setText(result.translation);
+                setText(result.translation.replaceAll('@@', '/'));
             }
         } else {
             throw JSON.stringify(result);

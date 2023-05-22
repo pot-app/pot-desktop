@@ -20,7 +20,7 @@ export const info = {
     needs: [
         {
             config_key: 'google_proxy',
-            place_hold: 'eg: translate.google.com',
+            place_hold: 'default: translate.google.com',
             display_name: '镜像站地址',
         },
     ],

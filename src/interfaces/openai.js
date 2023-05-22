@@ -19,12 +19,12 @@ export const info = {
     needs: [
         {
             config_key: 'openai_domain',
-            place_hold: 'api.openai.com(不要加协议头,使用OpenAI官方api此项留空即可)',
+            place_hold: 'default: api.openai.com\n(不要加协议头,使用OpenAI官方api此项留空即可)',
             display_name: '自定义域名',
         },
         {
             config_key: 'openai_path',
-            place_hold: '/v1/chat/completions(一般不需要改,留空即可,Azure用户根据自己情况修改)',
+            place_hold: 'default: /v1/chat/completions\n(一般不需要改,留空即可,Azure用户根据自己情况修改)',
             display_name: '请求路径',
         },
         {
@@ -35,7 +35,7 @@ export const info = {
         {
             config_key: 'openai_prompt',
             place_hold:
-                'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                'default: You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
             display_name: '自定义翻译Prompt',
         },
     ],
