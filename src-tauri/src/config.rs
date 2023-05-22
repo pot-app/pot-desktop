@@ -163,7 +163,7 @@ pub fn create_background_window() {
 }
 
 #[tauri::command]
-pub fn set_proxy(proxy:&str)->Result<(),()> {
+pub fn set_proxy(proxy: &str) -> Result<(), ()> {
     std::env::set_var("http_proxy", proxy);
     std::env::set_var("https_proxy", proxy);
     std::env::set_var("all_proxy", proxy);

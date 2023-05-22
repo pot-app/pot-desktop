@@ -32,18 +32,6 @@ pub struct StringWrapper(pub Mutex<String>);
 fn main() {
     #[cfg(target_os = "linux")]
     std::env::set_var("GDK_BACKEND", "x11");
-    use std::thread;
-    use tiny_http::{Response, Server};
-    thread::spawn(move || {
-        let server = Server::http("127.0.0.1:60828").unwrap();
-        for mut request in server.incoming_requests() {
-            let mut content = String::new();
-            request.as_reader().read_to_string(&mut content).unwrap();
-            popclip_window(content);
-            let response = Response::from_string("success");
-            request.respond(response).unwrap();
-        }
-    });
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
@@ -84,6 +72,18 @@ fn main() {
             if is_first {
                 on_config_click(app_handle);
             }
+            use std::thread;
+            use tiny_http::{Response, Server};
+            thread::spawn(move || {
+                let server = Server::http("127.0.0.1:60828").unwrap();
+                for mut request in server.incoming_requests() {
+                    let mut content = String::new();
+                    request.as_reader().read_to_string(&mut content).unwrap();
+                    popclip_window(content);
+                    let response = Response::from_string("success");
+                    request.respond(response).unwrap();
+                }
+            });
             // 注册全局快捷键
             match register_shortcut("all") {
                 Ok(_) => {}

@@ -7,10 +7,10 @@ pub fn get_selection_text() -> Result<String, String> {
     // if let Ok(session_type) = var("XDG_SESSION_TYPE") {
     //     match session_type.as_str() {
     //         "x11" => {
+    use crate::APP;
     use std::time::Duration;
     use tauri::Manager;
     use x11_clipboard::Clipboard;
-    use crate::APP;
 
     if let Ok(clipboard) = Clipboard::new() {
         if let Ok(primary) = clipboard.load(
@@ -111,7 +111,7 @@ pub fn get_selection_text() -> Result<String, String> {
                 // if new.trim() == text.trim() {
                 //     Ok("".to_string())
                 // } else {
-                    Ok(new)
+                Ok(new)
                 // }
             } else {
                 Ok("".to_string())
