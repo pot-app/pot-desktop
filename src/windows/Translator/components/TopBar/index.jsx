@@ -19,12 +19,14 @@ let unlisten = listen('tauri://blur', () => {
     }
 });
 
-listen('tauri://resize', async (e) => {
+listen('tauri://resize', async () => {
     if (get('remember_window_size') ?? false) {
         if (appWindow.label == 'translator' || appWindow.label == 'popclip' || appWindow.label == 'persistent') {
-            const size = e.payload;
-            await set('window_height', size.height);
-            await set('window_width', size.width);
+            const psize = await appWindow.innerSize();
+            const factor = await appWindow.scaleFactor();
+            const lsize = psize.toLogical(factor);
+            await set('window_height', parseInt(lsize.height));
+            await set('window_width', parseInt(lsize.width));
         }
     }
 });
