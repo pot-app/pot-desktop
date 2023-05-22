@@ -171,7 +171,8 @@ fn main() {
             set_config,
             write_config,
             set_proxy,
-            is_macos
+            is_macos,
+            is_linux
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

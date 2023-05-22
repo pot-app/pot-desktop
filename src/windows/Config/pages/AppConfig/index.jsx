@@ -23,6 +23,8 @@ import {
 } from '../..';
 import { invoke } from '@tauri-apps/api/tauri';
 
+const isLinux = await invoke('is_linux');
+
 export default function AppConfig() {
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
@@ -150,22 +152,26 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='托盘单击事件'>
-                    <Select
-                        // fullWidth
-                        size='small'
-                        value={defaultWindow}
-                        sx={{ width: '300px' }}
-                        onChange={(e) => {
-                            setDefaultWindow(e.target.value);
-                            set('default_window', e.target.value);
-                        }}
-                    >
-                        <MenuItem value='none'>None</MenuItem>
-                        <MenuItem value='config'>设置</MenuItem>
-                        <MenuItem value='persistent'>翻译</MenuItem>
-                    </Select>
-                </ConfigItem>
+                {isLinux ? (
+                    <></>
+                ) : (
+                    <ConfigItem label='托盘单击事件'>
+                        <Select
+                            // fullWidth
+                            size='small'
+                            value={defaultWindow}
+                            sx={{ width: '300px' }}
+                            onChange={(e) => {
+                                setDefaultWindow(e.target.value);
+                                set('default_window', e.target.value);
+                            }}
+                        >
+                            <MenuItem value='none'>None</MenuItem>
+                            <MenuItem value='config'>设置</MenuItem>
+                            <MenuItem value='persistent'>翻译</MenuItem>
+                        </Select>
+                    </ConfigItem>
+                )}
                 <ConfigItem label='颜色主题'>
                     <Select
                         // fullWidth
