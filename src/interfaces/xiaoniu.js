@@ -1,10 +1,7 @@
-// 原则上都用tauri提供的fetch发送请求，因为只要这样才能使软件内代理生效
-// 实在不行就用axios吧
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { translateID } from '../windows/Translator/components/TargetArea/index.jsx';
 
-// 必须向外暴露info
 export const info = {
     // 接口中文名称
     // 翻译服务商：https://niutrans.com
@@ -49,7 +46,6 @@ export async function translate(text, from, to, setText, id) {
         return '该接口不支持该语言';
     }
     // 完成翻译过程
-
     const url = `https://api.niutrans.com/NiuTransServer/translation`;
 
     let res = await fetch(url, {
@@ -57,31 +53,31 @@ export async function translate(text, from, to, setText, id) {
         headers: {
             'Content-Type': 'application/json',
         },
-        query:{
-            from: supportLanguage[from],
-            to: supportLanguage[to],
-            apiKey: apikey,
-            arc_text: text,
-            dictNo: '',
-            memoryNo: ''
-        },
+        body: {
+            type: 'Json',
+            payload: {
+                from: supportLanguage[from],
+                to: supportLanguage[to],
+                apikey: apikey,
+                src_text: text
+            }
+        }
     });
 
     // 返回翻译结果
-    // return target
     if (res.ok) {
         let result = res.data;
-        let { Response } = result;
-        if (Response && Response['tgt_text'] && Response['from']) {
-            if (Response['from'] == supportLanguage[to]) {
-                let secondLanguage = get('from') ?? 'en';
+        console.log(result);
+        if (result && result['tgt_text'] && result['from']) {
+            if (result['from'] == supportLanguage[to]) {
+                let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
             if (translateID.includes(id)) {
-                setText(Response['tgt_text']);
+                setText(result['tgt_text']);
             }
         } else {
             throw JSON.stringify(result);
@@ -90,5 +86,3 @@ export async function translate(text, from, to, setText, id) {
         throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
-
-// 编写完成后请在index.js中暴露接口
