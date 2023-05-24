@@ -1,15 +1,17 @@
-## 0.3.6 (2023-05-21)
+## 0.4.0 (2023-05-22)
 
 ### New feature:
 
--   改用 lingva 实现朗读，支持除粤语外所有语言。([`301ba6e`](https://github.com/pot-app/pot-desktop/commit/301ba6e266964d52d0f30a1256ce9c5c82fc386f)) (by Pylogmon)
--   DeepL 支持设置 API Key (#114)([`92c3ea6`](https://github.com/pot-app/pot-desktop/commit/92c3ea6a6229c6cc27859e3ce7a284c70b5b851c)) (by 派了个萌)
+-   **原生支持 Wayland 取词**([`55c3bd1`](https://github.com/pot-app/pot-desktop/commit/55c3bd1a7a0153a081dc0b7241c2d9696befba34)) (by Pylogmon)
+-   添加记住窗口大小选项([`f68f000`](https://github.com/pot-app/pot-desktop/commit/f68f0004e822eefb34485d2ebee9d87372e19fb8)) (by Pylogmon)
 
 ### Bugs fixed:
 
--   将不支持繁体中文的接口 fallback 到简体中文([`f4831f5`](https://github.com/pot-app/pot-desktop/commit/f4831f5b119fb7de708978ba65d2263a8e7ed518)) (by Pylogmon)
--   修复极简模式输入翻译窗口也会隐藏输入框的问题([`d5e5f2b`](https://github.com/pot-app/pot-desktop/commit/d5e5f2b0c626f456eacef8f32ebb5237d940e24b)) (by Pylogmon)
+-   修复接口设置提示信息看不到的问题([`d853755`](https://github.com/pot-app/pot-desktop/commit/d853755ef69b3a13ee676ac8771a7f954e973f57)) (by Pylogmon)
+-   修复指定原语言时翻译出错的问题([`88c9b13`](https://github.com/pot-app/pot-desktop/commit/88c9b135dca8e55f29536c42c30a3fa6672c04c8)) (by Pylogmon)
+-   修复记住窗口大小尺寸错误([`69b1a22`](https://github.com/pot-app/pot-desktop/commit/69b1a22a35c89cb3d1b52596c82ac566f285fbad)) (by Pylogmon)
+-   修复 Lingva 接口无法翻译带有/的文本的问题([`137f719`](https://github.com/pot-app/pot-desktop/commit/137f7198cf8b26b4cdbafca905b901d434b2a3c4)) (by Pylogmon)
 
 ### Performance improves:
 
--   优化设置页面样式([`9a37783`](https://github.com/pot-app/pot-desktop/commit/9a377835a4ba06ca4f0492f92851c90b02796172)) (by Pylogmon)
+-   后移 http 服务器开启时机，提升响应速度([`0d086b5`](https://github.com/pot-app/pot-desktop/commit/0d086b57f972b8201b18a164001024bd83526764)) (by Pylogmon)

@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import { set } from '../../../../global/config';
@@ -24,6 +24,7 @@ import {
 import { invoke } from '@tauri-apps/api/tauri';
 
 export default function AppConfig() {
+    const [isLinux, setIsLinux] = useState(false);
     const [autoStart, setAutoStart] = useAtom(autoStartAtom);
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
@@ -36,6 +37,12 @@ export default function AppConfig() {
     const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
     const muitheme = useTheme();
+
+    useEffect(() => {
+        invoke('is_linux').then((v) => {
+            setIsLinux(v);
+        });
+    });
 
     return (
         <>
@@ -150,22 +157,26 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='托盘单击事件'>
-                    <Select
-                        // fullWidth
-                        size='small'
-                        value={defaultWindow}
-                        sx={{ width: '300px' }}
-                        onChange={(e) => {
-                            setDefaultWindow(e.target.value);
-                            set('default_window', e.target.value);
-                        }}
-                    >
-                        <MenuItem value='none'>None</MenuItem>
-                        <MenuItem value='config'>设置</MenuItem>
-                        <MenuItem value='persistent'>翻译</MenuItem>
-                    </Select>
-                </ConfigItem>
+                {isLinux ? (
+                    <></>
+                ) : (
+                    <ConfigItem label='托盘单击事件'>
+                        <Select
+                            // fullWidth
+                            size='small'
+                            value={defaultWindow}
+                            sx={{ width: '300px' }}
+                            onChange={(e) => {
+                                setDefaultWindow(e.target.value);
+                                set('default_window', e.target.value);
+                            }}
+                        >
+                            <MenuItem value='none'>None</MenuItem>
+                            <MenuItem value='config'>设置</MenuItem>
+                            <MenuItem value='persistent'>翻译</MenuItem>
+                        </Select>
+                    </ConfigItem>
+                )}
                 <ConfigItem label='颜色主题'>
                     <Select
                         // fullWidth

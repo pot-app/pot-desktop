@@ -11,13 +11,17 @@ export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
-    const [ismacos, setIsmacos] = useState(false);
+    const [isMacos, setIsMacos] = useState(false);
+    const [isWayland, setIsWayland] = useState(false);
 
     const supportKey = ['Control', 'Shift', 'Alt', 'Meta'];
 
     useEffect(() => {
         invoke('is_macos').then((v) => {
-            setIsmacos(v);
+            setIsMacos(v);
+        });
+        invoke('is_wayland').then((v) => {
+            setIsWayland(v);
         });
     });
 
@@ -32,8 +36,8 @@ export default function ShortCutConfig() {
             }
         } else {
             if (supportKey.includes(e.key)) {
-                if (e.key == 'Meta' && !ismacos) {
-                    if (ismacos) {
+                if (e.key == 'Meta' && !isMacos) {
+                    if (isMacos) {
                         e.key = 'Command';
                     } else {
                         e.key = 'Super';
@@ -49,7 +53,7 @@ export default function ShortCutConfig() {
                 } else {
                     setKey(e.key);
                 }
-            } else if (e.key.startsWith('F') && !ismacos) {
+            } else if (e.key.startsWith('F') && !isMacos) {
                 setKey(e.key);
             } else {
                 if (e.keyCode == 8) {
@@ -61,8 +65,12 @@ export default function ShortCutConfig() {
 
     return (
         <ConfigList label='翻译快捷键'>
-            <ConfigItem label='划词翻译'>
+            <ConfigItem
+                label='划词翻译'
+                help={isWayland && 'Wayland无法使用应用内快捷键，请通过系统快捷键设置，详细见官网文档'}
+            >
                 <TextField
+                    disabled={isWayland}
                     size='small'
                     sx={{ width: '300px' }}
                     value={shortcutTranslate}
@@ -90,9 +98,13 @@ export default function ShortCutConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='独立翻译窗口'>
+            <ConfigItem
+                label='独立翻译窗口'
+                help={isWayland && 'Wayland无法使用应用内快捷键，请通过系统快捷键设置，详细见官网文档'}
+            >
                 <TextField
                     size='small'
+                    disabled={isWayland}
                     sx={{ width: '300px' }}
                     placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}

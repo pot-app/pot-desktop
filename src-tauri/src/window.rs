@@ -225,7 +225,7 @@ pub fn translate_window() {
     match handle.get_window("translator") {
         Some(window) => {
             window.set_focus().unwrap();
-            window.emit("new_selection",text ).unwrap();
+            window.emit("new_selection", text).unwrap();
         }
         None => {
             let _window = build_translate_window("translator", "Translator", handle).unwrap();
@@ -256,7 +256,7 @@ pub fn popclip_window(text: String) {
     match handle.get_window("popclip") {
         Some(window) => {
             window.set_focus().unwrap();
-            window.emit("new_selection",text ).unwrap();
+            window.emit("new_selection", text).unwrap();
         }
         None => {
             let _window = build_translate_window("popclip", "PopClip", handle).unwrap();
