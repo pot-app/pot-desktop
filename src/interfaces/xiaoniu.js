@@ -7,13 +7,15 @@ import { translateID } from '../windows/Translator/components/TargetArea/index.j
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    // 翻译服务商：https://openl.club/
-    // 翻译服务接口文档：https://docs.openl.club/#/
-    name: 'OpenL 翻译',
+    // 翻译服务商：https://niutrans.com
+    // 翻译服务接口文档：https://niutrans.com/documents/overview?id=2
+    name: '小牛翻译',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
         'zh-cn': 'zh',
+        'zh-tw': 'cht',
+        yue: 'yue',
         en: 'en',
         ja: 'ja',
         ko: 'ko',
@@ -22,33 +24,13 @@ export const info = {
         ru: 'ru',
         de: 'de',
     },
-    // 翻译服务代码名
-    translationService: {
-        deepl: 'DeepL',
-        youdao: '有道',
-        tencent: '腾讯',
-        aliyun: '阿里云',
-        baidu: '百度',
-        caiyun: '彩云',
-        wechat: '微信翻译',
-        sogou: '搜狗',
-        azure: 'Azure翻译',
-        ibm: 'IBM翻译',
-        aws: 'AWS翻译',
-        google: '谷歌翻译',
-    },
     // 接口需要配置项(会在设置中出现设置项来获取)
     needs: [
         {
-            config_key: 'openl_codename', // 配置项在配置文件中的代号
-            place_hold: '翻译服务代码名', // 配置项没有填写时显示的提示信息
-            display_name: '翻译服务', // 配置项名称
-        },
-        {
-            config_key: 'openl_apikey',
+            config_key: 'xiaoniu_apikey',
             place_hold: 'ApiKey',
             display_name: 'API 密钥',
-        },
+        }
     ],
 };
 
@@ -57,10 +39,9 @@ export async function translate(text, from, to, setText, id) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
-    const codename = get('openl_codename') ?? '';
-    const apikey = get('openl_apikey') ?? '';
+    const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
-    if (codename == '' || apikey == '') {
+    if (apikey == '') {
         return '请先翻译服务或配置API 密钥';
     }
     // 检查语言支持
@@ -69,24 +50,21 @@ export async function translate(text, from, to, setText, id) {
     }
     // 完成翻译过程
 
-    const apiAddress = `https://api.openl.club`;
-    const interfaceName = `/services/&{codedname}/translate`;
-    const url = apiAddress + interfaceName;
-    const body = {
-        apikey: apikey,
-        text: text,
-        source_lang: supportLanguage[from],
-        target_lang: supportLanguage[to],
-    };
-    const payload = JSON.stringify(body);
+    const url = `https://api.niutrans.com/NiuTransServer/translation`;
 
     let res = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-
-        body: { type: 'Json', payload: payload },
+        query:{
+            from: supportLanguage[from],
+            to: supportLanguage[to],
+            apiKey: apikey,
+            arc_text: text,
+            dictNo: '',
+            memoryNo: ''
+        },
     });
 
     // 返回翻译结果
@@ -94,16 +72,16 @@ export async function translate(text, from, to, setText, id) {
     if (res.ok) {
         let result = res.data;
         let { Response } = result;
-        if (Response && Response['text'] && Response['source_lange']) {
-            if (Response['source_lange'] == supportLanguage[to]) {
-                let secondLanguage = get('second_language') ?? 'en';
+        if (Response && Response['tgt_text'] && Response['from']) {
+            if (Response['from'] == supportLanguage[to]) {
+                let secondLanguage = get('from') ?? 'en';
                 if (secondLanguage != to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
             if (translateID.includes(id)) {
-                setText(Response['text']);
+                setText(Response['tgt_text']);
             }
         } else {
             throw JSON.stringify(result);
