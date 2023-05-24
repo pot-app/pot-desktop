@@ -42,7 +42,7 @@ export async function translate(text, from, to, setText, id) {
     const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
     if (apikey == '') {
-        return '请先翻译服务或配置API 密钥';
+        return '请先配置API 密钥';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
