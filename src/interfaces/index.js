@@ -12,6 +12,7 @@ import * as _alibaba from './alibaba';
 import * as _bing_dict from './bing_dict';
 import * as _bing from './bing';
 import * as _lingva from './lingva';
+import * as _xiaoniu from './xiaoniu';
 
 export const baidu = _baidu;
 export const caiyun = _caiyun;
@@ -27,3 +28,4 @@ export const alibaba = _alibaba;
 export const bing_dict = _bing_dict;
 export const bing = _bing;
 export const lingva = _lingva;
+export const xiaoniu = _xiaoniu;
