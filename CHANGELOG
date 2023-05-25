@@ -1,17 +1,8 @@
-## 0.4.0 (2023-05-22)
-
-### New feature:
-
--   **原生支持 Wayland 取词**([`55c3bd1`](https://github.com/pot-app/pot-desktop/commit/55c3bd1a7a0153a081dc0b7241c2d9696befba34)) (by Pylogmon)
--   添加记住窗口大小选项([`f68f000`](https://github.com/pot-app/pot-desktop/commit/f68f0004e822eefb34485d2ebee9d87372e19fb8)) (by Pylogmon)
+## 0.4.1 (2023-05-25)
 
 ### Bugs fixed:
 
--   修复接口设置提示信息看不到的问题([`d853755`](https://github.com/pot-app/pot-desktop/commit/d853755ef69b3a13ee676ac8771a7f954e973f57)) (by Pylogmon)
--   修复指定原语言时翻译出错的问题([`88c9b13`](https://github.com/pot-app/pot-desktop/commit/88c9b135dca8e55f29536c42c30a3fa6672c04c8)) (by Pylogmon)
--   修复记住窗口大小尺寸错误([`69b1a22`](https://github.com/pot-app/pot-desktop/commit/69b1a22a35c89cb3d1b52596c82ac566f285fbad)) (by Pylogmon)
--   修复 Lingva 接口无法翻译带有/的文本的问题([`137f719`](https://github.com/pot-app/pot-desktop/commit/137f7198cf8b26b4cdbafca905b901d434b2a3c4)) (by Pylogmon)
-
-### Performance improves:
-
--   后移 http 服务器开启时机，提升响应速度([`0d086b5`](https://github.com/pot-app/pot-desktop/commit/0d086b57f972b8201b18a164001024bd83526764)) (by Pylogmon)
+-   修复 MacOS 快捷键取词 (#142)([`1843a79`](https://github.com/pot-app/pot-desktop/commit/1843a79c8280ad5ec7b0528839b172a5026990b4)) (by yetone)
+-   修复翻译结果有多余换行的问题([`f29a9d3`](https://github.com/pot-app/pot-desktop/commit/f29a9d3c9062bd3579e7abfebb5ecf2c38be4e2e)) (by Pylogmon)
+-   修复错误信息也会自动复制的问题([`7adee1c`](https://github.com/pot-app/pot-desktop/commit/7adee1c88cf88f24a6213916c882ce3c39103ca4)) (by Pylogmon)
+-   修复 Win10 下 SnipDo 报错([`de44ea2`](https://github.com/pot-app/pot-desktop/commit/de44ea259c281fbc28d21a46f37b47fb434fd151)) (by Pylogmon)
