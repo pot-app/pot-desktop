@@ -114,7 +114,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result.result.texts[0].text);
+                setText(result.result.texts[0].text.trim());
             }
         } else {
             throw JSON.stringify(result);
@@ -160,7 +160,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result.translations[0].text);
+                setText(result.translations[0].text.trim());
             }
         } else {
             throw JSON.stringify(result);

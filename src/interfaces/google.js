@@ -87,7 +87,7 @@ export async function translate(text, from, to, setText, id) {
                 target += '\n';
             }
             if (translateID.includes(id)) {
-                setText(target);
+                setText(target.trim());
             }
         } else {
             // 翻译模式
@@ -97,7 +97,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(target);
+                setText(target.trim());
             }
         }
     } else {

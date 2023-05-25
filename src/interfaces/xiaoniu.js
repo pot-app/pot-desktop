@@ -77,7 +77,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result['tgt_text']);
+                setText(result['tgt_text'].trim());
             }
         } else {
             throw JSON.stringify(result);

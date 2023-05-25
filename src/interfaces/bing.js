@@ -83,7 +83,7 @@ export async function translate(text, from, to, setText, id) {
                 }
 
                 if (translateID.includes(id)) {
-                    setText(result[0].translations[0].text);
+                    setText(result[0].translations[0].text.trim());
                 }
             } else {
                 throw JSON.stringify(result);

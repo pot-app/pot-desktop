@@ -47,7 +47,7 @@ export async function translate(text, from, to, setText, id) {
             throw '查词失败';
         } else {
             if (translateID.includes(id)) {
-                setText(content);
+                setText(content.trim());
             }
         }
     } else {

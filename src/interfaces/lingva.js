@@ -56,7 +56,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result.translation.replaceAll('@@', '/'));
+                setText(result.translation.replaceAll('@@', '/').trim());
             }
         } else {
             throw JSON.stringify(result);

@@ -102,7 +102,7 @@ export async function translate(text, from, to, setText, id) {
                 }
             }
             if (translateID.includes(id)) {
-                setText(result['Data']['Translated']);
+                setText(result['Data']['Translated'].trim());
             }
         } else {
             throw JSON.stringify(result);

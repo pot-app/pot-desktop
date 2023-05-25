@@ -93,7 +93,7 @@ export async function translate(text, from, to, setText, id) {
                     const { done, value } = await reader.read();
                     if (done) {
                         if (translateID.includes(id)) {
-                            setText(target);
+                            setText(target.trim());
                         }
                         break;
                     }
@@ -152,7 +152,7 @@ export async function translate(text, from, to, setText, id) {
                         target = target.slice(0, -1);
                     }
                     if (translateID.includes(id)) {
-                        setText(target);
+                        setText(target.trim());
                     }
                 } else {
                     throw JSON.stringify(choices);

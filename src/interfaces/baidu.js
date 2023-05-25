@@ -76,7 +76,7 @@ export async function translate(text, from, to, setText, id) {
                 target = target + trans_result[i]['dst'] + '\n';
             }
             if (translateID.includes(id)) {
-                setText(target);
+                setText(target.trim());
             }
         } else {
             throw JSON.stringify(result);
