@@ -152,7 +152,7 @@ tell application "System Events"
     set appName to name of frontmostProcess
 end tell
 
-if appName is equal to "OpenAI Translator" then
+if appName is equal to "pot" then
     return
 end if
 

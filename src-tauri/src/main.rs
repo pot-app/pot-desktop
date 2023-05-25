@@ -35,19 +35,15 @@ fn query_accessibility_permissions() -> bool {
     trusted
 }
 
-#[cfg(not(target_os = "macos"))]
-fn query_accessibility_permissions() -> bool {
-    return true;
-}
-
 // 全局AppHandle
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
 // 存待翻译文本
 pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
+    #[cfg(target_os = "macos")]
     if !query_accessibility_permissions() {
-        return
+        return;
     }
 
     tauri::Builder::default()
