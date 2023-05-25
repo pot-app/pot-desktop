@@ -1,5 +1,9 @@
 ## 0.4.1 (2023-05-25)
 
+### New Features:
+
+-   添加翻译接口: 小牛翻译 (#139)([`8c64348`](https://github.com/pot-app/pot-desktop/commit/8c643487fad0ecfe368fcbf0d0c2696095486433)) (by Eliauk365)
+
 ### Bugs fixed:
 
 -   修复 MacOS 快捷键取词 (#142)([`1843a79`](https://github.com/pot-app/pot-desktop/commit/1843a79c8280ad5ec7b0528839b172a5026990b4)) (by yetone)
