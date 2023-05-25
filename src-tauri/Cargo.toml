@@ -31,12 +31,13 @@ windows = {version="0.44.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Fo
 window-shadows = "0.2"
 arboard = "3.2.0"
 
-[target.'cfg(target_os = "macos")'.dependencies ]
+[target.'cfg(target_os = "macos")'.dependencies]
 window-shadows = "0.2"
 core-graphics = "0.22.3"
 arboard = "3.2.0"
+macos-accessibility-client = "0.0.1"
 
-[target.'cfg(target_os = "linux")'.dependencies ]
+[target.'cfg(target_os = "linux")'.dependencies]
 mouse_position = "0.1.3"
 x11-clipboard = "0.7.1"
 wl-clipboard-rs = "0.7.0"

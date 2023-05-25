@@ -142,84 +142,43 @@ pub fn get_selection_text() -> Result<String, String> {
 #[cfg(target_os = "macos")]
 pub fn get_selection_text() -> Result<String, String> {
     let apple_script = r#"
-use sys : application "System Events"
+use AppleScript version "2.4"
+use scripting additions
+use framework "Foundation"
+use framework "AppKit"
 
--- Use the following delay to choose an application window
--- and highlight some text.  Then ensure that the window remains
--- in focus until the script terminates.
--- delay 5
+tell application "System Events"
+    set frontmostProcess to first process whose frontmost is true
+    set appName to name of frontmostProcess
+end tell
 
-set P to the first application process whose frontmost is true
+if appName is equal to "OpenAI Translator" then
+    return
+end if
 
-set appName to name of P
+-- Back up clipboard contents:
+set savedClipboard to the clipboard
 
-if appName is equal to "Mail" then
-	error "not support " & appName
-end
+set thePasteboard to current application's NSPasteboard's generalPasteboard()
+set theCount to thePasteboard's changeCount()
 
-if appName is equal to "Safari" then
-	try
-		tell application "Safari"
-			set theText to (do JavaScript "getSelection().toString()" in document 1)
-		end tell
-		return theText
-	end try
-	error "not support Safari"
-end
+-- Copy selected text to clipboard:
+tell application "System Events" to keystroke "c" using {command down}
+delay 0.1 -- Without this, the clipboard may have stale data.
 
-if appName is equal to "Google Chrome" then
-	try
-		tell application "Google Chrome" to tell active tab of window 1
-			set theText to (execute javascript "getSelection().toString()")
-		end tell
-		return theText
-	end try
-	error "not support Google Chrome"
-end
+if thePasteboard's changeCount() is theCount then
+    return ""
+end if
 
-if appName is equal to "Microsoft Edge" then
-	try
-		tell application "Microsoft Edge" to tell active tab of window 1
-			set theText to (execute javascript "getSelection().toString()")
-		end tell
-		return theText
-	end try
-	error "not support Microsoft Edge"
-end
+set theSelectedText to the clipboard
 
-set _W to a reference to the first window of P
+set the clipboard to savedClipboard
 
-set _U to a reference to ¬
-	(UI elements of P whose ¬
-		name of attributes contains "AXSelectedText" and ¬
-		value of attribute "AXSelectedText" is not "" and ¬
-		class of value of attribute "AXSelectedText" is not class)
-
-tell sys to if (count _U) ≠ 0 then ¬
-	return the value of ¬
-		attribute "AXSelectedText" of ¬
-		_U's contents's first item
-
-set _U to a reference to UI elements of _W
-
-with timeout of 1 seconds
-	tell sys to repeat while (_U exists)
-		tell (a reference to ¬
-			(_U whose ¬
-				name of attributes contains "AXSelectedText" and ¬
-				value of attribute "AXSelectedText" is not "" and ¬
-				class of value of attribute "AXSelectedText" is not class)) ¬
-			to if (count) ≠ 0 then return the value of ¬
-			attribute "AXSelectedText" of its contents's first item
-		
-		set _U to a reference to (UI elements of _U)
-	end repeat
-end timeout
-
-error "not found AXSelectedText"
+theSelectedText
 "#;
 
     match std::process::Command::new("osascript")
+        .arg("-e")
         .arg(apple_script)
         .output()
     {
@@ -228,7 +187,7 @@ error "not found AXSelectedText"
             if output.status.success() {
                 // get output content
                 let content = String::from_utf8(output.stdout)
-                    .expect("failed to parse get-selected-text-by-ax.applescript output");
+                    .expect("failed to parse get-selected-text.applescript output");
                 // trim content
                 let content = content.trim();
                 Ok(content.to_string())

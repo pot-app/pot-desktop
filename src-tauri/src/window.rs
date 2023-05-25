@@ -213,10 +213,13 @@ fn get_mouse_location() -> Result<(f64, f64), String> {
 // 划词翻译
 pub fn translate_window() {
     // 获取选择文本
-    let mut text = String::new();
-    if let Ok(v) = get_selection_text() {
-        text = v;
-    }
+    let text = match get_selection_text() {
+        Ok(v) => v,
+        Err(err) => {
+            println!("get selection text error: {:?}", err);
+            String::new()
+        }
+    };
     let handle = APP.get().unwrap();
     // 写入状态备用
     let state: tauri::State<StringWrapper> = handle.state();

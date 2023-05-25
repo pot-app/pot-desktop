@@ -24,12 +24,32 @@ use trayicon::*;
 use utils::*;
 use window::*;
 
+#[cfg(target_os = "macos")]
+fn query_accessibility_permissions() -> bool {
+    let trusted = macos_accessibility_client::accessibility::application_is_trusted_with_prompt();
+    if trusted {
+        print!("Application is totally trusted!");
+    } else {
+        print!("Application isn't trusted :(");
+    }
+    trusted
+}
+
+#[cfg(not(target_os = "macos"))]
+fn query_accessibility_permissions() -> bool {
+    return true;
+}
+
 // 全局AppHandle
 pub static APP: OnceCell<AppHandle> = OnceCell::new();
 // 存待翻译文本
 pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
+    if !query_accessibility_permissions() {
+        return
+    }
+
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
