@@ -187,12 +187,14 @@ export default function TargetArea(props) {
                 <InputBase
                     multiline
                     fullWidth
+                    readOnly
                     value={targetText}
                     sx={{ display: targetText == '' && 'none' }}
                 />
                 <InputBase
                     multiline
                     fullWidth
+                    readOnly
                     value={errMessage}
                     sx={{ color: 'red', display: errMessage == '' && 'none' }}
                 />

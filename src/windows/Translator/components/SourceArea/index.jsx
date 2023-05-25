@@ -3,6 +3,7 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+import ClearAllRoundedIcon from '@mui/icons-material/ClearAllRounded';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
@@ -114,6 +115,19 @@ export default function SourceArea() {
                     >
                         <Tooltip title='删除多余空格及换行'>
                             <SmartButtonRoundedIcon />
+                        </Tooltip>
+                    </IconButton>
+                    <IconButton
+                        sx={{
+                            visibility: text == '' && 'hidden',
+                        }}
+                        onClick={() => {
+                            setSourceText('');
+                            setText('');
+                        }}
+                    >
+                        <Tooltip title='清空'>
+                            <ClearAllRoundedIcon />
                         </Tooltip>
                     </IconButton>
                 </Box>
