@@ -21,12 +21,16 @@
 
 .target-buttonarea {
     display: flex;
+    height: 30px;
     padding-left: 8px;
+    margin: 8px 0;
     justify-content: left;
 }
 
 .target-button {
-    padding: 0;
+    display: inline-flex;
+    padding: 0 !important;
+    padding-right: 8px !important;
 }
 
 .target-button:hover {

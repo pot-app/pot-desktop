@@ -248,7 +248,13 @@ export default function TargetArea(props) {
                 <IconButton
                     className='target-button'
                     onClick={() => {
-                        copy(targetText);
+                        if (targetText != '') {
+                            copy(targetText);
+                        } else {
+                            if (errMessage != '') {
+                                copy(errMessage);
+                            }
+                        }
                     }}
                 >
                     <Tooltip title='复制'>

@@ -1,6 +1,8 @@
 import { Card, Box, InputBase, IconButton, Button as MuiButton, Tooltip } from '@mui/material';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
+import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
+import UnfoldLessRoundedIcon from '@mui/icons-material/UnfoldLessRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import ClearAllRoundedIcon from '@mui/icons-material/ClearAllRounded';
@@ -21,6 +23,7 @@ export const sourceTextAtom = atom('');
 export default function SourceArea() {
     const [dynamicTranslate, _] = useState(get('dynamic_translate') ?? false);
     const setSourceText = useSetAtom(sourceTextAtom);
+    const [expand, setExpand] = useState(true);
     const [text, setText] = useState('');
     const theme = useTheme();
 
@@ -67,7 +70,10 @@ export default function SourceArea() {
     return (
         <Card className='sourcearea'>
             <Toaster />
-            <Box className='overflow-sourcearea'>
+            <Box
+                className='overflow-sourcearea'
+                sx={{ display: !expand && 'none' }}
+            >
                 <InputBase
                     autoFocus
                     multiline
@@ -83,7 +89,7 @@ export default function SourceArea() {
                 />
             </Box>
             <Box className='source-buttonarea'>
-                <Box>
+                <Box sx={{ display: 'inline-flex' }}>
                     <IconButton
                         className='source-button'
                         onClick={async () => {
@@ -97,7 +103,9 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         onClick={() => {
-                            copy(text);
+                            if (text != '') {
+                                copy(text);
+                            }
                         }}
                     >
                         <Tooltip title='复制'>
@@ -118,6 +126,15 @@ export default function SourceArea() {
                         </Tooltip>
                     </IconButton>
                     <IconButton
+                        className='source-button'
+                        onClick={() => {
+                            setExpand(!expand);
+                        }}
+                    >
+                        {expand ? <UnfoldLessRoundedIcon /> : <UnfoldMoreRoundedIcon />}
+                    </IconButton>
+                    <IconButton
+                        className='source-button'
                         sx={{
                             visibility: text == '' && 'hidden',
                         }}
