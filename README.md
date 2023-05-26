@@ -20,9 +20,9 @@
 <div align="center">
 <table>
 <tr>
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/dark.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/light.png">
+    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/1.png">
+    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/2.png">
+    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/3.png">
 </table>
 
 ## 使用方法
