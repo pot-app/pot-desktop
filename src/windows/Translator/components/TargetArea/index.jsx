@@ -169,7 +169,7 @@ export default function TargetArea(props) {
                     <Select
                         size='small'
                         sx={{
-                            height: '40px',
+                            height: '35px',
                             '.MuiOutlinedInput-notchedOutline': { border: 0 },
                             '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
                         }}

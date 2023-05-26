@@ -33,7 +33,19 @@ export default function LanguageSelector() {
                     setSourceLanguage(e.target.value);
                 }}
             >
-                <MenuItem value={'auto'}>🌏 自动检测</MenuItem>
+                <MenuItem value={'auto'}>
+                    <span>
+                        <img
+                            style={{
+                                verticalAlign: 'middle',
+                                marginRight: '8px',
+                                height: '20px',
+                            }}
+                            src='/auto.png'
+                        />
+                    </span>
+                    <span>自动检测</span>
+                </MenuItem>
                 {language.map((x) => {
                     return (
                         <MenuItem
