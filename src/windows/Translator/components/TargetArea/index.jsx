@@ -18,6 +18,7 @@ import { addToEudic } from '../../../../global/addToEudic';
 import * as interfaces from '../../../../interfaces';
 import { speak } from '../../../../global/speak';
 import { sourceTextAtom } from '../SourceArea';
+import { listenCopyAtom } from '../TopBar';
 import { get } from '../../../main';
 import './style.css';
 
@@ -29,7 +30,7 @@ export default function TargetArea(props) {
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
-
+    const listenCopy = useAtomValue(listenCopyAtom);
     const [translateInterface, setTranslateInterface] = useState(i);
     const [loading, setLoading] = useState(false);
     const [targetText, setTargetText] = useState('');
@@ -48,19 +49,21 @@ export default function TargetArea(props) {
     useEffect(() => {
         if (!targetText.endsWith('_')) {
             let autoCopy = get('auto_copy') ?? 4;
-            if (autoCopy == 4) {
-                return;
-            } else if (autoCopy == 1) {
-                if (sourceText != '') {
-                    copy(sourceText);
-                }
-            } else if (autoCopy == 2) {
-                if (targetText != '') {
-                    copy(targetText);
-                }
-            } else {
-                if (targetText && sourceText != '') {
-                    copy(sourceText + '\n\n' + targetText);
+            if (!listenCopy) {
+                if (autoCopy == 4) {
+                    return;
+                } else if (autoCopy == 1) {
+                    if (sourceText != '') {
+                        copy(sourceText);
+                    }
+                } else if (autoCopy == 2) {
+                    if (targetText != '') {
+                        copy(targetText);
+                    }
+                } else {
+                    if (targetText && sourceText != '') {
+                        copy(sourceText + '\n\n' + targetText);
+                    }
                 }
             }
         }

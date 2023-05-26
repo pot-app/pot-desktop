@@ -9,6 +9,7 @@ import { appWindow } from '@tauri-apps/api/window';
 import { toast, Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import { invoke } from '@tauri-apps/api/tauri';
+import { atom, useAtom } from 'jotai';
 import { set } from '../../../../global/config';
 import { get } from '../../../main';
 import './style.css';
@@ -33,9 +34,11 @@ listen('tauri://resize', async () => {
 
 let currentClipboard = '';
 
+export const listenCopyAtom = atom(false);
+
 export default function TopBar() {
     const [pined, setPined] = useState(get('default_pined') ?? true);
-    const [listenCopy, setListenCopy] = useState(false);
+    const [listenCopy, setListenCopy] = useAtom(listenCopyAtom);
     const [isMacos, setIsMacos] = useState(false);
     const [int, setInt] = useState();
     const theme = useTheme();
