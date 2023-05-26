@@ -23,7 +23,10 @@ export default function LanguageSelector() {
     return (
         <Card className='language-selector-area'>
             <Select
-                sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                sx={{
+                    '.MuiOutlinedInput-notchedOutline': { border: 0 },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+                }}
                 className='language-selector'
                 value={sourceLanguage}
                 onChange={(e) => {
@@ -48,7 +51,10 @@ export default function LanguageSelector() {
                 className='arrow-icon'
             />
             <Select
-                sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                sx={{
+                    '.MuiOutlinedInput-notchedOutline': { border: 0 },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+                }}
                 className='language-selector'
                 value={targetLanguage}
                 onChange={(e) => {

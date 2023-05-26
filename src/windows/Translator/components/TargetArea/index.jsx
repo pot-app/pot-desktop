@@ -168,7 +168,11 @@ export default function TargetArea(props) {
                 <Box>
                     <Select
                         size='small'
-                        sx={{ height: '40px', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                        sx={{
+                            height: '40px',
+                            '.MuiOutlinedInput-notchedOutline': { border: 0 },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+                        }}
                         value={translateInterface}
                         onChange={(e) => {
                             setTranslateInterface(e.target.value);
@@ -203,6 +207,7 @@ export default function TargetArea(props) {
                     />
                 </Box>
                 <IconButton
+                    sx={{ '&:hover': { backgroundColor: 'inherit' } }}
                     onClick={() => {
                         setExpand(!expand);
                     }}

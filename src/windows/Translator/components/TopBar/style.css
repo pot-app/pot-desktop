@@ -15,3 +15,7 @@
     margin: 0;
     width: 20px;
 }
+
+.topbar-button:hover {
+    background-color: inherit !important;
+}

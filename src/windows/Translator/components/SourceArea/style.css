@@ -16,3 +16,7 @@
 .source-button {
     padding: 0;
 }
+
+.source-button:hover {
+    background-color: inherit !important;
+}
