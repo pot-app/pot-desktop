@@ -34,6 +34,7 @@ export default function TargetArea(props) {
     const [translateInterface, setTranslateInterface] = useState(i);
     const [loading, setLoading] = useState(false);
     const [targetText, setTargetText] = useState('');
+    const [targetTextSetNum, setTargetTextSetNum] = useState(0);
     const [errMessage, setErrMessage] = useState('');
     const [addedAnki, setAddedAnki] = useState(false);
     const [addedEudic, setAddedEudic] = useState(false);
@@ -47,6 +48,14 @@ export default function TargetArea(props) {
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage]);
 
     useEffect(() => {
+        if (targetText != '') {
+            if (targetTextSetNum == 0) {
+                setExpand(true);
+                setTargetTextSetNum(targetTextSetNum + 1);
+            }
+        } else {
+            setTargetTextSetNum(0);
+        }
         if (!targetText.endsWith('_')) {
             let autoCopy = get('auto_copy') ?? 4;
             if (!listenCopy) {
@@ -83,7 +92,6 @@ export default function TargetArea(props) {
         translator.translate(text, from, to, setTargetText, id).then(
             (_) => {
                 setLoading(false);
-                setExpand(true);
             },
             (e) => {
                 setErrMessage(e);
