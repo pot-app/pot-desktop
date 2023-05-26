@@ -1,6 +1,8 @@
 import { Card, Box, InputBase, Select, MenuItem, IconButton, Tooltip } from '@mui/material';
 import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
+import UnfoldLessRoundedIcon from '@mui/icons-material/UnfoldLessRounded';
 import LibraryAddRoundedIcon from '@mui/icons-material/LibraryAddRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import { writeText } from '@tauri-apps/api/clipboard';
@@ -34,6 +36,7 @@ export default function TargetArea(props) {
     const [errMessage, setErrMessage] = useState('');
     const [addedAnki, setAddedAnki] = useState(false);
     const [addedEudic, setAddedEudic] = useState(false);
+    const [expand, setExpand] = useState(false);
     const theme = useTheme();
 
     useEffect(() => {
@@ -69,6 +72,7 @@ export default function TargetArea(props) {
         setErrMessage('');
         setAddedAnki(false);
         setAddedEudic(false);
+        setExpand(false);
         setLoading(true);
         let translator = interfaces[translateInterface];
         let id = nanoid();
@@ -76,10 +80,12 @@ export default function TargetArea(props) {
         translator.translate(text, from, to, setTargetText, id).then(
             (_) => {
                 setLoading(false);
+                setExpand(true);
             },
             (e) => {
                 setErrMessage(e);
                 setLoading(false);
+                setExpand(true);
             }
         );
     }
@@ -141,47 +147,57 @@ export default function TargetArea(props) {
             style={{
                 height: defaultInterfaceList.length == 1 && '100%',
                 marginTop: q && '8px',
-                padding: '8px 0',
             }}
         >
             <Toaster />
-            <Box className='interface-selector-area'>
-                <Select
-                    size='small'
-                    sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
-                    className='interface-selector'
-                    value={translateInterface}
-                    onChange={(e) => {
-                        setTranslateInterface(e.target.value);
+            <Box
+                className='interface-selector-area'
+                sx={{ backgroundColor: theme.palette.background.bar }}
+            >
+                <Box>
+                    <Select
+                        size='small'
+                        sx={{ height: '40px', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+                        value={translateInterface}
+                        onChange={(e) => {
+                            setTranslateInterface(e.target.value);
+                        }}
+                    >
+                        {Object.keys(interfaces).map((x) => {
+                            return (
+                                <MenuItem
+                                    value={x}
+                                    key={nanoid()}
+                                >
+                                    <Box>
+                                        <img
+                                            src={`/${x}.svg`}
+                                            className='interface-icon'
+                                        />
+                                        <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                    </Box>
+                                </MenuItem>
+                            );
+                        })}
+                    </Select>
+                    <PulseLoader
+                        loading={loading}
+                        color={theme.palette.text.primary}
+                        size={10}
+                        cssOverride={{
+                            display: 'inline-block',
+                            margin: 'auto',
+                            marginLeft: '20px',
+                        }}
+                    />
+                </Box>
+                <IconButton
+                    onClick={() => {
+                        setExpand(!expand);
                     }}
                 >
-                    {Object.keys(interfaces).map((x) => {
-                        return (
-                            <MenuItem
-                                value={x}
-                                key={nanoid()}
-                            >
-                                <Box>
-                                    <img
-                                        src={`/${x}.svg`}
-                                        className='interface-icon'
-                                    />
-                                    <span className='interface-name'>{interfaces[x]['info']['name']}</span>
-                                </Box>
-                            </MenuItem>
-                        );
-                    })}
-                </Select>
-                <PulseLoader
-                    loading={loading}
-                    color={theme.palette.text.primary}
-                    size={10}
-                    cssOverride={{
-                        display: 'inline-block',
-                        margin: 'auto',
-                        marginLeft: '20px',
-                    }}
-                />
+                    {expand ? <UnfoldLessRoundedIcon /> : <UnfoldMoreRoundedIcon />}
+                </IconButton>
             </Box>
             <Box className='overflow-textarea'>
                 <InputBase
@@ -189,19 +205,19 @@ export default function TargetArea(props) {
                     fullWidth
                     readOnly
                     value={targetText}
-                    sx={{ display: targetText == '' && 'none' }}
+                    sx={{ display: (!expand || targetText == '') && 'none' }}
                 />
                 <InputBase
                     multiline
                     fullWidth
                     readOnly
                     value={errMessage}
-                    sx={{ color: 'red', display: errMessage == '' && 'none' }}
+                    sx={{ color: 'red', display: (!expand || errMessage == '') && 'none' }}
                 />
             </Box>
             <Box
                 className='target-buttonarea'
-                sx={{ display: loading && 'none' }}
+                sx={{ display: !expand && 'none' }}
             >
                 <IconButton
                     className='target-button'

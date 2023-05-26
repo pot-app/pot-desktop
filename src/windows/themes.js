@@ -9,6 +9,7 @@ export const light = createTheme({
         background: {
             default: '#ffffff',
             paper: '#eeeeee',
+            bar: '#dddddd'
         },
         text: {
             primary: '#656769',
@@ -32,6 +33,7 @@ export const dark = createTheme({
         background: {
             default: '#232323',
             paper: '#232323',
+            bar: '#353535'
         },
         text: {
             primary: '#bab9ba',

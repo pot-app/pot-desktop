@@ -1,5 +1,7 @@
 .interface-selector-area {
     height: 40px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .interface-icon {
@@ -12,20 +14,16 @@
     vertical-align: middle;
 }
 
-.interface-selector {
-    height: 40px;
-}
-
 .overflow-textarea {
     overflow: auto;
     margin: 0 8px;
-    height: calc(100% - 70px);
+    height: calc(100% - 80px);
 }
 
 .target-buttonarea {
-    height: 30px;
     display: flex;
-    justify-content: start;
+    padding-left: 8px;
+    justify-content: left;
 }
 
 .target-button {
