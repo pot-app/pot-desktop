@@ -221,7 +221,7 @@ export default function AppInfo() {
                         href='https://t.me/Pot_Pylogmon'
                         target='_blank'
                     >
-                        t.me/Pot_Pylogmon
+                        t.me/pot_app
                     </a>
                 </li>
             </ul>
