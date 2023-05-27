@@ -157,7 +157,7 @@ export default function SourceArea() {
                     }}
                     startIcon={<TranslateRoundedIcon />}
                 >
-                    翻译hhh
+                    翻译
                 </MuiButton>
             </Box>
         </Card>
