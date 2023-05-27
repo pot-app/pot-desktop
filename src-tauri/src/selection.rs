@@ -58,11 +58,13 @@ pub fn get_selection_text_on_wayland() -> Result<String, String> {
     if let Ok(support) = is_primary_selection_supported() {
         if !support {
             println!("Primary Selection Not Supported");
+            std::env::set_var("XDG_SESSION_TYPE", "x11");
             std::env::set_var("GDK_BACKEND", "x11");
             return get_selection_text_on_x11();
         }
     } else {
         println!("Check Primary Selection Support Failed");
+        std::env::set_var("XDG_SESSION_TYPE", "x11");
         std::env::set_var("GDK_BACKEND", "x11");
         return get_selection_text_on_x11();
     }
