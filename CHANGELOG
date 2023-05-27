@@ -1,10 +1,5 @@
-## 0.4.2 (2023-05-26)
-
-### New feature:
-
--   添加清空按钮([`e17c210`](https://github.com/pot-app/pot-desktop/commit/e17c2101f8916c6ac0ca60147506752537864805)) (by Pylogmon)
+## 0.4.3 (2023-05-27)
 
 ### Bugs fixed:
 
--   优化界面样式([`e918662`](https://github.com/pot-app/pot-desktop/commit/e918662276f5a4750b681af3c137281ecf181ff1)) (by Pylogmon)
--   剪切板监听模式下禁用自动复制([`9782fd2`](https://github.com/pot-app/pot-desktop/commit/9782fd2be253a896a95cab1b19db911c8070f4fa)) (by Pylogmon)
+-   修复部分桌面环境 Wayland 下取词失败的问题([`9e5d369`](https://github.com/pot-app/pot-desktop/commit/9e5d369c8e62f9293c5915b5a5959c3bc633f606)) (by Pylogmon)
