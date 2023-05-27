@@ -46,6 +46,10 @@ fn main() {
         return;
     }
 
+    // 修复WebKitGTK的渲染问题 https://github.com/tauri-apps/tauri/issues/5143
+    #[cfg(not(target_os = "windows"))]
+    std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+
     tauri::Builder::default()
         // 单例运行
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
