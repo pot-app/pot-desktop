@@ -62,7 +62,8 @@ export default function SourceArea() {
     }
 
     function keyDown(event) {
-        if (event.key == 'Enter') {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault()
             setSourceText(event.target.value);
         }
     }
@@ -156,7 +157,7 @@ export default function SourceArea() {
                     }}
                     startIcon={<TranslateRoundedIcon />}
                 >
-                    翻译
+                    翻译hhh
                 </MuiButton>
             </Box>
         </Card>
