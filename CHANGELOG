@@ -1,5 +1,6 @@
-## 0.4.3 (2023-05-27)
+## 0.4.4 (2023-05-27)
 
 ### Bugs fixed:
 
 -   修复部分桌面环境 Wayland 下取词失败的问题([`9e5d369`](https://github.com/pot-app/pot-desktop/commit/9e5d369c8e62f9293c5915b5a5959c3bc633f606)) (by Pylogmon)
+-   修复 WebKitGTK 的渲染问题([`c8a7ec1`](https://github.com/pot-app/pot-desktop/commit/c8a7ec1db8de77b9f0b2e00bb9b61ae8e10dd912)) (by Pylogmon)
