@@ -22,8 +22,8 @@
 .target-buttonarea {
     display: flex;
     height: 30px;
-    padding-left: 8px;
-    margin: 8px 0;
+    padding: 0 8px;
+    margin-bottom: 8px;
     justify-content: left;
 }
 
