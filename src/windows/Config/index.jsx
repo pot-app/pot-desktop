@@ -40,6 +40,7 @@ export const interfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
 export const shortcutOcrAtom = atom('');
+export const fontSizeAtom = atom('1rem');
 
 export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
@@ -69,6 +70,7 @@ export default function Config() {
     const setEudicEnable = useSetAtom(eudicEnableAtom);
     const setEudicCategoryName = useSetAtom(eudicCategoryNameAtom);
     const setEudicToken = useSetAtom(eudicTokenAtom);
+    const setFontSize = useSetAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -107,6 +109,8 @@ export default function Config() {
         setEudicToken(get('eudic_token') ?? '');
         setTheme(get('theme') ?? 'auto');
         setOpenaiService(get('openai_service') ?? 'openai');
+        setFontSize(get('font_size') ?? '1rem');
+
         let interface_configs = {};
 
         Object.keys(interfaces).map((i) => {

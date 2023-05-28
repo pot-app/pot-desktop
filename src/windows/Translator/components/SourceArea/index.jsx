@@ -63,7 +63,7 @@ export default function SourceArea() {
 
     function keyDown(event) {
         if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault()
+            event.preventDefault();
             setSourceText(event.target.value);
         }
     }
@@ -81,6 +81,7 @@ export default function SourceArea() {
                     fullWidth
                     value={text}
                     onKeyDown={keyDown}
+                    sx={{ fontSize: get('font_size') ?? '1rem' }}
                     onChange={(e) => {
                         setText(e.target.value);
                         if (dynamicTranslate) {

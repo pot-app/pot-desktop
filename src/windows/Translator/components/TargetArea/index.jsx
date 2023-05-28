@@ -221,14 +221,21 @@ export default function TargetArea(props) {
                     fullWidth
                     readOnly
                     value={targetText}
-                    sx={{ display: (!expand || targetText == '') && 'none' }}
+                    sx={{
+                        display: (!expand || targetText == '') && 'none',
+                        fontSize: get('font_size') ?? '1rem',
+                    }}
                 />
                 <InputBase
                     multiline
                     fullWidth
                     readOnly
                     value={errMessage}
-                    sx={{ color: 'red', display: (!expand || errMessage == '') && 'none' }}
+                    sx={{
+                        color: 'red',
+                        display: (!expand || errMessage == '') && 'none',
+                        fontSize: get('font_size') ?? '1rem',
+                    }}
                 />
             </Box>
             <Box
