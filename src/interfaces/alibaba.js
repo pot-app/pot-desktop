@@ -22,6 +22,15 @@ export const info = {
         es: 'es',
         ru: 'ru',
         de: 'de',
+        it: 'it',
+        tr: 'tr',
+        pt: 'pt',
+        vi: 'vi',
+        id: 'id',
+        th: 'th',
+        ms: 'ms',
+        ar: 'ar',
+        hi: 'hi',
     },
     needs: [
         {

@@ -20,6 +20,15 @@ export const info = {
         es: 'es',
         ru: 'ru',
         de: 'de',
+        it: 'it',
+        tr: 'tr',
+        pt: 'pt',
+        vi: 'vi',
+        id: 'id',
+        th: 'th',
+        ms: 'ms',
+        ar: 'ar',
+        hi: 'hi',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)
     needs: [
