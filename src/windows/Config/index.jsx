@@ -2,8 +2,8 @@ import { useMediaQuery, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appWindow } from '@tauri-apps/api/window';
-import { useRoutes } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import { useLocation, useRoutes } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
 import { useAtom, useSetAtom, atom } from 'jotai';
 import * as interfaces from '../../interfaces';
 import SideBar from './components/SideBar';
@@ -73,8 +73,15 @@ export default function Config() {
     const setFontSize = useSetAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
+    const gridWrapperRef = useRef();
+    const location = useLocation();
+
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const page = useRoutes(routes);
+
+    useEffect(() => {
+        gridWrapperRef.current.scrollTop = 0;
+    }, [location]);
 
     useEffect(() => {
         if (appWindow.label != 'util') {
@@ -147,6 +154,7 @@ export default function Config() {
                     <SideBar />
                 </Grid>
                 <Grid
+                    ref={gridWrapperRef}
                     item
                     xs
                     sx={{ height: '100%', overflow: 'auto' }}
