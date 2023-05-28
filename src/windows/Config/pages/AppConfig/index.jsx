@@ -20,6 +20,7 @@ import {
     hideSourceAtom,
     hideLanguageAtom,
     rememberWindowSizeAtom,
+    fontSizeAtom,
 } from '../..';
 import { invoke } from '@tauri-apps/api/tauri';
 
@@ -35,6 +36,7 @@ export default function AppConfig() {
     const [hideSource, setHideSource] = useAtom(hideSourceAtom);
     const [hideLanguage, setHideLanguage] = useAtom(hideLanguageAtom);
     const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
+    const [fontSize, setFontSize] = useAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
     const muitheme = useTheme();
 
@@ -216,6 +218,21 @@ export default function AppConfig() {
                             }}
                         />
                     </Box>
+                </ConfigItem>
+                <ConfigItem
+                    label='字体大小'
+                    help='只支持调整翻译窗口中源文本和译文的字体大小'
+                >
+                    <TextField
+                        size='small'
+                        value={fontSize}
+                        sx={{ width: '300px' }}
+                        placeholder='eg:1rem or 16px'
+                        onChange={(e) => {
+                            setFontSize(e.target.value);
+                            set('font_size', e.target.value);
+                        }}
+                    />
                 </ConfigItem>
             </ConfigList>
         </>
