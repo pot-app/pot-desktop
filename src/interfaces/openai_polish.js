@@ -15,6 +15,15 @@ export const info = {
         es: 'Spanish',
         ru: 'Russian',
         de: 'German',
+        it: 'Italian',
+        tr: 'Turkish',
+        pt: 'Portuguese',
+        vi: 'Vietnamese',
+        id: 'Indonesian',
+        th: 'Thai',
+        ms: 'Malay',
+        ar: 'Arabic',
+        hi: 'Hindi',
     },
     needs: [
         {

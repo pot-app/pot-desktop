@@ -17,6 +17,10 @@ export const info = {
         fr: 'FR',
         ja: 'JA',
         ru: 'RU',
+        it: 'IT',
+        tr: 'TR',
+        pt: 'PT',
+        id: 'ID',
     },
     // 接口需要配置项
     needs: [

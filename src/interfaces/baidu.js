@@ -18,6 +18,15 @@ export const info = {
         es: 'spa',
         ru: 'ru',
         de: 'de',
+        it: 'it',
+        tr: 'tr',
+        pt: 'pt',
+        vi: 'vie',
+        id: 'id',
+        th: 'th',
+        ms: 'may',
+        ar: 'ar',
+        hi: 'hi',
     },
     needs: [
         {
