@@ -32,11 +32,11 @@ const listenBlur = () =>
     });
 
 // 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
-listen('tauri://focus', () => {
+void listen('tauri://focus', () => {
     if (blurTimeout) {
         clearTimeout(blurTimeout);
     }
-}).then(() => {});
+});
 
 // 取消 blur 监听
 const unlistenBlur = () => {
@@ -75,12 +75,12 @@ export default function TopBar() {
             setIsMacos(v);
         });
         if (appWindow.label === 'persistent') {
-            appWindow.setAlwaysOnTop(pined).then(() => {});
+            void appWindow.setAlwaysOnTop(pined);
         } else {
             // 使划词翻译窗口置顶，但是pined图标显示为false
             // 这样一来pin在划词翻译窗口的作用相当于控制是否在失去焦点的时候关闭
             // 而且对于划词翻译窗口确实需要使其一直处于置顶状态
-            appWindow.setAlwaysOnTop(true).then(() => {});
+            void appWindow.setAlwaysOnTop(true);
             setPined(false);
         }
     }, []);

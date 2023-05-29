@@ -17,8 +17,8 @@ export default function Translator() {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     useEffect(() => {
         if (appWindow.label !== 'util') {
-            appWindow.show().then(() => {});
-            appWindow.setFocus().then(() => {});
+            void appWindow.show();
+            void appWindow.setFocus();
         }
     }, []);
     return (

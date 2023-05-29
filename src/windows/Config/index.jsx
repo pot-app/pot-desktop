@@ -85,8 +85,8 @@ export default function Config() {
 
     useEffect(() => {
         if (appWindow.label !== 'util') {
-            appWindow.show().then(() => {});
-            appWindow.setFocus().then(() => {});
+            void appWindow.show();
+            void appWindow.setFocus();
         }
 
         setShortcutTranslate(get('shortcut_translate') ?? '');
