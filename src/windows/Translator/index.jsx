@@ -24,6 +24,10 @@ export default function Translator() {
     return (
         <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
             <CssBaseline />
+            <div
+                data-tauri-drag-region
+                className='titlebar'
+            />
             <TopBar />
             <Grid
                 container
