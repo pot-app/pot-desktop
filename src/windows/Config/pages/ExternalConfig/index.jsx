@@ -18,18 +18,18 @@ export default function ExternalConfig() {
             <ConfigItem label='启用Anki支持'>
                 <Switch
                     checked={ankiEnable}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setAnkiEnable(e.target.checked);
-                        set('anki_enable', e.target.checked);
+                        await set('anki_enable', e.target.checked);
                     }}
                 />
             </ConfigItem>
             <ConfigItem label='启用欧路词典生词本'>
                 <Switch
                     checked={eudicEnable}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setEudicEnable(e.target.checked);
-                        set('eudic_enable', e.target.checked);
+                        await set('eudic_enable', e.target.checked);
                     }}
                 />
             </ConfigItem>
@@ -39,9 +39,9 @@ export default function ExternalConfig() {
                     sx={{ width: '300px' }}
                     value={eudicCategoryName}
                     placeholder='pot'
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setEudicCategoryName(e.target.value);
-                        set('eudic_category_name', e.target.value);
+                        await set('eudic_category_name', e.target.value);
                     }}
                 />
             </ConfigItem>
@@ -51,9 +51,9 @@ export default function ExternalConfig() {
                     sx={{ width: '300px' }}
                     placeholder='请前往pot官网查看获取Token教程'
                     value={eudicToken}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setEudicToken(e.target.value);
-                        set('eudic_token', e.target.value);
+                        await set('eudic_token', e.target.value);
                     }}
                 />
             </ConfigItem>

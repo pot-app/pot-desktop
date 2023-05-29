@@ -36,7 +36,7 @@ export const info = {
             config_key: 'xiaoniu_apikey',
             place_hold: 'ApiKey',
             display_name: 'API 密钥',
-        }
+        },
     ],
 };
 
@@ -47,7 +47,7 @@ export async function translate(text, from, to, setText, id) {
     // 获取设置项
     const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
-    if (apikey == '') {
+    if (apikey === '') {
         return '请先配置API 密钥';
     }
     // 检查语言支持
@@ -68,18 +68,18 @@ export async function translate(text, from, to, setText, id) {
                 from: supportLanguage[from],
                 to: supportLanguage[to],
                 apikey: apikey,
-                src_text: text
-            }
-        }
+                src_text: text,
+            },
+        },
     });
 
     // 返回翻译结果
     if (res.ok) {
         let result = res.data;
         if (result && result['tgt_text'] && result['from']) {
-            if (result['from'] == supportLanguage[to]) {
+            if (result['from'] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

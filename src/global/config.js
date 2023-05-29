@@ -1,8 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
 export async function readConfig() {
-    let config = await invoke('get_config_str');
-    return config;
+    return await invoke('get_config_str');
 }
 
 export async function set(k, v) {

@@ -24,7 +24,7 @@ export async function translate(text, from, to, setText, id) {
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
         throw '该接口不支持该语言';
     }
-    if (text.split(' ').length != 1) {
+    if (text.split(' ').length !== 1) {
         throw '该接口只支持查词';
     }
 
@@ -43,7 +43,7 @@ export async function translate(text, from, to, setText, id) {
         content = content.replace(`必应词典为您提供${text}的释义，`, '');
         content = content.replaceAll('； ', '；\n');
         content = content.replaceAll(']，', ']\n');
-        if (content.trim().split(' ') == 1) {
+        if (content.trim().split(' ').length === 1) {
             throw '查词失败';
         } else {
             if (translateID.includes(id)) {

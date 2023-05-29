@@ -38,22 +38,22 @@ export const info = {
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     let domain = get('openai_domain') ?? 'api.openai.com';
-    if (domain == '') {
+    if (domain === '') {
         domain = 'api.openai.com';
     }
     if (domain.startsWith('http')) {
         domain = domain.replace('https://', '').replace('http://', '');
     }
     let path = get('openai_path') ?? '/v1/chat/completions';
-    if (path == '') {
+    if (path === '') {
         path = '/v1/chat/completions';
     }
     const apikey = get('openai_apikey') ?? '';
-    if (apikey == '') {
+    if (apikey === '') {
         throw '请先配置apikey';
     }
     let systemPrompt = get('openai_code_prompt') ?? '';
-    if (systemPrompt == '') {
+    if (systemPrompt === '') {
         systemPrompt =
             'You are a code explanation engine, you can only explain the code, do not interpret or translate it. Also, please report any bugs you find in the code to the author of the code.';
     }
@@ -62,13 +62,16 @@ export async function translate(text, from, to, setText, id) {
     const stream = get('openai_stream') ?? false;
     const service = get('openai_service') ?? 'openai';
 
-    const headers = service == 'openai' ? {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apikey}`,
-    } : {
-        'Content-Type': 'application/json',
-        'api-key': apikey,
-    }
+    const headers =
+        service === 'openai'
+            ? {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${apikey}`,
+              }
+            : {
+                  'Content-Type': 'application/json',
+                  'api-key': apikey,
+              };
 
     let body = {
         temperature: 0,
@@ -77,13 +80,12 @@ export async function translate(text, from, to, setText, id) {
         top_p: 1,
         frequency_penalty: 1,
         presence_penalty: 1,
-        stream: stream,
         messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
-        ]
+        ],
     };
-    if (service == 'openai') {
+    if (service === 'openai') {
         body['model'] = 'gpt-3.5-turbo';
     }
 
@@ -91,7 +93,7 @@ export async function translate(text, from, to, setText, id) {
         const res = await window.fetch(`https://${domain}${path}`, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
         });
         if (res.ok) {
             let target = '';
@@ -109,9 +111,9 @@ export async function translate(text, from, to, setText, id) {
                     const str = new TextDecoder().decode(value);
                     let datas = str.split('data: ');
                     for (let data of datas) {
-                        if (data.trim() != '' && data.trim() != '[DONE]') {
+                        if (data.trim() !== '' && data.trim() !== '[DONE]') {
                             try {
-                                if (temp != '') {
+                                if (temp !== '') {
                                     data = temp + data.trim();
                                     let result = JSON.parse(data.trim());
                                     if (result.choices[0].delta.content) {

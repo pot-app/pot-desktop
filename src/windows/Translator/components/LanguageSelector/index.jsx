@@ -42,6 +42,7 @@ export default function LanguageSelector() {
                                 height: '20px',
                             }}
                             src='/auto.png'
+                            alt='auto detect'
                         />
                     </span>
                     <span>自动检测</span>

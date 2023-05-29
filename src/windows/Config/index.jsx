@@ -84,9 +84,9 @@ export default function Config() {
     }, [location]);
 
     useEffect(() => {
-        if (appWindow.label != 'util') {
-            appWindow.show();
-            appWindow.setFocus();
+        if (appWindow.label !== 'util') {
+            appWindow.show().then(() => {});
+            appWindow.setFocus().then(() => {});
         }
 
         setShortcutTranslate(get('shortcut_translate') ?? '');
@@ -140,7 +140,7 @@ export default function Config() {
     }, []);
 
     return (
-        <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
+        <ThemeProvider theme={theme === 'auto' ? (prefersDarkMode ? dark : light) : theme === 'dark' ? dark : light}>
             <CssBaseline />
             <Grid
                 className='content'

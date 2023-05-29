@@ -21,20 +21,18 @@ export default function InterfaceConfig() {
                 label='OpenAI 服务提供商'
                 help='仅在你明确清楚自己使用的是Azure的OpenAI Service的时候需要设置此项，其他情况下一律使用默认openai服务'
             >
-                <Tooltip>
-                    <Select
-                        size='small'
-                        sx={{ width: '50%' }}
-                        value={openaiService}
-                        onChange={(e) => {
-                            setOpenaiService(e.target.value);
-                            set('openai_service', e.target.value);
-                        }}
-                    >
-                        <MenuItem value='openai'>OpenAI</MenuItem>
-                        <MenuItem value='azure'>Azure</MenuItem>
-                    </Select>
-                </Tooltip>
+                <Select
+                    size='small'
+                    sx={{ width: '50%' }}
+                    value={openaiService}
+                    onChange={(e) => {
+                        setOpenaiService(e.target.value);
+                        set('openai_service', e.target.value);
+                    }}
+                >
+                    <MenuItem value='openai'>OpenAI</MenuItem>
+                    <MenuItem value='azure'>Azure</MenuItem>
+                </Select>
             </ConfigItem>
             {Object.keys(interfaceConfigs).map((x) => {
                 return (

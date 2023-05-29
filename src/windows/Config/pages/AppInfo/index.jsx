@@ -92,6 +92,7 @@ export default function AppInfo() {
                 <img
                     src='icon.png'
                     className='logo'
+                    alt='logo'
                 />
             </Box>
             <h3>应用简介</h3>

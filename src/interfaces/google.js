@@ -42,7 +42,7 @@ export async function translate(text, from, to, setText, id) {
     }
 
     let domain = get('google_proxy') ?? 'translate.google.com';
-    if (domain == '') {
+    if (domain === '') {
         domain = 'translate.google.com';
     }
 
@@ -69,9 +69,9 @@ export async function translate(text, from, to, setText, id) {
         let result = res.data;
         let target = '';
         if (result[2]) {
-            if (result[2] == supportLanguage[to]) {
+            if (result[2] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

@@ -3,7 +3,7 @@ import { get } from '../windows/main';
 
 export async function addToEudic(text) {
     let token = get('eudic_token') ?? '';
-    if (token == '') {
+    if (token === '') {
         throw '请先设置Token';
     }
     let categoryId = await checkCategory(token);
@@ -12,7 +12,7 @@ export async function addToEudic(text) {
 
 async function checkCategory(token) {
     let name = get('eudic_category_name') ?? 'pot';
-    if (name == '') {
+    if (name === '') {
         name = 'pot';
     }
 
@@ -30,7 +30,7 @@ async function checkCategory(token) {
     let result = res.data;
     if (result.data) {
         for (let i of result.data) {
-            if (i.name == name) {
+            if (i.name === name) {
                 return i.id;
             }
         }

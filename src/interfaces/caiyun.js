@@ -24,7 +24,7 @@ export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
     const token = get('caiyun_token') ?? '';
-    if (token == '') {
+    if (token === '') {
         throw '请先配置token';
     }
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
@@ -56,9 +56,9 @@ export async function translate(text, from, to, setText, id) {
         let result = res.data;
         const { target } = result;
         if (target[0]) {
-            if (target[0] == text) {
+            if (target[0] === text) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (to != secondLanguage) {
+                if (to !== secondLanguage) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

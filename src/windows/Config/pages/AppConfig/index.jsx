@@ -53,7 +53,7 @@ export default function AppConfig() {
                 <ConfigItem label='开机启动'>
                     <Switch
                         checked={autoStart}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setAutoStart(e.target.checked);
                             if (e.target.checked) {
                                 isEnabled().then((v) => {
@@ -82,52 +82,52 @@ export default function AppConfig() {
                                     }
                                 });
                             }
-                            set('auto_start', e.target.checked);
+                            await set('auto_start', e.target.checked);
                         }}
                     />
                 </ConfigItem>
                 <ConfigItem label='启动时检查更新'>
                     <Switch
                         checked={autoCheck}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setAutoCheck(e.target.checked);
-                            set('auto_check', e.target.checked);
+                            await set('auto_check', e.target.checked);
                         }}
                     />
                 </ConfigItem>
                 <ConfigItem label='独立翻译窗口默认置顶'>
                     <Switch
                         checked={defaultPined}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setDefaultPined(e.target.checked);
-                            set('default_pined', e.target.checked);
+                            await set('default_pined', e.target.checked);
                         }}
                     />
                 </ConfigItem>
                 <ConfigItem label='隐藏原文本'>
                     <Switch
                         checked={hideSource}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setHideSource(e.target.checked);
-                            set('hide_source', e.target.checked);
+                            await set('hide_source', e.target.checked);
                         }}
                     />
                 </ConfigItem>
                 <ConfigItem label='隐藏语言栏'>
                     <Switch
                         checked={hideLanguage}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setHideLanguage(e.target.checked);
-                            set('hide_language', e.target.checked);
+                            await set('hide_language', e.target.checked);
                         }}
                     />
                 </ConfigItem>
                 <ConfigItem label='记住翻译窗口大小'>
                     <Switch
                         checked={rememberWindowSize}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setRememberWindowSize(e.target.checked);
-                            set('remember_window_size', e.target.checked);
+                            await set('remember_window_size', e.target.checked);
                         }}
                     />
                 </ConfigItem>
@@ -138,9 +138,9 @@ export default function AppConfig() {
                         value={proxy}
                         sx={{ width: '300px' }}
                         placeholder='eg:http://127.0.0.1:7890'
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setProxy(e.target.value);
-                            set('proxy', e.target.value);
+                            await set('proxy', e.target.value);
                         }}
                         InputProps={{
                             endAdornment: (
@@ -168,9 +168,9 @@ export default function AppConfig() {
                             size='small'
                             value={defaultWindow}
                             sx={{ width: '300px' }}
-                            onChange={(e) => {
+                            onChange={async (e) => {
                                 setDefaultWindow(e.target.value);
-                                set('default_window', e.target.value);
+                                await set('default_window', e.target.value);
                             }}
                         >
                             <MenuItem value='none'>None</MenuItem>
@@ -185,9 +185,9 @@ export default function AppConfig() {
                         sx={{ width: '300px' }}
                         size='small'
                         value={theme}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setTheme(e.target.value);
-                            set('theme', e.target.value);
+                            await set('theme', e.target.value);
                         }}
                     >
                         <MenuItem value='auto'>跟随系统</MenuItem>
@@ -202,9 +202,9 @@ export default function AppConfig() {
                             size='small'
                             sx={{ width: '142px' }}
                             value={windowWidth}
-                            onChange={(event) => {
+                            onChange={async (event) => {
                                 setWindowWidth(Number(event.target.value));
-                                set('window_width', Number(event.target.value));
+                                await set('window_width', Number(event.target.value));
                             }}
                         />
                         <TextField
@@ -212,9 +212,9 @@ export default function AppConfig() {
                             size='small'
                             sx={{ width: '142px', marginLeft: '16px' }}
                             value={windowHeight}
-                            onChange={(event) => {
+                            onChange={async (event) => {
                                 setWindowHeight(Number(event.target.value));
-                                set('window_height', Number(event.target.value));
+                                await set('window_height', Number(event.target.value));
                             }}
                         />
                     </Box>
@@ -228,9 +228,9 @@ export default function AppConfig() {
                         value={fontSize}
                         sx={{ width: '300px' }}
                         placeholder='eg:1rem or 16px'
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             setFontSize(e.target.value);
-                            set('font_size', e.target.value);
+                            await set('font_size', e.target.value);
                         }}
                     />
                 </ConfigItem>
