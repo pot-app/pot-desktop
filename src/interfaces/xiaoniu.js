@@ -76,7 +76,6 @@ export async function translate(text, from, to, setText, id) {
     // 返回翻译结果
     if (res.ok) {
         let result = res.data;
-        console.log(result);
         if (result && result['tgt_text'] && result['from']) {
             if (result['from'] == supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
