@@ -1,8 +1,9 @@
-import React from 'react';
-import { Grid, Box, Card } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { appWindow } from '@tauri-apps/api/window';
+import { Grid, Box, Card } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
+import React, { useEffect } from 'react';
 import OcrController from './components/OcrController';
 import ImageArea from './components/ImageArea';
 import TextArea from './components/TextArea';
@@ -13,6 +14,14 @@ import './style.css';
 export default function App() {
     const theme = get('theme') ?? 'auto';
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    useEffect(() => {
+        if (appWindow.label === 'ocr') {
+            void appWindow.show();
+            void appWindow.setFocus();
+        }
+    }, []);
+
     return (
         <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
             <CssBaseline />

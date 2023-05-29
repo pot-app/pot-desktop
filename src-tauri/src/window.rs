@@ -107,6 +107,7 @@ pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
             .center()
             .focused(true)
             .title("OCR")
+            .visible(false)
             .build()
             .unwrap();
     Ok(window)
@@ -271,8 +272,6 @@ pub fn popclip_window(text: String) {
 #[allow(dead_code)]
 pub fn ocr_window() {
     let handle = APP.get().unwrap();
-
-    // 读取剪切板图片
 
     match handle.get_window("ocr") {
         Some(window) => {

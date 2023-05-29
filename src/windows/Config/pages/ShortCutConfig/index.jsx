@@ -96,7 +96,7 @@ export default function ShortCutConfig() {
     }
 
     return (
-        <ConfigList label='翻译快捷键'>
+        <ConfigList label='快捷键'>
             <ConfigItem
                 label='划词翻译'
                 help={isWayland && 'Wayland无法使用应用内快捷键，请通过系统快捷键设置，详细见官网文档'}
@@ -106,7 +106,6 @@ export default function ShortCutConfig() {
                     size='small'
                     sx={{ width: '300px' }}
                     value={shortcutTranslate}
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     onKeyDown={(e) => {
                         keyDown(e, setShortcutTranslate);
                     }}
@@ -138,7 +137,6 @@ export default function ShortCutConfig() {
                     size='small'
                     disabled={isWayland}
                     sx={{ width: '300px' }}
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}
                     onKeyDown={(e) => {
                         keyDown(e, setShortcutPersistent);
@@ -163,15 +161,35 @@ export default function ShortCutConfig() {
                     }}
                 />
             </ConfigItem>
-            {/* <ConfigItem label="OCR">
+            <ConfigItem label='OCR'>
                 <TextField
-                    fullWidth
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
+                    size='small'
+                    disabled={isWayland}
+                    sx={{ width: '300px' }}
                     value={shortcutOcr}
-                    onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
-                    onFocus={() => { setShortcutOcr('') }}
+                    onKeyDown={(e) => {
+                        keyDown(e, set);
+                    }}
+                    onFocus={() => {
+                        setShortcutOcr('');
+                    }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button
+                                    size='small'
+                                    variant='outlined'
+                                    onClick={async () => {
+                                        await set('shortcut_ocr', shortcutOcr);
+                                    }}
+                                >
+                                    确认
+                                </Button>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-            </ConfigItem> */}
+            </ConfigItem>
             <p>
                 想要更流畅的翻译体验，请查阅
                 <a

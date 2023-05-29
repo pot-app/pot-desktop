@@ -67,7 +67,7 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
         "all" => {
             register_translate(handle)?;
             register_persistent(handle)?;
-            // register_ocr(handle)?;
+            register_ocr(handle)?;
         }
         _ => {}
     }
