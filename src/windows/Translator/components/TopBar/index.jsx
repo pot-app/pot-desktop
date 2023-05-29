@@ -14,11 +14,38 @@ import { set } from '../../../../global/config';
 import { get } from '../../../main';
 import './style.css';
 
-let unlisten = listen('tauri://blur', () => {
-    if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
-        appWindow.close();
+let blurTimeout = null;
+
+// 监听 blur 事件，如果窗口失去焦点，关闭窗口
+const listenBlur = () =>
+    listen('tauri://blur', () => {
+        if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
+            if (blurTimeout) {
+                clearTimeout(blurTimeout);
+            }
+            // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
+            // 如果直接关闭将导致窗口无法拖动
+            blurTimeout = setTimeout(() => {
+                appWindow.close();
+            }, 50);
+        }
+    });
+
+// 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
+listen('tauri://focus', () => {
+    if (blurTimeout) {
+        clearTimeout(blurTimeout);
     }
 });
+
+// 取消 blur 监听
+const unlistenBlur = () => {
+    unlisten.then((f) => {
+        f();
+    });
+};
+
+let unlisten = listenBlur();
 
 listen('tauri://resize', async () => {
     if (get('remember_window_size') ?? false) {
@@ -67,15 +94,9 @@ export default function TopBar() {
                     onClick={() => {
                         appWindow.setAlwaysOnTop(!pined).then((_) => {
                             if (!pined) {
-                                unlisten.then((f) => {
-                                    f();
-                                });
+                                unlistenBlur();
                             } else {
-                                unlisten = listen('tauri://blur', () => {
-                                    if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
-                                        appWindow.close();
-                                    }
-                                });
+                                unlisten = listenBlur();
                             }
                             setPined(!pined);
                         });
@@ -90,9 +111,7 @@ export default function TopBar() {
                         if (!listenCopy) {
                             if (!pined) {
                                 appWindow.setAlwaysOnTop(true).then((_) => {
-                                    unlisten.then((f) => {
-                                        f();
-                                    });
+                                    unlistenBlur();
                                 });
                                 setPined(true);
                             }
