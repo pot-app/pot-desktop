@@ -24,7 +24,7 @@ export const info = {
         id: 'id',
         th: 'th',
         ms: 'ms',
-        ar: 'ar'
+        ar: 'ar',
     },
     // 接口需要配置项
     needs: [
@@ -49,7 +49,7 @@ export async function translate(text, from, to, setText, id) {
     const user = get('transmart_user') ?? '';
     const token = get('transmart_token') ?? '';
 
-    if (user == '' || token == '') {
+    if (user === '' || token === '') {
         throw '请先配置用户名和Token';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
@@ -62,48 +62,47 @@ export async function translate(text, from, to, setText, id) {
         body: {
             type: 'Json',
             payload: {
-                "header": {
-                    "fn": "text_analysis",
-                    "token": token,
-                    "user": user
+                header: {
+                    fn: 'text_analysis',
+                    token: token,
+                    user: user,
                 },
-                "type": "plain",
-                "text": text
-            }
-        }
-    })
+                type: 'plain',
+                text: text,
+            },
+        },
+    });
     if (analysis_res.ok) {
         let analysis_result = analysis_res.data;
         if (analysis_result['language']) {
-            if (analysis_result['language'] == supportLanguage[to]) {
-                let secondLanguage = get('second_language') ?? 'en';
-                to = secondLanguage;
+            if (analysis_result['language'] === supportLanguage[to]) {
+                to = get('second_language') ?? 'en';
             }
             if (analysis_result['sentence_list']) {
-                let text_list = analysis_result['sentence_list'].map(text => {
-                    return text['str']
+                let text_list = analysis_result['sentence_list'].map((text) => {
+                    return text['str'];
                 });
                 const res = await fetch(url, {
                     method: 'POST',
                     body: {
                         type: 'Json',
                         payload: {
-                            "header": {
-                                "fn": "auto_translation",
-                                "token": token,
-                                "user": user
+                            header: {
+                                fn: 'auto_translation',
+                                token: token,
+                                user: user,
                             },
-                            "type": "plain",
-                            "source": {
-                                "lang": from == 'auto' ? analysis_result['language'] : supportLanguage[from],
-                                "text_list": text_list
+                            type: 'plain',
+                            source: {
+                                lang: from === 'auto' ? analysis_result['language'] : supportLanguage[from],
+                                text_list: text_list,
                             },
-                            "target": {
-                                "lang": supportLanguage[to]
-                            }
-                        }
-                    }
-                })
+                            target: {
+                                lang: supportLanguage[to],
+                            },
+                        },
+                    },
+                });
                 if (res.ok) {
                     const result = res.data;
                     if (result['auto_translation']) {
@@ -115,7 +114,7 @@ export async function translate(text, from, to, setText, id) {
                             }
                         }
                     } else {
-                        throw (JSON.stringify(result));
+                        throw JSON.stringify(result);
                     }
                 } else {
                     throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
@@ -123,12 +122,10 @@ export async function translate(text, from, to, setText, id) {
             } else {
                 throw JSON.stringify(analysis_result);
             }
-
         } else {
             throw JSON.stringify(analysis_result);
         }
     } else {
         throw `Http请求错误\nHttp Status: ${analysis_res.status}\n${JSON.stringify(analysis_res.data)}`;
     }
-
 }

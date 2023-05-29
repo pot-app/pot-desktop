@@ -57,7 +57,7 @@ export default function ShortCutConfig() {
     });
 
     function keyDown(e, setKey) {
-        if (e.keyCode == 8) {
+        if (e.keyCode === 8) {
             setKey('');
         } else {
             let newValue = '';
@@ -119,8 +119,8 @@ export default function ShortCutConfig() {
                                 <Button
                                     size='small'
                                     variant='outlined'
-                                    onClick={() => {
-                                        set('shortcut_translate', shortcutTranslate);
+                                    onClick={async () => {
+                                        await set('shortcut_translate', shortcutTranslate);
                                     }}
                                 >
                                     确认
@@ -152,8 +152,8 @@ export default function ShortCutConfig() {
                                 <Button
                                     size='small'
                                     variant='outlined'
-                                    onClick={() => {
-                                        set('shortcut_persistent', shortcutPersistent);
+                                    onClick={async () => {
+                                        await set('shortcut_persistent', shortcutPersistent);
                                     }}
                                 >
                                     确认
@@ -186,6 +186,7 @@ export default function ShortCutConfig() {
             <img
                 src='plugin.gif'
                 style={{ width: '100%' }}
+                alt='plugin example'
             ></img>
         </ConfigList>
     );

@@ -57,7 +57,7 @@ export async function translate(text, from, to, setText, id) {
         const rand = Math.floor(Math.random() * 99999) + 100000;
         return rand * 1000;
     }
-    if (accesskey_id == '' || accesskey_secret == '') {
+    if (accesskey_id === '' || accesskey_secret === '') {
         throw '请先配置AccessKey ID和AccessKey Secret';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
@@ -69,10 +69,11 @@ export async function translate(text, from, to, setText, id) {
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${supportLanguage[from]
-        }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
-            timestamp
-        )}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
+        supportLanguage[from]
+    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
+        timestamp
+    )}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 
@@ -93,19 +94,19 @@ export async function translate(text, from, to, setText, id) {
     let noproxy = await invoke('set_proxy', { proxy: '' });
     let res = await fetch(CanonicalizedQueryString, {
         method: 'GET',
-        noproxy: noproxy
+        noproxy: noproxy,
         // 添加noproxy确保set_proxy已经执行完毕，fetch不会读取这个noproxy
-    })
+    });
     // 还原代理设置
     let proxy = get('proxy') ?? '';
     await invoke('set_proxy', { proxy });
 
     if (res.ok) {
         let result = res.data;
-        if (result['Code'] == '200') {
-            if (result['Data']['Translated'] == text) {
+        if (result['Code'] === '200') {
+            if (result['Data']['Translated'] === text) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (to != secondLanguage) {
+                if (to !== secondLanguage) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

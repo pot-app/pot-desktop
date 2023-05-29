@@ -29,7 +29,7 @@ export const info = {
         th: 'th',
         ms: 'ms',
         ar: 'ar',
-        hi: 'hi'
+        hi: 'hi',
     },
     // 接口需要配置项
     needs: [
@@ -53,7 +53,7 @@ export async function translate(text, from, to, setText, id) {
     const SecretId = get('tencent_secretid') ?? '';
     const SecretKey = get('tencent_secretkey') ?? '';
 
-    if (SecretId == '' || SecretKey == '') {
+    if (SecretId === '' || SecretKey === '') {
         throw '请先配置SecretId和SecretKey';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
@@ -164,9 +164,9 @@ export async function translate(text, from, to, setText, id) {
         let result = res.data;
         let { Response } = result;
         if (Response && Response['TargetText'] && Response['Source']) {
-            if (Response['Source'] == supportLanguage[to]) {
+            if (Response['Source'] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

@@ -16,16 +16,16 @@ export default function Translator() {
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     useEffect(() => {
-        if (appWindow.label != 'util') {
-            appWindow.show();
-            appWindow.setFocus();
+        if (appWindow.label !== 'util') {
+            void appWindow.show();
+            void appWindow.setFocus();
         }
     }, []);
     return (
-        <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
+        <ThemeProvider theme={theme === 'auto' ? (prefersDarkMode ? dark : light) : theme === 'dark' ? dark : light}>
             <CssBaseline />
             <div
-                data-tauri-drag-region
+                data-tauri-drag-region='true'
                 className='titlebar'
             />
             <TopBar />
@@ -38,7 +38,7 @@ export default function Translator() {
                 <Grid
                     style={{
                         width: '100%',
-                        display: appWindow.label != 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
+                        display: appWindow.label !== 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
                     }}
                 >
                     <SourceArea />
@@ -46,7 +46,7 @@ export default function Translator() {
                 <Grid
                     style={{
                         width: '100%',
-                        display: appWindow.label != 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
+                        display: appWindow.label !== 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
                     }}
                 >
                     <LanguageSelector />

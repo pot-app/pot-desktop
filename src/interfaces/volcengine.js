@@ -53,7 +53,7 @@ export async function translate(text, from, to, setText, id) {
     const appid = get('volcengine_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
     const secret = get('volcengine_secret') ?? '';
 
-    if (appid == '' || secret == '') {
+    if (appid === '' || secret === '') {
         throw '请先配置Access Id和Access Key';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
@@ -87,7 +87,7 @@ export async function translate(text, from, to, setText, id) {
         .replaceAll(':', '')
         .replaceAll(/\.[0-9]*/g, '');
 
-    var md = {
+    const md = {
         /* meta data */ algorithm: 'HMAC-SHA256',
         credential_scope: '',
         signed_headers: '',
@@ -97,7 +97,7 @@ export async function translate(text, from, to, setText, id) {
     };
     md['credential_scope'] = md['date'] + '/' + md['region'] + '/' + md['service'] + '/request';
 
-    var headers = {
+    const headers = {
         /* request headers, sorted */ Authorization: '',
         'Content-Type': 'application/json',
         Host: host,
@@ -106,7 +106,7 @@ export async function translate(text, from, to, setText, id) {
     };
 
     // 签名
-    var signed_headers = {
+    const signed_headers = {
         // key is lower case and sorted
         'content-type': 'application/json',
         host: host,
@@ -114,10 +114,10 @@ export async function translate(text, from, to, setText, id) {
         'x-date': format_date,
     };
 
-    var signed_str = '';
-    var md_signed_headers = '';
-    var signedHeaderKeys = Object.keys(signed_headers);
-    for (var i = 0; i < signedHeaderKeys.length; i += 1) {
+    let signed_str = '';
+    let md_signed_headers = '';
+    const signedHeaderKeys = Object.keys(signed_headers);
+    for (let i = 0; i < signedHeaderKeys.length; i += 1) {
         signed_str += signedHeaderKeys[i] + ':' + signed_headers[signedHeaderKeys[i]] + '\n';
         md_signed_headers += signedHeaderKeys[i] + ';';
     }
@@ -169,17 +169,17 @@ export async function translate(text, from, to, setText, id) {
     if (res.ok) {
         let result = res.data;
         // 整理翻译结果并返回
-        var translations = '';
+        let translations = '';
         let { TranslationList } = result;
         if (TranslationList) {
-            if (TranslationList[0]['DetectedSourceLanguage'] == supportLanguage[to]) {
+            if (TranslationList[0]['DetectedSourceLanguage'] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
             }
-            var cur = 0,
+            let cur = 0,
                 last = 0;
             for (cur; cur < TranslationList.length; cur += 1) {
                 if (cur > last) {

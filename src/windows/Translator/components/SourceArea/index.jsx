@@ -33,10 +33,10 @@ export default function SourceArea() {
     });
 
     useEffect(() => {
-        if (appWindow.label != 'persistent') {
+        if (appWindow.label !== 'persistent') {
             // 获取选中文本
             invoke('get_translate_text').then((v) => {
-                if (v != '') {
+                if (v !== '') {
                     let source = v.trim();
                     if (get('delete_newline') ?? false) {
                         // /s匹配空格和换行符 /g表示全局匹配
@@ -105,7 +105,7 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         onClick={() => {
-                            if (text != '') {
+                            if (text !== '') {
                                 copy(text);
                             }
                         }}
@@ -138,7 +138,7 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         sx={{
-                            visibility: text == '' && 'hidden',
+                            visibility: text === '' && 'hidden',
                         }}
                         onClick={() => {
                             setSourceText('');

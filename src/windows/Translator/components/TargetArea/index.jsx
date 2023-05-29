@@ -42,14 +42,14 @@ export default function TargetArea(props) {
     const theme = useTheme();
 
     useEffect(() => {
-        if (sourceText != '') {
+        if (sourceText !== '') {
             translate(sourceText.trim(), sourceLanguage, targetLanguage);
         }
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage]);
 
     useEffect(() => {
-        if (targetText != '') {
-            if (targetTextSetNum == 0) {
+        if (targetText !== '') {
+            if (targetTextSetNum === 0) {
                 setExpand(true);
                 setTargetTextSetNum(targetTextSetNum + 1);
             }
@@ -59,18 +59,16 @@ export default function TargetArea(props) {
         if (!targetText.endsWith('_')) {
             let autoCopy = get('auto_copy') ?? 4;
             if (!listenCopy) {
-                if (autoCopy == 4) {
-                    return;
-                } else if (autoCopy == 1) {
-                    if (sourceText != '') {
+                if (autoCopy === 1) {
+                    if (sourceText !== '') {
                         copy(sourceText);
                     }
-                } else if (autoCopy == 2) {
-                    if (targetText != '') {
+                } else if (autoCopy === 2) {
+                    if (targetText !== '') {
                         copy(targetText);
                     }
-                } else {
-                    if (targetText && sourceText != '') {
+                } else if (autoCopy === 3) {
+                    if (targetText && sourceText !== '') {
                         copy(sourceText + '\n\n' + targetText);
                     }
                 }
@@ -156,7 +154,7 @@ export default function TargetArea(props) {
     return (
         <Card
             style={{
-                height: defaultInterfaceList.length == 1 && '100%',
+                height: defaultInterfaceList.length === 1 && '100%',
                 marginTop: q && '8px',
             }}
         >
@@ -188,6 +186,7 @@ export default function TargetArea(props) {
                                         <img
                                             src={`/${x}.svg`}
                                             className='interface-icon'
+                                            alt='interface icon'
                                         />
                                         <span className='interface-name'>{interfaces[x]['info']['name']}</span>
                                     </Box>
@@ -222,7 +221,7 @@ export default function TargetArea(props) {
                     readOnly
                     value={targetText}
                     sx={{
-                        display: (!expand || targetText == '') && 'none',
+                        display: (!expand || targetText === '') && 'none',
                         fontSize: get('font_size') ?? '1rem',
                     }}
                 />
@@ -233,7 +232,7 @@ export default function TargetArea(props) {
                     value={errMessage}
                     sx={{
                         color: 'red',
-                        display: (!expand || errMessage == '') && 'none',
+                        display: (!expand || errMessage === '') && 'none',
                         fontSize: get('font_size') ?? '1rem',
                     }}
                 />
@@ -255,10 +254,10 @@ export default function TargetArea(props) {
                 <IconButton
                     className='target-button'
                     onClick={() => {
-                        if (targetText != '') {
+                        if (targetText !== '') {
                             copy(targetText);
                         } else {
-                            if (errMessage != '') {
+                            if (errMessage !== '') {
                                 copy(errMessage);
                             }
                         }

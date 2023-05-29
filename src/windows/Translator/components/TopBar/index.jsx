@@ -19,20 +19,20 @@ let blurTimeout = null;
 // 监听 blur 事件，如果窗口失去焦点，关闭窗口
 const listenBlur = () =>
     listen('tauri://blur', () => {
-        if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
+        if (appWindow.label === 'translator' || appWindow.label === 'popclip') {
             if (blurTimeout) {
                 clearTimeout(blurTimeout);
             }
             // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
             // 如果直接关闭将导致窗口无法拖动
-            blurTimeout = setTimeout(() => {
-                appWindow.close();
+            blurTimeout = setTimeout(async () => {
+                await appWindow.close();
             }, 50);
         }
     });
 
 // 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
-listen('tauri://focus', () => {
+void listen('tauri://focus', () => {
     if (blurTimeout) {
         clearTimeout(blurTimeout);
     }
@@ -49,7 +49,7 @@ let unlisten = listenBlur();
 
 listen('tauri://resize', async () => {
     if (get('remember_window_size') ?? false) {
-        if (appWindow.label == 'translator' || appWindow.label == 'popclip' || appWindow.label == 'persistent') {
+        if (appWindow.label === 'translator' || appWindow.label === 'popclip' || appWindow.label === 'persistent') {
             const psize = await appWindow.innerSize();
             const factor = await appWindow.scaleFactor();
             const lsize = psize.toLogical(factor);
@@ -74,13 +74,13 @@ export default function TopBar() {
         invoke('is_macos').then((v) => {
             setIsMacos(v);
         });
-        if (appWindow.label == 'persistent') {
-            appWindow.setAlwaysOnTop(pined);
+        if (appWindow.label === 'persistent') {
+            void appWindow.setAlwaysOnTop(pined);
         } else {
             // 使划词翻译窗口置顶，但是pined图标显示为false
             // 这样一来pin在划词翻译窗口的作用相当于控制是否在失去焦点的时候关闭
             // 而且对于划词翻译窗口确实需要使其一直处于置顶状态
-            appWindow.setAlwaysOnTop(true);
+            void appWindow.setAlwaysOnTop(true);
             setPined(false);
         }
     }, []);
@@ -119,7 +119,7 @@ export default function TopBar() {
                             setInt(
                                 setInterval(async () => {
                                     let text = await readText();
-                                    if (text && text != currentClipboard) {
+                                    if (text && text !== currentClipboard) {
                                         currentClipboard = text;
                                         if (get('delete_newline') ?? false) {
                                             // /s匹配空格和换行符 /g表示全局匹配
@@ -157,8 +157,8 @@ export default function TopBar() {
             ) : (
                 <IconButton
                     className='topbar-button'
-                    onClick={() => {
-                        appWindow.close();
+                    onClick={async () => {
+                        await appWindow.close();
                     }}
                 >
                     <CancelRoundedIcon />

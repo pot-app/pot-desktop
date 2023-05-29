@@ -36,7 +36,7 @@ export function get(key) {
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', async (e) => {
     let allowKeys = ['c', 'v', 'x', 'a'];
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
         e.preventDefault();
@@ -45,7 +45,7 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
     }
     if (e.key === 'Escape') {
-        appWindow.close();
+        await appWindow.close();
     }
 });
 

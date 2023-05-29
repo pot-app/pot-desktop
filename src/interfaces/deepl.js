@@ -35,7 +35,7 @@ export const info = {
 export async function translate(text, from, to, setText, id) {
     const key = get('deepl_key') ?? '';
 
-    if (key != '') {
+    if (key !== '') {
         await translate_by_key(text, from, to, setText, id, key);
         return;
     }
@@ -110,9 +110,9 @@ export async function translate(text, from, to, setText, id) {
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {
-            if (result.result.lang == supportLanguage[to]) {
+            if (result.result.lang === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }
@@ -136,13 +136,13 @@ async function translate_by_key(text, from, to, setText, id, key) {
     }
     const headers = {
         'Content-Type': 'application/json',
-        Authorization: `DeepL-Auth-Key ${key}`
-    }
+        Authorization: `DeepL-Auth-Key ${key}`,
+    };
     let body = {
-        'text': [text],
-        'target_lang': supportLanguage[to]
-    }
-    if (from != 'auto') {
+        text: [text],
+        target_lang: supportLanguage[to],
+    };
+    if (from !== 'auto') {
         body['source_lang'] = supportLanguage[from];
     }
     let res = await fetch('https://api-free.deepl.com/v2/translate', {
@@ -151,14 +151,14 @@ async function translate_by_key(text, from, to, setText, id, key) {
             type: 'Json',
             payload: body,
         },
-        headers: headers
+        headers: headers,
     });
     if (res.ok) {
         const result = res.data;
-        if (result.translations, result.translations[0]) {
-            if (result.translations[0]['detected_source_language'] == supportLanguage[to]) {
+        if ((result.translations, result.translations[0])) {
+            if (result.translations[0]['detected_source_language'] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate_by_key(text, from, secondLanguage, setText, id, key);
                     return;
                 }

@@ -36,7 +36,6 @@ export const info = {
 };
 
 export async function translate(text, from, to, setText, id) {
-
     const { supportLanguage } = info;
 
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
@@ -44,21 +43,24 @@ export async function translate(text, from, to, setText, id) {
     }
 
     let domain = get('lingva_domain') ?? '';
-    if (domain == '') {
+    if (domain === '') {
         domain = 'lingva.ml';
     }
     let plainText = text.replaceAll('/', '@@');
-    let res = await fetch(`https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(plainText)}`, {
-        method: 'GET'
-    })
+    let res = await fetch(
+        `https://${domain}/api/v1/${supportLanguage[from]}/${supportLanguage[to]}/${encodeURIComponent(plainText)}`,
+        {
+            method: 'GET',
+        }
+    );
 
     if (res.ok) {
         let result = res.data;
         if (result.translation) {
             if (result.info && result.info.detectedSource) {
-                if (result.info.detectedSource == supportLanguage[to]) {
+                if (result.info.detectedSource === supportLanguage[to]) {
                     let secondLanguage = get('second_language') ?? 'en';
-                    if (secondLanguage != to) {
+                    if (secondLanguage !== to) {
                         await translate(text, from, secondLanguage, setText, id);
                         return;
                     }

@@ -38,9 +38,9 @@ export default function TranslateConfig() {
             >
                 <Switch
                     checked={dynamicTranslate}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setDynamicTranslate(e.target.checked);
-                        set('dynamic_translate', e.target.checked);
+                        await set('dynamic_translate', e.target.checked);
                     }}
                 />
             </ConfigItem>
@@ -50,18 +50,18 @@ export default function TranslateConfig() {
             >
                 <Switch
                     checked={deleteNewline}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setDeleteNewline(e.target.checked);
-                        set('delete_newline', e.target.checked);
+                        await set('delete_newline', e.target.checked);
                     }}
                 />
             </ConfigItem>
             <ConfigItem label='记住目标语言'>
                 <Switch
                     checked={rememberTargetLanguage}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setRememberTargetLanguage(e.target.checked);
-                        set('remember_target_language', e.target.checked);
+                        await set('remember_target_language', e.target.checked);
                     }}
                 />
             </ConfigItem>
@@ -71,9 +71,9 @@ export default function TranslateConfig() {
             >
                 <Switch
                     checked={openaiStream}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setOpenaiStream(e.target.checked);
-                        set('openai_stream', e.target.checked);
+                        await set('openai_stream', e.target.checked);
                     }}
                 />
             </ConfigItem>
@@ -83,9 +83,9 @@ export default function TranslateConfig() {
                     size='small'
                     sx={{ width: '300px' }}
                     value={defaultInterfaceList}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setDefaultInterfaceList(e.target.value);
-                        set('default_interface_list', e.target.value);
+                        await set('default_interface_list', e.target.value);
                     }}
                     renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -108,6 +108,7 @@ export default function TranslateConfig() {
                                     <img
                                         src={`/${x}.svg`}
                                         className='interface-icon'
+                                        alt='interface icon'
                                     />
                                     <span className='interface-name'>{interfaces[x]['info']['name']}</span>
                                 </Box>
@@ -121,9 +122,9 @@ export default function TranslateConfig() {
                     size='small'
                     sx={{ width: '300px' }}
                     value={targetLanguage}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setTargetLanguage(e.target.value);
-                        set('target_language', e.target.value);
+                        await set('target_language', e.target.value);
                     }}
                 >
                     {language.map((x) => {
@@ -148,9 +149,9 @@ export default function TranslateConfig() {
                     size='small'
                     sx={{ width: '300px' }}
                     value={secondLanguage}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setSecondLanguage(e.target.value);
-                        set('second_language', e.target.value);
+                        await set('second_language', e.target.value);
                     }}
                 >
                     {language.map((x) => {
@@ -171,9 +172,9 @@ export default function TranslateConfig() {
                     size='small'
                     sx={{ width: '300px' }}
                     value={autoCopy}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                         setAutoCopy(e.target.value);
-                        set('auto_copy', e.target.value);
+                        await set('auto_copy', e.target.value);
                     }}
                 >
                     <MenuItem value={1}>原文</MenuItem>

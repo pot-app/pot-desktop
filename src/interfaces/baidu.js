@@ -48,7 +48,7 @@ export async function translate(text, from, to, setText, id) {
     const appid = get('baidu_appid') ?? '';
     const secret = get('baidu_secret') ?? '';
     const salt = nanoid();
-    if (appid == '' || secret == '') {
+    if (appid === '' || secret === '') {
         throw '请先配置appid和secret';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
@@ -73,9 +73,9 @@ export async function translate(text, from, to, setText, id) {
         let target = '';
         if (result['from']) {
             let sourceLanguage = result['from'];
-            if (sourceLanguage == supportLanguage[to]) {
+            if (sourceLanguage === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
-                if (secondLanguage != to) {
+                if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
                     return;
                 }

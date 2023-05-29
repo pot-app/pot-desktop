@@ -1,20 +1,22 @@
-import { fetch } from "@tauri-apps/api/http";
-import { get } from "../windows/main";
+import { fetch } from '@tauri-apps/api/http';
+import { get } from '../windows/main';
 
 export async function speak(text) {
     let domain = get('lingva_domain') ?? '';
-    if (domain == '') {
+    if (domain === '') {
         domain = 'lingva.ml';
     }
 
     let res = await fetch(`https://${domain}/api/v1/auto/zh/${encodeURIComponent(text)}`, {
-        method: 'GET'
-    })
+        method: 'GET',
+    });
 
     if (res.ok) {
         let result = res.data;
         if (result.info && result.info.detectedSource) {
-            const audio_res = await fetch(`https://${domain}/api/v1/audio/${result.info.detectedSource}/${encodeURIComponent(text)}`);
+            const audio_res = await fetch(
+                `https://${domain}/api/v1/audio/${result.info.detectedSource}/${encodeURIComponent(text)}`
+            );
             if (audio_res.ok) {
                 const audioContext = new AudioContext();
                 const audioSource = audioContext.createBufferSource();
