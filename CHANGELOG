@@ -1,6 +1,13 @@
-## 0.4.4 (2023-05-27)
+## 0.4.5 (2023-05-29)
+
+### New feature:
+
+-   添加腾讯交互翻译接口 (#165)([`ab68b3f`](https://github.com/pot-app/pot-desktop/commit/ab68b3f4cbb17d3ec501f16f678fb0f5f2575f75)) (by 派了个萌)
+-   切换 tab 时自动滚动至顶部 (#162)([`51298bc`](https://github.com/pot-app/pot-desktop/commit/51298bca0116c8a51f8e13fc94f47e34156a4c98)) (by Avan)
+-   支持设置翻译窗口源文本和译文的字体大小 (#161)([`2e40091`](https://github.com/pot-app/pot-desktop/commit/2e4009141fdd84446793915bd1d98bd10c870db5)) (by 派了个萌)
+-   添加更多语言支持 (#153)([`1d105c0`](https://github.com/pot-app/pot-desktop/commit/1d105c0b2e43be31dedcbd6d1e315edacff902cb)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复部分桌面环境 Wayland 下取词失败的问题([`9e5d369`](https://github.com/pot-app/pot-desktop/commit/9e5d369c8e62f9293c5915b5a5959c3bc633f606)) (by Pylogmon)
--   修复 WebKitGTK 的渲染问题([`c8a7ec1`](https://github.com/pot-app/pot-desktop/commit/c8a7ec1db8de77b9f0b2e00bb9b61ae8e10dd912)) (by Pylogmon)
+-   修复 Windows 下划词窗口无法拖动 (#163)([`845568e`](https://github.com/pot-app/pot-desktop/commit/845568ea1dd859cee57ff219f66f1ed96216b57f)) (by chronos)
+-   重构快捷键输入，解决设置快捷键闪退 (#166)([`814af8a`](https://github.com/pot-app/pot-desktop/commit/814af8a650164880bf44bbc09aa0de7b0babede6)) (by chronos)
