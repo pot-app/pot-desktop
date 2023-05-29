@@ -14,11 +14,22 @@ import { set } from '../../../../global/config';
 import { get } from '../../../main';
 import './style.css';
 
-let unlisten = listen('tauri://blur', () => {
-    if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
-        appWindow.close();
-    }
-});
+// 监听 blur 事件，如果窗口失去焦点，关闭窗口
+const listenBlur = () =>
+    listen('tauri://blur', () => {
+        if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
+            appWindow.close();
+        }
+    });
+
+// 取消 blur 监听
+const unlistenBlur = () => {
+    unlisten.then((f) => {
+        f();
+    });
+};
+
+let unlisten = listenBlur();
 
 listen('tauri://resize', async () => {
     if (get('remember_window_size') ?? false) {
@@ -35,6 +46,7 @@ listen('tauri://resize', async () => {
 let currentClipboard = '';
 
 export const listenCopyAtom = atom(false);
+let unListenMove = () => {};
 
 export default function TopBar() {
     const [pined, setPined] = useState(get('default_pined') ?? true);
@@ -58,93 +70,120 @@ export default function TopBar() {
         }
     }, []);
 
+    useEffect(() => {
+        unListenMove();
+        // 等待 move 结束，因为 tauri 没法获得 drag 结束的事件，只能使用 debounce。
+        let timer = null;
+        const fn = () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            // 拖动窗口时，取消 blur 监听
+            unlistenBlur();
+
+            timer = setTimeout(async () => {
+                if (!pined) {
+                    unlisten = listenBlur();
+                }
+            }, 100);
+        };
+
+        appWindow.onMoved(fn).then((f) => {
+            unListenMove = f;
+        });
+    }, [pined]);
+
     return (
-        <Box className={isMacos ? 'topbar-macos' : 'topbar'}>
-            <Toaster />
-            <Box>
-                <IconButton
-                    className='topbar-button'
-                    onClick={() => {
-                        appWindow.setAlwaysOnTop(!pined).then((_) => {
-                            if (!pined) {
-                                unlisten.then((f) => {
-                                    f();
+        <>
+            <div
+                data-tauri-drag-region
+                className='titlebar'
+                onMouseDown={() => {
+                    // 拖动窗口时，取消 blur 监听
+                    if (!pined) {
+                        unlistenBlur();
+                    }
+                }}
+            />
+            <Box className={isMacos ? 'topbar-macos' : 'topbar'}>
+                <Toaster />
+                <Box>
+                    <IconButton
+                        className='topbar-button'
+                        onClick={() => {
+                            appWindow.setAlwaysOnTop(!pined).then((_) => {
+                                if (!pined) {
+                                    unlistenBlur();
+                                } else {
+                                    unlisten = listenBlur();
+                                }
+                                setPined(!pined);
+                            });
+                        }}
+                    >
+                        <PushPinRoundedIcon color={pined ? 'primary' : ''} />
+                    </IconButton>
+                    <IconButton
+                        className='topbar-button'
+                        style={{ marginLeft: 8 }}
+                        onClick={() => {
+                            if (!listenCopy) {
+                                if (!pined) {
+                                    appWindow.setAlwaysOnTop(true).then((_) => {
+                                        unlistenBlur();
+                                    });
+                                    setPined(true);
+                                }
+                                setListenCopy(true);
+                                setInt(
+                                    setInterval(async () => {
+                                        let text = await readText();
+                                        if (text && text != currentClipboard) {
+                                            currentClipboard = text;
+                                            if (get('delete_newline') ?? false) {
+                                                // /s匹配空格和换行符 /g表示全局匹配
+                                                text = text.replace(/\s+/g, ' ');
+                                            }
+                                            await emit('new_selection', text);
+                                        }
+                                    }, 200)
+                                );
+                                toast.success('开始监听剪切板...', {
+                                    style: {
+                                        background: theme.palette.background.default,
+                                        color: theme.palette.text.primary,
+                                    },
                                 });
                             } else {
-                                unlisten = listen('tauri://blur', () => {
-                                    if (appWindow.label == 'translator' || appWindow.label == 'popclip') {
-                                        appWindow.close();
-                                    }
+                                setListenCopy(false);
+                                clearInterval(int);
+                                toast.success('停止监听剪切板', {
+                                    style: {
+                                        background: theme.palette.background.default,
+                                        color: theme.palette.text.primary,
+                                    },
                                 });
                             }
-                            setPined(!pined);
-                        });
-                    }}
-                >
-                    <PushPinRoundedIcon color={pined ? 'primary' : ''} />
-                </IconButton>
-                <IconButton
-                    className='topbar-button'
-                    style={{ marginLeft: 8 }}
-                    onClick={() => {
-                        if (!listenCopy) {
-                            if (!pined) {
-                                appWindow.setAlwaysOnTop(true).then((_) => {
-                                    unlisten.then((f) => {
-                                        f();
-                                    });
-                                });
-                                setPined(true);
-                            }
-                            setListenCopy(true);
-                            setInt(
-                                setInterval(async () => {
-                                    let text = await readText();
-                                    if (text && text != currentClipboard) {
-                                        currentClipboard = text;
-                                        if (get('delete_newline') ?? false) {
-                                            // /s匹配空格和换行符 /g表示全局匹配
-                                            text = text.replace(/\s+/g, ' ');
-                                        }
-                                        await emit('new_selection', text);
-                                    }
-                                }, 200)
-                            );
-                            toast.success('开始监听剪切板...', {
-                                style: {
-                                    background: theme.palette.background.default,
-                                    color: theme.palette.text.primary,
-                                },
-                            });
-                        } else {
-                            setListenCopy(false);
-                            clearInterval(int);
-                            toast.success('停止监听剪切板', {
-                                style: {
-                                    background: theme.palette.background.default,
-                                    color: theme.palette.text.primary,
-                                },
-                            });
-                        }
-                    }}
-                >
-                    <Tooltip title='剪切板监听模式'>
-                        <PodcastsRoundedIcon color={listenCopy ? 'primary' : ''} />
-                    </Tooltip>
-                </IconButton>
+                        }}
+                    >
+                        <Tooltip title='剪切板监听模式'>
+                            <PodcastsRoundedIcon color={listenCopy ? 'primary' : ''} />
+                        </Tooltip>
+                    </IconButton>
+                </Box>
+                {isMacos ? (
+                    <></>
+                ) : (
+                    <IconButton
+                        className='topbar-button'
+                        onClick={() => {
+                            appWindow.close();
+                        }}
+                    >
+                        <CancelRoundedIcon />
+                    </IconButton>
+                )}
             </Box>
-            {isMacos ? (
-                <></>
-            ) : (
-                <IconButton
-                    className='topbar-button'
-                    onClick={() => {
-                        appWindow.close();
-                    }}
-                >
-                    <CancelRoundedIcon />
-                </IconButton>
-            )}
-        </Box>
+        </>
     );
 }
