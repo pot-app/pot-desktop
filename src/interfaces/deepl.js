@@ -36,75 +36,48 @@ export async function translate(text, from, to, setText, id) {
     const key = get('deepl_key') ?? '';
 
     if (key !== '') {
-        await translate_by_key(text, from, to, setText, id, key);
+        await translate_by_key(text, supportLanguage[from], supportLanguage[to], setText, id, key);
         return;
     }
 
     const { supportLanguage } = info;
-
-    function initData(source_lang, target_lang) {
-        return {
-            jsonrpc: '2.0',
-            method: 'LMT_handle_texts',
-            params: {
-                splitting: 'newlines',
-                lang: {
-                    source_lang_user_selected: source_lang,
-                    target_lang: target_lang,
-                },
-            },
-        };
-    }
-
-    function getICount(translate_text) {
-        return translate_text.split('i').length - 1;
-    }
-
-    function getRandomNumber() {
-        const rand = Math.floor(Math.random() * 99999) + 100000;
-        return rand * 1000;
-    }
-
-    function getTimeStamp(iCount) {
-        const ts = Date.now();
-        if (iCount !== 0) {
-            iCount = iCount + 1;
-            return ts - (ts % iCount) + iCount;
-        } else {
-            return ts;
-        }
-    }
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw '该接口不支持该语言';
     }
 
     const url = 'https://www2.deepl.com/jsonrpc';
-    let rand = getRandomNumber();
-    const post_data = initData(supportLanguage[from], supportLanguage[to]);
-    const translate_text = {
-        text: text,
-        requestAlternatives: 3,
+    const rand = getRandomNumber();
+    const body = {
+        jsonrpc: '2.0',
+        method: 'LMT_handle_texts',
+        params: {
+            splitting: 'newlines',
+            lang: {
+                source_lang_user_selected: supportLanguage[from],
+                target_lang: supportLanguage[to],
+            },
+            texts: [{ text, requestAlternatives: 3 }],
+            timestamp: getTimeStamp(getICount(text)),
+        },
+        id: rand,
     };
-    post_data[id] = rand;
-    post_data.params.texts = [translate_text];
-    post_data.params.timestamp = getTimeStamp(getICount(text));
-    let post_str = JSON.stringify(post_data);
+
+    let body_str = JSON.stringify(body);
+
     if ((rand + 5) % 29 === 0 || (rand + 3) % 13 === 0) {
-        post_str = post_str.replace('"method":"', '"method" : "');
+        body_str = body_str.replace('"method":"', '"method" : "');
     } else {
-        post_str = post_str.replace('"method":"', '"method": "');
+        body_str = body_str.replace('"method":"', '"method": "');
     }
 
     let res = await fetch(url, {
         method: 'POST',
         body: {
             type: 'Text',
-            payload: post_str,
+            payload: body_str,
         },
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
     });
 
     if (res.ok) {
@@ -129,21 +102,16 @@ export async function translate(text, from, to, setText, id) {
 }
 
 async function translate_by_key(text, from, to, setText, id, key) {
-    const { supportLanguage } = info;
-
-    if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
-    }
     const headers = {
         'Content-Type': 'application/json',
         Authorization: `DeepL-Auth-Key ${key}`,
     };
     let body = {
         text: [text],
-        target_lang: supportLanguage[to],
+        target_lang: to,
     };
     if (from !== 'auto') {
-        body['source_lang'] = supportLanguage[from];
+        body['source_lang'] = from;
     }
     let res = await fetch('https://api-free.deepl.com/v2/translate', {
         method: 'POST',
@@ -172,4 +140,23 @@ async function translate_by_key(text, from, to, setText, id, key) {
     } else {
         throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
+}
+
+function getTimeStamp(iCount) {
+    const ts = Date.now();
+    if (iCount !== 0) {
+        iCount = iCount + 1;
+        return ts - (ts % iCount) + iCount;
+    } else {
+        return ts;
+    }
+}
+
+function getICount(translate_text) {
+    return translate_text.split('i').length - 1;
+}
+
+function getRandomNumber() {
+    const rand = Math.floor(Math.random() * 99999) + 100000;
+    return rand * 1000;
 }
