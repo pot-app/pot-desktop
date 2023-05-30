@@ -12,7 +12,6 @@ on:
 jobs:
   notify:
     name: Notify
-    if: github.event.sender.login != 'Pylogmon'
     runs-on: ubuntu-latest
     steps:
       # issue
@@ -31,7 +30,7 @@ jobs:
 
             ${{ github.event.comment.body }}
           button_name: 👀前往查看👀
-          button_url: https://github.com/${{ github.repository }}/issues
+          button_url: ${{ github.event.comment.html_url }}
       # discussion
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'discussion_comment'
@@ -48,7 +47,7 @@ jobs:
 
             ${{ github.event.comment.body }}
           button_name: 👀前往查看👀
-          button_url: https://github.com/${{ github.repository }}/discussions
+          button_url: ${{ github.event.comment.html_url }}
       # issue
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'issues'
@@ -65,7 +64,7 @@ jobs:
 
             ${{ github.event.issue.body }}
           button_name: 👀前往查看👀
-          button_url: https://github.com/${{ github.repository }}/issues
+          button_url: ${{ github.event.issue.html_url }}
       # pull_request
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'pull_request_target'
@@ -80,6 +79,6 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.pull_request.body }}
+            ${{ github.event.pull_request.html_url }}
           button_name: 👀前往查看👀
           button_url: https://github.com/${{ github.repository }}/pulls
