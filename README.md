@@ -31,15 +31,15 @@
 <tr>
     <td>划词翻译
     <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example1.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example2.gif"/>
 <tr>
     <td>输入翻译
     <td>按下输入翻译快捷键，输入需要翻译的文本，<code>Enter</code> 键翻译
-    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example2.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example3.gif"/>
 <tr>
     <td>插件调用
     <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">插件调用</a>
-    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example3.gif"/>
+    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example1.gif"/>
 <tr>
     <td>剪切板监听模式
     <td>打开翻译窗口，启动剪切板监听模式，复制想要翻译的内容即可
