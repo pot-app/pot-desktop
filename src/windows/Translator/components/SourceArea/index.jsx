@@ -28,8 +28,13 @@ export default function SourceArea() {
     const theme = useTheme();
 
     listen('new_selection', (event) => {
-        setSourceText(event.payload);
-        setText(event.payload);
+        let source = event.payload.trim();
+        if (get('delete_newline') ?? false) {
+            // /s匹配空格和换行符 /g表示全局匹配
+            source = source.replace(/\s+/g, ' ');
+        }
+        setSourceText(source);
+        setText(source);
     });
 
     useEffect(() => {
