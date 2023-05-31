@@ -26,6 +26,7 @@ body:
   attributes:
     label: Reproduction
     description: Steps to reproduce the behaviour.
+  validations:
     required: true
 - type: dropdown
   attributes:
