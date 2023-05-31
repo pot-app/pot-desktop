@@ -75,8 +75,3 @@
 -   [Tauri](https://github.com/tauri-apps/tauri) 好用的 Gui 框架
 
 <div align="center">
-
-## 支持作者
-
-<img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/.github/FUNDING/qrcode.png" width="100%"/>
-</div>
