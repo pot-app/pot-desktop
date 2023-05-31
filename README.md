@@ -2,10 +2,10 @@
 
 # Pot (Translator of Pylogmon)
 
-> 🌈 一个跨平台的划词翻译软件 (
-> [快速上手](https://pot.pylogmon.com/docs/tutorial/intro)|
-> [软件下载](https://pot.pylogmon.com/download)|
-> [进阶配置](https://pot.pylogmon.com/docs/category/软件配置))
+> 🌈 A cross-platform translation software (
+> [Quick Start](https://pot.pylogmon.com/docs/tutorial/intro)|
+> [Download](https://pot.pylogmon.com/download)|
+> [Configuration](https://pot.pylogmon.com/docs/category/软件配置))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
@@ -25,24 +25,24 @@
     <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/3.png">
 </table>
 
-## 使用方法
+## Instructions
 
 <table>
 <tr>
-    <td>划词翻译
-    <td>选中需要翻译的文本之后，按下划词翻译快捷键即可
+    <td>Crossword translation
+    <td>Select the text to be translated, then press the shortcut key for word translation.
     <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example1.gif"/>
 <tr>
-    <td>输入翻译
-    <td>按下输入翻译快捷键，输入需要翻译的文本，<code>Enter</code> 键翻译
+    <td>Input translation
+    <td>Press the shortcut key for translation input, enter the text to be translated, and press <code>Enter</code> to translate.
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example2.gif"/>
 <tr>
-    <td>插件调用
-    <td>选中需要翻译的文本之后，点击插件图标即可，详情见 <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">插件调用</a>
+    <td>Plugin Invocation
+    <td>Select the text to be translated and click the plugin icon. More infomation <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">Plugin Invocation</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example3.gif"/>
 <tr>
-    <td>剪切板监听模式
-    <td>打开翻译窗口，启动剪切板监听模式，复制想要翻译的内容即可
+    <td>Clipboard Listening Mode
+    <td>Open the translation window, start the clipboard listening mode, and copy the content you want to translate
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example4.gif"/>
 </table>
 
@@ -50,13 +50,13 @@
 
 <div align="center">
 
-## 贡献者
+## Contributors
 
 </div>
 
 <img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true" width="80%"/>
 
-参与贡献请阅读 [接口贡献指南](https://pot.pylogmon.com/docs/contribute/intro)
+Please read before contributing: [Interface Contribution Guide](https://pot.pylogmon.com/docs/contribute/intro)
 
 <div align="center">
 <img src="https://github.com/pot-app/.github/blob/master/pot-desktop-stars.svg?raw=true" width="80%"/>
@@ -64,14 +64,14 @@
 
 <div align="center">
 
-## 感谢
+## Acknowledgement
 
 </div>
 
--   [Bob](https://github.com/ripperhe/Bob) 灵感来源
--   [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) OpenAI 接口参考
--   [@uiYzzi](https://github.com/uiYzzi) 提供实现思路
--   [@Lichenkass](https://github.com/Lichenkass) 维护 Deepin 应用商店版本
--   [Tauri](https://github.com/tauri-apps/tauri) 好用的 Gui 框架
+-   [Bob](https://github.com/ripperhe/Bob) Inspiration
+-   [bob-plugin-openai-translator](https://github.com/yetone/bob-plugin-openai-translator) OpenAI API Reference
+-   [@uiYzzi](https://github.com/uiYzzi) Implementation ideas
+-   [@Lichenkass](https://github.com/Lichenkass) Maintaining the Deepin App Store.
+-   [Tauri](https://github.com/tauri-apps/tauri) A user-friendly GUI framework.
 
 <div align="center">
