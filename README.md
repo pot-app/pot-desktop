@@ -31,19 +31,19 @@
 <tr>
     <td>Crossword translation
     <td>Select the text to be translated, then press the shortcut key for word translation.
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example1.gif"/>
+    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg1.gif"/>
 <tr>
     <td>Input translation
     <td>Press the shortcut key for translation input, enter the text to be translated, and press <code>Enter</code> to translate.
-    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example2.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/>
 <tr>
     <td>Plugin Invocation
     <td>Select the text to be translated and click the plugin icon. More infomation <a href="https://pot.pylogmon.com/docs/tutorial/config/plugin_config" target="_blank">Plugin Invocation</a>
-    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example3.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/>
 <tr>
     <td>Clipboard Listening Mode
     <td>Open the translation window, start the clipboard listening mode, and copy the content you want to translate
-    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/example4.gif"/>
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg4.gif"/>
 </table>
 
 </div>
