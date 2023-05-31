@@ -10,11 +10,10 @@ body:
 - type: checkboxes
   attributes:
     label: Please confirm the following before submitting a new issue.
-    description: |
-      1. I have carefully reviewed the official website's usage documentation.
-      2. I have searched through the historical issues but could not find an answer.
     options:
-      - label: I have confirmed the above
+      - label: I have carefully reviewed the official website's usage documentation.
+        required: true
+      - label: I have searched through the historical issues but could not find an answer.
         required: true
 - type: textarea
   attributes:
