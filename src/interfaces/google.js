@@ -7,8 +7,8 @@ export const info = {
     name: 'Google',
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh-CN',
-        'zh-tw': 'zh-TW',
+        'zh_cn': 'zh-CN',
+        'zh_tw': 'zh-TW',
         ja: 'ja',
         en: 'en',
         ko: 'ko',

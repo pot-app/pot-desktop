@@ -6,8 +6,8 @@ export const info = {
     name: '彩云小译',
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh',
-        'zh-tw': 'zh',
+        'zh_cn': 'zh',
+        'zh_tw': 'zh',
         en: 'en',
         ja: 'ja',
     },

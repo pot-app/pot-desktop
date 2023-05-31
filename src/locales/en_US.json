@@ -1,0 +1,39 @@
+{
+    "translation": {
+        "common": {},
+        "info": {
+            "writeclipboard": "Write to clipboard"
+        },
+        "language": {
+            "auto": "Auto Detect",
+            "zh_cn": "Simplified Chinese",
+            "zh_tw": "Traditional Chinese",
+            "yue": "Cantonese",
+            "ja": "Japanese ",
+            "en": "English",
+            "ko": "Korean",
+            "fr": "French",
+            "es": "Spanish",
+            "ru": "Russian",
+            "de": "German",
+            "it": "Italian",
+            "tr": "Turkish",
+            "pt": "Portuguese",
+            "vi": "Vietnamese",
+            "id": "Indonesian",
+            "th": "Thai",
+            "ms": "Malay",
+            "ar": "Arabic",
+            "hi": "Hindi"
+        },
+        "translator": {
+            "sourcearea": {
+                "translate": "Translate",
+                "clear": "Clear",
+                "speak": "Speak",
+                "copy": "Copy",
+                "deletenewline": "Delete New Line"
+            }
+        }
+    }
+}

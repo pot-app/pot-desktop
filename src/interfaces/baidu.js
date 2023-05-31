@@ -8,8 +8,8 @@ export const info = {
     name: '百度翻译',
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh',
-        'zh-tw': 'cht',
+        'zh_cn': 'zh',
+        'zh_tw': 'cht',
         yue: 'yue',
         en: 'en',
         ja: 'jp',

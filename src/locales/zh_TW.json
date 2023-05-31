@@ -1,0 +1,38 @@
+{
+    "translation": {
+        "common": {},
+        "info": {
+            "writeclipboard": "写入剪切板"
+        },
+        "language": {
+            "zh_cn": "简体中文",
+            "zh_tw": "繁體中文",
+            "yue": "粤语",
+            "ja": "日语 ",
+            "en": "英语",
+            "ko": "韩语",
+            "fr": "法语",
+            "es": "西班牙语",
+            "ru": "俄语",
+            "de": "德语",
+            "it": "意大利语",
+            "tr": "土耳其语",
+            "pt": "葡萄牙语",
+            "vi": "越南语",
+            "id": "印尼语",
+            "th": "泰语",
+            "ms": "马来语",
+            "ar": "阿拉伯语",
+            "hi": "印地语"
+        },
+        "translator": {
+            "sourcearea": {
+                "translate": "翻译",
+                "clear": "清空",
+                "speak": "朗读",
+                "copy": "复制",
+                "deletenewline": "删除换行"
+            }
+        }
+    }
+}

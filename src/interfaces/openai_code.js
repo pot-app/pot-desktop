@@ -5,8 +5,8 @@ import { get } from '../windows/main';
 export const info = {
     name: '代码解释',
     supportLanguage: {
-        'zh-cn': 'Simplified Chinese',
-        'zh-tw': 'Traditional Chinese',
+        'zh_cn': 'Simplified Chinese',
+        'zh_tw': 'Traditional Chinese',
         yue: 'Cantonese',
         ja: 'Japanese ',
         en: 'English',
@@ -65,13 +65,13 @@ export async function translate(text, from, to, setText, id) {
     const headers =
         service === 'openai'
             ? {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${apikey}`,
-              }
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${apikey}`,
+            }
             : {
-                  'Content-Type': 'application/json',
-                  'api-key': apikey,
-              };
+                'Content-Type': 'application/json',
+                'api-key': apikey,
+            };
 
     let body = {
         temperature: 0,

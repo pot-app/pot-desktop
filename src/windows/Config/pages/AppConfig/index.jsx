@@ -2,17 +2,21 @@ import { TextField, Select, MenuItem, Box, InputAdornment, Button, Switch } from
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
+import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
+import language from '../../../../global/language';
 import { set } from '../../../../global/config';
 import {
     autoStartAtom,
     autoCheckAtom,
     defaultPinedAtom,
     proxyAtom,
+    appLanguageAtom,
     defaultWindowAtom,
     windowHeightAtom,
     windowWidthAtom,
@@ -30,6 +34,7 @@ export default function AppConfig() {
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
+    const [appLanguage, setAppLanguage] = useAtom(appLanguageAtom);
     const [defaultWindow, setDefaultWindow] = useAtom(defaultWindowAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
@@ -38,6 +43,8 @@ export default function AppConfig() {
     const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
     const [fontSize, setFontSize] = useAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
+
+    const { t, i18n } = useTranslation();
     const muitheme = useTheme();
 
     useEffect(() => {
@@ -130,6 +137,30 @@ export default function AppConfig() {
                             await set('remember_window_size', e.target.checked);
                         }}
                     />
+                </ConfigItem>
+                <ConfigItem label='应用语言'>
+                    <Select
+                        size='small'
+                        sx={{ width: '300px' }}
+                        value={appLanguage}
+                        onChange={async (e) => {
+                            setAppLanguage(e.target.value);
+                            await set('app_language', e.target.value);
+                            i18n.changeLanguage(e.target.value);
+                        }}
+                    >
+                        {language.map((x) => {
+                            return (
+                                <MenuItem
+                                    value={x.value}
+                                    key={nanoid()}
+                                >
+                                    <span className={`fi fi-${x.code}`} />
+                                    <span>{t(`language.${x.value}`)}</span>
+                                </MenuItem>
+                            );
+                        })}
+                    </Select>
                 </ConfigItem>
                 <ConfigItem label='网络代理'>
                     <TextField

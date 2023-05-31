@@ -9,8 +9,8 @@ export const info = {
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh-tw': 'ZH',
-        'zh-cn': 'ZH',
+        'zh_tw': 'ZH',
+        'zh_cn': 'ZH',
         de: 'DE',
         en: 'EN',
         es: 'ES',
@@ -35,15 +35,15 @@ export const info = {
 export async function translate(text, from, to, setText, id) {
     const key = get('deepl_key') ?? '';
 
-    if (key !== '') {
-        await translate_by_key(text, supportLanguage[from], supportLanguage[to], setText, id, key);
-        return;
-    }
-
     const { supportLanguage } = info;
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw '该接口不支持该语言';
+    }
+
+    if (key !== '') {
+        await translate_by_key(text, supportLanguage[from], supportLanguage[to], setText, id, key);
+        return;
     }
 
     const url = 'https://www2.deepl.com/jsonrpc';
@@ -124,7 +124,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
     if (res.ok) {
         const result = res.data;
         if ((result.translations, result.translations[0])) {
-            if (result.translations[0]['detected_source_language'] === supportLanguage[to]) {
+            if (result.translations[0]['detected_source_language'] === to) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage !== to) {
                     await translate_by_key(text, from, secondLanguage, setText, id, key);
