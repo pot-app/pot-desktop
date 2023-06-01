@@ -29,11 +29,11 @@
 
 <table>
 <tr>
-    <td>Crossword translation
+    <td>Selection Translation
     <td>Select the text to be translated, then press the shortcut key for word translation.
     <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg1.gif"/>
 <tr>
-    <td>Input translation
+    <td>Input Translation
     <td>Press the shortcut key for translation input, enter the text to be translated, and press <code>Enter</code> to translate.
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/>
 <tr>
