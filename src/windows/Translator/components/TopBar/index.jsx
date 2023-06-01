@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import { toast, Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import { invoke } from '@tauri-apps/api/tauri';
 import { atom, useAtom } from 'jotai';
 import { set } from '../../../../global/config';
@@ -68,6 +69,8 @@ export default function TopBar() {
     const [listenCopy, setListenCopy] = useAtom(listenCopyAtom);
     const [isMacos, setIsMacos] = useState(false);
     const [int, setInt] = useState();
+
+    const { t } = useTranslation();
     const theme = useTheme();
 
     useEffect(() => {
@@ -129,7 +132,7 @@ export default function TopBar() {
                                     }
                                 }, 200)
                             );
-                            toast.success('开始监听剪切板...', {
+                            toast.success(t('translator.topbar.start'), {
                                 style: {
                                     background: theme.palette.background.default,
                                     color: theme.palette.text.primary,
@@ -138,7 +141,7 @@ export default function TopBar() {
                         } else {
                             setListenCopy(false);
                             clearInterval(int);
-                            toast.success('停止监听剪切板', {
+                            toast.success(t('translator.topbar.stop'), {
                                 style: {
                                     background: theme.palette.background.default,
                                     color: theme.palette.text.primary,
@@ -147,7 +150,7 @@ export default function TopBar() {
                         }
                     }}
                 >
-                    <Tooltip title='剪切板监听模式'>
+                    <Tooltip title={t('translator.topbar.clipboardlistenmode')}>
                         <PodcastsRoundedIcon color={listenCopy ? 'primary' : ''} />
                     </Tooltip>
                 </IconButton>

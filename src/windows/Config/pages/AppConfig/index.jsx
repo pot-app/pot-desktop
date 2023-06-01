@@ -2,17 +2,21 @@ import { TextField, Select, MenuItem, Box, InputAdornment, Button, Switch } from
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
+// import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
+// import language from '../../../../global/language';
 import { set } from '../../../../global/config';
 import {
     autoStartAtom,
     autoCheckAtom,
     defaultPinedAtom,
     proxyAtom,
+    appLanguageAtom,
     defaultWindowAtom,
     windowHeightAtom,
     windowWidthAtom,
@@ -30,6 +34,7 @@ export default function AppConfig() {
     const [autoCheck, setAutoCheck] = useAtom(autoCheckAtom);
     const [defaultPined, setDefaultPined] = useAtom(defaultPinedAtom);
     const [proxy, setProxy] = useAtom(proxyAtom);
+    const [appLanguage, setAppLanguage] = useAtom(appLanguageAtom);
     const [defaultWindow, setDefaultWindow] = useAtom(defaultWindowAtom);
     const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
     const [windowHeight, setWindowHeight] = useAtom(windowHeightAtom);
@@ -38,6 +43,8 @@ export default function AppConfig() {
     const [rememberWindowSize, setRememberWindowSize] = useAtom(rememberWindowSizeAtom);
     const [fontSize, setFontSize] = useAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
+
+    const { t, i18n } = useTranslation();
     const muitheme = useTheme();
 
     useEffect(() => {
@@ -49,8 +56,8 @@ export default function AppConfig() {
     return (
         <>
             <Toaster />
-            <ConfigList label='应用设置'>
-                <ConfigItem label='开机启动'>
+            <ConfigList label={t('config.app.title')}>
+                <ConfigItem label={t('config.app.autostart')}>
                     <Switch
                         checked={autoStart}
                         onChange={async (e) => {
@@ -59,7 +66,7 @@ export default function AppConfig() {
                                 isEnabled().then((v) => {
                                     if (!v) {
                                         enable().then((_) => {
-                                            toast.success('已设置开机启动', {
+                                            toast.success(t('config.app.autostarton'), {
                                                 style: {
                                                     background: muitheme.palette.background.default,
                                                     color: muitheme.palette.text.primary,
@@ -72,7 +79,7 @@ export default function AppConfig() {
                                 isEnabled().then((v) => {
                                     if (v) {
                                         disable().then((_) => {
-                                            toast.success('已取消开机启动', {
+                                            toast.success(t('config.app.autostartoff'), {
                                                 style: {
                                                     background: muitheme.palette.background.default,
                                                     color: muitheme.palette.text.primary,
@@ -86,7 +93,7 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='启动时检查更新'>
+                <ConfigItem label={t('config.app.autocheck')}>
                     <Switch
                         checked={autoCheck}
                         onChange={async (e) => {
@@ -95,7 +102,7 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='独立翻译窗口默认置顶'>
+                <ConfigItem label={t('config.app.defaultpined')}>
                     <Switch
                         checked={defaultPined}
                         onChange={async (e) => {
@@ -104,7 +111,7 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='隐藏原文本'>
+                <ConfigItem label={t('config.app.hideinput')}>
                     <Switch
                         checked={hideSource}
                         onChange={async (e) => {
@@ -113,7 +120,7 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='隐藏语言栏'>
+                <ConfigItem label={t('config.app.hidelanguageselector')}>
                     <Switch
                         checked={hideLanguage}
                         onChange={async (e) => {
@@ -122,7 +129,7 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='记住翻译窗口大小'>
+                <ConfigItem label={t('config.app.rememberwindowsize')}>
                     <Switch
                         checked={rememberWindowSize}
                         onChange={async (e) => {
@@ -131,7 +138,43 @@ export default function AppConfig() {
                         }}
                     />
                 </ConfigItem>
-                <ConfigItem label='网络代理'>
+                <ConfigItem label={t('config.app.applanguage')}>
+                    <Select
+                        size='small'
+                        sx={{ width: '300px' }}
+                        value={appLanguage}
+                        onChange={async (e) => {
+                            setAppLanguage(e.target.value);
+                            await set('app_language', e.target.value);
+                            i18n.changeLanguage(e.target.value);
+                        }}
+                    >
+                        <MenuItem value='zh_cn'>
+                            <span className={'fi fi-cn'} />
+                            <span>简体中文</span>
+                        </MenuItem>
+                        <MenuItem value='zh_tw'>
+                            <span className={'fi fi-cn'} />
+                            <span>繁體中文</span>
+                        </MenuItem>
+                        <MenuItem value='en'>
+                            <span className={'fi fi-gb'} />
+                            <span>English</span>
+                        </MenuItem>
+                        {/* {language.map((x) => {
+                            return (
+                                <MenuItem
+                                    value={x.value}
+                                    key={nanoid()}
+                                >
+                                    <span className={`fi fi-${x.code}`} />
+                                    <span>{t(`language.${x.value}`)}</span>
+                                </MenuItem>
+                            );
+                        })} */}
+                    </Select>
+                </ConfigItem>
+                <ConfigItem label={t('config.app.proxy')}>
                     <TextField
                         // fullWidth
                         size='small'
@@ -151,8 +194,9 @@ export default function AppConfig() {
                                         onClick={async () => {
                                             await invoke('set_proxy', { proxy });
                                         }}
+                                        sx={{ textTransform: 'none' }}
                                     >
-                                        应用
+                                        {t('common.apply')}
                                     </Button>
                                 </InputAdornment>
                             ),
@@ -162,7 +206,7 @@ export default function AppConfig() {
                 {isLinux ? (
                     <></>
                 ) : (
-                    <ConfigItem label='托盘单击事件'>
+                    <ConfigItem label={t('config.app.trayclick')}>
                         <Select
                             // fullWidth
                             size='small'
@@ -174,12 +218,12 @@ export default function AppConfig() {
                             }}
                         >
                             <MenuItem value='none'>None</MenuItem>
-                            <MenuItem value='config'>设置</MenuItem>
-                            <MenuItem value='persistent'>翻译</MenuItem>
+                            <MenuItem value='config'>{t('config.title')}</MenuItem>
+                            <MenuItem value='persistent'>{t('translator.title')}</MenuItem>
                         </Select>
                     </ConfigItem>
                 )}
-                <ConfigItem label='颜色主题'>
+                <ConfigItem label={t('config.app.theme')}>
                     <Select
                         // fullWidth
                         sx={{ width: '300px' }}
@@ -190,15 +234,15 @@ export default function AppConfig() {
                             await set('theme', e.target.value);
                         }}
                     >
-                        <MenuItem value='auto'>跟随系统</MenuItem>
-                        <MenuItem value='light'>明亮</MenuItem>
-                        <MenuItem value='dark'>黑暗</MenuItem>
+                        <MenuItem value='auto'>{t('config.app.system')}</MenuItem>
+                        <MenuItem value='light'>{t('config.app.light')}</MenuItem>
+                        <MenuItem value='dark'>{t('config.app.dark')}</MenuItem>
                     </Select>
                 </ConfigItem>
-                <ConfigItem label='翻译窗口默认大小'>
+                <ConfigItem label={t('config.app.defaultsize')}>
                     <Box>
                         <TextField
-                            label='宽'
+                            label={t('config.app.width')}
                             size='small'
                             sx={{ width: '142px' }}
                             value={windowWidth}
@@ -208,7 +252,7 @@ export default function AppConfig() {
                             }}
                         />
                         <TextField
-                            label='高'
+                            label={t('config.app.height')}
                             size='small'
                             sx={{ width: '142px', marginLeft: '16px' }}
                             value={windowHeight}
@@ -220,8 +264,8 @@ export default function AppConfig() {
                     </Box>
                 </ConfigItem>
                 <ConfigItem
-                    label='字体大小'
-                    help='只支持调整翻译窗口中源文本和译文的字体大小'
+                    label={t('config.app.fontsize')}
+                    help={t('config.app.fontsizehelp')}
                 >
                     <TextField
                         size='small'

@@ -3,12 +3,12 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: 'Bing翻译',
+    name: 'bing',
 
     supportLanguage: {
         auto: '',
-        'zh-cn': 'zh-Hans',
-        'zh-tw': 'zh-Hant',
+        zh_cn: 'zh-Hans',
+        zh_tw: 'zh-Hant',
         yue: 'yue',
         en: 'en',
         ja: 'ja',
@@ -35,7 +35,7 @@ export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
 
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        return 'Unsupported Language';
     }
     const token_url = 'https://edge.microsoft.com/translate/auth';
 
@@ -99,7 +99,7 @@ export async function translate(text, from, to, setText, id) {
                 throw JSON.stringify(result);
             }
         } else {
-            throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
         throw 'token获取失败';

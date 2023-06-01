@@ -10,7 +10,7 @@ export const info = {
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh',
+        zh_cn: 'zh',
         en: 'en',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)
@@ -36,11 +36,11 @@ export async function translate(text, from, to) {
     const apikey = get('example_apikey') ?? '';
     // 检查设置
     if (apiid == '' || apikey == '') {
-        return '请先配置apiid或apikey';
+        return 'Please configure apiid或apikey';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        return 'Unsupported Language';
     }
     // 完成翻译过程
     // ......

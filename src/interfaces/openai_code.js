@@ -3,10 +3,10 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: '代码解释',
+    name: 'openai_code',
     supportLanguage: {
-        'zh-cn': 'Simplified Chinese',
-        'zh-tw': 'Traditional Chinese',
+        zh_cn: 'Simplified Chinese',
+        zh_tw: 'Traditional Chinese',
         yue: 'Cantonese',
         ja: 'Japanese ',
         en: 'English',
@@ -50,7 +50,7 @@ export async function translate(text, from, to, setText, id) {
     }
     const apikey = get('openai_apikey') ?? '';
     if (apikey === '') {
-        throw '请先配置apikey';
+        throw 'Please configure apikey';
     }
     let systemPrompt = get('openai_code_prompt') ?? '';
     if (systemPrompt === '') {
@@ -142,7 +142,7 @@ export async function translate(text, from, to, setText, id) {
                 reader.releaseLock();
             }
         } else {
-            throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
         let res = await fetch(`https://${domain}${path}`, {
@@ -172,7 +172,7 @@ export async function translate(text, from, to, setText, id) {
                 throw JSON.stringify(result);
             }
         } else {
-            throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     }
 }

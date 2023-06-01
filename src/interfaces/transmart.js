@@ -4,12 +4,12 @@ import { get } from '../windows/main';
 
 export const info = {
     // 接口中文名称
-    name: '腾讯交互翻译',
+    name: 'transmart',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh',
-        'zh-tw': 'zh-TW',
+        zh_cn: 'zh',
+        zh_tw: 'zh-TW',
         en: 'en',
         ja: 'ja',
         ko: 'ko',
@@ -50,10 +50,10 @@ export async function translate(text, from, to, setText, id) {
     const token = get('transmart_token') ?? '';
 
     if (user === '' || token === '') {
-        throw '请先配置用户名和Token';
+        throw 'Please configure User and Token';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     const url = 'https://transmart.qq.com/api/imt';
@@ -117,7 +117,7 @@ export async function translate(text, from, to, setText, id) {
                         throw JSON.stringify(result);
                     }
                 } else {
-                    throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+                    throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
                 }
             } else {
                 throw JSON.stringify(analysis_result);
@@ -126,6 +126,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(analysis_result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${analysis_res.status}\n${JSON.stringify(analysis_res.data)}`;
+        throw `Http Request Error\nHttp Status: ${analysis_res.status}\n${JSON.stringify(analysis_res.data)}`;
     }
 }

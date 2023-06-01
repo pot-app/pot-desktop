@@ -5,6 +5,7 @@ import KeyboardRoundedIcon from '@mui/icons-material/KeyboardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import './style.css';
@@ -12,6 +13,8 @@ import './style.css';
 export default function SideBar() {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const { t } = useTranslation();
 
     function setStyle(pathname) {
         return location.pathname.includes(pathname) ? 'contained' : 'text';
@@ -28,7 +31,7 @@ export default function SideBar() {
                     navigate('/application');
                 }}
             >
-                应用设置
+                <Box sx={{ width: '100%' }}>{t('config.app.label')}</Box>
             </Button>
             <Button
                 fullWidth
@@ -39,7 +42,7 @@ export default function SideBar() {
                     navigate('/translate');
                 }}
             >
-                翻译设置
+                <Box sx={{ width: '100%' }}>{t('config.translate.label')}</Box>
             </Button>
             <Button
                 fullWidth
@@ -50,7 +53,7 @@ export default function SideBar() {
                     navigate('/external');
                 }}
             >
-                外联设置
+                <Box sx={{ width: '100%' }}>{t('config.external.label')}</Box>
             </Button>
             <Button
                 fullWidth
@@ -61,7 +64,7 @@ export default function SideBar() {
                     navigate('/shortcut');
                 }}
             >
-                热键设置
+                <Box sx={{ width: '100%' }}>{t('config.shortcut.label')}</Box>
             </Button>
             <Button
                 fullWidth
@@ -72,7 +75,7 @@ export default function SideBar() {
                     navigate('/interface');
                 }}
             >
-                接口设置
+                <Box sx={{ width: '100%' }}>{t('config.interface.label')}</Box>
             </Button>
             <Button
                 fullWidth
@@ -83,7 +86,7 @@ export default function SideBar() {
                     navigate('/about');
                 }}
             >
-                关于应用
+                <Box sx={{ width: '100%' }}>{t('config.about.label')}</Box>
             </Button>
         </Box>
     );
