@@ -54,10 +54,10 @@ export async function translate(text, from, to, setText, id) {
     const SecretKey = get('tencent_secretkey') ?? '';
 
     if (SecretId === '' || SecretKey === '') {
-        throw '请先配置SecretId和SecretKey';
+        throw 'Please configure SecretId and SecretKey';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     function sha256(message, secret = '') {
@@ -178,6 +178,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

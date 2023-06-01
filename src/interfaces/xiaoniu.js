@@ -48,11 +48,11 @@ export async function translate(text, from, to, setText, id) {
     const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
     if (apikey === '') {
-        return '请先配置API 密钥';
+        return 'Please configure API 密钥';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        return 'Unsupported Language';
     }
     // 完成翻译过程
     const url = `https://api.niutrans.com/NiuTransServer/translation`;
@@ -91,6 +91,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

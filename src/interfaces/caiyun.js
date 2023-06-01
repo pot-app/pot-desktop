@@ -25,10 +25,10 @@ export async function translate(text, from, to, setText, id) {
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
     const token = get('caiyun_token') ?? '';
     if (token === '') {
-        throw '请先配置token';
+        throw 'Please configure token';
     }
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     const body = {
@@ -71,6 +71,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result.trim());
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

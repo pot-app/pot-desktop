@@ -54,10 +54,10 @@ export async function translate(text, from, to, setText, id) {
     const secret = get('volcengine_secret') ?? '';
 
     if (appid === '' || secret === '') {
-        throw '请先配置Access Id和Access Key';
+        throw 'Please configure Access Id and Access Key';
     }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     const serviceVersion = '2020-06-01';
@@ -198,6 +198,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

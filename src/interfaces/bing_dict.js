@@ -22,7 +22,7 @@ export async function translate(text, from, to, setText, id) {
 
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
     if (text.split(' ').length !== 1) {
         throw '该接口只支持查词';
@@ -51,6 +51,6 @@ export async function translate(text, from, to, setText, id) {
             }
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

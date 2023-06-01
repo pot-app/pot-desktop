@@ -38,7 +38,7 @@ export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     if (key !== '') {
@@ -97,7 +97,7 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
 
@@ -138,7 +138,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
 
