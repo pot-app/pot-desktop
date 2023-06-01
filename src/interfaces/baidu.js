@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import md5 from 'md5';
 
 export const info = {
-    name: '百度翻译',
+    name: 'baidu',
     supportLanguage: {
         auto: 'auto',
         'zh_cn': 'zh',

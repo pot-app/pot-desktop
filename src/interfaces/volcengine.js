@@ -6,7 +6,7 @@ import { get } from '../windows/main';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: '火山翻译',
+    name: 'volcengine',
 
     // 接口支持语言及映射
     //https://www.volcengine.com/docs/4640/35107

@@ -3,7 +3,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: '彩云小译',
+    name: 'caiyun',
     supportLanguage: {
         auto: 'auto',
         'zh_cn': 'zh',

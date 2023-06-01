@@ -105,7 +105,7 @@ export default function SourceArea() {
                             await speak(text);
                         }}
                     >
-                        <Tooltip title={t('translator.sourcearea.speak')}>
+                        <Tooltip title={t('translator.speak')}>
                             <GraphicEqRoundedIcon />
                         </Tooltip>
                     </IconButton>
@@ -117,7 +117,7 @@ export default function SourceArea() {
                             }
                         }}
                     >
-                        <Tooltip title={t('translator.sourcearea.copy')}>
+                        <Tooltip title={t('translator.copy')}>
                             <ContentCopyRoundedIcon />
                         </Tooltip>
                     </IconButton>

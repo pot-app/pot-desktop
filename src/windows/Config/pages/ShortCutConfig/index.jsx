@@ -1,6 +1,7 @@
 import { TextField, Button, InputAdornment } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
+import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../..';
 import ConfigItem from '../../components/ConfigItem';
@@ -46,6 +47,8 @@ export default function ShortCutConfig() {
     const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
     const [isMacos, setIsMacos] = useState(false);
     const [isWayland, setIsWayland] = useState(false);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         invoke('is_macos').then((v) => {
@@ -96,17 +99,16 @@ export default function ShortCutConfig() {
     }
 
     return (
-        <ConfigList label='翻译快捷键'>
+        <ConfigList label={t('config.shortcut.title')}>
             <ConfigItem
-                label='划词翻译'
-                help={isWayland && 'Wayland无法使用应用内快捷键，请通过系统快捷键设置，详细见官网文档'}
+                label={t('config.shortcut.translate')}
+                help={isWayland && t('config.shortcut.wayland')}
             >
                 <TextField
                     disabled={isWayland}
                     size='small'
                     sx={{ width: '300px' }}
                     value={shortcutTranslate}
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     onKeyDown={(e) => {
                         keyDown(e, setShortcutTranslate);
                     }}
@@ -123,7 +125,7 @@ export default function ShortCutConfig() {
                                         await set('shortcut_translate', shortcutTranslate);
                                     }}
                                 >
-                                    确认
+                                    {t('common.ok')}
                                 </Button>
                             </InputAdornment>
                         ),
@@ -131,14 +133,13 @@ export default function ShortCutConfig() {
                 />
             </ConfigItem>
             <ConfigItem
-                label='独立翻译窗口'
-                help={isWayland && 'Wayland无法使用应用内快捷键，请通过系统快捷键设置，详细见官网文档'}
+                label={t('config.shortcut.persistent')}
+                help={isWayland && t('config.shortcut.wayland')}
             >
                 <TextField
                     size='small'
                     disabled={isWayland}
                     sx={{ width: '300px' }}
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutPersistent}
                     onKeyDown={(e) => {
                         keyDown(e, setShortcutPersistent);
@@ -156,7 +157,7 @@ export default function ShortCutConfig() {
                                         await set('shortcut_persistent', shortcutPersistent);
                                     }}
                                 >
-                                    确认
+                                    {t('common.ok')}
                                 </Button>
                             </InputAdornment>
                         ),
@@ -166,21 +167,19 @@ export default function ShortCutConfig() {
             {/* <ConfigItem label="OCR">
                 <TextField
                     fullWidth
-                    placeholder='可直接按下组合键设置，也可逐个按下按键设置'
                     value={shortcutOcr}
                     onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
                     onFocus={() => { setShortcutOcr('') }}
                 />
             </ConfigItem> */}
             <p>
-                想要更流畅的翻译体验，请查阅
+                {t('config.shortcut.pluginmsg')}
                 <a
                     href='https://pot.pylogmon.com/docs/tutorial/config/plugin_config'
                     target='_blank'
                 >
-                    插件调用
+                    {t('config.shortcut.plugin')}
                 </a>
-                文档
             </p>
 
             <img

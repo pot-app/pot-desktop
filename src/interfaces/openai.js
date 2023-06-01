@@ -3,7 +3,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: 'OpenAI',
+    name: 'openai',
     supportLanguage: {
         'zh_cn': 'Simplified Chinese',
         'zh_tw': 'Traditional Chinese',
@@ -28,12 +28,12 @@ export const info = {
     needs: [
         {
             config_key: 'openai_domain',
-            place_hold: 'default: api.openai.com\n(不要加协议头,使用OpenAI官方api此项留空即可)',
+            place_hold: 'config.interface.openaidomainhelp',
             display_name: '自定义域名',
         },
         {
             config_key: 'openai_path',
-            place_hold: 'default: /v1/chat/completions\n(一般不需要改,留空即可,Azure用户根据自己情况修改)',
+            place_hold: 'config.interface.openaipathhelp',
             display_name: '请求路径',
         },
         {

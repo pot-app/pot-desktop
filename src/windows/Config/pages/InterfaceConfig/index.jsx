@@ -1,6 +1,7 @@
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import { TextField, Select, MenuItem, Tooltip, IconButton, InputAdornment } from '@mui/material';
+import { TextField, Select, MenuItem, IconButton, InputAdornment } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
@@ -15,11 +16,13 @@ export default function InterfaceConfig() {
 
     const [visible, setVisible] = useState(false);
 
+    const { t } = useTranslation();
+
     return (
-        <ConfigList label='翻译接口'>
+        <ConfigList label={t('config.interface.title')}>
             <ConfigItem
-                label='OpenAI 服务提供商'
-                help='仅在你明确清楚自己使用的是Azure的OpenAI Service的时候需要设置此项，其他情况下一律使用默认openai服务'
+                label={t('config.interface.openaiservice')}
+                help={t('config.interface.openaiservicehelp')}
             >
                 <Select
                     size='small'
@@ -40,8 +43,10 @@ export default function InterfaceConfig() {
                         {interfaceConfigs[x]['needs'].map((y) => {
                             return (
                                 <ConfigItem
-                                    label={`${interfaceConfigs[x]['interface_name']}-${y['needs_display_name']}`}
-                                    help={y['needs_place_hold']}
+                                    label={`${t(`config.interface.${interfaceConfigs[x]['interface_name']}`)}-${t(
+                                        `config.interface.${y['needs_config_key']}`
+                                    )}`}
+                                    help={t(y['needs_place_hold'])}
                                 >
                                     <TextField
                                         size='small'

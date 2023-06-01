@@ -5,7 +5,7 @@ import { get } from '../windows/main';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: 'DeepL',
+    name: 'deepl',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
@@ -26,7 +26,7 @@ export const info = {
     needs: [
         {
             config_key: 'deepl_key',
-            place_hold: '没有请留空，使用自己的Key可以避免频繁请求导致的返回错误问题',
+            place_hold: 'config.interface.deeplhelp',
             display_name: 'Auth Key',
         },
     ],

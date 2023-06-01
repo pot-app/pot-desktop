@@ -4,6 +4,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import { ask } from '@tauri-apps/api/dialog';
 import { Button, Box } from '@mui/material';
 import { app } from '@tauri-apps/api';
@@ -14,6 +15,8 @@ export default function AppInfo() {
     const [version, setVersion] = useState('');
     const [tauriVersion, setTauriVersion] = useState('');
     const [checking, setChecking] = useState(false);
+
+    const { t } = useTranslation();
     const theme = useTheme();
 
     useEffect(() => {
@@ -28,7 +31,7 @@ export default function AppInfo() {
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {
-            toast.success('已写入剪切板', {
+            toast.success(t('info.writeclipboard'), {
                 style: {
                     background: theme.palette.background.default,
                     color: theme.palette.text.primary,
@@ -42,9 +45,9 @@ export default function AppInfo() {
         checkUpdate().then(
             (update) => {
                 if (update.shouldUpdate) {
-                    ask(update.manifest.body, { title: '新版本可用,是否更新？', type: 'info' }).then((install) => {
+                    ask(update.manifest.body, { title: t('config.about.update'), type: 'info' }).then((install) => {
                         if (install) {
-                            toast.loading('正在下载更新，请耐心等待', {
+                            toast.loading(t('config.about.downloading'), {
                                 style: {
                                     background: theme.palette.background.default,
                                     color: theme.palette.text.primary,
@@ -53,7 +56,7 @@ export default function AppInfo() {
                             installUpdate().then(
                                 (_) => {},
                                 (e) => {
-                                    toast.error('更新出错\n' + e, {
+                                    toast.error(t('config.about.updateerror') + '\n' + e, {
                                         style: {
                                             background: theme.palette.background.default,
                                             color: theme.palette.text.primary,
@@ -64,7 +67,7 @@ export default function AppInfo() {
                         }
                     });
                 } else {
-                    toast.success('已经是最新版本', {
+                    toast.success(t('config.about.latest'), {
                         style: {
                             background: theme.palette.background.default,
                             color: theme.palette.text.primary,
@@ -75,7 +78,7 @@ export default function AppInfo() {
             },
             (e) => {
                 setChecking(false);
-                toast.error(`检查更新失败，请检查网络设置\n${e}`, {
+                toast.error(`${t('config.about.checkerror')}\n${e}`, {
                     style: {
                         background: theme.palette.background.default,
                         color: theme.palette.text.primary,
@@ -95,20 +98,11 @@ export default function AppInfo() {
                     alt='logo'
                 />
             </Box>
-            <h3>应用简介</h3>
+            <h3>{t('config.about.introduction')}</h3>
             <ul>
-                <li>应用名称:&nbsp;&nbsp;pot</li>
+                <li>{t('config.about.name')}:&nbsp;&nbsp;pot</li>
                 <li>
-                    作者:&nbsp;&nbsp;
-                    <a
-                        href='https://github.com/Pylogmon'
-                        target='_blank'
-                    >
-                        @Pylogmon
-                    </a>
-                </li>
-                <li>
-                    开源协议:&nbsp;&nbsp;
+                    {t('config.about.license')}:&nbsp;&nbsp;
                     <a
                         href='https://github.com/pot-app/pot-desktop/blob/master/LICENSE'
                         target='_blank'
@@ -116,9 +110,11 @@ export default function AppInfo() {
                         GPL-3.0
                     </a>
                 </li>
-                <li>描述:&nbsp;&nbsp;pot是一款跨平台的划词翻译软件</li>
+                <li>
+                    {t('config.about.discription')}:&nbsp;&nbsp;{t('config.about.longdiscription')}
+                </li>
             </ul>
-            <h3>应用版本</h3>
+            <h3>{t('config.about.version')}</h3>
             <ul>
                 <li>Pot:&nbsp;&nbsp;{version}</li>
                 <li>Tauri:&nbsp;&nbsp;{tauriVersion}</li>
@@ -127,7 +123,7 @@ export default function AppInfo() {
                         size='small'
                         onClick={() => copy(`pot:${version}  Tauri:${tauriVersion}`)}
                     >
-                        一键复制
+                        {t('config.about.copy')}
                     </Button>
                 </li>
             </ul>
@@ -137,7 +133,7 @@ export default function AppInfo() {
                 disabled={checking}
                 size='small'
             >
-                检查更新
+                {t('config.about.checkupdate')}
             </Button>
             <PulseLoader
                 loading={checking}
@@ -158,13 +154,13 @@ export default function AppInfo() {
                     variant='outlined'
                     size='small'
                 >
-                    前往下载
+                    {t('config.about.download')}
                 </Button>
             </a>
-            <h3>相关站点</h3>
+            <h3>{t('config.about.website')}</h3>
             <ul>
                 <li>
-                    官网&文档:&nbsp;&nbsp;
+                    {t('config.about.doc')}:&nbsp;&nbsp;
                     <a
                         href='https://pot.pylogmon.com'
                         target='_blank'
@@ -182,28 +178,28 @@ export default function AppInfo() {
                     </a>
                 </li>
             </ul>
-            <h3>使用反馈</h3>
+            <h3>{t('config.about.feedback')}</h3>
             <ul>
                 <li>
-                    提交Bug:&nbsp;&nbsp;
+                    {t('config.about.bug')}:&nbsp;&nbsp;
                     <a
                         href='https://github.com/pot-app/pot-desktop/issues'
                         target='_blank'
                     >
-                        提交Issue
+                        {t('config.about.issue')}
                     </a>
                 </li>
                 <li>
-                    需求建议:&nbsp;&nbsp;
+                    {t('config.about.feature')}:&nbsp;&nbsp;
                     <a
                         href='https://github.com/pot-app/pot-desktop/issues'
                         target='_blank'
                     >
-                        提交Issue
+                        {t('config.about.issue')}
                     </a>
                 </li>
                 <li>
-                    联系作者:&nbsp;&nbsp;
+                    {t('config.about.contact')}:&nbsp;&nbsp;
                     <a
                         href='mailto:pylogmon@outlook.com'
                         target='_blank'
@@ -213,13 +209,13 @@ export default function AppInfo() {
                     <br />
                 </li>
             </ul>
-            <h3>社区交流</h3>
+            <h3>{t('config.about.community')}</h3>
             <ul>
-                <li>QQ群:&nbsp;&nbsp;767701966</li>
+                <li>QQ:&nbsp;&nbsp;767701966</li>
                 <li>
-                    Telegram群组:&nbsp;&nbsp;
+                    Telegram:&nbsp;&nbsp;
                     <a
-                        href='https://t.me/Pot_Pylogmon'
+                        href='https://t.me/pot_app'
                         target='_blank'
                     >
                         t.me/pot_app

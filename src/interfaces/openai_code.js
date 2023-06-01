@@ -3,7 +3,7 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: '代码解释',
+    name: 'openai_code',
     supportLanguage: {
         'zh_cn': 'Simplified Chinese',
         'zh_tw': 'Traditional Chinese',

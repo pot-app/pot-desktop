@@ -6,7 +6,7 @@ export const info = {
     // 接口中文名称
     // 翻译服务商：https://niutrans.com
     // 翻译服务接口文档：https://niutrans.com/documents/overview?id=2
-    name: '小牛翻译',
+    name: 'xiaoniu',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
@@ -34,7 +34,7 @@ export const info = {
     needs: [
         {
             config_key: 'xiaoniu_apikey',
-            place_hold: 'ApiKey',
+            place_hold: '',
             display_name: 'API 密钥',
         },
     ],
