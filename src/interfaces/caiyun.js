@@ -6,8 +6,8 @@ export const info = {
     name: 'caiyun',
     supportLanguage: {
         auto: 'auto',
-        'zh_cn': 'zh',
-        'zh_tw': 'zh',
+        zh_cn: 'zh',
+        zh_tw: 'zh',
         en: 'en',
         ja: 'ja',
     },

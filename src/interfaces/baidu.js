@@ -8,8 +8,8 @@ export const info = {
     name: 'baidu',
     supportLanguage: {
         auto: 'auto',
-        'zh_cn': 'zh',
-        'zh_tw': 'cht',
+        zh_cn: 'zh',
+        zh_tw: 'cht',
         yue: 'yue',
         en: 'en',
         ja: 'jp',

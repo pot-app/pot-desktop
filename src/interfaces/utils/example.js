@@ -10,7 +10,7 @@ export const info = {
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh_cn': 'zh',
+        zh_cn: 'zh',
         en: 'en',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)

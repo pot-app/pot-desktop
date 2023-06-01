@@ -12,8 +12,8 @@ export const info = {
     //https://www.volcengine.com/docs/4640/35107
     supportLanguage: {
         auto: 'auto',
-        'zh_cn': 'zh',
-        'zh_tw': 'zh-Hant',
+        zh_cn: 'zh',
+        zh_tw: 'zh-Hant',
         ja: 'ja',
         en: 'en',
         ko: 'ko',

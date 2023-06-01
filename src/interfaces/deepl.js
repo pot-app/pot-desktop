@@ -9,8 +9,8 @@ export const info = {
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh_tw': 'ZH',
-        'zh_cn': 'ZH',
+        zh_tw: 'ZH',
+        zh_cn: 'ZH',
         de: 'DE',
         en: 'EN',
         es: 'ES',

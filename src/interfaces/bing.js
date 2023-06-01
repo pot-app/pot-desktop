@@ -7,8 +7,8 @@ export const info = {
 
     supportLanguage: {
         auto: '',
-        'zh_cn': 'zh-Hans',
-        'zh_tw': 'zh-Hant',
+        zh_cn: 'zh-Hans',
+        zh_tw: 'zh-Hant',
         yue: 'yue',
         en: 'en',
         ja: 'ja',
