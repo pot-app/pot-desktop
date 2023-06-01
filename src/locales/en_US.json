@@ -68,12 +68,12 @@
                 "openaistreamhelp": "When this option is enabled, the in-app proxy will be disabled and only the system proxy can be used.",
                 "defaultinterface": "Default Interface",
                 "targetlanguage": "Target Language",
-                "secondlanguage": "Second Language",
-                "secondlanguagehelp": "When the input text is target language, the text will be translate to second Language.",
+                "secondlanguage": "Second Target Language",
+                "secondlanguagehelp": "When the input text is target language, the text will be translated into second Language.",
                 "autocopy": "Auto Copy",
                 "input": "Source Text",
                 "output": "Translated Text",
-                "inputoutput": "Source&Translated Text",
+                "inputoutput": "Source & Translated Text",
                 "close": "Disable"
             },
             "external": {
@@ -139,7 +139,7 @@
                 "xiaoniu_apikey": "Api Key",
                 "deeplhelp": "Use your own Key to avoid returning too many request error, if you don't have, please leave it blank.",
                 "openaidomainhelp": "default: api.openai.com (Do not add a protocol header. Leave this item blank when using the official OpenAI API.)",
-                "openaipathhelp": "default: /v1/chat/completions (Generally do not need to change, leave empty can be, Azure users according to their own circumstances to modify)"
+                "openaipathhelp": "default: /v1/chat/completions (Leave it blank unless you are using Azure service)"
             },
             "about": {
                 "label": "About",
@@ -147,8 +147,8 @@
                 "update": "New version available, update now?",
                 "downloading": "Downloading, please wait...",
                 "updateerror": "Update Error",
-                "latest": "The latest version is installed",
-                "checkerror": "Check update error, Please check your network",
+                "latest": "The latest version has been installed",
+                "checkerror": "Error occured when checking update, please check your network",
                 "introduction": "Application Introduction",
                 "name": "App Name",
                 "license": "License",
@@ -159,7 +159,7 @@
                 "checkupdate": "Check Update",
                 "download": "Download",
                 "website": "Website",
-                "doc": "Official Website&Documentation",
+                "doc": "Official Website & Documentation",
                 "feedback": "Feedback",
                 "bug": "Bug Report",
                 "issue": "Issue",
