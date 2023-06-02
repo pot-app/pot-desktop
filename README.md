@@ -107,7 +107,7 @@ winget install Pylogmon.pot
 
 ## MacOS
 
-> I would be very happy if someone could add this software to [Homebrew] (https://brew.sh/). Because I don't have a Mac, and I don't know how to do it.
+> I would be very happy if someone could add this software to [Homebrew](https://brew.sh/). Because I don't have a Mac, and I don't know how to do it.
 
 ### Install Manually
 
