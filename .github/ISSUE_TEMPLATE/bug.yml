@@ -1,38 +1,35 @@
-name: 🐞 Bug
-description: 反馈使用过程中遇到的问题
-title: "[BUG]: 标题"
-labels: ["bug", "待验证"]
+name: 🐞 Bug Report
+description: Report a bug
+title: "[BUG]: title"
+labels: ["type: bug"]
 body:
 - type: markdown
   attributes:
     value: |
-      ## 感谢反馈，pot因您的反馈变得更好！
+      ## Thank you for your feedback, pot has become better because of it!
 - type: checkboxes
   attributes:
-    label: 提交新Issue前请确认一下事项
-    description: |
-      1. 我已认真查阅官网使用文档。
-      2. 我已查找历史issue但没有找到答案。
-      3. 我会遵循issue模板填写
+    label: Please confirm the following before submitting a new issue.
     options:
-      - label: 我已确认以上事项
+      - label: I have carefully reviewed the official website's usage documentation.
+        required: true
+      - label: I have searched through the historical issues but could not find an answer.
         required: true
 - type: textarea
   attributes:
-    label: 问题描述
-    description: 简单描述遇到的问题
+    label: Description
+    description: Simply describe the problem.
   validations:
     required: true
 - type: textarea
   attributes:
-    label: 如何复现
-    description: 详细描述复现问题的步骤
+    label: Reproduction
+    description: Steps to reproduce the behaviour.
   validations:
     required: true
 - type: dropdown
   attributes:
-    label: 操作系统
-    description: 你使用的操作系统
+    label: Platform
     options:
       - Windows
       - Linux
@@ -41,21 +38,19 @@ body:
     required: true
 - type: textarea
   attributes:
-    label: 操作系统版本
-    description: 所使用操作系统版本，如：Windows11 家庭版 22621.1702
+    label: System Version
+    description: 'Eg: Windows 11 Home Edition 22621.1702'
   validations:
     required: true
 - type: dropdown
   attributes:
-    label: 窗口系统(Linux Only)
+    label: Window System(Linux Only)
     options:
       - X11
       - Wayland
 - type: textarea
   attributes:
-    label: 软件版本
-    description: pot软件的版本，可以在软件关于应用页面复制。
+    label: Software Version
 - type: textarea
   attributes:
-    label: 补充信息
-    description: 其他需要补充的信息
+    label: Additional Information

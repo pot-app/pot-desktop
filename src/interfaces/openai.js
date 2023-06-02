@@ -3,10 +3,10 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 export const info = {
-    name: 'OpenAI',
+    name: 'openai',
     supportLanguage: {
-        'zh-cn': 'Simplified Chinese',
-        'zh-tw': 'Traditional Chinese',
+        zh_cn: 'Simplified Chinese',
+        zh_tw: 'Traditional Chinese',
         yue: 'Cantonese',
         ja: 'Japanese ',
         en: 'English',
@@ -28,12 +28,12 @@ export const info = {
     needs: [
         {
             config_key: 'openai_domain',
-            place_hold: 'default: api.openai.com\n(不要加协议头,使用OpenAI官方api此项留空即可)',
+            place_hold: 'config.interface.openaidomainhelp',
             display_name: '自定义域名',
         },
         {
             config_key: 'openai_path',
-            place_hold: 'default: /v1/chat/completions\n(一般不需要改,留空即可,Azure用户根据自己情况修改)',
+            place_hold: 'config.interface.openaipathhelp',
             display_name: '请求路径',
         },
         {
@@ -65,7 +65,7 @@ export async function translate(text, from, to, setText, id) {
     }
     const apikey = get('openai_apikey') ?? '';
     if (apikey === '') {
-        throw '请先配置apikey';
+        throw 'Please configure apikey';
     }
     let systemPrompt = get('openai_prompt') ?? '';
     if (systemPrompt === '') {
@@ -159,7 +159,7 @@ export async function translate(text, from, to, setText, id) {
                 reader.releaseLock();
             }
         } else {
-            throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
         let res = await fetch(`https://${domain}${path}`, {
@@ -189,7 +189,7 @@ export async function translate(text, from, to, setText, id) {
                 throw JSON.stringify(result);
             }
         } else {
-            throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     }
 }

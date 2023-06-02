@@ -1,13 +1,25 @@
-## 0.4.5 (2023-05-29)
+## 0.5.0 (2023-06-01)
+
+### BREAK:
+
+-   本次更新有语言代码变动，手动设置一次目标语言即可正常使用。
 
 ### New feature:
 
--   添加腾讯交互翻译接口 (#165)([`ab68b3f`](https://github.com/pot-app/pot-desktop/commit/ab68b3f4cbb17d3ec501f16f678fb0f5f2575f75)) (by 派了个萌)
--   切换 tab 时自动滚动至顶部 (#162)([`51298bc`](https://github.com/pot-app/pot-desktop/commit/51298bca0116c8a51f8e13fc94f47e34156a4c98)) (by Avan)
--   支持设置翻译窗口源文本和译文的字体大小 (#161)([`2e40091`](https://github.com/pot-app/pot-desktop/commit/2e4009141fdd84446793915bd1d98bd10c870db5)) (by 派了个萌)
--   添加更多语言支持 (#153)([`1d105c0`](https://github.com/pot-app/pot-desktop/commit/1d105c0b2e43be31dedcbd6d1e315edacff902cb)) (by 派了个萌)
+-   添加应用多语言支持 (#177)([`05d5c55`](https://github.com/pot-app/pot-desktop/commit/05d5c5576f06784b82d25c885325cbe06792ffa4)) (by 派了个萌)
 
 ### Bugs fixed:
 
--   修复 Windows 下划词窗口无法拖动 (#163)([`845568e`](https://github.com/pot-app/pot-desktop/commit/845568ea1dd859cee57ff219f66f1ed96216b57f)) (by chronos)
--   重构快捷键输入，解决设置快捷键闪退 (#166)([`814af8a`](https://github.com/pot-app/pot-desktop/commit/814af8a650164880bf44bbc09aa0de7b0babede6)) (by chronos)
+-   多屏幕窗口边界问题 (#176)([`5109b84`](https://github.com/pot-app/pot-desktop/commit/5109b843e1162d52ba4ad06e549ac6ceb4a4ef38)) (by AlphaBoom)
+-   修复部分情况下自动删除换行无效([`bd3bd5b`](https://github.com/pot-app/pot-desktop/commit/bd3bd5be13889e37cfe4638db68e365800d34ec6)) (by 派了个萌)
+
+---
+
+### New feature:
+
+-   Add multi-language support for the application. (#177)([`05d5c55`](https://github.com/pot-app/pot-desktop/commit/05d5c5576f06784b82d25c885325cbe06792ffa4)) (by 派了个萌)
+
+### Bugs fixed:
+
+-   Multi-screen window boundary issues (#176)([`5109b84`](https://github.com/pot-app/pot-desktop/commit/5109b843e1162d52ba4ad06e549ac6ceb4a4ef38)) (by AlphaBoom)
+-   Fixed some cases of automatic deletion of line breaks invalid ([`bd3bd5b`](https://github.com/pot-app/pot-desktop/commit/bd3bd5be13889e37cfe4638db68e365800d34ec6)) (by 派了个萌)

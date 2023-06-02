@@ -4,11 +4,11 @@ import { get } from '../windows/main';
 
 // 此接口只支持英汉互译
 export const info = {
-    name: 'Google',
+    name: 'google',
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh-CN',
-        'zh-tw': 'zh-TW',
+        zh_cn: 'zh-CN',
+        zh_tw: 'zh-TW',
         ja: 'ja',
         en: 'en',
         ko: 'ko',
@@ -38,7 +38,7 @@ export const info = {
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
 
     let domain = get('google_proxy') ?? 'translate.google.com';
@@ -110,6 +110,6 @@ export async function translate(text, from, to, setText, id) {
             }
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

@@ -136,19 +136,22 @@ fn convert_mouse_location(
     let (mut x, mut y) = location;
     let (width, height) = get_window_size();
     let monitor_size = monitor.size();
+    let monitor_position = monitor.position();
+    let monitor_position_x = monitor_position.x as f64;
+    let monitor_position_y = monitor_position.y as f64;
     let dpi = monitor.scale_factor();
     x /= dpi;
     y /= dpi;
-    if x + width > monitor_size.width as f64 / dpi {
+    if x + width > monitor_position_x + monitor_size.width as f64 / dpi {
         x -= width;
-        if x < 0.0 {
-            x = 0.0;
+        if x < monitor_position_x {
+            x = monitor_position_x;
         }
     }
-    if y + height > monitor_size.height as f64 / dpi {
+    if y + height > monitor_position_y + monitor_size.height as f64 / dpi {
         y -= height;
-        if y < 0.0 {
-            y = 0.0;
+        if y < monitor_position_y {
+            y = monitor_position_y;
         }
     }
 

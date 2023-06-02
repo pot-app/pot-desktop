@@ -5,12 +5,14 @@ import { appWindow } from '@tauri-apps/api/window';
 import { useLocation, useRoutes } from 'react-router-dom';
 import React, { useEffect, useRef } from 'react';
 import { useAtom, useSetAtom, atom } from 'jotai';
+import { useTranslation } from 'react-i18next';
 import * as interfaces from '../../interfaces';
 import SideBar from './components/SideBar';
 import { light, dark } from '../themes';
 import routes from './routes';
 import { get } from '../main';
 import './style.css';
+import { use } from 'i18next';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
@@ -21,7 +23,8 @@ export const openaiStreamAtom = atom(false);
 export const hideSourceAtom = atom(false);
 export const hideLanguageAtom = atom(false);
 export const autoCopyAtom = atom(4);
-export const targetLanguageAtom = atom('zh-cn');
+export const appLanguageAtom = atom('zh_cn');
+export const targetLanguageAtom = atom('zh_cn');
 export const secondLanguageAtom = atom('en');
 export const defaultInterfaceListAtom = atom(['deepl', 'bing']);
 export const rememberTargetLanguageAtom = atom(true);
@@ -57,6 +60,7 @@ export default function Config() {
     const setHideSource = useSetAtom(hideSourceAtom);
     const setHideLanguage = useSetAtom(hideLanguageAtom);
     const setAutoCopy = useSetAtom(autoCopyAtom);
+    const setAppLanguage = useSetAtom(appLanguageAtom);
     const setTargetLanguage = useSetAtom(targetLanguageAtom);
     const setSecondLanguage = useSetAtom(secondLanguageAtom);
     const setDefaultInterfaceList = useSetAtom(defaultInterfaceListAtom);
@@ -72,6 +76,8 @@ export default function Config() {
     const setEudicToken = useSetAtom(eudicTokenAtom);
     const setFontSize = useSetAtom(fontSizeAtom);
     const [theme, setTheme] = useAtom(themeAtom);
+
+    const { i18n } = useTranslation();
 
     const gridWrapperRef = useRef();
     const location = useLocation();
@@ -101,7 +107,8 @@ export default function Config() {
         setHideSource(get('hide_source') ?? false);
         setHideLanguage(get('hide_language') ?? false);
         setAutoCopy(get('auto_copy') ?? 4);
-        setTargetLanguage(get('target_language') ?? 'zh-cn');
+        setAppLanguage(get('app_language') ?? 'zh_cn');
+        setTargetLanguage(get('target_language') ?? 'zh_cn');
         setSecondLanguage(get('second_language') ?? 'en');
         setDefaultInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
         setRememberTargetLanguage(get('remember_target_language') ?? true);
@@ -137,6 +144,8 @@ export default function Config() {
             });
         });
         setInterfaceConfigs(interface_configs);
+
+        i18n.changeLanguage(get('app_language') ?? 'zh_cn');
     }, []);
 
     return (

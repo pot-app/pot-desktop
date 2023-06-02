@@ -7,6 +7,7 @@ import { readConfig } from '../global/config';
 import Translator from './Translator';
 import Config from './Config';
 import Ocr from './Ocr';
+import './i18n';
 import '../styles/style.css';
 
 const windowRouter = {
@@ -33,9 +34,9 @@ export function get(key) {
     return config[key];
 }
 
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-});
+// document.addEventListener('contextmenu', (e) => {
+//     e.preventDefault();
+// });
 document.addEventListener('keydown', async (e) => {
     let allowKeys = ['c', 'v', 'x', 'a'];
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {

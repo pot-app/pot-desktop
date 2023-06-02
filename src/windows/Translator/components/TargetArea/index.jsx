@@ -10,6 +10,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageSelector';
@@ -39,6 +40,8 @@ export default function TargetArea(props) {
     const [addedAnki, setAddedAnki] = useState(false);
     const [addedEudic, setAddedEudic] = useState(false);
     const [expand, setExpand] = useState(false);
+
+    const { t } = useTranslation();
     const theme = useTheme();
 
     useEffect(() => {
@@ -102,7 +105,7 @@ export default function TargetArea(props) {
     // 复制文本的回调
     function copy(who) {
         writeText(who).then((_) => {
-            toast.success('已写入剪切板', {
+            toast.success(t('info.writeclipboard'), {
                 style: {
                     background: theme.palette.background.default,
                     color: theme.palette.text.primary,
@@ -141,7 +144,7 @@ export default function TargetArea(props) {
                 });
             },
             (_) => {
-                toast.error('Anki没有启动或配置错误', {
+                toast.error(t('translator.targetarea.ankierror'), {
                     style: {
                         background: theme.palette.background.default,
                         color: theme.palette.text.primary,
@@ -188,7 +191,9 @@ export default function TargetArea(props) {
                                             className='interface-icon'
                                             alt='interface icon'
                                         />
-                                        <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                        <span className='interface-name'>
+                                            {t(`config.interface.${interfaces[x]['info']['name']}`)}
+                                        </span>
                                     </Box>
                                 </MenuItem>
                             );
@@ -247,7 +252,7 @@ export default function TargetArea(props) {
                         await speak(targetText);
                     }}
                 >
-                    <Tooltip title='朗读'>
+                    <Tooltip title={t('translator.speak')}>
                         <GraphicEqRoundedIcon />
                     </Tooltip>
                 </IconButton>
@@ -263,14 +268,14 @@ export default function TargetArea(props) {
                         }
                     }}
                 >
-                    <Tooltip title='复制'>
+                    <Tooltip title={t('translator.copy')}>
                         <ContentCopyRoundedIcon />
                     </Tooltip>
                 </IconButton>
                 {get('anki_enable') ?? true ? (
                     addedAnki ? (
                         <IconButton className='target-button'>
-                            <Tooltip title='已添加到Anki'>
+                            <Tooltip title={t('translator.targetarea.addedtoanki')}>
                                 <LibraryAddCheckRoundedIcon color='primary' />
                             </Tooltip>
                         </IconButton>
@@ -279,7 +284,7 @@ export default function TargetArea(props) {
                             className='target-button'
                             onClick={addToAnki}
                         >
-                            <Tooltip title='添加到Anki'>
+                            <Tooltip title={t('translator.targetarea.addtoanki')}>
                                 <LibraryAddRoundedIcon />
                             </Tooltip>
                         </IconButton>
@@ -290,7 +295,7 @@ export default function TargetArea(props) {
                 {get('eudic_enable') ?? true ? (
                     addedEudic ? (
                         <IconButton className='target-button'>
-                            <Tooltip title='已添加到欧路词典'>
+                            <Tooltip title={t('translator.targetarea.addedtoeudic')}>
                                 <LibraryAddCheckRoundedIcon color='primary' />
                             </Tooltip>
                         </IconButton>
@@ -319,7 +324,7 @@ export default function TargetArea(props) {
                                 );
                             }}
                         >
-                            <Tooltip title='添加到欧路词典'>
+                            <Tooltip title={t('translator.targetarea.addtoeudic')}>
                                 <LibraryAddRoundedIcon />
                             </Tooltip>
                         </IconButton>

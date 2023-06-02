@@ -31,6 +31,6 @@ export async function speak(text) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

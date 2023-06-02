@@ -4,12 +4,12 @@ import { fetch } from '@tauri-apps/api/http';
 // 必须向外暴露info
 export const info = {
     // 接口中文名称
-    name: 'Bing词典',
+    name: 'bing_dict',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh-cn',
-        'zh-tw': 'zh-cn',
+        zh_cn: 'zh-cn',
+        zh_tw: 'zh-cn',
         en: 'en-us',
     },
     // 接口需要配置项(会在设置中出现设置项来获取)
@@ -22,7 +22,7 @@ export async function translate(text, from, to, setText, id) {
 
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        throw '该接口不支持该语言';
+        throw 'Unsupported Language';
     }
     if (text.split(' ').length !== 1) {
         throw '该接口只支持查词';
@@ -51,6 +51,6 @@ export async function translate(text, from, to, setText, id) {
             }
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

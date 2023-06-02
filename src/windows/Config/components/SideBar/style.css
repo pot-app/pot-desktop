@@ -8,4 +8,11 @@
 
 .side-bar button {
     margin-bottom: 12px;
+    justify-content: space-between;
+    padding: 8px;
+    text-transform: none;
+}
+.side-bar button .MuiButton-startIcon {
+    margin: 0;
+    margin-left: 8px;
 }

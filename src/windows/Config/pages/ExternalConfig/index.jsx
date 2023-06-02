@@ -1,4 +1,5 @@
-import { TextField, FormControlLabel, Checkbox, Switch } from '@mui/material';
+import { TextField, Switch } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import React from 'react';
@@ -13,9 +14,11 @@ export default function ExternalConfig() {
     const [eudicCategoryName, setEudicCategoryName] = useAtom(eudicCategoryNameAtom);
     const [eudicToken, setEudicToken] = useAtom(eudicTokenAtom);
 
+    const { t } = useTranslation();
+
     return (
-        <ConfigList label='生词本'>
-            <ConfigItem label='启用Anki支持'>
+        <ConfigList label={t('config.external.title')}>
+            <ConfigItem label={t('config.external.enableanki')}>
                 <Switch
                     checked={ankiEnable}
                     onChange={async (e) => {
@@ -24,7 +27,7 @@ export default function ExternalConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='启用欧路词典生词本'>
+            <ConfigItem label={t('config.external.enableeudic')}>
                 <Switch
                     checked={eudicEnable}
                     onChange={async (e) => {
@@ -33,7 +36,7 @@ export default function ExternalConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='欧路词典生词本名称'>
+            <ConfigItem label={t('config.external.eudicbookname')}>
                 <TextField
                     size='small'
                     sx={{ width: '300px' }}
@@ -45,11 +48,13 @@ export default function ExternalConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='欧路词典Token'>
+            <ConfigItem
+                label={t('config.external.eudictoken')}
+                help={t('config.external.eudictokenhelp')}
+            >
                 <TextField
                     size='small'
                     sx={{ width: '300px' }}
-                    placeholder='请前往pot官网查看获取Token教程'
                     value={eudicToken}
                     onChange={async (e) => {
                         setEudicToken(e.target.value);

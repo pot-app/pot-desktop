@@ -6,12 +6,12 @@ export const info = {
     // 接口中文名称
     // 翻译服务商：https://niutrans.com
     // 翻译服务接口文档：https://niutrans.com/documents/overview?id=2
-    name: '小牛翻译',
+    name: 'xiaoniu',
     // 接口支持语言及映射
     supportLanguage: {
         auto: 'auto',
-        'zh-cn': 'zh',
-        'zh-tw': 'cht',
+        zh_cn: 'zh',
+        zh_tw: 'cht',
         yue: 'yue',
         en: 'en',
         ja: 'ja',
@@ -34,7 +34,7 @@ export const info = {
     needs: [
         {
             config_key: 'xiaoniu_apikey',
-            place_hold: 'ApiKey',
+            place_hold: '',
             display_name: 'API 密钥',
         },
     ],
@@ -48,11 +48,11 @@ export async function translate(text, from, to, setText, id) {
     const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
     if (apikey === '') {
-        return '请先配置API 密钥';
+        return 'Please configure API 密钥';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return '该接口不支持该语言';
+        return 'Unsupported Language';
     }
     // 完成翻译过程
     const url = `https://api.niutrans.com/NiuTransServer/translation`;
@@ -91,6 +91,6 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http请求错误\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

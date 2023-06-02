@@ -14,6 +14,7 @@ import { speak } from '../../../../global/speak';
 import { useTheme } from '@mui/material/styles';
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
+import { useTranslation } from 'react-i18next';
 import { atom, useSetAtom } from 'jotai';
 import { get } from '../../../main';
 import './style.css';
@@ -25,11 +26,17 @@ export default function SourceArea() {
     const setSourceText = useSetAtom(sourceTextAtom);
     const [expand, setExpand] = useState(true);
     const [text, setText] = useState('');
-    const theme = useTheme();
 
+    const { t } = useTranslation();
+    const theme = useTheme();
     listen('new_selection', (event) => {
-        setSourceText(event.payload);
-        setText(event.payload);
+        let source = event.payload.trim();
+        if (get('delete_newline') ?? false) {
+            // /s匹配空格和换行符 /g表示全局匹配
+            source = source.replace(/\s+/g, ' ');
+        }
+        setSourceText(source);
+        setText(source);
     });
 
     useEffect(() => {
@@ -52,7 +59,7 @@ export default function SourceArea() {
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {
-            toast.success('已写入剪切板', {
+            toast.success(t('info.writeclipboard'), {
                 style: {
                     background: theme.palette.background.default,
                     color: theme.palette.text.primary,
@@ -98,7 +105,7 @@ export default function SourceArea() {
                             await speak(text);
                         }}
                     >
-                        <Tooltip title='朗读'>
+                        <Tooltip title={t('translator.speak')}>
                             <GraphicEqRoundedIcon />
                         </Tooltip>
                     </IconButton>
@@ -110,7 +117,7 @@ export default function SourceArea() {
                             }
                         }}
                     >
-                        <Tooltip title='复制'>
+                        <Tooltip title={t('translator.copy')}>
                             <ContentCopyRoundedIcon />
                         </Tooltip>
                     </IconButton>
@@ -123,7 +130,7 @@ export default function SourceArea() {
                             setSourceText(newText);
                         }}
                     >
-                        <Tooltip title='删除多余空格及换行'>
+                        <Tooltip title={t('translator.sourcearea.deletenewline')}>
                             <SmartButtonRoundedIcon />
                         </Tooltip>
                     </IconButton>
@@ -145,7 +152,7 @@ export default function SourceArea() {
                             setText('');
                         }}
                     >
-                        <Tooltip title='清空'>
+                        <Tooltip title={t('translator.sourcearea.clear')}>
                             <ClearAllRoundedIcon />
                         </Tooltip>
                     </IconButton>
@@ -157,8 +164,9 @@ export default function SourceArea() {
                         setSourceText(text);
                     }}
                     startIcon={<TranslateRoundedIcon />}
+                    sx={{ textTransform: 'none', fontWeight: 700 }}
                 >
-                    翻译
+                    {t('translator.sourcearea.translate')}
                 </MuiButton>
             </Box>
         </Card>

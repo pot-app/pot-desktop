@@ -1,34 +1,33 @@
-name: 🌟 Feature
-description: 提出改进建议或者新的需求
-title: "[Feature]: 标题"
-labels: ["新需求"]
+name: 🌟 Feature Request
+description: Suggest an idea
+title: "[Feature]: title"
+labels: ["type: enhancement"]
 body:
 - type: markdown
   attributes:
     value: |
-      ## 感谢反馈，pot因您的反馈变得更好！
+      ## Thank you for your feedback, pot has become better because of it!
 - type: checkboxes
   attributes:
-    label: 提交新Issue前请确认一下事项
-    description: |
-      1. 我已认真查阅官网使用文档。
-      2. 我已查找历史issue但没有找到答案。
+    label: Please confirm the following before submitting a new issue.
     options:
-      - label: 我已确认以上事项
+      - label: I have carefully reviewed the official website's usage documentation.
+        required: true
+      - label: I have searched through the historical issues but could not find an answer.
         required: true
 - type: textarea
   attributes:
-    label: 需求描述
-    description: 简单描述您的需求
+    label: Description
+    description: Simply describe your idea.
   validations:
     required: true
 - type: textarea
   attributes:
-    label: 应用场景
-    description: 为什么有这样的需求
+    label: Application Scenario
+    description: Why is there such a demand?
   validations:
     required: true
 - type: textarea
   attributes:
-    label: 参考资料
-    description: 必要时提供实现思路或参考文档
+    label: References
+    description: Provide implementation ideas or reference documents when necessary.

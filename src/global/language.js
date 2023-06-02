@@ -1,8 +1,8 @@
 // https://flagicons.lipis.dev/
 
 export default [
-    { value: 'zh-cn', label: '简体中文', code: 'cn' },
-    { value: 'zh-tw', label: '繁體中文', code: 'cn' },
+    { value: 'zh_cn', label: '简体中文', code: 'cn' },
+    { value: 'zh_tw', label: '繁體中文', code: 'cn' },
     { value: 'yue', label: '粤语', code: 'cn' },
     { value: 'en', label: '英语', code: 'gb' },
     { value: 'ja', label: '日语', code: 'jp' },

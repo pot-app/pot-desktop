@@ -1,4 +1,5 @@
 import { Select, MenuItem, Box, Chip, Switch } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
@@ -30,11 +31,13 @@ export default function TranslateConfig() {
     const [defaultInterfaceList, setDefaultInterfaceList] = useAtom(defaultInterfaceListAtom);
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
 
+    const { t } = useTranslation();
+
     return (
-        <ConfigList label='翻译设置'>
+        <ConfigList label={t('config.translate.title')}>
             <ConfigItem
-                label='动态翻译'
-                help='输入后实时翻译，无需其他操作'
+                label={t('config.translate.dynamic')}
+                help={t('config.translate.dynamichelp')}
             >
                 <Switch
                     checked={dynamicTranslate}
@@ -45,8 +48,8 @@ export default function TranslateConfig() {
                 />
             </ConfigItem>
             <ConfigItem
-                label='删除换行'
-                help='取词后自动删除内容中的换行符及多余空格'
+                label={t('config.translate.deletenewline')}
+                help={t('config.translate.deletenewlinehelp')}
             >
                 <Switch
                     checked={deleteNewline}
@@ -56,7 +59,7 @@ export default function TranslateConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='记住目标语言'>
+            <ConfigItem label={t('config.translate.remembertarget')}>
                 <Switch
                     checked={rememberTargetLanguage}
                     onChange={async (e) => {
@@ -66,8 +69,8 @@ export default function TranslateConfig() {
                 />
             </ConfigItem>
             <ConfigItem
-                label='OpenAI 流式输出'
-                help='开启流式输出后无法使用软件内代理，只能开启全局代理'
+                label={t('config.translate.openaistream')}
+                help={t('config.translate.openaistreamhelp')}
             >
                 <Switch
                     checked={openaiStream}
@@ -77,7 +80,7 @@ export default function TranslateConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='默认接口'>
+            <ConfigItem label={t('config.translate.defaultinterface')}>
                 <Select
                     multiple
                     size='small'
@@ -92,7 +95,7 @@ export default function TranslateConfig() {
                             {selected.map((value) => (
                                 <Chip
                                     key={value}
-                                    label={interfaces[value]['info']['name']}
+                                    label={t(`config.interface.${interfaces[value]['info']['name']}`)}
                                 />
                             ))}
                         </Box>
@@ -110,14 +113,16 @@ export default function TranslateConfig() {
                                         className='interface-icon'
                                         alt='interface icon'
                                     />
-                                    <span className='interface-name'>{interfaces[x]['info']['name']}</span>
+                                    <span className='interface-name'>
+                                        {t(`config.interface.${interfaces[x]['info']['name']}`)}
+                                    </span>
                                 </Box>
                             </MenuItem>
                         );
                     })}
                 </Select>
             </ConfigItem>
-            <ConfigItem label='目标语言'>
+            <ConfigItem label={t('config.translate.targetlanguage')}>
                 <Select
                     size='small'
                     sx={{ width: '300px' }}
@@ -134,7 +139,7 @@ export default function TranslateConfig() {
                                 key={nanoid()}
                             >
                                 <span className={`fi fi-${x.code}`} />
-                                <span>{x.label}</span>
+                                <span>{t(`language.${x.value}`)}</span>
                             </MenuItem>
                         );
                     })}
@@ -142,8 +147,8 @@ export default function TranslateConfig() {
             </ConfigItem>
 
             <ConfigItem
-                label='第二目标语言'
-                help='当检测到翻译结果与源语言相同时自动翻译为第二目标语言'
+                label={t('config.translate.secondlanguage')}
+                help={t('config.translate.secondlanguagehelp')}
             >
                 <Select
                     size='small'
@@ -161,13 +166,13 @@ export default function TranslateConfig() {
                                 key={nanoid()}
                             >
                                 <span className={`fi fi-${x.code}`} />
-                                <span>{x.label}</span>
+                                <span>{t(`language.${x.value}`)}</span>
                             </MenuItem>
                         );
                     })}
                 </Select>
             </ConfigItem>
-            <ConfigItem label='翻译后自动复制'>
+            <ConfigItem label={t('config.translate.autocopy')}>
                 <Select
                     size='small'
                     sx={{ width: '300px' }}
@@ -177,10 +182,10 @@ export default function TranslateConfig() {
                         await set('auto_copy', e.target.value);
                     }}
                 >
-                    <MenuItem value={1}>原文</MenuItem>
-                    <MenuItem value={2}>译文</MenuItem>
-                    <MenuItem value={3}>原文+译文</MenuItem>
-                    <MenuItem value={4}>关闭</MenuItem>
+                    <MenuItem value={1}>{t('config.translate.input')}</MenuItem>
+                    <MenuItem value={2}>{t('config.translate.output')}</MenuItem>
+                    <MenuItem value={3}>{t('config.translate.inputoutput')}</MenuItem>
+                    <MenuItem value={4}>{t('config.translate.close')}</MenuItem>
                 </Select>
             </ConfigItem>
         </ConfigList>

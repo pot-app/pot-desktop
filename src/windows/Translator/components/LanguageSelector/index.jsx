@@ -1,5 +1,6 @@
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { Card, Select, MenuItem } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
@@ -10,14 +11,16 @@ import { get } from '../../../main';
 import './style.css';
 
 export const sourceLanguageAtom = atom('auto');
-export const targetLanguageAtom = atom('zh-cn');
+export const targetLanguageAtom = atom('zh_cn');
 
 export default function LanguageSelector() {
     const [sourceLanguage, setSourceLanguage] = useAtom(sourceLanguageAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
 
+    const { t } = useTranslation();
+
     useEffect(() => {
-        setTargetLanguage(get('target_language') ?? 'zh-cn');
+        setTargetLanguage(get('target_language') ?? 'zh_cn');
     }, []);
 
     return (
@@ -45,7 +48,7 @@ export default function LanguageSelector() {
                             alt='auto detect'
                         />
                     </span>
-                    <span>自动检测</span>
+                    <span>{t('language.auto')}</span>
                 </MenuItem>
                 {language.map((x) => {
                     return (
@@ -54,7 +57,7 @@ export default function LanguageSelector() {
                             key={nanoid()}
                         >
                             <span className={`fi fi-${x.code}`} />
-                            <span>{x.label}</span>
+                            <span>{t(`language.${x.value}`)}</span>
                         </MenuItem>
                     );
                 })}
@@ -84,7 +87,7 @@ export default function LanguageSelector() {
                             key={nanoid()}
                         >
                             <span className={`fi fi-${x.code}`} />
-                            <span>{x.label}</span>
+                            <span>{t(`language.${x.value}`)}</span>
                         </MenuItem>
                     );
                 })}
