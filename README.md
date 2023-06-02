@@ -25,7 +25,7 @@
     <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/3.png">
 </table>
 
-## Instructions
+# Instructions
 
 <table>
 <tr>
@@ -50,7 +50,7 @@
 
 <div align="center">
 
-## Features
+# Features
 
 </div>
 
@@ -68,7 +68,7 @@
 
 <div align="center">
 
-## Support Apis
+# Support Apis
 
 </div>
 
@@ -88,33 +88,33 @@
 
 <div align="center">
 
-## Installation
+# Installation
 
 </div>
 
-### Windows
+## Windows
 
-#### Install via Winget
+### Install via Winget
 
 ```powershell
 winget install Pylogmon.pot
 ```
 
-#### Install Manually
+### Install Manually
 
 1. Download the installation package ending in `.msi` from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) page.
 2. Double click the downloaded file to install it.
 
-### MacOS
+## MacOS
 
 > I would be very happy if someone could add this software to [Homebrew] (https://brew.sh/). Because I don't have a Mac, and I don't know how to do it.
 
-#### Install Manually
+### Install Manually
 
 1. Download the installation package ending in `.dmg` from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) page. (If you are using M1, please download the installation package named `pot_{version}_aarch64.dmg`, otherwise download the installation package named `pot_{version}_x64.dmg`)
 2. Double click the downloaded file to install it.
 
-#### Troubleshooting
+### Troubleshooting
 
 -   "pot" can’t be opened because the developer cannot be verified.
 
@@ -128,15 +128,15 @@ winget install Pylogmon.pot
 
 -   If you encounter a permission prompt every time you open it, or if you cannot perform a shortcut translation, please go to Settings -> Privacy & Security -> Supporting Features to remove pot, and then re-add pot.
 
-### Linux
+## Linux
 
-#### Debian/Ubuntu
+### Debian/Ubuntu
 
 We provide `AppImage` and `deb` packages for Linux.
 
 Please note that: There are two deb package, `universal` is based on `glibc2.28` and `openssl-1.1`, If the regular deb package can't run on your machine due to dependency problems, please download the `universal` package, Due to its low version dependency, it can run on most systems.
 
-#### Arch/Manjaro
+### Arch/Manjaro
 
 View on [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation)
 
@@ -154,7 +154,7 @@ paru -S pot-translation
 
 </div>
 
-### Introduction
+## Introduction
 
 Pot supports invoke by other software. In this way, with the help of other software, it is very convenient to translate.
 
@@ -172,39 +172,39 @@ pot popclip "hello world" # The second parameter is what you want to translate
 curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # The body content is what you want to translate
 ```
 
-### Existing Usage
+## Existing Usage
 
-#### SnipDO (Windows)
+### SnipDO (Windows)
 
 1. Download and install SnipDo in the [Microsoft Store](https://apps.microsoft.com/store/detail/snipdo/9NPZ2TVKJVT7)
 2. Download the SnipDo extension of pot from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.pbar)
 3. Double click the downloaded file to install it.
 4. Selection some text, you can see the pot icon in the upper right corner of the selection, click the icon to translate.
 
-#### PopClip (MacOS)
+### PopClip (MacOS)
 
 1. Download and install PopClip in the [App Store](https://apps.apple.com/us/app/popclip/id445189367?mt=12)
 2. Download the PopClip extension of pot from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.popclipextz)
 3. Double click the downloaded file to install it.
 4. Enable the pot extension in PopClip settings, and then you can translate by selecting text.
 
-#### Starry (Linux)
+### Starry (Linux)
 
 > Starry is still in the development stage, so you can only compile him manually
 
-1. Download and install Starry [AppImageHub](https://appimage.github.io/Starry/)
+Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 <div align="center">
 
-## Contributors
+# Contributors
 
 </div>
 
 <img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true"/>
 
-### Manual compilation
+## Manual compilation
 
-#### Requirements
+### Requirements
 
 Node.js >= 18.0.0
 
@@ -212,7 +212,7 @@ pnpm >= 8.5.0
 
 Rust >= 1.69.0
 
-#### Start compilation
+### Start compilation
 
 1. Clone the repository
 
@@ -240,7 +240,7 @@ Rust >= 1.69.0
 
 <div align="center">
 
-## Acknowledgement
+# Acknowledgement
 
 </div>
 
