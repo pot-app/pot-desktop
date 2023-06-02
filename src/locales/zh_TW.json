@@ -115,6 +115,7 @@
                 "transmart": "腾讯交互翻译",
                 "volcengine": "火山翻译",
                 "xiaoniu": "小牛翻译",
+                "youdao": "有道翻譯",
                 "alibaba_accesskey_id": "AccessKey ID",
                 "alibaba_accesskey_secret": "AccessKey Secret",
                 "baidu_appid": "AppID",
@@ -139,7 +140,9 @@
                 "xiaoniu_apikey": "Api Key",
                 "deeplhelp": "使用Api Key可以避免Too Many Request错误，没有留空即可",
                 "openaidomainhelp": "default: api.openai.com (不要加协议头，使用官方服务留空即可)",
-                "openaipathhelp": "default: /v1/chat/completions (一般留空即可，使用Azure服务根据自己实际情况填写)"
+                "openaipathhelp": "default: /v1/chat/completions (一般留空即可，使用Azure服务根据自己实际情况填写)",
+                "youdao_appkey": "App Id",
+                "youdao_key": "App Key"
             },
             "about": {
                 "label": "关于应用",
