@@ -14,6 +14,7 @@ import * as _bing from './bing';
 import * as _lingva from './lingva';
 import * as _xiaoniu from './xiaoniu';
 import * as _transmart from './transmart';
+import * as _youdao from './youdao';
 
 export const baidu = _baidu;
 export const caiyun = _caiyun;
@@ -31,3 +32,4 @@ export const bing = _bing;
 export const lingva = _lingva;
 export const xiaoniu = _xiaoniu;
 export const transmart = _transmart;
+export const youdao = _youdao;

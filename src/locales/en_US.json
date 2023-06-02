@@ -115,6 +115,7 @@
                 "transmart": "TranSmart",
                 "volcengine": "VolcEngine",
                 "xiaoniu": "Xiaoniu",
+                "youdao": "Youdao",
                 "alibaba_accesskey_id": "AccessKey ID",
                 "alibaba_accesskey_secret": "AccessKey Secret",
                 "baidu_appid": "AppID",
@@ -139,7 +140,9 @@
                 "xiaoniu_apikey": "Api Key",
                 "deeplhelp": "Use your own Key to avoid returning too many request error, if you don't have, please leave it blank.",
                 "openaidomainhelp": "default: api.openai.com (Do not add a protocol header. Leave this item blank when using the official OpenAI API.)",
-                "openaipathhelp": "default: /v1/chat/completions (Leave it blank unless you are using Azure service)"
+                "openaipathhelp": "default: /v1/chat/completions (Leave it blank unless you are using Azure service)",
+                "youdao_appkey": "App Id",
+                "youdao_key": "App Key"
             },
             "about": {
                 "label": "About",

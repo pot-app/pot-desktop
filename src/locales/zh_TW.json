@@ -115,6 +115,7 @@
                 "transmart": "騰訊交互翻譯",
                 "volcengine": "火山翻譯",
                 "xiaoniu": "小牛翻譯",
+                "youdao": "有道翻譯",
                 "alibaba_accesskey_id": "AccessKey ID",
                 "alibaba_accesskey_secret": "AccessKey Secret",
                 "baidu_appid": "AppID",
@@ -140,6 +141,8 @@
                 "deeplhelp": "使用 API Key 可避免 429 Too Many Request 錯誤，沒有的話空白就好",
                 "openaidomainhelp": "default: api.openai.com (只需輸入網域，使用官方服務者空白就好)",
                 "openaipathhelp": "default: /v1/chat/completions (空白就好，使用 Azure 服務時，根據實際情況填寫)"
+                "youdao_appkey": "App Id",
+                "youdao_key": "App Key"
             },
             "about": {
                 "label": "關於本程式",
