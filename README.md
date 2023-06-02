@@ -2,10 +2,7 @@
 
 # Pot (Translator of Pylogmon)
 
-> 🌈 A cross-platform translation software (
-> [Quick Start](https://pot.pylogmon.com/docs/tutorial/intro) |
-> [Download](https://github.com/pot-app/pot-desktop/releases/latest) |
-> [Configuration](https://pot.pylogmon.com/docs/category/软件配置))
+> 🌈 A cross-platform software for text translation
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
@@ -60,6 +57,7 @@
 -   [x] Listening clipboard to translate
 -   [x] OpenAI API support
 -   [x] Multi-API support ([Support Apis](#support-apis))
+-   [x] Multi-language support
 -   [x] Import to Anki/Eudic (or add more)
 -   [x] Available on all PC platforms (Windows, macOS, and Linux)
 -   [x] Good Wayland support (Test on KDE and Gnome)
@@ -160,6 +158,8 @@ Pot supports invoke by other software. In this way, with the help of other softw
 
 Pot provides two ways to call it from outside, you can also call it through other software you like
 
+> Both ways require the pot to keep running in the background.
+
 1. Call the pot via the command line
 
 ```bash
@@ -200,7 +200,7 @@ Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 </div>
 
-<img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true"/>
+<img src="https://github.com/pot-app/.github/blob/master/pot-desktop-contributions.svg?raw=true" width="100%"/>
 
 ## Manual compilation
 
