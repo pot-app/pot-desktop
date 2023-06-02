@@ -59,10 +59,6 @@
 Please read before contributing: [Interface Contribution Guide](https://pot.pylogmon.com/docs/contribute/intro)
 
 <div align="center">
-<img src="https://github.com/pot-app/.github/blob/master/pot-desktop-stars.svg?raw=true" width="80%"/>
-</div>
-
-<div align="center">
 
 ## Acknowledgement
 
