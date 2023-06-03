@@ -58,7 +58,7 @@
 -   [x] OpenAI API support
 -   [x] Multi-API support ([Support Apis](#support-apis))
 -   [x] Multi-language support
--   [x] Import to Anki/Eudic (or add more)
+-   [x] Export to Anki/Eudic (or add more)
 -   [x] Available on all PC platforms (Windows, macOS, and Linux)
 -   [x] Good Wayland support (Test on KDE and Gnome)
 -   [ ] Screenshot translate
