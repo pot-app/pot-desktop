@@ -223,7 +223,49 @@ theSelectedText
 }
 
 // 复制操作
-#[cfg(any(target_os = "windows", target_os = "linux"))]
+#[cfg(target_os = "windows")]
+pub fn copy() {
+    use windows::Win32::System::DataExchange::GetClipboardSequenceNumber;
+    use windows::Win32::System::Threading::{AttachThreadInput, GetCurrentThreadId};
+    use windows::Win32::UI::Input::KeyboardAndMouse::GetFocus;
+    use windows::Win32::UI::WindowsAndMessaging::{
+        GetForegroundWindow, GetWindowThreadProcessId, SendMessageW, WM_COPY,
+    };
+
+    let num_before = unsafe { GetClipboardSequenceNumber() };
+
+    unsafe {
+        let window = GetForegroundWindow(); // 获得当前激活的窗口句柄
+        let self_thread_id = GetCurrentThreadId(); // 获取本身的线程ID
+        let fore_thread_id = GetWindowThreadProcessId(window, None); // 根据窗口句柄获取线程ID
+        AttachThreadInput(fore_thread_id, self_thread_id, true); // 附加线程
+        let focused = GetFocus(); // 获取具有输入焦点的窗口句柄
+        AttachThreadInput(fore_thread_id, self_thread_id, false); // 取消附加的线程
+        SendMessageW(focused, WM_COPY, None, None); // 发送复制信号
+    }
+
+    let num_after = unsafe { GetClipboardSequenceNumber() };
+    // https://stackoverflow.com/questions/60826469/sendmessage-wm-copy-not-working-when-sent-to-chrome-window-delphi
+    if num_before == num_after {
+        use enigo::*;
+        let mut enigo = Enigo::new();
+        // 先释放按键
+        enigo.key_up(Key::Control);
+        enigo.key_up(Key::Alt);
+        enigo.key_up(Key::Shift);
+        enigo.key_up(Key::Space);
+        enigo.key_up(Key::Meta);
+        enigo.key_up(Key::Tab);
+        enigo.key_up(Key::Escape);
+        enigo.key_up(Key::CapsLock);
+        enigo.key_up(Key::C);
+        // 发送CtrlC
+        enigo.key_sequence_parse("{+CTRL}c{-CTRL}");
+    }
+}
+
+// 复制操作
+#[cfg(target_os = "linux")]
 pub fn copy() {
     use enigo::*;
     let mut enigo = Enigo::new();
