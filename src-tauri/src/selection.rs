@@ -128,14 +128,9 @@ pub fn get_selection_text() -> Result<String, String> {
     match old_clipboard {
         (Ok(text), _) => {
             // 旧剪切板为文本
-            write_clipboard.set_text(text.clone()).unwrap();
+            write_clipboard.set_text(text).unwrap();
             if let Ok(new) = new_text {
-                //新旧剪切板相同说明没有复制新内容
-                // if new.trim() == text.trim() {
-                //     Ok("".to_string())
-                // } else {
                 Ok(new)
-                // }
             } else {
                 Ok("".to_string())
             }
