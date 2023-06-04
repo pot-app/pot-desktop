@@ -313,6 +313,7 @@ jobs:
           installers-regex: '\.msi$'
           token: ${{ secrets.TOKEN }}
           fork-user: Pylogmon
+        continue-on-error: true
   build-for-deepin:
     needs: change-version
     strategy:
