@@ -1,7 +1,7 @@
 use crate::StringWrapper;
 
 #[cfg(target_os = "linux")]
-pub fn get_selection_text_on_x11() -> Result<String, String> {
+fn get_selection_text_on_x11() -> Result<String, String> {
     use crate::APP;
     use std::time::Duration;
     use tauri::Manager;
@@ -48,7 +48,7 @@ pub fn get_selection_text_on_x11() -> Result<String, String> {
 }
 
 #[cfg(target_os = "linux")]
-pub fn get_selection_text_on_wayland() -> Result<String, String> {
+fn get_selection_text_on_wayland() -> Result<String, String> {
     use std::io::Read;
     use wl_clipboard_rs::paste::{get_contents, ClipboardType, Error, MimeType, Seat};
     use wl_clipboard_rs::utils::is_primary_selection_supported;
@@ -107,11 +107,67 @@ pub fn get_selection_text() -> Result<String, String> {
     }
 }
 
+#[cfg(target_os = "windows")]
+fn get_selection_text_by_automation() -> Result<String, String> {
+    use windows::Win32::System::Com::{CoCreateInstance, CoInitialize, CLSCTX_ALL};
+    use windows::Win32::UI::Accessibility::{
+        CUIAutomation, IUIAutomation, IUIAutomationTextPattern, UIA_TextPatternId,
+    };
+    // 初始化 COM
+    match unsafe { CoInitialize(None) } {
+        Ok(_) => {}
+        Err(e) => return Err(e.to_string()),
+    };
+    // 创建 IUIAutomation 对象
+    let auto: IUIAutomation = match unsafe { CoCreateInstance(&CUIAutomation, None, CLSCTX_ALL) } {
+        Ok(v) => v,
+        Err(e) => return Err(e.to_string()),
+    };
+    // 获取焦点元素
+    let el = match unsafe { auto.GetFocusedElement() } {
+        Ok(v) => v,
+        Err(e) => return Err(e.to_string()),
+    };
+    // 获取文本对象
+    let res: IUIAutomationTextPattern = match unsafe { el.GetCurrentPatternAs(UIA_TextPatternId) } {
+        Ok(v) => v,
+        Err(e) => return Err(e.to_string()),
+    };
+    // 获取文本序列
+    let text_array = match unsafe { res.GetSelection() } {
+        Ok(v) => v,
+        Err(e) => return Err(e.to_string()),
+    };
+    let length = unsafe { text_array.Length().unwrap() };
+    // 遍历文本序列
+    let mut target = String::new();
+    for i in 0..length {
+        let text = match unsafe { text_array.GetElement(i) } {
+            Ok(v) => v,
+            Err(e) => return Err(e.to_string()),
+        };
+        let str = match unsafe { text.GetText(-1) } {
+            Ok(v) => v,
+            Err(e) => return Err(e.to_string()),
+        };
+        let str = str.to_string();
+        target.push_str(&str);
+    }
+    Ok(target)
+}
+
 // 获取选择的文本(Windows)
 #[cfg(target_os = "windows")]
 pub fn get_selection_text() -> Result<String, String> {
+    if let Ok(text) = get_selection_text_by_automation() {
+        if !text.is_empty() {
+            println!("get_selection_text_by_automation");
+            return Ok(text);
+        }
+    }
+    // Automation取词失败后再尝试获取剪切板
     use arboard::Clipboard;
-
+    println!("get_selection_text_by_clipboard");
     // 读取旧的剪切板
     let old_clipboard = (
         Clipboard::new().unwrap().get_text(),
