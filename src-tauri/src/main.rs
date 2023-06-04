@@ -4,7 +4,6 @@
 )]
 
 mod config;
-mod selection;
 mod shortcut;
 mod trayicon;
 mod utils;
@@ -12,7 +11,6 @@ mod window;
 
 use config::*;
 use once_cell::sync::OnceCell;
-use selection::get_translate_text;
 use shortcut::register_shortcut;
 use std::sync::Mutex;
 use tauri::api::notification::Notification;

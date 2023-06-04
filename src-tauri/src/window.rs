@@ -1,5 +1,4 @@
 use crate::config::get_config;
-use crate::selection::get_selection_text;
 use crate::StringWrapper;
 use crate::APP;
 use tauri::{AppHandle, Manager, Window};
@@ -215,14 +214,10 @@ fn get_mouse_location() -> Result<(f64, f64), String> {
 
 // 划词翻译
 pub fn translate_window() {
+    use selection::get_text;
     // 获取选择文本
-    let text = match get_selection_text() {
-        Ok(v) => v,
-        Err(err) => {
-            println!("get selection text error: {:?}", err);
-            String::new()
-        }
-    };
+    let text = get_text();
+
     let handle = APP.get().unwrap();
     // 写入状态备用
     let state: tauri::State<StringWrapper> = handle.state();

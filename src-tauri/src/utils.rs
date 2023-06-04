@@ -19,3 +19,9 @@ pub fn is_wayland() -> bool {
         false
     }
 }
+
+use crate::StringWrapper;
+#[tauri::command]
+pub fn get_translate_text(state: tauri::State<StringWrapper>) -> String {
+    return state.0.lock().unwrap().to_string();
+}
