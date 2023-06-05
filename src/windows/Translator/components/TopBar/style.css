@@ -5,8 +5,7 @@
 }
 
 .topbar-macos {
-    display: flex;
-    justify-content: right;
+    text-align: right;
     height: 35px;
 }
 
