@@ -86,8 +86,8 @@
                 "eudictokenhelp": "取得方式請參考官網文件"
             },
             "shortcut": {
-                "label": "快捷建設定",
-                "title": "快捷建設定",
+                "label": "快捷鍵設定",
+                "title": "快捷鍵設定",
                 "translate": "划詞翻譯",
                 "persistent": "獨立翻譯視窗",
                 "wayland": "Wayland 暫不支援程式內設定的快捷鍵，請透過系統設定全域快捷鍵。詳情請參考官網文件。",
@@ -140,7 +140,7 @@
                 "xiaoniu_apikey": "API Key",
                 "deeplhelp": "使用 API Key 可避免 429 Too Many Request 錯誤，沒有的話空白就好",
                 "openaidomainhelp": "default: api.openai.com (只需輸入網域，使用官方服務者空白就好)",
-                "openaipathhelp": "default: /v1/chat/completions (空白就好，使用 Azure 服務時，根據實際情況填寫)"
+                "openaipathhelp": "default: /v1/chat/completions (空白就好，使用 Azure 服務時，根據實際情況填寫)",
                 "youdao_appkey": "App Id",
                 "youdao_key": "App Key"
             },

@@ -14,12 +14,14 @@ pub fn is_linux() -> bool {
 pub fn is_wayland() -> bool {
     use std::env::var;
     if let Ok(session_type) = var("XDG_SESSION_TYPE") {
-        if session_type == "wayland" {
-            return true;
-        } else {
-            return false;
-        }
+        session_type == "wayland"
     } else {
-        return false;
+        false
     }
+}
+
+use crate::StringWrapper;
+#[tauri::command]
+pub fn get_translate_text(state: tauri::State<StringWrapper>) -> String {
+    return state.0.lock().unwrap().to_string();
 }

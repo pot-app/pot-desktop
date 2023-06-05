@@ -48,15 +48,23 @@ const unlistenBlur = () => {
 
 let unlisten = listenBlur();
 
+let resizeTimeout = null;
+
 listen('tauri://resize', async () => {
     if (get('remember_window_size') ?? false) {
-        if (appWindow.label === 'translator' || appWindow.label === 'popclip' || appWindow.label === 'persistent') {
-            const psize = await appWindow.innerSize();
-            const factor = await appWindow.scaleFactor();
-            const lsize = psize.toLogical(factor);
-            await set('window_height', parseInt(lsize.height));
-            await set('window_width', parseInt(lsize.width));
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
         }
+        resizeTimeout = setTimeout(async () => {
+            if (appWindow.label === 'translator' || appWindow.label === 'popclip' || appWindow.label === 'persistent') {
+                const psize = await appWindow.innerSize();
+                const factor = await appWindow.scaleFactor();
+                const lsize = psize.toLogical(factor);
+                await set('window_height', parseInt(lsize.height));
+                await set('window_width', parseInt(lsize.width));
+            }
+            消抖;
+        }, 1000);
     }
 });
 

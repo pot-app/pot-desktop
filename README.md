@@ -2,7 +2,7 @@
 
 # Pot (Translator of Pylogmon)
 
-> 🌈 A cross-platform software for text translation
+> 🌈 A cross-platform software for text translation ([Telegram Group](https://t.me/pot_app))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
@@ -58,7 +58,7 @@
 -   [x] OpenAI API support
 -   [x] Multi-API support ([Support Apis](#support-apis))
 -   [x] Multi-language support
--   [x] Import to Anki/Eudic (or add more)
+-   [x] Export to Anki/Eudic (or add more)
 -   [x] Available on all PC platforms (Windows, macOS, and Linux)
 -   [x] Good Wayland support (Test on KDE and Gnome)
 -   [ ] Screenshot translate
@@ -75,7 +75,9 @@
 -   [x] [Baidu](https://fanyi.baidu.com/)
 -   [x] [Caiyun](https://fanyi.caiyunapp.com/)
 -   [x] [Tencent](https://fanyi.qq.com/)
+-   [x] [TranSmart](https://transmart.qq.com/)
 -   [x] [Volcengine](https://translate.volcengine.com/)
+-   [x] [Xiaoniu](https://niutrans.com/)
 -   [x] [Lingva](https://lingva.ml/)
 -   [x] [Google](https://translate.google.com)
 -   [x] [Bing](https://learn.microsoft.com/zh-cn/azure/cognitive-services/translator/)

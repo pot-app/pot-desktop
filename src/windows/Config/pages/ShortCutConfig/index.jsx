@@ -164,35 +164,14 @@ export default function ShortCutConfig() {
                     }}
                 />
             </ConfigItem>
-            <ConfigItem label='OCR'>
+            {/* <ConfigItem label="OCR">
                 <TextField
-                    size='small'
-                    disabled={isWayland}
-                    sx={{ width: '300px' }}
+                    fullWidth
                     value={shortcutOcr}
-                    onKeyDown={(e) => {
-                        keyDown(e, set);
-                    }}
-                    onFocus={() => {
-                        setShortcutOcr('');
-                    }}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <Button
-                                    size='small'
-                                    variant='outlined'
-                                    onClick={async () => {
-                                        await set('shortcut_ocr', shortcutOcr);
-                                    }}
-                                >
-                                    确认
-                                </Button>
-                            </InputAdornment>
-                        ),
-                    }}
+                    onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
+                    onFocus={() => { setShortcutOcr('') }}
                 />
-            </ConfigItem>
+            </ConfigItem> */}
             <p>
                 {t('config.shortcut.pluginmsg')}
                 <a

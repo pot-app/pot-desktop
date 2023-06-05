@@ -1,25 +1,15 @@
-## 0.5.0 (2023-06-01)
-
-### BREAK:
-
--   本次更新有语言代码变动，手动设置一次目标语言即可正常使用。
+## 0.5.1 (2023-06-04)
 
 ### New feature:
 
--   添加应用多语言支持 (#177)([`05d5c55`](https://github.com/pot-app/pot-desktop/commit/05d5c5576f06784b82d25c885325cbe06792ffa4)) (by 派了个萌)
+-   Add Youdao translate (#180)([`3bd240c`](https://github.com/pot-app/pot-desktop/commit/3bd240cdfb70fabf25eb9d50d0ddf6368167de12)) (by @Pylogmon)
+-   Traditional Chinese support (#179)([`24f801f`](https://github.com/pot-app/pot-desktop/commit/24f801fa959e7e7b585720055288c0b25a930d37)) (by @bestpika)
 
 ### Bugs fixed:
 
--   多屏幕窗口边界问题 (#176)([`5109b84`](https://github.com/pot-app/pot-desktop/commit/5109b843e1162d52ba4ad06e549ac6ceb4a4ef38)) (by AlphaBoom)
--   修复部分情况下自动删除换行无效([`bd3bd5b`](https://github.com/pot-app/pot-desktop/commit/bd3bd5be13889e37cfe4638db68e365800d34ec6)) (by 派了个萌)
+-   Fix missing language in DeepL (#183)([`1ef997b`](https://github.com/pot-app/pot-desktop/commit/1ef997b152bf73c305c24e920b9505441f301116)) (by @Pylogmon)
 
----
+### Performance improves:
 
-### New feature:
-
--   Add multi-language support for the application. (#177)([`05d5c55`](https://github.com/pot-app/pot-desktop/commit/05d5c5576f06784b82d25c885325cbe06792ffa4)) (by 派了个萌)
-
-### Bugs fixed:
-
--   Multi-screen window boundary issues (#176)([`5109b84`](https://github.com/pot-app/pot-desktop/commit/5109b843e1162d52ba4ad06e549ac6ceb4a4ef38)) (by AlphaBoom)
--   Fixed some cases of automatic deletion of line breaks invalid ([`bd3bd5b`](https://github.com/pot-app/pot-desktop/commit/bd3bd5be13889e37cfe4638db68e365800d34ec6)) (by 派了个萌)
+-   Optimize Windows get selection text([`069da6d`](https://github.com/pot-app/pot-desktop/commit/069da6d97aaa37a23ed6cbad12213baf3e21ca76)) (by @Pylogmon)
+-   Debounce for resize event([`06a11de`](https://github.com/pot-app/pot-desktop/commit/06a11de12ac0a644beedfbf93c3e1d9531493ad7)) (by @Pylogmon)

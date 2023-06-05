@@ -17,8 +17,7 @@ serde_json = "1.0"
 tauri = { version = "1.3", features = ["clipboard-all", "dialog-open", "fs-read-file", "global-shortcut-all", "http-all", "notification", "notification-all", "shell-open", "system-tray", "updater", "window-all"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
-reqwest = { version = "0.11", features = ["blocking", "json"] }
-enigo = {git = "https://github.com/enigo-rs/enigo"}
+selection = {git = "https://github.com/pot-app/Selection"}
 tiny_http = "0.12.0"
 once_cell = "1.17.1"
 toml = "0.7.3"
@@ -29,18 +28,14 @@ dunce = "1.0.4"
 [target.'cfg(windows)'.dependencies]
 windows = {version="0.44.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Foundation"] }
 window-shadows = "0.2"
-arboard = "3.2.0"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 window-shadows = "0.2"
 core-graphics = "0.22.3"
-arboard = "3.2.0"
 macos-accessibility-client = "0.0.1"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 mouse_position = "0.1.3"
-x11-clipboard = "0.7.1"
-wl-clipboard-rs = "0.7.0"
 
 [features]
 # by default Tauri runs in production mode
