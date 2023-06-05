@@ -63,7 +63,6 @@ listen('tauri://resize', async () => {
                 await set('window_height', parseInt(lsize.height));
                 await set('window_width', parseInt(lsize.width));
             }
-            消抖;
         }, 1000);
     }
 });
