@@ -90,6 +90,7 @@
                 "title": "HotKey Settings",
                 "translate": "Selection Translate",
                 "persistent": "Persistent Translation Window",
+                "screenshot": "Screenshot OCR",
                 "wayland": "Wayland can not use in-app shortcuts, please set through the system shortcuts, see the official website for details",
                 "plugin": "Plugin Invocation",
                 "pluginmsg": "Looking for a smoother translation experience? Please refer to "

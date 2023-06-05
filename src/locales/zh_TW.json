@@ -90,6 +90,7 @@
                 "title": "快捷鍵設定",
                 "translate": "划詞翻譯",
                 "persistent": "獨立翻譯視窗",
+                "screenshot": "截图 OCR",
                 "wayland": "Wayland 暫不支援程式內設定的快捷鍵，請透過系統設定全域快捷鍵。詳情請參考官網文件。",
                 "plugin": "外掛調用",
                 "pluginmsg": "想要更流暢的翻譯體驗？請查閱："

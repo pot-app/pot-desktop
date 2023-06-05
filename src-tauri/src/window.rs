@@ -112,6 +112,23 @@ pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
     Ok(window)
 }
 
+pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
+    let window = tauri::WindowBuilder::new(
+        handle,
+        "screenshot",
+        tauri::WindowUrl::App("index.html".into()),
+    )
+    .resizable(false)
+    .focused(true)
+    // .always_on_top(true)
+    .fullscreen(true)
+    .title("Screenshot")
+    .visible(false)
+    .build()
+    .unwrap();
+    Ok(window)
+}
+
 // 获取默认窗口大小
 fn get_window_size() -> (f64, f64) {
     let width: f64 = get_config("window_width", Value::from(400), APP.get().unwrap().state())
@@ -267,7 +284,6 @@ pub fn popclip_window(text: String) {
 }
 
 // OCR
-#[allow(dead_code)]
 pub fn ocr_window() {
     let handle = APP.get().unwrap();
 
@@ -277,6 +293,20 @@ pub fn ocr_window() {
         }
         None => {
             let _main_window = build_ocr_window(handle).unwrap();
+        }
+    };
+}
+
+// Screenshot
+pub fn screenshot_window() {
+    let handle = APP.get().unwrap();
+
+    match handle.get_window("screenshot") {
+        Some(window) => {
+            window.close().unwrap();
+        }
+        None => {
+            let _main_window = build_screenshot_window(handle).unwrap();
         }
     };
 }

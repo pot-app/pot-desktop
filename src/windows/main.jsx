@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { readConfig } from '../global/config';
+import Screenshot from './Screenshot';
 import Translator from './Translator';
 import Config from './Config';
 import Ocr from './Ocr';
@@ -16,9 +17,11 @@ const windowRouter = {
     popclip: <Translator />,
     config: <Config />,
     ocr: <Ocr />,
+    screenshot: <Screenshot />,
     util: (
         <>
             <Translator />
+            <Screenshot />
             <Config />
             <Ocr />
         </>
@@ -34,9 +37,9 @@ export function get(key) {
     return config[key];
 }
 
-// document.addEventListener('contextmenu', (e) => {
-//     e.preventDefault();
-// });
+document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+});
 document.addEventListener('keydown', async (e) => {
     let allowKeys = ['c', 'v', 'x', 'a'];
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {

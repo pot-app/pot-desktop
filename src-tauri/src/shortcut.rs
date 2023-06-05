@@ -1,5 +1,5 @@
 use crate::config::get_config;
-use crate::window::ocr_window;
+use crate::window::screenshot_window;
 use crate::window::{persistent_window, translate_window};
 use crate::APP;
 use tauri::{AppHandle, GlobalShortcutManager, Manager};
@@ -40,12 +40,16 @@ fn register_persistent(handle: &AppHandle) -> Result<(), String> {
     }
     Ok(())
 }
-fn register_ocr(handle: &AppHandle) -> Result<(), String> {
-    let shortcut_ocr = get_config("shortcut_ocr", Value::from(""), APP.get().unwrap().state());
-    if shortcut_ocr.as_str().unwrap() != "" {
+fn register_screenshot(handle: &AppHandle) -> Result<(), String> {
+    let shortcut_screenshot = get_config(
+        "shortcut_screenshot",
+        Value::from(""),
+        APP.get().unwrap().state(),
+    );
+    if shortcut_screenshot.as_str().unwrap() != "" {
         match handle
             .global_shortcut_manager()
-            .register(shortcut_ocr.as_str().unwrap(), ocr_window)
+            .register(shortcut_screenshot.as_str().unwrap(), screenshot_window)
         {
             Ok(()) => {}
             Err(e) => return Err(e.to_string()),
@@ -63,11 +67,11 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
     match shortcut {
         "shortcut_translate" => register_translate(handle)?,
         "shortcut_persistent" => register_persistent(handle)?,
-        "shortcut_ocr" => register_ocr(handle)?,
+        "shortcut_ocr" => register_screenshot(handle)?,
         "all" => {
             register_translate(handle)?;
             register_persistent(handle)?;
-            register_ocr(handle)?;
+            register_screenshot(handle)?;
         }
         _ => {}
     }

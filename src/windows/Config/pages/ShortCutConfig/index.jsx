@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
-import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutOcrAtom } from '../..';
+import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutScreenshotAtom } from '../..';
 import ConfigItem from '../../components/ConfigItem';
 import ConfigList from '../../components/ConfigList';
 import { set } from '../../../../global/config';
@@ -44,7 +44,7 @@ const keyMap = {
 export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
-    const [shortcutOcr, setShortcutOcr] = useAtom(shortcutOcrAtom);
+    const [shortcutScreenshot, setShortcutScreenshot] = useAtom(shortcutScreenshotAtom);
     const [isMacos, setIsMacos] = useState(false);
     const [isWayland, setIsWayland] = useState(false);
 
@@ -164,14 +164,38 @@ export default function ShortCutConfig() {
                     }}
                 />
             </ConfigItem>
-            {/* <ConfigItem label="OCR">
+            <ConfigItem
+                label={t('config.shortcut.screenshot')}
+                help={isWayland && t('config.shortcut.wayland')}
+            >
                 <TextField
-                    fullWidth
-                    value={shortcutOcr}
-                    onKeyDown={(e) => { keyDown(e, shortcutOcr, setShortcutOcr) }}
-                    onFocus={() => { setShortcutOcr('') }}
+                    size='small'
+                    disabled={isWayland}
+                    sx={{ width: '300px' }}
+                    value={shortcutScreenshot}
+                    onKeyDown={(e) => {
+                        keyDown(e, setShortcutScreenshot);
+                    }}
+                    onFocus={() => {
+                        setShortcutScreenshot('');
+                    }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button
+                                    size='small'
+                                    variant='outlined'
+                                    onClick={async () => {
+                                        await set('shortcut_screenshot', shortcutScreenshot);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-            </ConfigItem> */}
+            </ConfigItem>
             <p>
                 {t('config.shortcut.pluginmsg')}
                 <a

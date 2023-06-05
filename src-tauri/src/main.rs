@@ -190,6 +190,8 @@ fn main() {
             is_macos,
             is_linux,
             is_wayland,
+            screenshot,
+            print
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {
