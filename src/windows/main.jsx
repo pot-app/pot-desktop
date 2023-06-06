@@ -18,14 +18,7 @@ const windowRouter = {
     config: <Config />,
     ocr: <Ocr />,
     screenshot: <Screenshot />,
-    util: (
-        <>
-            <Translator />
-            <Screenshot />
-            <Config />
-            <Ocr />
-        </>
-    ),
+    util: <></>,
 };
 
 const configStore = createStore();

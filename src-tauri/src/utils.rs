@@ -32,6 +32,7 @@ pub fn screenshot(x: i32, y: i32) {
     use dirs::cache_dir;
     use screenshots::Screen;
     use std::fs;
+
     let screens = Screen::all().unwrap();
     for screen in screens {
         let info = screen.display_info;
@@ -47,6 +48,22 @@ pub fn screenshot(x: i32, y: i32) {
             break;
         }
     }
+}
+
+#[tauri::command]
+pub fn cut_screenshot(left: u32, top: u32, right: u32, bottom: u32, app_handle: tauri::AppHandle) {
+    use dirs::cache_dir;
+    use image::GenericImage;
+
+    let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
+    app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
+    app_cache_dir_path.push("pot_screenshot.png");
+
+    let mut img = image::open(&app_cache_dir_path).unwrap();
+    let img2 = img.sub_image(left, top, right - left, bottom - top);
+    app_cache_dir_path.pop();
+    app_cache_dir_path.push("pot_screenshot_cut.png");
+    img2.to_image().save(&app_cache_dir_path).unwrap();
 }
 
 #[tauri::command]

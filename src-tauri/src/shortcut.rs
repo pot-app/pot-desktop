@@ -67,7 +67,7 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
     match shortcut {
         "shortcut_translate" => register_translate(handle)?,
         "shortcut_persistent" => register_persistent(handle)?,
-        "shortcut_ocr" => register_screenshot(handle)?,
+        "shortcut_screenshot" => register_screenshot(handle)?,
         "all" => {
             register_translate(handle)?;
             register_persistent(handle)?;
