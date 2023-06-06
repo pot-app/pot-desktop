@@ -37,6 +37,7 @@ export async function ocr(imgurl, lang) {
     }
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
         // langPath: '',
+        workerPath: 'https://cdn.bootcdn.net/ajax/libs/tesseract.js/4.0.3/worker.min.js',
         logger: m => console.log(m)
     })
     return text;

@@ -90,8 +90,8 @@
             }
         },
         "security": {
-            "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'",
-            "devCsp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'"
+            "csp": "default-src *; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
+            "devCsp": "default-src *; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
         },
         "updater": {
             "active": true,
