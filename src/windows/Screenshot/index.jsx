@@ -22,10 +22,6 @@ export default function Screenshot() {
                 appCacheDir().then((appCacheDirPath) => {
                     join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
                         setImgurl(convertFileSrc(filePath));
-                        if (appWindow.label === 'screenshot') {
-                            void appWindow.show();
-                            void appWindow.setFocus();
-                        }
                     });
                 });
             });
@@ -33,6 +29,16 @@ export default function Screenshot() {
     }, []);
     return (
         <>
+            <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: '#000000',
+                }}
+            />
             <img
                 style={{
                     position: 'fixed',
@@ -41,6 +47,14 @@ export default function Screenshot() {
                     width: '100%',
                 }}
                 src={imgurl}
+                onLoad={() => {
+                    if (appWindow.label === 'screenshot' && imgurl !== '') {
+                        setTimeout(() => {
+                            void appWindow.show();
+                            void appWindow.setFocus();
+                        }, 50);
+                    }
+                }}
             />
             <div
                 style={{

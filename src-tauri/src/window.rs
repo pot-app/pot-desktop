@@ -121,6 +121,7 @@ pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
     )
     .resizable(false)
     .focused(true)
+    .decorations(false)
     .always_on_top(true)
     .title("Screenshot")
     .skip_taskbar(true)
