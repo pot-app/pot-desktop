@@ -76,6 +76,12 @@
                 "inputoutput": "原文+译文",
                 "close": "关闭"
             },
+            "ocr": {
+                "title": "OCR 设置",
+                "label": "OCR 设置",
+                "interface": "默认接口",
+                "language": "默认语言"
+            },
             "external": {
                 "label": "外联设置",
                 "title": "外联设置",
@@ -94,6 +100,9 @@
                 "wayland": "Wayland暂不支持应用内设置快捷键，请通过系统设置全局快捷键，详情见官网文档",
                 "plugin": "插件调用",
                 "pluginmsg": "想要更流畅的翻译体验？请查看 "
+            },
+            "ocr_interface": {
+                "tesseract": "Tesseract"
             },
             "interface": {
                 "label": "接口设置",
@@ -193,6 +202,11 @@
                 "addtoeudic": "添加到欧路词典",
                 "addedtoeudic": "已添加到欧路词典"
             }
+        },
+        "ocr": {
+            "recognize": "重新识别",
+            "translate": "翻译",
+            "placehold": "首次使用需要下载训练集，请耐心等待，如下载失败，请检查网络环境"
         }
     }
 }

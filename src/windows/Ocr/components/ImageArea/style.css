@@ -1,17 +1,9 @@
 .image-content {
-    height: calc(100% - 30px);
+    height: 100%;
 }
 
 .image {
     height: 100%;
     width: 100%;
     object-fit: contain;
-}
-
-.image-control {
-    height: 30px;
-}
-
-.control-button {
-    padding: 0;
 }

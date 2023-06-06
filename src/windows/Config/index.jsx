@@ -12,7 +12,6 @@ import { light, dark } from '../themes';
 import routes from './routes';
 import { get } from '../main';
 import './style.css';
-import { use } from 'i18next';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
@@ -44,6 +43,8 @@ export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
 export const shortcutScreenshotAtom = atom('');
 export const fontSizeAtom = atom('1rem');
+export const ocrInterfaceAtom = atom('tesseract');
+export const ocrLanguageAtom = atom('en');
 
 export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
@@ -75,6 +76,8 @@ export default function Config() {
     const setEudicCategoryName = useSetAtom(eudicCategoryNameAtom);
     const setEudicToken = useSetAtom(eudicTokenAtom);
     const setFontSize = useSetAtom(fontSizeAtom);
+    const setOcrInterface = useSetAtom(ocrInterfaceAtom);
+    const setOcrLanguage = useSetAtom(ocrLanguageAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     const { i18n } = useTranslation();
@@ -124,6 +127,8 @@ export default function Config() {
         setTheme(get('theme') ?? 'auto');
         setOpenaiService(get('openai_service') ?? 'openai');
         setFontSize(get('font_size') ?? '1rem');
+        setOcrInterface(get('ocr_interface') ?? 'tesseract');
+        setOcrLanguage(get('ocr_language') ?? 'en');
 
         let interface_configs = {};
 

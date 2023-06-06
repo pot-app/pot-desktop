@@ -5,6 +5,7 @@ import AppConfig from '../pages/AppConfig';
 import AppInfo from '../pages/AppInfo';
 import TranslateConfig from '../pages/TranslateConfig';
 import ExternalConfig from '../pages/ExternalConfig';
+import OcrConfig from '../pages/OcrConfig';
 
 const routes = [
     {
@@ -14,6 +15,10 @@ const routes = [
     {
         path: '/translate',
         element: <TranslateConfig />,
+    },
+    {
+        path: '/ocr',
+        element: <OcrConfig />,
     },
     {
         path: '/external',

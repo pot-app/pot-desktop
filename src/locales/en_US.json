@@ -76,6 +76,12 @@
                 "inputoutput": "Source & Translated Text",
                 "close": "Disable"
             },
+            "ocr": {
+                "title": "OCR Settings",
+                "label": "OCR",
+                "interface": "Default OCR Interface",
+                "language": "Default OCR Language"
+            },
             "external": {
                 "label": "External",
                 "title": "External Settings",
@@ -94,6 +100,9 @@
                 "wayland": "Wayland can not use in-app shortcuts, please set through the system shortcuts, see the official website for details",
                 "plugin": "Plugin Invocation",
                 "pluginmsg": "Looking for a smoother translation experience? Please refer to "
+            },
+            "ocr_interface": {
+                "tesseract": "Tesseract"
             },
             "interface": {
                 "label": "Interface",
@@ -193,6 +202,11 @@
                 "addtoeudic": "Add to Eudic",
                 "addedtoeudic": "Added to Eudic"
             }
+        },
+        "ocr": {
+            "recognize": "Recognize",
+            "translate": "Translate",
+            "placehold": "The training set needs to be downloaded for the first use, please wait patiently, if the download failed, please check your network"
         }
     }
 }

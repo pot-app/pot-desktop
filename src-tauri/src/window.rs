@@ -313,7 +313,10 @@ pub fn ocr_window() {
             window.set_focus().unwrap();
         }
         None => {
-            let _main_window = build_ocr_window(handle).unwrap();
+            let window = build_ocr_window(handle).unwrap();
+            window.listen("translate_from_ocr", |e| {
+                popclip_window(e.payload().unwrap().to_string())
+            });
         }
     };
 }
