@@ -1,15 +1,12 @@
-## 0.5.1 (2023-06-04)
+## 1.0.0 (2023-06-06)
 
 ### New feature:
 
--   Add Youdao translate (#180)([`3bd240c`](https://github.com/pot-app/pot-desktop/commit/3bd240cdfb70fabf25eb9d50d0ddf6368167de12)) (by @Pylogmon)
--   Traditional Chinese support (#179)([`24f801f`](https://github.com/pot-app/pot-desktop/commit/24f801fa959e7e7b585720055288c0b25a930d37)) (by @bestpika)
+-   Add Screenshot and OCR (#187)([`a074e7c`](https://github.com/pot-app/pot-desktop/commit/a074e7c031a66c549156454b22d4ef5217f3892c)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Fix missing language in DeepL (#183)([`1ef997b`](https://github.com/pot-app/pot-desktop/commit/1ef997b152bf73c305c24e920b9505441f301116)) (by @Pylogmon)
-
-### Performance improves:
-
--   Optimize Windows get selection text([`069da6d`](https://github.com/pot-app/pot-desktop/commit/069da6d97aaa37a23ed6cbad12213baf3e21ca76)) (by @Pylogmon)
--   Debounce for resize event([`06a11de`](https://github.com/pot-app/pot-desktop/commit/06a11de12ac0a644beedfbf93c3e1d9531493ad7)) (by @Pylogmon)
+-   Flashing when screenshot([`5cb3d2f`](https://github.com/pot-app/pot-desktop/commit/5cb3d2fac11a6f4e7d238295fcdb989cefd617cc)) (by @Pylogmon)
+-   Csp error([`caeac9a`](https://github.com/pot-app/pot-desktop/commit/caeac9a3f48ec823f8da15b96d267ce7ae981187)) (by @Pylogmon)
+-   Button overlap([`e8ecf6d`](https://github.com/pot-app/pot-desktop/commit/e8ecf6dcb8d5765f89fb1611dae9309c6580e25f)) (by @Pylogmon)
+-   Typo (#184)([`620f1c9`](https://github.com/pot-app/pot-desktop/commit/620f1c93a47b6ed0ae96af2c7ca69f4c1814a850)) (by @bestpika)
