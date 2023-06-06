@@ -190,15 +190,18 @@ fn main() {
             is_macos,
             is_linux,
             is_wayland,
+            screenshot,
+            cut_screenshot,
+            print
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::LeftClick { .. } => on_tray_click(app),
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-                PERSISTENT_WINDOW => on_persistent_click(app),
+                PERSISTENT_WINDOW => on_persistent_click(),
                 CONFIG_TRAY_ITEM => on_config_click(app),
                 QUIT_TRAY_ITEM => on_quit_click(),
-                OCR_WINDOW => on_ocr_click(app),
+                OCR_WINDOW => on_ocr_click(),
                 COPY_SOURCE => on_auto_copy_click(app, 1),
                 COPY_TARGET => on_auto_copy_click(app, 2),
                 COPY_SOURCE_TARGET => on_auto_copy_click(app, 3),

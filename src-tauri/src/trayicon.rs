@@ -1,5 +1,5 @@
 use crate::config::{get_config, set_config, write_config};
-use crate::window::{build_ocr_window, build_translate_window, ocr_window, persistent_window};
+use crate::window::{persistent_window, screenshot_window};
 use crate::APP;
 use tauri::api::notification::Notification;
 use tauri::{
@@ -20,7 +20,7 @@ pub const COPY_CLOSE: &str = "copy_close";
 // 创建托盘菜单
 pub fn build_system_tray() -> SystemTray {
     let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻译");
-    // let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "OCR");
+    let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "截图OCR");
     let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
     let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
 
@@ -38,8 +38,8 @@ pub fn build_system_tray() -> SystemTray {
                 .add_native_item(SystemTrayMenuItem::Separator)
                 .add_item(CustomMenuItem::new(COPY_CLOSE.to_string(), "关闭")),
         ))
-        // .add_native_item(SystemTrayMenuItem::Separator)
-        // .add_item(ocr)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(ocr)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(quit);
@@ -47,15 +47,8 @@ pub fn build_system_tray() -> SystemTray {
 }
 
 // 启动独立翻译窗口
-pub fn on_persistent_click(app: &AppHandle) {
-    match app.get_window("persistent") {
-        Some(window) => {
-            window.set_focus().unwrap();
-        }
-        None => {
-            let _window = build_translate_window("persistent", "Persistent", app).unwrap();
-        }
-    }
+pub fn on_persistent_click() {
+    persistent_window();
 }
 
 fn on_window_close(event: &WindowEvent) {
@@ -77,7 +70,7 @@ pub fn on_tray_click(app: &AppHandle) {
     match label.as_str() {
         Some("config") => on_config_click(app),
         Some("persistent") => persistent_window(),
-        Some("ocr") => ocr_window(),
+        Some("screenshot") => screenshot_window(),
         Some(_) => {}
         None => {}
     }
@@ -108,15 +101,8 @@ pub fn on_config_click(app: &AppHandle) {
     }
 }
 
-pub fn on_ocr_click(app: &AppHandle) {
-    match app.get_window("ocr") {
-        Some(window) => {
-            window.close().unwrap();
-        }
-        None => {
-            let _window = build_ocr_window(app).unwrap();
-        }
-    }
+pub fn on_ocr_click() {
+    screenshot_window();
 }
 // 退出程序
 pub fn on_quit_click() {

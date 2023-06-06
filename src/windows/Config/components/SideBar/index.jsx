@@ -4,6 +4,7 @@ import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import KeyboardRoundedIcon from '@mui/icons-material/KeyboardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import FlipRoundedIcon from '@mui/icons-material/FlipRounded';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, Button } from '@mui/material';
@@ -43,6 +44,17 @@ export default function SideBar() {
                 }}
             >
                 <Box sx={{ width: '100%' }}>{t('config.translate.label')}</Box>
+            </Button>
+            <Button
+                fullWidth
+                size='large'
+                variant={setStyle('/ocr')}
+                startIcon={<FlipRoundedIcon />}
+                onClick={() => {
+                    navigate('/ocr');
+                }}
+            >
+                <Box sx={{ width: '100%' }}>{t('config.ocr.label')}</Box>
             </Button>
             <Button
                 fullWidth

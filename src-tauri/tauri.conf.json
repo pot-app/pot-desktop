@@ -32,9 +32,16 @@
             "dialog": {
                 "open": true
             },
+            "path": {
+                "all": true
+            },
             "fs": {
                 "readFile": true,
-                "scope": ["*"]
+                "scope": ["**"]
+            },
+            "protocol": {
+                "asset": true,
+                "assetScope": ["$CACHE/**"]
             },
             "http": {
                 "all": true,
@@ -83,7 +90,8 @@
             }
         },
         "security": {
-            "csp": null
+            "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'",
+            "devCsp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'"
         },
         "updater": {
             "active": true,

@@ -106,8 +106,50 @@ pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
             .center()
             .focused(true)
             .title("OCR")
+            .visible(false)
             .build()
             .unwrap();
+    Ok(window)
+}
+
+pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
+    let (x, y) = get_mouse_location().unwrap();
+    let window = tauri::WindowBuilder::new(
+        handle,
+        "screenshot",
+        tauri::WindowUrl::App("index.html".into()),
+    )
+    .resizable(false)
+    .focused(true)
+    .always_on_top(true)
+    .title("Screenshot")
+    .skip_taskbar(true)
+    .visible(false)
+    .build()
+    .unwrap();
+    // 移动窗口到鼠标所在显示器上
+    #[cfg(target_os = "macos")]
+    window
+        .set_position(tauri::LogicalPosition::new(x, y))
+        .unwrap();
+    #[cfg(not(target_os = "macos"))]
+    window
+        .set_position(tauri::PhysicalPosition::new(x, y))
+        .unwrap();
+    let monitor = window.current_monitor().unwrap().unwrap();
+    let monitor_size = monitor.size();
+    window.set_size(*monitor_size).unwrap();
+    // 窗口移动到对应显示器后再显式设置一次窗口位置，确保获取到正确的dpi
+    #[cfg(target_os = "macos")]
+    window
+        .set_position(tauri::LogicalPosition::new(x, y))
+        .unwrap();
+    #[cfg(not(target_os = "macos"))]
+    window
+        .set_position(tauri::PhysicalPosition::new(x, y))
+        .unwrap();
+    window.center().unwrap();
+    window.set_fullscreen(true).unwrap();
     Ok(window)
 }
 
@@ -266,18 +308,32 @@ pub fn popclip_window(text: String) {
 }
 
 // OCR
-#[allow(dead_code)]
 pub fn ocr_window() {
     let handle = APP.get().unwrap();
-
-    // 读取剪切板图片
-
     match handle.get_window("ocr") {
+        Some(window) => {
+            window.set_focus().unwrap();
+        }
+        None => {
+            let window = build_ocr_window(handle).unwrap();
+            window.listen("translate_from_ocr", |e| {
+                popclip_window(e.payload().unwrap().to_string())
+            });
+        }
+    };
+}
+
+// Screenshot
+pub fn screenshot_window() {
+    let handle = APP.get().unwrap();
+
+    match handle.get_window("screenshot") {
         Some(window) => {
             window.close().unwrap();
         }
         None => {
-            let _main_window = build_ocr_window(handle).unwrap();
+            let window = build_screenshot_window(handle).unwrap();
+            window.listen("ocr", |_| ocr_window());
         }
     };
 }

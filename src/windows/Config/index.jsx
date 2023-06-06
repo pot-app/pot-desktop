@@ -42,13 +42,15 @@ export const openaiServiceAtom = atom('openai');
 export const interfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
-export const shortcutOcrAtom = atom('');
+export const shortcutScreenshotAtom = atom('');
 export const fontSizeAtom = atom('1rem');
+export const ocrInterfaceAtom = atom('tesseract');
+export const ocrLanguageAtom = atom('en');
 
 export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
     const setShortcutPersistent = useSetAtom(shortcutPersistentAtom);
-    const setShortcutOcr = useSetAtom(shortcutOcrAtom);
+    const setShortcutScreenshot = useSetAtom(shortcutScreenshotAtom);
     const setOpenaiService = useSetAtom(openaiServiceAtom);
     const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
     const setAutoStart = useSetAtom(autoStartAtom);
@@ -75,6 +77,8 @@ export default function Config() {
     const setEudicCategoryName = useSetAtom(eudicCategoryNameAtom);
     const setEudicToken = useSetAtom(eudicTokenAtom);
     const setFontSize = useSetAtom(fontSizeAtom);
+    const setOcrInterface = useSetAtom(ocrInterfaceAtom);
+    const setOcrLanguage = useSetAtom(ocrLanguageAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     const { i18n } = useTranslation();
@@ -97,7 +101,7 @@ export default function Config() {
 
         setShortcutTranslate(get('shortcut_translate') ?? '');
         setShortcutPersistent(get('shortcut_persistent') ?? '');
-        setShortcutOcr(get('shortcut_ocr') ?? '');
+        setShortcutScreenshot(get('shortcut_screenshot') ?? '');
         setAutoStart(get('auto_start') ?? false);
         setAutoCheck(get('auto_check') ?? true);
         setDefaultPined(get('default_pined') ?? true);
@@ -124,6 +128,8 @@ export default function Config() {
         setTheme(get('theme') ?? 'auto');
         setOpenaiService(get('openai_service') ?? 'openai');
         setFontSize(get('font_size') ?? '1rem');
+        setOcrInterface(get('ocr_interface') ?? 'tesseract');
+        setOcrLanguage(get('ocr_language') ?? 'en');
 
         let interface_configs = {};
 
