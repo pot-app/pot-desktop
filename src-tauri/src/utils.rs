@@ -63,7 +63,12 @@ pub fn cut_screenshot(left: u32, top: u32, right: u32, bottom: u32, app_handle: 
     let img2 = img.sub_image(left, top, right - left, bottom - top);
     app_cache_dir_path.pop();
     app_cache_dir_path.push("pot_screenshot_cut.png");
-    img2.to_image().save(&app_cache_dir_path).unwrap();
+    match img2.to_image().save(&app_cache_dir_path) {
+        Ok(_) => {}
+        Err(e) => {
+            println!("{}", e.to_string());
+        }
+    }
 }
 
 #[tauri::command]
