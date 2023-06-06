@@ -95,7 +95,8 @@ export default function Screenshot() {
                     setIsDown(false);
                     setIsMoved(false);
                     const monitor = await currentMonitor();
-                    const dpi = monitor.scaleFactor;
+                    const dpi = monitor.size.width / screen.width;
+                    // const dpi = monitor.scaleFactor; //这是系统的dpi，不一定是网页内容的dpi
                     const left = Math.floor(Math.min(mouseDownX, e.clientX) * dpi);
                     const top = Math.floor(Math.min(mouseDownY, e.clientY) * dpi);
                     const right = Math.floor(Math.max(mouseDownX, e.clientX) * dpi);
