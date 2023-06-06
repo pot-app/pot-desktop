@@ -136,7 +136,9 @@ pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
     window
         .set_position(tauri::PhysicalPosition::new(x, y))
         .unwrap();
-    let _ = window.current_monitor().unwrap().unwrap();
+    let monitor = window.current_monitor().unwrap().unwrap();
+    let monitor_size = monitor.size();
+    window.set_size(*monitor_size).unwrap();
     // 窗口移动到对应显示器后再显式设置一次窗口位置，确保获取到正确的dpi
     #[cfg(target_os = "macos")]
     window

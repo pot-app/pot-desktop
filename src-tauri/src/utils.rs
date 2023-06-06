@@ -40,6 +40,10 @@ pub fn screenshot(x: i32, y: i32) {
             let handle = APP.get().unwrap();
             let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
             app_cache_dir_path.push(&handle.config().tauri.bundle.identifier);
+            if !app_cache_dir_path.exists() {
+                // 创建目录
+                fs::create_dir_all(&app_cache_dir_path).expect("Create Cache Dir Failed");
+            }
             app_cache_dir_path.push("pot_screenshot.png");
 
             let image = screen.capture().unwrap();
@@ -54,7 +58,6 @@ pub fn screenshot(x: i32, y: i32) {
 pub fn cut_screenshot(left: u32, top: u32, right: u32, bottom: u32, app_handle: tauri::AppHandle) {
     use dirs::cache_dir;
     use image::GenericImage;
-
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot.png");
