@@ -12,6 +12,7 @@ import { light, dark } from '../themes';
 import routes from './routes';
 import { get } from '../main';
 import './style.css';
+import { use } from 'i18next';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
