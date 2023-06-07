@@ -47,6 +47,7 @@ export default function Screenshot() {
                     width: '100%',
                 }}
                 src={imgurl}
+                draggable={false}
                 onLoad={() => {
                     if (appWindow.label === 'screenshot' && imgurl !== '') {
                         setTimeout(() => {

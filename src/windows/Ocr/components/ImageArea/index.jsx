@@ -29,6 +29,7 @@ export default function ImageArea() {
                 {imgUrl ? (
                     <img
                         className='image'
+                        draggable={false}
                         src={imgUrl}
                     />
                 ) : (
