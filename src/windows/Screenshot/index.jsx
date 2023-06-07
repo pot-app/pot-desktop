@@ -64,7 +64,7 @@ export default function Screenshot() {
                     bottom: screen.height - Math.max(mouseDownY, mouseMoveY),
                     right: screen.width - Math.max(mouseDownX, mouseMoveX),
                     backgroundColor: '#ffffff20',
-                    border: '1px solid #ffffff',
+                    border: '1px solid #2080f0',
                     display: !isMoved && 'none',
                 }}
             />
@@ -75,7 +75,7 @@ export default function Screenshot() {
                     left: 0,
                     bottom: 0,
                     right: 0,
-                    backgroundColor: '#ffffff00',
+                    backgroundColor: '#00000020',
                     cursor: 'crosshair',
                 }}
                 onMouseDown={(e) => {
