@@ -1,6 +1,7 @@
 use crate::config::get_config;
 use crate::StringWrapper;
 use crate::APP;
+use tauri::Monitor;
 use tauri::{AppHandle, Manager, Window};
 use toml::Value;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -99,58 +100,76 @@ pub fn build_translate_window(
 }
 
 pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
+    let (x, y) = get_mouse_location().unwrap();
+    let util_window = handle.get_window("util").unwrap();
+    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
+    let physical_position = current_monitor.position();
     let window =
         tauri::WindowBuilder::new(handle, "ocr", tauri::WindowUrl::App("index.html".into()))
             .inner_size(800.0, 400.0)
             .min_inner_size(600.0, 400.0)
-            .center()
             .focused(true)
             .title("OCR")
             .visible(false)
             .build()
             .unwrap();
+    window.set_position(*physical_position).unwrap();
+    window.center().unwrap();
     Ok(window)
+}
+
+fn get_current_monitor(x: f64, y: f64, util: Window) -> Result<Monitor, ()> {
+    let monitors = util.available_monitors().unwrap();
+    for m in monitors {
+        let size = m.size();
+        let position = m.position();
+
+        #[cfg(target_os = "macos")]
+        let position = {
+            let dpi = m.scale_factor();
+            let position: tauri::LogicalPosition<f64> = position.to_logical(dpi);
+            position
+        };
+        #[cfg(target_os = "macos")]
+        let size = {
+            let dpi = m.scale_factor();
+            let size: tauri::LogicalSize<f64> = size.to_logical(dpi);
+            size
+        };
+
+        if x >= position.x as f64 && x <= (position.x as f64 + size.width as f64) {
+            if y >= position.y as f64 && y <= (position.y as f64 + size.height as f64) {
+                return Ok(m);
+            }
+        }
+    }
+    Err(())
 }
 
 pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
     let (x, y) = get_mouse_location().unwrap();
+    let util_window = handle.get_window("util").unwrap();
+    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
+    let dpi = current_monitor.scale_factor();
+    let physical_position = current_monitor.position();
+    let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
     let window = tauri::WindowBuilder::new(
         handle,
         "screenshot",
         tauri::WindowUrl::App("index.html".into()),
     )
+    .position(position.x, position.y)
     .resizable(false)
     .focused(true)
-    .decorations(false)
-    .always_on_top(true)
     .title("Screenshot")
     .skip_taskbar(true)
     .visible(false)
     .build()
     .unwrap();
-    // 移动窗口到鼠标所在显示器上
-    #[cfg(target_os = "macos")]
-    window
-        .set_position(tauri::LogicalPosition::new(x, y))
-        .unwrap();
-    #[cfg(not(target_os = "macos"))]
-    window
-        .set_position(tauri::PhysicalPosition::new(x, y))
-        .unwrap();
-    let monitor = window.current_monitor().unwrap().unwrap();
-    let monitor_size = monitor.size();
-    window.set_size(*monitor_size).unwrap();
-    // 窗口移动到对应显示器后再显式设置一次窗口位置，确保获取到正确的dpi
-    #[cfg(target_os = "macos")]
-    window
-        .set_position(tauri::LogicalPosition::new(x, y))
-        .unwrap();
-    #[cfg(not(target_os = "macos"))]
-    window
-        .set_position(tauri::PhysicalPosition::new(x, y))
-        .unwrap();
-    window.center().unwrap();
+
+    window.set_decorations(false).unwrap();
     window.set_fullscreen(true).unwrap();
+    window.set_always_on_top(true).unwrap();
     Ok(window)
 }
 
