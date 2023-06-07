@@ -54,7 +54,7 @@
             "category": "Utility",
             "copyright": "GPLv3",
             "deb": {
-                "depends": ["libxdo-dev"]
+                "depends": ["libxdo-dev libxcb1 libxrandr2 libdbus-1-3"]
             },
             "externalBin": [],
             "icon": [
