@@ -52,7 +52,7 @@ export default function Screenshot() {
                         setTimeout(() => {
                             void appWindow.show();
                             void appWindow.setFocus();
-                        }, 50);
+                        }, 100);
                     }
                 }}
             />
