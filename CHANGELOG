@@ -1,12 +1,15 @@
-## 1.0.0 (2023-06-06)
+## 1.1.0 (2023-06-07)
 
 ### New feature:
 
--   Add Screenshot and OCR (#187)([`a074e7c`](https://github.com/pot-app/pot-desktop/commit/a074e7c031a66c549156454b22d4ef5217f3892c)) (by @Pylogmon)
+-   Add Baidu OCR([`dfb7444`](https://github.com/pot-app/pot-desktop/commit/dfb7444666c9f77bb5d7cd14cfc6fd39122102dd)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Flashing when screenshot([`5cb3d2f`](https://github.com/pot-app/pot-desktop/commit/5cb3d2fac11a6f4e7d238295fcdb989cefd617cc)) (by @Pylogmon)
--   Csp error([`caeac9a`](https://github.com/pot-app/pot-desktop/commit/caeac9a3f48ec823f8da15b96d267ce7ae981187)) (by @Pylogmon)
--   Button overlap([`e8ecf6d`](https://github.com/pot-app/pot-desktop/commit/e8ecf6dcb8d5765f89fb1611dae9309c6580e25f)) (by @Pylogmon)
--   Typo (#184)([`620f1c9`](https://github.com/pot-app/pot-desktop/commit/620f1c93a47b6ed0ae96af2c7ca69f4c1814a850)) (by @bestpika)
+-   Mult-Screen Support (#193)([`0a892a1`](https://github.com/pot-app/pot-desktop/commit/0a892a11837d789568d15685bfae68fa87b2316c)) (by @Pylogmon)
+-   Linux depends([`f35546d`](https://github.com/pot-app/pot-desktop/commit/f35546d1dff42f9cea5bc1e4469cdaa4721f7a6d)) (by @Pylogmon)
+-   Wrong dpi([`fdd9988`](https://github.com/pot-app/pot-desktop/commit/fdd99886bbfc585942353e0ce51a4a8fda4e8029)) (by @Pylogmon)
+
+### Performance improves:
+
+-   Change screenshot style([`7708177`](https://github.com/pot-app/pot-desktop/commit/77081770698b1fd224ea4f6431af52008c2bbe2c)) (by @Pylogmon)
