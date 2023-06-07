@@ -102,11 +102,12 @@
                 "pluginmsg": "想要更流畅的翻译体验？请查看 "
             },
             "ocr_interface": {
+                "title": "OCR接口",
                 "tesseract": "Tesseract"
             },
             "interface": {
                 "label": "接口设置",
-                "title": "接口设置",
+                "title": "翻译接口",
                 "openaiservice": "OpenAI 服务提供商",
                 "openaiservicehelp": "仅在你明确清楚自己使用的是Azure服务的时候改变此设置，其他情况下一律使用默认的OpenAI",
                 "alibaba": "阿里翻译",

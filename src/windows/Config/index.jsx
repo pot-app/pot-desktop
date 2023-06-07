@@ -3,10 +3,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appWindow } from '@tauri-apps/api/window';
 import { useLocation, useRoutes } from 'react-router-dom';
+import * as ocrs from '../../interfaces_ocr';
 import React, { useEffect, useRef } from 'react';
 import { useAtom, useSetAtom, atom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import * as interfaces from '../../interfaces';
+
 import SideBar from './components/SideBar';
 import { light, dark } from '../themes';
 import routes from './routes';
@@ -40,6 +42,7 @@ export const eudicCategoryNameAtom = atom('');
 export const eudicTokenAtom = atom('');
 export const openaiServiceAtom = atom('openai');
 export const interfaceConfigsAtom = atom({});
+export const ocrInterfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
 export const shortcutScreenshotAtom = atom('');
@@ -53,6 +56,7 @@ export default function Config() {
     const setShortcutScreenshot = useSetAtom(shortcutScreenshotAtom);
     const setOpenaiService = useSetAtom(openaiServiceAtom);
     const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
+    const setOcrInterfaceConfigs = useSetAtom(ocrInterfaceConfigsAtom);
     const setAutoStart = useSetAtom(autoStartAtom);
     const setAutoCheck = useSetAtom(autoCheckAtom);
     const setDefaultPined = useSetAtom(defaultPinedAtom);
@@ -143,13 +147,31 @@ export default function Config() {
             needs.map((n) => {
                 interface_configs[i]['needs'].push({
                     needs_config_key: n['config_key'],
-                    needs_display_name: n['display_name'],
                     needs_place_hold: n['place_hold'],
                     needs_config_value: get(n['config_key']) ?? '',
                 });
             });
         });
         setInterfaceConfigs(interface_configs);
+
+        let ocr_interface_configs = {};
+
+        Object.keys(ocrs).map((i) => {
+            ocr_interface_configs[i] = {
+                interface_key: i,
+                interface_name: ocrs[i]['info']['name'],
+                needs: [],
+            };
+            const needs = ocrs[i]['info']['needs'];
+            needs.map((n) => {
+                ocr_interface_configs[i]['needs'].push({
+                    needs_config_key: n['config_key'],
+                    needs_place_hold: n['place_hold'],
+                    needs_config_value: get(n['config_key']) ?? '',
+                });
+            });
+        });
+        setOcrInterfaceConfigs(ocr_interface_configs);
 
         i18n.changeLanguage(get('app_language') ?? 'zh_cn');
     }, []);

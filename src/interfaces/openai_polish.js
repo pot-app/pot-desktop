@@ -29,7 +29,6 @@ export const info = {
         {
             config_key: 'openai_polish_prompt',
             place_hold: "default: You are a text embellisher, you can only embellish the text, don't interpret it.",
-            display_name: '自定义Prompt',
         },
     ],
 };
@@ -62,13 +61,13 @@ export async function translate(text, from, to, setText, id) {
     const headers =
         service === 'openai'
             ? {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${apikey}`,
-              }
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${apikey}`,
+            }
             : {
-                  'Content-Type': 'application/json',
-                  'api-key': apikey,
-              };
+                'Content-Type': 'application/json',
+                'api-key': apikey,
+            };
 
     let body = {
         temperature: 0,

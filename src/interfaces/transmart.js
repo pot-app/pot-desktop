@@ -31,12 +31,10 @@ export const info = {
         {
             config_key: 'transmart_user',
             place_hold: '',
-            display_name: '用户名',
         },
         {
             config_key: 'transmart_token',
             place_hold: '',
-            display_name: 'Token',
         },
     ],
 };

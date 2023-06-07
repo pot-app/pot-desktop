@@ -30,7 +30,6 @@ export const info = {
         {
             config_key: 'lingva_domain',
             place_hold: 'default: lingva.ml',
-            display_name: '自定义域名',
         },
     ],
 };

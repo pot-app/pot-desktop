@@ -36,12 +36,10 @@ export const info = {
         {
             config_key: 'tencent_secretid',
             place_hold: '',
-            display_name: '密钥ID',
         },
         {
             config_key: 'tencent_secretkey',
             place_hold: '',
-            display_name: '密钥值',
         },
     ],
 };

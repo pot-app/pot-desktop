@@ -32,12 +32,10 @@ export const info = {
         {
             config_key: 'baidu_appid',
             place_hold: '',
-            display_name: 'AppID',
         },
         {
             config_key: 'baidu_secret',
             place_hold: '',
-            display_name: '密钥',
         },
     ],
 };

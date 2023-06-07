@@ -32,12 +32,10 @@ export const info = {
         {
             config_key: 'youdao_appkey',
             place_hold: '',
-            display_name: '',
         },
         {
             config_key: 'youdao_key',
             place_hold: '',
-            display_name: '',
         },
     ],
 };

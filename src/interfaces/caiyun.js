@@ -15,7 +15,6 @@ export const info = {
         {
             config_key: 'caiyun_token',
             place_hold: '',
-            display_name: 'Token',
         },
     ],
 };

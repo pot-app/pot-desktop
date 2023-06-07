@@ -29,23 +29,19 @@ export const info = {
         {
             config_key: 'openai_domain',
             place_hold: 'config.interface.openaidomainhelp',
-            display_name: '自定义域名',
         },
         {
             config_key: 'openai_path',
             place_hold: 'config.interface.openaipathhelp',
-            display_name: '请求路径',
         },
         {
             config_key: 'openai_apikey',
             place_hold: '',
-            display_name: 'ApiKey',
         },
         {
             config_key: 'openai_prompt',
             place_hold:
                 'default: You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
-            display_name: '自定义翻译Prompt',
         },
     ],
 };
@@ -72,9 +68,8 @@ export async function translate(text, from, to, setText, id) {
         systemPrompt =
             'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
-    let userPrompt = `If the content is in ${supportLanguage[to]}, then translate into ${
-        supportLanguage[get('second_language') ?? 'en']
-    }. Otherwise, translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
+    let userPrompt = `If the content is in ${supportLanguage[to]}, then translate into ${supportLanguage[get('second_language') ?? 'en']
+        }. Otherwise, translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
     const stream = get('openai_stream') ?? false;
     const service = get('openai_service') ?? 'openai';
@@ -82,13 +77,13 @@ export async function translate(text, from, to, setText, id) {
     const headers =
         service === 'openai'
             ? {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${apikey}`,
-              }
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${apikey}`,
+            }
             : {
-                  'Content-Type': 'application/json',
-                  'api-key': apikey,
-              };
+                'Content-Type': 'application/json',
+                'api-key': apikey,
+            };
 
     let body = {
         temperature: 0,

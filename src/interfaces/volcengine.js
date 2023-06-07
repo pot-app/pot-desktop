@@ -36,12 +36,10 @@ export const info = {
         {
             config_key: 'volcengine_id',
             place_hold: '',
-            display_name: 'Access Id',
         },
         {
             config_key: 'volcengine_secret',
             place_hold: '',
-            display_name: 'Access Key',
         },
     ],
 };

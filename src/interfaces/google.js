@@ -30,7 +30,6 @@ export const info = {
         {
             config_key: 'google_proxy',
             place_hold: 'default: translate.google.com',
-            display_name: '镜像站地址',
         },
     ],
 };

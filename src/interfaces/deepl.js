@@ -28,7 +28,6 @@ export const info = {
         {
             config_key: 'deepl_key',
             place_hold: 'config.interface.deeplhelp',
-            display_name: 'Auth Key',
         },
     ],
 };

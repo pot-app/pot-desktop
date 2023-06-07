@@ -102,11 +102,12 @@
                 "pluginmsg": "Looking for a smoother translation experience? Please refer to "
             },
             "ocr_interface": {
+                "title": "OCR Interface",
                 "tesseract": "Tesseract"
             },
             "interface": {
                 "label": "Interface",
-                "title": "Interface Settings",
+                "title": "Translation Interface",
                 "openaiservice": "OpenAI Service",
                 "openaiservicehelp": "You only need to set this option if you know that you are using Azure's OpenAI Service. Otherwise, use the default OpenAI service.",
                 "alibaba": "Alibaba",

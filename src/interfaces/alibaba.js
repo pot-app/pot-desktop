@@ -36,12 +36,10 @@ export const info = {
         {
             config_key: 'alibaba_accesskey_id',
             place_hold: '',
-            display_name: 'AccessKey ID',
         },
         {
             config_key: 'alibaba_accesskey_secret',
             place_hold: '',
-            display_name: 'AccessKey Secret',
         },
     ],
 };
@@ -69,11 +67,10 @@ export async function translate(text, from, to, setText, id) {
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
-        supportLanguage[from]
-    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
-        timestamp
-    )}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${supportLanguage[from]
+        }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
+            timestamp
+        )}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 

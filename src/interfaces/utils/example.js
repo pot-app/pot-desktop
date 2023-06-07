@@ -18,12 +18,10 @@ export const info = {
         {
             config_key: 'example_apiid', // 配置项在配置文件中的代号
             place_hold: 'ApiId', // 配置项没有填写时显示的提示信息
-            display_name: '示例翻译ApiId', // 配置项名称
         },
         {
             config_key: 'example_apikey',
             place_hold: 'ApiKey',
-            display_name: '示例翻译ApiKey',
         },
     ],
 };

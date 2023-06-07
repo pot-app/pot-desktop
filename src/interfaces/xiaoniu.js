@@ -35,7 +35,6 @@ export const info = {
         {
             config_key: 'xiaoniu_apikey',
             place_hold: '',
-            display_name: 'API 密钥',
         },
     ],
 };
