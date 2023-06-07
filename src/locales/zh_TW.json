@@ -109,7 +109,7 @@
                 "baidu_ocr_client_secret": "ClientSecret"
             },
             "interface": {
-                "label": "翻譯 API 設定",
+                "label": "相關 API 設定",
                 "title": "翻譯 API 設定",
                 "openaiservice": "OpenAI 服務供應商",
                 "openaiservicehelp": "僅在你瞭解自己在使用 Azure 服務時改變此選項，其他情況一律使用預設的 OpenAI",
