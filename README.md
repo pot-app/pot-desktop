@@ -62,13 +62,15 @@
 -   [x] Available on all PC platforms (Windows, macOS, and Linux)
 -   [x] Good Wayland support (Test on KDE and Gnome)
 -   [ ] Screenshot translate
--   [ ] OCR support
+-   [x] OCR support ([Support Apis](#support-apis))
 
 <div align="center">
 
 # Support Apis
 
 </div>
+
+## Translation
 
 -   [x] [OpenAI](https://platform.openai.com/)
 -   [x] [Alibaba](https://www.aliyun.com/product/ai/alimt)
@@ -85,6 +87,11 @@
 -   [x] [DeepL](https://www.deepl.com/)
 -   [x] [Youdao](https://ai.youdao.com/)
 -   [ ] and more...
+
+## OCR
+
+-   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
+-   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract)
 
 <div align="center">
 
