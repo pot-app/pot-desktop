@@ -103,7 +103,10 @@
             },
             "ocr_interface": {
                 "title": "OCR接口",
-                "tesseract": "Tesseract"
+                "tesseract": "Tesseract",
+                "baidu": "百度 OCR",
+                "baidu_ocr_client_id": "ClientID",
+                "baidu_ocr_client_secret": "ClientSecret"
             },
             "interface": {
                 "label": "接口设置",

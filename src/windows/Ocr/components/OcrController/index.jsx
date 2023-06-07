@@ -54,6 +54,20 @@ export default function OcrController() {
                     setOcrLanguage(e.target.value);
                 }}
             >
+                <MenuItem value={'auto'}>
+                    <span>
+                        <img
+                            style={{
+                                verticalAlign: 'middle',
+                                marginRight: '8px',
+                                height: '20px',
+                            }}
+                            src='/auto.png'
+                            alt='auto detect'
+                        />
+                    </span>
+                    <span>{t('language.auto')}</span>
+                </MenuItem>
                 {language.map((x) => {
                     return (
                         <MenuItem

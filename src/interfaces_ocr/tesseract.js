@@ -1,4 +1,5 @@
 import Tesseract from 'tesseract.js';
+import { ocrID } from '../windows/Ocr/components/TextArea';
 
 // 必须向外暴露info
 export const info = {
@@ -6,6 +7,7 @@ export const info = {
     name: 'tesseract',
     // 接口支持语言及映射
     supportLanguage: {
+        auto: 'chi_sim+eng+chi_tra+jpn+kor+fra+spa+rus+deu+ita+tur+por+vie+ind+tha+msa+ara+hin',
         zh_cn: 'chi_sim',
         zh_tw: 'chi_tra',
         en: 'eng',
@@ -29,7 +31,7 @@ export const info = {
     needs: [],
 };
 
-export async function ocr(imgurl, lang) {
+export async function ocr(imgurl, lang, setText, id) {
     console.log("start");
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
@@ -38,7 +40,13 @@ export async function ocr(imgurl, lang) {
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
         // langPath: '',
         workerPath: 'https://cdn.bootcdn.net/ajax/libs/tesseract.js/4.0.3/worker.min.js',
-        logger: m => console.log(m)
+        logger: m => {
+            if (id === ocrID) {
+                setText(`Status: ${m.status}\nProgress:${m.progress}`)
+            }
+        }
     })
-    return text;
+    if (id === ocrID) {
+        setText(text);
+    }
 }

@@ -7,11 +7,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { atom, useAtom, useAtomValue } from 'jotai';
+import { nanoid } from 'nanoid';
 import { ocrInterfaceAtom, ocrLanguageAtom } from '../OcrController';
 import * as ocrs from '../../../../interfaces_ocr';
 import { imgUrlAtom } from '../ImageArea';
 import './style.css';
+
 export const resultTextAtom = atom('');
+export let ocrID = 0;
 
 export default function TextArea() {
     const [loading, setLoading] = useState(false);
@@ -39,14 +42,14 @@ export default function TextArea() {
             setLoading(true);
             setResultText('');
             let ocror = ocrs[ocrInterface];
-            ocror.ocr(imgUrl, ocrLanguage).then(
-                (v) => {
-                    setResultText(v);
+            let id = nanoid();
+            ocrID = id;
+            ocror.ocr(imgUrl, ocrLanguage, setResultText, id).then(
+                (_) => {
                     setLoading(false);
                 },
                 (e) => {
                     setResultText(e.toString());
-                    console.log(e);
                     setLoading(false);
                 }
             );
