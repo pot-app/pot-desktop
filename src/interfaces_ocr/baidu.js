@@ -10,7 +10,7 @@ export const info = {
         zh_tw: 'CHN_ENG',
         en: 'ENG',
         yue: 'CHN_ENG',
-        ja: 'JAP ',
+        ja: 'JAP',
         ko: 'KOR',
         fr: 'FRE',
         es: 'SPA',
@@ -94,13 +94,11 @@ export async function ocr(imgurl, lang, setText, id) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 query: {
-                    access_token: token,
-                    language_type: supportLanguage[lang],
-                    detect_direction: 'false',
+                    access_token: token
                 },
                 body: {
                     type: 'Text',
-                    payload: `image=${encodeURIComponent(base64)}`
+                    payload: `language_type=${supportLanguage[lang]}&detect_direction=false&image=${encodeURIComponent(base64)}`
                 }
             }
             )
