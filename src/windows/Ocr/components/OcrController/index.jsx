@@ -1,11 +1,11 @@
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import SyncRoundedIcon from '@mui/icons-material/SyncRounded';
 import { Select, Button, MenuItem } from '@mui/material';
 import { appWindow } from '@tauri-apps/api/window';
 import { useTranslation } from 'react-i18next';
 import { emit } from '@tauri-apps/api/event';
 import 'flag-icons/css/flag-icons.min.css';
-import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import * as ocrs from '../../../../interfaces_ocr';
@@ -16,10 +16,12 @@ import { useEffect } from 'react';
 
 export const ocrInterfaceAtom = atom('tesseract');
 export const ocrLanguageAtom = atom('en');
+export const ocrStartFlagAtom = atom();
 
 export default function OcrController() {
     const [ocrInterface, setOcrInterface] = useAtom(ocrInterfaceAtom);
     const [ocrLanguage, setOcrLanguage] = useAtom(ocrLanguageAtom);
+    const setOcrStartFlag = useSetAtom(ocrStartFlagAtom);
     const resultText = useAtomValue(resultTextAtom);
     const { t } = useTranslation();
 
@@ -84,6 +86,9 @@ export default function OcrController() {
                 variant='outlined'
                 sx={{ width: 160, textTransform: 'none' }}
                 startIcon={<SyncRoundedIcon />}
+                onClick={() => {
+                    setOcrStartFlag(nanoid());
+                }}
             >
                 {t('ocr.recognize')}
             </Button>

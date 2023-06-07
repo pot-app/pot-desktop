@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-import { ocrInterfaceAtom, ocrLanguageAtom } from '../OcrController';
+import { ocrInterfaceAtom, ocrLanguageAtom, ocrStartFlagAtom } from '../OcrController';
 import * as ocrs from '../../../../interfaces_ocr';
 import { imgUrlAtom } from '../ImageArea';
 import './style.css';
@@ -22,6 +22,7 @@ export default function TextArea() {
     const imgUrl = useAtomValue(imgUrlAtom);
     const ocrLanguage = useAtomValue(ocrLanguageAtom);
     const ocrInterface = useAtomValue(ocrInterfaceAtom);
+    const ocrStartFlag = useAtomValue(ocrStartFlagAtom);
     const { t } = useTranslation();
     const theme = useTheme();
 
@@ -54,7 +55,7 @@ export default function TextArea() {
                 }
             );
         }
-    }, [imgUrl, ocrInterface, ocrLanguage]);
+    }, [imgUrl, ocrInterface, ocrLanguage, ocrStartFlag]);
 
     return (
         <>
