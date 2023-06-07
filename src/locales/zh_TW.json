@@ -79,8 +79,8 @@
             "ocr": {
                 "title": "OCR 設定",
                 "label": "OCR 設定",
-                "interface": "預設API",
-                "language": "默認語言"
+                "interface": "預設 API",
+                "language": "預設語言"
             },
             "external": {
                 "label": "外部設定",
@@ -96,7 +96,7 @@
                 "title": "快捷鍵設定",
                 "translate": "划詞翻譯",
                 "persistent": "獨立翻譯視窗",
-                "screenshot": "截图 OCR",
+                "screenshot": "截圖 OCR",
                 "wayland": "Wayland 暫不支援程式內設定的快捷鍵，請透過系統設定全域快捷鍵。詳情請參考官網文件。",
                 "plugin": "外掛調用",
                 "pluginmsg": "想要更流暢的翻譯體驗？請查閱："
@@ -109,7 +109,7 @@
                 "baidu_ocr_client_secret": "ClientSecret"
             },
             "interface": {
-                "label": "API 設定",
+                "label": "相關 API 設定",
                 "title": "翻譯 API 設定",
                 "openaiservice": "OpenAI 服務供應商",
                 "openaiservicehelp": "僅在你瞭解自己在使用 Azure 服務時改變此選項，其他情況一律使用預設的 OpenAI",
@@ -208,9 +208,9 @@
             }
         },
         "ocr": {
-            "recognize": "重新識別",
+            "recognize": "重新辨識",
             "translate": "翻譯",
-            "placehold": "首次使用需要下載訓練集，請耐心等待，如下載失敗，請檢查網絡環境"
+            "placehold": "初次使用時需下載訓練模型，請耐心等候，如下載失敗，請檢查網路"
         }
     }
 }
