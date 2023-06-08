@@ -12,7 +12,7 @@ export const info = {
         zh_tw: 'chi_tra',
         en: 'eng',
         yue: 'chi_sim',
-        ja: 'jpn ',
+        ja: 'jpn',
         ko: 'kor',
         fr: 'fra',
         es: 'spa',
