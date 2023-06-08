@@ -61,8 +61,8 @@
 -   [x] Export to Anki/Eudic (or add more)
 -   [x] Available on all PC platforms (Windows, macOS, and Linux)
 -   [x] Good Wayland support (Test on KDE and Gnome)
--   [ ] Screenshot translate
 -   [x] OCR support ([Support Apis](#support-apis))
+-   [x] Screenshot translate
 
 <div align="center">
 
