@@ -202,6 +202,7 @@ fn main() {
                 CONFIG_TRAY_ITEM => on_config_click(app),
                 QUIT_TRAY_ITEM => on_quit_click(),
                 OCR_WINDOW => on_ocr_click(),
+                SCREENSHOT_TRANSLATE => on_screenshot_translate_click(),
                 COPY_SOURCE => on_auto_copy_click(app, 1),
                 COPY_TARGET => on_auto_copy_click(app, 2),
                 COPY_SOURCE_TARGET => on_auto_copy_click(app, 3),

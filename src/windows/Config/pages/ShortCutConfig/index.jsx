@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
-import { shortcutTranslateAtom, shortcutPersistentAtom, shortcutScreenshotAtom } from '../..';
+import {
+    shortcutTranslateAtom,
+    shortcutPersistentAtom,
+    shortcutScreenshotAtom,
+    shortcutScreenshotTranslateAtom,
+} from '../..';
 import ConfigItem from '../../components/ConfigItem';
 import ConfigList from '../../components/ConfigList';
 import { set } from '../../../../global/config';
@@ -45,6 +50,7 @@ export default function ShortCutConfig() {
     const [shortcutTranslate, setShortcutTranslate] = useAtom(shortcutTranslateAtom);
     const [shortcutPersistent, setShortcutPersistent] = useAtom(shortcutPersistentAtom);
     const [shortcutScreenshot, setShortcutScreenshot] = useAtom(shortcutScreenshotAtom);
+    const [shortcutScreenshotTranslate, setShortcutScreenshotTranslate] = useAtom(shortcutScreenshotTranslateAtom);
     const [isMacos, setIsMacos] = useState(false);
     const [isWayland, setIsWayland] = useState(false);
 
@@ -187,6 +193,38 @@ export default function ShortCutConfig() {
                                     variant='outlined'
                                     onClick={async () => {
                                         await set('shortcut_screenshot', shortcutScreenshot);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </ConfigItem>
+            <ConfigItem
+                label={t('config.shortcut.screenshot_translate')}
+                help={isWayland && t('config.shortcut.wayland')}
+            >
+                <TextField
+                    size='small'
+                    disabled={isWayland}
+                    sx={{ width: '300px' }}
+                    value={shortcutScreenshotTranslate}
+                    onKeyDown={(e) => {
+                        keyDown(e, setShortcutScreenshotTranslate);
+                    }}
+                    onFocus={() => {
+                        setShortcutScreenshotTranslate('');
+                    }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button
+                                    size='small'
+                                    variant='outlined'
+                                    onClick={async () => {
+                                        await set('shortcut_screenshot_translate', shortcutScreenshotTranslate);
                                     }}
                                 >
                                     {t('common.ok')}

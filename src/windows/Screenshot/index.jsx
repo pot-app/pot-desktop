@@ -49,7 +49,7 @@ export default function Screenshot() {
                 src={imgurl}
                 draggable={false}
                 onLoad={() => {
-                    if (appWindow.label === 'screenshot' && imgurl !== '') {
+                    if (appWindow.label.startsWith('screenshot') && imgurl !== '') {
                         setTimeout(() => {
                             void appWindow.show();
                             void appWindow.setFocus();
@@ -103,7 +103,12 @@ export default function Screenshot() {
                     const right = Math.floor(Math.max(mouseDownX, e.clientX) * dpi);
                     const bottom = Math.floor(Math.max(mouseDownY, e.clientY) * dpi);
                     await invoke('cut_screenshot', { left, top, right, bottom });
-                    await emit('ocr');
+                    if (appWindow.label === 'screenshot_ocr') {
+                        await emit('ocr');
+                    } else {
+                        await emit('translate');
+                    }
+
                     await appWindow.close();
                 }}
             />

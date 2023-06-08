@@ -1,5 +1,5 @@
 use crate::config::{get_config, set_config, write_config};
-use crate::window::{persistent_window, screenshot_window};
+use crate::window::{persistent_window, screenshot_ocr_window, screenshot_translate_window};
 use crate::APP;
 use tauri::api::notification::Notification;
 use tauri::{
@@ -12,6 +12,7 @@ pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
 pub const PERSISTENT_WINDOW: &str = "persistent";
 pub const OCR_WINDOW: &str = "ocr";
+pub const SCREENSHOT_TRANSLATE: &str = "screenshot_translate";
 pub const COPY_SOURCE: &str = "copy_source";
 pub const COPY_TARGET: &str = "copy_target";
 pub const COPY_SOURCE_TARGET: &str = "copy_source_target";
@@ -21,6 +22,7 @@ pub const COPY_CLOSE: &str = "copy_close";
 pub fn build_system_tray() -> SystemTray {
     let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻译");
     let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "截图OCR");
+    let screenshot_translate = CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "截图翻译");
     let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
     let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
 
@@ -40,6 +42,7 @@ pub fn build_system_tray() -> SystemTray {
         ))
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(ocr)
+        .add_item(screenshot_translate)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(quit);
@@ -70,7 +73,7 @@ pub fn on_tray_click(app: &AppHandle) {
     match label.as_str() {
         Some("config") => on_config_click(app),
         Some("persistent") => persistent_window(),
-        Some("screenshot") => screenshot_window(),
+        Some("screenshot") => screenshot_ocr_window(),
         Some(_) => {}
         None => {}
     }
@@ -102,7 +105,11 @@ pub fn on_config_click(app: &AppHandle) {
 }
 
 pub fn on_ocr_click() {
-    screenshot_window();
+    screenshot_ocr_window();
+}
+
+pub fn on_screenshot_translate_click() {
+    screenshot_translate_window();
 }
 // 退出程序
 pub fn on_quit_click() {

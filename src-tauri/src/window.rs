@@ -146,26 +146,23 @@ fn get_current_monitor(x: f64, y: f64, util: Window) -> Result<Monitor, ()> {
     Err(())
 }
 
-pub fn build_screenshot_window(handle: &AppHandle) -> Result<Window, String> {
+pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window, String> {
     let (x, y) = get_mouse_location().unwrap();
     let util_window = handle.get_window("util").unwrap();
     let current_monitor = get_current_monitor(x, y, util_window).unwrap();
     let dpi = current_monitor.scale_factor();
     let physical_position = current_monitor.position();
     let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
-    let window = tauri::WindowBuilder::new(
-        handle,
-        "screenshot",
-        tauri::WindowUrl::App("index.html".into()),
-    )
-    .position(position.x, position.y)
-    .resizable(false)
-    .focused(true)
-    .title("Screenshot")
-    .skip_taskbar(true)
-    .visible(false)
-    .build()
-    .unwrap();
+    let window =
+        tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
+            .position(position.x, position.y)
+            .resizable(false)
+            .focused(true)
+            .title("Screenshot")
+            .skip_taskbar(true)
+            .visible(false)
+            .build()
+            .unwrap();
 
     window.set_decorations(false).unwrap();
     window.set_fullscreen(true).unwrap();
@@ -327,6 +324,22 @@ pub fn popclip_window(text: String) {
     };
 }
 
+// 截图翻译
+pub fn popclip_ocr_window() {
+    let handle = APP.get().unwrap();
+
+    match handle.get_window("popclip_ocr") {
+        Some(window) => {
+            window.set_focus().unwrap();
+            window.emit("new_screenshot", "").unwrap();
+        }
+        None => {
+            let _window =
+                build_translate_window("popclip_ocr", "Screenshot Translate", handle).unwrap();
+        }
+    };
+}
+
 // OCR
 pub fn ocr_window() {
     let handle = APP.get().unwrap();
@@ -348,16 +361,31 @@ pub fn ocr_window() {
 }
 
 // Screenshot
-pub fn screenshot_window() {
+pub fn screenshot_ocr_window() {
     let handle = APP.get().unwrap();
 
-    match handle.get_window("screenshot") {
+    match handle.get_window("screenshot_ocr") {
         Some(window) => {
             window.close().unwrap();
         }
         None => {
-            let window = build_screenshot_window(handle).unwrap();
+            let window = build_screenshot_window(handle, "screenshot_ocr").unwrap();
             window.listen("ocr", |_| ocr_window());
+        }
+    };
+}
+
+// Screenshot
+pub fn screenshot_translate_window() {
+    let handle = APP.get().unwrap();
+
+    match handle.get_window("screenshot_translate") {
+        Some(window) => {
+            window.close().unwrap();
+        }
+        None => {
+            let window = build_screenshot_window(handle, "screenshot_translate").unwrap();
+            window.listen("translate", |_| popclip_ocr_window());
         }
     };
 }

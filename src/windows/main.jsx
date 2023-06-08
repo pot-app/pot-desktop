@@ -12,12 +12,14 @@ import './i18n';
 import '../styles/style.css';
 
 const windowRouter = {
+    popclip_ocr: <Translator />,
     persistent: <Translator />,
     translator: <Translator />,
     popclip: <Translator />,
     config: <Config />,
     ocr: <Ocr />,
-    screenshot: <Screenshot />,
+    screenshot_ocr: <Screenshot />,
+    screenshot_translate: <Screenshot />,
     util: <></>,
 };
 

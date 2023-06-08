@@ -97,6 +97,7 @@
                 "translate": "Selection Translate",
                 "persistent": "Persistent Translation Window",
                 "screenshot": "Screenshot OCR",
+                "screenshot_translate": "Screenshot Translate",
                 "wayland": "Wayland can not use in-app shortcuts, please set through the system shortcuts, see the official website for details",
                 "plugin": "Plugin Invocation",
                 "pluginmsg": "Looking for a smoother translation experience? Please refer to "
@@ -197,7 +198,8 @@
             "sourcearea": {
                 "translate": "Translate",
                 "clear": "Clear",
-                "deletenewline": "Delete New Line"
+                "deletenewline": "Delete New Line",
+                "ocr": "Recognizing..."
             },
             "targetarea": {
                 "ankierror": "Anki is not started or misconfigured",

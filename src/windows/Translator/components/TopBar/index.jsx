@@ -20,7 +20,7 @@ let blurTimeout = null;
 // 监听 blur 事件，如果窗口失去焦点，关闭窗口
 const listenBlur = () =>
     listen('tauri://blur', () => {
-        if (appWindow.label === 'translator' || appWindow.label === 'popclip') {
+        if (appWindow.label === 'translator' || appWindow.label === 'popclip' || appWindow.label === 'popclip_ocr') {
             if (blurTimeout) {
                 clearTimeout(blurTimeout);
             }
@@ -56,7 +56,12 @@ listen('tauri://resize', async () => {
             clearTimeout(resizeTimeout);
         }
         resizeTimeout = setTimeout(async () => {
-            if (appWindow.label === 'translator' || appWindow.label === 'popclip' || appWindow.label === 'persistent') {
+            if (
+                appWindow.label === 'translator' ||
+                appWindow.label === 'popclip' ||
+                appWindow.label === 'persistent' ||
+                appWindow.label === 'popclip_ocr'
+            ) {
                 const psize = await appWindow.innerSize();
                 const factor = await appWindow.scaleFactor();
                 const lsize = psize.toLogical(factor);

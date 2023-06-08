@@ -1,6 +1,6 @@
 use crate::config::get_config;
-use crate::window::screenshot_window;
 use crate::window::{persistent_window, translate_window};
+use crate::window::{screenshot_ocr_window, screenshot_translate_window};
 use crate::APP;
 use tauri::{AppHandle, GlobalShortcutManager, Manager};
 use toml::Value;
@@ -40,7 +40,7 @@ fn register_persistent(handle: &AppHandle) -> Result<(), String> {
     }
     Ok(())
 }
-fn register_screenshot(handle: &AppHandle) -> Result<(), String> {
+fn register_screenshot_ocr(handle: &AppHandle) -> Result<(), String> {
     let shortcut_screenshot = get_config(
         "shortcut_screenshot",
         Value::from(""),
@@ -49,7 +49,7 @@ fn register_screenshot(handle: &AppHandle) -> Result<(), String> {
     if shortcut_screenshot.as_str().unwrap() != "" {
         match handle
             .global_shortcut_manager()
-            .register(shortcut_screenshot.as_str().unwrap(), screenshot_window)
+            .register(shortcut_screenshot.as_str().unwrap(), screenshot_ocr_window)
         {
             Ok(()) => {}
             Err(e) => return Err(e.to_string()),
@@ -57,6 +57,25 @@ fn register_screenshot(handle: &AppHandle) -> Result<(), String> {
     }
     Ok(())
 }
+
+fn register_screenshot_translate(handle: &AppHandle) -> Result<(), String> {
+    let shortcut_screenshot_translate = get_config(
+        "shortcut_screenshot_translate",
+        Value::from(""),
+        APP.get().unwrap().state(),
+    );
+    if shortcut_screenshot_translate.as_str().unwrap() != "" {
+        match handle.global_shortcut_manager().register(
+            shortcut_screenshot_translate.as_str().unwrap(),
+            screenshot_translate_window,
+        ) {
+            Ok(()) => {}
+            Err(e) => return Err(e.to_string()),
+        };
+    }
+    Ok(())
+}
+
 // 注册全局快捷键
 pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
     let handle = APP.get().unwrap();
@@ -67,11 +86,13 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
     match shortcut {
         "shortcut_translate" => register_translate(handle)?,
         "shortcut_persistent" => register_persistent(handle)?,
-        "shortcut_screenshot" => register_screenshot(handle)?,
+        "shortcut_screenshot" => register_screenshot_ocr(handle)?,
+        "shortcut_screenshot_translate" => register_screenshot_translate(handle)?,
         "all" => {
             register_translate(handle)?;
             register_persistent(handle)?;
-            register_screenshot(handle)?;
+            register_screenshot_ocr(handle)?;
+            register_screenshot_translate(handle)?;
         }
         _ => {}
     }

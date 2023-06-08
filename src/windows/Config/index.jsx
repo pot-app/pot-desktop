@@ -14,7 +14,6 @@ import { light, dark } from '../themes';
 import routes from './routes';
 import { get } from '../main';
 import './style.css';
-import { use } from 'i18next';
 
 export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
@@ -46,6 +45,7 @@ export const ocrInterfaceConfigsAtom = atom({});
 export const shortcutTranslateAtom = atom('');
 export const shortcutPersistentAtom = atom('');
 export const shortcutScreenshotAtom = atom('');
+export const shortcutScreenshotTranslateAtom = atom('');
 export const fontSizeAtom = atom('1rem');
 export const ocrInterfaceAtom = atom('tesseract');
 export const ocrLanguageAtom = atom('en');
@@ -54,6 +54,7 @@ export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
     const setShortcutPersistent = useSetAtom(shortcutPersistentAtom);
     const setShortcutScreenshot = useSetAtom(shortcutScreenshotAtom);
+    const setShortcutScreenshotTranslate = useSetAtom(shortcutScreenshotTranslateAtom);
     const setOpenaiService = useSetAtom(openaiServiceAtom);
     const setInterfaceConfigs = useSetAtom(interfaceConfigsAtom);
     const setOcrInterfaceConfigs = useSetAtom(ocrInterfaceConfigsAtom);
@@ -106,6 +107,7 @@ export default function Config() {
         setShortcutTranslate(get('shortcut_translate') ?? '');
         setShortcutPersistent(get('shortcut_persistent') ?? '');
         setShortcutScreenshot(get('shortcut_screenshot') ?? '');
+        setShortcutScreenshotTranslate(get('shortcut_screenshot_translate') ?? '');
         setAutoStart(get('auto_start') ?? false);
         setAutoCheck(get('auto_check') ?? true);
         setDefaultPined(get('default_pined') ?? true);

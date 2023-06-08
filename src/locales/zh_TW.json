@@ -97,6 +97,7 @@
                 "translate": "划詞翻譯",
                 "persistent": "獨立翻譯視窗",
                 "screenshot": "截圖 OCR",
+                "screenshot_translate": "截圖翻譯",
                 "wayland": "Wayland 暫不支援程式內設定的快捷鍵，請透過系統設定全域快捷鍵。詳情請參考官網文件。",
                 "plugin": "外掛調用",
                 "pluginmsg": "想要更流暢的翻譯體驗？請查閱："
@@ -197,7 +198,8 @@
             "sourcearea": {
                 "translate": "翻譯",
                 "clear": "清除",
-                "deletenewline": "刪除換行"
+                "deletenewline": "刪除換行",
+                "ocr": "辨識中..."
             },
             "targetarea": {
                 "ankierror": "Anki 未啟用或設定錯誤",

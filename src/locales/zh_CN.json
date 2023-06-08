@@ -97,6 +97,7 @@
                 "translate": "划词翻译",
                 "persistent": "独立翻译窗口",
                 "screenshot": "截图 OCR",
+                "screenshot_translate": "截图翻译",
                 "wayland": "Wayland暂不支持应用内设置快捷键，请通过系统设置全局快捷键，详情见官网文档",
                 "plugin": "插件调用",
                 "pluginmsg": "想要更流畅的翻译体验？请查看 "
@@ -197,7 +198,8 @@
             "sourcearea": {
                 "translate": "翻译",
                 "clear": "清空",
-                "deletenewline": "删除换行"
+                "deletenewline": "删除换行",
+                "ocr": "识别中..."
             },
             "targetarea": {
                 "ankierror": "Anki没有启动或配置错误",

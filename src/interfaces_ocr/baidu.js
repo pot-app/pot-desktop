@@ -113,28 +113,28 @@ export async function ocr(imgurl, lang, setText, id) {
                     let target = '';
                     for (let i of result['words_result']) {
                         target += i['words'] + '\n';
-                        if (id === ocrID) {
-                            setText(target);
+                        if (id === ocrID || id === 'translate') {
+                            setText(target.trim());
                         }
                     }
                 } else {
-                    if (id === ocrID) {
+                    if (id === ocrID || id === 'translate') {
                         throw JSON.stringify(result);
                     }
                 }
             } else {
-                if (id === ocrID) {
+                if (id === ocrID || id === 'translate') {
                     console.log(res);
                     throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
                 }
             }
         } else {
-            if (id === ocrID) {
+            if (id === ocrID || id === 'translate') {
                 throw 'Get Access Token Failed!'
             }
         }
     } else {
-        if (id === ocrID) {
+        if (id === ocrID || id === 'translate') {
             throw `Http Request Error\nHttp Status: ${token_res.status}\n${JSON.stringify(token_res.data)}`;
         }
     }

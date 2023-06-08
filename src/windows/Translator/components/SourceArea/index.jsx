@@ -6,10 +6,13 @@ import UnfoldLessRoundedIcon from '@mui/icons-material/UnfoldLessRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import ClearAllRoundedIcon from '@mui/icons-material/ClearAllRounded';
+import { appCacheDir, join } from '@tauri-apps/api/path';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
+import * as ocrs from '../../../../interfaces_ocr';
 import { speak } from '../../../../global/speak';
 import { useTheme } from '@mui/material/styles';
 import { listen } from '@tauri-apps/api/event';
@@ -26,9 +29,31 @@ export default function SourceArea() {
     const setSourceText = useSetAtom(sourceTextAtom);
     const [expand, setExpand] = useState(true);
     const [text, setText] = useState('');
-
+    const [ocrSuccess, setOcrSuccess] = useState(false);
     const { t } = useTranslation();
     const theme = useTheme();
+
+    function ocr() {
+        setOcrSuccess(false);
+        appCacheDir().then((appCacheDirPath) => {
+            join(appCacheDirPath, 'pot_screenshot_cut.png').then((filePath) => {
+                setText(t('translator.sourcearea.ocr'));
+                let imgUrl = convertFileSrc(filePath);
+                let ocror = ocrs[get('ocr_interface') ?? 'tesseract'];
+                let id = 'translate';
+                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setText, id).then(
+                    (_) => {
+                        setOcrSuccess(true);
+                    },
+                    (e) => {
+                        setOcrSuccess(false);
+                        setText(e.toString());
+                    }
+                );
+            });
+        });
+    }
+
     listen('new_selection', (event) => {
         let source = event.payload.trim();
         if (get('delete_newline') ?? false) {
@@ -38,9 +63,13 @@ export default function SourceArea() {
         setSourceText(source);
         setText(source);
     });
-
     useEffect(() => {
-        if (appWindow.label !== 'persistent') {
+        if (ocrSuccess) {
+            setSourceText(text.trim());
+        }
+    }, [ocrSuccess, text]);
+    useEffect(() => {
+        if (appWindow.label !== 'persistent' && appWindow.label !== 'popclip_ocr') {
             // 获取选中文本
             invoke('get_translate_text').then((v) => {
                 if (v !== '') {
@@ -53,6 +82,9 @@ export default function SourceArea() {
                     setText(source);
                 }
             });
+        }
+        if (appWindow.label === 'popclip_ocr') {
+            ocr();
         }
     }, []);
 

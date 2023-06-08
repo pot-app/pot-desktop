@@ -41,12 +41,12 @@ export async function ocr(imgurl, lang, setText, id) {
         // langPath: '',
         workerPath: 'https://cdn.bootcdn.net/ajax/libs/tesseract.js/4.0.3/worker.min.js',
         logger: m => {
-            if (id === ocrID) {
+            if (id === ocrID || id === 'translate') {
                 setText(`Status: ${m.status}\nProgress:${m.progress}`)
             }
         }
     })
-    if (id === ocrID) {
-        setText(text);
+    if (id === ocrID || id === 'translate') {
+        setText(text.trim());
     }
 }
