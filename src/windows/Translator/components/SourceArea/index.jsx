@@ -40,8 +40,7 @@ export default function SourceArea() {
                 setText(t('translator.sourcearea.ocr'));
                 let imgUrl = convertFileSrc(filePath);
                 let ocror = ocrs[get('ocr_interface') ?? 'tesseract'];
-                let id = 'translate';
-                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setText, id).then(
+                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setText, 'translate').then(
                     (_) => {
                         setOcrSuccess(true);
                     },

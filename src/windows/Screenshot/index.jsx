@@ -64,7 +64,7 @@ export default function Screenshot() {
                     left: Math.min(mouseDownX, mouseMoveX),
                     bottom: screen.height - Math.max(mouseDownY, mouseMoveY),
                     right: screen.width - Math.max(mouseDownX, mouseMoveX),
-                    backgroundColor: '#ffffff20',
+                    backgroundColor: '#2080f020',
                     border: '1px solid #2080f0',
                     display: !isMoved && 'none',
                 }}
