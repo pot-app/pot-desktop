@@ -86,7 +86,9 @@ export default function SourceArea() {
             ocr();
         }
     }, []);
-
+    listen('translate', (_) => {
+        ocr();
+    });
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {
