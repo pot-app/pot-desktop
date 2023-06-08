@@ -1,6 +1,13 @@
-## 1.1.1 (2023-06-07)
+## 1.2.0 (2023-06-08)
+
+### New feature:
+
+-   Add Screenshot Translate([`0f2c4ce`](https://github.com/pot-app/pot-desktop/commit/0f2c4ce97dc4137cc303ef52dbb9f4aa20b39508)) (by @Pylogmon)
+-   更新繁體中文翻譯 (#196)([`2b25226`](https://github.com/pot-app/pot-desktop/commit/2b252268d1b98404e46d3826232fb41c1359df2d)) (by @bestpika)
 
 ### Bugs fixed:
 
--   Baidu OCR Japanese([`b3d2842`](https://github.com/pot-app/pot-desktop/commit/b3d2842de3d0bb9846e3df9f9f1fda6708063c25)) (by Pylogmon)
--   Deb depends([`cdccc67`](https://github.com/pot-app/pot-desktop/commit/cdccc6747016c7c46b454257ff75b1cd4d8d43bf)) (by Pylogmon)
+-   Start OCR on ocr window is open([`e0a9563`](https://github.com/pot-app/pot-desktop/commit/e0a9563c147c5ee5e27812ca6ba5098a350ea4a9)) (by @Pylogmon)
+-   Ocr Text format([`4ed17f3`](https://github.com/pot-app/pot-desktop/commit/4ed17f3636e23ece507762a386b1749592bc417d)) (by @Pylogmon)
+-   Linux load image failed([`723e6c9`](https://github.com/pot-app/pot-desktop/commit/723e6c9549bee9dc09769b59b1485110af286ab6)) (by @Pylogmon)
+-   Tesseract OCR Japanese([`1e9f97d`](https://github.com/pot-app/pot-desktop/commit/1e9f97defb5c057a639b5d9010921a5785339b32)) (by @Pylogmon)
