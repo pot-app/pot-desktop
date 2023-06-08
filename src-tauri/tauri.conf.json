@@ -37,7 +37,7 @@
             },
             "fs": {
                 "readFile": true,
-                "scope": ["**"]
+                "scope": ["$CACHE/**"]
             },
             "protocol": {
                 "asset": true,

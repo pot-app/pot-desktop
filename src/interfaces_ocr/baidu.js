@@ -1,3 +1,4 @@
+import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -85,7 +86,11 @@ export async function ocr(imgurl, lang, setText, id) {
                         resolve(base64);
                     }
                 }
-                img.onerror = (e) => { reject("Image Load Failed" + e.toString()) };
+                img.onerror = async (e) => {
+                    let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
+                    let base64 = window.btoa(String.fromCharCode(...img));
+                    resolve(base64);
+                };
             });
 
             const res = await fetch(url, {
