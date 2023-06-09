@@ -116,7 +116,10 @@
                 "tencent_ocr_secretkey": "SecretKey",
                 "tencent_accurate": "騰訊OCR(高精度)",
                 "tencent_accurate_ocr_secretid": "SecretID",
-                "tencent_accurate_ocr_secretkey": "SecretKey"
+                "tencent_accurate_ocr_secretkey": "SecretKey",
+                "volcengine_ocr": "火山OCR",
+                "volcengine_ocr_id": "AccessKey ID",
+                "volcengine_ocr_secret":"AccessKey Secret"
             },
             "interface": {
                 "label": "相關 API 設定",
