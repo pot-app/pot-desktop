@@ -81,9 +81,13 @@ export default function Screenshot() {
                     cursor: 'crosshair',
                 }}
                 onMouseDown={(e) => {
-                    setIsDown(true);
-                    setMouseDownX(e.clientX);
-                    setMouseDownY(e.clientY);
+                    if (e.buttons === 1) {
+                        setIsDown(true);
+                        setMouseDownX(e.clientX);
+                        setMouseDownY(e.clientY);
+                    } else {
+                        void appWindow.close();
+                    }
                 }}
                 onMouseMove={(e) => {
                     if (isDown) {
