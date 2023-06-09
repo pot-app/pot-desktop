@@ -46,8 +46,8 @@ export async function ocr(imgurl, lang, setText, id) {
     }
 
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
-        // langPath: '',
-        workerPath: 'https://cdn.bootcdn.net/ajax/libs/tesseract.js/4.0.3/worker.min.js',
+        workerPath: '/worker.min.js',
+        corePath: '/tesseract-core.wasm.js',
         logger: m => {
             if (id === ocrID || id === 'translate') {
                 setText(`Status: ${m.status}\nProgress:${m.progress}`)
