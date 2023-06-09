@@ -1,5 +1,7 @@
 import Tesseract from 'tesseract.js';
+import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { ocrID } from '../windows/Ocr/components/TextArea';
+import { invoke } from '@tauri-apps/api/tauri';
 
 // 必须向外暴露info
 export const info = {
@@ -32,11 +34,17 @@ export const info = {
 };
 
 export async function ocr(imgurl, lang, setText, id) {
-    console.log("start");
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
+
+    const isLinux = await invoke('is_linux');
+    if (isLinux) {
+        let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
+        imgurl = URL.createObjectURL(new Blob([img], { type: 'image/png' }));
+    }
+
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
         // langPath: '',
         workerPath: 'https://cdn.bootcdn.net/ajax/libs/tesseract.js/4.0.3/worker.min.js',
