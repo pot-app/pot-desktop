@@ -107,7 +107,13 @@
                 "tesseract": "Tesseract",
                 "baidu": "Baidu OCR",
                 "baidu_ocr_client_id": "API Key",
-                "baidu_ocr_client_secret": "Secret Key"
+                "baidu_ocr_client_secret": "Secret Key",
+                "tencent": "Tencent",
+                "tencent_ocr_secretid": "SecretID",
+                "tencent_ocr_secretkey": "SecretKey",
+                "tencent_accurate": "Tencent(Accurate)",
+                "tencent_accurate_ocr_secretid": "SecretID",
+                "tencent_accurate_ocr_secretkey": "SecretKey"
             },
             "interface": {
                 "label": "Interface",
