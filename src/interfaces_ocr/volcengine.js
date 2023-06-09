@@ -5,13 +5,8 @@ import { ocrID } from '../windows/Ocr/components/TextArea';
 import CryptoJS from 'crypto-js';
 
 export const info = {
-    name: 'volcengine_ocr',
-    supportLanguage: {
-        auto: 'auto_detect',
-        zh_cn: 'zh_cn',
-        en: 'en',
-        // TODO
-    },
+    name: 'volcengine',
+    supportLanguage: {},
     needs: [
         {
             config_key: 'volcengine_ocr_id',
@@ -25,17 +20,12 @@ export const info = {
 }
 
 export async function ocr(imgurl, lang, setText, id) {
-    // 获取语言映射
-    const { supportLanguage } = info;
     // 获取设置项
-    const appid = get('volcengine_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
-    const secret = get('volcengine_secret') ?? '';
+    const appid = get('volcengine_ocr_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
+    const secret = get('volcengine_ocr_secret') ?? '';
 
     if (appid === '' || secret === '') {
         throw 'Please configure Access Id and Access Key';
-    }
-    if (!(lang in supportLanguage)) {
-        throw 'Unsupported Language';
     }
     
     // 将图片转为base64
@@ -64,14 +54,14 @@ export async function ocr(imgurl, lang, setText, id) {
         };
     });
 
-    var res;
-    // if (lang === 'zh_cn' || lang === 'en') { // 仅中英文
-        // res = await normal_ocr(base64, appid, secret);
-    // } else {
+    let res;
+    if (lang === 'zh_cn' || lang === 'zh_tw' || lang === 'en') { // 仅中英文
+        res = await normal_ocr(base64, appid, secret);
+    } else {
         res = await multi_lang_ocr(base64, appid, secret);
-    // }
+    }
 
-    if (id === ocrID) {
+    if (id === ocrID || id === 'translate') {
         setText(res);
     } else {
         console.log("id != ocrID, res shows below");
@@ -86,7 +76,7 @@ console.log('normal_ocr');
         let result = res.data;
         if (result['data']) {
             let data = result['data'];
-            var texts;
+            var texts = '';
             for (let text of data['line_texts']) {
                 texts += text + '\n';
             }
@@ -104,7 +94,7 @@ console.log('multi_lang_ocr');
         let result = res.data;
         if (result['data']) {
             let data = result['data'];
-            var texts;
+            var texts = '';
             for (let text of data['ocr_infos']) {
                 texts += text['text'] + '\n';
             }
@@ -126,9 +116,8 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     const approximate_pixel = 0 // 文本行高度差距为approximate_pixel时近似为同一行,未选时默认为"0"
     const mode = 'default' // 文字识别模式:"default"-默认模式、"text_block"-文本块模式
     const filter_thresh = 80 // 置信分数低于filter_thresh的文本行将被过滤掉, 默认为"80", 最大为"100"
-    let body = `image_base64=${img_base64}&approximate_pixel=${approximate_pixel}&mode=${mode}&filter_thresh=${filter_thresh}`;
+    let body = `image_base64=${encodeURIComponent(img_base64)}&approximate_pixel=${approximate_pixel}&mode=${mode}&filter_thresh=${filter_thresh}`;
     let body_hash = CryptoJS.SHA256(body).toString(CryptoJS.enc.Hex);
-console.log(img_base64);
 
     // Header X-Date
     let today = new Date();
@@ -217,6 +206,5 @@ console.log(img_base64);
         headers: headers,
         body: { type: 'Text', payload: body },
     });
-console.log(res);
     return res;
 }
