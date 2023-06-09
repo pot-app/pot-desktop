@@ -40,7 +40,7 @@ export default function SourceArea() {
                 setText(t('translator.sourcearea.ocr'));
                 let imgUrl = convertFileSrc(filePath);
                 let ocror = ocrs[get('ocr_interface') ?? 'tesseract'];
-                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setText, 'translate').then(
+                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setFormatText, 'translate').then(
                     (_) => {
                         setOcrSuccess(true);
                     },
@@ -53,18 +53,28 @@ export default function SourceArea() {
         });
     }
 
-    listen('new_selection', (event) => {
-        let source = event.payload.trim();
+    function setFormatSourceText(txt) {
         if (get('delete_newline') ?? false) {
             // /s匹配空格和换行符 /g表示全局匹配
-            source = source.replace(/\s+/g, ' ');
+            txt = txt.replace(/\s+/g, ' ');
         }
-        setSourceText(source);
-        setText(source);
+        setSourceText(txt);
+    }
+    function setFormatText(txt) {
+        if (get('delete_newline') ?? false) {
+            // /s匹配空格和换行符 /g表示全局匹配
+            txt = txt.replace(/\s+/g, ' ');
+        }
+        setText(txt);
+    }
+    listen('new_selection', (event) => {
+        let source = event.payload.trim();
+        setFormatSourceText(source);
+        setFormatText(source);
     });
     useEffect(() => {
         if (ocrSuccess) {
-            setSourceText(text.trim());
+            setFormatSourceText(text.trim());
         }
     }, [ocrSuccess, text]);
     useEffect(() => {
@@ -73,12 +83,8 @@ export default function SourceArea() {
             invoke('get_translate_text').then((v) => {
                 if (v !== '') {
                     let source = v.trim();
-                    if (get('delete_newline') ?? false) {
-                        // /s匹配空格和换行符 /g表示全局匹配
-                        source = source.replace(/\s+/g, ' ');
-                    }
-                    setSourceText(source);
-                    setText(source);
+                    setFormatSourceText(source);
+                    setFormatText(source);
                 }
             });
         }
@@ -107,7 +113,7 @@ export default function SourceArea() {
             setSourceText(event.target.value);
         }
     }
-
+    let inputTimer = null;
     return (
         <Card className='sourcearea'>
             <Toaster />
@@ -125,7 +131,12 @@ export default function SourceArea() {
                     onChange={(e) => {
                         setText(e.target.value);
                         if (dynamicTranslate) {
-                            setSourceText(e.target.value);
+                            if (inputTimer) {
+                                clearTimeout();
+                            }
+                            inputTimer = setTimeout(() => {
+                                setSourceText(e.target.value);
+                            }, 2000);
                         }
                     }}
                 />
@@ -157,10 +168,7 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         onClick={() => {
-                            // /s匹配空格和换行符 /g表示全局匹配
-                            let newText = text.replace(/\s+/g, ' ');
-                            setText(newText);
-                            setSourceText(newText);
+                            setFormatSourceText(newText);
                         }}
                     >
                         <Tooltip title={t('translator.sourcearea.deletenewline')}>
