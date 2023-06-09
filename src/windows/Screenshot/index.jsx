@@ -53,6 +53,7 @@ export default function Screenshot() {
                         setTimeout(() => {
                             void appWindow.show();
                             void appWindow.setFocus();
+                            void appWindow.setResizable(false);
                         }, 100);
                     }
                 }}

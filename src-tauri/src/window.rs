@@ -156,7 +156,7 @@ pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window
     let window =
         tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
             .position(position.x, position.y)
-            .resizable(false)
+            .decorations(false)
             .focused(true)
             .title("Screenshot")
             .skip_taskbar(true)
