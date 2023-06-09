@@ -4,8 +4,9 @@ import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 
 export const info = {
-    name: 'baidu',
+    name: 'baidu_accurate',
     supportLanguage: {
+        auto: 'auto_detect',
         zh_cn: 'CHN_ENG',
         zh_tw: 'CHN_ENG',
         en: 'ENG',
@@ -17,15 +18,22 @@ export const info = {
         ru: 'RUS',
         de: 'GER',
         it: 'ITA',
+        tr: 'TUR',
         pt: 'POR',
+        vi: 'VIE',
+        id: 'IND',
+        th: 'THA',
+        ms: 'MAL',
+        ar: 'ARA',
+        hi: 'HIN',
     },
     needs: [
         {
-            config_key: 'baidu_ocr_client_id',
+            config_key: 'baidu_accurate_ocr_client_id',
             place_hold: '',
         },
         {
-            config_key: 'baidu_ocr_client_secret',
+            config_key: 'baidu_accurate_ocr_client_secret',
             place_hold: '',
         },
     ],
@@ -36,13 +44,13 @@ export async function ocr(imgurl, lang, setText, id) {
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
-    const client_id = get('baidu_ocr_client_id') ?? '';
-    const client_secret = get('baidu_ocr_client_secret') ?? '';
+    const client_id = get('baidu_accurate_ocr_client_id') ?? '';
+    const client_secret = get('baidu_accurate_ocr_client_secret') ?? '';
     if (client_id === '' || client_secret === '') {
         throw 'Please configure client_id and client_secret';
     }
 
-    const url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic';
+    const url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic';
     const token_url = "https://aip.baidubce.com/oauth/2.0/token"
 
     const token_res = await fetch(token_url, {
@@ -116,6 +124,7 @@ export async function ocr(imgurl, lang, setText, id) {
                 }
             } else {
                 if (id === ocrID || id === 'translate') {
+                    console.log(res);
                     throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
                 }
             }
