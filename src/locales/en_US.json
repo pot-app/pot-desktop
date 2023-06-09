@@ -107,7 +107,10 @@
                 "tesseract": "Tesseract",
                 "baidu": "Baidu OCR",
                 "baidu_ocr_client_id": "API Key",
-                "baidu_ocr_client_secret": "Secret Key"
+                "baidu_ocr_client_secret": "Secret Key",
+                "baidu_accurate": "Baidu OCR (Accurate)",
+                "baidu_accurate_ocr_client_id": "API Key",
+                "baidu_accurate_ocr_client_secret": "Secret Key"
             },
             "interface": {
                 "label": "Interface",
