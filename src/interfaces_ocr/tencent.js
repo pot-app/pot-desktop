@@ -1,4 +1,5 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
+import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
@@ -70,8 +71,7 @@ export async function ocr(imgurl, lang, setText, id) {
             }
         }
         img.onerror = async (e) => {
-            let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-            let base64 = window.btoa(String.fromCharCode(...img));
+            let base64 = await invoke('get_base64');
             resolve(base64);
         };
     });

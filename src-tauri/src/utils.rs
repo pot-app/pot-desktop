@@ -78,3 +78,19 @@ pub fn cut_screenshot(left: u32, top: u32, right: u32, bottom: u32, app_handle: 
 pub fn print(msg: String) {
     println!("{}", msg);
 }
+
+#[tauri::command]
+pub fn get_base64(app_handle: tauri::AppHandle) -> String {
+    use base64::{engine::general_purpose, Engine as _};
+    use dirs::cache_dir;
+    use std::fs::File;
+    use std::io::Read;
+    let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
+    app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
+    app_cache_dir_path.push("pot_screenshot_cut.png");
+    let mut file = File::open(app_cache_dir_path).unwrap();
+    let mut vec = Vec::new();
+    file.read_to_end(&mut vec).unwrap();
+    let base64 = general_purpose::STANDARD.encode(&vec);
+    base64.replace("\r\n", "")
+}

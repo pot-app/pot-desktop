@@ -1,4 +1,4 @@
-import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
+import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -27,7 +27,7 @@ export async function ocr(imgurl, lang, setText, id) {
     if (appid === '' || secret === '') {
         throw 'Please configure Access Id and Access Key';
     }
-    
+
     // 将图片转为base64
     let canvas = document.createElement('CANVAS');
     let ctx = canvas.getContext('2d');
@@ -48,8 +48,7 @@ export async function ocr(imgurl, lang, setText, id) {
             }
         }
         img.onerror = async (e) => {
-            let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-            let base64 = window.btoa(String.fromCharCode(...img));
+            let base64 = await invoke('get_base64');
             resolve(base64);
         };
     });
@@ -106,7 +105,7 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     const contentType = 'application/x-www-form-urlencoded';
     const method = 'POST';
     const path = '/';
-    
+
     // Body 及其参数
     const approximate_pixel = 0 // 文本行高度差距为approximate_pixel时近似为同一行,未选时默认为"0"
     const mode = 'default' // 文字识别模式:"default"-默认模式、"text_block"-文本块模式
@@ -168,7 +167,7 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     let norm_uri = path;
     let norm_query = 'Action=' + action + '&Version=' + serviceVersion;
     let canoncial_request =
-        method + '\n' + 
+        method + '\n' +
         norm_uri + '\n' +
         norm_query + '\n' +
         signed_str + '\n' +

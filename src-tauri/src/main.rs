@@ -192,7 +192,8 @@ fn main() {
             is_wayland,
             screenshot,
             cut_screenshot,
-            print
+            print,
+            get_base64
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

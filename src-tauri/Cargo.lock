@@ -2707,6 +2707,7 @@ dependencies = [
 name = "pot"
 version = "0.0.0"
 dependencies = [
+ "base64 0.21.2",
  "core-graphics",
  "dirs 5.0.1",
  "dunce",
