@@ -8,7 +8,6 @@ import React, { useEffect, useRef } from 'react';
 import { useAtom, useSetAtom, atom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import * as interfaces from '../../interfaces';
-
 import SideBar from './components/SideBar';
 import { light, dark } from '../themes';
 import routes from './routes';
@@ -19,6 +18,7 @@ export const autoStartAtom = atom(true);
 export const autoCheckAtom = atom(true);
 export const defaultPinedAtom = atom(true);
 export const dynamicTranslateAtom = atom(false);
+export const incrementalTranslationAtom = atom(false);
 export const deleteNewlineAtom = atom(false);
 export const openaiStreamAtom = atom(false);
 export const hideSourceAtom = atom(false);
@@ -62,6 +62,7 @@ export default function Config() {
     const setAutoCheck = useSetAtom(autoCheckAtom);
     const setDefaultPined = useSetAtom(defaultPinedAtom);
     const setDynamicTranslate = useSetAtom(dynamicTranslateAtom);
+    const setIncrementalTranslation = useSetAtom(incrementalTranslationAtom);
     const setDeleteNewline = useSetAtom(deleteNewlineAtom);
     const setOpenaiStream = useSetAtom(openaiStreamAtom);
     const setHideSource = useSetAtom(hideSourceAtom);
@@ -112,6 +113,7 @@ export default function Config() {
         setAutoCheck(get('auto_check') ?? true);
         setDefaultPined(get('default_pined') ?? true);
         setDynamicTranslate(get('dynamic_translate') ?? false);
+        setIncrementalTranslation(get('incremental_translation') ?? false);
         setDeleteNewline(get('delete_newline') ?? false);
         setOpenaiStream(get('openai_stream') ?? false);
         setHideSource(get('hide_source') ?? false);

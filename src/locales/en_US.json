@@ -61,6 +61,8 @@
                 "title": "Translate Settings",
                 "dynamic": "Dynamic Translation",
                 "dynamichelp": "Translate the input text automatically",
+                "incremental": "Incremental Translation",
+                "incrementalhelp": "Appends text to be translated instead of replacing it in clipboard listening mode or when the translation window is not closed",
                 "deletenewline": "Delete New Line Automatically",
                 "deletenewlinehelp": "Delete new line automatically when translating",
                 "remembertarget": "Remember Target Language",
@@ -119,7 +121,7 @@
                 "tencent_accurate_ocr_secretkey": "SecretKey",
                 "volcengine": "VolcEngine OCR",
                 "volcengine_ocr_id": "AccessKey ID",
-                "volcengine_ocr_secret":"AccessKey Secret"
+                "volcengine_ocr_secret": "AccessKey Secret"
             },
             "interface": {
                 "label": "Interface",

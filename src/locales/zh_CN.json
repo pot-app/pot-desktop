@@ -61,6 +61,8 @@
                 "title": "翻译设置",
                 "dynamic": "动态翻译",
                 "dynamichelp": "输入后立即翻译",
+                "incremental": "增量翻译",
+                "incrementalhelp": "在剪切板监听模式或翻译窗口没有关闭的情况下，在待翻译文本后追加而不是替换内容",
                 "deletenewline": "自动删除换行",
                 "deletenewlinehelp": "取词后自动删除换号",
                 "remembertarget": "记住目标语言",
@@ -119,7 +121,7 @@
                 "tencent_accurate_ocr_secretkey": "SecretKey",
                 "volcengine": "火山OCR",
                 "volcengine_ocr_id": "AccessKey ID",
-                "volcengine_ocr_secret":"AccessKey Secret"
+                "volcengine_ocr_secret": "AccessKey Secret"
             },
             "interface": {
                 "label": "接口设置",
