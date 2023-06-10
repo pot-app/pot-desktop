@@ -63,14 +63,10 @@ export async function ocr(imgurl, lang, setText, id) {
 
     if (id === ocrID || id === 'translate') {
         setText(res);
-    } else {
-        console.log("id != ocrID, res shows below");
-        console.log(res);
     }
 }
 
 async function normal_ocr(img_base64, appid, secret) {
-console.log('normal_ocr');
     let res = await query(img_base64, "OCRNormal", "2020-08-26", appid, secret);
     if (res.ok) {
         let result = res.data;
@@ -83,12 +79,11 @@ console.log('normal_ocr');
             return texts;
         }
     } else {
-        return `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
 
 async function multi_lang_ocr(img_base64, appid, secret) {
-console.log('multi_lang_ocr');
     let res = await query(img_base64, "MultiLanguageOCR", "2022-08-31", appid, secret);
     if (res.ok) {
         let result = res.data;
@@ -101,7 +96,7 @@ console.log('multi_lang_ocr');
             return texts;
         }
     } else {
-        return `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
 
