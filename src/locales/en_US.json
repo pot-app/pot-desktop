@@ -116,7 +116,10 @@
                 "tencent_ocr_secretkey": "SecretKey",
                 "tencent_accurate": "Tencent OCR (Accurate)",
                 "tencent_accurate_ocr_secretid": "SecretID",
-                "tencent_accurate_ocr_secretkey": "SecretKey"
+                "tencent_accurate_ocr_secretkey": "SecretKey",
+                "volcengine": "VolcEngine OCR",
+                "volcengine_ocr_id": "AccessKey ID",
+                "volcengine_ocr_secret":"AccessKey Secret"
             },
             "interface": {
                 "label": "Interface",
