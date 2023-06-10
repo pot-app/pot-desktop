@@ -41,6 +41,14 @@
     <td>Clipboard Listening Mode
     <td>Open the translation window, start the clipboard listening mode, and copy the content you want to translate
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg4.gif"/>
+<tr>
+    <td>Screenshot OCR
+    <td>Press the shortcut key for screenshot OCR, select the screenshot area in the box
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg5.gif"/>
+<tr>
+    <td>Screenshot Translation
+    <td>Press the shortcut key for screenshot translation, select the screenshot area in the box
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg6.gif"/>
 </table>
 
 </div>
