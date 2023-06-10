@@ -90,8 +90,14 @@
 
 ## OCR
 
--   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
 -   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract)
+-   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
+-   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
+-   [x] [OCR Space](http://ocr.space/)
+-   [x] [Volcengine](https://www.volcengine.com/product/OCR)
+-   [x] [Simple Latex](https://simpletex.cn/)
+-   [x] [iFlytek](https://www.xfyun.cn/services/common-ocr)
+-   [ ] and more...
 
 <div align="center">
 
