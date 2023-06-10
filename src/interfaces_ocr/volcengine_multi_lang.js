@@ -5,39 +5,29 @@ import { ocrID } from '../windows/Ocr/components/TextArea';
 import CryptoJS from 'crypto-js';
 
 export const info = {
-    name: 'volcengine',
-    supportLanguage: {
-        auto: 'auto',
-        zh_cn: 'zh_cn',
-        zh_tw: 'zh_tw',
-        yue: 'yue',
-        en: 'en',
-    },
+    name: 'volcengine_multi_lang',
+    supportLanguage: {},
     needs: [
         {
-            config_key: 'volcengine_ocr_id',
+            config_key: 'volcengine_multi_lang_ocr_id',
             place_hold: '',
         },
         {
-            config_key: 'volcengine_ocr_secret',
+            config_key: 'volcengine_multi_lang_ocr_secret',
             place_hold: '',
         },
     ],
 }
 
 export async function ocr(imgurl, lang, setText, id) {
-    const { supportLanguage } = info;
-
     // 获取设置项
-    const appid = get('volcengine_ocr_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
-    const secret = get('volcengine_ocr_secret') ?? '';
+    const appid = get('volcengine_multi_lang_ocr_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
+    const secret = get('volcengine_multi_lang_ocr_secret') ?? '';
 
     if (appid === '' || secret === '') {
         throw 'Please configure Access Id and Access Key';
     }
-    if (!(lang in supportLanguage)) {
-        throw 'Unsupported Language';
-    }
+
     // 将图片转为base64
     let canvas = document.createElement('CANVAS');
     let ctx = canvas.getContext('2d');
@@ -63,27 +53,10 @@ export async function ocr(imgurl, lang, setText, id) {
         };
     });
 
-    let text = await normal_ocr(base64, appid, secret);
+    let text = await multi_lang_ocr(base64, appid, secret);
 
     if (id === ocrID || id === 'translate') {
         setText(text.trim());
-    }
-}
-
-async function normal_ocr(img_base64, appid, secret) {
-    let res = await query(img_base64, "OCRNormal", "2020-08-26", appid, secret);
-    if (res.ok) {
-        let result = res.data;
-        if (result['data']) {
-            let data = result['data'];
-            var texts = '';
-            for (let text of data['line_texts']) {
-                texts += text + '\n';
-            }
-            return texts;
-        }
-    } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }
 

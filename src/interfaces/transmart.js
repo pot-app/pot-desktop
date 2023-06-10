@@ -108,7 +108,7 @@ export async function translate(text, from, to, setText, id) {
                         for (let i of result['auto_translation']) {
                             if (translateID.includes(id)) {
                                 target += i;
-                                setText(target);
+                                setText(target.trim());
                             }
                         }
                     } else {

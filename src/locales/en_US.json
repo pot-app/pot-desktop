@@ -126,6 +126,9 @@
                 "volcengine": "VolcEngine OCR",
                 "volcengine_ocr_id": "AccessKey ID",
                 "volcengine_ocr_secret": "AccessKey Secret",
+                "volcengine_multi_lang": "VolcEngine OCR(Multilingual)",
+                "volcengine_multi_lang_ocr_id": "AccessKey ID",
+                "volcengine_multi_lang_ocr_secret": "AccessKey Secret",
                 "simplelatex": "Simple Latex",
                 "simplelatex_token": "Token"
             },
