@@ -1,7 +1,7 @@
-import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
+import { invoke } from '@tauri-apps/api/tauri';
 
 export const info = {
     name: 'baidu',
@@ -79,8 +79,7 @@ export async function ocr(imgurl, lang, setText, id) {
                     }
                 }
                 img.onerror = async (e) => {
-                    let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-                    let base64 = window.btoa(String.fromCharCode(...img));
+                    let base64 = await invoke('get_base64');
                     resolve(base64);
                 };
             });
