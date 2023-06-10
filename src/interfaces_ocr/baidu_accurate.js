@@ -123,7 +123,6 @@ export async function ocr(imgurl, lang, setText, id) {
                 }
             } else {
                 if (id === ocrID || id === 'translate') {
-                    console.log(res);
                     throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
                 }
             }
