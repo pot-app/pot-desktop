@@ -122,7 +122,10 @@
                 "ocrspace2": "OCR Space(Engine 2)",
                 "ocrspace2_apikey": "Api Key",
                 "ocrspace3": "OCR Space(Engine 3)",
-                "ocrspace3_apikey": "Api Key"
+                "ocrspace3_apikey": "Api Key",
+                "volcengine": "VolcEngine OCR",
+                "volcengine_ocr_id": "AccessKey ID",
+                "volcengine_ocr_secret":"AccessKey Secret"
             },
             "interface": {
                 "label": "Interface",
