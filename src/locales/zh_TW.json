@@ -117,12 +117,12 @@
                 "tencent_accurate": "騰訊OCR(高精度)",
                 "tencent_accurate_ocr_secretid": "SecretID",
                 "tencent_accurate_ocr_secretkey": "SecretKey",
-                "spaceocr1": "OCR Space(Engine 1)",
-                "spaceocr1_apikey": "Api Key",
-                "spaceocr2": "OCR Space(Engine 2)",
-                "spaceocr2_apikey": "Api Key",
-                "spaceocr3": "OCR Space(Engine 3)",
-                "spaceocr3_apikey": "Api Key"
+                "ocrspace1": "OCR Space(Engine 1)",
+                "ocrspace1_apikey": "Api Key",
+                "ocrspace2": "OCR Space(Engine 2)",
+                "ocrspace2_apikey": "Api Key",
+                "ocrspace3": "OCR Space(Engine 3)",
+                "ocrspace3_apikey": "Api Key"
             },
             "interface": {
                 "label": "相關 API 設定",

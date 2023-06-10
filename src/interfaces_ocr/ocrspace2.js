@@ -4,18 +4,18 @@ import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 
 export const info = {
-    name: 'spaceocr2',
+    name: 'ocrspace2',
     supportLanguage: {},
     needs: [
         {
-            config_key: 'spaceocr2_apikey',
+            config_key: 'ocrspace2_apikey',
             place_hold: '',
         }
     ],
 };
 
 export async function ocr(imgurl, lang, setText, id) {
-    const apikey = get('spaceocr2_apikey') ?? '';
+    const apikey = get('ocrspace2_apikey') ?? '';
 
     if (apikey === '') {
         throw 'Please configure client_id and client_secret';

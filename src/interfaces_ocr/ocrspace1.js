@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 
 export const info = {
-    name: 'spaceocr1',
+    name: 'ocrspace1',
     supportLanguage: {
         zh_cn: 'chs',
         zh_tw: 'cht',
@@ -22,7 +22,7 @@ export const info = {
     },
     needs: [
         {
-            config_key: 'spaceocr1_apikey',
+            config_key: 'ocrspace1_apikey',
             place_hold: '',
         }
     ],
@@ -33,7 +33,7 @@ export async function ocr(imgurl, lang, setText, id) {
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
-    const apikey = get('spaceocr1_apikey') ?? '';
+    const apikey = get('ocrspace1_apikey') ?? '';
 
     if (apikey === '') {
         throw 'Please configure client_id and client_secret';
