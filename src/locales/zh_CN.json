@@ -125,7 +125,9 @@
                 "ocrspace3_apikey": "Api Key",
                 "volcengine": "火山OCR",
                 "volcengine_ocr_id": "AccessKey ID",
-                "volcengine_ocr_secret":"AccessKey Secret"
+                "volcengine_ocr_secret": "AccessKey Secret",
+                "simplelatex": "Simple Latex",
+                "simplelatex_token": "Token"
             },
             "interface": {
                 "label": "接口设置",
