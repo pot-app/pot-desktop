@@ -1,5 +1,6 @@
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import { Box, IconButton, InputBase } from '@mui/material';
+import SmartButtonRoundedIcon from '@mui/icons-material/SmartButtonRounded';
+import { Box, IconButton, InputBase, Tooltip } from '@mui/material';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
@@ -78,7 +79,19 @@ export default function TextArea() {
                         copy(resultText);
                     }}
                 >
-                    <ContentCopyRoundedIcon />
+                    <Tooltip title={t('translator.copy')}>
+                        <ContentCopyRoundedIcon />
+                    </Tooltip>
+                </IconButton>
+                <IconButton
+                    className='source-button'
+                    onClick={() => {
+                        setResultText(resultText.replace(/\s+/g, ' '));
+                    }}
+                >
+                    <Tooltip title={t('translator.sourcearea.deletenewline')}>
+                        <SmartButtonRoundedIcon />
+                    </Tooltip>
                 </IconButton>
                 <PulseLoader
                     loading={loading}
