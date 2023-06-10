@@ -117,6 +117,12 @@
                 "tencent_accurate": "Tencent OCR (Accurate)",
                 "tencent_accurate_ocr_secretid": "SecretID",
                 "tencent_accurate_ocr_secretkey": "SecretKey",
+                "ocrspace1": "OCR Space(Engine 1)",
+                "ocrspace1_apikey": "Api Key",
+                "ocrspace2": "OCR Space(Engine 2)",
+                "ocrspace2_apikey": "Api Key",
+                "ocrspace3": "OCR Space(Engine 3)",
+                "ocrspace3_apikey": "Api Key",
                 "volcengine": "VolcEngine OCR",
                 "volcengine_ocr_id": "AccessKey ID",
                 "volcengine_ocr_secret":"AccessKey Secret"
