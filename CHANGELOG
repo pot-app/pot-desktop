@@ -1,13 +1,19 @@
-## 1.2.0 (2023-06-08)
+## 1.3.0 (2023-06-10)
 
 ### New feature:
 
--   Add Screenshot Translate([`0f2c4ce`](https://github.com/pot-app/pot-desktop/commit/0f2c4ce97dc4137cc303ef52dbb9f4aa20b39508)) (by @Pylogmon)
--   更新繁體中文翻譯 (#196)([`2b25226`](https://github.com/pot-app/pot-desktop/commit/2b252268d1b98404e46d3826232fb41c1359df2d)) (by @bestpika)
+-   Add OCR Space Support (#204)([`2e40ed4`](https://github.com/pot-app/pot-desktop/commit/2e40ed4601346a69021ae1a0d3acdd99bc50da6a)) (by @Pylogmon)
+-   Add Tencent OCR Support (#203)([`24ed180`](https://github.com/pot-app/pot-desktop/commit/24ed1802cdd271ad52310c0a6cc9ec4f51dffba9)) (by @Pylogmon)
+-   Add Baidu OCR Accurate Support([`be23a91`](https://github.com/pot-app/pot-desktop/commit/be23a91107b7e86f2b64047153db7ba41d489b89)) (by @Pylogmon)
+-   Add VolcEngine OCR Support (#205)([`9ad5d41`](https://github.com/pot-app/pot-desktop/commit/9ad5d41df4a2721e1f2de6f9cc833d88ed1dcb09) (by @ccslykx))
 
 ### Bugs fixed:
 
--   Start OCR on ocr window is open([`e0a9563`](https://github.com/pot-app/pot-desktop/commit/e0a9563c147c5ee5e27812ca6ba5098a350ea4a9)) (by @Pylogmon)
--   Ocr Text format([`4ed17f3`](https://github.com/pot-app/pot-desktop/commit/4ed17f3636e23ece507762a386b1749592bc417d)) (by @Pylogmon)
--   Linux load image failed([`723e6c9`](https://github.com/pot-app/pot-desktop/commit/723e6c9549bee9dc09769b59b1485110af286ab6)) (by @Pylogmon)
--   Tesseract OCR Japanese([`1e9f97d`](https://github.com/pot-app/pot-desktop/commit/1e9f97defb5c057a639b5d9010921a5785339b32)) (by @Pylogmon)
+-   Stack overflow on linux (#209)([`adbae09`](https://github.com/pot-app/pot-desktop/commit/adbae093f26892de5fca87b0439b7f59d1bcb08b)) (by @Pylogmon)
+-   Format text when screenshot translate (#202)([`9924a00`](https://github.com/pot-app/pot-desktop/commit/9924a00490a38cca22c72b5c31e03594205eb693)) (by @Pylogmon)
+-   Load File Error on Linux([`6b8b757`](https://github.com/pot-app/pot-desktop/commit/6b8b757d1451622f32d95973865fa5fea878db5c)) (by @Pylogmon)
+-   Screenshot windows fullscreen failed([`511c326`](https://github.com/pot-app/pot-desktop/commit/511c326a881cd71a5d53aa32052513b7a5590a55)) (by @Pylogmon)
+
+### Performance improves:
+
+-   Put worker and core at local([`e2e19d1`](https://github.com/pot-app/pot-desktop/commit/e2e19d17d71092a9335c82dee79246b379656d81)) (by @Pylogmon)
