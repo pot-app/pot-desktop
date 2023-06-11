@@ -103,8 +103,9 @@
 -   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
 -   [x] [OCR Space](http://ocr.space/)
 -   [x] [Volcengine](https://www.volcengine.com/product/OCR)
--   [x] [Simple Latex](https://simpletex.cn/)
 -   [x] [iFlytek](https://www.xfyun.cn/services/common-ocr)
+-   [x] [Tencent Image Translation](https://cloud.tencent.com/document/product/551/17232)
+-   [x] [Simple Latex](https://simpletex.cn/)
 -   [ ] and more...
 
 <div align="center">
