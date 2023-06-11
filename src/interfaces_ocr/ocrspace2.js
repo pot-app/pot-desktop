@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import { fetch } from '@tauri-apps/api/http';
+import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 
@@ -52,10 +52,10 @@ export async function ocr(imgurl, lang, setText, id) {
             apikey,
             'content-type': 'application/x-www-form-urlencoded'
         },
-        body: {
-            type: 'Text',
-            payload: `base64Image=${encodeURIComponent(base64)}&OCREngine=2`
-        }
+        body: Body.form({
+            'base64Image': base64,
+            'OCREngine': '2'
+        })
     }
     )
     if (res.ok) {

@@ -1,4 +1,4 @@
-import { fetch } from '@tauri-apps/api/http';
+import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 import { invoke } from '@tauri-apps/api/tauri';
@@ -92,10 +92,11 @@ export async function ocr(imgurl, lang, setText, id) {
                 query: {
                     access_token: token
                 },
-                body: {
-                    type: 'Text',
-                    payload: `language_type=${supportLanguage[lang]}&detect_direction=false&image=${encodeURIComponent(base64)}`
-                }
+                body: Body.form({
+                    'language_type': supportLanguage[lang],
+                    'detect_direction': 'false',
+                    'image': base64
+                }),
             }
             )
             if (res.ok) {
