@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 export const info = {
     name: 'tencent_img',
     supportLanguage: {
+        auto: 'zh',
         zh_cn: 'zh',
         zh_tw: 'zh-TW',
         yue: 'zh-TW',
@@ -187,7 +188,11 @@ export async function ocr(imgurl, lang, setText, id) {
                 target += i['TargetText'] + '\n';
             }
             if (id === ocrID) {
-                setText(target.trim())
+                if (lang === 'auto') {
+                    setText(source.trim());
+                } else {
+                    setText(target.trim())
+                }
             }
             if (id === 'translate') {
                 setText(source.trim())
