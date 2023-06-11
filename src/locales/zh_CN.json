@@ -134,7 +134,11 @@
                 "volcengine_multi_lang_ocr_secret": "AccessKey Secret",
                 "volcengine_ocr_secret": "AccessKey Secret",
                 "simplelatex": "Simple Latex",
-                "simplelatex_token": "Token"
+                "simplelatex_token": "Token",
+                "iflytek_latex": "讯飞公式识别",
+                "iflytek_latex_appid": "AppID",
+                "iflytek_latex_apikey": "API Key",
+                "iflytek_latex_apisecret": "API Secret"
             },
             "interface": {
                 "label": "接口设置",

@@ -134,7 +134,11 @@
                 "volcengine_multi_lang_ocr_id": "AccessKey ID",
                 "volcengine_multi_lang_ocr_secret": "AccessKey Secret",
                 "simplelatex": "Simple Latex",
-                "simplelatex_token": "Token"
+                "simplelatex_token": "Token",
+                "iflytek_latex": "iFlytek Latex",
+                "iflytek_latex_appid": "AppID",
+                "iflytek_latex_apikey": "API Key",
+                "iflytek_latex_apisecret": "API Secret"
             },
             "interface": {
                 "label": "Interface",
