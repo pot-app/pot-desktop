@@ -198,7 +198,7 @@ curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # The body content is wha
 
 ## Existing Usage
 
-### SnipDO (Windows)
+### SnipDo (Windows)
 
 1. Download and install SnipDo in the [Microsoft Store](https://apps.microsoft.com/store/detail/snipdo/9NPZ2TVKJVT7)
 2. Download the SnipDo extension of pot from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.pbar)
