@@ -39,7 +39,7 @@ export default function SourceArea() {
             join(appCacheDirPath, 'pot_screenshot_cut.png').then((filePath) => {
                 setText(t('translator.sourcearea.ocr'));
                 let imgUrl = convertFileSrc(filePath);
-                let ocror = ocrs[get('ocr_interface') ?? 'tesseract'];
+                let ocror = ocrs[get('screenshot_translate_interface') ?? 'tesseract'];
                 ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setFormatText, 'translate').then(
                     (_) => {
                         setOcrSuccess(true);

@@ -9,11 +9,12 @@ import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
-import { ocrInterfaceAtom, ocrLanguageAtom } from '../..';
+import { ocrInterfaceAtom, ocrLanguageAtom, screenshotTranslateInterfaceAtom } from '../..';
 
 export default function OcrConfig() {
     const [ocrInterface, setOcrInterface] = useAtom(ocrInterfaceAtom);
     const [ocrLanguage, setOcrLanguage] = useAtom(ocrLanguageAtom);
+    const [screenshotTranslateInterface, setScreenshotTranslateInterface] = useAtom(screenshotTranslateInterfaceAtom);
     const { t } = useTranslation();
 
     return (
@@ -72,6 +73,28 @@ export default function OcrConfig() {
                             >
                                 <span className={`fi fi-${x.code}`} />
                                 <span>{t(`language.${x.value}`)}</span>
+                            </MenuItem>
+                        );
+                    })}
+                </Select>
+            </ConfigItem>
+            <ConfigItem label={t('config.ocr.screenshot_translate_interface')}>
+                <Select
+                    size='small'
+                    sx={{ width: '300px' }}
+                    value={screenshotTranslateInterface}
+                    onChange={async (e) => {
+                        setScreenshotTranslateInterface(e.target.value);
+                        await set('screenshot_translate_interface', e.target.value);
+                    }}
+                >
+                    {Object.keys(ocrs).map((x) => {
+                        return (
+                            <MenuItem
+                                value={x}
+                                key={nanoid()}
+                            >
+                                {t(`config.ocr_interface.${ocrs[x]['info']['name']}`)}
                             </MenuItem>
                         );
                     })}

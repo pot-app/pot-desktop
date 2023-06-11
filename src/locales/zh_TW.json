@@ -79,8 +79,9 @@
             "ocr": {
                 "title": "OCR 設定",
                 "label": "OCR 設定",
-                "interface": "預設 API",
-                "language": "預設語言"
+                "interface": "OCR 預設 API",
+                "language": "預設語言",
+                "screenshot_translate_interface": "截圖翻譯預設 API"
             },
             "external": {
                 "label": "外部設定",
