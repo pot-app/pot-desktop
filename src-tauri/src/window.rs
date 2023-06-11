@@ -350,7 +350,6 @@ pub fn ocr_window() {
         None => {
             let window = build_ocr_window(handle).unwrap();
             window.listen("translate_from_ocr", |e| {
-                println!("{e:?}");
                 let raw_str = e.payload().unwrap().to_string();
                 let text = raw_str.trim_matches('"');
                 let text = text.replace("\\n", "\n");
