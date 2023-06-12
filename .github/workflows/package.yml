@@ -227,6 +227,11 @@ jobs:
         run: |
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
+          if [[ "${{ matrix.target }}" == "i686-unknown-linux-gnu" ]]; then
+            echo "configure PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for x86 target of tauri"
+            export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/:$PKG_CONFIG_PATH
+            export PKG_CONFIG_SYSROOT_DIR=/
+          fi
           pnpm tauri build --target ${{ matrix.target }} -b deb
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
