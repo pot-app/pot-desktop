@@ -138,7 +138,15 @@
                 "iflytek_latex": "訊飛公式識別",
                 "iflytek_latex_appid": "AppID",
                 "iflytek_latex_apikey": "API Key",
-                "iflytek_latex_apisecret": "API Secret"
+                "iflytek_latex_apisecret": "API Secret",
+                "iflytek": "訊飛OCR",
+                "iflytek_ocr_appid": "APPID",
+                "iflytek_ocr_apikey": "APIKey",
+                "iflytek_ocr_apisecret": "APISecret",
+                "iflytek_intsig": "訊飛OCR(intsig)",
+                "iflytek_ocr_intsig_appid": "APPID (intsig)",
+                "iflytek_ocr_intsig_apikey": "APIKey (intsig)",
+                "iflytek_ocr_intsig_apisecret": "APISecret (intsig)"
             },
             "interface": {
                 "label": "相關 API 設定",
