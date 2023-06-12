@@ -41,6 +41,14 @@
     <td>Clipboard Listening Mode
     <td>Open the translation window, start the clipboard listening mode, and copy the content you want to translate
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg4.gif"/>
+<tr>
+    <td>Screenshot OCR
+    <td>Press the shortcut key for screenshot OCR, select the screenshot area in the box
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg5.gif"/>
+<tr>
+    <td>Screenshot Translation
+    <td>Press the shortcut key for screenshot translation, select the screenshot area in the box
+    <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg6.gif"/>
 </table>
 
 </div>
@@ -90,8 +98,15 @@
 
 ## OCR
 
+-   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract) (Offline)
 -   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
--   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract)
+-   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
+-   [x] [OCR Space](http://ocr.space/)
+-   [x] [Volcengine](https://www.volcengine.com/product/OCR)
+-   [x] [iFlytek](https://www.xfyun.cn/services/common-ocr)
+-   [x] [Tencent Image Translation](https://cloud.tencent.com/document/product/551/17232)
+-   [x] [Simple Latex](https://simpletex.cn/)
+-   [ ] and more...
 
 <div align="center">
 
@@ -183,7 +198,7 @@ curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # The body content is wha
 
 ## Existing Usage
 
-### SnipDO (Windows)
+### SnipDo (Windows)
 
 1. Download and install SnipDo in the [Microsoft Store](https://apps.microsoft.com/store/detail/snipdo/9NPZ2TVKJVT7)
 2. Download the SnipDo extension of pot from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.pbar)

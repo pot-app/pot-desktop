@@ -82,7 +82,7 @@ export async function translate(text, from, to, setText, id) {
                 for (let i of result['translation']) {
                     if (translateID.includes(id)) {
                         target += i + '\n';
-                        setText(target);
+                        setText(target.trim());
                     }
                 }
             } else {
@@ -94,7 +94,7 @@ export async function translate(text, from, to, setText, id) {
                 for (let i of result['translation']) {
                     if (translateID.includes(id)) {
                         target += i + '\n';
-                        setText(target);
+                        setText(target.trim());
                     }
                 }
             } else {

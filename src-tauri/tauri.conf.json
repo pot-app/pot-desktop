@@ -8,7 +8,7 @@
     },
     "package": {
         "productName": "pot",
-        "version": "1.2.0"
+        "version": "1.4.0"
     },
     "tauri": {
         "allowlist": {
@@ -54,7 +54,7 @@
             "category": "Utility",
             "copyright": "GPLv3",
             "deb": {
-                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "libdbus-1-3"]
+                "depends": ["libxdo-dev", "libxcb1", "libxrandr2"]
             },
             "externalBin": [],
             "icon": [
@@ -90,8 +90,8 @@
             }
         },
         "security": {
-            "csp": "default-src *; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
-            "devCsp": "default-src *; img-src 'self' asset: https://asset.localhost; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
+            "csp": "default-src *; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
+            "devCsp": "default-src *; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
         },
         "updater": {
             "active": true,

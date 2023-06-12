@@ -16,6 +16,10 @@ html {
     border-radius: 10px;
 }
 
+.MuiCard-root {
+    box-shadow: none !important;
+}
+
 .fi {
     margin-right: 8px;
     border-radius: 3px;

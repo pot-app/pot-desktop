@@ -8,10 +8,13 @@ import { useTranslation } from 'react-i18next';
 import { ask } from '@tauri-apps/api/dialog';
 import { Button, Box } from '@mui/material';
 import { app } from '@tauri-apps/api';
+import { useAtomValue } from 'jotai';
 import ConfigList from '../../components/ConfigList';
+import { get, configAtom } from '../../../main';
 import './style.css';
 
 export default function AppInfo() {
+    const configList = useAtomValue(configAtom);
     const [version, setVersion] = useState('');
     const [tauriVersion, setTauriVersion] = useState('');
     const [checking, setChecking] = useState(false);
@@ -39,7 +42,13 @@ export default function AppInfo() {
             });
         });
     }
-
+    function copyConfig() {
+        let config_str = '';
+        for (let key of Object.keys(configList)) {
+            config_str += `${key} = ${JSON.stringify(configList[key])}\n`;
+        }
+        copy(config_str);
+    }
     function checkUpdateHandler() {
         setChecking(true);
         checkUpdate().then(
@@ -157,6 +166,14 @@ export default function AppInfo() {
                     {t('config.about.download')}
                 </Button>
             </a>
+            &nbsp;
+            <Button
+                onClick={copyConfig}
+                variant='outlined'
+                size='small'
+            >
+                {t('config.about.copyconfig')}
+            </Button>
             <h3>{t('config.about.website')}</h3>
             <ul>
                 <li>

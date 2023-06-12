@@ -4,23 +4,35 @@ import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
 import { get } from '../windows/main';
+import { nanoid } from 'nanoid';
 
 export const info = {
-    name: 'tencent_accurate',
+    name: 'tencent_img',
     supportLanguage: {
-        auto: 'auto',
+        auto: 'zh',
         zh_cn: 'zh',
-        zh_tw: 'zh_rare',
-        yue: 'zh_rare',
-        en: 'auto',
+        zh_tw: 'zh-TW',
+        yue: 'zh-TW',
+        en: 'en',
+        ja: 'ja',
+        ko: 'ko',
+        fr: 'fr',
+        es: 'es',
+        ru: 'ru',
+        de: 'de',
+        it: 'it',
+        pt: 'pt',
+        vi: 'vi',
+        th: 'th',
+        ms: 'ms',
     },
     needs: [
         {
-            config_key: 'tencent_accurate_ocr_secretid',
+            config_key: 'tencent_img_ocr_secretid',
             place_hold: '',
         },
         {
-            config_key: 'tencent_accurate_ocr_secretkey',
+            config_key: 'tencent_img_ocr_secretkey',
             place_hold: '',
         },
     ],
@@ -29,8 +41,8 @@ export const info = {
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
 
-    const SecretId = get('tencent_accurate_ocr_secretid') ?? '';
-    const SecretKey = get('tencent_accurate_ocr_secretkey') ?? '';
+    const SecretId = get('tencent_img_ocr_secretid') ?? '';
+    const SecretKey = get('tencent_img_ocr_secretkey') ?? '';
 
     if (SecretId === '' || SecretKey === '') {
         throw 'Please configure SecretId and SecretKey';
@@ -55,11 +67,11 @@ export async function ocr(base64, lang, setText, id) {
         return `${year}-${month}-${day}`;
     }
 
-    const endpoint = 'ocr.tencentcloudapi.com';
-    const service = 'ocr';
+    const endpoint = 'tmt.tencentcloudapi.com';
+    const service = 'tmt';
     const region = 'ap-beijing';
-    const action = 'GeneralAccurateOCR';
-    const version = '2018-11-19';
+    const action = 'ImageTranslate';
+    const version = '2018-03-21';
     const timestamp = Math.ceil(Date.now() / 1000);
     // const timestamp = 1551113065
     //时间处理, 获取世界时间日期
@@ -67,7 +79,12 @@ export async function ocr(base64, lang, setText, id) {
 
     // ************* 步骤 1：拼接规范请求串 *************
     const body = {
-        ImageBase64: base64,
+        SessionUuid: nanoid(),
+        Scene: 'doc',
+        Data: base64,
+        Source: 'auto',
+        Target: supportLanguage[lang],
+        ProjectId: 0
     };
     const payload = JSON.stringify(body);
     // const payload = "{\"Limit\": 1, \"Filters\": [{\"Values\": [\"\\u672a\\u547d\\u540d\"], \"Name\": \"instance-name\"}]}"
@@ -138,18 +155,31 @@ export async function ocr(base64, lang, setText, id) {
     });
     if (res.ok) {
         const result = res.data;
-        if (result["Response"]['TextDetections']) {
+        if (result["Response"]['ImageRecord']['Value']) {
+            let source = '';
             let target = '';
-            for (let i of result["Response"]['TextDetections']) {
-                target += i['DetectedText'] + '\n';
+            for (let i of result["Response"]['ImageRecord']['Value']) {
+                source += i['SourceText'] + '\n';
+                target += i['TargetText'] + '\n';
             }
-            if (id === ocrID || id === 'translate') {
-                setText(target.trim())
+            if (id === ocrID) {
+                if (lang === 'auto') {
+                    setText(source.trim());
+                } else {
+                    setText(target.trim())
+                }
+            }
+            if (id === 'translate') {
+                setText(source.trim())
             }
         } else {
-            throw JSON.stringify(result);
+            if (id === ocrID || id === 'translate') {
+                throw JSON.stringify(result);
+            }
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        if (id === ocrID || id === 'translate') {
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        }
     }
 }

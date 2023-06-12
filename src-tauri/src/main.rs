@@ -57,6 +57,10 @@ fn main() {
                 translate_window();
             } else if argv.contains(&"persistent".to_string()) {
                 persistent_window();
+            } else if argv.contains(&"screenshot_ocr".to_string()) {
+                screenshot_ocr_window();
+            } else if argv.contains(&"screenshot_translate".to_string()) {
+                screenshot_translate_window();
             } else {
                 Notification::new(&app.config().tauri.bundle.identifier)
                     .title("程序已经在运行 请勿重复启动！")
@@ -192,7 +196,8 @@ fn main() {
             is_wayland,
             screenshot,
             cut_screenshot,
-            print
+            print,
+            get_base64
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

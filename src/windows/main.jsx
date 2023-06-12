@@ -24,7 +24,7 @@ const windowRouter = {
 };
 
 const configStore = createStore();
-const configAtom = atom({});
+export const configAtom = atom({});
 
 export function get(key) {
     let config = configStore.get(configAtom);

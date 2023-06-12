@@ -1,7 +1,7 @@
-import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
-import { fetch } from '@tauri-apps/api/http';
+import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
+import { invoke } from '@tauri-apps/api/tauri';
 
 export const info = {
     name: 'baidu',
@@ -31,7 +31,7 @@ export const info = {
     ],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
@@ -60,31 +60,6 @@ export async function ocr(imgurl, lang, setText, id) {
         if (token_res.data.access_token) {
             let token = token_res.data.access_token;
 
-            let canvas = document.createElement('CANVAS');
-            let ctx = canvas.getContext('2d');
-            let img = new Image;
-            img.src = imgurl;
-
-            let base64 = await new Promise((resolve, reject) => {
-                img.onload = () => {
-                    img.crossOrigin = 'anonymous';
-                    canvas.height = img.height;
-                    canvas.width = img.width;
-                    ctx.drawImage(img, 0, 0);
-                    let dataURL = canvas.toDataURL('image/png');
-                    let base64 = dataURL.replace('data:image/png;base64,', '');
-                    if (base64 === 'data:,') {
-                    } else {
-                        resolve(base64);
-                    }
-                }
-                img.onerror = async (e) => {
-                    let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-                    let base64 = window.btoa(String.fromCharCode(...img));
-                    resolve(base64);
-                };
-            });
-
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -93,10 +68,11 @@ export async function ocr(imgurl, lang, setText, id) {
                 query: {
                     access_token: token
                 },
-                body: {
-                    type: 'Text',
-                    payload: `language_type=${supportLanguage[lang]}&detect_direction=false&image=${encodeURIComponent(base64)}`
-                }
+                body: Body.form({
+                    'language_type': supportLanguage[lang],
+                    'detect_direction': 'false',
+                    'image': base64
+                }),
             }
             )
             if (res.ok) {

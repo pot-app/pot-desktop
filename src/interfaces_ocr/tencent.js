@@ -11,6 +11,7 @@ export const info = {
         auto: 'auto',
         zh_cn: 'zh',
         zh_tw: 'zh_rare',
+        yue: 'zh_rare',
         en: 'auto',
         ja: 'jap',
         ko: 'kor',
@@ -38,7 +39,7 @@ export const info = {
     ],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
 
     const SecretId = get('tencent_secretid') ?? '';
@@ -50,31 +51,6 @@ export async function ocr(imgurl, lang, setText, id) {
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
-
-    let canvas = document.createElement('CANVAS');
-    let ctx = canvas.getContext('2d');
-    let img = new Image;
-    img.src = imgurl;
-
-    let base64 = await new Promise((resolve, reject) => {
-        img.onload = () => {
-            img.crossOrigin = 'anonymous';
-            canvas.height = img.height;
-            canvas.width = img.width;
-            ctx.drawImage(img, 0, 0);
-            let dataURL = canvas.toDataURL('image/png');
-            let base64 = dataURL.replace('data:image/png;base64,', '');
-            if (base64 === 'data:,') {
-            } else {
-                resolve(base64);
-            }
-        }
-        img.onerror = async (e) => {
-            let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-            let base64 = window.btoa(String.fromCharCode(...img));
-            resolve(base64);
-        };
-    });
 
     function sha256(message, secret = '') {
         return hmacSHA256(message, secret);

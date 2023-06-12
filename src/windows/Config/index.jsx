@@ -48,6 +48,7 @@ export const shortcutScreenshotAtom = atom('');
 export const shortcutScreenshotTranslateAtom = atom('');
 export const fontSizeAtom = atom('1rem');
 export const ocrInterfaceAtom = atom('tesseract');
+export const screenshotTranslateInterfaceAtom = atom('tesseract');
 export const ocrLanguageAtom = atom('en');
 
 export default function Config() {
@@ -84,6 +85,7 @@ export default function Config() {
     const setEudicToken = useSetAtom(eudicTokenAtom);
     const setFontSize = useSetAtom(fontSizeAtom);
     const setOcrInterface = useSetAtom(ocrInterfaceAtom);
+    const setScreenshotTranslateInterface = useSetAtom(screenshotTranslateInterfaceAtom);
     const setOcrLanguage = useSetAtom(ocrLanguageAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
@@ -137,6 +139,7 @@ export default function Config() {
         setOpenaiService(get('openai_service') ?? 'openai');
         setFontSize(get('font_size') ?? '1rem');
         setOcrInterface(get('ocr_interface') ?? 'tesseract');
+        setScreenshotTranslateInterface(get('screenshot_translate_interface') ?? 'tesseract');
         setOcrLanguage(get('ocr_language') ?? 'en');
 
         let interface_configs = {};
