@@ -28,30 +28,7 @@ export async function ocr(imgurl, lang, setText, id) {
         throw 'Please configure Access Id and Access Key';
     }
 
-    // 将图片转为base64
-    let canvas = document.createElement('CANVAS');
-    let ctx = canvas.getContext('2d');
-    let img = new Image;
-    img.src = imgurl;
-
-    let base64 = await new Promise((resolve, reject) => {
-        img.onload = () => {
-            img.crossOrigin = 'anonymous';
-            canvas.height = img.height;
-            canvas.width = img.width;
-            ctx.drawImage(img, 0, 0);
-            let dataURL = canvas.toDataURL('image/png');
-            let base64 = dataURL.replace('data:image/png;base64,', '');
-            if (base64 === 'data:,') {
-            } else {
-                resolve(base64);
-            }
-        }
-        img.onerror = async (e) => {
-            let base64 = await invoke('get_base64');
-            resolve(base64);
-        };
-    });
+    let base64 = await invoke('get_base64');
 
     let text = await multi_lang_ocr(base64, appid, secret);
 

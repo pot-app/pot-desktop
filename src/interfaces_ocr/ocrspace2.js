@@ -23,29 +23,8 @@ export async function ocr(imgurl, lang, setText, id) {
 
     const url = 'https://api.ocr.space/parse/image';
 
+    let base64 = 'data:image/png;base64,' + await invoke('get_base64');
 
-    let canvas = document.createElement('CANVAS');
-    let ctx = canvas.getContext('2d');
-    let img = new Image;
-    img.src = imgurl;
-
-    let base64 = await new Promise((resolve, reject) => {
-        img.onload = () => {
-            img.crossOrigin = 'anonymous';
-            canvas.height = img.height;
-            canvas.width = img.width;
-            ctx.drawImage(img, 0, 0);
-            let base64 = canvas.toDataURL('image/png');
-            if (base64 === 'data:,') {
-            } else {
-                resolve(base64);
-            }
-        }
-        img.onerror = async (e) => {
-            let base64 = await invoke('get_base64');
-            resolve('data:image/png;base64,' + base64);
-        };
-    });
     const res = await fetch(url, {
         method: 'POST',
         headers: {
