@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { atom, useSetAtom } from 'jotai';
 import { get } from '../../../main';
 import './style.css';
+import { useGetState } from '../../../../hooks';
 
 export const sourceTextAtom = atom('');
 
@@ -28,7 +29,7 @@ export default function SourceArea() {
     const [dynamicTranslate, _] = useState(get('dynamic_translate') ?? false);
     const setSourceText = useSetAtom(sourceTextAtom);
     const [expand, setExpand] = useState(true);
-    const [text, setText] = useState('');
+    const [text, setText, getText] = useGetState('');
     const [ocrSuccess, setOcrSuccess] = useState(false);
     const { t } = useTranslation();
     const theme = useTheme();
@@ -66,6 +67,9 @@ export default function SourceArea() {
     }
     listen('new_selection', (event) => {
         let source = event.payload.trim();
+        if (get('incremental_translation')) {
+          source = (getText() + ' ' + source).trim();
+        }
         setFormatSourceText(source);
         setFormatText(source);
     });

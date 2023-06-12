@@ -62,6 +62,8 @@
                 "dynamic": "動態翻譯",
                 "dynamichelp": "輸入後立即翻譯",
                 "deletenewline": "自動刪除換行",
+                "incremental": "增量翻譯",
+                "incrementalhelp": "在剪切板監聽模式或翻譯窗口沒有關閉的情況下，在待翻譯文本後追加而不是替換內容",
                 "deletenewlinehelp": "取詞後自動刪除換行",
                 "remembertarget": "記住目標語言",
                 "openaistream": "啟用 OpenAI 串流輸出",

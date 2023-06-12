@@ -18,11 +18,13 @@ import {
     secondLanguageAtom,
     defaultInterfaceListAtom,
     rememberTargetLanguageAtom,
+    incrementalTranslationAtom,
 } from '../..';
 import './style.css';
 
 export default function TranslateConfig() {
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
+    const [incrementalTranslation, setIncrementalTranslation] = useAtom(incrementalTranslationAtom);
     const [deleteNewline, setDeleteNewline] = useAtom(deleteNewlineAtom);
     const [openaiStream, setOpenaiStream] = useAtom(openaiStreamAtom);
     const [autoCopy, setAutoCopy] = useAtom(autoCopyAtom);
@@ -35,6 +37,18 @@ export default function TranslateConfig() {
 
     return (
         <ConfigList label={t('config.translate.title')}>
+            <ConfigItem
+                label={t('config.translate.incremental')}
+                help={t('config.translate.incrementalhelp')}
+            >
+                <Switch
+                    checked={incrementalTranslation}
+                    onChange={async (e) => {
+                        setIncrementalTranslation(e.target.checked);
+                        await set('incremental_translation', e.target.checked);
+                    }}
+                />
+            </ConfigItem>
             <ConfigItem
                 label={t('config.translate.dynamic')}
                 help={t('config.translate.dynamichelp')}
