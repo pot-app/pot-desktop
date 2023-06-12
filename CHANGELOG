@@ -1,19 +1,22 @@
-## 1.3.0 (2023-06-10)
+## Unreleased (2023-06-12)
 
 ### New feature:
 
--   Add OCR Space Support (#204)([`2e40ed4`](https://github.com/pot-app/pot-desktop/commit/2e40ed4601346a69021ae1a0d3acdd99bc50da6a)) (by @Pylogmon)
--   Add Tencent OCR Support (#203)([`24ed180`](https://github.com/pot-app/pot-desktop/commit/24ed1802cdd271ad52310c0a6cc9ec4f51dffba9)) (by @Pylogmon)
--   Add Baidu OCR Accurate Support([`be23a91`](https://github.com/pot-app/pot-desktop/commit/be23a91107b7e86f2b64047153db7ba41d489b89)) (by @Pylogmon)
--   Add VolcEngine OCR Support (#205)([`9ad5d41`](https://github.com/pot-app/pot-desktop/commit/9ad5d41df4a2721e1f2de6f9cc833d88ed1dcb09) (by @ccslykx))
+-   Add iFlytek OCR and iFlytek OCR (intsig) (#226)([`7780fdb`](https://github.com/pot-app/pot-desktop/commit/7780fdbf24413d81c57698b331d4e279a514907d)) (by @ccslykx)
+-   Add windows x86 support (#223)([`9b9dc88`](https://github.com/pot-app/pot-desktop/commit/9b9dc8820b7d383863fbee2839fe6c48c1462e2d)) (by @liudonghua123)
+-   Add iFlytek Latex (#221)([`7929396`](https://github.com/pot-app/pot-desktop/commit/7929396ea560b438c5f9157fc0142897d415a1fd)) (by @Pylogmon)
+-   Copy Config Content([`8460e18`](https://github.com/pot-app/pot-desktop/commit/8460e181de0aa4d33b6bcffcb3167b90a8a1984d)) (by @Pylogmon)
+-   Add Tencent Image Translation([`a75baad`](https://github.com/pot-app/pot-desktop/commit/a75baad5480f904dc92a85e5bf99dce3d1064a90)) (by @Pylogmon)
+-   Set default api for ocr and screenshot translation respectively([`ace9b1c`](https://github.com/pot-app/pot-desktop/commit/ace9b1c0387cc26e7e97bc966b47bf90e4a33c5a)) (by @Pylogmon)
+-   Add delete newline on ocr window([`919a17a`](https://github.com/pot-app/pot-desktop/commit/919a17aeadabc714d421d832128c1e8e3910bdc5)) (by @Pylogmon)
+-   Add Simple Latex Support (#213)([`d5207e8`](https://github.com/pot-app/pot-desktop/commit/d5207e843fba210760af2044b46eeaa77863e0cc)) (by @Pylogmon)
+-   Add cmd invoke for ocr([`942ba6d`](https://github.com/pot-app/pot-desktop/commit/942ba6dc3e03602a3f82e34c8bff99d2fca92dc5)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Stack overflow on linux (#209)([`adbae09`](https://github.com/pot-app/pot-desktop/commit/adbae093f26892de5fca87b0439b7f59d1bcb08b)) (by @Pylogmon)
--   Format text when screenshot translate (#202)([`9924a00`](https://github.com/pot-app/pot-desktop/commit/9924a00490a38cca22c72b5c31e03594205eb693)) (by @Pylogmon)
--   Load File Error on Linux([`6b8b757`](https://github.com/pot-app/pot-desktop/commit/6b8b757d1451622f32d95973865fa5fea878db5c)) (by @Pylogmon)
--   Screenshot windows fullscreen failed([`511c326`](https://github.com/pot-app/pot-desktop/commit/511c326a881cd71a5d53aa32052513b7a5590a55)) (by @Pylogmon)
+-   Fix shadow warning([`2a4216e`](https://github.com/pot-app/pot-desktop/commit/2a4216e6b2de22af87edaff1c7c2823a6c4ba058)) (by @Pylogmon)
 
 ### Performance improves:
 
--   Put worker and core at local([`e2e19d1`](https://github.com/pot-app/pot-desktop/commit/e2e19d17d71092a9335c82dee79246b379656d81)) (by @Pylogmon)
+-   use rust to get base64([`e753fd4`](https://github.com/pot-app/pot-desktop/commit/e753fd4359fff2be5ff347ed877ad93ef8b83603)) (by @Pylogmon)
+-   Optimize Tesseract langdata loading speed([`8998f72`](https://github.com/pot-app/pot-desktop/commit/8998f72f7b13257179e5f5b83082d4508b014719)) (by @Pylogmon)

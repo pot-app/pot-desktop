@@ -17,11 +17,11 @@ export const info = {
             place_hold: '',
         },
         {
-            config_key: 'iflytek_ocr_apikey',
+            config_key: 'iflytek_ocr_apisecret',
             place_hold: '',
         },
         {
-            config_key: 'iflytek_ocr_apisecret',
+            config_key: 'iflytek_ocr_apikey',
             place_hold: '',
         },
     ],
@@ -49,7 +49,7 @@ export async function ocr(imgurl, lang, setText, id) {
     let auth = iflytek_auth(apikey, apisecret, host, date, request_line);
     let img_base64 = await invoke('get_base64');
 
-    let request_url = 
+    let request_url =
         'https://api.xf-yun.com/v1/private/sf8e6aca1?' +
         'authorization=' + auth +
         '&host=' + host +
@@ -61,7 +61,7 @@ export async function ocr(imgurl, lang, setText, id) {
             status: 3, // 请求状态，取值为：3（一次传完）
         },
         parameter: {
-            sf8e6aca1 : {
+            sf8e6aca1: {
                 category: 'ch_en_public_cloud', // ch_en_public_cloud：中英文识别
                 result: {
                     encoding: 'utf8',
@@ -119,14 +119,14 @@ export async function ocr(imgurl, lang, setText, id) {
     }
 }
 
-export function iflytek_auth(api_key, api_secret, host, date, request_line) {    
-    const signature_origin = 
+export function iflytek_auth(api_key, api_secret, host, date, request_line) {
+    const signature_origin =
         'host: ' + host + '\n' +
         'date: ' + date + '\n' +
         request_line;
     let signature_sha = CryptoJS.HmacSHA256(signature_origin, api_secret);
     let signature = CryptoJS.enc.Base64.stringify(signature_sha);
-    let authorization_origin = 
+    let authorization_origin =
         'api_key=\"' + api_key + '\", ' +
         'algorithm=\"hmac-sha256\", ' +
         'headers=\"host date request-line\", ' +

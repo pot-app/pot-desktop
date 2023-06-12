@@ -14,11 +14,11 @@ export const info = {
             place_hold: '',
         },
         {
-            config_key: 'iflytek_ocr_intsig_apikey',
+            config_key: 'iflytek_ocr_intsig_apisecret',
             place_hold: '',
         },
         {
-            config_key: 'iflytek_ocr_intsig_apisecret',
+            config_key: 'iflytek_ocr_intsig_apikey',
             place_hold: '',
         },
     ],
@@ -42,7 +42,7 @@ export async function ocr(imgurl, lang, setText, id) {
     let auth = iflytek_auth(apikey, apisecret, host, date, request_line);
     let img_base64 = await invoke('get_base64');
 
-    let request_url = 
+    let request_url =
         'https://api.xf-yun.com/v1/private/hh_ocr_recognize_doc?' +
         'authorization=' + auth +
         '&host=' + host +
@@ -54,7 +54,7 @@ export async function ocr(imgurl, lang, setText, id) {
             status: 3, // 请求状态，取值为：3（一次传完）
         },
         parameter: {
-            hh_ocr_recognize_doc : {
+            hh_ocr_recognize_doc: {
                 recognizeDocumentRes: {
                     encoding: 'utf8',
                     compress: 'raw',
