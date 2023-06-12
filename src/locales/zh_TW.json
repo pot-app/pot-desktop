@@ -142,7 +142,11 @@
                 "iflytek_universal": "訊飛通用OCR",
                 "iflytek_ocr_appid": "APPID",
                 "iflytek_ocr_apikey": "APIKey",
-                "iflytek_ocr_apisecret": "APISecret"
+                "iflytek_ocr_apisecret": "APISecret",
+                "iflytek_universal_intsig": "訊飛通用OCR(intsig)",
+                "iflytek_ocr_intsig_appid": "APPID (intsig)",
+                "iflytek_ocr_intsig_apikey": "APIKey (intsig)",
+                "iflytek_ocr_intsig_apisecret": "APISecret (intsig)"
             },
             "interface": {
                 "label": "相關 API 設定",
