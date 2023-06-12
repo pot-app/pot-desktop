@@ -37,6 +37,9 @@ dependencies:
   jotai:
     specifier: ^2.0.3
     version: 2.0.3(react@18.2.0)
+  jsqr:
+    specifier: ^1.4.0
+    version: 1.4.0
   md5:
     specifier: ^2.3.0
     version: 2.3.0
@@ -1378,6 +1381,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
     dev: true
+
+  /jsqr@1.4.0:
+    resolution: {integrity: sha512-dxLob7q65Xg2DvstYkRpkYtmKm2sPJ9oFhrhmudT1dZvNFFTlroai3AWSpLey/w5vMcLBXRgOJsbXpdN9HzU/A==}
+    dev: false
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}

@@ -13,6 +13,7 @@ import * as _simplelatex from './simplelatex';
 import * as _iflytek_latex from './iflytek_latex';
 import * as _iflytek from './iflytek';
 import * as _iflytek_intsig from './iflytek_intsig';
+import * as _qrcode from './qrcode';
 
 export const tesseract = _tesseract;
 export const baidu = _baidu;
@@ -29,3 +30,4 @@ export const simplelatex = _simplelatex;
 export const iflytek_latex = _iflytek_latex;
 export const iflytek = _iflytek;
 export const iflytek_intsig = _iflytek_intsig;
+export const qrcode = _qrcode;

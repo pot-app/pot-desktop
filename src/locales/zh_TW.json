@@ -146,7 +146,8 @@
                 "iflytek_intsig": "訊飛OCR(intsig)",
                 "iflytek_ocr_intsig_appid": "APPID",
                 "iflytek_ocr_intsig_apikey": "API Key",
-                "iflytek_ocr_intsig_apisecret": "API Secret"
+                "iflytek_ocr_intsig_apisecret": "API Secret",
+                "qrcode": "二維碼識別"
             },
             "interface": {
                 "label": "相關 API 設定",
