@@ -98,7 +98,7 @@
 
 ## OCR
 
--   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract)
+-   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract) (Offline)
 -   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
 -   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
 -   [x] [OCR Space](http://ocr.space/)
