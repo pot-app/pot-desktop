@@ -39,7 +39,7 @@ export const info = {
     ],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
@@ -67,8 +67,6 @@ export async function ocr(imgurl, lang, setText, id) {
     if (token_res.ok) {
         if (token_res.data.access_token) {
             let token = token_res.data.access_token;
-
-            let base64 = await invoke('get_base64');
 
             const res = await fetch(url, {
                 method: 'POST',

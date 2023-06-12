@@ -33,17 +33,15 @@ export const info = {
     needs: [],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
 
-    const isLinux = await invoke('is_linux');
-    if (isLinux) {
-        let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-        imgurl = URL.createObjectURL(new Blob([img], { type: 'image/png' }));
-    }
+    let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
+    let imgurl = URL.createObjectURL(new Blob([img], { type: 'image/png' }));
+
 
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
         workerPath: '/worker.min.js',

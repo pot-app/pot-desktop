@@ -1,4 +1,3 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -19,7 +18,7 @@ export const info = {
     ],
 }
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     // 获取设置项
     const appid = get('volcengine_multi_lang_ocr_id') ?? ''; // https://console.volcengine.com/iam/keymanage/
     const secret = get('volcengine_multi_lang_ocr_secret') ?? '';
@@ -27,8 +26,6 @@ export async function ocr(imgurl, lang, setText, id) {
     if (appid === '' || secret === '') {
         throw 'Please configure Access Id and Access Key';
     }
-
-    let base64 = await invoke('get_base64');
 
     let text = await multi_lang_ocr(base64, appid, secret);
 

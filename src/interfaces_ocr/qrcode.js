@@ -1,5 +1,4 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import { invoke } from '@tauri-apps/api/tauri';
 import jsQR from "jsqr";
 
 export const info = {
@@ -8,10 +7,10 @@ export const info = {
     needs: [],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     let canvas = document.createElement('CANVAS');
     let ctx = canvas.getContext('2d');
-    let base64 = 'data:image/png;base64,' + await invoke('get_base64');
+    base64 = 'data:image/png;base64,' + base64
     let img = new Image;
     img.src = base64;
     let imgdata = await new Promise((resolve, reject) => {

@@ -1,4 +1,3 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -27,7 +26,7 @@ export const info = {
     ],
 }
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language, iflytek universal character recognition only support Chinese and English.';
@@ -47,7 +46,6 @@ export async function ocr(imgurl, lang, setText, id) {
     const request_line = 'POST /v1/private/sf8e6aca1 HTTP/1.1';
 
     let auth = iflytek_auth(apikey, apisecret, host, date, request_line);
-    let img_base64 = await invoke('get_base64');
 
     let request_url =
         'https://api.xf-yun.com/v1/private/sf8e6aca1?' +
@@ -72,7 +70,7 @@ export async function ocr(imgurl, lang, setText, id) {
         },
         payload: {
             sf8e6aca1_data_1: {
-                image: img_base64
+                image: base64
             }
         }
     }

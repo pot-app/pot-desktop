@@ -24,7 +24,7 @@ export const info = {
     ],
 }
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     // 获取设置项
     const appid = get('iflytek_ocr_intsig_appid') ?? '';
     const apikey = get('iflytek_ocr_intsig_apikey') ?? '';
@@ -40,7 +40,6 @@ export async function ocr(imgurl, lang, setText, id) {
     const request_line = 'POST /v1/private/hh_ocr_recognize_doc HTTP/1.1';
 
     let auth = iflytek_auth(apikey, apisecret, host, date, request_line);
-    let img_base64 = await invoke('get_base64');
 
     let request_url =
         'https://api.xf-yun.com/v1/private/hh_ocr_recognize_doc?' +
@@ -64,7 +63,7 @@ export async function ocr(imgurl, lang, setText, id) {
         },
         payload: {
             image: {
-                image: img_base64
+                image: base64
             }
         }
     }

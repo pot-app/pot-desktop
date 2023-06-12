@@ -1,4 +1,3 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -25,7 +24,7 @@ export const info = {
     ],
 }
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
 
     // 获取设置项
@@ -38,8 +37,6 @@ export async function ocr(imgurl, lang, setText, id) {
     if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
-
-    let base64 = await invoke('get_base64');
 
     let text = await normal_ocr(base64, appid, secret);
 

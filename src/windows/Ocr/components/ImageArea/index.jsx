@@ -1,5 +1,4 @@
-import { appCacheDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow } from '@tauri-apps/api/window';
 import { listen } from '@tauri-apps/api/event';
 import { atom, useAtom } from 'jotai';
@@ -7,24 +6,17 @@ import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import './style.css';
 
-export const imgUrlAtom = atom('');
+export const base64Atom = atom('');
 
 export default function ImageArea() {
-    const [imgUrl, setImgUrl] = useAtom(imgUrlAtom);
+    const [base64, setBase64] = useAtom(base64Atom);
 
     function load_img() {
-        setImgUrl('');
-        setTimeout(() => {
-            appCacheDir().then((appCacheDirPath) => {
-                join(appCacheDirPath, 'pot_screenshot_cut.png').then((filePath) => {
-                    setImgUrl(convertFileSrc(filePath));
-                    if (appWindow.label === 'ocr') {
-                        void appWindow.show();
-                        void appWindow.setFocus();
-                    }
-                });
-            });
-        }, 50);
+        invoke('get_base64').then((v) => {
+            setBase64(v);
+            appWindow.show();
+            appWindow.setFocus(true);
+        });
     }
 
     listen('ocr', (_) => {
@@ -38,11 +30,11 @@ export default function ImageArea() {
     return (
         <>
             <Box className='image-content'>
-                {imgUrl ? (
+                {base64 ? (
                     <img
                         className='image'
                         draggable={false}
-                        src={imgUrl}
+                        src={'data:image/png;base64,' + base64}
                     />
                 ) : (
                     <img

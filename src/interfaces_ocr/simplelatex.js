@@ -14,7 +14,7 @@ export const info = {
     ],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const token = get('simplelatex_token') ?? '';
 
     if (token === '') {

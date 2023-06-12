@@ -35,21 +35,18 @@ export default function SourceArea() {
 
     function ocr() {
         setOcrSuccess(false);
-        appCacheDir().then((appCacheDirPath) => {
-            join(appCacheDirPath, 'pot_screenshot_cut.png').then((filePath) => {
-                setText(t('translator.sourcearea.ocr'));
-                let imgUrl = convertFileSrc(filePath);
-                let ocror = ocrs[get('screenshot_translate_interface') ?? 'tesseract'];
-                ocror.ocr(imgUrl, get('ocr_language') ?? 'auto', setFormatText, 'translate').then(
-                    (_) => {
-                        setOcrSuccess(true);
-                    },
-                    (e) => {
-                        setOcrSuccess(false);
-                        setText(e.toString());
-                    }
-                );
-            });
+        setText(t('translator.sourcearea.ocr'));
+        invoke('get_base64').then((base64) => {
+            let ocror = ocrs[get('screenshot_translate_interface') ?? 'tesseract'];
+            ocror.ocr(base64, get('ocr_language') ?? 'auto', setFormatText, 'translate').then(
+                (_) => {
+                    setOcrSuccess(true);
+                },
+                (e) => {
+                    setOcrSuccess(false);
+                    setText(e.toString());
+                }
+            );
         });
     }
 

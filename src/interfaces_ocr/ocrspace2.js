@@ -1,4 +1,3 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
@@ -14,7 +13,7 @@ export const info = {
     ],
 };
 
-export async function ocr(imgurl, lang, setText, id) {
+export async function ocr(base64, lang, setText, id) {
     const apikey = get('ocrspace2_apikey') ?? '';
 
     if (apikey === '') {
@@ -23,7 +22,7 @@ export async function ocr(imgurl, lang, setText, id) {
 
     const url = 'https://api.ocr.space/parse/image';
 
-    let base64 = 'data:image/png;base64,' + await invoke('get_base64');
+    base64 = 'data:image/png;base64,' + base64
 
     const res = await fetch(url, {
         method: 'POST',

@@ -11,7 +11,7 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { ocrInterfaceAtom, ocrLanguageAtom, ocrStartFlagAtom } from '../OcrController';
 import * as ocrs from '../../../../interfaces_ocr';
-import { imgUrlAtom } from '../ImageArea';
+import { base64Atom } from '../ImageArea';
 import './style.css';
 
 export const resultTextAtom = atom('');
@@ -20,7 +20,7 @@ export let ocrID = 0;
 export default function TextArea() {
     const [loading, setLoading] = useState(false);
     const [resultText, setResultText] = useAtom(resultTextAtom);
-    const imgUrl = useAtomValue(imgUrlAtom);
+    const base64 = useAtomValue(base64Atom);
     const ocrLanguage = useAtomValue(ocrLanguageAtom);
     const ocrInterface = useAtomValue(ocrInterfaceAtom);
     const ocrStartFlag = useAtomValue(ocrStartFlagAtom);
@@ -40,13 +40,13 @@ export default function TextArea() {
     }
 
     useEffect(() => {
-        if (imgUrl !== '') {
+        if (base64 !== '') {
             setLoading(true);
             setResultText('');
             let ocror = ocrs[ocrInterface];
             let id = nanoid();
             ocrID = id;
-            ocror.ocr(imgUrl, ocrLanguage, setResultText, id).then(
+            ocror.ocr(base64, ocrLanguage, setResultText, id).then(
                 (_) => {
                     setLoading(false);
                 },
@@ -56,7 +56,7 @@ export default function TextArea() {
                 }
             );
         }
-    }, [imgUrl, ocrInterface, ocrLanguage, ocrStartFlag]);
+    }, [base64, ocrInterface, ocrLanguage, ocrStartFlag]);
 
     return (
         <>
