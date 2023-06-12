@@ -3,7 +3,6 @@ import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
 import CryptoJS from 'crypto-js';
-import Base64 from 'crypto-js/enc-base64';
 
 export const info = {
     name: 'iflytek_universal',
