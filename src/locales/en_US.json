@@ -138,7 +138,11 @@
                 "iflytek_latex": "iFlytek Latex",
                 "iflytek_latex_appid": "AppID",
                 "iflytek_latex_apikey": "API Key",
-                "iflytek_latex_apisecret": "API Secret"
+                "iflytek_latex_apisecret": "API Secret",
+                "iflytek_universal": "iFlytek Universal OCR",
+                "iflytek_ocr_appid": "APPID",
+                "iflytek_ocr_apikey": "APIKey",
+                "iflytek_ocr_apisecret": "APISecret"
             },
             "interface": {
                 "label": "Interface",

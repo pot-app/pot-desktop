@@ -11,6 +11,7 @@ import * as _volcengine from './volcengine';
 import * as _volcengine_multi_lang from './volcengine_multi_lang';
 import * as _simplelatex from './simplelatex';
 import * as _iflytek_latex from './iflytek_latex';
+import * as _iflytek_universal from './iflytek_universal';
 
 export const tesseract = _tesseract;
 export const baidu = _baidu;
@@ -25,3 +26,4 @@ export const volcengine = _volcengine;
 export const volcengine_multi_lang = _volcengine_multi_lang;
 export const simplelatex = _simplelatex;
 export const iflytek_latex = _iflytek_latex;
+export const iflytek_universal = _iflytek_universal;
