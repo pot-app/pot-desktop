@@ -144,9 +144,9 @@
                 "iflytek_ocr_apikey": "APIKey",
                 "iflytek_ocr_apisecret": "APISecret",
                 "iflytek_intsig": "訊飛OCR(intsig)",
-                "iflytek_ocr_intsig_appid": "APPID (intsig)",
-                "iflytek_ocr_intsig_apikey": "APIKey (intsig)",
-                "iflytek_ocr_intsig_apisecret": "APISecret (intsig)"
+                "iflytek_ocr_intsig_appid": "APPID",
+                "iflytek_ocr_intsig_apikey": "API Key",
+                "iflytek_ocr_intsig_apisecret": "API Secret"
             },
             "interface": {
                 "label": "相關 API 設定",
