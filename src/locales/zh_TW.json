@@ -139,11 +139,11 @@
                 "iflytek_latex_appid": "AppID",
                 "iflytek_latex_apikey": "API Key",
                 "iflytek_latex_apisecret": "API Secret",
-                "iflytek_universal": "訊飛通用OCR",
+                "iflytek": "訊飛OCR",
                 "iflytek_ocr_appid": "APPID",
                 "iflytek_ocr_apikey": "APIKey",
                 "iflytek_ocr_apisecret": "APISecret",
-                "iflytek_universal_intsig": "訊飛通用OCR(intsig)",
+                "iflytek_intsig": "訊飛OCR(intsig)",
                 "iflytek_ocr_intsig_appid": "APPID (intsig)",
                 "iflytek_ocr_intsig_apikey": "APIKey (intsig)",
                 "iflytek_ocr_intsig_apisecret": "APISecret (intsig)"
