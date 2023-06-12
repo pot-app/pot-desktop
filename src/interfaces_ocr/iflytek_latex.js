@@ -59,7 +59,6 @@ export async function ocr(imgurl, lang, setText, id) {
             resolve(base64);
         };
     });
-    console.log(base64);
     const body = {
         "common": {
             "app_id": appid
