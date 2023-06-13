@@ -102,7 +102,7 @@ export async function translate(text, from, to, setText, id) {
             }
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
 }
 

@@ -97,7 +97,7 @@ export async function translate(text, from, to, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
 }
 
@@ -138,7 +138,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
 }
 

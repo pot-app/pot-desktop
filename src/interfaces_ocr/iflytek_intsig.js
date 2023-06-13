@@ -77,7 +77,7 @@ export async function ocr(base64, lang, setText, id) {
 
     // 处理结果
     if (!res.ok && (id === ocrID || id === 'translate')) {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
     let data = res['data'];
     if (!data && (id === ocrID || id === 'translate')) {

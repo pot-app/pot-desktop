@@ -58,7 +58,7 @@ async function normal_ocr(img_base64, appid, secret) {
             return texts;
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
 }
 
@@ -75,7 +75,7 @@ async function multi_lang_ocr(img_base64, appid, secret) {
             return texts;
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
     }
 }
 
