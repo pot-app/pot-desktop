@@ -6,8 +6,6 @@ import UnfoldLessRoundedIcon from '@mui/icons-material/UnfoldLessRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import ClearAllRoundedIcon from '@mui/icons-material/ClearAllRounded';
-import { appCacheDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
@@ -68,7 +66,7 @@ export default function SourceArea() {
     listen('new_selection', (event) => {
         let source = event.payload.trim();
         if (get('incremental_translation')) {
-          source = (getText() + ' ' + source).trim();
+            source = (getText() + ' ' + source).trim();
         }
         setFormatSourceText(source);
         setFormatText(source);
@@ -93,9 +91,11 @@ export default function SourceArea() {
             ocr();
         }
     }, []);
-    listen('translate', (_) => {
-        ocr();
-    });
+    if (appWindow.label === 'popclip_ocr') {
+        listen('translate', (_) => {
+            ocr();
+        });
+    }
     // 复制内容
     function copy(who) {
         writeText(who).then((_) => {

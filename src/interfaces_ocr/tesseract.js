@@ -1,7 +1,7 @@
 import Tesseract from 'tesseract.js';
-import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
+import { appCacheDir, join } from '@tauri-apps/api/path';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import { invoke } from '@tauri-apps/api/tauri';
 
 // 必须向外暴露info
 export const info = {
@@ -39,8 +39,9 @@ export async function ocr(base64, lang, setText, id) {
         throw 'Unsupported Language';
     }
 
-    let img = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
-    let imgurl = URL.createObjectURL(new Blob([img], { type: 'image/png' }));
+    let appCacheDirPath = await appCacheDir();
+    let filePath = await join(appCacheDirPath, 'pot_screenshot_cut.png');
+    let imgurl = convertFileSrc(filePath);
 
 
     const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
