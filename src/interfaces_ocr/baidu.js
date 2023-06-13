@@ -1,11 +1,11 @@
 import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import { invoke } from '@tauri-apps/api/tauri';
 
 export const info = {
     name: 'baidu',
     supportLanguage: {
+        auto: 'CHN_ENG',
         zh_cn: 'CHN_ENG',
         zh_tw: 'CHN_ENG',
         en: 'ENG',

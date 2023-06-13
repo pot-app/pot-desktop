@@ -1,4 +1,3 @@
-import { invoke } from '@tauri-apps/api/tauri';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 import { ocrID } from '../windows/Ocr/components/TextArea';

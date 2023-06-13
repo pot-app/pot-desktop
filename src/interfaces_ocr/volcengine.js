@@ -62,23 +62,6 @@ async function normal_ocr(img_base64, appid, secret) {
     }
 }
 
-async function multi_lang_ocr(img_base64, appid, secret) {
-    let res = await query(img_base64, "MultiLanguageOCR", "2022-08-31", appid, secret);
-    if (res.ok) {
-        let result = res.data;
-        if (result['data']) {
-            let data = result['data'];
-            var texts = '';
-            for (let text of data['ocr_infos']) {
-                texts += text['text'] + '\n';
-            }
-            return texts;
-        }
-    } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
-    }
-}
-
 async function query(img_base64, action, serviceVersion, appid, secret) {
     const schema = 'https';
     const host = 'visual.volcengineapi.com';

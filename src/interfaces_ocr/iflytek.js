@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js';
 export const info = {
     name: 'iflytek',
     supportLanguage: {
+        auto: 'zh_cn',
         zh_cn: 'zh_cn',
         zh_tw: 'zh_tw',
         en: 'en',
@@ -107,7 +108,7 @@ export async function ocr(base64, lang, setText, id) {
             if (!words) { continue; }
             for (let word of words) {
                 let content = word['content'];
-                if (!content) { continue; } 
+                if (!content) { continue; }
                 else { return_content += content + ' '; }
             }
             return_content += '\n'
