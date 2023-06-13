@@ -254,8 +254,7 @@
         },
         "ocr": {
             "recognize": "Recognize",
-            "translate": "Translate",
-            "placehold": "The training set needs to be downloaded for the first use, please wait patiently, if the download failed, please check your network"
+            "translate": "Translate"
         }
     }
 }

@@ -254,8 +254,7 @@
         },
         "ocr": {
             "recognize": "重新辨識",
-            "translate": "翻譯",
-            "placehold": "初次使用時需下載訓練模型，請耐心等候，如下載失敗，請檢查網路"
+            "translate": "翻譯"
         }
     }
 }

@@ -66,7 +66,6 @@ export default function TextArea() {
                     multiline
                     fullWidth
                     value={resultText}
-                    placeholder={t('ocr.placehold')}
                     onChange={(e) => {
                         setResultText(e.target.value);
                     }}

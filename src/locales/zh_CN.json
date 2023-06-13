@@ -254,8 +254,7 @@
         },
         "ocr": {
             "recognize": "重新识别",
-            "translate": "翻译",
-            "placehold": "首次使用需要下载训练集，请耐心等待，如下载失败，请检查网络环境"
+            "translate": "翻译"
         }
     }
 }
