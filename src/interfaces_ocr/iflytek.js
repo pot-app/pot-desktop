@@ -81,16 +81,15 @@ export async function ocr(base64, lang, setText, id) {
         body: { type: 'Text', payload: JSON.stringify(request_body) }
     });
 
-    if (!res.ok) {
+    if (!res.ok && (id === ocrID || id === 'translate')) {
         throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
-
     let data = res['data'];
-    if (!data) {
+    if (!data && (id === ocrID || id === 'translate')) {
         throw `Result data not found\nResult:\n${JSON.stringify(res)}`;
     }
     let res_payload = data['payload'];
-    if (!res_payload) {
+    if (!res_payload && (id === ocrID || id === 'translate')) {
         throw `Result payload not found\nResult:\n${JSON.stringify(res)}`;
     }
 
@@ -99,14 +98,17 @@ export async function ocr(base64, lang, setText, id) {
     let text_json = JSON.parse(text_string);
     let return_content = ''; // 最终结果
 
-
     let pages = text_json['pages'];
     for (let page of pages) {
         let lines = page['lines'];
+        if (!lines) { continue; }
         for (let line of lines) {
             let words = line['words'];
+            if (!words) { continue; }
             for (let word of words) {
-                return_content += word['content'] + ' ';
+                let content = word['content'];
+                if (!content) { continue; } 
+                else { return_content += content + ' '; }
             }
             return_content += '\n'
         }

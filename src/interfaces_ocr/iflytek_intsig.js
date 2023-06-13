@@ -76,15 +76,15 @@ export async function ocr(base64, lang, setText, id) {
     });
 
     // 处理结果
-    if (!res.ok) {
+    if (!res.ok && (id === ocrID || id === 'translate')) {
         throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
     let data = res['data'];
-    if (!data) {
+    if (!data && (id === ocrID || id === 'translate')) {
         throw `Result data not found\nResult:\n${JSON.stringify(res)}`;
     }
     let res_payload = data['payload'];
-    if (!res_payload) {
+    if (!res_payload && (id === ocrID || id === 'translate')) {
         throw `Result payload not found\nResult:\n${JSON.stringify(res)}`;
     }
 
@@ -92,6 +92,7 @@ export async function ocr(base64, lang, setText, id) {
     let text_string = CryptoJS.enc.Utf8.stringify(text);
     let text_json = JSON.parse(text_string);
     let return_content = text_json['whole_text']; // 最终结果
+    if (!return_content) { return_content = ''; }
 
     if (id === ocrID || id === 'translate') {
         setText(return_content);
