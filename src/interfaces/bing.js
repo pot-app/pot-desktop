@@ -99,7 +99,7 @@ export async function translate(text, from, to, setText, id) {
                 throw JSON.stringify(result);
             }
         } else {
-            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
         throw 'token获取失败';

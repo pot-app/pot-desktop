@@ -73,7 +73,7 @@ export async function ocr(base64, lang, setText, id) {
         }
     } else {
         if (id === ocrID || id === 'translate') {
-            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     }
 }

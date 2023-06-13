@@ -150,6 +150,6 @@ export async function ocr(base64, lang, setText, id) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
 }

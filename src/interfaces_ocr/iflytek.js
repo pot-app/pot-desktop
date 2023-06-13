@@ -82,7 +82,7 @@ export async function ocr(base64, lang, setText, id) {
     });
 
     if (!res.ok && (id === ocrID || id === 'translate')) {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res)}`;
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
     let data = res['data'];
     if (!data && (id === ocrID || id === 'translate')) {
@@ -107,7 +107,7 @@ export async function ocr(base64, lang, setText, id) {
             if (!words) { continue; }
             for (let word of words) {
                 let content = word['content'];
-                if (!content) { continue; }
+                if (!content) { continue; } 
                 else { return_content += content + ' '; }
             }
             return_content += '\n'
