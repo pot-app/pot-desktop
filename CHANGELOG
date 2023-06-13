@@ -1,22 +1,12 @@
-## 1.4.0 (2023-06-12)
+## 1.4.1 (2023-06-13)
 
 ### New feature:
 
--   Add iFlytek OCR and iFlytek OCR (intsig) (#226)([`7780fdb`](https://github.com/pot-app/pot-desktop/commit/7780fdbf24413d81c57698b331d4e279a514907d)) (by @ccslykx)
--   Add windows x86 support (#223)([`9b9dc88`](https://github.com/pot-app/pot-desktop/commit/9b9dc8820b7d383863fbee2839fe6c48c1462e2d)) (by @liudonghua123)
--   Add iFlytek Latex (#221)([`7929396`](https://github.com/pot-app/pot-desktop/commit/7929396ea560b438c5f9157fc0142897d415a1fd)) (by @Pylogmon)
--   Copy Config Content([`8460e18`](https://github.com/pot-app/pot-desktop/commit/8460e181de0aa4d33b6bcffcb3167b90a8a1984d)) (by @Pylogmon)
--   Add Tencent Image Translation([`a75baad`](https://github.com/pot-app/pot-desktop/commit/a75baad5480f904dc92a85e5bf99dce3d1064a90)) (by @Pylogmon)
--   Set default api for ocr and screenshot translation respectively([`ace9b1c`](https://github.com/pot-app/pot-desktop/commit/ace9b1c0387cc26e7e97bc966b47bf90e4a33c5a)) (by @Pylogmon)
--   Add delete newline on ocr window([`919a17a`](https://github.com/pot-app/pot-desktop/commit/919a17aeadabc714d421d832128c1e8e3910bdc5)) (by @Pylogmon)
--   Add Simple Latex Support (#213)([`d5207e8`](https://github.com/pot-app/pot-desktop/commit/d5207e843fba210760af2044b46eeaa77863e0cc)) (by @Pylogmon)
--   Add cmd invoke for ocr([`942ba6d`](https://github.com/pot-app/pot-desktop/commit/942ba6dc3e03602a3f82e34c8bff99d2fca92dc5)) (by @Pylogmon)
+-   Add Incremental Translation (#230)([`56810bc`](https://github.com/pot-app/pot-desktop/commit/56810bcd985b424bee01db50bb2a6583bcc438e7)) (by @Pylogmon)
+-   Add QR code recognition support([`b629769`](https://github.com/pot-app/pot-desktop/commit/b62976989b86327a65e99f72861c5cfa0a2a787a)) (by @Pylogmon)
+-   Add linux x86 target support(#227)([`e9bb9c3`](https://github.com/pot-app/pot-desktop/commit/e9bb9c30c628a99c86bebd253db6fe03eda4d441)) (by @liudonghua123)
 
 ### Bugs fixed:
 
--   Fix shadow warning([`2a4216e`](https://github.com/pot-app/pot-desktop/commit/2a4216e6b2de22af87edaff1c7c2823a6c4ba058)) (by @Pylogmon)
-
-### Performance improves:
-
--   use rust to get base64([`e753fd4`](https://github.com/pot-app/pot-desktop/commit/e753fd4359fff2be5ff347ed877ad93ef8b83603)) (by @Pylogmon)
--   Optimize Tesseract langdata loading speed([`8998f72`](https://github.com/pot-app/pot-desktop/commit/8998f72f7b13257179e5f5b83082d4508b014719)) (by @Pylogmon)
+-   Error of iFlytek OCR when image has no words([`22b2a87`](https://github.com/pot-app/pot-desktop/commit/22b2a870df25939c807fdb4aa31f40e371a5f719)) (by @ccslykx)
+-   Image can't reload([`dff4adf`](https://github.com/pot-app/pot-desktop/commit/dff4adf746ad52be7143e277df139e000ce4095f)) (by @Pylogmon)
