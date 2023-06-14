@@ -76,8 +76,7 @@ export async function translate(text, from, to, setText, id) {
         systemPrompt =
             'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
-    let userPrompt = `If the content is in ${supportLanguage[to]}, then translate into ${supportLanguage[get('second_language') ?? 'en']
-        }. Otherwise, translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
+    let userPrompt = `Translate into ${supportLanguage[to]}:\n"""\n${text}\n"""`;
 
     const stream = get('openai_stream') ?? false;
     const service = get('openai_service') ?? 'openai';
