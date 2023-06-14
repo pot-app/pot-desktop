@@ -161,6 +161,10 @@ export default function AppConfig() {
                             <span className={'fi fi-gb'} />
                             <span>English</span>
                         </MenuItem>
+                        <MenuItem value='ru'>
+                            <span className={'fi fi-ru'} />
+                            <span>Русский</span>
+                        </MenuItem>
                         {/* {language.map((x) => {
                             return (
                                 <MenuItem
