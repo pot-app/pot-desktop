@@ -164,7 +164,6 @@ pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window
             .build()
             .unwrap();
 
-    window.set_decorations(false).unwrap();
     window.set_fullscreen(true).unwrap();
     window.set_always_on_top(true).unwrap();
     Ok(window)
