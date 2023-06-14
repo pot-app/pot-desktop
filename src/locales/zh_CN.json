@@ -184,6 +184,7 @@
                 "openai_domain": "自定义域名",
                 "openai_path": "自定义请求路径",
                 "openai_apikey": "API Key",
+                "openai_model": "Model",
                 "openai_prompt": "自定义 Prompt",
                 "openai_code_prompt": "自定义 Prompt",
                 "openai_polish_prompt": "自定义 Prompt",

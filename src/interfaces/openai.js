@@ -39,6 +39,10 @@ export const info = {
             place_hold: '',
         },
         {
+            config_key: 'openai_model',
+            place_hold: 'default: gpt-3.5-turbo',
+        },
+        {
             config_key: 'openai_prompt',
             place_hold:
                 'default: You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
@@ -62,6 +66,10 @@ export async function translate(text, from, to, setText, id) {
     const apikey = get('openai_apikey') ?? '';
     if (apikey === '') {
         throw 'Please configure apikey';
+    }
+    let model = get('openai_model') ?? 'gpt-3.5-turbo';
+    if (model === '') {
+        model = 'gpt-3.5-turbo';
     }
     let systemPrompt = get('openai_prompt') ?? '';
     if (systemPrompt === '') {
@@ -98,7 +106,7 @@ export async function translate(text, from, to, setText, id) {
         ],
     };
     if (service === 'openai') {
-        body['model'] = 'gpt-3.5-turbo';
+        body['model'] = model;
     }
 
     if (stream) {

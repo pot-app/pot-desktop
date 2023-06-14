@@ -184,6 +184,7 @@
                 "openai_domain": "自訂網域",
                 "openai_path": "自訂請求路徑",
                 "openai_apikey": "API Key",
+                "openai_model": "Model",
                 "openai_prompt": "自訂 Prompt",
                 "openai_code_prompt": "自訂 Prompt",
                 "openai_polish_prompt": "自訂 Prompt",

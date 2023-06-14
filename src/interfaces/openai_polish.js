@@ -50,6 +50,10 @@ export async function translate(text, from, to, setText, id) {
     if (apikey === '') {
         throw 'Please configure apikey';
     }
+    let model = get('openai_model') ?? 'gpt-3.5-turbo';
+    if (model === '') {
+        model = 'gpt-3.5-turbo';
+    }
     let systemPrompt = get('openai_polish_prompt') ?? '';
     if (systemPrompt === '') {
         systemPrompt = "You are a text embellisher, you can only embellish the text, don't interpret it.";
@@ -82,7 +86,7 @@ export async function translate(text, from, to, setText, id) {
         ],
     };
     if (service === 'openai') {
-        body['model'] = 'gpt-3.5-turbo';
+        body['model'] = model;
     }
 
     if (stream) {
