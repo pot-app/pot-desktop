@@ -1,7 +1,0 @@
-name: 'Build for ARM'
-branding:
-  icon: user-check
-  color: gray-dark
-runs:
-  using: 'docker'
-  image: 'Dockerfile'

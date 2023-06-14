@@ -1,12 +1,9 @@
-## 1.4.1 (2023-06-13)
+## 1.4.2 (2023-06-14)
 
 ### New feature:
 
--   Add Incremental Translation (#230)([`56810bc`](https://github.com/pot-app/pot-desktop/commit/56810bcd985b424bee01db50bb2a6583bcc438e7)) (by @Pylogmon)
--   Add QR code recognition support([`b629769`](https://github.com/pot-app/pot-desktop/commit/b62976989b86327a65e99f72861c5cfa0a2a787a)) (by @Pylogmon)
--   Add linux x86 target support(#227)([`e9bb9c3`](https://github.com/pot-app/pot-desktop/commit/e9bb9c30c628a99c86bebd253db6fe03eda4d441)) (by @liudonghua123)
+-   Add arm target support for linux(#234)([`dccf209`](https://github.com/pot-app/pot-desktop/commit/dccf20972c99fc96d51b335cc77f33be16f7a679)) (by @liudonghua123)
 
 ### Bugs fixed:
 
--   Error of iFlytek OCR when image has no words([`22b2a87`](https://github.com/pot-app/pot-desktop/commit/22b2a870df25939c807fdb4aa31f40e371a5f719)) (by @ccslykx)
--   Image can't reload([`dff4adf`](https://github.com/pot-app/pot-desktop/commit/dff4adf746ad52be7143e277df139e000ce4095f)) (by @Pylogmon)
+-   OpenAI Stream interrupted([`031935e`](https://github.com/pot-app/pot-desktop/commit/031935eb5cc10ee77d2919645b380003f8431ecd)) (by @Pylogmon)
