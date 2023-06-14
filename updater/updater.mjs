@@ -12,12 +12,25 @@ async function resolveUpdater() {
 
     const darwin_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_aarch64.app.tar.gz`;
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
+
     const darwin_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
+
     const linux_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
     const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
+
+    const linux_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_i386.AppImage.tar.gz`;
+    const linux_i686_sig = await getSignature(linux_i686 + '.sig');
+
+    const linux_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64.AppImage.tar.gz`;
+    const linux_aarch64_sig = await getSignature(linux_aarch64 + '.sig');
+
+    const linux_armv7 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_armhf.AppImage.tar.gz`;
+    const linux_armv7_sig = await getSignature(linux_armv7 + '.sig');
+
     const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_zh-CN.msi.zip`;
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
+
     const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_zh-CN.msi.zip`;
     const windows_i686_sig = await getSignature(windows_i686 + '.sig');
 
@@ -29,6 +42,9 @@ async function resolveUpdater() {
             'darwin-aarch64': { signature: darwin_aarch64_sig, url: 'https://ghproxy.com/' + darwin_aarch64 },
             'darwin-x86_64': { signature: darwin_x86_64_sig, url: 'https://ghproxy.com/' + darwin_x86_64 },
             'linux-x86_64': { signature: linux_x86_64_sig, url: 'https://ghproxy.com/' + linux_x86_64 },
+            'linux-i686': { signature: linux_i686_sig, url: 'https://ghproxy.com/' + linux_i686 },
+            'linux-aarch64': { signature: linux_aarch64_sig, url: 'https://ghproxy.com/' + linux_aarch64 },
+            'linux-armv7': { signature: linux_armv7_sig, url: 'https://ghproxy.com/' + linux_armv7 },
             'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://ghproxy.com/' + windows_x86_64 },
             'windows-i686': { signature: windows_i686_sig, url: 'https://ghproxy.com/' + windows_i686 },
         },

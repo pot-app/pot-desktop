@@ -232,12 +232,19 @@ jobs:
             export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/:$PKG_CONFIG_PATH
             export PKG_CONFIG_SYSROOT_DIR=/
           fi
-          pnpm tauri build --target ${{ matrix.target }} -b deb
+          pnpm tauri build --target ${{ matrix.target }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.deb
           path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+          if-no-files-found: error
+      - name: Upload Artifacts
+        if: matrix.target == 'i686-unknown-linux-gnu'
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot_${{ matrix.target }}.AppImage
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -246,6 +253,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.TOKEN }}
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
   build-for-windows:
     needs: change-version-for-windows
     strategy:
@@ -281,25 +295,12 @@ jobs:
           $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
-      # - name: touch config file
-      #   run: New-item src-tauri/target/${{ matrix.target }}/release/config.toml
-      # - name: portable zip
-      #   uses: vimtor/action-zip@v1.1
-      #   with:
-      #     files: src-tauri/target/${{ matrix.target }}/release/pot.exe src-tauri/target/${{ matrix.target }}/release/config.toml
-      #     dest: pot_${{needs.change-version-for-windows.outputs.version}}_x64_portable.zip
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.msi
           path: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
           if-no-files-found: error
-      # - name: Upload Artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: pot_${{needs.change-version-for-windows.outputs.version}}_x64_portable.zip
-      #     path: pot_${{needs.change-version-for-windows.outputs.version}}_x64_portable.zip
-      #     if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
@@ -307,15 +308,8 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi*
-      # - name: Upload Release
-      #   if: startsWith(github.ref, 'refs/tags')
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     body_path: CHANGELOG
-      #     token: ${{ secrets.TOKEN }}
-      #     files: pot_${{needs.change-version-for-windows.outputs.version}}_x64_portable.zip
       - name: Upload WinGet
-        if: startsWith(github.ref, 'refs/tags')
+        if: startsWith(github.ref, 'refs/tags') && matrix.target == 'x86_64-pc-windows-msvc'
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: Pylogmon.pot
@@ -480,7 +474,7 @@ jobs:
           export CXX_aarch64_unknown_linux_gnu=aarch64-linux-gnu-g++
           export PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig
           export PKG_CONFIG_ALLOW_CROSS=1
-          cargo tauri build --target ${{ matrix.target }} -b deb
+          cargo tauri build --target ${{ matrix.target }}
       - name: Build and Package
         if: matrix.target == 'armv7-unknown-linux-gnueabihf'
         run: |
@@ -491,12 +485,18 @@ jobs:
           export CXX_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-g++
           export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
           export PKG_CONFIG_ALLOW_CROSS=1
-          cargo tauri build --target ${{ matrix.target }} -b deb
+          cargo tauri build --target ${{ matrix.target }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.deb
           path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pot_${{ matrix.target }}.AppImage
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -505,6 +505,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.TOKEN }}
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
 
   release-update:
     needs: [build-for-macos, build-for-deepin, build-for-windows, build-for-linux]
