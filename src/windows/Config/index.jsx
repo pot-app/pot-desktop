@@ -50,6 +50,7 @@ export const fontSizeAtom = atom('1rem');
 export const ocrInterfaceAtom = atom('tesseract');
 export const screenshotTranslateInterfaceAtom = atom('tesseract');
 export const ocrLanguageAtom = atom('en');
+export const ocrCopyAtom = atom(false);
 
 export default function Config() {
     const setShortcutTranslate = useSetAtom(shortcutTranslateAtom);
@@ -87,6 +88,7 @@ export default function Config() {
     const setOcrInterface = useSetAtom(ocrInterfaceAtom);
     const setScreenshotTranslateInterface = useSetAtom(screenshotTranslateInterfaceAtom);
     const setOcrLanguage = useSetAtom(ocrLanguageAtom);
+    const setOcrCopy = useSetAtom(ocrCopyAtom);
     const [theme, setTheme] = useAtom(themeAtom);
 
     const { i18n } = useTranslation();
@@ -141,6 +143,7 @@ export default function Config() {
         setOcrInterface(get('ocr_interface') ?? 'tesseract');
         setScreenshotTranslateInterface(get('screenshot_translate_interface') ?? 'tesseract');
         setOcrLanguage(get('ocr_language') ?? 'en');
+        setOcrCopy(get('ocr_copy') ?? false);
 
         let interface_configs = {};
 

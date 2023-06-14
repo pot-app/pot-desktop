@@ -83,7 +83,8 @@
                 "label": "OCR",
                 "interface": "Default OCR Interface",
                 "language": "Default OCR Language",
-                "screenshot_translate_interface": "Default Screenshot Translate Interface"
+                "screenshot_translate_interface": "Default Screenshot Translate Interface",
+                "copy": "Auto Copy"
             },
             "external": {
                 "label": "External",

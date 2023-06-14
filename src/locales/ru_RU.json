@@ -83,7 +83,8 @@
                 "label": "OCR",
                 "interface": "Интерфейс OCR по умолчанию",
                 "language": "Язык OCR по умолчанию",
-                "screenshot_translate_interface": "Интерфейс перевода скриншотов по умолчанию"
+                "screenshot_translate_interface": "Интерфейс перевода скриншотов по умолчанию",
+                "copy": "Автоматическое копирование"
             },
             "external": {
                 "label": "Внешние",

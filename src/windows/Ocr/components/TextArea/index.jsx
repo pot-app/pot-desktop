@@ -12,6 +12,7 @@ import { nanoid } from 'nanoid';
 import { ocrInterfaceAtom, ocrLanguageAtom, ocrStartFlagAtom } from '../OcrController';
 import * as ocrs from '../../../../interfaces_ocr';
 import { base64Atom } from '../ImageArea';
+import { get } from '../../../main';
 import './style.css';
 
 export const resultTextAtom = atom('');
@@ -20,6 +21,7 @@ export let ocrID = 0;
 export default function TextArea() {
     const [loading, setLoading] = useState(false);
     const [resultText, setResultText] = useAtom(resultTextAtom);
+    const [errorText, setErrorText] = useState('');
     const base64 = useAtomValue(base64Atom);
     const ocrLanguage = useAtomValue(ocrLanguageAtom);
     const ocrInterface = useAtomValue(ocrInterfaceAtom);
@@ -40,9 +42,17 @@ export default function TextArea() {
     }
 
     useEffect(() => {
+        let ocrCopy = get('ocr_copy') ?? false;
+        if (ocrCopy && resultText !== '' && loading === false) {
+            copy(resultText);
+        }
+    }, [resultText, loading]);
+
+    useEffect(() => {
         if (base64 !== '') {
             setLoading(true);
             setResultText('');
+            setErrorText('');
             let ocror = ocrs[ocrInterface];
             let id = nanoid();
             ocrID = id;
@@ -51,7 +61,7 @@ export default function TextArea() {
                     setLoading(false);
                 },
                 (e) => {
-                    setResultText(e.toString());
+                    setErrorText(e.toString());
                     setLoading(false);
                 }
             );
@@ -65,10 +75,17 @@ export default function TextArea() {
                 <InputBase
                     multiline
                     fullWidth
+                    sx={{ display: resultText === '' && 'none' }}
                     value={resultText}
                     onChange={(e) => {
                         setResultText(e.target.value);
                     }}
+                />
+                <InputBase
+                    multiline
+                    fullWidth
+                    sx={{ display: errorText === '' && 'none', color: 'red' }}
+                    value={errorText}
                 />
             </Box>
             <Box className='text-control'>

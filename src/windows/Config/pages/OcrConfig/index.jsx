@@ -1,4 +1,4 @@
-import { Select, MenuItem } from '@mui/material';
+import { Select, MenuItem, Switch } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
@@ -9,12 +9,13 @@ import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
-import { ocrInterfaceAtom, ocrLanguageAtom, screenshotTranslateInterfaceAtom } from '../..';
+import { ocrInterfaceAtom, ocrLanguageAtom, screenshotTranslateInterfaceAtom, ocrCopyAtom } from '../..';
 
 export default function OcrConfig() {
     const [ocrInterface, setOcrInterface] = useAtom(ocrInterfaceAtom);
     const [ocrLanguage, setOcrLanguage] = useAtom(ocrLanguageAtom);
     const [screenshotTranslateInterface, setScreenshotTranslateInterface] = useAtom(screenshotTranslateInterfaceAtom);
+    const [ocrCopy, setOcrCopy] = useAtom(ocrCopyAtom);
     const { t } = useTranslation();
 
     return (
@@ -99,6 +100,15 @@ export default function OcrConfig() {
                         );
                     })}
                 </Select>
+            </ConfigItem>
+            <ConfigItem label={t('config.ocr.copy')}>
+                <Switch
+                    checked={ocrCopy}
+                    onChange={async (e) => {
+                        setOcrCopy(e.target.checked);
+                        await set('ocr_copy', e.target.checked);
+                    }}
+                />
             </ConfigItem>
         </ConfigList>
     );

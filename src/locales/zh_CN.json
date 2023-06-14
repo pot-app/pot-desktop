@@ -83,7 +83,8 @@
                 "label": "OCR 设置",
                 "interface": "默认OCR接口",
                 "language": "默认语言",
-                "screenshot_translate_interface": "截图翻译默认接口"
+                "screenshot_translate_interface": "截图翻译默认接口",
+                "copy": "自动复制"
             },
             "external": {
                 "label": "外联设置",

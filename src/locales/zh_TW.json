@@ -83,7 +83,8 @@
                 "label": "OCR 設定",
                 "interface": "OCR 預設 API",
                 "language": "預設語言",
-                "screenshot_translate_interface": "截圖翻譯預設 API"
+                "screenshot_translate_interface": "截圖翻譯預設 API",
+                "copy": "自動複製"
             },
             "external": {
                 "label": "外部設定",
