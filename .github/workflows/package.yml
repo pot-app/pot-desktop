@@ -507,7 +507,7 @@ jobs:
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
 
   release-update:
-    needs: [build-for-macos, build-for-deepin, build-for-windows, build-for-linux, build-for-arm]
+    needs: [build-for-macos, build-for-deepin, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
