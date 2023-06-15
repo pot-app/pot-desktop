@@ -1,9 +1,15 @@
-## 1.4.2 (2023-06-14)
+## 1.5.0 (2023-06-15)
 
 ### New feature:
 
--   Add arm target support for linux(#234)([`dccf209`](https://github.com/pot-app/pot-desktop/commit/dccf20972c99fc96d51b335cc77f33be16f7a679)) (by @liudonghua123)
+-   Add Tray Click Event([`fe2337d`](https://github.com/pot-app/pot-desktop/commit/fe2337deab5ac4bb8a2295d4261cacdbb920070c)) (by @Pylogmon)
+-   Update Tauri to 1.4.0([`5415414`](https://github.com/pot-app/pot-desktop/commit/5415414825d21f3d8ca8e09a6386771a4bac3d5b)) (by @Pylogmon)
+-   Translate tray menu([`600f47b`](https://github.com/pot-app/pot-desktop/commit/600f47bd96d1c42aed68ee1bdd2828986a675e7b)) (by @Pylogmon)
+-   Add auto-copy option when OCR completed([`6427b56`](https://github.com/pot-app/pot-desktop/commit/6427b56ab2f06fb61c8ef9ad342bb08d1a40f22d)) (by @Pylogmon)
+-   Custom OpenAI Model([`d9e30ff`](https://github.com/pot-app/pot-desktop/commit/d9e30ff024f6951bef3d0b5cd4982f74b7e26ba1)) (by @Pylogmon)
+-   Add Russian support(#235)([`1b2e0e8`](https://github.com/pot-app/pot-desktop/commit/1b2e0e8051abe889e42dbf012d271492768c6834)) (by @vanja-san)
 
 ### Bugs fixed:
 
--   OpenAI Stream interrupted([`031935e`](https://github.com/pot-app/pot-desktop/commit/031935eb5cc10ee77d2919645b380003f8431ecd)) (by @Pylogmon)
+-   Fix Tray Error([`9a2f34a`](https://github.com/pot-app/pot-desktop/commit/9a2f34a3774d6795e3bea12395522d642ee0c87b)) (by @Pylogmon)
+-   Copy once([`9c5c103`](https://github.com/pot-app/pot-desktop/commit/9c5c103a655a2ecbd58d8d6a7f97225628c61430)) (by @Pylogmon)
