@@ -300,7 +300,7 @@ jobs:
         with:
           identifier: Pylogmon.pot
           version: ${{needs.change-version-for-windows.outputs.version}}
-          installers-regex: '\.msi$'
+          installers-regex: '\x64_zh-CN.msi$'
           token: ${{ secrets.TOKEN }}
           fork-user: Pylogmon
         continue-on-error: true
