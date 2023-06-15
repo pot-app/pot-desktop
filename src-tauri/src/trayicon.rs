@@ -136,9 +136,10 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
             let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
             let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
             let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文");
-            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "译文");
-            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文+译文");
-            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "关闭");
+            let copy_target = CustomMenuItem::new(COPY_TARGET.to_string(), "译文");
+            let copy_source_target =
+                CustomMenuItem::new(COPY_SOURCE_TARGET.to_string(), "原文+译文");
+            let copy_close = CustomMenuItem::new(COPY_CLOSE.to_string(), "关闭");
             let _ = tray.set_menu(
                 SystemTrayMenu::new()
                     .add_item(persistent)
@@ -167,9 +168,10 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
             let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "設置");
             let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
             let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文");
-            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "譯文");
-            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文+譯文");
-            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "關閉");
+            let copy_target = CustomMenuItem::new(COPY_TARGET.to_string(), "譯文");
+            let copy_source_target =
+                CustomMenuItem::new(COPY_SOURCE_TARGET.to_string(), "原文+譯文");
+            let copy_close = CustomMenuItem::new(COPY_CLOSE.to_string(), "關閉");
             let _ = tray.set_menu(
                 SystemTrayMenu::new()
                     .add_item(persistent)
@@ -198,9 +200,10 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
             let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "Config");
             let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "Quit");
             let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "Source");
-            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Target");
-            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Source+Target");
-            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "Close");
+            let copy_target = CustomMenuItem::new(COPY_TARGET.to_string(), "Target");
+            let copy_source_target =
+                CustomMenuItem::new(COPY_SOURCE_TARGET.to_string(), "Source+Target");
+            let copy_close = CustomMenuItem::new(COPY_CLOSE.to_string(), "Close");
             let _ = tray.set_menu(
                 SystemTrayMenu::new()
                     .add_item(persistent)
@@ -229,9 +232,10 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
             let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "Настройки");
             let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "Выход");
             let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "Исходный");
-            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Цель");
-            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Исходный+Цель");
-            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "Закрыть");
+            let copy_target = CustomMenuItem::new(COPY_TARGET.to_string(), "Цель");
+            let copy_source_target =
+                CustomMenuItem::new(COPY_SOURCE_TARGET.to_string(), "Исходный+Цель");
+            let copy_close = CustomMenuItem::new(COPY_CLOSE.to_string(), "Закрыть");
             let _ = tray.set_menu(
                 SystemTrayMenu::new()
                     .add_item(persistent)
