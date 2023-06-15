@@ -72,7 +72,8 @@ pub fn on_tray_click(app: &AppHandle) {
     match label.as_str() {
         Some("config") => on_config_click(app),
         Some("persistent") => persistent_window(),
-        Some("screenshot") => screenshot_ocr_window(),
+        Some("screenshot_ocr") => screenshot_ocr_window(),
+        Some("screenshot_translate") => screenshot_translate_window(),
         Some(_) => {}
         None => {}
     }

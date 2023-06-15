@@ -224,6 +224,10 @@ export default function AppConfig() {
                             <MenuItem value='none'>None</MenuItem>
                             <MenuItem value='config'>{t('config.title')}</MenuItem>
                             <MenuItem value='persistent'>{t('translator.title')}</MenuItem>
+                            <MenuItem value='screenshot_ocr'>{t('config.shortcut.screenshot')}</MenuItem>
+                            <MenuItem value='screenshot_translate'>
+                                {t('config.shortcut.screenshot_translate')}
+                            </MenuItem>
                         </Select>
                     </ConfigItem>
                 )}
