@@ -59,20 +59,22 @@ export default function TargetArea(props) {
         } else {
             setTargetTextSetNum(0);
         }
-        if (!targetText.endsWith('_')) {
-            let autoCopy = get('auto_copy') ?? 4;
-            if (!listenCopy) {
-                if (autoCopy === 1) {
-                    if (sourceText !== '') {
-                        copy(sourceText);
-                    }
-                } else if (autoCopy === 2) {
-                    if (targetText !== '') {
-                        copy(targetText);
-                    }
-                } else if (autoCopy === 3) {
-                    if (targetText && sourceText !== '') {
-                        copy(sourceText + '\n\n' + targetText);
+        if (q === 0) {
+            if (!targetText.endsWith('_')) {
+                let autoCopy = get('auto_copy') ?? 4;
+                if (!listenCopy) {
+                    if (autoCopy === 1) {
+                        if (sourceText !== '') {
+                            copy(sourceText);
+                        }
+                    } else if (autoCopy === 2) {
+                        if (targetText !== '') {
+                            copy(targetText);
+                        }
+                    } else if (autoCopy === 3) {
+                        if (targetText && sourceText !== '') {
+                            copy(sourceText + '\n\n' + targetText);
+                        }
                     }
                 }
             }
