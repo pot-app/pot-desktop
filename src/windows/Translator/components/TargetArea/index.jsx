@@ -274,7 +274,7 @@ export default function TargetArea(props) {
                         <ContentCopyRoundedIcon />
                     </Tooltip>
                 </IconButton>
-                {get('anki_enable') ?? true ? (
+                {get('anki_enable') ?? false ? (
                     addedAnki ? (
                         <IconButton className='target-button'>
                             <Tooltip title={t('translator.targetarea.addedtoanki')}>
@@ -294,7 +294,7 @@ export default function TargetArea(props) {
                 ) : (
                     <></>
                 )}
-                {get('eudic_enable') ?? true ? (
+                {get('eudic_enable') ?? false ? (
                     addedEudic ? (
                         <IconButton className='target-button'>
                             <Tooltip title={t('translator.targetarea.addedtoeudic')}>
