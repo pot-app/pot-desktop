@@ -25,7 +25,6 @@ pub fn build_system_tray() -> SystemTray {
     let screenshot_translate = CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "截图翻译");
     let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
     let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
-
     let tray_menu = SystemTrayMenu::new()
         .add_item(persistent)
         .add_submenu(SystemTraySubmenu::new(
@@ -59,7 +58,7 @@ fn on_window_close(event: &WindowEvent) {
     if let WindowEvent::CloseRequested { .. } = event {
         if let Err(e) = write_config(handle.state()) {
             Notification::new(&handle.config().tauri.bundle.identifier)
-                .title("配置写入失败")
+                .title("Config write failed")
                 .body(e)
                 .icon("pot")
                 .show()
@@ -96,7 +95,7 @@ pub fn on_config_click(app: &AppHandle) {
             .center()
             .focused(true)
             .visible(false)
-            .title("设置")
+            .title("Config")
             .build()
             .unwrap();
             config_window.on_window_event(on_window_close);
@@ -120,10 +119,139 @@ pub fn on_auto_copy_click(app: &AppHandle, mode: i64) {
     set_config("auto_copy", Value::Integer(mode), app.state());
 }
 
-pub fn update_tray(app: &AppHandle, mode: i64) {
+pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
     let tray = app.tray_handle();
-    let _ = tray.get_item(COPY_SOURCE).set_selected(mode == 1);
-    let _ = tray.get_item(COPY_TARGET).set_selected(mode == 2);
-    let _ = tray.get_item(COPY_SOURCE_TARGET).set_selected(mode == 3);
-    let _ = tray.get_item(COPY_CLOSE).set_selected(mode == 4);
+    if mode != 0 {
+        let _ = tray.get_item(COPY_SOURCE).set_selected(mode == 1);
+        let _ = tray.get_item(COPY_TARGET).set_selected(mode == 2);
+        let _ = tray.get_item(COPY_SOURCE_TARGET).set_selected(mode == 3);
+        let _ = tray.get_item(COPY_CLOSE).set_selected(mode == 4);
+    }
+    match app_language {
+        "zh_cn" => {
+            let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻译");
+            let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "截图OCR");
+            let screenshot_translate =
+                CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "截图翻译");
+            let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "设置");
+            let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
+            let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文");
+            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "译文");
+            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文+译文");
+            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "关闭");
+            let _ = tray.set_menu(
+                SystemTrayMenu::new()
+                    .add_item(persistent)
+                    .add_submenu(SystemTraySubmenu::new(
+                        "自动复制",
+                        SystemTrayMenu::new()
+                            .add_item(copy_source)
+                            .add_item(copy_target)
+                            .add_item(copy_source_target)
+                            .add_native_item(SystemTrayMenuItem::Separator)
+                            .add_item(copy_close),
+                    ))
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(ocr)
+                    .add_item(screenshot_translate)
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(config)
+                    .add_item(quit),
+            );
+        }
+        "zh_tw" => {
+            let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻譯");
+            let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "截圖OCR");
+            let screenshot_translate =
+                CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "截圖翻譯");
+            let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "設置");
+            let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "退出");
+            let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文");
+            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "譯文");
+            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "原文+譯文");
+            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "關閉");
+            let _ = tray.set_menu(
+                SystemTrayMenu::new()
+                    .add_item(persistent)
+                    .add_submenu(SystemTraySubmenu::new(
+                        "自動複製",
+                        SystemTrayMenu::new()
+                            .add_item(copy_source)
+                            .add_item(copy_target)
+                            .add_item(copy_source_target)
+                            .add_native_item(SystemTrayMenuItem::Separator)
+                            .add_item(copy_close),
+                    ))
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(ocr)
+                    .add_item(screenshot_translate)
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(config)
+                    .add_item(quit),
+            );
+        }
+        "en" => {
+            let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "Translate");
+            let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "Screenshot OCR");
+            let screenshot_translate =
+                CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "Screenshot Translate");
+            let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "Config");
+            let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "Quit");
+            let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "Source");
+            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Target");
+            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Source+Target");
+            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "Close");
+            let _ = tray.set_menu(
+                SystemTrayMenu::new()
+                    .add_item(persistent)
+                    .add_submenu(SystemTraySubmenu::new(
+                        "Auto Copy",
+                        SystemTrayMenu::new()
+                            .add_item(copy_source)
+                            .add_item(copy_target)
+                            .add_item(copy_source_target)
+                            .add_native_item(SystemTrayMenuItem::Separator)
+                            .add_item(copy_close),
+                    ))
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(ocr)
+                    .add_item(screenshot_translate)
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(config)
+                    .add_item(quit),
+            );
+        }
+        "ru" => {
+            let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "Перевести");
+            let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "Скриншот OCR");
+            let screenshot_translate =
+                CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "Скриншот Перевести");
+            let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "Настройки");
+            let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "Выход");
+            let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "Исходный");
+            let copy_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Цель");
+            let copy_source_target = CustomMenuItem::new(COPY_SOURCE.to_string(), "Исходный+Цель");
+            let copy_close = CustomMenuItem::new(COPY_SOURCE.to_string(), "Закрыть");
+            let _ = tray.set_menu(
+                SystemTrayMenu::new()
+                    .add_item(persistent)
+                    .add_submenu(SystemTraySubmenu::new(
+                        "Автокопирование",
+                        SystemTrayMenu::new()
+                            .add_item(copy_source)
+                            .add_item(copy_target)
+                            .add_item(copy_source_target)
+                            .add_native_item(SystemTrayMenuItem::Separator)
+                            .add_item(copy_close),
+                    ))
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(ocr)
+                    .add_item(screenshot_translate)
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(config)
+                    .add_item(quit),
+            );
+        }
+        _ => {}
+    }
 }

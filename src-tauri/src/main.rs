@@ -119,7 +119,13 @@ fn main() {
             let copy_mode = get_config("auto_copy", toml::Value::Integer(4), app_handle.state())
                 .as_integer()
                 .unwrap();
-            update_tray(app_handle, copy_mode);
+            let app_language = get_config(
+                "app_language",
+                toml::Value::String("zh_cn".to_string()),
+                app_handle.state(),
+            );
+
+            update_tray(app_handle, copy_mode, app_language.as_str().unwrap());
             // 设置代理
             let proxy = get_config(
                 "proxy",
