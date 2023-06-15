@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 export async function addToEudic(text) {
     let token = get('eudic_token') ?? '';
     if (token === '') {
-        throw '请先设置Token';
+        throw 'Please configure Token';
     }
     let categoryId = await checkCategory(token);
     return await addWordToCategory(categoryId, text, token);
