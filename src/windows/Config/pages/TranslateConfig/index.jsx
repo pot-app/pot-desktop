@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
-import React from 'react';
+import React, { useState } from 'react';
 import * as interfaces from '../../../../interfaces';
 import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
@@ -21,6 +21,7 @@ import {
     incrementalTranslationAtom,
 } from '../..';
 import './style.css';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export default function TranslateConfig() {
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
@@ -34,6 +35,28 @@ export default function TranslateConfig() {
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
 
     const { t } = useTranslation();
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [isDrag, setIsDrag] = useState(false);
+
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
+
+    const onDragStart = () => {
+        setIsDrag(true);
+    };
+
+    const onDragEnd = async (result) => {
+        if (!result.destination) return;
+        const items = reorder(defaultInterfaceList, result.source.index, result.destination.index);
+        setDefaultInterfaceList(items);
+        await set('default_interface_list', items);
+        setIsDrag(false);
+    };
 
     return (
         <ConfigList label={t('config.translate.title')}>
@@ -104,15 +127,57 @@ export default function TranslateConfig() {
                         setDefaultInterfaceList(e.target.value);
                         await set('default_interface_list', e.target.value);
                     }}
+                    open={isOpen}
+                    onClick={(e) => {
+                        const { className } = e.target;
+                        const noOperation = ['MuiChip-filled', 'MuiChip-label'];
+
+                        if (isOpen) {
+                            return setIsOpen(false);
+                        }
+
+                        if (noOperation.some((n) => className.includes(n)) || isDrag) return;
+                        setIsOpen(true);
+                    }}
                     renderValue={(selected) => (
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                            {selected.map((value) => (
-                                <Chip
-                                    key={value}
-                                    label={t(`config.interface.${interfaces[value]['info']['name']}`)}
-                                />
-                            ))}
-                        </Box>
+                        <DragDropContext
+                            onDragEnd={onDragEnd}
+                            onDragStart={onDragStart}
+                        >
+                            <Droppable
+                                droppableId='droppable'
+                                direction='horizontal'
+                            >
+                                {(provided) => (
+                                    <Box
+                                        sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}
+                                    >
+                                        {selected.map((value, index) => (
+                                            <Draggable
+                                                key={value}
+                                                draggableId={value}
+                                                index={index}
+                                            >
+                                                {(provided) => (
+                                                    <Chip
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        key={value}
+                                                        label={t(
+                                                            `config.interface.${interfaces[value]['info']['name']}`
+                                                        )}
+                                                    />
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </Box>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
                     )}
                 >
                     {Object.keys(interfaces).map((x) => {

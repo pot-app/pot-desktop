@@ -53,10 +53,8 @@ readConfig().then((v) => {
     const rootElement = document.getElementById('root');
     const root = ReactDOM.createRoot(rootElement);
     root.render(
-        <React.StrictMode>
-            <Provider store={configStore}>
-                <BrowserRouter>{windowRouter[appWindow.label]}</BrowserRouter>
-            </Provider>
-        </React.StrictMode>
+        <Provider store={configStore}>
+            <BrowserRouter>{windowRouter[appWindow.label]}</BrowserRouter>
+        </Provider>
     );
 });
