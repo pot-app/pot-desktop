@@ -108,6 +108,7 @@ export default function TargetArea(props) {
     function copy(who) {
         writeText(who).then((_) => {
             toast.success(t('info.writeclipboard'), {
+                duration: 500,
                 style: {
                     background: theme.palette.background.default,
                     color: theme.palette.text.primary,
