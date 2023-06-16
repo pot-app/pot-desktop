@@ -104,17 +104,34 @@ pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
     let util_window = handle.get_window("util").unwrap();
     let current_monitor = get_current_monitor(x, y, util_window).unwrap();
     let physical_position = current_monitor.position();
-    let window =
+    let mut builder =
         tauri::WindowBuilder::new(handle, "ocr", tauri::WindowUrl::App("index.html".into()))
             .inner_size(800.0, 400.0)
             .min_inner_size(600.0, 400.0)
             .focused(true)
             .title("OCR")
-            .visible(false)
-            .build()
-            .unwrap();
+            .visible(false);
+
+    #[cfg(target_os = "linux")]
+    {
+        builder = builder.transparent(true);
+    }
+    #[cfg(target_os = "macos")]
+    {
+        builder = builder
+            .title_bar_style(tauri::TitleBarStyle::Overlay)
+            .hidden_title(true);
+    }
+    #[cfg(not(target_os = "macos"))]
+    {
+        builder = builder.decorations(false);
+    }
+
+    let window = builder.build().unwrap();
     window.set_position(*physical_position).unwrap();
     window.center().unwrap();
+    #[cfg(not(target_os = "linux"))]
+    set_shadow(&window, true).unwrap_or_default();
     Ok(window)
 }
 

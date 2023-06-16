@@ -33,6 +33,7 @@ export default function TextArea() {
     function copy(who) {
         writeText(who).then((_) => {
             toast.success(t('info.writeclipboard'), {
+                position: 'top-left',
                 style: {
                     background: theme.palette.background.default,
                     color: theme.palette.text.primary,

@@ -1,4 +1,4 @@
-import { useMediaQuery, Grid } from '@mui/material';
+import { useMediaQuery, Grid, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { appWindow } from '@tauri-apps/api/window';
@@ -9,6 +9,7 @@ import { useAtom, useSetAtom, atom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import * as interfaces from '../../interfaces';
 import SideBar from './components/SideBar';
+import TopBar from './components/TopBar';
 import { light, dark } from '../themes';
 import routes from './routes';
 import { get } from '../main';
@@ -93,14 +94,14 @@ export default function Config() {
 
     const { i18n } = useTranslation();
 
-    const gridWrapperRef = useRef();
+    const boxWrapperRef = useRef();
     const location = useLocation();
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const page = useRoutes(routes);
 
     useEffect(() => {
-        gridWrapperRef.current.scrollTop = 0;
+        boxWrapperRef.current.scrollTop = 0;
     }, [location]);
 
     useEffect(() => {
@@ -189,6 +190,10 @@ export default function Config() {
     return (
         <ThemeProvider theme={theme === 'auto' ? (prefersDarkMode ? dark : light) : theme === 'dark' ? dark : light}>
             <CssBaseline />
+            <div
+                data-tauri-drag-region='true'
+                className='titlebar'
+            />
             <Grid
                 className='content'
                 container
@@ -201,12 +206,17 @@ export default function Config() {
                     <SideBar />
                 </Grid>
                 <Grid
-                    ref={gridWrapperRef}
                     item
                     xs
-                    sx={{ height: '100%', overflow: 'auto' }}
+                    sx={{ height: '100%' }}
                 >
-                    {page}
+                    <TopBar />
+                    <Box
+                        ref={boxWrapperRef}
+                        sx={{ height: '100%', overflow: 'auto' }}
+                    >
+                        {page}
+                    </Box>
                 </Grid>
             </Grid>
         </ThemeProvider>

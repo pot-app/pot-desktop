@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import OcrController from './components/OcrController';
 import ImageArea from './components/ImageArea';
 import TextArea from './components/TextArea';
+import TopBar from './components/TopBar';
 import { light, dark } from '../themes';
 import { get } from '../main';
 import './style.css';
@@ -21,6 +22,11 @@ export default function App() {
     return (
         <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
             <CssBaseline />
+            <div
+                data-tauri-drag-region='true'
+                className='titlebar'
+            />
+            <TopBar />
             <Grid
                 container
                 className='display-area'

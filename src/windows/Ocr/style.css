@@ -1,7 +1,6 @@
 /* 显示区 */
 .display-area {
-    height: calc(100vh - 76px);
-    margin-top: 12px;
+    height: calc(100vh - 99px);
     /*76=12(body padding)+40+12(control margin)+12(display margin)*/
 }
 
