@@ -10,3 +10,7 @@
 .control-button {
     padding: 0;
 }
+
+.control-button:hover {
+    background-color: inherit !important;
+}

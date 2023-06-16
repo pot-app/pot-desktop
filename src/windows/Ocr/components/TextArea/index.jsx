@@ -100,7 +100,7 @@ export default function TextArea() {
                     </Tooltip>
                 </IconButton>
                 <IconButton
-                    className='source-button'
+                    className='control-button'
                     onClick={() => {
                         setResultText(resultText.replace(/\s+/g, ' '));
                     }}
