@@ -1,0 +1,14 @@
+.topbar-config {
+    text-align: right;
+    height: 35px;
+}
+
+.topbar-button {
+    padding: 0;
+    margin: 0;
+    width: 20px;
+}
+
+.topbar-button:hover {
+    background-color: inherit !important;
+}

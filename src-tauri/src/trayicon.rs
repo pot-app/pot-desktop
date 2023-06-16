@@ -7,6 +7,8 @@ use tauri::{
     SystemTraySubmenu, WindowEvent,
 };
 use toml::Value;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use window_shadows::set_shadow;
 
 pub const CONFIG_TRAY_ITEM: &str = "config";
 pub const QUIT_TRAY_ITEM: &str = "quit";
@@ -86,7 +88,7 @@ pub fn on_config_click(app: &AppHandle) {
             window.set_focus().unwrap();
         }
         None => {
-            let config_window = tauri::WindowBuilder::new(
+            let mut builder = tauri::WindowBuilder::new(
                 app,
                 "config",
                 tauri::WindowUrl::App("index.html".into()),
@@ -96,9 +98,25 @@ pub fn on_config_click(app: &AppHandle) {
             .center()
             .focused(true)
             .visible(false)
-            .title("Config")
-            .build()
-            .unwrap();
+            .title("Config");
+
+            #[cfg(target_os = "linux")]
+            {
+                builder = builder.transparent(true);
+            }
+            #[cfg(target_os = "macos")]
+            {
+                builder = builder
+                    .title_bar_style(tauri::TitleBarStyle::Overlay)
+                    .hidden_title(true);
+            }
+            #[cfg(not(target_os = "macos"))]
+            {
+                builder = builder.decorations(false);
+            }
+            let config_window = builder.build().unwrap();
+            #[cfg(not(target_os = "linux"))]
+            set_shadow(&config_window, true).unwrap_or_default();
             config_window.on_window_event(on_window_close);
         }
     }

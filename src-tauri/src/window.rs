@@ -108,7 +108,6 @@ pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
         tauri::WindowBuilder::new(handle, "ocr", tauri::WindowUrl::App("index.html".into()))
             .inner_size(800.0, 400.0)
             .min_inner_size(600.0, 400.0)
-            .decorations(false)
             .focused(true)
             .title("OCR")
             .visible(false);
