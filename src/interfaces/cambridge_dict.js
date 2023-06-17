@@ -16,11 +16,12 @@ export const info = {
 const spacesReg = /\s+/g
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
-    if (!(to in supportLanguage) || supportLanguage['en'] !== supportLanguage[from]) {
-        throw 'Unsupported Language';
+    // 该接口只支持查询: 英文, 单词, 这里为了避免查询过程中频繁展示报错内容所以直接不返回内容
+    if (supportLanguage['en'] !== supportLanguage[from] || text.split(' ').length > 1) {
+        return;
     }
-    if (text.split(' ').length !== 1) {
-        throw 'This interface only supports word lookup.';
+    if (!(to in supportLanguage)) {
+        throw 'Unsupported Language';
     }
 
     const url = `https://dictionary.cambridge.org/dictionary/${supportLanguage[from]}-${supportLanguage[to]}/${text}`;
