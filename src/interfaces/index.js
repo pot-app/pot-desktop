@@ -33,3 +33,4 @@ export const lingva = _lingva;
 export const xiaoniu = _xiaoniu;
 export const transmart = _transmart;
 export const youdao = _youdao;
+export * as cambridge_dict from './cambridge_dict'
