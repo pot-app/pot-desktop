@@ -47,11 +47,11 @@ export async function translate(text, from, to, setText, id) {
     const apikey = get('xiaoniu_apikey') ?? '';
     // 检查设置
     if (apikey === '') {
-        return 'Please configure API 密钥';
+        throw 'Please configure API 密钥';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return 'Unsupported Language';
+        throw 'Unsupported Language';
     }
     // 完成翻译过程
     const url = `https://api.niutrans.com/NiuTransServer/translation`;
