@@ -212,6 +212,7 @@
                 "updateerror": "更新失敗",
                 "latest": "已為最新版本",
                 "checkerror": "檢查更新失敗，請檢查網路設定",
+                "updatesuccess": "更新成功，請重新啟動應用程式",
                 "introduction": "程式簡介",
                 "name": "程式名稱",
                 "license": "開源協議",

@@ -62,6 +62,7 @@ export default function AppInfo() {
                                 {
                                     loading: t('config.about.downloading'),
                                     error: (err) => t('config.about.updateerror') + `\n${err.toString()}`,
+                                    success: t('config.about.updatesuccess'),
                                 },
                                 {
                                     style: {

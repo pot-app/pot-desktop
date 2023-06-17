@@ -210,6 +210,7 @@
                 "update": "新版本可用，现在更新吗？",
                 "downloading": "正在下载，请耐心等待...",
                 "updateerror": "更新出错",
+                "updatesuccess": "更新成功，请重启应用",
                 "latest": "已经是最新版本",
                 "checkerror": "检查更新失败，请检查网络设置",
                 "introduction": "应用简介",

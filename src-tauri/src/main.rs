@@ -63,7 +63,7 @@ fn main() {
                 screenshot_translate_window();
             } else {
                 Notification::new(&app.config().tauri.bundle.identifier)
-                    .title("程序已经在运行 请勿重复启动！")
+                    .title("The program is already running. Please do not start it again!")
                     .body(cwd)
                     .icon("pot")
                     .show()
@@ -109,7 +109,7 @@ fn main() {
                 Ok(_) => {}
                 Err(e) => {
                     Notification::new(&app.config().tauri.bundle.identifier)
-                        .title("快捷键注册失败")
+                        .title("Shortcut registration failed")
                         .body(e)
                         .icon("pot")
                         .show()
@@ -146,7 +146,7 @@ fn main() {
                                 let update_ = update.clone();
                                 tauri::api::dialog::ask(
                                     Some(&window),
-                                    "新版本可用,是否更新？",
+                                    "New version available, update now?",
                                     update.body().unwrap(),
                                     |isok| {
                                         if isok {
@@ -154,13 +154,25 @@ fn main() {
                                             Notification::new(
                                                 &app_handle.config().tauri.bundle.identifier,
                                             )
-                                            .title("正在下载更新，请耐心等待")
+                                            .title("Downloading the update, please wait patiently")
                                             .icon("pot")
                                             .show()
                                             .unwrap();
                                             tauri::async_runtime::block_on(async move {
                                                 match update_.download_and_install().await {
-                                                    Ok(_) => {}
+                                                    Ok(_) => {
+                                                        Notification::new(
+                                                            &app_handle
+                                                                .config()
+                                                                .tauri
+                                                                .bundle
+                                                                .identifier,
+                                                        )
+                                                        .title("Update successfully, please restart the application")
+                                                        .icon("pot")
+                                                        .show()
+                                                        .unwrap();
+                                                    }
                                                     Err(e) => {
                                                         Notification::new(
                                                             &app_handle
@@ -169,7 +181,7 @@ fn main() {
                                                                 .bundle
                                                                 .identifier,
                                                         )
-                                                        .title("更新出错")
+                                                        .title("Failed to update")
                                                         .body(e.to_string())
                                                         .icon("pot")
                                                         .show()

@@ -120,14 +120,14 @@ pub fn set_config(key: &str, value: Value, state: tauri::State<ConfigWrapper>) {
         match register_shortcut(key) {
             Ok(_) => {
                 Notification::new(&handle.config().tauri.bundle.identifier)
-                    .title("快捷键注册成功")
+                    .title("Shortcut registration success")
                     .icon("pot")
                     .show()
                     .unwrap();
             }
             Err(e) => {
                 Notification::new(&handle.config().tauri.bundle.identifier)
-                    .title("快捷键注册失败")
+                    .title("Shortcut registration failed")
                     .body(e)
                     .icon("pot")
                     .show()
