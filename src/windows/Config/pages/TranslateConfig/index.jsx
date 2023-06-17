@@ -184,17 +184,16 @@ export default function TranslateConfig() {
                     {Object.keys(interfaces).map((x) => {
                         return (
                             <MenuItem
-                                className='interface-no-exit'
                                 value={x}
                                 key={nanoid()}
                             >
-                                <Box className='interface-no-exit'>
+                                <Box>
                                     <img
                                         src={`/${x}.svg`}
-                                        className='interface-icon interface-no-exit'
+                                        className='interface-icon'
                                         alt='interface icon'
                                     />
-                                    <span className='interface-name interface-no-exit'>
+                                    <span className='interface-name'>
                                         {t(`config.interface.${interfaces[x]['info']['name']}`)}
                                     </span>
                                 </Box>

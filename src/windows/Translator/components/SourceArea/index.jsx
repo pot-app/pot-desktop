@@ -6,7 +6,7 @@ import UnfoldLessRoundedIcon from '@mui/icons-material/UnfoldLessRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import ClearAllRoundedIcon from '@mui/icons-material/ClearAllRounded';
-import { writeText } from '@tauri-apps/api/clipboard';
+import { readText, writeText } from '@tauri-apps/api/clipboard';
 import React, { useState, useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
@@ -79,12 +79,15 @@ export default function SourceArea() {
     useEffect(() => {
         if (appWindow.label !== 'persistent' && appWindow.label !== 'popclip_ocr') {
             // 获取选中文本
-            invoke('get_translate_text').then((v) => {
-                if (v !== '') {
-                    let source = v.trim();
-                    setFormatSourceText(source);
-                    setFormatText(source);
+            invoke('get_translate_text').then(async (v) => {
+                let source = v;
+                if (source !== '') {
+                    source = source.trim();
+                } else {
+                    source = await readText();
                 }
+                setFormatSourceText(source);
+                setFormatText(source);
             });
         }
         if (appWindow.label === 'popclip_ocr') {
