@@ -170,6 +170,8 @@ pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window
     let dpi = current_monitor.scale_factor();
     let physical_position = current_monitor.position();
     let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
+    #[cfg(target_os="macos")]
+    let size =current_monitor.size();
     let window =
         tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
             .position(position.x, position.y)
@@ -180,7 +182,9 @@ pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window
             .visible(false)
             .build()
             .unwrap();
-
+    #[cfg(target_os="macos")]
+    window.set_size(*size).unwrap();
+    #[cfg(not(target_os="macos"))]
     window.set_fullscreen(true).unwrap();
     window.set_always_on_top(true).unwrap();
     Ok(window)
