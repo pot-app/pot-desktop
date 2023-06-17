@@ -24,6 +24,7 @@ import { get } from '../../../main';
 import './style.css';
 
 export let translateID = [];
+let copyTimeout = null;
 
 export default function TargetArea(props) {
     const { i, q } = props;
@@ -51,6 +52,20 @@ export default function TargetArea(props) {
     }, [sourceText, translateInterface, targetLanguage, sourceLanguage]);
 
     useEffect(() => {
+        let autoCopy = get('auto_copy') ?? 4;
+        if (!listenCopy && autoCopy === 1) {
+            if (sourceText !== '') {
+                if (copyTimeout) {
+                    clearTimeout(copyTimeout);
+                }
+                copyTimeout = setTimeout(() => {
+                    copy(sourceText);
+                }, 5);
+            }
+        }
+    }, [sourceText]);
+
+    useEffect(() => {
         if (targetText !== '') {
             if (targetTextSetNum === 0) {
                 setExpand(true);
@@ -63,11 +78,7 @@ export default function TargetArea(props) {
             if (!targetText.endsWith('_')) {
                 let autoCopy = get('auto_copy') ?? 4;
                 if (!listenCopy) {
-                    if (autoCopy === 1) {
-                        if (sourceText !== '') {
-                            copy(sourceText);
-                        }
-                    } else if (autoCopy === 2) {
+                    if (autoCopy === 2) {
                         if (targetText !== '') {
                             copy(targetText);
                         }
