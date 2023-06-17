@@ -130,13 +130,14 @@ export default function TranslateConfig() {
                     open={isOpen}
                     onClick={(e) => {
                         const { className } = e.target;
-                        const noOperation = ['MuiChip-filled', 'MuiChip-label'];
+                        const noOperation = ['MuiChip-filled', 'MuiChip-label', 'MuiButtonBase-root'];
+
+                        if (noOperation.some((n) => className.includes(n)) || isDrag) return;
 
                         if (isOpen) {
                             return setIsOpen(false);
                         }
 
-                        if (noOperation.some((n) => className.includes(n)) || isDrag) return;
                         setIsOpen(true);
                     }}
                     renderValue={(selected) => (
