@@ -130,7 +130,7 @@ export default function TranslateConfig() {
                     open={isOpen}
                     onClick={(e) => {
                         const { className } = e.target;
-                        const noOperation = ['MuiChip-filled', 'MuiChip-label', 'MuiButtonBase-root'];
+                        const noOperation = ['MuiChip-filled', 'MuiChip-label', 'MuiButtonBase-root', 'interface-no-exit'];
 
                         if (noOperation.some((n) => className.includes(n)) || isDrag) return;
 
@@ -184,16 +184,17 @@ export default function TranslateConfig() {
                     {Object.keys(interfaces).map((x) => {
                         return (
                             <MenuItem
+                                className='interface-no-exit'
                                 value={x}
                                 key={nanoid()}
                             >
-                                <Box>
+                                <Box className='interface-no-exit'>
                                     <img
                                         src={`/${x}.svg`}
-                                        className='interface-icon'
+                                        className='interface-icon interface-no-exit'
                                         alt='interface icon'
                                     />
-                                    <span className='interface-name'>
+                                    <span className='interface-name interface-no-exit'>
                                         {t(`config.interface.${interfaces[x]['info']['name']}`)}
                                     </span>
                                 </Box>
