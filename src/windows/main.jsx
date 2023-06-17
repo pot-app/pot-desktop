@@ -32,9 +32,11 @@ export function get(key) {
     return config[key];
 }
 
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-});
+if(import.meta.env.PROD) {
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+}
 document.addEventListener('keydown', async (e) => {
     let allowKeys = ['c', 'v', 'x', 'a'];
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
