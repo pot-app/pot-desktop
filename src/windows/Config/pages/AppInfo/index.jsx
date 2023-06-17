@@ -57,21 +57,17 @@ export default function AppInfo() {
                 if (update.shouldUpdate) {
                     ask(update.manifest.body, { title: t('config.about.update'), type: 'info' }).then((install) => {
                         if (install) {
-                            toast.loading(t('config.about.downloading'), {
-                                style: {
-                                    background: theme.palette.background.default,
-                                    color: theme.palette.text.primary,
+                            toast.promise(
+                                installUpdate(),
+                                {
+                                    loading: t('config.about.downloading'),
+                                    error: (err) => t('config.about.updateerror') + `\n${err.toString()}`,
                                 },
-                            });
-                            installUpdate().then(
-                                (_) => {},
-                                (e) => {
-                                    toast.error(t('config.about.updateerror') + '\n' + e, {
-                                        style: {
-                                            background: theme.palette.background.default,
-                                            color: theme.palette.text.primary,
-                                        },
-                                    });
+                                {
+                                    style: {
+                                        background: theme.palette.background.default,
+                                        color: theme.palette.text.primary,
+                                    },
                                 }
                             );
                         }
