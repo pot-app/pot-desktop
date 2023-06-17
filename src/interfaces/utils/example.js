@@ -26,7 +26,7 @@ export const info = {
     ],
 };
 //必须向外暴露translate
-export async function translate(text, from, to) {
+export async function translate(text, from, to, setText, id) {
     // 获取语言映射
     const { supportLanguage } = info;
     // 获取设置项
@@ -34,11 +34,11 @@ export async function translate(text, from, to) {
     const apikey = get('example_apikey') ?? '';
     // 检查设置
     if (apiid == '' || apikey == '') {
-        return 'Please configure apiid或apikey';
+        throw 'Please configure apiid或apikey';
     }
     // 检查语言支持
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return 'Unsupported Language';
+        throw 'Unsupported Language';
     }
     // 完成翻译过程
     // ......
@@ -58,6 +58,6 @@ export async function translate(text, from, to) {
     });
     let result = res.data;
     // 返回翻译结果
-    // return target
+    // setText(target);
 }
 // 编写完成后请在index.js中暴露接口

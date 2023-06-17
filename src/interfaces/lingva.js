@@ -38,7 +38,7 @@ export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
 
     if (!(to in supportLanguage) || !(from in supportLanguage)) {
-        return 'Unsupported Language';
+        throw 'Unsupported Language';
     }
 
     let domain = get('lingva_domain') ?? '';
