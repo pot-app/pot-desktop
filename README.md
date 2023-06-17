@@ -5,7 +5,7 @@
 > 🌈 A cross-platform software for text translation ([Telegram Group](https://t.me/pot_app))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
-![Tauri](https://img.shields.io/badge/Tauri-1.3.0-blue?logo=tauri)
+![Tauri](https://img.shields.io/badge/Tauri-1.4.0-blue?logo=tauri)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
