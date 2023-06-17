@@ -57,7 +57,7 @@ pub fn on_persistent_click() {
 
 fn on_window_close(event: &WindowEvent) {
     let handle = APP.get().unwrap();
-    if let WindowEvent::CloseRequested { .. } = event {
+    if let WindowEvent::Destroyed { .. } = event {
         if let Err(e) = write_config(handle.state()) {
             Notification::new(&handle.config().tauri.bundle.identifier)
                 .title("Config write failed")
@@ -117,6 +117,7 @@ pub fn on_config_click(app: &AppHandle) {
             let config_window = builder.build().unwrap();
             #[cfg(not(target_os = "linux"))]
             set_shadow(&config_window, true).unwrap_or_default();
+
             config_window.on_window_event(on_window_close);
         }
     }
