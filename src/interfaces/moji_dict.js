@@ -46,7 +46,7 @@ export async function translate(text, from, to, setText, id) {
         const explains = res.data.result.results['search-all'].result[TYPE_WORD.key].searchResult
         const explainTexts = explains.map(e => `${e.title}\n${e.excerpt}`);
         if (translateID.includes(id)) {
-            setText([...explainTexts].join('\n\n'));
+            setText(explainTexts.join('\n\n'));
         }
     } else {
         throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
