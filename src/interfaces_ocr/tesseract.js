@@ -39,12 +39,7 @@ export async function ocr(base64, lang, setText, id) {
         throw 'Unsupported Language';
     }
 
-    let appCacheDirPath = await appCacheDir();
-    let filePath = await join(appCacheDirPath, 'pot_screenshot_cut.png');
-    let imgurl = convertFileSrc(filePath);
-
-
-    const { data: { text } } = await Tesseract.recognize(imgurl, supportLanguage[lang], {
+    const { data: { text } } = await Tesseract.recognize('data:image/png;base64,' + base64, supportLanguage[lang], {
         workerPath: '/worker.min.js',
         corePath: '/tesseract-core.wasm.js',
         langPath: 'https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev',
