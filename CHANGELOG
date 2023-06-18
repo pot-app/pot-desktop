@@ -1,14 +1,10 @@
-## 1.6.0 (2023-06-17)
+## 1.6.1 (2023-06-18)
 
 ### New feature:
 
--   Add cambridge dict text translator (#245)([`3fee46f`](https://github.com/pot-app/pot-desktop/commit/3fee46f8945536c166ed88d2366131ef48b2d8a7)) (by @xtyuns)
--   Update Traditional Chinese Translation (#242)([`941363f`](https://github.com/pot-app/pot-desktop/commit/941363f984d2bff0551023f32dbfd121b206d75f)) (by @bestpika)
--   Drag default interface order (#237)([`781c1c4`](https://github.com/pot-app/pot-desktop/commit/781c1c46af5474dedf9dff0c3100a461f201acfa)) (by @Layouwen)
+-   suppoort mojidict text translator (#255)([`2d49f14`](https://github.com/pot-app/pot-desktop/commit/2d49f141d19af4b2256b34a6bc939f402af9bc9e)) (by @xtyuns)
 
 ### Bugs fixed:
 
--   MacOS Update Failed([`d1d8832`](https://github.com/pot-app/pot-desktop/commit/d1d88327b713d65ecaa7f589ba17d77e224ec0ca)) (by @Pylogmon)
--   MacOS screenshot (#253)([`f65e678`](https://github.com/pot-app/pot-desktop/commit/f65e678cab02622146188216c482e0aa0208bda3)) (by @Layouwen)
--   read clipboard (#249)([`ad199d8`](https://github.com/pot-app/pot-desktop/commit/ad199d86774554ff2d9edbe6702d28f80c581d63)) (by @Pylogmon)
--   return value of translate function is not accepted (#244)([`1e0b702`](https://github.com/pot-app/pot-desktop/commit/1e0b702c63860ad5f971818ff4350b8812fe04af)) (by @xtyuns)
+-   Tesseract can not use on Linux([`d634dff`](https://github.com/pot-app/pot-desktop/commit/d634dff2e7a0130433d8308e8c9e8ca71f03807d)) (by @Pylogmon)
+-   cambridge dict resolve (#254)([`58c05bb`](https://github.com/pot-app/pot-desktop/commit/58c05bb314dca655ac9a2f84a9e0c933621bfe7f)) (by @xtyuns)
