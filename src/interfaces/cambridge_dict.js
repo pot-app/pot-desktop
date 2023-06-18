@@ -34,8 +34,8 @@ export async function translate(text, from, to, setText, id) {
         responseType: 2,
     });
 
-    // 当未收录该单词时会被重定向到首页
-    if (url != res.url) {
+    // case: Pylogmon, Plural
+    if (!res.url.endsWith(text)) {
         throw `Words not yet included: ${text}`;
     } else if (res.ok) {
         let result = res.data;
