@@ -1,7 +1,5 @@
-import Tesseract from 'tesseract.js';
-import { appCacheDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ocrID } from '../windows/Ocr/components/TextArea';
+import Tesseract from 'tesseract.js';
 
 // 必须向外暴露info
 export const info = {
