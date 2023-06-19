@@ -5,10 +5,10 @@ import { fetch } from '@tauri-apps/api/http';
 export const info = {
     name: 'cambridge_dict',
     supportLanguage: {
-        auto: 'english',
+        auto: '',
+        en: 'english',
         zh_cn: 'chinese-simplified',
         zh_tw: 'chinese-traditional',
-        en: 'english',
     },
     needs: [],
 };
@@ -16,15 +16,24 @@ export const info = {
 const spacesReg = /\s+/g
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
-    // 该接口只支持查询: 英文, 单词, 这里为了避免查询过程中频繁展示报错内容所以直接不返回内容
-    if (supportLanguage['en'] !== supportLanguage[from] || text.split(' ').length > 1) {
+    // start with a letter as english
+    if (from === 'auto' && /^[A-Za-z]/.test(text)) {
+        from = 'en';
+    }
+    // do not process non-English or sentences
+    if (from !== 'en' || text.split(' ').length > 1) {
+        return;
+    }
+    // auto -> en
+    if (from === to) {
+        setText(text);
         return;
     }
     if (!(to in supportLanguage)) {
         throw 'Unsupported Language';
     }
 
-    const url = `https://dictionary.cambridge.org/dictionary/${supportLanguage[from]}-${supportLanguage[to]}/${text}`;
+    const url = `https://dictionary.cambridge.org/search/direct/?datasetsearch=${supportLanguage[from]}-${supportLanguage[to]}&q=${text}`;
     let res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -34,18 +43,24 @@ export async function translate(text, from, to, setText, id) {
         responseType: 2,
     });
 
-    // case: Pylogmon, Plural
-    if (!res.url.endsWith(text)) {
-        throw `Words not yet included: ${text}`;
-    } else if (res.ok) {
+    if (res.ok) {
         let result = res.data;
         const doc = new DOMParser().parseFromString(result, 'text/html');
         const entryNodes = doc.querySelectorAll('.pr.entry-body__el');
+        if (entryNodes.length === 0) {
+            throw `Words not yet included: ${text}`;
+        }
         const phoneticNodes = entryNodes[0].querySelectorAll('.dpron-i');
         const explainTexts = [...entryNodes].flatMap(n => {
-            const posgramText = n.querySelector('.posgram').innerText;
-            const senseNodes = n.querySelectorAll('.sense-body.dsense_b>.def-block.ddef_block>.def-body.ddef_b>.trans.dtrans.dtrans-se.break-cj');
-            return [...senseNodes].map(n => `${posgramText}. ${n.innerText}`);
+            const wordText = n.querySelector('.hw.dhw').innerText;
+            // IM != I'm
+            if (text.toLocaleLowerCase() !== wordText.toLocaleLowerCase()) {
+                return [];
+            }
+            // part of speech or explanation
+            const subText = (t => t ? `${t}.` : false)(n.querySelector('.posgram')?.innerText) || (t => t ? `[${t}]` : '')(n.querySelector('.sense-body.dsense_b .ddef_h>.def.ddef_d.db')?.innerText);
+            const senseNodes = n.querySelectorAll('.sense-body.dsense_b .def-body.ddef_b>.trans.dtrans.dtrans-se.break-cj');
+            return [...senseNodes].map(n => `${subText} ${n.innerText}`);
         });
         const phoneticText = [...phoneticNodes].map(n => n.innerText
             .replace("Your browser doesn't support HTML5 audio", "")
