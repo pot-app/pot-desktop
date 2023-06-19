@@ -1,0 +1,25 @@
+on:
+  workflow_dispatch:
+    inputs:
+      tag-name:
+        description: 'The git tag name to bump the formula to'
+        required: true
+
+jobs:
+  homebrew:
+    name: Update Homebrew cask
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Homebrew cask
+        uses: macauley/action-homebrew-bump-cask@v1
+        with:
+          # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
+          token: ${{secrets.TOKEN}}
+          # Optional, defaults to homebrew/core
+          tap: pot-app/homebrew
+          # Cask name, required
+          cask: pot
+          # Optional, will be determined automatically
+          tag: ${{ github.event.inputs.tag-name }}
+          # Optional, will be determined automatically
+          revision: ${{github.sha}}
