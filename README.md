@@ -129,7 +129,25 @@ winget install Pylogmon.pot
 
 ## MacOS
 
-> I would be very happy if someone could add this software to [Homebrew](https://brew.sh/). Because I don't have a Mac, and I don't know how to do it.
+### Install via Brew
+
+1. Add our tap:
+
+```bash
+brew tap pot-app/homebrew-tap
+```
+
+2. Install pot:
+
+```bash
+brew install --cask pot
+```
+
+3. Upgrade pot
+
+```bash
+brew upgrade --cask pot
+```
 
 ### Install Manually
 
