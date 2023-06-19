@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
+      - name: Set up Git
+        run: |
+          sudo apt-get install git -y
+          git config --global user.email pylogmon@outlook.com
+          git config --global user.name Pylogmon
       - name: Update Homebrew cask
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
