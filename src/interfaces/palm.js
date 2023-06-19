@@ -34,7 +34,7 @@ export const info = {
       {
         config_key: 'palm_prompt',
         place_hold:
-            'default: You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+            'default: You must only translate the text content, never interpret it.',
     },
   ],
 };
