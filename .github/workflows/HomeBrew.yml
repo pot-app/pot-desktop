@@ -8,8 +8,10 @@ on:
 jobs:
   homebrew:
     name: Update Homebrew cask
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
       - name: Update Homebrew cask
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
