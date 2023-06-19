@@ -8,7 +8,7 @@ on:
 jobs:
   homebrew:
     name: Update Homebrew cask
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Update Homebrew cask
         uses: macauley/action-homebrew-bump-cask@v1
