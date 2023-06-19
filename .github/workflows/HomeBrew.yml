@@ -16,9 +16,9 @@ jobs:
           # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{secrets.TOKEN}}
           # Optional, defaults to homebrew/core
-          tap: pot-app/homebrew-pot
+          tap: pot-app/homebrew-tap
           # Cask name, required
-          cask: pot
+          cask: Casks/pot
           # Optional, will be determined automatically
           tag: ${{ github.event.inputs.tag-name }}
           # Optional, will be determined automatically
