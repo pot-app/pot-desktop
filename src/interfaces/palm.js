@@ -64,9 +64,6 @@ export async function translate(text, from, to, setText, id) {
   const res = await fetch(`${host}?key=${apiKey}`, {
       method: 'POST',
       headers,
-      query: {
-          key: apiKey
-      },
       body: {
         type: 'Json',
         payload: body,
