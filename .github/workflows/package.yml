@@ -520,3 +520,35 @@ jobs:
           tag_name: updater
           token: ${{ secrets.TOKEN }}
           files: update.json
+
+  homebrew:
+    name: Update Homebrew cask
+    needs: build-for-macos
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Set up Git
+        run: |
+          sudo apt-get install git -y
+          git config --global user.email pylogmon@outlook.com
+          git config --global user.name Pylogmon
+      - name: Update Homebrew cask
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          brew tap pot-app/homebrew-tap
+          brew bump-cask-pr pot --version ${{env.VERSION}} --no-browse
