@@ -17,7 +17,7 @@ const spacesReg = /\s+/g
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     // start with a letter as english
-    if (supportLanguage[from] === supportLanguage['auto'] && /^[A-Za-z].*$/.test(text)) {
+    if (supportLanguage[from] === supportLanguage['auto'] && /^[A-Za-z]/.test(text)) {
         from = 'en';
     }
     // do not process non-English or sentences
