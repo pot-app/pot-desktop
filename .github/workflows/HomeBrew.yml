@@ -11,15 +11,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Update Homebrew cask
-        uses: macauley/action-homebrew-bump-cask@v1
-        with:
-          # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
-          token: ${{secrets.TOKEN}}
-          # Optional, defaults to homebrew/core
-          tap: pot-app/homebrew-tap
-          # Cask name, required
-          cask: Casks/pot
-          # Optional, will be determined automatically
-          tag: ${{ github.event.inputs.tag-name }}
-          # Optional, will be determined automatically
-          revision: ${{github.sha}}
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          brew tap pot-app/homebrew-tap
+          brew bump-cask-pr pot --version ${{ github.event.inputs.tag-name }}
