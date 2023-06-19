@@ -17,15 +17,15 @@ const spacesReg = /\s+/g
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
     // start with a letter as english
-    if (supportLanguage[from] === supportLanguage['auto'] && /^[A-Za-z]/.test(text)) {
+    if (from === 'auto' && /^[A-Za-z]/.test(text)) {
         from = 'en';
     }
     // do not process non-English or sentences
-    if (supportLanguage[from] !== supportLanguage['en'] || text.split(' ').length > 1) {
+    if (from !== 'en' || text.split(' ').length > 1) {
         return;
     }
     // auto -> en
-    if (supportLanguage[from] === supportLanguage[to]) {
+    if (from === to) {
         setText(text);
         return;
     }
