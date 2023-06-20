@@ -34,7 +34,7 @@ export async function translate(text, from, to, setText, id) {
         return;
     }
     // only supports Chinese-English word translation
-    if (!(from in info.supportLanguage && to in info.supportLanguage) || text.split(' ').length > 1) {
+    if (!(from in info.supportLanguage && to in info.supportLanguage) || text.split(/[\s,，]/).length > 1) {
         return;
     }
     
