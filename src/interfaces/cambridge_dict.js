@@ -5,7 +5,6 @@ import { fetch } from '@tauri-apps/api/http';
 export const info = {
     name: 'cambridge_dict',
     supportLanguage: {
-        auto: '',
         en: 'english',
         zh_cn: 'chinese-simplified',
         zh_tw: 'chinese-traditional',
@@ -20,17 +19,14 @@ export async function translate(text, from, to, setText, id) {
     if (from === 'auto' && /^[A-Za-z]/.test(text)) {
         from = 'en';
     }
-    // do not process non-English or sentences
-    if (from !== 'en' || text.split(' ').length > 1) {
-        return;
-    }
     // auto -> en
     if (from === to) {
         setText(text);
         return;
     }
-    if (!(to in supportLanguage)) {
-        throw 'Unsupported Language';
+    // only supports English word translation
+    if (from != 'en' || !(to in supportLanguage) || text.split(' ').length > 1) {
+        return;
     }
 
     const url = `https://dictionary.cambridge.org/search/direct/?datasetsearch=${supportLanguage[from]}-${supportLanguage[to]}&q=${text}`;

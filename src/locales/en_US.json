@@ -206,7 +206,8 @@
                 "openaidomainhelp": "default: api.openai.com (Do not add a protocol header. Leave this item blank when using the official OpenAI API.)",
                 "openaipathhelp": "default: /v1/chat/completions (Leave it blank unless you are using Azure service)",
                 "youdao_appkey": "App Id",
-                "youdao_key": "App Key"
+                "youdao_key": "App Key",
+                "display_format": "Display Format"
             },
             "about": {
                 "label": "About",
