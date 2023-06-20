@@ -84,7 +84,7 @@ export default function SourceArea() {
                 if (source !== '') {
                     source = source.trim();
                 } else {
-                    source = await readText();
+                    source = (await readText()) ?? '';
                 }
                 setFormatSourceText(source);
                 setFormatText(source);
