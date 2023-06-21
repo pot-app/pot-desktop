@@ -20,6 +20,8 @@ async function resolveUpdater() {
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
     const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_zh-CN.msi.zip`;
     const windows_i686_sig = await getSignature(windows_i686 + '.sig');
+    const windows_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64-setup.nsis.zip`;
+    const windows_aarch64_sig = await getSignature(windows_aarch64 + '.sig');
 
     let updateData = {
         name: version,
@@ -31,6 +33,7 @@ async function resolveUpdater() {
             'linux-x86_64': { signature: linux_x86_64_sig, url: 'https://ghproxy.com/' + linux_x86_64 },
             'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://ghproxy.com/' + windows_x86_64 },
             'windows-i686': { signature: windows_i686_sig, url: 'https://ghproxy.com/' + windows_i686 },
+            'windows-aarch64': { signature: windows_aarch64_sig, url: 'https://ghproxy.com/' + windows_aarch64 }
         },
     };
 

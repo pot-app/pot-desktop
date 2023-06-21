@@ -1,10 +1,10 @@
-## 1.6.1 (2023-06-18)
+## 1.7.0 (2023-06-21)
 
 ### New feature:
 
--   suppoort mojidict text translator (#255)([`2d49f14`](https://github.com/pot-app/pot-desktop/commit/2d49f141d19af4b2256b34a6bc939f402af9bc9e)) (by @xtyuns)
+-   Add windows arm64 support([`e82377c`](https://github.com/pot-app/pot-desktop/commit/e82377cfd727bdf86d20d0a5c9be4fd33b6a9286)) (by @Pylogmon)
+-   add google PALM2 API (#257)([`1b081b9`](https://github.com/pot-app/pot-desktop/commit/1b081b967b80956db9165411e27331a27637afcd)) (by @Kuingsmile)
 
 ### Bugs fixed:
 
--   Tesseract can not use on Linux([`d634dff`](https://github.com/pot-app/pot-desktop/commit/d634dff2e7a0130433d8308e8c9e8ca71f03807d)) (by @Pylogmon)
--   cambridge dict resolve (#254)([`58c05bb`](https://github.com/pot-app/pot-desktop/commit/58c05bb314dca655ac9a2f84a9e0c933621bfe7f)) (by @xtyuns)
+-   Crash when clipboard is not text([`c69800f`](https://github.com/pot-app/pot-desktop/commit/c69800fd9eb0f5eb273de33b64845b115789ce7e)) (by @Pylogmon)

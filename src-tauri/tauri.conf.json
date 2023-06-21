@@ -8,7 +8,7 @@
     },
     "package": {
         "productName": "pot",
-        "version": "1.6.1"
+        "version": "1.7.0"
     },
     "tauri": {
         "allowlist": {
@@ -86,6 +86,12 @@
                 "webviewInstallMode": {
                     "silent": true,
                     "type": "embedBootstrapper"
+                },
+                "nsis": {
+                    "displayLanguageSelector": true,
+                    "installerIcon": "icons/icon.ico",
+                    "license": "../LICENSE",
+                    "installMode": "perMachine"
                 }
             }
         },
