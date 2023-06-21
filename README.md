@@ -124,7 +124,7 @@ winget install Pylogmon.pot
 
 ### Install Manually
 
-1. Download the installation package ending in `.msi` from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) page.
+1. Download the installation package ending in `.exe` from the Latest [Release](https://github.com/pot-app/pot-desktop/releases/latest) page.
 2. Double click the downloaded file to install it.
 
 ## MacOS

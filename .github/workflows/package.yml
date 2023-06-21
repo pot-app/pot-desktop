@@ -304,16 +304,6 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
-      # - name: Upload WinGet
-      #   if: startsWith(github.ref, 'refs/tags') && matrix.target == 'x86_64-pc-windows-msvc'
-      #   uses: vedantmgoyal2009/winget-releaser@v2
-      #   with:
-      #     identifier: Pylogmon.pot
-      #     version: ${{needs.change-version-for-windows.outputs.version}}
-      #     installers-regex: '\x64_zh-CN.msi$'
-      #     token: ${{ secrets.TOKEN }}
-      #     fork-user: Pylogmon
-      #   continue-on-error: true
   build-for-deepin:
     needs: change-version
     strategy:
@@ -562,3 +552,32 @@ jobs:
         run: |
           brew tap pot-app/homebrew-tap
           brew bump-cask-pr pot --version ${{env.VERSION}} --no-browse
+
+  winget:
+    name: Update WinGet Package
+    needs: build-for-windows
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+      - name: Upload WinGet
+        if: startsWith(github.ref, 'refs/tags')
+        uses: vedantmgoyal2009/winget-releaser@v2
+        with:
+          identifier: Pylogmon.pot
+          version: ${{env.VERSION}}
+          installers-regex: '\setup.exe$'
+          token: ${{ secrets.TOKEN }}
+          fork-user: Pylogmon
+        continue-on-error: true
