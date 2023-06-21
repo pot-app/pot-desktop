@@ -203,7 +203,7 @@
                 "volcengine_secret": "AccessKey Secret",
                 "xiaoniu_apikey": "Api Key",
                 "deeplhelp": "Используйте свой собственный ключ, чтобы избежать ошибок при запросе, если у вас его нет, оставьте поле пустым.",
-                "openaidomainhelp": "По умолчанию: api.openai.com (Не добавляйте заголовок протокола. Оставьте этот пункт пустым при использовании официального API OpenAI.)",
+                "openaidomainhelp": "по умолчанию: https://api.openai.com (если не указано, то используется официальный сервис)",
                 "openaipathhelp": "По умолчанию: /v1/chat/completions (Оставьте это поле пустым, если вы не используете службу Azure.)",
                 "youdao_appkey": "App Id",
                 "youdao_key": "App Key",
