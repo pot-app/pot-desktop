@@ -16,9 +16,9 @@ async function resolveUpdater() {
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
     const linux_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
     const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
-    const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_zh-CN.msi.zip`;
+    const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64-setup.nsis.zip`;
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
-    const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_zh-CN.msi.zip`;
+    const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86-setup.nsis.zip`;
     const windows_i686_sig = await getSignature(windows_i686 + '.sig');
     const windows_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64-setup.nsis.zip`;
     const windows_aarch64_sig = await getSignature(windows_aarch64 + '.sig');
