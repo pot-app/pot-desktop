@@ -287,54 +287,18 @@ jobs:
       - name: Code Format
         run: pnpm prettier --write .
       - name: Build and Package
-        if: matrix.target == 'aarch64-pc-windows-msvc'
         run: |
           $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build -b nsis,updater --target ${{ matrix.target }}
-      - name: Build and Package
-        if: matrix.target == 'x86_64-pc-windows-msvc' || matrix.target == 'i686-pc-windows-msvc'
-        run: |
-          $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
-          $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
-          pnpm tauri build --target ${{ matrix.target }}
       - name: Upload Artifacts
-        if: matrix.target == 'x86_64-pc-windows-msvc' || matrix.target == 'i686-pc-windows-msvc'
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot_${{ matrix.target }}.msi
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
-          if-no-files-found: error
-      - name: Upload Artifacts
-        if: matrix.target == 'x86_64-pc-windows-msvc' || matrix.target == 'i686-pc-windows-msvc'
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot_${{ matrix.target }}.exe
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.exe
-          if-no-files-found: error
-      - name: Upload Artifacts
-        if: matrix.target == 'aarch64-pc-windows-msvc'
         uses: actions/upload-artifact@v3
         with:
           name: pot_${{ matrix.target }}.exe
           path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.exe
           if-no-files-found: error
       - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags') && (matrix.target == 'x86_64-pc-windows-msvc' || matrix.target == 'i686-pc-windows-msvc')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi*
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags') && (matrix.target == 'x86_64-pc-windows-msvc' || matrix.target == 'i686-pc-windows-msvc')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags') && matrix.target == 'aarch64-pc-windows-msvc'
+        if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
