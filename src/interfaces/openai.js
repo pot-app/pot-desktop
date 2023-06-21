@@ -52,13 +52,12 @@ export const info = {
 
 export async function translate(text, from, to, setText, id) {
     const { supportLanguage } = info;
-    let domain = get('openai_domain') ?? 'api.openai.com';
-    if (domain === '') {
-        domain = 'api.openai.com';
+    let url = get('openai_domain') || 'https://api.openai.com';
+
+    if (!/https?:\/\/.+/.test(url)) {
+        url = `https://${url}`;
     }
-    if (domain.startsWith('http')) {
-        domain = domain.replace('https://', '').replace('http://', '');
-    }
+    
     let path = get('openai_path') ?? '/v1/chat/completions';
     if (path === '') {
         path = '/v1/chat/completions';
@@ -109,7 +108,7 @@ export async function translate(text, from, to, setText, id) {
     }
 
     if (stream) {
-        const res = await window.fetch(`https://${domain}${path}`, {
+        const res = await window.fetch(`${url}${path}`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body),
@@ -164,7 +163,7 @@ export async function translate(text, from, to, setText, id) {
             throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
-        let res = await fetch(`https://${domain}${path}`, {
+        let res = await fetch(`${url}${path}`, {
             method: 'POST',
             headers: headers,
             body: { type: 'Json', payload: body },
