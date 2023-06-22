@@ -19,8 +19,8 @@ jobs:
           # Optional
           LANGUAGE: Chinese
           OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
-          MODEL: gpt-3.5-turbo
+          MODEL: gpt-3.5-turbo-16k
           top_p: 1
           temperature: 1
-          max_tokens: 4000
-          MAX_PATCH_LENGTH: 4000
+          max_tokens: 10000
+          MAX_PATCH_LENGTH: 10000
