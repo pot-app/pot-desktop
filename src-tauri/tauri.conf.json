@@ -92,7 +92,7 @@
                     "installerIcon": "icons/icon.ico",
                     "license": "../LICENSE",
                     "installMode": "perMachine",
-                    "languages": ["SimpChinese", "TradChinese", "English"]
+                    "languages": ["SimpChinese", "TradChinese", "English", "Russian"]
                 }
             }
         },
