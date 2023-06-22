@@ -17,8 +17,16 @@ pub fn build_translate_window(
     // 对于Windows和Linux，这里仅获取物理坐标，用于确保窗口创建在指定的显示器上
     // 获取到真实的显示器信息之后再做转换
     let (x, y) = get_mouse_location().unwrap();
+
+    let util_window = handle.get_window("util").unwrap();
+    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
+    let dpi = current_monitor.scale_factor();
+    let physical_position = current_monitor.position();
+    let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
+
     let builder =
         tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
+            .position(position.x, position.y)
             .inner_size(width, height)
             .focused(true)
             .visible(false)
@@ -30,15 +38,20 @@ pub fn build_translate_window(
             .title_bar_style(tauri::TitleBarStyle::Overlay)
             .hidden_title(true);
         let window = match label {
-            "persistent" => builder.center().skip_taskbar(false).build().unwrap(),
-            _ => builder.position(x, y).skip_taskbar(true).build().unwrap(),
+            "persistent" => builder.skip_taskbar(false).build().unwrap(),
+            _ => builder.skip_taskbar(true).build().unwrap(),
         };
         // 获取窗口所在的显示器信息
         let _monitor = window.current_monitor().unwrap().unwrap();
+
+        window.set_size(tauri::LogicalSize::new(width, height));
         // 获取到显示器信息之后再移动窗口，确保窗口大小正确
-        window
-            .set_position(tauri::LogicalPosition::new(x, y))
-            .unwrap();
+        match label {
+            "persistent" => window.center().unwrap(),
+            _ => window
+                .set_position(tauri::LogicalPosition::new(x, y))
+                .unwrap(),
+        };
         set_shadow(&window, true).unwrap_or_default();
         Ok(window)
     }
@@ -50,12 +63,11 @@ pub fn build_translate_window(
             "persistent" => builder.skip_taskbar(false).build().unwrap(),
             _ => builder.skip_taskbar(true).build().unwrap(),
         };
-        // 移动窗口到鼠标所在显示器上
-        window
-            .set_position(tauri::PhysicalPosition::new(x, y))
-            .unwrap();
         // 获取窗口所在的显示器信息
         let monitor = window.current_monitor().unwrap().unwrap();
+        window
+            .set_size(tauri::LogicalSize::new(width, height))
+            .unwrap();
         match label {
             "persistent" => window.center().unwrap(),
             _ => {
@@ -63,7 +75,7 @@ pub fn build_translate_window(
                 let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
                 // 获取到显示器信息之后再移动窗口，确保窗口大小正确
                 window
-                    .set_position(tauri::LogicalPosition::new(x, y))
+                    .set_position(tauri::PhysicalPosition::new(x * dpi, y * dpi))
                     .unwrap();
             }
         }
@@ -78,12 +90,11 @@ pub fn build_translate_window(
             "persistent" => builder.skip_taskbar(false).build().unwrap(),
             _ => builder.skip_taskbar(true).build().unwrap(),
         };
-        // 移动窗口到鼠标所在显示器上
-        window
-            .set_position(tauri::PhysicalPosition::new(x, y))
-            .unwrap();
         // 获取窗口所在的显示器信息
         let monitor = window.current_monitor().unwrap().unwrap();
+        window
+            .set_size(tauri::LogicalSize::new(width, height))
+            .unwrap();
         match label {
             "persistent" => window.center().unwrap(),
             _ => {
@@ -91,7 +102,7 @@ pub fn build_translate_window(
                 let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
                 // 获取到显示器信息之后再移动窗口，确保窗口大小正确
                 window
-                    .set_position(tauri::LogicalPosition::new(x, y))
+                    .set_position(tauri::PhysicalPosition::new(x * dpi, y * dpi))
                     .unwrap();
             }
         }
