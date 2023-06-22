@@ -27,7 +27,7 @@ export let translateID = [];
 let copyTimeout = null;
 
 export default function TargetArea(props) {
-    const { i, q } = props;
+    const { i, q, ...drag } = props;
     const defaultInterfaceList = get('default_interface_list') ?? ['deepl', 'bing'];
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
@@ -177,6 +177,7 @@ export default function TargetArea(props) {
         >
             <Toaster />
             <Box
+                {...drag}
                 className='interface-selector-area'
                 sx={{ backgroundColor: theme.palette.background.bar }}
             >
