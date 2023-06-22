@@ -68,7 +68,6 @@ pub fn build_translate_window(
         window
             .set_size(tauri::LogicalSize::new(width, height))
             .unwrap();
-        println!("{monitor:?}");
         match label {
             "persistent" => window.center().unwrap(),
             _ => {
