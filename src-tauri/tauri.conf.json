@@ -91,7 +91,8 @@
                     "displayLanguageSelector": true,
                     "installerIcon": "icons/icon.ico",
                     "license": "../LICENSE",
-                    "installMode": "perMachine"
+                    "installMode": "perMachine",
+                    "languages": ["SimpChinese", "TradChinese", "English"]
                 }
             }
         },
