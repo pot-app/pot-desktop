@@ -10,12 +10,28 @@ import { useTranslation } from 'react-i18next';
 import TopBar from './components/TopBar';
 import { light, dark } from '../themes';
 import { get } from '../main';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export default function Translator() {
     const theme = get('theme') ?? 'auto';
     const interfaceList = get('default_interface_list') ?? ['deepl', 'bing'];
     const { i18n } = useTranslation();
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    const onDragStart = () => {
+        // TODO: implement
+        // setIsDrag(true);
+    };
+
+    const onDragEnd = async (result) => {
+        if (!result.destination) return;
+        // TODO: implement
+        // const items = reorder(defaultInterfaceList, result.source.index, result.destination.index);
+        // setDefaultInterfaceList(items);
+        // await set('default_interface_list', items);
+        // setIsDrag(false);
+    };
+
     useEffect(() => {
         if (appWindow.label !== 'util') {
             void appWindow.show();
@@ -53,25 +69,54 @@ export default function Translator() {
                 >
                     <LanguageSelector />
                 </Grid>
-                <Grid
-                    item
-                    style={{
-                        width: '100%',
-                        overflow: 'auto',
-                        marginTop: '8px',
-                    }}
-                    xs
+                {/* TODO: drag item */}
+                <DragDropContext
+                    onDragEnd={onDragEnd}
+                    onDragStart={onDragStart}
                 >
-                    {interfaceList.map((x, index) => {
-                        return (
-                            <TargetArea
-                                i={x}
-                                q={index}
-                                key={x}
-                            />
-                        );
-                    })}
-                </Grid>
+                    <Droppable
+                        droppableId='droppable'
+                        direction='vertical'
+                    >
+                        {(provided) => (
+                            <Grid
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                item
+                                style={{
+                                    width: '100%',
+                                    overflow: 'auto',
+                                    marginTop: '8px',
+                                }}
+                                xs
+                            >
+                                {interfaceList.map((x, index) => {
+                                    return (
+                                        <Draggable
+                                            key={x}
+                                            draggableId={x}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <TargetArea
+                                                        i={x}
+                                                        q={index}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    );
+                                })}
+                                {provided.placeholder}
+                            </Grid>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </Grid>
         </ThemeProvider>
     );
