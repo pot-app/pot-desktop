@@ -1,10 +1,11 @@
-## 1.7.0 (2023-06-21)
+## 1.7.1 (2023-06-23)
 
 ### New feature:
 
--   Add windows arm64 support([`e82377c`](https://github.com/pot-app/pot-desktop/commit/e82377cfd727bdf86d20d0a5c9be4fd33b6a9286)) (by @Pylogmon)
--   add google PALM2 API (#257)([`1b081b9`](https://github.com/pot-app/pot-desktop/commit/1b081b967b80956db9165411e27331a27637afcd)) (by @Kuingsmile)
+-   Translator item window drag (#270)([`e3f3ff1`](https://github.com/pot-app/pot-desktop/commit/e3f3ff19c391278b2865f9db1fe0c5abd690e3d6)) (by @Layouwen)
+-   Add Language Selector for Installer (#269)([`d5f8f89`](https://github.com/pot-app/pot-desktop/commit/d5f8f89b1cd900ffcece278609c31114846075e0)) (by @Pylogmon)
+-   Allow Ctrl Z and Ctrl Y([`03df31b`](https://github.com/pot-app/pot-desktop/commit/03df31bd1969536407623f47dc622da61a622016)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Crash when clipboard is not text([`c69800f`](https://github.com/pot-app/pot-desktop/commit/c69800fd9eb0f5eb273de33b64845b115789ce7e)) (by @Pylogmon)
+-   Mult-screen window position (#271)([`c334022`](https://github.com/pot-app/pot-desktop/commit/c334022467a7c1eff335c368de3d6402321ab267)) (by @Pylogmon)
