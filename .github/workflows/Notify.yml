@@ -12,7 +12,7 @@ on:
     types: created
 
 jobs:
-  notify:
+  tg-notify:
     name: Notify
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,7 @@ jobs:
           message: |
             📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.issue.title }}${{ github.event.pull_request.title }}${{ github.event.comment.title }}
+            💡Title: ${{ github.event.comment.title }}
 
             👤User: ${{ github.event.sender.login }}
 
@@ -101,3 +101,95 @@ jobs:
             ${{ github.event.pull_request.body }}
           button_name: 👀前往查看👀
           button_url: ${{ github.event.pull_request.html_url }}
+  qq-notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install qq-botpy
+      # issue_comment
+      - name: send issue_comment message
+        if: github.event_name == 'issue_comment'
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.QQ_BOT_APPID }}
+          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
+          MESSAGE: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.comment.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.comment.body }}
+      # discussion_comment
+      - name: send discussion_comment message
+        if: github.event_name == 'discussion_comment'
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.QQ_BOT_APPID }}
+          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
+          MESSAGE: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.comment.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.comment.body }}
+      # issue
+      - name: send issue message
+        if: github.event_name == 'issue'
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.QQ_BOT_APPID }}
+          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
+          MESSAGE: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.issue.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.issue.body }}
+      # discussion
+      - name: send discussion message
+        if: github.event_name == 'discussion'
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.QQ_BOT_APPID }}
+          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
+          MESSAGE: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.discussion.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.discussion.body }}
+      # pull_request
+      - name: send pull_request_target message
+        if: github.event_name == 'pull_request_target'
+        run: python3 .github/notify.py
+        env:
+          APPID: ${{ secrets.QQ_BOT_APPID }}
+          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+          CHANNELID: ${{ secrets.QQ_CHANNELID }}
+          MESSAGE: |
+            📣 New ${{github.event_name}} in pot-desktop
+
+            💡Title: ${{ github.event.pull_request.title }}
+
+            👤User: ${{ github.event.sender.login }}
+
+            ${{ github.event.pull_request.body }}
