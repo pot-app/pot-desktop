@@ -26,7 +26,7 @@ jobs:
           message: |
             📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.comment.title }}
+            💡Title: ${{ github.event.issue.title }}
 
             👤User: ${{ github.event.sender.login }}
 
@@ -43,7 +43,7 @@ jobs:
           message: |
             📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.comment.title }}
+            💡Title: ${{ github.event.discussion.title }}
 
             👤User: ${{ github.event.sender.login }}
 
@@ -124,7 +124,7 @@ jobs:
           MESSAGE: |
             📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.comment.title }}
+            💡Title: ${{ github.event.issue.title }}
 
             👤User: ${{ github.event.sender.login }}
 
@@ -140,7 +140,7 @@ jobs:
           MESSAGE: |
             📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.comment.title }}
+            💡Title: ${{ github.event.discussion.title }}
 
             👤User: ${{ github.event.sender.login }}
 
