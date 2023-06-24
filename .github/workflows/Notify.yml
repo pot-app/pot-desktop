@@ -127,8 +127,9 @@ jobs:
 
             modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
           done
-
-          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          echo $modified_input_string >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: Get Body
         if: github.event_name == 'issue'
         run: |
@@ -144,7 +145,9 @@ jobs:
             modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
           done
 
-          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          echo $modified_input_string >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: Get Body
         if: github.event_name == 'discussion'
         run: |
@@ -160,7 +163,9 @@ jobs:
             modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
           done
 
-          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          echo $modified_input_string >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: Get Body
         if: github.event_name == 'pull_request_target'
         run: |
@@ -176,7 +181,9 @@ jobs:
             modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
           done
 
-          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          echo $modified_input_string >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       # issue_comment
       - name: send issue_comment message
         if: github.event_name == 'issue_comment'
