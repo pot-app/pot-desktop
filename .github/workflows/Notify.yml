@@ -113,6 +113,21 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install qq-botpy
+      - name: Get Body
+        run: |
+          input_string=${{ github.event.comment.body }}${{ github.event.issue.body }}${{ github.event.discussion.body }}${{ github.event.pull_request.body }}
+          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+          modified_input_string="$input_string"
+
+          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+            url_without_https=${url#https:} # Remove https:
+            url_without_http=${url_without_https#http:} # Remove http:
+            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+
+            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+          done
+
+          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
       # issue_comment
       - name: send issue_comment message
         if: github.event_name == 'issue_comment'
@@ -128,7 +143,7 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.comment.body }}
+            ${{ env.BODY }}
       # discussion_comment
       - name: send discussion_comment message
         if: github.event_name == 'discussion_comment'
@@ -144,7 +159,7 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.comment.body }}
+            ${{ env.BODY }}
       # issue
       - name: send issue message
         if: github.event_name == 'issue'
@@ -160,7 +175,7 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.issue.body }}
+            ${{ env.BODY }}
       # discussion
       - name: send discussion message
         if: github.event_name == 'discussion'
@@ -176,7 +191,7 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.discussion.body }}
+            ${{ env.BODY }}
       # pull_request
       - name: send pull_request_target message
         if: github.event_name == 'pull_request_target'
@@ -192,4 +207,4 @@ jobs:
 
             👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.pull_request.body }}
+            ${{ env.BODY }}
