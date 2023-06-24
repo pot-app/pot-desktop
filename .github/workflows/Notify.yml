@@ -114,8 +114,57 @@ jobs:
           python-version: '3.11'
       - run: pip install qq-botpy
       - name: Get Body
+        if: endsWith(github.event_name,'comment')
         run: |
-          input_string=${{ github.event.comment.body }}${{ github.event.issue.body }}${{ github.event.discussion.body }}${{ github.event.pull_request.body }}
+          input_string="${{ github.event.comment.body }}"
+          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+          modified_input_string="$input_string"
+
+          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+            url_without_https=${url#https:} # Remove https:
+            url_without_http=${url_without_https#http:} # Remove http:
+            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+
+            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+          done
+
+          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+      - name: Get Body
+        if: github.event_name == 'issue'
+        run: |
+          input_string="${{ github.event.issue.body }}"
+          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+          modified_input_string="$input_string"
+
+          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+            url_without_https=${url#https:} # Remove https:
+            url_without_http=${url_without_https#http:} # Remove http:
+            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+
+            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+          done
+
+          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+      - name: Get Body
+        if: github.event_name == 'discussion'
+        run: |
+          input_string="${{ github.event.discussion.body }}"
+          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+          modified_input_string="$input_string"
+
+          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+            url_without_https=${url#https:} # Remove https:
+            url_without_http=${url_without_https#http:} # Remove http:
+            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+
+            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+          done
+
+          echo "BODY=\"$modified_input_string\"" >> $GITHUB_ENV
+      - name: Get Body
+        if: github.event_name == 'pull_request_target'
+        run: |
+          input_string="${{ github.event.pull_request.body }}"
           url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
           modified_input_string="$input_string"
 
