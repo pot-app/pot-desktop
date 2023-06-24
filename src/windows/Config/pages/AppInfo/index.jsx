@@ -226,7 +226,15 @@ export default function AppInfo() {
             </ul>
             <h3>{t('config.about.community')}</h3>
             <ul>
-                <li>QQ:&nbsp;&nbsp;767701966</li>
+                <li>
+                    QQ 频道:&nbsp;&nbsp;
+                    <a
+                        href='https://pd.qq.com/s/akns94e1r'
+                        target='_blank'
+                    >
+                        pd.qq.com/s/akns94e1r
+                    </a>
+                </li>
                 <li>
                     Telegram:&nbsp;&nbsp;
                     <a
