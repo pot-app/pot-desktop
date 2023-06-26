@@ -42,8 +42,8 @@ export const info = {
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
 
-    const SecretId = get('tencent_secretid') ?? '';
-    const SecretKey = get('tencent_secretkey') ?? '';
+    const SecretId = get('tencent_ocr_secretid') ?? '';
+    const SecretKey = get('tencent_ocr_secretkey') ?? '';
 
     if (SecretId === '' || SecretKey === '') {
         throw 'Please configure SecretId and SecretKey';
