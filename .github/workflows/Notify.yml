@@ -16,7 +16,7 @@ jobs:
     name: Notify
     runs-on: ubuntu-latest
     steps:
-      # issue
+      # issue_comment
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'issue_comment'
         with:
@@ -33,7 +33,7 @@ jobs:
             ${{ github.event.comment.body }}
           button_name: 👀前往查看👀
           button_url: ${{ github.event.comment.html_url }}
-      # discussion
+      # discussion_comment
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'discussion_comment'
         with:
@@ -50,7 +50,7 @@ jobs:
             ${{ github.event.comment.body }}
           button_name: 👀前往查看👀
           button_url: ${{ github.event.comment.html_url }}
-      # issue
+      # issues
       - uses: colutius/Telegram-Msg@main
         if: github.event_name == 'issues'
         with:
@@ -131,7 +131,7 @@ jobs:
           echo $modified_input_string >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Get Body
-        if: github.event_name == 'issue'
+        if: github.event_name == 'issues'
         run: |
           input_string="${{ github.event.issue.body }}"
           url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
@@ -216,9 +216,9 @@ jobs:
             👤User: ${{ github.event.sender.login }}
 
             ${{ env.BODY }}
-      # issue
+      # issues
       - name: send issue message
-        if: github.event_name == 'issue'
+        if: github.event_name == 'issues'
         run: python3 .github/notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
