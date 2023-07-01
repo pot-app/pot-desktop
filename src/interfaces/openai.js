@@ -57,7 +57,7 @@ export async function translate(text, from, to, setText, id) {
     if (!/https?:\/\/.+/.test(url)) {
         url = `https://${url}`;
     }
-    
+
     let path = get('openai_path') ?? '/v1/chat/completions';
     if (path === '') {
         path = '/v1/chat/completions';
@@ -160,7 +160,12 @@ export async function translate(text, from, to, setText, id) {
                 reader.releaseLock();
             }
         } else {
-            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+            let errres = await fetch(`${url}${path}`, {
+                method: 'POST',
+                headers: headers,
+                body: { type: 'Json', payload: body },
+            });
+            throw `Http Request Error\nHttp Status: ${errres.status}\n${JSON.stringify(errres.data)}`;
         }
     } else {
         let res = await fetch(`${url}${path}`, {
