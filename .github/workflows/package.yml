@@ -116,6 +116,22 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: snipdo/pot.pbar
+      - uses: randomairborne/r2-release@main
+        with:
+          endpoint: ${{ secrets.R2_ENDPOINT }}
+          accesskeyid: ${{ secrets.R2_ID }}
+          secretaccesskey: ${{ secrets.R2_SECRET }}
+          bucket: 'pot-app'
+          file: './popclip/Pot.popclipextz'
+          destination: '/popclip/Pot.popclipextz'
+      - uses: randomairborne/r2-release@main
+        with:
+          endpoint: ${{ secrets.R2_ENDPOINT }}
+          accesskeyid: ${{ secrets.R2_ID }}
+          secretaccesskey: ${{ secrets.R2_SECRET }}
+          bucket: 'pot-app'
+          file: './snipdo/pot.pbar'
+          destination: '/snipdo/pot.pbar'
   build-for-macos:
     needs: change-version
     strategy:
