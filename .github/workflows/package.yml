@@ -202,6 +202,15 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
+      - name: Upload file to R2
+        uses: magicwallet/r2-upload@main
+        with:
+          endpoint: ${{ secrets.R2_ENDPOINT }}
+          access_key_id: ${{ secrets.R2_ID }}
+          secret_access_key: ${{ secrets.R2_SECRET }}
+          bucket: pot-app
+          file: ./src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.tar.gz
+          destination: ${{needs.change-version.outputs.version}}/${{ matrix.target }}.tar.gz
 
   build-for-linux:
     needs: change-version
@@ -322,6 +331,15 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+      - name: Upload file to R2
+        uses: magicwallet/r2-upload@main
+        with:
+          endpoint: ${{ secrets.R2_ENDPOINT }}
+          access_key_id: ${{ secrets.R2_ID }}
+          secret_access_key: ${{ secrets.R2_SECRET }}
+          bucket: pot-app
+          file: ./src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.zip
+          destination: ${{needs.change-version-for-windows.outputs.version}}/${{ matrix.target }}.zip
   build-for-deepin:
     needs: change-version
     strategy:
@@ -370,6 +388,15 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/release/bundle/appimage/*.AppImage*
+      - name: Upload file to R2
+        uses: magicwallet/r2-upload@main
+        with:
+          endpoint: ${{ secrets.R2_ENDPOINT }}
+          access_key_id: ${{ secrets.R2_ID }}
+          secret_access_key: ${{ secrets.R2_SECRET }}
+          bucket: pot-app
+          file: ./src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.tar.gz
+          destination: ${{needs.change-version.outputs.version}}/${{ matrix.target }}.tar.gz
 
   build-for-arm:
     needs: change-version
