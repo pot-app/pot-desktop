@@ -116,24 +116,6 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: snipdo/pot.pbar
-      - name: Upload file to R2
-        uses: magicwallet/r2-upload@main
-        with:
-          endpoint: ${{ secrets.R2_ENDPOINT }}
-          access_key_id: ${{ secrets.R2_ID }}
-          secret_access_key: ${{ secrets.R2_SECRET }}
-          bucket: pot-app
-          file: ./popclip/Pot.popclipextz
-          destination: popclip/Pot.popclipextz
-      - name: Upload file to R2
-        uses: magicwallet/r2-upload@main
-        with:
-          endpoint: ${{ secrets.R2_ENDPOINT }}
-          access_key_id: ${{ secrets.R2_ID }}
-          secret_access_key: ${{ secrets.R2_SECRET }}
-          bucket: pot-app
-          file: ./snipdo/pot.pbar
-          destination: snipdo/pot.pbar
   build-for-macos:
     needs: change-version
     strategy:
