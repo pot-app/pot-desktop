@@ -124,7 +124,7 @@ jobs:
           secret_access_key: ${{ secrets.R2_SECRET }}
           bucket: pot-app
           file: ./popclip/Pot.popclipextz
-          destination: '/popclip'
+          destination: popclip/Pot.popclipextz
       - name: Upload file to R2
         uses: magicwallet/r2-upload@main
         with:
@@ -133,7 +133,7 @@ jobs:
           secret_access_key: ${{ secrets.R2_SECRET }}
           bucket: pot-app
           file: ./snipdo/pot.pbar
-          destination: '/snipdo'
+          destination: snipdo/pot.pbar
   build-for-macos:
     needs: change-version
     strategy:
