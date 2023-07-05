@@ -179,6 +179,8 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
                     .add_item(config)
                     .add_item(quit),
             );
+            #[cfg(not(target_os = "linux"))]
+            tray.set_tooltip("pot").unwrap();
         }
         "zh_tw" => {
             let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "翻譯");
@@ -211,6 +213,8 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
                     .add_item(config)
                     .add_item(quit),
             );
+            #[cfg(not(target_os = "linux"))]
+            tray.set_tooltip("pot").unwrap();
         }
         "en" => {
             let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "Translate");
@@ -243,6 +247,8 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
                     .add_item(config)
                     .add_item(quit),
             );
+            #[cfg(not(target_os = "linux"))]
+            tray.set_tooltip("pot").unwrap();
         }
         "ru" => {
             let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "Перевести");
@@ -275,6 +281,8 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
                     .add_item(config)
                     .add_item(quit),
             );
+            #[cfg(not(target_os = "linux"))]
+            tray.set_tooltip("pot").unwrap();
         }
         _ => {}
     }
