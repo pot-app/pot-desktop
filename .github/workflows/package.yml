@@ -146,9 +146,6 @@ jobs:
         run: pnpm install
       - name: Code Format
         run: pnpm prettier --write .
-      - name: Change tray icon
-        run: |
-          sed -i '' "s/\"iconPath\":.*/\"iconPath\": \"icons\/tray.ico\",/g" src-tauri/tauri.conf.json
       - name: Build and Package
         run: |
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
