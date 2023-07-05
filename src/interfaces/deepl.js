@@ -42,7 +42,7 @@ export async function translate(text, from, to, setText, id) {
     }
 
     if (key !== '') {
-        await translate_by_key(text, supportLanguage[from], supportLanguage[to], setText, id, key);
+        await translate_by_key(text, from, to, setText, id, key);
         return;
     }
 
@@ -102,16 +102,17 @@ export async function translate(text, from, to, setText, id) {
 }
 
 async function translate_by_key(text, from, to, setText, id, key) {
+    const { supportLanguage } = info;
     const headers = {
         'Content-Type': 'application/json',
         Authorization: `DeepL-Auth-Key ${key}`,
     };
     let body = {
         text: [text],
-        target_lang: to,
+        target_lang: supportLanguage[to],
     };
     if (from !== 'auto') {
-        body['source_lang'] = from;
+        body['source_lang'] = supportLanguage[from];
     }
     let res = await fetch('https://api-free.deepl.com/v2/translate', {
         method: 'POST',
