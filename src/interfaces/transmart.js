@@ -47,11 +47,15 @@ export async function translate(text, from, to, setText, id) {
     const user = get('transmart_user') ?? '';
     const token = get('transmart_token') ?? '';
 
-    if (user === '' || token === '') {
-        throw 'Please configure User and Token';
-    }
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw 'Unsupported Language';
+    }
+    let header = {}
+    if (user === '' || token === '') {
+        // throw 'Please configure User and Token';
+    } else {
+        header['token'] = token;
+        header['user'] = user;
     }
 
     const url = 'https://transmart.qq.com/api/imt';
@@ -62,8 +66,7 @@ export async function translate(text, from, to, setText, id) {
             payload: {
                 header: {
                     fn: 'text_analysis',
-                    token: token,
-                    user: user,
+                    ...header
                 },
                 type: 'plain',
                 text: text,
@@ -87,8 +90,7 @@ export async function translate(text, from, to, setText, id) {
                         payload: {
                             header: {
                                 fn: 'auto_translation',
-                                token: token,
-                                user: user,
+                                ...header
                             },
                             type: 'plain',
                             source: {
