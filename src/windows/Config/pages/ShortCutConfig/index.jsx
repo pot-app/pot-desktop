@@ -237,7 +237,7 @@ export default function ShortCutConfig() {
             <p>
                 {t('config.shortcut.pluginmsg')}
                 <a
-                    href='https://pot.pylogmon.com/docs/tutorial/config/plugin_config'
+                    href='https://pot-app.com/docs/tutorial/config/plugin_config'
                     target='_blank'
                 >
                     {t('config.shortcut.plugin')}

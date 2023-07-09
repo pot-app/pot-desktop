@@ -154,7 +154,7 @@ export default function AppInfo() {
             />
             &nbsp;
             <a
-                href='https://pot.pylogmon.com/download'
+                href='https://pot-app.com/download'
                 target='_blank'
             >
                 <Button
@@ -177,10 +177,10 @@ export default function AppInfo() {
                 <li>
                     {t('config.about.doc')}:&nbsp;&nbsp;
                     <a
-                        href='https://pot.pylogmon.com'
+                        href='https://pot-app.com'
                         target='_blank'
                     >
-                        https://pot.pylogmon.com
+                        https://pot-app.com
                     </a>
                 </li>
                 <li>
