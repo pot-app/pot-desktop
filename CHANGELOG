@@ -1,11 +1,12 @@
-## 1.7.1 (2023-06-23)
+## 1.8.0 (2023-07-09)
 
 ### New feature:
 
--   Translator item window drag (#270)([`e3f3ff1`](https://github.com/pot-app/pot-desktop/commit/e3f3ff19c391278b2865f9db1fe0c5abd690e3d6)) (by @Layouwen)
--   Add Language Selector for Installer (#269)([`d5f8f89`](https://github.com/pot-app/pot-desktop/commit/d5f8f89b1cd900ffcece278609c31114846075e0)) (by @Pylogmon)
--   Allow Ctrl Z and Ctrl Y([`03df31b`](https://github.com/pot-app/pot-desktop/commit/03df31bd1969536407623f47dc622da61a622016)) (by @Pylogmon)
+-   Add Yandex Support([`02079d2`](https://github.com/pot-app/pot-desktop/commit/02079d28c87404222a4f58e29cf23e7c0f52adab)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Mult-screen window position (#271)([`c334022`](https://github.com/pot-app/pot-desktop/commit/c334022467a7c1eff335c368de3d6402321ab267)) (by @Pylogmon)
+-   DeepL target_lang error([`67845e3`](https://github.com/pot-app/pot-desktop/commit/67845e35f2e834b8776e10f3309769fd9496ea1c)) (by @Pylogmon)
+-   Tray icon tooltip is empty([`7e15c09`](https://github.com/pot-app/pot-desktop/commit/7e15c0954d4e99b5027dd674c5452b895d23ba0a)) (by @Pylogmon)
+-   OpenAI Error Message([`4763514`](https://github.com/pot-app/pot-desktop/commit/47635149362ce19b04e1ff96f29b0f0aacf89a92)) (by @Pylogmon)
+-   Tencent OCR([`6c28a18`](https://github.com/pot-app/pot-desktop/commit/6c28a180b79c235d8befb2d3f446565c3c3093b3)) (by @ccslykx)
