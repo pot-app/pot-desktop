@@ -541,8 +541,8 @@ jobs:
       - name: Set up Git
         run: |
           sudo apt-get install git -y
-          git config --global user.email pylogmon@outlook.com
-          git config --global user.name Pylogmon
+          git config --global user.email pylogmon@pot-app.com
+          git config --global user.name pot-app
       - name: Update Homebrew cask
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
