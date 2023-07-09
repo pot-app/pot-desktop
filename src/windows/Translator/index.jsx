@@ -41,7 +41,7 @@ export default function Translator() {
             void appWindow.setFocus();
         }
         setInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
-        i18n.changeLanguage(get('app_language') ?? 'zh_cn');
+        i18n.changeLanguage(get('app_language') ?? 'en');
     }, []);
     return (
         <ThemeProvider theme={theme === 'auto' ? (prefersDarkMode ? dark : light) : theme === 'dark' ? dark : light}>

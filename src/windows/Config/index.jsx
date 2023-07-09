@@ -25,7 +25,7 @@ export const openaiStreamAtom = atom(false);
 export const hideSourceAtom = atom(false);
 export const hideLanguageAtom = atom(false);
 export const autoCopyAtom = atom(4);
-export const appLanguageAtom = atom('zh_cn');
+export const appLanguageAtom = atom('en');
 export const targetLanguageAtom = atom('zh_cn');
 export const secondLanguageAtom = atom('en');
 export const defaultInterfaceListAtom = atom(['deepl', 'bing']);
@@ -124,7 +124,7 @@ export default function Config() {
         setHideSource(get('hide_source') ?? false);
         setHideLanguage(get('hide_language') ?? false);
         setAutoCopy(get('auto_copy') ?? 4);
-        setAppLanguage(get('app_language') ?? 'zh_cn');
+        setAppLanguage(get('app_language') ?? 'en');
         setTargetLanguage(get('target_language') ?? 'zh_cn');
         setSecondLanguage(get('second_language') ?? 'en');
         setDefaultInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
@@ -184,7 +184,7 @@ export default function Config() {
         });
         setOcrInterfaceConfigs(ocr_interface_configs);
 
-        i18n.changeLanguage(get('app_language') ?? 'zh_cn');
+        i18n.changeLanguage(get('app_language') ?? 'en');
     }, []);
 
     return (

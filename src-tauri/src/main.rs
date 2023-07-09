@@ -121,7 +121,7 @@ fn main() {
                 .unwrap();
             let app_language = get_config(
                 "app_language",
-                toml::Value::String("zh_cn".to_string()),
+                toml::Value::String("en".to_string()),
                 app_handle.state(),
             );
 

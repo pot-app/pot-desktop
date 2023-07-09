@@ -17,7 +17,7 @@ export default function App() {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const { i18n } = useTranslation();
     useEffect(() => {
-        i18n.changeLanguage(get('app_language') ?? 'zh_cn');
+        i18n.changeLanguage(get('app_language') ?? 'en');
     }, []);
     return (
         <ThemeProvider theme={theme == 'auto' ? (prefersDarkMode ? dark : light) : theme == 'dark' ? dark : light}>
