@@ -207,7 +207,8 @@
                 "openaipathhelp": "default: /v1/chat/completions (一般留空即可，使用Azure服务根据自己实际情况填写)",
                 "youdao_appkey": "App Id",
                 "youdao_key": "App Key",
-                "display_format": "展示格式"
+                "display_format": "展示格式",
+                "yandex": "Yandex"
             },
             "about": {
                 "label": "关于应用",

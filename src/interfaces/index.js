@@ -16,5 +16,6 @@ export * as xiaoniu from './xiaoniu';
 export * as transmart from './transmart';
 export * as youdao from './youdao';
 export * as palm from './palm';
-export * as cambridge_dict from './cambridge_dict'
-export * as moji_dict from './moji_dict'
+export * as cambridge_dict from './cambridge_dict';
+export * as moji_dict from './moji_dict';
+export * as yandex from './yandex';
