@@ -574,7 +574,7 @@ jobs:
         with:
           identifier: Pylogmon.pot
           version: ${{env.VERSION}}
-          installers-regex: '\setup.exe$'
+          installers-regex: '\.exe$'
           token: ${{ secrets.TOKEN }}
           fork-user: Pylogmon
         continue-on-error: true
