@@ -84,7 +84,7 @@ export async function ocr(base64, lang, setText, id) {
         Data: base64,
         Source: 'auto',
         Target: supportLanguage[lang],
-        ProjectId: 0
+        ProjectId: 0,
     };
     const payload = JSON.stringify(body);
     // const payload = "{\"Limit\": 1, \"Filters\": [{\"Values\": [\"\\u672a\\u547d\\u540d\"], \"Name\": \"instance-name\"}]}"
@@ -155,10 +155,10 @@ export async function ocr(base64, lang, setText, id) {
     });
     if (res.ok) {
         const result = res.data;
-        if (result["Response"]['ImageRecord']['Value']) {
+        if (result['Response']['ImageRecord']['Value']) {
             let source = '';
             let target = '';
-            for (let i of result["Response"]['ImageRecord']['Value']) {
+            for (let i of result['Response']['ImageRecord']['Value']) {
                 source += i['SourceText'] + '\n';
                 target += i['TargetText'] + '\n';
             }
@@ -166,11 +166,11 @@ export async function ocr(base64, lang, setText, id) {
                 if (lang === 'auto') {
                     setText(source.trim());
                 } else {
-                    setText(target.trim())
+                    setText(target.trim());
                 }
             }
             if (id === 'translate') {
-                setText(source.trim())
+                setText(source.trim());
             }
         } else {
             if (id === ocrID || id === 'translate') {

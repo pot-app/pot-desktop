@@ -81,7 +81,7 @@ export async function ocr(base64, lang, setText, id) {
     // ************* 步骤 1：拼接规范请求串 *************
     const body = {
         ImageBase64: base64,
-        LanguageType: supportLanguage[lang]
+        LanguageType: supportLanguage[lang],
     };
     const payload = JSON.stringify(body);
     // const payload = "{\"Limit\": 1, \"Filters\": [{\"Values\": [\"\\u672a\\u547d\\u540d\"], \"Name\": \"instance-name\"}]}"
@@ -152,13 +152,13 @@ export async function ocr(base64, lang, setText, id) {
     });
     if (res.ok) {
         const result = res.data;
-        if (result["Response"]['TextDetections']) {
+        if (result['Response']['TextDetections']) {
             let target = '';
-            for (let i of result["Response"]['TextDetections']) {
+            for (let i of result['Response']['TextDetections']) {
                 target += i['DetectedText'] + '\n';
             }
             if (id === ocrID || id === 'translate') {
-                setText(target.trim())
+                setText(target.trim());
             }
         } else {
             if (id === ocrID || id === 'translate') {

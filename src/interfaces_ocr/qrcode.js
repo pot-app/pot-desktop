@@ -1,5 +1,5 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import jsQR from "jsqr";
+import jsQR from 'jsqr';
 
 export const info = {
     name: 'qrcode',
@@ -10,8 +10,8 @@ export const info = {
 export async function ocr(base64, lang, setText, id) {
     let canvas = document.createElement('CANVAS');
     let ctx = canvas.getContext('2d');
-    base64 = 'data:image/png;base64,' + base64
-    let img = new Image;
+    base64 = 'data:image/png;base64,' + base64;
+    let img = new Image();
     img.src = base64;
     let imgdata = await new Promise((resolve, reject) => {
         img.onload = () => {
@@ -25,7 +25,7 @@ export async function ocr(base64, lang, setText, id) {
             if (height !== 0 && width !== 0) {
                 resolve({ data, height, width });
             }
-        }
+        };
     });
 
     const code = jsQR(imgdata.data.data, imgdata.width, imgdata.height);
@@ -34,6 +34,6 @@ export async function ocr(base64, lang, setText, id) {
             setText(code.data);
         }
     } else {
-        throw "QR code not recognized or multiple QR codes exist"
+        throw 'QR code not recognized or multiple QR codes exist';
     }
 }

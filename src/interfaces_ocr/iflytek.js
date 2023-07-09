@@ -25,7 +25,7 @@ export const info = {
             place_hold: '',
         },
     ],
-}
+};
 
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
@@ -42,7 +42,7 @@ export async function ocr(base64, lang, setText, id) {
     }
 
     const host = 'api.xf-yun.com';
-    const today = new Date;
+    const today = new Date();
     const date = today.toUTCString();
     const request_line = 'POST /v1/private/sf8e6aca1 HTTP/1.1';
 
@@ -50,9 +50,12 @@ export async function ocr(base64, lang, setText, id) {
 
     let request_url =
         'https://api.xf-yun.com/v1/private/sf8e6aca1?' +
-        'authorization=' + auth +
-        '&host=' + host +
-        '&date=' + encodeURIComponent(date);
+        'authorization=' +
+        auth +
+        '&host=' +
+        host +
+        '&date=' +
+        encodeURIComponent(date);
 
     let request_body = {
         header: {
@@ -65,21 +68,21 @@ export async function ocr(base64, lang, setText, id) {
                 result: {
                     encoding: 'utf8',
                     compress: 'raw',
-                    format: 'json'
-                }
-            }
+                    format: 'json',
+                },
+            },
         },
         payload: {
             sf8e6aca1_data_1: {
-                image: base64
-            }
-        }
-    }
+                image: base64,
+            },
+        },
+    };
 
     let res = await fetch(request_url, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', },
-        body: { type: 'Text', payload: JSON.stringify(request_body) }
+        headers: { 'content-type': 'application/json' },
+        body: { type: 'Text', payload: JSON.stringify(request_body) },
     });
 
     if (!res.ok && (id === ocrID || id === 'translate')) {
@@ -102,16 +105,23 @@ export async function ocr(base64, lang, setText, id) {
     let pages = text_json['pages'];
     for (let page of pages) {
         let lines = page['lines'];
-        if (!lines) { continue; }
+        if (!lines) {
+            continue;
+        }
         for (let line of lines) {
             let words = line['words'];
-            if (!words) { continue; }
+            if (!words) {
+                continue;
+            }
             for (let word of words) {
                 let content = word['content'];
-                if (!content) { continue; }
-                else { return_content += content + ' '; }
+                if (!content) {
+                    continue;
+                } else {
+                    return_content += content + ' ';
+                }
             }
-            return_content += '\n'
+            return_content += '\n';
         }
     }
 
@@ -121,17 +131,18 @@ export async function ocr(base64, lang, setText, id) {
 }
 
 export function iflytek_auth(api_key, api_secret, host, date, request_line) {
-    const signature_origin =
-        'host: ' + host + '\n' +
-        'date: ' + date + '\n' +
-        request_line;
+    const signature_origin = 'host: ' + host + '\n' + 'date: ' + date + '\n' + request_line;
     let signature_sha = CryptoJS.HmacSHA256(signature_origin, api_secret);
     let signature = CryptoJS.enc.Base64.stringify(signature_sha);
     let authorization_origin =
-        'api_key=\"' + api_key + '\", ' +
-        'algorithm=\"hmac-sha256\", ' +
-        'headers=\"host date request-line\", ' +
-        'signature=\"' + signature + '\"';
+        'api_key="' +
+        api_key +
+        '", ' +
+        'algorithm="hmac-sha256", ' +
+        'headers="host date request-line", ' +
+        'signature="' +
+        signature +
+        '"';
     let authorization = window.btoa(authorization_origin);
     return authorization;
 }

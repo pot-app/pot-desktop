@@ -10,7 +10,7 @@ export const info = {
         {
             config_key: 'simplelatex_token',
             place_hold: '',
-        }
+        },
     ],
 };
 
@@ -29,15 +29,15 @@ export async function ocr(base64, lang, setText, id) {
         method: 'POST',
         headers: {
             token,
-            'content-type': 'multipart/form-data'
+            'content-type': 'multipart/form-data',
         },
         body: Body.form({
-            'file': {
-                file: file, fileName: 'pot_screenshot_cut.png'
-            }
+            file: {
+                file: file,
+                fileName: 'pot_screenshot_cut.png',
+            },
         }),
-    }
-    )
+    });
     if (res) {
         let result = res.data;
         if (result['res']['latex']) {
@@ -46,7 +46,7 @@ export async function ocr(base64, lang, setText, id) {
             }
         } else {
             if (id === ocrID || id === 'translate') {
-                throw JSON.stringify(result)
+                throw JSON.stringify(result);
             }
         }
     } else {

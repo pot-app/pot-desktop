@@ -69,8 +69,8 @@ export async function translate(text, from, to, setText, id) {
             salt: salt,
             sign: sign,
             signType: 'v3',
-            curtime: curtime
-        }
+            curtime: curtime,
+        },
     });
     if (res.ok) {
         let result = res.data;

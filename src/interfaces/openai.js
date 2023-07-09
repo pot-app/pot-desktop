@@ -83,13 +83,13 @@ export async function translate(text, from, to, setText, id) {
     const headers =
         service === 'openai'
             ? {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${apikey}`,
-            }
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${apikey}`,
+              }
             : {
-                'Content-Type': 'application/json',
-                'api-key': apikey,
-            };
+                  'Content-Type': 'application/json',
+                  'api-key': apikey,
+              };
 
     let body = {
         temperature: 0,

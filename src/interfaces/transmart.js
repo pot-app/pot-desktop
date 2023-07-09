@@ -50,7 +50,7 @@ export async function translate(text, from, to, setText, id) {
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw 'Unsupported Language';
     }
-    let header = {}
+    let header = {};
     if (user === '' || token === '') {
         // throw 'Please configure User and Token';
     } else {
@@ -66,7 +66,7 @@ export async function translate(text, from, to, setText, id) {
             payload: {
                 header: {
                     fn: 'text_analysis',
-                    ...header
+                    ...header,
                 },
                 type: 'plain',
                 text: text,
@@ -90,7 +90,7 @@ export async function translate(text, from, to, setText, id) {
                         payload: {
                             header: {
                                 fn: 'auto_translation',
-                                ...header
+                                ...header,
                             },
                             type: 'plain',
                             source: {

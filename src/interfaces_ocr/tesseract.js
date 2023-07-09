@@ -37,16 +37,18 @@ export async function ocr(base64, lang, setText, id) {
         throw 'Unsupported Language';
     }
 
-    const { data: { text } } = await Tesseract.recognize('data:image/png;base64,' + base64, supportLanguage[lang], {
+    const {
+        data: { text },
+    } = await Tesseract.recognize('data:image/png;base64,' + base64, supportLanguage[lang], {
         workerPath: '/worker.min.js',
         corePath: '/tesseract-core.wasm.js',
         langPath: 'https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev',
-        logger: m => {
+        logger: (m) => {
             if (id === ocrID || id === 'translate') {
-                setText(`Status: ${m.status}\nProgress:${m.progress}`)
+                setText(`Status: ${m.status}\nProgress:${m.progress}`);
             }
-        }
-    })
+        },
+    });
     if (id === ocrID || id === 'translate') {
         setText(text.trim());
     }

@@ -138,13 +138,13 @@ export async function ocr(base64, lang, setText, id) {
     });
     if (res.ok) {
         const result = res.data;
-        if (result["Response"]['TextDetections']) {
+        if (result['Response']['TextDetections']) {
             let target = '';
-            for (let i of result["Response"]['TextDetections']) {
+            for (let i of result['Response']['TextDetections']) {
                 target += i['DetectedText'] + '\n';
             }
             if (id === ocrID || id === 'translate') {
-                setText(target.trim())
+                setText(target.trim());
             }
         } else {
             throw JSON.stringify(result);

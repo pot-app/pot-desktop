@@ -50,19 +50,20 @@ export async function ocr(base64, lang, setText, id) {
     }
 
     const url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic';
-    const token_url = "https://aip.baidubce.com/oauth/2.0/token"
+    const token_url = 'https://aip.baidubce.com/oauth/2.0/token';
 
     const token_res = await fetch(token_url, {
-        method: 'POST', query: {
+        method: 'POST',
+        query: {
             grant_type: 'client_credentials',
             client_id,
-            client_secret
+            client_secret,
         },
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
+            Accept: 'application/json',
+        },
+    });
     if (token_res.ok) {
         if (token_res.data.access_token) {
             let token = token_res.data.access_token;
@@ -70,18 +71,17 @@ export async function ocr(base64, lang, setText, id) {
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 query: {
-                    access_token: token
+                    access_token: token,
                 },
                 body: Body.form({
-                    'language_type': supportLanguage[lang],
-                    'detect_direction': 'false',
-                    'image': base64
+                    language_type: supportLanguage[lang],
+                    detect_direction: 'false',
+                    image: base64,
                 }),
-            }
-            )
+            });
             if (res.ok) {
                 let result = res.data;
                 if (result['words_result']) {
@@ -104,7 +104,7 @@ export async function ocr(base64, lang, setText, id) {
             }
         } else {
             if (id === ocrID || id === 'translate') {
-                throw 'Get Access Token Failed!'
+                throw 'Get Access Token Failed!';
             }
         }
     } else {

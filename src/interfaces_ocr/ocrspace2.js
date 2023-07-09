@@ -9,7 +9,7 @@ export const info = {
         {
             config_key: 'ocrspace2_apikey',
             place_hold: '',
-        }
+        },
     ],
 };
 
@@ -22,32 +22,31 @@ export async function ocr(base64, lang, setText, id) {
 
     const url = 'https://api.ocr.space/parse/image';
 
-    base64 = 'data:image/png;base64,' + base64
+    base64 = 'data:image/png;base64,' + base64;
 
     const res = await fetch(url, {
         method: 'POST',
         headers: {
             apikey,
-            'content-type': 'application/x-www-form-urlencoded'
+            'content-type': 'application/x-www-form-urlencoded',
         },
         body: Body.form({
-            'base64Image': base64,
-            'OCREngine': '2'
-        })
-    }
-    )
+            base64Image: base64,
+            OCREngine: '2',
+        }),
+    });
     if (res.ok) {
         let result = res.data;
         if (result['ParsedResults']) {
             let target = '';
             for (let i of result['ParsedResults']) {
-                target += i['ParsedText']
+                target += i['ParsedText'];
             }
             if (id === ocrID || id === 'translate') {
                 setText(target.trim());
             }
         } else {
-            throw JSON.stringify(result)
+            throw JSON.stringify(result);
         }
     } else {
         if (id === ocrID || id === 'translate') {

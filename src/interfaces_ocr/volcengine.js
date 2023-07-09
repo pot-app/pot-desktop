@@ -22,7 +22,7 @@ export const info = {
             place_hold: '',
         },
     ],
-}
+};
 
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
@@ -46,7 +46,7 @@ export async function ocr(base64, lang, setText, id) {
 }
 
 async function normal_ocr(img_base64, appid, secret) {
-    let res = await query(img_base64, "OCRNormal", "2020-08-26", appid, secret);
+    let res = await query(img_base64, 'OCRNormal', '2020-08-26', appid, secret);
     if (res.ok) {
         let result = res.data;
         if (result['data']) {
@@ -70,10 +70,12 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     const path = '/';
 
     // Body 及其参数
-    const approximate_pixel = 0 // 文本行高度差距为approximate_pixel时近似为同一行,未选时默认为"0"
-    const mode = 'default' // 文字识别模式:"default"-默认模式、"text_block"-文本块模式
-    const filter_thresh = 80 // 置信分数低于filter_thresh的文本行将被过滤掉, 默认为"80", 最大为"100"
-    let body = `image_base64=${encodeURIComponent(img_base64)}&approximate_pixel=${approximate_pixel}&mode=${mode}&filter_thresh=${filter_thresh}`;
+    const approximate_pixel = 0; // 文本行高度差距为approximate_pixel时近似为同一行,未选时默认为"0"
+    const mode = 'default'; // 文字识别模式:"default"-默认模式、"text_block"-文本块模式
+    const filter_thresh = 80; // 置信分数低于filter_thresh的文本行将被过滤掉, 默认为"80", 最大为"100"
+    let body = `image_base64=${encodeURIComponent(
+        img_base64
+    )}&approximate_pixel=${approximate_pixel}&mode=${mode}&filter_thresh=${filter_thresh}`;
     let body_hash = CryptoJS.SHA256(body).toString(CryptoJS.enc.Hex);
 
     // Header X-Date
@@ -130,11 +132,16 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     let norm_uri = path;
     let norm_query = 'Action=' + action + '&Version=' + serviceVersion;
     let canoncial_request =
-        method + '\n' +
-        norm_uri + '\n' +
-        norm_query + '\n' +
-        signed_str + '\n' +
-        md['signed_headers'] + '\n' +
+        method +
+        '\n' +
+        norm_uri +
+        '\n' +
+        norm_query +
+        '\n' +
+        signed_str +
+        '\n' +
+        md['signed_headers'] +
+        '\n' +
         body_hash;
     let hashed_canon_req = CryptoJS.SHA256(canoncial_request).toString(CryptoJS.enc.Hex);
 

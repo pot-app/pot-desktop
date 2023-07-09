@@ -33,7 +33,7 @@ async function resolveUpdater() {
             'linux-x86_64': { signature: linux_x86_64_sig, url: 'https://ghproxy.com/' + linux_x86_64 },
             'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://ghproxy.com/' + windows_x86_64 },
             'windows-i686': { signature: windows_i686_sig, url: 'https://ghproxy.com/' + windows_i686 },
-            'windows-aarch64': { signature: windows_aarch64_sig, url: 'https://ghproxy.com/' + windows_aarch64 }
+            'windows-aarch64': { signature: windows_aarch64_sig, url: 'https://ghproxy.com/' + windows_aarch64 },
         },
     };
 

@@ -23,7 +23,7 @@ import {
 import './style.css';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-const NO_EXIT_NAME = 'interface-no-exit'
+const NO_EXIT_NAME = 'interface-no-exit';
 
 export default function TranslateConfig() {
     const [dynamicTranslate, setDynamicTranslate] = useAtom(dynamicTranslateAtom);
@@ -132,7 +132,12 @@ export default function TranslateConfig() {
                     open={isOpen}
                     onClick={(e) => {
                         const { className } = e.target;
-                        const noOperation = ['MuiChip-filled', 'MuiChip-label', 'MuiButtonBase-root', 'interface-no-exit'];
+                        const noOperation = [
+                            'MuiChip-filled',
+                            'MuiChip-label',
+                            'MuiButtonBase-root',
+                            'interface-no-exit',
+                        ];
 
                         if (noOperation.some((n) => className.includes(n)) || isDrag) return;
 

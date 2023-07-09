@@ -45,7 +45,7 @@ export async function translate(text, from, to, setText, id) {
     } else {
         from = supportLanguage[from];
     }
-    const url = "https://translate.yandex.net/api/v1/tr.json/translate";
+    const url = 'https://translate.yandex.net/api/v1/tr.json/translate';
     const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -53,19 +53,19 @@ export async function translate(text, from, to, setText, id) {
         },
         query: {
             id: `${generateSid()}-0-0`,
-            srv: 'android'
+            srv: 'android',
         },
         body: Body.form({
             source_lang: from,
             target_lang: to,
-            text
-        })
+            text,
+        }),
     });
     if (res.ok) {
         const result = res.data;
         if (result.text) {
             if (translateID.includes(id)) {
-                setText(result.text[0])
+                setText(result.text[0]);
             }
         } else {
             throw JSON.stringify(result);
@@ -76,17 +76,19 @@ export async function translate(text, from, to, setText, id) {
 }
 
 async function detectLanguage(text) {
-    if (!text) { return '_' }
+    if (!text) {
+        return '_';
+    }
     if (Array.isArray(text)) {
-        text = text.join("\n")
+        text = text.join('\n');
     }
     const res = await fetch('https://translate.yandex.net/api/v1/tr.json/detect', {
         query: {
             srv: 'android',
             text,
             sid: generateSid(),
-        }
-    })
+        },
+    });
     if (res.ok) {
         return res.data.lang;
     } else {

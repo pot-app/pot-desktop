@@ -10,7 +10,7 @@ export const info = {
 const URL = 'https://api.mojidict.com/parse/functions/union-api';
 const TYPE_WORD = {
     key: 'word',
-    code: 102
+    code: 102,
 };
 export async function translate(text, from, to, setText, id) {
     // 该接口只支持查询单词且目标语言为日语, 这里为了避免查询过程中频繁展示报错内容所以直接不返回内容
@@ -25,26 +25,26 @@ export async function translate(text, from, to, setText, id) {
             'User-Agent': 'pot translate',
         },
         body: Body.json({
-            "functions": [
+            functions: [
                 {
-                    "name": "search-all",
-                    "params": {
-                        "text": text,
-                        "types": [TYPE_WORD.code]
-                    }
-                }
+                    name: 'search-all',
+                    params: {
+                        text: text,
+                        types: [TYPE_WORD.code],
+                    },
+                },
             ],
-            "_ClientVersion": "js3.4.1",
-            "_ApplicationId": "E62VyFVLMiW7kvbtVq3p",
-            "g_os": "PCWeb",
-            "g_ver": "v4.6.4.20230615",
-            "_InstallationId": "1f7dbb56-9030-4f32-9645-0df69f86c591"
-        })
+            _ClientVersion: 'js3.4.1',
+            _ApplicationId: 'E62VyFVLMiW7kvbtVq3p',
+            g_os: 'PCWeb',
+            g_ver: 'v4.6.4.20230615',
+            _InstallationId: '1f7dbb56-9030-4f32-9645-0df69f86c591',
+        }),
     });
 
     if (res.ok && res.data.result.code == 200) {
-        const explains = res.data.result.results['search-all'].result[TYPE_WORD.key].searchResult
-        const explainTexts = explains.map(e => `${e.title}\n${e.excerpt}`);
+        const explains = res.data.result.results['search-all'].result[TYPE_WORD.key].searchResult;
+        const explainTexts = explains.map((e) => `${e.title}\n${e.excerpt}`);
         if (translateID.includes(id)) {
             setText(explainTexts.join('\n\n'));
         }

@@ -21,7 +21,7 @@ export const info = {
             place_hold: '',
         },
     ],
-}
+};
 
 export async function ocr(base64, lang, setText, id) {
     // 获取设置项
@@ -34,7 +34,7 @@ export async function ocr(base64, lang, setText, id) {
     }
 
     const host = 'api.xf-yun.com';
-    const today = new Date;
+    const today = new Date();
     const date = today.toUTCString();
     const request_line = 'POST /v1/private/hh_ocr_recognize_doc HTTP/1.1';
 
@@ -42,9 +42,12 @@ export async function ocr(base64, lang, setText, id) {
 
     let request_url =
         'https://api.xf-yun.com/v1/private/hh_ocr_recognize_doc?' +
-        'authorization=' + auth +
-        '&host=' + host +
-        '&date=' + encodeURIComponent(date);
+        'authorization=' +
+        auth +
+        '&host=' +
+        host +
+        '&date=' +
+        encodeURIComponent(date);
 
     let request_body = {
         header: {
@@ -56,22 +59,22 @@ export async function ocr(base64, lang, setText, id) {
                 recognizeDocumentRes: {
                     encoding: 'utf8',
                     compress: 'raw',
-                    format: 'json'
-                }
-            }
+                    format: 'json',
+                },
+            },
         },
         payload: {
             image: {
-                image: base64
-            }
-        }
-    }
+                image: base64,
+            },
+        },
+    };
 
     // 发送请求
     let res = await fetch(request_url, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', },
-        body: { type: 'Text', payload: JSON.stringify(request_body) }
+        headers: { 'content-type': 'application/json' },
+        body: { type: 'Text', payload: JSON.stringify(request_body) },
     });
 
     // 处理结果
@@ -91,7 +94,9 @@ export async function ocr(base64, lang, setText, id) {
     let text_string = CryptoJS.enc.Utf8.stringify(text);
     let text_json = JSON.parse(text_string);
     let return_content = text_json['whole_text']; // 最终结果
-    if (!return_content) { return_content = ''; }
+    if (!return_content) {
+        return_content = '';
+    }
 
     if (id === ocrID || id === 'translate') {
         setText(return_content);
