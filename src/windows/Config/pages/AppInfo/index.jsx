@@ -216,10 +216,10 @@ export default function AppInfo() {
                 <li>
                     {t('config.about.contact')}:&nbsp;&nbsp;
                     <a
-                        href='mailto:pylogmon@pot-app.com'
+                        href='mailto:support@pot-app.com'
                         target='_blank'
                     >
-                        pylogmon@pot-app.com
+                        support@pot-app.com
                     </a>
                     <br />
                 </li>
