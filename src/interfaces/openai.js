@@ -1,5 +1,6 @@
 import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
+import { detect } from './utils/lang_detect';
 import { get } from '../windows/main';
 
 export const info = {
@@ -70,6 +71,14 @@ export async function translate(text, from, to, setText, id) {
     if (model === '') {
         model = 'gpt-3.5-turbo';
     }
+
+    let source_lang = await detect(text);
+    if (source_lang !== '_') {
+        if (source_lang === to) {
+            to = get('second_language') ?? 'en';
+        }
+    }
+
     let systemPrompt = get('openai_prompt') ?? '';
     if (systemPrompt === '') {
         systemPrompt =
@@ -83,13 +92,13 @@ export async function translate(text, from, to, setText, id) {
     const headers =
         service === 'openai'
             ? {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${apikey}`,
-              }
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${apikey}`,
+            }
             : {
-                  'Content-Type': 'application/json',
-                  'api-key': apikey,
-              };
+                'Content-Type': 'application/json',
+                'api-key': apikey,
+            };
 
     let body = {
         temperature: 0,
