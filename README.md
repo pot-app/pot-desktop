@@ -88,7 +88,7 @@
 -   [x] [TranSmart](https://transmart.qq.com/)
 -   [x] [Volcengine](https://translate.volcengine.com/)
 -   [x] [Xiaoniu](https://niutrans.com/)
--   [x] [Lingva](https://lingva.ml/)
+-   [x] [Lingva](https://lingva.pot-app.com/)
 -   [x] [Google](https://translate.google.com)
 -   [x] [Bing](https://learn.microsoft.com/zh-cn/azure/cognitive-services/translator/)
 -   [x] [Bing Dict](https://www.bing.com/dict)

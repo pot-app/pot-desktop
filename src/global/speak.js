@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 export async function speak(text) {
     let domain = get('lingva_domain') ?? '';
     if (domain === '') {
-        domain = 'lingva.ml';
+        domain = 'lingva.pot-app.com';
     }
 
     let res = await fetch(`https://${domain}/api/v1/auto/zh/${encodeURIComponent(text)}`, {

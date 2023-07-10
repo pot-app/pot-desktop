@@ -29,7 +29,7 @@ export const info = {
     needs: [
         {
             config_key: 'lingva_domain',
-            place_hold: 'default: lingva.ml',
+            place_hold: 'default: lingva.pot-app.com',
         },
     ],
 };
@@ -43,7 +43,7 @@ export async function translate(text, from, to, setText, id) {
 
     let domain = get('lingva_domain') ?? '';
     if (domain === '') {
-        domain = 'lingva.ml';
+        domain = 'lingva.pot-app.com';
     }
     let plainText = text.replaceAll('/', '@@');
     let res = await fetch(
