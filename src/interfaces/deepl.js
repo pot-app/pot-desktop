@@ -120,7 +120,6 @@ async function translate_by_key(text, from, to, setText, id, key) {
         body: Body.json(body),
         headers: headers,
     });
-    console.log(res);
     if (res.ok) {
         const result = res.data;
         if ((result.translations, result.translations[0])) {
