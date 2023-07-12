@@ -1,12 +1,10 @@
-## 1.8.0 (2023-07-09)
+## 1.8.1 (2023-07-12)
 
 ### New feature:
 
--   Add Yandex Support([`02079d2`](https://github.com/pot-app/pot-desktop/commit/02079d28c87404222a4f58e29cf23e7c0f52adab)) (by @Pylogmon)
+-   Support DeepL Pro Api([`6e86e56`](https://github.com/pot-app/pot-desktop/commit/6e86e5606310e4d59750de58614e7257e4e176a4)) (by Pylogmon)
+-   Add Second Language Support for OpenAi([`ca517e8`](https://github.com/pot-app/pot-desktop/commit/ca517e880f341500e10587051cbba5d3a6b29e62)) (by Pylogmon)
 
 ### Bugs fixed:
 
--   DeepL target_lang error([`67845e3`](https://github.com/pot-app/pot-desktop/commit/67845e35f2e834b8776e10f3309769fd9496ea1c)) (by @Pylogmon)
--   Tray icon tooltip is empty([`7e15c09`](https://github.com/pot-app/pot-desktop/commit/7e15c0954d4e99b5027dd674c5452b895d23ba0a)) (by @Pylogmon)
--   OpenAI Error Message([`4763514`](https://github.com/pot-app/pot-desktop/commit/47635149362ce19b04e1ff96f29b0f0aacf89a92)) (by @Pylogmon)
--   Tencent OCR([`6c28a18`](https://github.com/pot-app/pot-desktop/commit/6c28a180b79c235d8befb2d3f446565c3c3093b3)) (by @ccslykx)
+-   DeepL Second Language([`e810df0`](https://github.com/pot-app/pot-desktop/commit/e810df0566875d5f2cdde22bb48211f80583f886)) (by Pylogmon)
