@@ -111,7 +111,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
     if (from !== 'auto') {
         body['source_lang'] = supportLanguage[from];
     }
-    const url = 'https://api-free.deepl.com/v2/translate'
+    let url = 'https://api-free.deepl.com/v2/translate';
     if (!key.endsWith(':fx')) {
         url = 'https://api.deepl.com/v2/translate'
     }
@@ -120,6 +120,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
         body: Body.json(body),
         headers: headers,
     });
+    console.log(res);
     if (res.ok) {
         const result = res.data;
         if ((result.translations, result.translations[0])) {
