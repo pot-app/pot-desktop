@@ -1,5 +1,5 @@
 import { translateID } from '../windows/Translator/components/TargetArea';
-import { fetch } from '@tauri-apps/api/http';
+import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
 // 必须向外暴露info
@@ -73,10 +73,7 @@ export async function translate(text, from, to, setText, id) {
 
     let res = await fetch(url, {
         method: 'POST',
-        body: {
-            type: 'Text',
-            payload: body_str,
-        },
+        body: Body.text(body_str),
         headers: { 'Content-Type': 'application/json' },
     });
 
@@ -114,18 +111,20 @@ async function translate_by_key(text, from, to, setText, id, key) {
     if (from !== 'auto') {
         body['source_lang'] = supportLanguage[from];
     }
-    let res = await fetch('https://api-free.deepl.com/v2/translate', {
+    const url = 'https://api-free.deepl.com/v2/translate'
+    if (!key.endsWith(':fx')) {
+        url = 'https://api.deepl.com/v2/translate'
+    }
+    let res = await fetch(url, {
         method: 'POST',
-        body: {
-            type: 'Json',
-            payload: body,
-        },
+        body: Body.json(body),
         headers: headers,
     });
+    console.log(res);
     if (res.ok) {
         const result = res.data;
         if ((result.translations, result.translations[0])) {
-            if (result.translations[0]['detected_source_language'] === to) {
+            if (result.translations[0]['detected_source_language'] === supportLanguage[to]) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage !== to) {
                     await translate_by_key(text, from, secondLanguage, setText, id, key);
