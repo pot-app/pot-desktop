@@ -14,7 +14,7 @@ const TYPE_WORD = {
 };
 export async function translate(text, from, to, setText, id) {
     // 该接口只支持查询单词且目标语言为日语, 这里为了避免查询过程中频繁展示报错内容所以直接不返回内容
-    if (text.split(' ').length > 1 || to !== 'ja') {
+    if (text.split(' ').length > 1) {
         return;
     }
 
