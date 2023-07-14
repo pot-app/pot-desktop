@@ -1,10 +1,6 @@
-## 1.8.1 (2023-07-12)
-
-### New feature:
-
--   Support DeepL Pro Api([`6e86e56`](https://github.com/pot-app/pot-desktop/commit/6e86e5606310e4d59750de58614e7257e4e176a4)) (by Pylogmon)
--   Add Second Language Support for OpenAi([`ca517e8`](https://github.com/pot-app/pot-desktop/commit/ca517e880f341500e10587051cbba5d3a6b29e62)) (by Pylogmon)
+## 1.8.2 (2023-07-14)
 
 ### Bugs fixed:
 
--   DeepL Second Language([`e810df0`](https://github.com/pot-app/pot-desktop/commit/e810df0566875d5f2cdde22bb48211f80583f886)) (by Pylogmon)
+- Language code of Japanese([`f5fc548`](https://github.com/pot-app/pot-desktop/commit/f5fc548c42ddbd4f392e50cbee54768a11135f18)) (by @Pylogmon)
+- Unspecified proxy lookup on Linux([`f8249d7`](https://github.com/pot-app/pot-desktop/commit/f8249d70aaef80e168304173c662afd57239f4c9)) (by @Pylogmon)
