@@ -1,6 +1,5 @@
-## 1.8.2 (2023-07-14)
+## 1.8.3 (2023-07-14)
 
 ### Bugs fixed:
 
-- Language code of Japanese([`f5fc548`](https://github.com/pot-app/pot-desktop/commit/f5fc548c42ddbd4f392e50cbee54768a11135f18)) (by @Pylogmon)
-- Unspecified proxy lookup on Linux([`f8249d7`](https://github.com/pot-app/pot-desktop/commit/f8249d70aaef80e168304173c662afd57239f4c9)) (by @Pylogmon)
+- Screenshot Size Error on Wayland([`075eba9`](https://github.com/pot-app/pot-desktop/commit/075eba9864a5171dd2032cbfe5363a85275d0cab)) (by Pylogmon)
