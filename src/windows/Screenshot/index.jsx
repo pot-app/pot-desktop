@@ -13,12 +13,14 @@ export default function Screenshot() {
     const [mouseDownY, setMouseDownY] = useState(0);
     const [mouseMoveX, setMouseMoveX] = useState(0);
     const [mouseMoveY, setMouseMoveY] = useState(0);
+    const [imgWidth, setImgWidth] = useState(0);
 
     useEffect(() => {
         currentMonitor().then((monitor) => {
-            const size = monitor.size;
             const position = monitor.position;
-            invoke('screenshot', { x: position.x, y: position.y }).then((_) => {
+            invoke('screenshot', { x: position.x, y: position.y }).then((width) => {
+                //真实图片宽度
+                setImgWidth(width);
                 appCacheDir().then((appCacheDirPath) => {
                     join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
                         setImgurl(convertFileSrc(filePath));
@@ -100,8 +102,7 @@ export default function Screenshot() {
                     appWindow.hide();
                     setIsDown(false);
                     setIsMoved(false);
-                    const monitor = await currentMonitor();
-                    const dpi = monitor.size.width / screen.width;
+                    const dpi = imgWidth / screen.width;
                     // const dpi = monitor.scaleFactor; //这是系统的dpi，不一定是网页内容的dpi
                     const left = Math.floor(Math.min(mouseDownX, e.clientX) * dpi);
                     const top = Math.floor(Math.min(mouseDownY, e.clientY) * dpi);
@@ -113,7 +114,6 @@ export default function Screenshot() {
                     } else {
                         await emit('translate');
                     }
-
                     await appWindow.close();
                 }}
             />

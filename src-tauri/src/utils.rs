@@ -27,13 +27,14 @@ pub fn get_translate_text(state: tauri::State<StringWrapper>) -> String {
 }
 
 #[tauri::command]
-pub fn screenshot(x: i32, y: i32) {
+pub fn screenshot(x: i32, y: i32) -> u32 {
     use crate::APP;
     use dirs::cache_dir;
     use screenshots::Screen;
     use std::fs;
 
     let screens = Screen::all().unwrap();
+    let mut width = 0u32;
     for screen in screens {
         let info = screen.display_info;
         if info.x == x && info.y == y {
@@ -49,9 +50,11 @@ pub fn screenshot(x: i32, y: i32) {
             let image = screen.capture().unwrap();
             let buffer = image.to_png().unwrap();
             fs::write(app_cache_dir_path, buffer).unwrap();
+            width = image.width();
             break;
         }
     }
+    width
 }
 
 #[tauri::command]
