@@ -69,7 +69,7 @@ pub fn cut_screenshot(left: u32, top: u32, right: u32, bottom: u32, app_handle: 
     match img2.to_image().save(&app_cache_dir_path) {
         Ok(_) => {}
         Err(e) => {
-            println!("{}", e.to_string());
+            println!("{:?}", e.to_string());
         }
     }
 }

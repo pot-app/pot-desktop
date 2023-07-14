@@ -164,11 +164,12 @@ fn get_current_monitor(x: f64, y: f64, util: Window) -> Result<Monitor, ()> {
             let size: tauri::LogicalSize<f64> = size.to_logical(dpi);
             size
         };
-
-        if x >= position.x as f64 && x <= (position.x as f64 + size.width as f64) {
-            if y >= position.y as f64 && y <= (position.y as f64 + size.height as f64) {
-                return Ok(m);
-            }
+        if x >= position.x as f64
+            && x <= (position.x as f64 + size.width as f64)
+            && y >= position.y as f64
+            && y <= (position.y as f64 + size.height as f64)
+        {
+            return Ok(m);
         }
     }
     Err(())

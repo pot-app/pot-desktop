@@ -28,8 +28,8 @@ export async function detect(text) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: Body.form({
-            query: text
-        })
+            query: text,
+        }),
     });
     if (res.ok) {
         let result = res.data;

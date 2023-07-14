@@ -113,7 +113,7 @@ async function translate_by_key(text, from, to, setText, id, key) {
     }
     let url = 'https://api-free.deepl.com/v2/translate';
     if (!key.endsWith(':fx')) {
-        url = 'https://api.deepl.com/v2/translate'
+        url = 'https://api.deepl.com/v2/translate';
     }
     let res = await fetch(url, {
         method: 'POST',
