@@ -11,7 +11,7 @@ export const info = {
         auto: 'auto',
         zh_cn: 'ZH',
         zh_tw: 'ZH',
-        ja: 'JA ',
+        ja: 'JA',
         en: 'EN',
         ko: 'KO',
         fr: 'FR',
@@ -76,7 +76,8 @@ export async function translate(text, from, to, setText, id) {
         body: Body.text(body_str),
         headers: { 'Content-Type': 'application/json' },
     });
-
+    console.log(body);
+    console.log(res);
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {

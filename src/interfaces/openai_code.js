@@ -8,7 +8,7 @@ export const info = {
         zh_cn: 'Simplified Chinese',
         zh_tw: 'Traditional Chinese',
         yue: 'Cantonese',
-        ja: 'Japanese ',
+        ja: 'Japanese',
         en: 'English',
         ko: 'Korean',
         fr: 'French',
