@@ -21,7 +21,7 @@ export async function ocr(base64, lang, setText, id) {
         throw 'Please configure token';
     }
 
-    const url = 'https://server.simpletex.cn/api/latex_ocr/v1';
+    const url = 'https://server.simpletex.cn/api/latex_ocr/v2';
 
     let file = await readBinaryFile('pot_screenshot_cut.png', { dir: BaseDirectory.AppCache });
 
@@ -38,9 +38,9 @@ export async function ocr(base64, lang, setText, id) {
             },
         }),
     });
-    if (res) {
+    if (res.ok) {
         let result = res.data;
-        if (result['res']['latex']) {
+        if (result['res'] && result['res']['latex']) {
             if (id === ocrID || id === 'translate') {
                 setText(result['res']['latex'].trim());
             }
