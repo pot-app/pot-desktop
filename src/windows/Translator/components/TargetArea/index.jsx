@@ -7,6 +7,7 @@ import LibraryAddRoundedIcon from '@mui/icons-material/LibraryAddRounded';
 import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
+import { appWindow } from '@tauri-apps/api/window';
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
@@ -60,6 +61,9 @@ export default function TargetArea(props) {
                 }
                 copyTimeout = setTimeout(() => {
                     copy(sourceText);
+                    if (get('hide_window') ?? false) {
+                        void appWindow.close();
+                    }
                 }, 5);
             }
         }
@@ -75,16 +79,26 @@ export default function TargetArea(props) {
             setTargetTextSetNum(0);
         }
         if (q === 0) {
-            if (!targetText.endsWith('_')) {
+            if (!targetText.endsWith('_') && targetLanguage !== '') {
                 let autoCopy = get('auto_copy') ?? 4;
                 if (!listenCopy) {
                     if (autoCopy === 2) {
                         if (targetText !== '') {
                             copy(targetText);
+                            if (get('hide_window') ?? false) {
+                                void appWindow.close();
+                            }
                         }
                     } else if (autoCopy === 3) {
                         if (targetText && sourceText !== '') {
                             copy(sourceText + '\n\n' + targetText);
+                            if (get('hide_window') ?? false) {
+                                void appWindow.close();
+                            }
+                        }
+                    } else if (autoCopy === 4) {
+                        if (get('hide_window') ?? false) {
+                            void appWindow.close();
                         }
                     }
                 }
@@ -125,6 +139,7 @@ export default function TargetArea(props) {
                     color: theme.palette.text.primary,
                 },
             });
+            return true;
         });
     }
 

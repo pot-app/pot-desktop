@@ -76,7 +76,9 @@
                 "input": "原文",
                 "output": "翻譯",
                 "inputoutput": "原文及翻譯",
-                "close": "關閉"
+                "close": "關閉",
+                "hidewindow": "隱藏翻譯窗口",
+                "hidewindowhelp": "翻譯時隱藏窗口，配合自動複製使用"
             },
             "ocr": {
                 "title": "OCR 設定",

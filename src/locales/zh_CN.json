@@ -76,7 +76,9 @@
                 "input": "原文",
                 "output": "译文",
                 "inputoutput": "原文+译文",
-                "close": "关闭"
+                "close": "关闭",
+                "hidewindow": "隐藏翻译窗口",
+                "hidewindowhelp": "翻译时隐藏窗口，配合自动复制使用"
             },
             "ocr": {
                 "title": "OCR 设置",

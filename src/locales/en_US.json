@@ -76,7 +76,9 @@
                 "input": "Source Text",
                 "output": "Translated Text",
                 "inputoutput": "Source & Translated Text",
-                "close": "Disable"
+                "close": "Disable",
+                "hidewindow": "Hide Window",
+                "hidewindowhelp": "Hide translation window when translating, Use with auto copy"
             },
             "ocr": {
                 "title": "OCR Settings",

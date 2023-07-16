@@ -37,8 +37,12 @@ export default function Translator() {
 
     useEffect(() => {
         if (appWindow.label !== 'util') {
-            void appWindow.show();
-            void appWindow.setFocus();
+            if ((get('hide_window') ?? false) && appWindow.label !== 'persistent') {
+                void appWindow.hide();
+            } else {
+                void appWindow.show();
+                void appWindow.setFocus();
+            }
         }
         setInterfaceList(get('default_interface_list') ?? ['deepl', 'bing']);
         i18n.changeLanguage(get('app_language') ?? 'en');

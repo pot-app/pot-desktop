@@ -19,6 +19,7 @@ import {
     defaultInterfaceListAtom,
     rememberTargetLanguageAtom,
     incrementalTranslationAtom,
+    hideWindowAtom,
 } from '../..';
 import './style.css';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -35,6 +36,7 @@ export default function TranslateConfig() {
     const [secondLanguage, setSecondLanguage] = useAtom(secondLanguageAtom);
     const [defaultInterfaceList, setDefaultInterfaceList] = useAtom(defaultInterfaceListAtom);
     const [rememberTargetLanguage, setRememberTargetLanguage] = useAtom(rememberTargetLanguageAtom);
+    const [hideWindow, setHideWindow] = useAtom(hideWindowAtom);
 
     const { t } = useTranslation();
 
@@ -116,6 +118,18 @@ export default function TranslateConfig() {
                     onChange={async (e) => {
                         setOpenaiStream(e.target.checked);
                         await set('openai_stream', e.target.checked);
+                    }}
+                />
+            </ConfigItem>
+            <ConfigItem
+                label={t('config.translate.hidewindow')}
+                help={t('config.translate.hidewindowhelp')}
+            >
+                <Switch
+                    checked={hideWindow}
+                    onChange={async (e) => {
+                        setHideWindow(e.target.checked);
+                        await set('hide_window', e.target.checked);
                     }}
                 />
             </ConfigItem>
