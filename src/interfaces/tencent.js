@@ -5,11 +5,9 @@ import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
 import { get } from '../windows/main';
 
-// 必须向外暴露info
 export const info = {
-    // 接口中文名称
     name: 'tencent',
-    // 接口支持语言及映射
+    // https://cloud.tencent.com/document/product/551/15619
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh',
@@ -24,6 +22,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',
@@ -31,7 +30,6 @@ export const info = {
         ar: 'ar',
         hi: 'hi',
     },
-    // 接口需要配置项
     needs: [
         {
             config_key: 'tencent_secretid',
@@ -43,11 +41,8 @@ export const info = {
         },
     ],
 };
-//必须向外暴露translate
 export async function translate(text, from, to, setText, id) {
-    // 获取语言映射
     const { supportLanguage } = info;
-    // 获取设置项
     const SecretId = get('tencent_secretid') ?? '';
     const SecretKey = get('tencent_secretkey') ?? '';
 

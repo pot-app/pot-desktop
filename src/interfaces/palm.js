@@ -19,6 +19,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt-br',
         vi: 'vie',
         id: 'id',
         th: 'th',

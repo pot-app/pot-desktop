@@ -2,9 +2,9 @@ import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
-// 此接口只支持英汉互译
 export const info = {
     name: 'google',
+    // https://cloud.google.com/translate/docs/languages?hl=zh-cn
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh-CN',
@@ -19,6 +19,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',

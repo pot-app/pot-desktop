@@ -61,7 +61,7 @@ export default function TargetArea(props) {
                 }
                 copyTimeout = setTimeout(() => {
                     copy(sourceText);
-                    if (get('hide_window') ?? false) {
+                    if ((get('hide_window') ?? false) && appWindow.label !== 'persistent') {
                         void appWindow.close();
                     }
                 }, 5);
@@ -85,19 +85,19 @@ export default function TargetArea(props) {
                     if (autoCopy === 2) {
                         if (targetText !== '') {
                             copy(targetText);
-                            if (get('hide_window') ?? false) {
+                            if ((get('hide_window') ?? false) && appWindow.label !== 'persistent') {
                                 void appWindow.close();
                             }
                         }
                     } else if (autoCopy === 3) {
                         if (targetText && sourceText !== '') {
                             copy(sourceText + '\n\n' + targetText);
-                            if (get('hide_window') ?? false) {
+                            if ((get('hide_window') ?? false) && appWindow.label !== 'persistent') {
                                 void appWindow.close();
                             }
                         }
                     } else if (autoCopy === 4) {
-                        if (get('hide_window') ?? false) {
+                        if ((get('hide_window') ?? false) && appWindow.label !== 'persistent') {
                             void appWindow.close();
                         }
                     }

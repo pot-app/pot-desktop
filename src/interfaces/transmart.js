@@ -5,7 +5,7 @@ import { get } from '../windows/main';
 export const info = {
     // 接口中文名称
     name: 'transmart',
-    // 接口支持语言及映射
+    // https://docs.qq.com/doc/DY2NxUWpmdnB2RXV3
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh',
@@ -20,6 +20,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',

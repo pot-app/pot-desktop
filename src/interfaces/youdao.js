@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid';
 
 export const info = {
     name: 'youdao',
+    // https://ai.youdao.com/DOCSIRMA/html/trans/api/wbfy/index.html
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh-CHS',
@@ -21,6 +22,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vie',
         id: 'id',
         th: 'th',

@@ -6,6 +6,7 @@ import md5 from 'md5';
 
 export const info = {
     name: 'baidu',
+    // https://fanyi-api.baidu.com/product/113
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh',
@@ -21,6 +22,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pot',
         vi: 'vie',
         id: 'id',
         th: 'th',

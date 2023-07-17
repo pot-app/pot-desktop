@@ -4,6 +4,7 @@ import zh_CN from '../locales/zh_CN.json';
 import zh_TW from '../locales/zh_TW.json';
 import en_US from '../locales/en_US.json';
 import ru_RU from '../locales/ru_RU.json';
+import pt_BR from '../locales/pt_BR.json';
 
 i18n.use(initReactI18next).init({
     fallbackLng: 'en',
@@ -16,6 +17,7 @@ i18n.use(initReactI18next).init({
         zh_cn: zh_CN,
         zh_tw: zh_TW,
         ru: ru_RU,
+        pt_br: pt_BR,
     },
 });
 

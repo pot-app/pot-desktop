@@ -4,7 +4,7 @@ import { get } from '../windows/main';
 
 export const info = {
     name: 'bing',
-
+    // https://learn.microsoft.com/zh-CN/azure/cognitive-services/translator/language-support
     supportLanguage: {
         auto: '',
         zh_cn: 'zh-Hans',
@@ -19,7 +19,8 @@ export const info = {
         de: 'de',
         it: 'it',
         tr: 'tr',
-        pt: 'pt',
+        pt: 'pt-pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',

@@ -2,11 +2,9 @@ import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch, Body } from '@tauri-apps/api/http';
 import { get } from '../windows/main';
 
-// 必须向外暴露info
 export const info = {
-    // 接口中文名称
     name: 'deepl',
-    // 接口支持语言及映射
+    // https://www.deepl.com/zh/docs-api/translate-text/translate-text/
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'ZH',
@@ -20,7 +18,8 @@ export const info = {
         de: 'DE',
         it: 'IT',
         tr: 'TR',
-        pt: 'PT',
+        pt: 'PT-PT',
+        pt_br: 'PT-BR',
         id: 'ID',
     },
     // 接口需要配置项

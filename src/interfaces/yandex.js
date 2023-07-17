@@ -18,6 +18,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',

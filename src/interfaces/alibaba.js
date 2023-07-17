@@ -5,11 +5,9 @@ import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
 import { get } from '../windows/main';
 
-// 必须向外暴露info
 export const info = {
-    // 接口中文名称
     name: 'alibaba',
-    // 接口支持语言及映射
+    // https://help.aliyun.com/document_detail/158269.html?spm=a2c4g.158244.0.0.5aef5b72sLGDTO
     supportLanguage: {
         auto: 'auto',
         zh_cn: 'zh',
@@ -25,6 +23,7 @@ export const info = {
         it: 'it',
         tr: 'tr',
         pt: 'pt',
+        pt_br: 'pt',
         vi: 'vi',
         id: 'id',
         th: 'th',
@@ -67,11 +66,10 @@ export async function translate(text, from, to, setText, id) {
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
-        supportLanguage[from]
-    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
-        timestamp
-    )}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${supportLanguage[from]
+        }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
+            timestamp
+        )}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 
