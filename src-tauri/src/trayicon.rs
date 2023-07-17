@@ -284,6 +284,42 @@ pub fn update_tray(app: &AppHandle, mode: i64, app_language: &str) {
             #[cfg(not(target_os = "linux"))]
             tray.set_tooltip("pot").unwrap();
         }
+        "pt_br" => {
+            let persistent = CustomMenuItem::new(PERSISTENT_WINDOW.to_string(), "Tradução");
+            let ocr = CustomMenuItem::new(OCR_WINDOW.to_string(), "OCR da Imagem da Tela");
+            let screenshot_translate =
+                CustomMenuItem::new(SCREENSHOT_TRANSLATE.to_string(), "Traduzir Imagem da Tela");
+            let config = CustomMenuItem::new(CONFIG_TRAY_ITEM.to_string(), "Configurações");
+            let quit = CustomMenuItem::new(QUIT_TRAY_ITEM.to_string(), "Sair");
+            let copy_source = CustomMenuItem::new(COPY_SOURCE.to_string(), "Texto Fonte");
+            let copy_target = CustomMenuItem::new(COPY_TARGET.to_string(), "Texto Traduzido");
+            let copy_source_target = CustomMenuItem::new(
+                COPY_SOURCE_TARGET.to_string(),
+                "Texto Fonte & Texto Traduzido",
+            );
+            let copy_close = CustomMenuItem::new(COPY_CLOSE.to_string(), "Desabilitar");
+            let _ = tray.set_menu(
+                SystemTrayMenu::new()
+                    .add_item(persistent)
+                    .add_submenu(SystemTraySubmenu::new(
+                        "Copiar Automaticamente",
+                        SystemTrayMenu::new()
+                            .add_item(copy_source)
+                            .add_item(copy_target)
+                            .add_item(copy_source_target)
+                            .add_native_item(SystemTrayMenuItem::Separator)
+                            .add_item(copy_close),
+                    ))
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(ocr)
+                    .add_item(screenshot_translate)
+                    .add_native_item(SystemTrayMenuItem::Separator)
+                    .add_item(config)
+                    .add_item(quit),
+            );
+            #[cfg(not(target_os = "linux"))]
+            tray.set_tooltip("pot").unwrap();
+        }
         _ => {}
     }
 }
