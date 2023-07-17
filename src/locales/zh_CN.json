@@ -87,7 +87,9 @@
                 "interface": "默认OCR接口",
                 "language": "默认语言",
                 "screenshot_translate_interface": "截图翻译默认接口",
-                "copy": "自动复制"
+                "copy": "自动复制",
+                "hidewindow": "隐藏OCR窗口",
+                "hidewindowhelp": "识别时隐藏窗口，配合自动复制使用"
             },
             "external": {
                 "label": "外联设置",

@@ -4,6 +4,7 @@ import { listen } from '@tauri-apps/api/event';
 import { atom, useAtom } from 'jotai';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
+import { get } from '../../../main';
 import './style.css';
 
 export const base64Atom = atom('');
@@ -14,8 +15,12 @@ export default function ImageArea() {
     function load_img() {
         invoke('get_base64').then((v) => {
             setBase64(v);
-            appWindow.show();
-            appWindow.setFocus(true);
+            if (get('hide_ocr_window') ?? false) {
+                appWindow.hide();
+            } else {
+                appWindow.show();
+                appWindow.setFocus(true);
+            }
         });
     }
 

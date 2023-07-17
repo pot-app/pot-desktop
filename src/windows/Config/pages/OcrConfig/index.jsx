@@ -9,13 +9,20 @@ import ConfigList from '../../components/ConfigList';
 import ConfigItem from '../../components/ConfigItem';
 import language from '../../../../global/language';
 import { set } from '../../../../global/config';
-import { ocrInterfaceAtom, ocrLanguageAtom, screenshotTranslateInterfaceAtom, ocrCopyAtom } from '../..';
+import {
+    ocrInterfaceAtom,
+    ocrLanguageAtom,
+    screenshotTranslateInterfaceAtom,
+    ocrCopyAtom,
+    hideOcrWindowAtom,
+} from '../..';
 
 export default function OcrConfig() {
     const [ocrInterface, setOcrInterface] = useAtom(ocrInterfaceAtom);
     const [ocrLanguage, setOcrLanguage] = useAtom(ocrLanguageAtom);
     const [screenshotTranslateInterface, setScreenshotTranslateInterface] = useAtom(screenshotTranslateInterfaceAtom);
     const [ocrCopy, setOcrCopy] = useAtom(ocrCopyAtom);
+    const [hideOcrWindow, setHideOcrWindow] = useAtom(hideOcrWindowAtom);
     const { t } = useTranslation();
 
     return (
@@ -107,6 +114,18 @@ export default function OcrConfig() {
                     onChange={async (e) => {
                         setOcrCopy(e.target.checked);
                         await set('ocr_copy', e.target.checked);
+                    }}
+                />
+            </ConfigItem>
+            <ConfigItem
+                label={t('config.ocr.hidewindow')}
+                help={t('config.ocr.hidewindowhelp')}
+            >
+                <Switch
+                    checked={hideOcrWindow}
+                    onChange={async (e) => {
+                        setHideOcrWindow(e.target.checked);
+                        await set('hide_ocr_window', e.target.checked);
                     }}
                 />
             </ConfigItem>

@@ -4,6 +4,7 @@ import { Box, IconButton, InputBase, Tooltip } from '@mui/material';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
 import React, { useState, useEffect } from 'react';
+import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -46,6 +47,9 @@ export default function TextArea() {
         let ocrCopy = get('ocr_copy') ?? false;
         if (ocrCopy && resultText !== '' && loading === false) {
             copy(resultText);
+            if (get('hide_ocr_window') ?? false) {
+                void appWindow.close();
+            }
         }
     }, [resultText, loading]);
 

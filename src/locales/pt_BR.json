@@ -87,7 +87,9 @@
                 "interface": "Interface Padrão OCR",
                 "language": "Idioma Padrão OCR",
                 "screenshot_translate_interface": "Interface de Tradução Padrão de Imagem da Tela",
-                "copy": "Copiar Automaticamente"
+                "copy": "Copiar Automaticamente",
+                "hidewindow": "Ocultar Janela",
+                "hidewindowhelp": "Ao identificar, oculte a janela e utilize em conjunto com a função de cópia automática."
             },
             "external": {
                 "label": "Externo",

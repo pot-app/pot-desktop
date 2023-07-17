@@ -87,7 +87,9 @@
                 "interface": "OCR 預設 API",
                 "language": "預設語言",
                 "screenshot_translate_interface": "截圖翻譯預設 API",
-                "copy": "自動複製"
+                "copy": "自動複製",
+                "hidewindow": "隱藏OCR窗口",
+                "hidewindowhelp": "辨識時隱藏窗口，配合自動複製使用"
             },
             "external": {
                 "label": "外部設定",

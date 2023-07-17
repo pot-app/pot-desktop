@@ -87,7 +87,9 @@
                 "interface": "Default OCR Interface",
                 "language": "Default OCR Language",
                 "screenshot_translate_interface": "Default Screenshot Translate Interface",
-                "copy": "Auto Copy"
+                "copy": "Auto Copy",
+                "hidewindow": "Hide Window",
+                "hidewindowhelp": "Hide OCR window when OCR, Use with auto copy"
             },
             "external": {
                 "label": "External",
