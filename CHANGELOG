@@ -1,5 +1,11 @@
-## 1.8.3 (2023-07-14)
+## 1.9.0 (2023-07-17)
+
+### New feature:
+
+-   Add Hide Window Option for OCR([`f583d21`](https://github.com/pot-app/pot-desktop/commit/f583d21a8c6663c45d8e3914a150be334aaa5f0a)) (by @Pylogmon)
+-   Add Brazilian Portuguese support (#303) ([`6747e37`](https://github.com/pot-app/pot-desktop/commit/6747e3724f60c732c4cf7f104a19049c4fcf46d2)) (by @Havokdan)
+-   Add Hide Window Option([`d7e1ea7`](https://github.com/pot-app/pot-desktop/commit/d7e1ea76da43778b52ff3f854a69b5fdada716b3)) (by @Pylogmon)
 
 ### Bugs fixed:
 
-- Screenshot Size Error on Wayland([`075eba9`](https://github.com/pot-app/pot-desktop/commit/075eba9864a5171dd2032cbfe5363a85275d0cab)) (by Pylogmon)
+-   Update Simple Latex to V2([`80b72b8`](https://github.com/pot-app/pot-desktop/commit/80b72b8f81cc848ac5e691cacf0fc27a8eed2774)) (by @Pylogmon)
