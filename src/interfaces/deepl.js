@@ -53,8 +53,8 @@ export async function translate(text, from, to, setText, id) {
         params: {
             splitting: 'newlines',
             lang: {
-                source_lang_user_selected: supportLanguage[from],
-                target_lang: supportLanguage[to],
+                source_lang_user_selected: from !== 'auto' ? supportLanguage[from].slice(0, 2) : 'auto',
+                target_lang: supportLanguage[to].slice(0, 2),
             },
             texts: [{ text, requestAlternatives: 3 }],
             timestamp: getTimeStamp(getICount(text)),
@@ -79,7 +79,7 @@ export async function translate(text, from, to, setText, id) {
     if (res.ok) {
         let result = res.data;
         if (result && result.result && result.result.texts && result.result.lang) {
-            if (result.result.lang === supportLanguage[to]) {
+            if (result.result.lang === supportLanguage[to].slice(0, 2)) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage !== to) {
                     await translate(text, from, secondLanguage, setText, id);
@@ -119,11 +119,11 @@ async function translate_by_key(text, from, to, setText, id, key) {
         body: Body.json(body),
         headers: headers,
     });
-    console.log(res);
+
     if (res.ok) {
         const result = res.data;
         if ((result.translations, result.translations[0])) {
-            if (result.translations[0]['detected_source_language'] === supportLanguage[to]) {
+            if (result.translations[0]['detected_source_language'] === supportLanguage[to].slice(0, 2)) {
                 let secondLanguage = get('second_language') ?? 'en';
                 if (secondLanguage !== to) {
                     await translate_by_key(text, from, secondLanguage, setText, id, key);
