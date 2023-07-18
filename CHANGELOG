@@ -1,11 +1,7 @@
-## 1.9.0 (2023-07-17)
-
-### New feature:
-
--   Add Hide Window Option for OCR([`f583d21`](https://github.com/pot-app/pot-desktop/commit/f583d21a8c6663c45d8e3914a150be334aaa5f0a)) (by @Pylogmon)
--   Add Brazilian Portuguese support (#303) ([`6747e37`](https://github.com/pot-app/pot-desktop/commit/6747e3724f60c732c4cf7f104a19049c4fcf46d2)) (by @Havokdan)
--   Add Hide Window Option([`d7e1ea7`](https://github.com/pot-app/pot-desktop/commit/d7e1ea76da43778b52ff3f854a69b5fdada716b3)) (by @Pylogmon)
+## 1.9.1 (2023-07-18)
 
 ### Bugs fixed:
 
--   Update Simple Latex to V2([`80b72b8`](https://github.com/pot-app/pot-desktop/commit/80b72b8f81cc848ac5e691cacf0fc27a8eed2774)) (by @Pylogmon)
+-   DeepL Error when translate to portuguese (#307)([`4c2c2c5`](https://github.com/pot-app/pot-desktop/commit/4c2c2c50dfc4f1d8996be9eb62f63676fc072cf7)) (by @Pylogmon)
+-   Screenshot Failed on Wayland([`aca0c04`](https://github.com/pot-app/pot-desktop/commit/aca0c04e38527abeebd56778017b01e4f6712a53)) (by @Pylogmon)
+-   Translate Tray Menu to Brazilian Portuguese (#305)([`1220256`](https://github.com/pot-app/pot-desktop/commit/1220256173f50ea3bf7610dd06b56c75d9b74f80)) (by @Pylogmon)
