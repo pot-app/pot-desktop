@@ -60,15 +60,17 @@ fn main() {
             } else if argv.contains(&"screenshot_ocr".to_string()) {
                 if argv.contains(&"without_screenshot".to_string()){
                     ocr_window();
-                }else{
+                } else {
                     screenshot_ocr_window();
                 }
             } else if argv.contains(&"screenshot_translate".to_string()) {
-                if argv.contains(&"without_screenshot".to_string()){
+                if argv.contains(&"without_screenshot".to_string()) {
                     popclip_ocr_window();
-                }else{
+                } else {
                     screenshot_translate_window();
                 }
+            } else if argv.contains(&"config".to_string()) {
+                on_config_click(app);
             } else {
                 Notification::new(&app.config().tauri.bundle.identifier)
                     .title("The program is already running. Please do not start it again!")
