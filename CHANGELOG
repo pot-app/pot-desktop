@@ -1,7 +1,8 @@
-## 1.9.1 (2023-07-18)
+## 1.10.0 (2023-07-21)
 
-### Bugs fixed:
+### New feature:
 
--   DeepL Error when translate to portuguese (#307)([`4c2c2c5`](https://github.com/pot-app/pot-desktop/commit/4c2c2c50dfc4f1d8996be9eb62f63676fc072cf7)) (by @Pylogmon)
--   Screenshot Failed on Wayland([`aca0c04`](https://github.com/pot-app/pot-desktop/commit/aca0c04e38527abeebd56778017b01e4f6712a53)) (by @Pylogmon)
--   Translate Tray Menu to Brazilian Portuguese (#305)([`1220256`](https://github.com/pot-app/pot-desktop/commit/1220256173f50ea3bf7610dd06b56c75d9b74f80)) (by @Pylogmon)
+-   Add Baidu Image Translate([`cc61e15`](https://github.com/pot-app/pot-desktop/commit/cc61e15fe6ae8484d903d0479833b0101ed3af41)) (by @Pylogmon)
+-   Support invoke config in command([`897d153`](https://github.com/pot-app/pot-desktop/commit/897d1530412691039df74416bb3ede42358d60cc)) (by @Pylogmon)
+-   Support ocr without screenshot([`46f33ee`](https://github.com/pot-app/pot-desktop/commit/46f33ee903a3450e3d6afdf217a66659ef450cdd)) (by @Pylogmon)
+-   Add Baidu Field Translate([`fb92f1e`](https://github.com/pot-app/pot-desktop/commit/fb92f1e455c0d94e0f808d31a5b6f33bab34ca2d)) (by @Pylogmon)
