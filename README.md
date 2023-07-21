@@ -190,7 +190,7 @@ paru -S pot-translation
 
 <div align="center">
 
-## Plugin Invocation
+# Plugin Invocation
 
 </div>
 
@@ -237,6 +237,54 @@ curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # The body content is wha
 Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 <div align="center">
+
+# Wayland Support
+
+Due to the varying levels of support for Wayland among different distributions, pot itself cannot achieve perfect compatibility. However, here are some solutions to common issues that can be implemented through proper configuration, allowing pot to run flawlessly on Wayland.
+
+## Shortcut key cannot be used
+
+Due to Tauri's lack of support for Wayland, the shortcut key scheme in the pot application cannot be used under Wayland.
+To address this issue, pot provides command-line startup parameters that allow system shortcuts to be set through commands.
+
+> All commands need "pot" to remain running in the background.
+
+```bash
+pot cofig # Start the configuration window
+pot persistent # Input translation
+pot translate # Selection translation
+pot screenshot_ocr # Screenshot OCR
+pot screenshot_translate # Screenshot Translate
+pot screenshot_ocr without_screenshot # Screenshot OCR(without screenshot)
+pot screenshot_translate without_screenshot # Screenshot Translate(without screenshot)
+```
+
+Example for Gnome:
+
+![](./asset/shortcut.png)
+
+## Screenshot doesn't work
+
+In some pure Wayland desktop environments/window managers (such as Hyprland), the built-in screenshot feature of pot cannot be used. In this case, you can use other screenshot tools instead by using command line parameters. Simply save the screenshot to `~/.cache/com.pylogmon.pot/pot_screenshot_cut.png` and then execute `pot screenshot_ocr without_screenshot`.
+
+Here is an example configuration in Hyprland (using grim and slurp for screenshots):
+
+```conf
+bind = ALT, X, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_ocr without_screenshot
+bind = ALT, C, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_translate without_screenshot
+```
+
+Other desktop environments/window managers also have similar operations.
+
+## The translation window follows the mouse position.
+
+Due to the current inability of pot to obtain accurate mouse coordinates under Wayland, its internal implementation cannot function properly.
+For certain desktop environments/window managers, it is possible to achieve window following mouse position by setting window rules. Here we take Hyprland as an example:
+
+```conf
+windowrulev2 = float, class:(pot), title:(Translator|OCR|PopClip|Screenshot Translate) # Translation window floating
+windowrulev2 = move cursor 0 0, class:(pot), title:(Translator|PopClip|Screenshot Translate) # Translation window follows the mouse position.
+```
 
 # Contributors
 
