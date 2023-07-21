@@ -241,7 +241,9 @@
                 "issue": "Issue",
                 "feature": "Feature Request",
                 "contact": "Contact us",
-                "community": "Community"
+                "community": "Community",
+                "qqchannel": "QQ Channel",
+                "qqgroup": "QQ Group"
             }
         },
         "translator": {

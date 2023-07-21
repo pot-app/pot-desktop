@@ -241,7 +241,9 @@
                 "issue": "Проблема",
                 "feature": "Запрос функции",
                 "contact": "Связаться с нами",
-                "community": "Сообщество"
+                "community": "Сообщество",
+                "qqchannel": "QQ-канал",
+                "qqgroup": "QQ группа"
             }
         },
         "translator": {

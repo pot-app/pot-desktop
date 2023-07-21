@@ -241,7 +241,9 @@
                 "issue": "Problemas",
                 "feature": "Pedido de Recursos",
                 "contact": "Contate-nos",
-                "community": "Comunidade"
+                "community": "Comunidade",
+                "qqchannel": "Canal do QQ",
+                "qqgroup": "Grupo do QQ"
             }
         },
         "translator": {

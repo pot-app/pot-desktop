@@ -241,7 +241,9 @@
                 "issue": "提交Issue",
                 "feature": "新需求",
                 "contact": "联系我们",
-                "community": "社区"
+                "community": "社区",
+                "qqchannel": "QQ 频道",
+                "qqgroup": "QQ 群组"
             }
         },
         "translator": {

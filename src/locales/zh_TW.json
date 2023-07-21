@@ -241,7 +241,9 @@
                 "issue": "提出 Issue",
                 "feature": "新功能需求",
                 "contact": "聯絡我們",
-                "community": "社區"
+                "community": "社區",
+                "qqchannel": "QQ 頻道",
+                "qqgroup": "QQ 群組"
             }
         },
         "translator": {

@@ -227,12 +227,21 @@ export default function AppInfo() {
             <h3>{t('config.about.community')}</h3>
             <ul>
                 <li>
-                    QQ 频道:&nbsp;&nbsp;
+                    {t('config.about.qqchannel')}:&nbsp;&nbsp;
                     <a
                         href='https://pd.qq.com/s/akns94e1r'
                         target='_blank'
                     >
                         pd.qq.com/s/akns94e1r
+                    </a>
+                </li>
+                <li>
+                    {t('config.about.qqgroup')}:&nbsp;&nbsp;
+                    <a
+                        href='https://pot-app.com/img/qq_group.png'
+                        target='_blank'
+                    >
+                        767701966
                     </a>
                 </li>
                 <li>
