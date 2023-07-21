@@ -1,4 +1,5 @@
 export * as baidu from './baidu';
+export * as baidu_field from './baidu_field';
 export * as caiyun from './caiyun';
 export * as openai from './openai';
 export * as openai_polish from './openai_polish';
