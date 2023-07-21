@@ -240,6 +240,8 @@ Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 # Wayland Support
 
+</div>
+
 Due to the varying levels of support for Wayland among different distributions, pot itself cannot achieve perfect compatibility. However, here are some solutions to common issues that can be implemented through proper configuration, allowing pot to run flawlessly on Wayland.
 
 ## Shortcut key cannot be used
@@ -285,6 +287,8 @@ For certain desktop environments/window managers, it is possible to achieve wind
 windowrulev2 = float, class:(pot), title:(Translator|OCR|PopClip|Screenshot Translate) # Translation window floating
 windowrulev2 = move cursor 0 0, class:(pot), title:(Translator|PopClip|Screenshot Translate) # Translation window follows the mouse position.
 ```
+
+<div align="center">
 
 # Contributors
 
