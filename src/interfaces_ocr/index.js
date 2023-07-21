@@ -1,6 +1,7 @@
 export * as tesseract from './tesseract';
 export * as baidu from './baidu';
 export * as baidu_accurate from './baidu_accurate';
+export * as baidu_img from './baidu_img';
 export * as tencent from './tencent';
 export * as tencent_accurate from './tencent_accurate';
 export * as tencent_img from './tencent_img';
