@@ -301,54 +301,54 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
-  build-for-deepin:
-    needs: change-version
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [ubuntu-latest]
-        target: [universal]
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: source
-      - name: Build for Deepin
-        uses: ./actions/build-for-deepin
-        env:
-          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
-      - name: Change Name
-        run: |
-          name=$(ls src-tauri/target/release/bundle/deb/*.deb)
-          new_name=${name%.*}_${{ matrix.target }}.deb
-          sudo mv src-tauri/target/release/bundle/deb/*.deb ${new_name}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot_${{ matrix.target }}.deb
-          path: src-tauri/target/release/bundle/deb/*.deb
-          if-no-files-found: error
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot.AppImage
-          path: src-tauri/target/release/bundle/appimage/*.AppImage
-          if-no-files-found: error
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/release/bundle/deb/*.deb
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/release/bundle/appimage/*.AppImage*
+  # build-for-deepin:
+  #   needs: change-version
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       platform: [ubuntu-latest]
+  #       target: [universal]
+  #   runs-on: ${{ matrix.platform }}
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: source
+  #     - name: Build for Deepin
+  #       uses: ./actions/build-for-deepin
+  #       env:
+  #         TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+  #         TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+  #     - name: Change Name
+  #       run: |
+  #         name=$(ls src-tauri/target/release/bundle/deb/*.deb)
+  #         new_name=${name%.*}_${{ matrix.target }}.deb
+  #         sudo mv src-tauri/target/release/bundle/deb/*.deb ${new_name}
+  #     - name: Upload Artifacts
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: pot_${{ matrix.target }}.deb
+  #         path: src-tauri/target/release/bundle/deb/*.deb
+  #         if-no-files-found: error
+  #     - name: Upload Artifacts
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: pot.AppImage
+  #         path: src-tauri/target/release/bundle/appimage/*.AppImage
+  #         if-no-files-found: error
+  #     - name: Upload Release
+  #       if: startsWith(github.ref, 'refs/tags')
+  #       uses: softprops/action-gh-release@v1
+  #       with:
+  #         body_path: CHANGELOG
+  #         token: ${{ secrets.TOKEN }}
+  #         files: src-tauri/target/release/bundle/deb/*.deb
+  #     - name: Upload Release
+  #       if: startsWith(github.ref, 'refs/tags')
+  #       uses: softprops/action-gh-release@v1
+  #       with:
+  #         body_path: CHANGELOG
+  #         token: ${{ secrets.TOKEN }}
+  #         files: src-tauri/target/release/bundle/appimage/*.AppImage*
 
   # build-for-arm:
   #   needs: change-version
@@ -506,7 +506,7 @@ jobs:
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
   release-update:
-    needs: [build-for-macos, build-for-deepin, build-for-windows, build-for-linux]
+    needs: [build-for-macos, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
