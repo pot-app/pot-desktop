@@ -14,8 +14,6 @@ async function resolveUpdater() {
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
     const darwin_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
-    const linux_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_amd64.AppImage.tar.gz`;
-    const linux_x86_64_sig = await getSignature(linux_x86_64 + '.sig');
     const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64-setup.nsis.zip`;
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
     const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86-setup.nsis.zip`;
@@ -30,13 +28,11 @@ async function resolveUpdater() {
         platforms: {
             'darwin-aarch64': { signature: darwin_aarch64_sig, url: 'https://ghproxy.com/' + darwin_aarch64 },
             'darwin-x86_64': { signature: darwin_x86_64_sig, url: 'https://ghproxy.com/' + darwin_x86_64 },
-            'linux-x86_64': { signature: linux_x86_64_sig, url: 'https://ghproxy.com/' + linux_x86_64 },
             'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://ghproxy.com/' + windows_x86_64 },
             'windows-i686': { signature: windows_i686_sig, url: 'https://ghproxy.com/' + windows_i686 },
             'windows-aarch64': { signature: windows_aarch64_sig, url: 'https://ghproxy.com/' + windows_aarch64 },
         },
     };
-
     fs.writeFile('./update.json', JSON.stringify(updateData), (e) => {
         console.log(e);
     });
