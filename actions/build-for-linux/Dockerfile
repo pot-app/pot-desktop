@@ -1,5 +1,5 @@
 FROM rust:buster
-RUN rustup target add $INPUT_TARGET && rustup toolchain install --force-non-host $INPUT_TOOLCHAIN
+RUN rustup target add ${INPUT_TARGET} && rustup toolchain install --force-non-host ${INPUT_TOOLCHAIN}
 RUN if [ "$INPUT_TARGET" = "x86_64-unknown-linux-gnu" ]; then \
         apt-get update && apt-get install -y wget libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3 \
     elif [ "$INPUT_TARGET" = "i686-unknown-linux-gnu" ]; then \
