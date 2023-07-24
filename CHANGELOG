@@ -1,8 +1,8 @@
-## 1.10.0 (2023-07-21)
+## 1.10.1 (2023-07-21)
 
 ### New feature:
 
--   Add Baidu Image Translate([`cc61e15`](https://github.com/pot-app/pot-desktop/commit/cc61e15fe6ae8484d903d0479833b0101ed3af41)) (by @Pylogmon)
--   Support invoke config in command([`897d153`](https://github.com/pot-app/pot-desktop/commit/897d1530412691039df74416bb3ede42358d60cc)) (by @Pylogmon)
--   Support ocr without screenshot([`46f33ee`](https://github.com/pot-app/pot-desktop/commit/46f33ee903a3450e3d6afdf217a66659ef450cdd)) (by @Pylogmon)
--   Add Baidu Field Translate([`fb92f1e`](https://github.com/pot-app/pot-desktop/commit/fb92f1e455c0d94e0f808d31a5b6f33bab34ca2d)) (by @Pylogmon)
+-   Reset Linux build environment([`fc215d1`](https://github.com/pot-app/pot-desktop/commit/fc215d1d204a2318eee7a9388cd20fa2be75e0d5)) (by Pylogmon)
+-   Change OpenSSL to static linking([`c2decc9`](https://github.com/pot-app/pot-desktop/commit/c2decc99912ad0f4f710d083c7b9c98189e6c143)) (by Pylogmon)
+
+    (AppImage packages are no longer available from this version)
