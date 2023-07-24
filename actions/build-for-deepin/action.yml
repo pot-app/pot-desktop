@@ -1,7 +1,0 @@
-name: 'Build for Deepin'
-branding:
-  icon: user-check
-  color: gray-dark
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
