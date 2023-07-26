@@ -72,7 +72,7 @@ export default function Translator() {
                 <Grid
                     style={{
                         width: '100%',
-                        display: appWindow.label !== 'persistent' && (get('hide_source') ?? false) ? 'none' : '',
+                        display: appWindow.label !== 'persistent' && (get('hide_language') ?? false) ? 'none' : '',
                     }}
                 >
                     <LanguageSelector />
