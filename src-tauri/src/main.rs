@@ -4,12 +4,14 @@
 )]
 
 mod config;
+mod ocr;
 mod shortcut;
 mod trayicon;
 mod utils;
 mod window;
 
 use config::*;
+use ocr::*;
 use once_cell::sync::OnceCell;
 use shortcut::register_shortcut;
 use std::sync::Mutex;
@@ -225,7 +227,8 @@ fn main() {
             screenshot,
             cut_screenshot,
             print,
-            get_base64
+            get_base64,
+            system_ocr
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {

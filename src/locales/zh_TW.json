@@ -158,7 +158,8 @@
                 "iflytek_ocr_intsig_appid": "APPID",
                 "iflytek_ocr_intsig_apikey": "API Key",
                 "iflytek_ocr_intsig_apisecret": "API Secret",
-                "qrcode": "QR code 辨識"
+                "qrcode": "QR code 辨識",
+                "system": "系統 OCR"
             },
             "interface": {
                 "label": "相關 API 設定",

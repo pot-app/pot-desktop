@@ -3,6 +3,15 @@
         "systemTray": {
             "iconPath": "icons/icon_mac.ico",
             "iconAsTemplate": true
+        },
+        "allowlist": {
+            "shell": {
+                "sidecar": true,
+                "scope": [{ "name": "sidecar/ocr", "sidecar": true }]
+            }
+        },
+        "bundle": {
+            "externalBin": ["sidecar/ocr"]
         }
     }
 }

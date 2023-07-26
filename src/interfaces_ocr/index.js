@@ -15,3 +15,4 @@ export * as iflytek_latex from './iflytek_latex';
 export * as iflytek from './iflytek';
 export * as iflytek_intsig from './iflytek_intsig';
 export * as qrcode from './qrcode';
+export * as system from './system';
