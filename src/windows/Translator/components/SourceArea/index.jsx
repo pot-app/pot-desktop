@@ -36,7 +36,7 @@ export default function SourceArea() {
         setOcrSuccess(false);
         setText(t('translator.sourcearea.ocr'));
         invoke('get_base64').then((base64) => {
-            let ocror = ocrs[get('screenshot_translate_interface') ?? 'tesseract'];
+            let ocror = ocrs[get('screenshot_translate_interface') ?? 'system'];
             ocror.ocr(base64, get('ocr_language') ?? 'auto', setFormatText, 'translate').then(
                 (_) => {
                     setOcrSuccess(true);
