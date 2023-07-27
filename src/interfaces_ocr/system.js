@@ -1,8 +1,7 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import { resolveResource } from '@tauri-apps/api/path';
-import { Command } from '@tauri-apps/api/shell';
-import { arch } from '@tauri-apps/api/os';
 import { invoke } from '@tauri-apps/api';
+import { Command } from '@tauri-apps/api/shell';
+import { type } from '@tauri-apps/api/os';
 
 export const info = {
     name: 'system',
@@ -21,6 +20,7 @@ export const info = {
         it: 'ita',
         tr: 'tur',
         pt: 'por',
+        pt_br: 'por',
         vi: 'vie',
         id: 'ind',
         th: 'tha',
@@ -32,16 +32,15 @@ export const info = {
 };
 
 export async function ocr(_, lang, setText, id) {
-    const is_linux = await invoke('is_linux');
-    const is_macos = await invoke('is_macos');
+    const platform = await type();
 
-    if (is_linux) {
+    if (platform === 'Linux') {
         const { supportLanguage } = info;
         const result = await invoke('system_ocr', { lang: supportLanguage[lang] });
         if (ocrID === id || id === 'translate') {
             setText(result);
         }
-    } else if (is_macos) {
+    } else if (platform === 'Darwin') {
         const supportLanguage_for_macos = {
             auto: 'auto',
             zh_cn: 'zh-Hans',
@@ -57,6 +56,7 @@ export async function ocr(_, lang, setText, id) {
             it: 'it-IT',
             tr: 'tr-TR',
             pt: 'pt-PT',
+            pt_br: 'pt-BR',
             vi: 'vi-VN',
             id: 'id-ID',
             th: 'th-TH',
@@ -65,11 +65,7 @@ export async function ocr(_, lang, setText, id) {
             hi: 'hi-IN',
         }
         const img_path = await invoke('system_ocr');
-        const archName = await arch();
-
-        const bin_path = await resolveResource(`resources/ocr-${archName}-apple-darwin`);
-        const command = new Command(bin_path, [img_path, supportLanguage_for_macos[lang]]);
-
+        const command = Command.sidecar('bin/ocr', [img_path, supportLanguage_for_macos[lang]]);
         const output = await command.execute();
         if (!output.code) {
             if (ocrID === id || id === 'translate') {
@@ -79,7 +75,30 @@ export async function ocr(_, lang, setText, id) {
             throw output.stderr;
         }
     } else {
-        const result = await invoke('system_ocr');
+        const supportLanguage_for_win = {
+            auto: 'auto',
+            zh_cn: 'zh-CN',
+            zh_tw: 'zh-TW',
+            en: 'en-US',
+            yue: 'zh-HK',
+            ja: 'ja-JP',
+            ko: 'ko-KR',
+            fr: 'fr-FR',
+            es: 'es-ES',
+            ru: 'ru-RU',
+            de: 'de-DE',
+            it: 'it-IT',
+            tr: 'tr-TR',
+            pt: 'pt-PT',
+            pt_br: 'pt-BR',
+            vi: 'vi-VN',
+            id: 'id-ID',
+            th: 'th-TH',
+            ms: 'ms-MY',
+            ar: 'ar-SA',
+            hi: 'hi-IN',
+        }
+        const result = await invoke('system_ocr', { lang: supportLanguage_for_win[lang] });
         if (ocrID === id || id === 'translate') {
             setText(result);
         }

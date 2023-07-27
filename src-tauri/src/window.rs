@@ -44,7 +44,9 @@ pub fn build_translate_window(
         // 获取窗口所在的显示器信息
         let _monitor = window.current_monitor().unwrap().unwrap();
 
-        window.set_size(tauri::LogicalSize::new(width, height)).unwrap();
+        window
+            .set_size(tauri::LogicalSize::new(width, height))
+            .unwrap();
         // 获取到显示器信息之后再移动窗口，确保窗口大小正确
         match label {
             "persistent" => window.center().unwrap(),

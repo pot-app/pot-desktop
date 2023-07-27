@@ -21,6 +21,7 @@ export const info = {
         de: 'ger',
         it: 'ita',
         pt: 'por',
+        pt_br: 'por',
         vi: 'vie',
         th: 'tha',
         ms: 'may',

@@ -18,6 +18,7 @@ export const info = {
         de: 'GER',
         it: 'ITA',
         pt: 'POR',
+        pt_br: 'POR',
     },
     needs: [
         {

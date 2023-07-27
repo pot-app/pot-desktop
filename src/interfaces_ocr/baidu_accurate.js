@@ -19,6 +19,7 @@ export const info = {
         it: 'ITA',
         tr: 'TUR',
         pt: 'POR',
+        pt_br: 'POR',
         vi: 'VIE',
         id: 'IND',
         th: 'THA',

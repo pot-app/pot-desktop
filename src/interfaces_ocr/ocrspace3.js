@@ -17,6 +17,7 @@ export const info = {
         it: 'ita',
         tr: 'tur',
         pt: 'por',
+        pt_br: 'por',
         ar: 'ara',
         vi: 'vie',
         hi: 'hin',
