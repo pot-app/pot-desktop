@@ -1,13 +1,13 @@
-## 1.11.0 (2023-07-27)
-
-### New feature:
-
--   Add Tesseract as Linux System OCR([`e0549b7`](https://github.com/pot-app/pot-desktop/commit/e0549b703daf65ed048f4d7aa8e75968f0c1b986)) (by @Pylogmon)
--   Add System OCR (#322)([`e9a8ff2`](https://github.com/pot-app/pot-desktop/commit/e9a8ff225a3275896703f6ae292946c8f03d5087)) (by @Pylogmon)
+## 1.11.1 (2023-07-27)
 
 ### Bugs fixed:
 
--   Permission issue([`0ac2bf5`](https://github.com/pot-app/pot-desktop/commit/0ac2bf5c80fbe9574959b24636023ca39fad73fd)) (by @Pylogmon)
+-   OCR cannot be used([`5f094d5`](https://github.com/pot-app/pot-desktop/commit/5f094d50cf150c0ac1cf2cc75535967de5d89a3e)) (by @Pylogmon)
+-   Permission denied on macos([`899d646`](https://github.com/pot-app/pot-desktop/commit/899d646ef1b3dff3c1d57dd41bd87290963b71ba)) (by @Pylogmon)
+
+### Performance improves:
+
+-   Add Language Support for Windows System OCR([`19596e7`](https://github.com/pot-app/pot-desktop/commit/19596e7e18f8f05169b1c6e9947f3c435188d5b8)) (by @Pylogmon)
 
 ### BREAKING CHANGE:
 
