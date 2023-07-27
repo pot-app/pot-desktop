@@ -50,7 +50,7 @@ export const shortcutScreenshotTranslateAtom = atom('');
 export const fontSizeAtom = atom('1rem');
 export const ocrInterfaceAtom = atom('system');
 export const screenshotTranslateInterfaceAtom = atom('system');
-export const ocrLanguageAtom = atom('en');
+export const ocrLanguageAtom = atom('auto');
 export const ocrCopyAtom = atom(false);
 export const hideWindowAtom = atom(false);
 export const hideOcrWindowAtom = atom(false);
@@ -147,7 +147,7 @@ export default function Config() {
         setFontSize(get('font_size') ?? '1rem');
         setOcrInterface(get('ocr_interface') ?? 'system');
         setScreenshotTranslateInterface(get('screenshot_translate_interface') ?? 'system');
-        setOcrLanguage(get('ocr_language') ?? 'en');
+        setOcrLanguage(get('ocr_language') ?? 'auto');
         setOcrCopy(get('ocr_copy') ?? false);
         setHideWindow(get('hide_window') ?? false);
         setHideOcrWindow(get('hide_ocr_window') ?? false);

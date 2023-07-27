@@ -15,7 +15,7 @@ import { get } from '../../../main';
 import { useEffect } from 'react';
 
 export const ocrInterfaceAtom = atom('system');
-export const ocrLanguageAtom = atom('en');
+export const ocrLanguageAtom = atom('auto');
 export const ocrStartFlagAtom = atom();
 
 export default function OcrController() {
@@ -26,7 +26,7 @@ export default function OcrController() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        setOcrLanguage(get('ocr_language') ?? 'en');
+        setOcrLanguage(get('ocr_language') ?? 'auto');
         setOcrInterface(get('ocr_interface') ?? 'system');
     }, []);
     return (
