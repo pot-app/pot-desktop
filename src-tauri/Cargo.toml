@@ -14,7 +14,7 @@ tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
 serde_json = "1.0"
-tauri = { version = "1.4", features = [ "clipboard-all", "dialog-open", "fs-read-file", "global-shortcut-all", "http-all", "http-multipart", "notification", "notification-all", "path-all", "protocol-asset", "shell-open", "system-tray", "updater", "window-all"] }
+tauri = { version = "1.4", features = [ "os-all", "clipboard-all", "dialog-open", "fs-read-file", "global-shortcut-all", "http-all", "http-multipart", "notification", "notification-all", "path-all", "protocol-asset", "shell-open", "system-tray", "updater", "window-all"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 screenshots = {git = "https://github.com/pot-app/screenshots-rs"}

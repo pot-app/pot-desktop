@@ -47,6 +47,9 @@
                 "all": true,
                 "request": true,
                 "scope": ["http://**", "https://**"]
+            },
+            "os": {
+                "all": true
             }
         },
         "bundle": {

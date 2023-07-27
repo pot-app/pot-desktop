@@ -4,14 +4,8 @@
             "iconPath": "icons/icon_mac.ico",
             "iconAsTemplate": true
         },
-        "allowlist": {
-            "shell": {
-                "sidecar": true,
-                "scope": [{ "name": "bin/ocr", "sidecar": true }]
-            }
-        },
         "bundle": {
-            "externalBin": ["bin/ocr"]
+            "resources": ["resources/*"]
         }
     }
 }
