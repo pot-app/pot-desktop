@@ -40,8 +40,30 @@ export async function ocr(_, lang, setText, id) {
             setText(result);
         }
     } else if (is_macos) {
+        const supportLanguage_for_macos = {
+            auto: 'auto',
+            zh_cn: 'zh-Hans',
+            zh_tw: 'zh-Hant',
+            en: 'en-US',
+            yue: 'zh-Hans',
+            ja: 'ja-JP',
+            ko: 'ko-KR',
+            fr: 'fr-FR',
+            es: 'es-ES',
+            ru: 'ru-RU',
+            de: 'de-DE',
+            it: 'it-IT',
+            tr: 'tr-TR',
+            pt: 'pt-PT',
+            vi: 'vi-VN',
+            id: 'id-ID',
+            th: 'th-TH',
+            ms: 'ms-MY',
+            ar: 'ar-SA',
+            hi: 'hi-IN',
+        }
         const img_path = await invoke('system_ocr');
-        const command = Command.sidecar('sidecar/ocr', img_path);
+        const command = Command.sidecar('sidecar/ocr', [img_path, supportLanguage_for_macos[lang]]);
         const output = await command.execute();
         if (!output.code) {
             if (ocrID === id || id === 'translate') {
