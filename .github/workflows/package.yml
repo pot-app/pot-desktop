@@ -22,40 +22,6 @@ jobs:
       - id: outputstep
         run: |
           echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> "$GITHUB_OUTPUT"
-      - name: Change Version
-        run: |
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')\",/g" package.json
-
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/tauri.conf.json
-
-          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' |sed 's/.\(r[0-9]\)/\-\1/')\"/g" src-tauri/Cargo.toml
-
-          echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.\(r[0-9]\)/\-\1/')
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: source
-          path: ./*
-          if-no-files-found: error
-
-  change-version-for-windows:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.outputstep.outputs.VERSION }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-      - id: outputstep
-        run: |
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> "$GITHUB_OUTPUT"
       - name: Change Version for Windows
         run: |
           sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\",/g" package.json
@@ -69,7 +35,7 @@ jobs:
       - name: Upload Artifacts for Windows
         uses: actions/upload-artifact@v3
         with:
-          name: source-win
+          name: source
           path: ./*
           if-no-files-found: error
 
@@ -151,8 +117,8 @@ jobs:
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
-          sudo chmod +x src-tauri/bin/*
-          chmod +x src-tauri/bin/*
+          sudo chmod +x src-tauri/resources/*
+          chmod +x src-tauri/resources/*
       - name: Change File Name
         if: matrix.target == 'aarch64-apple-darwin'
         run: |
@@ -166,8 +132,14 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: pot_${{ matrix.target }}.dmg
+          name: macos_${{ matrix.target }}_dmg
           path: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos_${{ matrix.target }}_updater
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -184,7 +156,7 @@ jobs:
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
   build-for-windows:
-    needs: change-version-for-windows
+    needs: change-version
     strategy:
       fail-fast: false
       matrix:
@@ -204,7 +176,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: source-win
+          name: source
       - name: Setup Nodejs
         uses: actions/setup-node@v3
         with:
@@ -231,8 +203,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: pot_${{ matrix.target }}.exe
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.exe
+          name: windows_${{ matrix.target }}
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.exe*
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -277,7 +249,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: pot_${{ matrix.target }}
+          name: linux_${{ matrix.target }}
           path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
           if-no-files-found: error
       - name: Upload Release
