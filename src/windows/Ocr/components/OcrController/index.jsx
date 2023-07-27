@@ -14,7 +14,7 @@ import { resultTextAtom } from '../TextArea';
 import { get } from '../../../main';
 import { useEffect } from 'react';
 
-export const ocrInterfaceAtom = atom('tesseract');
+export const ocrInterfaceAtom = atom('system');
 export const ocrLanguageAtom = atom('en');
 export const ocrStartFlagAtom = atom();
 
@@ -27,7 +27,7 @@ export default function OcrController() {
 
     useEffect(() => {
         setOcrLanguage(get('ocr_language') ?? 'en');
-        setOcrInterface(get('ocr_interface') ?? 'tesseract');
+        setOcrInterface(get('ocr_interface') ?? 'system');
     }, []);
     return (
         <>

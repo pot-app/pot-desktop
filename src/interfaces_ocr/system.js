@@ -98,9 +98,20 @@ export async function ocr(_, lang, setText, id) {
             ar: 'ar-SA',
             hi: 'hi-IN',
         }
-        const result = await invoke('system_ocr', { lang: supportLanguage_for_win[lang] });
-        if (ocrID === id || id === 'translate') {
-            setText(result);
-        }
+
+        await invoke('system_ocr', { lang: supportLanguage_for_win[lang] }).then(
+            result => {
+                if (ocrID === id || id === 'translate') {
+                    setText(result);
+                }
+            },
+            err => {
+                if (err.toString().includes('0x00000000')) {
+                    throw 'Language package not installed!\n\nSee: https://learn.microsoft.com/zh-cn/windows/powertoys/text-extractor#supported-languages';
+                } else {
+                    throw err.toString();
+                }
+            }
+        )
     }
 }
