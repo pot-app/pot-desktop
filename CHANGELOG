@@ -1,8 +1,14 @@
-## 1.10.1 (2023-07-21)
+## 1.11.0 (2023-07-27)
 
 ### New feature:
 
--   Reset Linux build environment([`fc215d1`](https://github.com/pot-app/pot-desktop/commit/fc215d1d204a2318eee7a9388cd20fa2be75e0d5)) (by Pylogmon)
--   Change OpenSSL to static linking([`c2decc9`](https://github.com/pot-app/pot-desktop/commit/c2decc99912ad0f4f710d083c7b9c98189e6c143)) (by Pylogmon)
+-   Add Tesseract as Linux System OCR([`e0549b7`](https://github.com/pot-app/pot-desktop/commit/e0549b703daf65ed048f4d7aa8e75968f0c1b986)) (by @Pylogmon)
+-   Add System OCR (#322)([`e9a8ff2`](https://github.com/pot-app/pot-desktop/commit/e9a8ff225a3275896703f6ae292946c8f03d5087)) (by @Pylogmon)
 
-    (AppImage packages are no longer available from this version)
+### BREAKING CHANGE:
+
+-   Windows 安装包问题还没有修复，需要以管理员权限运行 pot 之后才能应用内更新
+-   本次更新删除了 Tesseract OCR 接口，如果默认 OCR 设置为 Tesseract，更新后会出现 OCR 白屏的问题，请切换为 [系统 OCR] 再使用
+
+-   The issue with the Windows installation package has not been fixed yet. You need to run pot as an administrator in order to apply the internal updates.
+-   In this update, the Tesseract OCR interface has been removed. If your default OCR setting is Tesseract, you will encounter a white screen issue after updating. Please switch to [System OCR] before using it again.
