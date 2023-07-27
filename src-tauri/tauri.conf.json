@@ -54,7 +54,7 @@
             "category": "Utility",
             "copyright": "GPLv3",
             "deb": {
-                "depends": ["libxdo-dev", "libxcb1", "libxrandr2"]
+                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr-all"]
             },
             "externalBin": [],
             "icon": [

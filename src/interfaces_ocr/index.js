@@ -1,4 +1,3 @@
-export * as tesseract from './tesseract';
 export * as baidu from './baidu';
 export * as baidu_accurate from './baidu_accurate';
 export * as baidu_img from './baidu_img';
