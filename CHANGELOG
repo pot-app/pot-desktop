@@ -5,6 +5,10 @@
 -   Add Tesseract as Linux System OCR([`e0549b7`](https://github.com/pot-app/pot-desktop/commit/e0549b703daf65ed048f4d7aa8e75968f0c1b986)) (by @Pylogmon)
 -   Add System OCR (#322)([`e9a8ff2`](https://github.com/pot-app/pot-desktop/commit/e9a8ff225a3275896703f6ae292946c8f03d5087)) (by @Pylogmon)
 
+### Bugs fixed:
+
+-   Permission issue([`0ac2bf5`](https://github.com/pot-app/pot-desktop/commit/0ac2bf5c80fbe9574959b24636023ca39fad73fd)) (by @Pylogmon)
+
 ### BREAKING CHANGE:
 
 -   Windows 安装包问题还没有修复，需要以管理员权限运行 pot 之后才能应用内更新
