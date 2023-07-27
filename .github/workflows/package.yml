@@ -151,7 +151,8 @@ jobs:
           export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
           export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
           pnpm tauri build --target ${{ matrix.target }}
-          sudo chmod +x src-tauri/sidecar/*
+          sudo chmod +x src-tauri/bin/*
+          chmod +x src-tauri/bin/*
       - name: Change File Name
         if: matrix.target == 'aarch64-apple-darwin'
         run: |

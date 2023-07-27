@@ -63,7 +63,7 @@ export async function ocr(_, lang, setText, id) {
             hi: 'hi-IN',
         }
         const img_path = await invoke('system_ocr');
-        const command = Command.sidecar('sidecar/ocr', [img_path, supportLanguage_for_macos[lang]]);
+        const command = Command.sidecar('bin/ocr', [img_path, supportLanguage_for_macos[lang]]);
         const output = await command.execute();
         if (!output.code) {
             if (ocrID === id || id === 'translate') {
