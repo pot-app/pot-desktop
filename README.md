@@ -178,14 +178,20 @@ Please note that: There are two deb package, `universal` is based on `glibc2.28`
 
 ### Arch/Manjaro
 
-View on [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation)
+1. View on [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation)
 
 Use aur helper：
 
 ```bash
-yay -S pot-translation
+yay -S pot-translation # or pot-translation-bin or pot-translation-git
 # or
-paru -S pot-translation
+paru -S pot-translation # or pot-translation-bin or pot-translation-git
+```
+
+2. If you are using `archlinuxcn`, you can install directly using pacman:
+
+```bash
+sudo pacman -S pot-translation-bin
 ```
 
 <div align="center">
