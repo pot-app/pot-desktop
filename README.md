@@ -98,7 +98,10 @@
 
 ## OCR
 
--   [x] [Tesseract](https://github.com/tesseract-ocr/tesseract) (Offline)
+-   [x] System OCR (Offline)
+    -   [x] [Windows.Media.OCR](https://learn.microsoft.com/en-us/uwp/api/windows.media.ocr.ocrengine?view=winrt-22621) on Windows
+    -   [x] [Apple Vision Framework](https://developer.apple.com/documentation/vision/recognizing_text_in_images) on MacOS
+    -   [x] [Tesseract OCR](https://github.com/tesseract-ocr) on Linux
 -   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
 -   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
 -   [x] [OCR Space](http://ocr.space/)
