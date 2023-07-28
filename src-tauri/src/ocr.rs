@@ -54,13 +54,31 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
     }
 }
 
-#[tauri::command]
+#[tauri::command(async)]
 #[cfg(target_os = "macos")]
-pub fn system_ocr(app_handle: tauri::AppHandle) -> Result<String, String> {
+pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, String> {
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot_cut.png");
-    Ok(app_cache_dir_path.to_str().unwrap().to_string())
+
+    let arch = std::env::consts::ARCH;
+    let bin_path = app_handle
+        .path_resolver()
+        .resolve_resource(format!("resources/ocr-{arch}-apple-darwin"))
+        .expect("failed to resolve ocr binary resource");
+
+    let output = std::process::Command::new(bin_path)
+        .args([app_cache_dir_path.to_str().unwrap(), lang])
+        .output()
+        .expect("failed to execute ocr binary");
+
+    if output.status.success() {
+        let content = String::from_utf8(output.stdout).unwrap();
+        Ok(content)
+    } else {
+        let content = String::from_utf8(output.stderr).unwrap();
+        Err(content)
+    }
 }
 
 #[tauri::command(async)]
