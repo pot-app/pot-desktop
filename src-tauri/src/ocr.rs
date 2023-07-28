@@ -70,6 +70,15 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
         None => return Err("Failed to resolve ocr binary".to_string()),
     };
 
+    match std::process::Command::new("chmod")
+        .arg("+x")
+        .arg(bin_path.to_str().unwrap())
+        .output()
+    {
+        Ok(_) => {}
+        Err(e) => return Err(e.to_string()),
+    }
+
     let output = match std::process::Command::new(bin_path)
         .arg(app_cache_dir_path.to_str().unwrap())
         .arg(lang)
