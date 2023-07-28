@@ -94,19 +94,27 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot_cut.png");
+    let mut args = ["", ""];
+    if lang != "auto" {
+        args = ["-l", lang];
+    }
+
     let output = match std::process::Command::new("tesseract")
         .arg(app_cache_dir_path.to_str().unwrap())
         .arg("stdout")
-        .arg("-l")
-        .arg(lang)
+        .arg("--psm")
+        .arg("4")
+        .args(args)
         .output()
     {
         Ok(v) => v,
         Err(e) => return Err(e.to_string()),
     };
-
-    match String::from_utf8(output.stdout) {
-        Ok(v) => Ok(v),
-        Err(e) => Err(e.to_string()),
+    if output.status.success() {
+        let content = String::from_utf8(output.stdout).unwrap_or_default();
+        Ok(content)
+    } else {
+        let content = String::from_utf8(output.stderr).unwrap_or_default();
+        Err(content)
     }
 }

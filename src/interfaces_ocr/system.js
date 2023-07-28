@@ -5,7 +5,7 @@ import { invoke } from '@tauri-apps/api';
 export const info = {
     name: 'system',
     supportLanguage: {
-        auto: 'chi_sim+eng+chi_tra+jpn+kor+fra+spa+rus+deu+ita+tur+por+vie+ind+tha+msa+ara+hin',
+        auto: 'auto',
         zh_cn: 'chi_sim',
         zh_tw: 'chi_tra',
         en: 'eng',
