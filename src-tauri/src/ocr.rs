@@ -62,21 +62,28 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
     app_cache_dir_path.push("pot_screenshot_cut.png");
 
     let arch = std::env::consts::ARCH;
-    let bin_path = app_handle
+    let bin_path = match app_handle
         .path_resolver()
         .resolve_resource(format!("resources/ocr-{arch}-apple-darwin"))
-        .expect("failed to resolve ocr binary resource");
+    {
+        Some(v) => v,
+        None => return Err("Failed to resolve ocr binary".to_string()),
+    };
 
-    let output = std::process::Command::new(bin_path)
-        .args([app_cache_dir_path.to_str().unwrap(), lang])
+    let output = match std::process::Command::new(bin_path)
+        .arg(app_cache_dir_path.to_str().unwrap())
+        .arg(lang)
         .output()
-        .expect("failed to execute ocr binary");
+    {
+        Ok(v) => v,
+        Err(e) => return Err(e.to_string()),
+    };
 
     if output.status.success() {
-        let content = String::from_utf8(output.stdout).unwrap();
+        let content = String::from_utf8(output.stdout).unwrap_or_default();
         Ok(content)
     } else {
-        let content = String::from_utf8(output.stderr).unwrap();
+        let content = String::from_utf8(output.stderr).unwrap_or_default();
         Err(content)
     }
 }
