@@ -1,7 +1,7 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
 import { resolveResource } from '@tauri-apps/api/path';
 import { Command } from '@tauri-apps/api/shell';
-import { type } from '@tauri-apps/api/os';
+import { type, arch } from '@tauri-apps/api/os';
 import { invoke } from '@tauri-apps/api';
 
 export const info = {
