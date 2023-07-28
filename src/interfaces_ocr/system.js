@@ -1,7 +1,8 @@
 import { ocrID } from '../windows/Ocr/components/TextArea';
-import { invoke } from '@tauri-apps/api';
+import { resolveResource } from '@tauri-apps/api/path';
 import { Command } from '@tauri-apps/api/shell';
 import { type } from '@tauri-apps/api/os';
+import { invoke } from '@tauri-apps/api';
 
 export const info = {
     name: 'system',
@@ -65,7 +66,11 @@ export async function ocr(_, lang, setText, id) {
             hi: 'hi-IN',
         }
         const img_path = await invoke('system_ocr');
-        const command = Command.sidecar('bin/ocr', [img_path, supportLanguage_for_macos[lang]]);
+        const archName = await arch();
+
+        const bin_path = await resolveResource(`resources/ocr-${archName}-apple-darwin`);
+        const command = new Command(bin_path, [img_path, supportLanguage_for_macos[lang]]);
+
         const output = await command.execute();
         if (!output.code) {
             if (ocrID === id || id === 'translate') {
