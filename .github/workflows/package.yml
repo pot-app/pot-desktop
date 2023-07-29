@@ -249,8 +249,14 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: linux_${{ matrix.target }}
+          name: linux_${{ matrix.target }}_deb
           path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+          if-no-files-found: error
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux_${{ matrix.target }}_rpm
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.rpm
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -259,6 +265,13 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG
+          token: ${{ secrets.TOKEN }}
+          files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.rpm
   release-update:
     needs: [build-for-macos, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest

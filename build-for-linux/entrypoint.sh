@@ -45,4 +45,6 @@ else
     echo "Unknown target: $INPUT_TARGET" && exit 1
 fi
 
+apt-get install -y rpm
+
 bash build.sh
