@@ -221,7 +221,8 @@
                 "youdao_appkey": "App Id",
                 "youdao_key": "App Key",
                 "display_format": "Formato de Exibição",
-                "yandex": "Yandex"
+                "yandex": "Yandex",
+                "tatoeba": "Tatoeba"
             },
             "about": {
                 "label": "Sobre",

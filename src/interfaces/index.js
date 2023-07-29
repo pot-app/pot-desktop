@@ -20,3 +20,4 @@ export * as palm from './palm';
 export * as cambridge_dict from './cambridge_dict';
 export * as moji_dict from './moji_dict';
 export * as yandex from './yandex';
+export * as tatoeba from './tatoeba';
