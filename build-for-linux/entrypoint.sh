@@ -1,5 +1,8 @@
 #!/bin/bash
 
+apt-get update
+apt-get install -y alien wget
+
 wget https://nodejs.org/dist/v19.8.1/node-v19.8.1-linux-x64.tar.xz
 tar -Jxvf ./node-v19.8.1-linux-x64.tar.xz
 export PATH=$(pwd)/node-v19.8.1-linux-x64/bin:$PATH
@@ -44,7 +47,5 @@ elif [ "$INPUT_TARGET" = "armv7-unknown-linux-gnueabihf" ]; then
 else
     echo "Unknown target: $INPUT_TARGET" && exit 1
 fi
-
-apt-get install -y alien
 
 bash build.sh
