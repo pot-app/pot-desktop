@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 72 72">
+  <defs>
+    <radialGradient id="a" cy="0.4" cx="0.3">
+      <stop offset="0.1" stop-color="#008000"/>
+      <stop offset="0.4" stop-color="#CDEFAC"/>
+    </radialGradient>
+    <radialGradient id="b" cy="0.4" cx="0.6">
+      <stop offset="0" stop-color="#B3E87E"/>
+      <stop offset="1" stop-color="#ABE66F"/>
+    </radialGradient>
+    <radialGradient id="c" cy="0.4" cx="0.6">
+      <stop offset="0" stop-color="#4B8616"/>
+      <stop offset="1" stop-color="#3F7513"/>
+    </radialGradient>
+    <radialGradient id="d" cy="0.4" cx="0.6">
+      <stop offset="0" stop-color="#80D832"/>
+      <stop offset="1" stop-color="#74D325"/>
+    </radialGradient>
+  </defs>
+  <g stroke="black" stroke-opacity="0.1" stroke-width="0.5">
+    <line x1="33" y1="39" x2="22" y2="21.6"/>
+    <line x1="22" y1="21.6" x2="19.4" y2="7"/>
+    <line x1="22" y1="21.6" x2="35.7" y2="7"/>
+    <line x1="33" y1="39" x2="47" y2="20.3"/>
+    <line x1="33" y1="39" x2="60.4" y2="33.4"/>
+    <line x1="60.4" y1="33.4" x2="65.4" y2="18.2"/>
+    <line x1="33" y1="39" x2="59.7" y2="56.5"/>
+    <line x1="33" y1="39" x2="41.8" y2="54.6"/>
+    <line x1="33" y1="39" x2="32.7" y2="63.2"/>
+    <line x1="33" y1="39" x2="12.3" y2="41.5"/>
+    <line x1="12.3" y1="41.5" x2="18.7" y2="59.5"/>
+    <line x1="12.3" y1="41.5" x2="6.8" y2="55.2"/>
+  </g>
+  <circle style="fill:url(#a)" cx="33" cy="39" r="8.2"/>
+  <circle style="fill:url(#b)" cx="22" cy="21.6" r="7.5"/>
+  <circle style="fill:url(#c)" cx="12.3" cy="41.5" r="6.7"/>
+  <circle style="fill:url(#b)" cx="6.8" cy="55.2" r="4.2"/>
+  <circle style="fill:url(#d)" cx="18.7" cy="59.5" r="5.4"/>
+  <circle style="fill:url(#d)" cx="32.7" cy="63.2" r="5.8"/>
+  <circle style="fill:url(#b)" cx="41.8" cy="54.6" r="4"/>
+  <circle style="fill:url(#b)" cx="19.4" cy="7" r="4.7"/>
+  <circle style="fill:url(#d)" cx="35.7" cy="7" r="4.8"/>
+  <circle style="fill:url(#d)" cx="60.4" cy="33.4" r="6.8"/>
+  <circle style="fill:url(#b)" cx="65.4" cy="18.2" r="4.5"/>
+  <circle style="fill:url(#c)" cx="59.7" cy="56.5" r="10"/>
+  <circle style="fill:url(#d)" cx="47" cy="20.3" r="9.7"/>
+</svg>

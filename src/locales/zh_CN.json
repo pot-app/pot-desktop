@@ -221,7 +221,8 @@
                 "youdao_appkey": "App Id",
                 "youdao_key": "App Key",
                 "display_format": "展示格式",
-                "yandex": "Yandex"
+                "yandex": "Yandex",
+                "tatoeba": "Tatoeba"
             },
             "about": {
                 "label": "关于应用",
