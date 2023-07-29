@@ -97,3 +97,26 @@ pub fn get_base64(app_handle: tauri::AppHandle) -> String {
     let base64 = general_purpose::STANDARD.encode(&vec);
     base64.replace("\r\n", "")
 }
+
+#[tauri::command]
+pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) {
+    use arboard::{Clipboard, ImageData};
+    use dirs::cache_dir;
+    use image::io::Reader as ImageReader;
+    use std::borrow::Cow;
+
+    let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
+    app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
+    app_cache_dir_path.push("pot_screenshot_cut.png");
+    let data = ImageReader::open(app_cache_dir_path)
+        .unwrap()
+        .decode()
+        .unwrap();
+
+    let img = ImageData {
+        width,
+        height,
+        bytes: Cow::from(data.as_bytes()),
+    };
+    Clipboard::new().unwrap().set_image(img).unwrap();
+}
