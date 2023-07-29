@@ -1,18 +1,17 @@
-## 1.11.1 (2023-07-27)
+## 1.12.0 (2023-07-29)
+
+Windows 用户请以管理员权限运行 pot 之后再更新
+Windows users please run pot with administrator privileges before updating
+
+### New feature:
+
+-   Add Copy Image Button (#331)([`5c78523`](https://github.com/pot-app/pot-desktop/commit/5c785231c61553e84b0d2e359452edbf0a5c542a)) (by @Pylogmon)
+-   Add Tatoeba Support (#331)([`520ea40`](https://github.com/pot-app/pot-desktop/commit/520ea4039dc8f558cbc2f0f9b568b606ddcb40bc)) (by @Pylogmon)
+
+### Refactor:
+
+-   Tesseract returns to the stage([`9e89c50`](https://github.com/pot-app/pot-desktop/commit/9e89c505db25ba554b068ffe74e8678c8f3fd21b)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   OCR cannot be used([`5f094d5`](https://github.com/pot-app/pot-desktop/commit/5f094d50cf150c0ac1cf2cc75535967de5d89a3e)) (by @Pylogmon)
--   Permission denied on macos([`899d646`](https://github.com/pot-app/pot-desktop/commit/899d646ef1b3dff3c1d57dd41bd87290963b71ba)) (by @Pylogmon)
-
-### Performance improves:
-
--   Add Language Support for Windows System OCR([`19596e7`](https://github.com/pot-app/pot-desktop/commit/19596e7e18f8f05169b1c6e9947f3c435188d5b8)) (by @Pylogmon)
-
-### BREAKING CHANGE:
-
--   Windows 安装包问题还没有修复，需要以管理员权限运行 pot 之后才能应用内更新
--   本次更新删除了 Tesseract OCR 接口，如果默认 OCR 设置为 Tesseract，更新后会出现 OCR 白屏的问题，请切换为 [系统 OCR] 再使用
-
--   The issue with the Windows installation package has not been fixed yet. You need to run pot as an administrator in order to apply the internal updates.
--   In this update, the Tesseract OCR interface has been removed. If your default OCR setting is Tesseract, you will encounter a white screen issue after updating. Please switch to [System OCR] before using it again.
+-   MacOS System OCR([`aba17ed`](https://github.com/pot-app/pot-desktop/commit/aba17edaf5e0d789b0bdf47a5858ad444148e9ae)) (by @Pylogmon)
