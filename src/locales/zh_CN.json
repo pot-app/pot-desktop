@@ -65,7 +65,7 @@
                 "incremental": "增量翻译",
                 "incrementalhelp": "在剪切板监听模式或翻译窗口没有关闭的情况下，在待翻译文本后追加而不是替换内容",
                 "deletenewline": "自动删除换行",
-                "deletenewlinehelp": "取词后自动删除换号",
+                "deletenewlinehelp": "取词后自动删除换行",
                 "remembertarget": "记住目标语言",
                 "openaistream": "启用OpenAI流式输出",
                 "openaistreamhelp": "应用内代理对流式输出无效，只能使用系统代理",
