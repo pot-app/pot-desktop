@@ -113,7 +113,7 @@
             },
             "ocr_interface": {
                 "title": "OCR Interface",
-                "tesseract": "Tesseract",
+                "tesseract": "Tesseract.js",
                 "baidu": "Baidu OCR",
                 "baidu_ocr_client_id": "API Key",
                 "baidu_ocr_client_secret": "Secret Key",

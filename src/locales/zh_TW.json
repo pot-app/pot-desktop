@@ -113,7 +113,7 @@
             },
             "ocr_interface": {
                 "title": "OCR API 設定",
-                "tesseract": "Tesseract",
+                "tesseract": "Tesseract.js",
                 "baidu": "百度 OCR",
                 "baidu_ocr_client_id": "API Key",
                 "baidu_ocr_client_secret": "Secret Key",
