@@ -228,7 +228,8 @@ fn main() {
             cut_screenshot,
             print,
             get_base64,
-            system_ocr
+            system_ocr,
+            copy_img
         ])
         //绑定托盘事件
         .on_system_tray_event(|app, event| match event {
