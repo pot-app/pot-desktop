@@ -21,6 +21,7 @@ var limitSideLen = 960,
     imgW = 320;
 var detShape = [960, 960];
 var det, rec, dic;
+
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
     if (!lang in supportLanguage) {
@@ -38,8 +39,32 @@ export async function ocr(base64, lang, setText, id) {
     canvas.width = imgElement.width;
     canvas.height = imgElement.height;
     canvas.getContext("2d").drawImage(imgElement, 0, 0);
-    let img = canvas.getContext("2d").getImageData(0, 0, imgElement.width, imgElement.height)
+    let img = canvas.getContext("2d").getImageData(0, 0, imgElement.width, imgElement.height);
 
+    let mainLine = await run(img);
+    let result = '';
+    for (let i of mainLine) {
+        result += i.text + '\n';
+    }
+    console.log(mainLine);
+    if (id === ocrID || id === 'translate') {
+        setText(result);
+    }
+}
+
+async function runDet(transposedData, image, det) {
+    let x = transposedData.flat(Infinity);
+    const detData = Float32Array.from(x);
+
+    const detTensor = new ort.Tensor("float32", detData, [1, 3, image.height, image.width]);
+    let detFeed = {};
+    detFeed[det.inputNames[0]] = detTensor;
+
+    const detResults = await det.run(detFeed);
+    return detResults[det.outputNames[0]];
+}
+
+async function run(img) {
     let h = img.height, w = img.width;
 
     let { transposedData, image } = beforeDet(img, detShape[0], detShape[1]);
@@ -72,25 +97,7 @@ export async function ocr(base64, lang, setText, id) {
     }
     mainLine = mainLine.filter((x) => x.mean >= 0.5);
     mainLine = afAfRec(mainLine);
-    let result = '';
-    for (let i of mainLine) {
-        result += i.text + '\n';
-    }
-    if (id === ocrID || id === 'translate') {
-        setText(result);
-    }
-}
-
-async function runDet(transposedData, image, det) {
-    let x = transposedData.flat(Infinity);
-    const detData = Float32Array.from(x);
-
-    const detTensor = new ort.Tensor("float32", detData, [1, 3, image.height, image.width]);
-    let detFeed = {};
-    detFeed[det.inputNames[0]] = detTensor;
-
-    const detResults = await det.run(detFeed);
-    return detResults[det.outputNames[0]];
+    return mainLine;
 }
 
 async function runRec(b, imgH, imgW, rec) {
