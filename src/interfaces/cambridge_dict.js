@@ -130,7 +130,6 @@ export const info = {
 }
 export async function translate(text, from, to, setText, id) {
     const results = await INSTANCE.translate(text, from, to, () => get('second_language') ?? 'en');
-    console.log(results);
     let content = results.map(result => {
         const pronunciationText = result.pronunciations.map(pronunciation => `${pronunciation.region}. ${pronunciation.symbol}`).join("\t");
         const lines = [];
