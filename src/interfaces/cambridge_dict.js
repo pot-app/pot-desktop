@@ -1,80 +1,144 @@
 import { translateID } from '../windows/Translator/components/TargetArea';
 import { fetch } from '@tauri-apps/api/http';
+import { get } from '../windows/main';
+
+class Pronunciation {
+    region;
+    symbol;
+    voice;
+    constructor(region, symbol, voice) {
+        this.region = region;
+        this.symbol = symbol;
+        this.voice = voice;
+    }
+}
+
+class Explanation {
+    trait;
+    description;
+    constructor(trait, description) {
+        this.trait = trait;
+        this.description = description;
+    }
+}
+
+class WordTranslateResult {
+    word;
+    pronunciations;
+    explanations;
+    constructor(word, pronunciations, explanations) {
+        this.word = word;
+        this.pronunciations = pronunciations;
+        this.explanations = explanations;
+    }
+}
 
 // 翻译服务商：https://dictionary.cambridge.org/
-export const info = {
-    name: 'cambridge_dict',
-    supportLanguage: {
+class CambridgeDictTextTranslator {
+    name = 'cambridge_dict';
+    needs = [];
+    #supportLanguageMap = {
         en: 'english',
         zh_cn: 'chinese-simplified',
         zh_tw: 'chinese-traditional',
-    },
-    needs: [],
-};
+    };
+    static autoLanguage = 'auto';
+    static spacesReg = /\s+/g;
 
-const spacesReg = /\s+/g;
-export async function translate(text, from, to, setText, id) {
-    const { supportLanguage } = info;
-    // start with a letter as english
-    if (from === 'auto' && /^[A-Za-z]/.test(text)) {
-        from = 'en';
-    }
-    // auto -> en
-    if (from === to) {
-        setText(text);
-        return;
-    }
-    // only supports English word translation
-    if (from != 'en' || !(to in supportLanguage) || text.split(' ').length > 1) {
-        return;
+    tryDetectLanguage(text) {
+        if (/^[A-Za-z]/.test(text)) {
+            return this.#supportLanguageMap.en;
+        }
+        return null;
     }
 
-    const url = `https://dictionary.cambridge.org/search/direct/?datasetsearch=${supportLanguage[from]}-${supportLanguage[to]}&q=${text}`;
-    let res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'text/html;charset=UTF-8',
-            'User-Agent': 'pot translate',
-        },
-        responseType: 2,
-    });
+    async translate(text, from, to, secondLanguageSupplier) {
+        const fromLanguage = (v => {
+            if (CambridgeDictTextTranslator.autoLanguage === v) {
+                return this.tryDetectLanguage(text) ?? this.#supportLanguageMap[v];
+            }
+            return this.#supportLanguageMap[v];
+        })(from);
+        const toLanguage = (v => {
+            const toLanguage = this.#supportLanguageMap[v];
+            if (fromLanguage === toLanguage) {
+                return this.#supportLanguageMap[secondLanguageSupplier()];
+            }
+            return toLanguage;
+        })(to);
 
-    if (res.ok) {
-        let result = res.data;
-        const doc = new DOMParser().parseFromString(result, 'text/html');
+        // only supports English word translation
+        if (fromLanguage !== this.#supportLanguageMap.en || toLanguage === undefined || toLanguage === this.#supportLanguageMap.en || text.split(' ').length > 1) {
+            return [];
+        }
+
+        const url = `https://dictionary.cambridge.org/search/direct/?datasetsearch=${fromLanguage}-${toLanguage}&q=${text}`;
+        let res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/html;charset=UTF-8',
+                'User-Agent': 'pot translate',
+            },
+            responseType: 2,
+        });
+
+        if (!res.ok) {
+            throw new Error(`Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`);
+        }
+        const doc = new DOMParser().parseFromString(res.data, 'text/html');
         const entryNodes = doc.querySelectorAll('.pr.entry-body__el');
         if (entryNodes.length === 0) {
-            throw `Words not yet included: ${text}`;
+            throw new Error(`Words not yet included: ${text}`);
         }
-        const phoneticNodes = entryNodes[0].querySelectorAll('.dpron-i');
-        const explainTexts = [...entryNodes].flatMap((n) => {
-            const wordText = n.querySelector('.hw.dhw').innerText;
-            // IM != I'm
-            if (text.toLocaleLowerCase() !== wordText.toLocaleLowerCase()) {
-                return [];
+
+        const resultMap = [...entryNodes].reduce((dict, entryNode) => {
+            const word = entryNode.querySelector('.hw.dhw').innerText;
+            const wordTranslateResult = dict[word] || new WordTranslateResult(word, [], []);
+
+            if (wordTranslateResult.pronunciations.length === 0) {
+                const pronunciationNodes = entryNode.querySelectorAll('.dpron-i');
+                const pronunciations = [...pronunciationNodes].map(pronunciationNode => {
+                    const region = pronunciationNode.querySelector('.region').innerText;
+                    const symbol = pronunciationNode.querySelector('.pron').innerText;
+                    const voice = pronunciationNode.querySelector('.daud source').src;
+                    return new Pronunciation(region, symbol, voice);
+                });
+                wordTranslateResult.pronunciations.push(...pronunciations);
             }
-            // part of speech or explanation
-            const subText =
-                ((t) => (t ? `${t}.` : false))(n.querySelector('.posgram')?.innerText) ||
-                ((t) => (t ? `[${t}]` : ''))(n.querySelector('.sense-body.dsense_b .ddef_h>.def.ddef_d.db')?.innerText);
-            const senseNodes = n.querySelectorAll(
-                '.sense-body.dsense_b .def-body.ddef_b>.trans.dtrans.dtrans-se.break-cj'
-            );
-            return [...senseNodes].map((n) => `${subText} ${n.innerText}`);
-        });
-        const phoneticText = [...phoneticNodes]
-            .map((n) =>
-                n.innerText
-                    .replace("Your browser doesn't support HTML5 audio", '')
-                    .replaceAll(spacesReg, ' ')
-                    .replace('us', 'US:')
-                    .replace('uk', 'UK:')
-            )
-            .join('   ');
-        if (translateID.includes(id)) {
-            setText([phoneticText, ...explainTexts].join('\n'));
-        }
-    } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+
+            const wordPos = entryNode.querySelector('.posgram')?.innerText;
+            const defBlockNodes = entryNode.querySelectorAll('.sense-body.dsense_b .def-block.ddef_block');
+            const explanations = [...defBlockNodes].map(defBlockNode => {
+                const trait = wordPos ?? defBlockNode.querySelector('.ddef_h .def.ddef_d.db').innerText.replace(CambridgeDictTextTranslator.spacesReg, ' ').trim();
+                const description = defBlockNode.querySelector('.def-body.ddef_b .trans.dtrans.dtrans-se.break-cj').innerText;
+                return new Explanation(trait, description);
+            });
+            wordTranslateResult.explanations.push(...explanations);
+            
+            dict[word] = wordTranslateResult;
+            return dict;
+        }, {});
+
+        return Object.values(resultMap);
+    }
+}
+
+const INSTANCE = new CambridgeDictTextTranslator();
+export const info = {
+    name: INSTANCE.name,
+    needs: INSTANCE.needs,
+}
+export async function translate(text, from, to, setText, id) {
+    const results = await INSTANCE.translate(text, from, to, () => get('second_language') ?? 'en');
+    console.log(results);
+    let content = results.map(result => {
+        const pronunciationText = result.pronunciations.map(pronunciation => `${pronunciation.region}. ${pronunciation.symbol}`).join("\t");
+        const lines = [];
+        lines.push(`${result.word}: ${pronunciationText}`);
+        lines.push(...result.explanations.map(explanation => `${explanation.trait}. ${explanation.description}`));
+        return lines.join("\n");
+    }).join("\n\n");
+    if (translateID.includes(id)) {
+        setText(content);
     }
 }
