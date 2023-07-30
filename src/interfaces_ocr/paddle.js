@@ -1,3 +1,5 @@
+// modified from eSearch-OCR.
+// https://github.com/xushengfeng/eSearch-OCR
 import { ocrID } from '../windows/Ocr/components/TextArea';
 import axios from 'axios';
 import cv from 'opencv.js';
