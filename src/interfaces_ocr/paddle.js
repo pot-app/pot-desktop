@@ -44,7 +44,8 @@ export async function ocr(base64, lang, setText, id) {
             canvas.height = img.height;
             canvas.width = img.width;
             canvas.getContext('2d').drawImage(img, 0, 0)
-            if (base64 === 'data:,') {
+            // 防止在WebKit上没有正确加载图像
+            if (canvas.width === 0) {
             } else {
                 resolve(true);
             }
@@ -67,7 +68,6 @@ export async function ocr(base64, lang, setText, id) {
 
 async function run(img) {
     let h = img.height, w = img.width;
-
     let { transposedData, image } = beforeDet(img, detShape[0], detShape[1]);
     const detResults = await runDet(transposedData, image, det);
 
