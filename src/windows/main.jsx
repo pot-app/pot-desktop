@@ -42,7 +42,7 @@ document.addEventListener('keydown', async (e) => {
     if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
         e.preventDefault();
     }
-    if (e.key.startsWith('F')) {
+    if (e.key.startsWith('F') && e.key.length > 1) {
         e.preventDefault();
     }
     if (e.key === 'Escape') {
