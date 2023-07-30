@@ -159,7 +159,8 @@
                 "iflytek_ocr_intsig_apikey": "API Key",
                 "iflytek_ocr_intsig_apisecret": "API Secret",
                 "qrcode": "QR code",
-                "system": "System OCR"
+                "system": "System OCR",
+                "paddle": "Paddle OCR"
             },
             "interface": {
                 "label": "Interface",

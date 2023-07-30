@@ -45,6 +45,7 @@ export default function ImageArea() {
             <Box className='image-content'>
                 {base64 ? (
                     <img
+                        id='ocr-image'
                         className='image'
                         ref={imgRef}
                         draggable={false}

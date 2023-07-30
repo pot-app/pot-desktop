@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
         "preview": "vite preview",
         "tauri": "tauri",
         "updater": "node updater/updater.mjs"
@@ -13,36 +13,39 @@
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
-        "@mui/icons-material": "^5.11.16",
-        "@mui/material": "^5.13.5",
+        "@mui/icons-material": "^5.14.1",
+        "@mui/material": "^5.14.2",
         "@tauri-apps/api": "^1.4.0",
         "@types/crypto-js": "^4.1.1",
         "@types/md5": "^2.3.2",
         "axios": "^1.4.0",
         "crypto-js": "^4.1.1",
-        "flag-icons": "^6.7.0",
+        "flag-icons": "^6.9.2",
         "i18next": "^22.5.1",
-        "jotai": "^2.2.0",
+        "jotai": "^2.2.2",
+        "js-clipper": "^1.0.1",
         "jsqr": "^1.4.0",
         "md5": "^2.3.0",
         "nanoid": "^4.0.2",
+        "onnxruntime-web": "^1.15.1",
+        "opencv.js": "^1.2.1",
         "react": "^18.2.0",
         "react-beautiful-dnd": "10.0.0",
         "react-dom": "^18.2.0",
         "react-hot-toast": "^2.4.1",
         "react-i18next": "^12.3.1",
-        "react-router-dom": "^6.13.0",
+        "react-router-dom": "^6.14.2",
         "react-spinners": "^0.13.8",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tesseract.js": "^4.1.1"
     },
     "devDependencies": {
         "@tauri-apps/cli": "^1.4.0",
-        "@types/react": "^18.2.12",
-        "@types/react-dom": "^18.2.5",
+        "@types/react": "^18.2.17",
+        "@types/react-dom": "^18.2.7",
         "@vitejs/plugin-react": "^3.1.0",
-        "node-fetch": "^3.3.1",
+        "node-fetch": "^3.3.2",
         "prettier": "2.8.8",
-        "vite": "^4.3.9"
+        "vite": "^4.4.7"
     }
 }

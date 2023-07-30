@@ -16,3 +16,4 @@ export * as iflytek from './iflytek';
 export * as iflytek_intsig from './iflytek_intsig';
 export * as qrcode from './qrcode';
 export * as system from './system';
+export * as paddle from './paddle';
