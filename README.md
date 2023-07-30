@@ -35,7 +35,7 @@
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/>
 <tr>
     <td>Plugin Invocation
-    <td>Select the text to be translated and click the plugin icon. More infomation <a href="#plugin-invocation" target="_blank">Plugin Invocation</a>
+    <td>Select the text to be translated and click the plugin icon. More information <a href="#plugin-invocation" target="_blank">Plugin Invocation</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/>
 <tr>
     <td>Clipboard Listening Mode
