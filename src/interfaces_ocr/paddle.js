@@ -33,39 +33,36 @@ export async function ocr(base64, lang, setText, id) {
     // init
     det = await ort.InferenceSession.create("https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev/ocr/ppocr_det.onnx");
     rec = await ort.InferenceSession.create(`https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev/ocr/${supportLanguage[lang]}/ppocr_rec.onnx`);
-
-
     dic = res.data.split(/\r\n|\r|\n/);
-
     // get img
-    let imgElement = document.getElementById("ocr-image");
-    let canvas = document.createElement("canvas");
-    canvas.width = imgElement.width;
-    canvas.height = imgElement.height;
-    canvas.getContext("2d").drawImage(imgElement, 0, 0);
-    let img = canvas.getContext("2d").getImageData(0, 0, imgElement.width, imgElement.height);
+    const img = document.createElement('img')
+    img.src = 'data:image/png;base64,' + base64;
+    const canvas = document.createElement('canvas')
+    let isLoad = await new Promise(async (resolve, reject) => {
+        img.onload = () => {
+            img.crossOrigin = 'anonymous';
+            canvas.height = img.height;
+            canvas.width = img.width;
+            canvas.getContext('2d').drawImage(img, 0, 0)
+            if (base64 === 'data:,') {
+            } else {
+                resolve(true);
+            }
+        },
+            img.onerror = () => { reject(false) }
+    });
 
-    let mainLine = await run(img);
-    let result = '';
-    for (let i of mainLine) {
-        result += i.text + '\n';
+    if (isLoad) {
+        let mainLine = await run(canvas.getContext("2d").getImageData(0, 0, img.width, img.height));
+        let result = '';
+        for (let i of mainLine) {
+            result += i.text + '\n';
+        }
+
+        if (id === ocrID || id === 'translate') {
+            setText(result);
+        }
     }
-    console.log(mainLine);
-    if (id === ocrID || id === 'translate') {
-        setText(result);
-    }
-}
-
-async function runDet(transposedData, image, det) {
-    let x = transposedData.flat(Infinity);
-    const detData = Float32Array.from(x);
-
-    const detTensor = new ort.Tensor("float32", detData, [1, 3, image.height, image.width]);
-    let detFeed = {};
-    detFeed[det.inputNames[0]] = detTensor;
-
-    const detResults = await det.run(detFeed);
-    return detResults[det.outputNames[0]];
 }
 
 async function run(img) {
@@ -102,6 +99,18 @@ async function run(img) {
     mainLine = mainLine.filter((x) => x.mean >= 0.5);
     mainLine = afAfRec(mainLine);
     return mainLine;
+}
+
+async function runDet(transposedData, image, det) {
+    let x = transposedData.flat(Infinity);
+    const detData = Float32Array.from(x);
+
+    const detTensor = new ort.Tensor("float32", detData, [1, 3, image.height, image.width]);
+    let detFeed = {};
+    detFeed[det.inputNames[0]] = detTensor;
+
+    const detResults = await det.run(detFeed);
+    return detResults[det.outputNames[0]];
 }
 
 async function runRec(b, imgH, imgW, rec) {
