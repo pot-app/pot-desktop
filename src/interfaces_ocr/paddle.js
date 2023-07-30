@@ -29,8 +29,10 @@ export async function ocr(base64, lang, setText, id) {
     }
     const res = await axios.get(`/ocr/${supportLanguage[lang]}/dict.txt`);
     // init
-    det = await ort.InferenceSession.create("/ocr/ppocr_det.onnx");
-    rec = await ort.InferenceSession.create(`/ocr/${supportLanguage[lang]}/ppocr_rec.onnx`);
+    det = await ort.InferenceSession.create("https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev/ocr/ppocr_det.onnx");
+    rec = await ort.InferenceSession.create(`https://pub-f6afb74f13c64cd89561b4714dca1c27.r2.dev/ocr/${supportLanguage[lang]}/ppocr_rec.onnx`);
+
+
     dic = res.data.split(/\r\n|\r|\n/);
 
     // get img
