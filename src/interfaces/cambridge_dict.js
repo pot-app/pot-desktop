@@ -34,7 +34,7 @@ class WordTranslateResult {
 }
 
 // 翻译服务商：https://dictionary.cambridge.org/
-class CambridgeDictTextTranslator {
+class CambridgeDictWordTranslator {
     name = 'cambridge_dict';
     needs = [];
     #supportLanguageMap = {
@@ -54,7 +54,7 @@ class CambridgeDictTextTranslator {
 
     async translate(text, from, to, secondLanguageSupplier) {
         const fromLanguage = (v => {
-            if (CambridgeDictTextTranslator.autoLanguage === v) {
+            if (CambridgeDictWordTranslator.autoLanguage === v) {
                 return this.tryDetectLanguage(text) ?? this.#supportLanguageMap[v];
             }
             return this.#supportLanguageMap[v];
@@ -68,7 +68,7 @@ class CambridgeDictTextTranslator {
         })(to);
 
         // only supports English word translation
-        if (fromLanguage !== this.#supportLanguageMap.en || toLanguage === undefined || toLanguage === this.#supportLanguageMap.en || text.split(' ').length > 1) {
+        if (fromLanguage !== this.#supportLanguageMap.en || toLanguage === undefined || toLanguage === fromLanguage || text.split(' ').length > 1) {
             return [];
         }
 
@@ -109,7 +109,7 @@ class CambridgeDictTextTranslator {
             const wordPos = entryNode.querySelector('.posgram')?.innerText;
             const defBlockNodes = entryNode.querySelectorAll('.sense-body.dsense_b .def-block.ddef_block');
             const explanations = [...defBlockNodes].map(defBlockNode => {
-                const trait = wordPos ?? defBlockNode.querySelector('.ddef_h .def.ddef_d.db').innerText.replace(CambridgeDictTextTranslator.spacesReg, ' ').trim();
+                const trait = wordPos ?? defBlockNode.querySelector('.ddef_h .def.ddef_d.db').innerText.replace(CambridgeDictWordTranslator.spacesReg, ' ').trim();
                 const description = defBlockNode.querySelector('.def-body.ddef_b .trans.dtrans.dtrans-se.break-cj').innerText;
                 return new Explanation(trait, description);
             });
@@ -123,14 +123,14 @@ class CambridgeDictTextTranslator {
     }
 }
 
-const INSTANCE = new CambridgeDictTextTranslator();
+const INSTANCE = new CambridgeDictWordTranslator();
 export const info = {
     name: INSTANCE.name,
     needs: INSTANCE.needs,
 }
 export async function translate(text, from, to, setText, id) {
     const results = await INSTANCE.translate(text, from, to, () => get('second_language') ?? 'en');
-    let content = results.map(result => {
+    const content = results.map(result => {
         const pronunciationText = result.pronunciations.map(pronunciation => `${pronunciation.region}. ${pronunciation.symbol}`).join("\t");
         const lines = [];
         lines.push(`${result.word}: ${pronunciationText}`);
