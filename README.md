@@ -272,10 +272,6 @@ pot screenshot_ocr without_screenshot # Screenshot OCR(without screenshot)
 pot screenshot_translate without_screenshot # Screenshot Translate(without screenshot)
 ```
 
-Example for Gnome:
-
-![](./asset/shortcut.png)
-
 ## Screenshot doesn't work
 
 In some pure Wayland desktop environments/window managers (such as Hyprland), the built-in screenshot feature of pot cannot be used. In this case, you can use other screenshot tools instead by using command line parameters. Simply save the screenshot to `~/.cache/com.pylogmon.pot/pot_screenshot_cut.png` and then execute `pot screenshot_ocr without_screenshot`.

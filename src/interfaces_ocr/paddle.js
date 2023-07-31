@@ -26,7 +26,7 @@ var det, rec, dic;
 
 export async function ocr(base64, lang, setText, id) {
     const { supportLanguage } = info;
-    if (!lang in supportLanguage) {
+    if (!(lang in supportLanguage)) {
         throw 'Unsupported Language';
     }
     const res = await axios.get(`/ocr/${supportLanguage[lang]}/dict.txt`);
