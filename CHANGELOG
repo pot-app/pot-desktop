@@ -1,17 +1,11 @@
-## 1.13.0 (2023-07-30)
+## 1.13.1 (2023-07-31)
 
 Windows 用户请以管理员权限运行 pot 之后再更新
 Windows users please run pot with administrator privileges before updating
 
-### New feature:
-
--   Add Paddle OCR([`4f09e56`](https://github.com/pot-app/pot-desktop/commit/4f09e560e1d48992e60e2af084a0f4b4c89448aa)) (by @Pylogmon)
-
 ### Bugs fixed:
 
--   Can't input 'F'([`58a783d`](https://github.com/pot-app/pot-desktop/commit/58a783dcfbdf88ef262e22e7c24c540f0d4eeb70)) (by @Pylogmon)
--   a typos in Chinese translation (#334)([`cff5450`](https://github.com/pot-app/pot-desktop/commit/cff54504f112542f0fc09c56fb94febb16698a8f)) (by @zhtjtcz)
-
-### Refactor
-
--   Optimizing the use of cambridge dictionary (#341)([`d2d200a`](https://github.com/pot-app/pot-desktop/commit/d2d200a82437acb961ec68ac9c36dc4005b89bd7)) (by @xtyuns)
+-   Add more language support for Paddle([`400fd22`](https://github.com/pot-app/pot-desktop/commit/400fd2282f88370f58e04992493f9693dd5cf5d3)) (by @Pylogmon)
+-   Unsupport language([`44c7ce7`](https://github.com/pot-app/pot-desktop/commit/44c7ce76632632c5c704d4de964ed019c4b9d348)) (by @Pylogmon)
+-   Load image failed on Linux([`0302fc4`](https://github.com/pot-app/pot-desktop/commit/0302fc4787fa5849eacfd10688a584118cccf1fd)) (by @Pylogmon)
+-   PaddleOCR recognition incomplete.([`309d3bc`](https://github.com/pot-app/pot-desktop/commit/309d3bc98e4b7668c01951d340b2bd3fe9faa75c)) (by @Pylogmon)
