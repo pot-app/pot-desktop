@@ -4,6 +4,8 @@ export default [
     { value: 'zh_cn', code: 'cn' },
     { value: 'zh_tw', code: 'cn' },
     { value: 'yue', code: 'cn' },
+    { value: 'mn_mo', code: 'cn' },
+    { value: 'mn_cy', code: 'mn' },
     { value: 'en', code: 'gb' },
     { value: 'ja', code: 'jp' },
     { value: 'ko', code: 'kr' },
@@ -21,4 +23,5 @@ export default [
     { value: 'ms', code: 'ms' },
     { value: 'ar', code: 'ae' },
     { value: 'hi', code: 'in' },
+    { value: 'km', code: 'kh' }
 ];

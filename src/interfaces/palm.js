@@ -26,6 +26,9 @@ export const info = {
         ms: 'may',
         ar: 'ar',
         hi: 'hi',
+        mn_mo: "mn-mo",
+        mn_cy: "mn-cy",
+        km: "km"
     },
     needs: [
         {

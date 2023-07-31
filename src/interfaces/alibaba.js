@@ -30,6 +30,8 @@ export const info = {
         ms: 'ms',
         ar: 'ar',
         hi: 'hi',
+        mn_mo: 'mn',
+        km: 'km'
     },
     needs: [
         {

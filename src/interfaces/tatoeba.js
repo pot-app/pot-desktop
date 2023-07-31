@@ -26,6 +26,8 @@ export const info = {
         ms: 'zsm',
         ar: 'ara',
         hi: 'hin',
+        mn_cy: "mon",
+        km: "khm"
     },
     needs: [],
 };

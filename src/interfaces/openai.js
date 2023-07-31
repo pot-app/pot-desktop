@@ -26,6 +26,9 @@ export const info = {
         ms: 'Malay',
         ar: 'Arabic',
         hi: 'Hindi',
+        mn_mo: "Mongolian",
+        mn_cy: "Mongolian(Cyrillic)",
+        km: "Khmer"
     },
     needs: [
         {

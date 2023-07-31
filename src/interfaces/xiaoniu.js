@@ -30,6 +30,9 @@ export const info = {
         ms: 'ms',
         ar: 'ar',
         hi: 'hi',
+        mn_cy: 'mn',
+        mn_mo: 'mo',
+        km: 'km'
     },
     // 接口需要配置项(会在设置中出现设置项来获取)
     needs: [

@@ -26,6 +26,7 @@ export const info = {
         th: 'th',
         ms: 'ms',
         ar: 'ar',
+        km: 'km'
     },
     // 接口需要配置项
     needs: [

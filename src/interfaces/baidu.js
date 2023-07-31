@@ -29,6 +29,7 @@ export const info = {
         ms: 'may',
         ar: 'ar',
         hi: 'hi',
+        km: 'hkm'
     },
     needs: [
         {

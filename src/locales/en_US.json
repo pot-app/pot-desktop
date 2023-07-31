@@ -29,7 +29,10 @@
             "th": "Thai",
             "ms": "Malay",
             "ar": "Arabic",
-            "hi": "Hindi"
+            "hi": "Hindi",
+            "mn_mo": "Mongolian",
+            "mn_cy": "Mongolian(Cyrillic)",
+            "km": "Khmer"
         },
         "config": {
             "title": "Settings",
