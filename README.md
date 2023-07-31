@@ -15,6 +15,9 @@
 <br/>
 <hr/>
 <div align="center">
+
+<h3><a href='./README_CN.md'>中文</a> | English</h3>
+
 <table>
 <tr>
     <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/1.png">
@@ -94,6 +97,11 @@
 -   [x] [Bing Dict](https://www.bing.com/dict)
 -   [x] [DeepL](https://www.deepl.com/)
 -   [x] [Youdao](https://ai.youdao.com/)
+-   [x] [Cambridge Dictionary](https://dictionary.cambridge.org/)
+-   [x] [MoJi](https://www.mojidict.com/)
+-   [x] [Yandex](https://translate.yandex.com/)
+-   [x] [Tatoeba](https://tatoeba.org/)
+-   [x] [PALM2](https://ai.google/discover/palm2/)
 -   [ ] and more...
 
 ## OCR
@@ -103,13 +111,14 @@
     -   [x] [Apple Vision Framework](https://developer.apple.com/documentation/vision/recognizing_text_in_images) on MacOS
     -   [x] [Tesseract OCR](https://github.com/tesseract-ocr) on Linux
 -   [x] [Tesseract.js](https://tesseract.projectnaptha.com/) (Offline)
--   [x] [PaddleOCR]() (Offline)
+-   [x] [PaddleOCR](https://github.com/xushengfeng/eSearch-OCR) (Offline)
 -   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
 -   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
 -   [x] [OCR Space](http://ocr.space/)
 -   [x] [Volcengine](https://www.volcengine.com/product/OCR)
 -   [x] [iFlytek](https://www.xfyun.cn/services/common-ocr)
 -   [x] [Tencent Image Translation](https://cloud.tencent.com/document/product/551/17232)
+-   [x] [Baidu Image Translation](https://fanyi-api.baidu.com/product/22)
 -   [x] [Simple Latex](https://simpletex.cn/)
 -   [ ] and more...
 
@@ -328,13 +337,19 @@ Rust >= 1.69.0
     pnpm install
     ```
 
-3. Development (Optional)
+3. Install dependencies(Only Linux)
+
+```bash
+sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
+```
+
+4. Development (Optional)
 
     ```bash
     pnpm tauri dev # Run the app in development mode
     ```
 
-4. Build
+5. Build
     ```bash
     pnpm tauri build # Build into installation package
     ```
@@ -350,5 +365,6 @@ Rust >= 1.69.0
 -   [@uiYzzi](https://github.com/uiYzzi) Implementation ideas
 -   [@Lichenkass](https://github.com/Lichenkass) Maintaining the Deepin App Store.
 -   [Tauri](https://github.com/tauri-apps/tauri) A user-friendly GUI framework.
+-   [eSearch-OCR](https://github.com/xushengfeng/eSearch-OCR) PaddleOCR Implementation
 
 <div align="center">
