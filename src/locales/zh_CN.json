@@ -197,6 +197,8 @@
                 "baidu_field_field": "领域",
                 "caiyun_token": "Token",
                 "deepl_key": "Auth Key",
+                "deepl_custom_url": "自定义 Url",
+                "deeplcustomurlhelp": "使用你自己的DeepLx服务，没有请留空。",
                 "google_proxy": "自定义域名",
                 "lingva_domain": "自定义域名",
                 "openai_domain": "自定义域名",

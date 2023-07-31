@@ -25,6 +25,10 @@ export const info = {
     // 接口需要配置项
     needs: [
         {
+            config_key: 'deepl_custom_url',
+            place_hold: 'config.interface.deeplcustomurlhelp',
+        },
+        {
             config_key: 'deepl_key',
             place_hold: 'config.interface.deeplhelp',
         },
@@ -34,10 +38,17 @@ export const info = {
 export async function translate(text, from, to, setText, id) {
     const key = get('deepl_key') ?? '';
 
+    const custom_url = get('deepl_custom_url') ?? '';
+
     const { supportLanguage } = info;
 
     if (!(from in supportLanguage) || !(to in supportLanguage)) {
         throw 'Unsupported Language';
+    }
+
+    if (custom_url !== '') {
+        await translate_by_deeplx(text, from, to, setText, id, custom_url)
+        return;
     }
 
     if (key !== '') {
@@ -88,6 +99,39 @@ export async function translate(text, from, to, setText, id) {
             }
             if (translateID.includes(id)) {
                 setText(result.result.texts[0].text.trim());
+            }
+        } else {
+            throw JSON.stringify(result);
+        }
+    } else {
+        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+    }
+}
+
+async function translate_by_deeplx(text, from, to, setText, id, url) {
+    const { supportLanguage } = info;
+
+    let res = await fetch(url, {
+        method: "POST",
+        body: Body.json({
+            source_lang: supportLanguage[from],
+            target_lang: supportLanguage[to],
+            text: text
+        }),
+    });
+
+    if (res.ok) {
+        const result = res.data;
+        if (result['data']) {
+            if (result['data'] === text) {
+                let secondLanguage = get('second_language') ?? 'en';
+                if (to !== secondLanguage) {
+                    await translate_by_deeplx(text, from, secondLanguage, setText, id, url);
+                    return;
+                }
+            }
+            if (translateID.includes(id)) {
+                setText(result['data']);
             }
         } else {
             throw JSON.stringify(result);

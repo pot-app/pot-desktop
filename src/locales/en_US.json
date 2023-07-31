@@ -197,6 +197,8 @@
                 "baidu_field_field": "Field",
                 "caiyun_token": "Token",
                 "deepl_key": "Auth Key",
+                "deepl_custom_url": "Custom URL",
+                "deeplcustomurlhelp": "Use your own DeepLx server, if you don't have, please leave it blank.",
                 "google_proxy": "Custom Domain",
                 "lingva_domain": "Custom Domain",
                 "openai_domain": "Custom Domain",

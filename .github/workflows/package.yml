@@ -330,6 +330,7 @@ jobs:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
         run: |
           brew tap pot-app/homebrew-tap
+          brew update
           brew bump-cask-pr pot --version ${{env.VERSION}} --no-browse
 
   winget:
