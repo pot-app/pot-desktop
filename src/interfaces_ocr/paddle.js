@@ -13,7 +13,9 @@ export const info = {
         zh_cn: 'zh_cn',
         zh_tw: 'zh_tw',
         en: 'en',
-        ja: 'ja'
+        ja: 'ja',
+        ko: 'ko',
+        ar: 'ar'
     },
     needs: [],
 };
