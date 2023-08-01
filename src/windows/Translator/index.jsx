@@ -105,6 +105,7 @@ export default function Translator() {
                                                 <div
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
+                                                    style={{ height: interfaceList.length === 1 && '100%' }}
                                                 >
                                                     <TargetArea
                                                         {...provided.dragHandleProps}
