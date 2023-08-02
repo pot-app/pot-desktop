@@ -64,7 +64,7 @@
 
 -   [x] Input text and translate
 -   [x] Selection text and translate
--   [x] Invoke by other software to translate ([Detial](#plugin-invocation))
+-   [x] Invoke by other software to translate ([Detail](#plugin-invocation))
 -   [x] Listening clipboard to translate
 -   [x] OpenAI API support
 -   [x] Multi-API support ([Support Apis](#support-apis))
