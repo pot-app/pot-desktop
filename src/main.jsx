@@ -1,3 +1,4 @@
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { appWindow } from '@tauri-apps/api/window';
 import { NextUIProvider } from '@nextui-org/react';
 import ReactDOM from 'react-dom/client';
@@ -28,8 +29,12 @@ initStore().then(() => {
     const rootElement = document.getElementById('root');
     const root = ReactDOM.createRoot(rootElement);
     root.render(
-        <NextUIProvider>
-            <App />
-        </NextUIProvider>
+        <React.StrictMode>
+            <NextUIProvider>
+                <NextThemesProvider attribute='class'>
+                    <App />
+                </NextThemesProvider>
+            </NextUIProvider>
+        </React.StrictMode>
     );
 });
