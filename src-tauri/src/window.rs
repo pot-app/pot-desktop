@@ -1,424 +1,311 @@
-use crate::config::get_config;
+use crate::config::get;
+use crate::config::set;
 use crate::StringWrapper;
 use crate::APP;
+use log::{info, warn};
+use tauri::Manager;
 use tauri::Monitor;
-use tauri::{AppHandle, Manager, Window};
-use toml::Value;
+use tauri::Window;
+use tauri::WindowBuilder;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
-pub fn build_translate_window(
-    label: &str,
-    title: &str,
-    handle: &AppHandle,
-) -> Result<Window, String> {
-    let (width, height) = get_window_size();
-    // 对于Mac来说这里获取直接可用的逻辑坐标
-    // 对于Windows和Linux，这里仅获取物理坐标，用于确保窗口创建在指定的显示器上
-    // 获取到真实的显示器信息之后再做转换
-    let (x, y) = get_mouse_location().unwrap();
-
-    let util_window = handle.get_window("util").unwrap();
-    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
-    let dpi = current_monitor.scale_factor();
-    let physical_position = current_monitor.position();
-    let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
-
-    let builder =
-        tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
-            .position(position.x, position.y)
-            .inner_size(width, height)
-            .focused(true)
+// Get daemon window instance
+fn get_daemon_window() -> Window {
+    let app_handle = APP.get().unwrap();
+    match app_handle.get_window("daemon") {
+        Some(v) => v,
+        None => {
+            warn!("Daemon window not found, create new daemon window!");
+            WindowBuilder::new(
+                app_handle,
+                "daemon",
+                tauri::WindowUrl::App("daemon.html".into()),
+            )
+            .title("Daemon")
             .visible(false)
-            .title(title);
-
-    #[cfg(target_os = "macos")]
-    {
-        let builder = builder
-            .title_bar_style(tauri::TitleBarStyle::Overlay)
-            .hidden_title(true);
-        let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
-        };
-        // 获取窗口所在的显示器信息
-        let _monitor = window.current_monitor().unwrap().unwrap();
-
-        window
-            .set_size(tauri::LogicalSize::new(width, height))
-            .unwrap();
-        // 获取到显示器信息之后再移动窗口，确保窗口大小正确
-        match label {
-            "persistent" => window.center().unwrap(),
-            _ => window
-                .set_position(tauri::LogicalPosition::new(x, y))
-                .unwrap(),
-        };
-        set_shadow(&window, true).unwrap_or_default();
-        Ok(window)
-    }
-
-    #[cfg(target_os = "windows")]
-    {
-        let builder = builder.decorations(false);
-        let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
-        };
-        // 获取窗口所在的显示器信息
-        let monitor = window.current_monitor().unwrap().unwrap();
-        window
-            .set_size(tauri::LogicalSize::new(width, height))
-            .unwrap();
-        match label {
-            "persistent" => window.center().unwrap(),
-            _ => {
-                // 用显示器信息将物理坐标做转换
-                let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
-                // 获取到显示器信息之后再移动窗口，确保窗口大小正确
-                window
-                    .set_position(tauri::PhysicalPosition::new(x * dpi, y * dpi))
-                    .unwrap();
-            }
+            .build()
+            .unwrap()
         }
-        set_shadow(&window, true).unwrap_or_default();
-        Ok(window)
-    }
-
-    #[cfg(target_os = "linux")]
-    {
-        let builder = builder.transparent(true).decorations(false);
-        let window = match label {
-            "persistent" => builder.skip_taskbar(false).build().unwrap(),
-            _ => builder.skip_taskbar(true).build().unwrap(),
-        };
-        // 获取窗口所在的显示器信息
-        let monitor = window.current_monitor().unwrap().unwrap();
-        window
-            .set_size(tauri::LogicalSize::new(width, height))
-            .unwrap();
-        match label {
-            "persistent" => window.center().unwrap(),
-            _ => {
-                // 用显示器信息将物理坐标做转换
-                let (x, y) = convert_mouse_location((x, y), monitor).unwrap();
-                // 获取到显示器信息之后再移动窗口，确保窗口大小正确
-                window
-                    .set_position(tauri::PhysicalPosition::new(x * dpi, y * dpi))
-                    .unwrap();
-            }
-        }
-        Ok(window)
     }
 }
 
-pub fn build_ocr_window(handle: &AppHandle) -> Result<Window, String> {
-    let (x, y) = get_mouse_location().unwrap();
-    let util_window = handle.get_window("util").unwrap();
-    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
-    let physical_position = current_monitor.position();
-    let mut builder =
-        tauri::WindowBuilder::new(handle, "ocr", tauri::WindowUrl::App("index.html".into()))
-            .inner_size(800.0, 400.0)
-            .min_inner_size(600.0, 400.0)
-            .focused(true)
-            .title("OCR")
-            .visible(false);
+// Get monitor where the mouse is currently located
+fn get_current_monitor(x: i32, y: i32) -> Monitor {
+    info!("Mouse position: {}, {}", x, y);
+    let daemon_window = get_daemon_window();
+    let monitors = daemon_window.available_monitors().unwrap();
 
-    #[cfg(target_os = "linux")]
-    {
-        builder = builder.transparent(true);
-    }
-    #[cfg(target_os = "macos")]
-    {
-        builder = builder
-            .title_bar_style(tauri::TitleBarStyle::Overlay)
-            .hidden_title(true);
-    }
-    #[cfg(not(target_os = "macos"))]
-    {
-        builder = builder.decorations(false);
-    }
-
-    let window = builder.build().unwrap();
-    window.set_position(*physical_position).unwrap();
-    window.center().unwrap();
-    #[cfg(not(target_os = "linux"))]
-    set_shadow(&window, true).unwrap_or_default();
-    Ok(window)
-}
-
-fn get_current_monitor(x: f64, y: f64, util: Window) -> Result<Monitor, ()> {
-    let monitors = util.available_monitors().unwrap();
     for m in monitors {
         let size = m.size();
         let position = m.position();
 
-        #[cfg(target_os = "macos")]
-        let position = {
-            let dpi = m.scale_factor();
-            let position: tauri::LogicalPosition<f64> = position.to_logical(dpi);
-            position
-        };
-        #[cfg(target_os = "macos")]
-        let size = {
-            let dpi = m.scale_factor();
-            let size: tauri::LogicalSize<f64> = size.to_logical(dpi);
-            size
-        };
-        if x >= position.x as f64
-            && x <= (position.x as f64 + size.width as f64)
-            && y >= position.y as f64
-            && y <= (position.y as f64 + size.height as f64)
+        if x >= position.x
+            && x <= (position.x + size.width as i32)
+            && y >= position.y
+            && y <= (position.y + size.height as i32)
         {
-            return Ok(m);
+            info!("Current Monitor: {:?}", m);
+            return m;
         }
     }
-    Err(())
+    warn!("Current Monitor not found, using primary monitor");
+    daemon_window.primary_monitor().unwrap().unwrap()
 }
 
-pub fn build_screenshot_window(handle: &AppHandle, label: &str) -> Result<Window, String> {
-    let (x, y) = get_mouse_location().unwrap();
-    let util_window = handle.get_window("util").unwrap();
-    let current_monitor = get_current_monitor(x, y, util_window).unwrap();
+// Creating a window on the mouse monitor
+fn build_window(label: &str, title: &str) -> Window {
+    use mouse_position::mouse_position::{Mouse, Position};
+
+    let mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
+        }
+    };
+    let current_monitor = get_current_monitor(mouse_position.x, mouse_position.y);
     let dpi = current_monitor.scale_factor();
     let physical_position = current_monitor.position();
     let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
-    #[cfg(target_os = "macos")]
-    let size = current_monitor.size();
-    let window =
-        tauri::WindowBuilder::new(handle, label, tauri::WindowUrl::App("index.html".into()))
+
+    let app_handle = APP.get().unwrap();
+    match app_handle.get_window(label) {
+        Some(v) => {
+            info!("Window existence: {}", label);
+            v.set_focus().unwrap();
+            v
+        }
+        None => {
+            info!("Window not existence, Creating new window: {}", label);
+            let mut builder = tauri::WindowBuilder::new(
+                app_handle,
+                label,
+                tauri::WindowUrl::App("index.html".into()),
+            )
             .position(position.x, position.y)
-            .decorations(false)
             .focused(true)
-            .title("Screenshot")
-            .skip_taskbar(true)
-            .visible(false)
-            .build()
-            .unwrap();
-    #[cfg(target_os = "macos")]
-    window.set_size(*size).unwrap();
-    #[cfg(not(target_os = "macos"))]
-    window.set_fullscreen(true).unwrap();
-    window.set_always_on_top(true).unwrap();
-    Ok(window)
+            .title(title)
+            .visible(false);
+            #[cfg(target_os = "linux")]
+            {
+                builder = builder.transparent(true);
+            }
+            #[cfg(target_os = "macos")]
+            {
+                builder = builder
+                    .title_bar_style(tauri::TitleBarStyle::Overlay)
+                    .hidden_title(true);
+            }
+            #[cfg(not(target_os = "macos"))]
+            {
+                builder = builder.decorations(false);
+            }
+            let window = builder.build().unwrap();
+            #[cfg(not(target_os = "linux"))]
+            set_shadow(&window, true).unwrap_or_default();
+            let _ = window.current_monitor();
+            window.set_focus().unwrap();
+            window
+        }
+    }
 }
 
-// 获取默认窗口大小
-fn get_window_size() -> (f64, f64) {
-    let width: f64 = get_config("window_width", Value::from(400), APP.get().unwrap().state())
-        .as_integer()
-        .unwrap() as f64;
-    let height: f64 = get_config(
-        "window_height",
-        Value::from(500),
-        APP.get().unwrap().state(),
-    )
-    .as_integer()
-    .unwrap() as f64;
-    (width, height)
+pub fn config_window() {
+    let window = build_window("config", "Config");
+    window
+        .set_min_size(Some(tauri::LogicalSize::new(800, 400)))
+        .unwrap();
+    window.set_size(tauri::LogicalSize::new(800, 600)).unwrap();
+    window.center().unwrap();
 }
 
-#[cfg(any(target_os = "linux", target_os = "windows"))]
-fn convert_mouse_location(
-    location: (f64, f64),
-    monitor: tauri::Monitor,
-) -> Result<(f64, f64), String> {
-    let (mut x, mut y) = location;
-    let (width, height) = get_window_size();
+fn translate_window() -> Window {
+    use mouse_position::mouse_position::{Mouse, Position};
+    // Mouse physical position
+    let mut mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
+        }
+    };
+    let window = build_window("translate", "Translate");
+    window.set_skip_taskbar(true).unwrap();
+    // Get Translate Window Size
+    let width = match get("translate_window_width") {
+        Some(v) => v.as_i64().unwrap(),
+        None => {
+            set("translate_window_width", 350);
+            350
+        }
+    };
+    let height = match get("translate_window_height") {
+        Some(v) => v.as_i64().unwrap(),
+        None => {
+            set("translate_window_height", 420);
+            420
+        }
+    };
+    // Adjust window position
+    let monitor = window.current_monitor().unwrap().unwrap();
     let monitor_size = monitor.size();
+    let monitor_size_width = monitor_size.width as f64;
+    let monitor_size_height = monitor_size.height as f64;
     let monitor_position = monitor.position();
     let monitor_position_x = monitor_position.x as f64;
     let monitor_position_y = monitor_position.y as f64;
+
     let dpi = monitor.scale_factor();
-    x /= dpi;
-    y /= dpi;
-    if x + width > monitor_position_x + monitor_size.width as f64 / dpi {
-        x -= width;
-        if x < monitor_position_x {
-            x = monitor_position_x;
+    if mouse_position.x as f64 + width as f64 * dpi > monitor_position_x + monitor_size_width {
+        mouse_position.x -= (width as f64 * dpi) as i32;
+        if (mouse_position.x as f64) < monitor_position_x {
+            mouse_position.x = monitor_position_x as i32;
         }
     }
-    if y + height > monitor_position_y + monitor_size.height as f64 / dpi {
-        y -= height;
-        if y < monitor_position_y {
-            y = monitor_position_y;
+    if mouse_position.y as f64 + height as f64 * dpi > monitor_position_y + monitor_size_height {
+        mouse_position.y -= (height as f64 * dpi) as i32;
+        if (mouse_position.y as f64) < monitor_position_y {
+            mouse_position.y = monitor_position_y as i32;
         }
     }
 
-    Ok((x, y))
-}
-// 获取鼠标物理坐标
-#[cfg(target_os = "linux")]
-fn get_mouse_location() -> Result<(f64, f64), String> {
-    use mouse_position::mouse_position::Mouse;
-
-    let position = Mouse::get_mouse_position();
-    if let Mouse::Position { x: pos_x, y: pos_y } = position {
-        Ok((pos_x as f64, pos_y as f64))
-    } else {
-        Err("get cursorpos error".to_string())
-    }
-}
-// 获取鼠标物理坐标
-#[cfg(target_os = "windows")]
-fn get_mouse_location() -> Result<(f64, f64), String> {
-    use windows::Win32::Foundation::POINT;
-    use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
-
-    let mut point = POINT { x: 0, y: 0 };
-
-    unsafe {
-        if GetCursorPos(&mut point).as_bool() {
-            Ok((point.x as f64, point.y as f64))
-        } else {
-            Err("get cursorpos error".to_string())
-        }
-    }
-}
-// 获取鼠标逻辑坐标
-#[cfg(target_os = "macos")]
-fn get_mouse_location() -> Result<(f64, f64), String> {
-    use core_graphics::display::CGDisplay;
-    use core_graphics::event::CGEvent;
-    use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
-    let display = CGDisplay::main();
-    let mode = display.display_mode().unwrap();
-    let event =
-        CGEvent::new(CGEventSource::new(CGEventSourceStateID::CombinedSessionState).unwrap());
-    let point = event.unwrap().location();
-    let mut x = point.x;
-    let mut y = point.y;
-    let (width, height) = get_window_size();
-    if x + width > mode.width() as f64 {
-        x = x - width;
-        if x < 0.0 {
-            x = 0.0;
-        }
-    }
-    if y + height > mode.height() as f64 {
-        y = y - height;
-        if y < 0.0 {
-            y = 0.0;
-        }
-    }
-    return Ok((x, y));
+    window
+        .set_position(tauri::PhysicalPosition::new(
+            mouse_position.x,
+            mouse_position.y,
+        ))
+        .unwrap();
+    window
+        .set_size(tauri::PhysicalSize::new(
+            (width as f64) * dpi,
+            (height as f64) * dpi,
+        ))
+        .unwrap();
+    window
 }
 
-// 划词翻译
-pub fn translate_window() {
+pub fn selection_translate() {
     use selection::get_text;
-    // 获取选择文本
+    // Get Selected Text
     let text = get_text();
 
-    let handle = APP.get().unwrap();
-    // 写入状态备用
-    let state: tauri::State<StringWrapper> = handle.state();
+    let app_handle = APP.get().unwrap();
+    // Write into State
+    let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
-    // 创建窗口
-    match handle.get_window("translator") {
-        Some(window) => {
-            window.set_focus().unwrap();
-            window.emit("new_selection", text).unwrap();
-        }
-        None => {
-            let _window = build_translate_window("translator", "Translator", handle).unwrap();
-        }
-    };
+    let window = translate_window();
+    window.set_always_on_top(true).unwrap();
+    window.emit("new_text", text).unwrap();
 }
 
-// 持久窗口
-pub fn persistent_window() {
-    let handle = APP.get().unwrap();
-    match handle.get_window("persistent") {
-        Some(window) => {
-            window.set_focus().unwrap();
-        }
-        None => {
-            let _window = build_translate_window("persistent", "Persistent", handle).unwrap();
-        }
-    };
+pub fn input_translate() {
+    let app_handle = APP.get().unwrap();
+    // Clear State
+    let state: tauri::State<StringWrapper> = app_handle.state();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., "[INPUT_TRANSLATE]");
+    let window = translate_window();
+    window.set_always_on_top(true).unwrap();
+    window.center().unwrap();
+    window.emit("new_text", "[INPUT_TRANSLATE]").unwrap();
 }
 
-// popclip划词翻译
-pub fn popclip_window(text: String) {
-    let handle = APP.get().unwrap();
-
-    let state: tauri::State<StringWrapper> = handle.state();
+pub fn text_translate(text: String) {
+    let app_handle = APP.get().unwrap();
+    // Clear State
+    let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
-
-    match handle.get_window("popclip") {
-        Some(window) => {
-            window.set_focus().unwrap();
-            window.emit("new_selection", text).unwrap();
-        }
-        None => {
-            let _window = build_translate_window("popclip", "PopClip", handle).unwrap();
-        }
-    };
+    let window = translate_window();
+    window.set_always_on_top(true).unwrap();
+    window.emit("new_text", text).unwrap();
 }
 
-// 截图翻译
-pub fn popclip_ocr_window() {
-    let handle = APP.get().unwrap();
-
-    match handle.get_window("popclip_ocr") {
-        Some(window) => {
-            window.set_focus().unwrap();
-            window.emit("new_screenshot", "").unwrap();
-        }
-        None => {
-            let _window =
-                build_translate_window("popclip_ocr", "Screenshot Translate", handle).unwrap();
-        }
-    };
+pub fn image_translate() {
+    let app_handle = APP.get().unwrap();
+    let state: tauri::State<StringWrapper> = app_handle.state();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., "[IMAGE_TRANSLATE]");
+    let window = translate_window();
+    window.emit("new_text", "[IMAGE_TRANSLATE]").unwrap();
 }
 
-// OCR
-pub fn ocr_window() {
-    let handle = APP.get().unwrap();
-    match handle.get_window("ocr") {
-        Some(window) => {
-            window.set_focus().unwrap();
-        }
+pub fn recognize_window() {
+    let window = build_window("recognize", "Recognize");
+    let width = match get("recognize_window_width") {
+        Some(v) => v.as_i64().unwrap(),
         None => {
-            let window = build_ocr_window(handle).unwrap();
-            window.listen("translate_from_ocr", |e| {
-                let raw_str = e.payload().unwrap().to_string();
-                let text = raw_str.trim_matches('"');
-                let text = text.replace("\\n", "\n");
-                popclip_window(text);
-            });
+            set("recognize_window_width", 800);
+            800
         }
     };
+    let height = match get("recognize_window_height") {
+        Some(v) => v.as_i64().unwrap(),
+        None => {
+            set("recognize_window_height", 400);
+            400
+        }
+    };
+    let monitor = window.current_monitor().unwrap().unwrap();
+    let dpi = monitor.scale_factor();
+    window
+        .set_size(tauri::PhysicalSize::new(
+            (width as f64) * dpi,
+            (height as f64) * dpi,
+        ))
+        .unwrap();
+    window.center().unwrap();
 }
 
-// Screenshot
-pub fn screenshot_ocr_window() {
-    let handle = APP.get().unwrap();
+fn screenshot_window() -> Window {
+    use crate::screenshot::screenshot;
+    use mouse_position::mouse_position::{Mouse, Position};
 
-    match handle.get_window("screenshot_ocr") {
-        Some(window) => {
-            window.close().unwrap();
-        }
-        None => {
-            let window = build_screenshot_window(handle, "screenshot_ocr").unwrap();
-            window.listen("ocr", |_| ocr_window());
+    let mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
         }
     };
+    let current_monitor = get_current_monitor(mouse_position.x, mouse_position.y);
+    let position = current_monitor.position();
+    screenshot(position.x, position.y);
+    let window = build_window("screenshot", "Screenshot");
+
+    #[cfg(target_os = "macos")]
+    {
+        let monitor = window.current_monitor().unwrap().unwrap();
+        let size = monitor.size();
+        window.set_size(*size).unwrap();
+    }
+
+    #[cfg(not(target_os = "macos"))]
+    window.set_fullscreen(true).unwrap();
+    window.set_always_on_top(true).unwrap();
+    window
 }
 
-// Screenshot
-pub fn screenshot_translate_window() {
-    let handle = APP.get().unwrap();
+pub fn ocr_recognize() {
+    let window = screenshot_window();
+    window.listen("success", |_| recognize_window());
+}
+pub fn ocr_translate() {
+    let window = screenshot_window();
+    window.listen("success", |_| image_translate());
+}
 
-    match handle.get_window("screenshot_translate") {
-        Some(window) => {
-            window.close().unwrap();
-        }
-        None => {
-            let window = build_screenshot_window(handle, "screenshot_translate").unwrap();
-            window.listen("translate", |_| popclip_ocr_window());
-        }
-    };
+pub fn updater_window() {
+    let window = build_window("updater", "Updater");
+    window
+        .set_min_size(Some(tauri::LogicalSize::new(600, 400)))
+        .unwrap();
+    window.set_size(tauri::LogicalSize::new(600, 400)).unwrap();
+    window.center().unwrap();
 }

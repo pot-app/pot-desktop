@@ -1,6 +1,6 @@
 {
     "name": "Pot Translation",
-    "identifier": "com.pylogmon.snipdoext.pot",
+    "identifier": "com.pot-app.snipdoext.desktop",
     "icon": "pot.png",
     "actions": [
         {

@@ -1,8 +1,8 @@
 [package]
 name = "pot"
-version = "0.0.0"
-description = "A cross-platform translation software"
-authors = ["Pylogmon"]
+version = "2.0.0"
+description = "A cross-platform text translation and ocr software"
+authors = ["pot-app"]
 license = "GPLv3"
 repository = "https://github.com/pot-app/pot-desktop"
 edition = "2021"
@@ -13,39 +13,39 @@ edition = "2021"
 tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
-serde_json = "1.0"
-tauri = { version = "1.4", features = [ "os-all", "clipboard-all", "dialog-open", "fs-read-file", "global-shortcut-all", "http-all", "http-multipart", "notification", "notification-all", "path-all", "protocol-asset", "shell-open", "system-tray", "updater", "window-all"] }
+
+tauri = { version = "1.4", features = [ "clipboard-all", "os-all", "http-all", "http-multipart", "updater", "notification-all", "global-shortcut-all", "window-all", "path-all", "system-tray", "shell-open"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
-screenshots = {git = "https://github.com/pot-app/screenshots-rs"}
+tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 selection = {git = "https://github.com/pot-app/Selection"}
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+dirs = "5.0.1"
+once_cell = "1.18.0"
+mouse_position = "0.1.3"
+log = "^0.4"
 tiny_http = "0.12.0"
-once_cell = "1.17.1"
-toml = "0.7.3"
-serde = "1.0.159"
-dirs = "5.0.0"
-dunce = "1.0.4"
+screenshots = "0.7.2"
 image = "0.24.6"
 base64 = "0.21.2"
 arboard = "3.2.0"
+libloader = "0.1.4"
+libloading = "0.8.0"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+window-shadows = "0.2"
 
 [target.'cfg(windows)'.dependencies]
 windows = {version="0.44.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Foundation", "Graphics_Imaging", "Media_Ocr", "Foundation", "Globalization", "Storage", "Storage_Streams"] }
 window-shadows = "0.2"
 
-[target.'cfg(target_os = "macos")'.dependencies]
-window-shadows = "0.2"
-core-graphics = "0.22.3"
-macos-accessibility-client = "0.0.1"
-
 [target.'cfg(target_os = "linux")'.dependencies]
 openssl = {version="0.10.55",features = ["vendored"] }
-mouse_position = "0.1.3"
 
 [features]
-# by default Tauri runs in production mode
-# when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
-default = ["custom-protocol"]
-# this feature is used used for production builds where `devPath` points to the filesystem
-# DO NOT remove this
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
 custom-protocol = ["tauri/custom-protocol"]
