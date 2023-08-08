@@ -82,6 +82,14 @@ fn main() {
                     .show()
                     .unwrap(),
             }
+            match get("proxy_enable") {
+                Some(v) => {
+                    if v.as_bool().unwrap() {
+                        let _ = set_proxy();
+                    }
+                }
+                None => {}
+            }
             // Check Update
             check_update(app.handle());
             Ok(())
@@ -93,7 +101,9 @@ fn main() {
             get_base64,
             copy_img,
             system_ocr,
-            invoke_translate_plugin
+            invoke_translate_plugin,
+            set_proxy,
+            unset_proxy
         ])
         .on_system_tray_event(tray_event_handler)
         .run(tauri::generate_context!())

@@ -114,3 +114,29 @@ pub fn invoke_translate_plugin(
         return func(text, from, to, needs, &proxy);
     };
 }
+
+#[tauri::command]
+pub fn set_proxy() -> Result<bool, ()> {
+    let host = match get("proxy_host") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => return Err(()),
+    };
+    let port = match get("proxy_port") {
+        Some(v) => v.as_i64().unwrap(),
+        None => return Err(()),
+    };
+    let proxy = format!("http://{}:{}", host, port);
+
+    std::env::set_var("http_proxy", &proxy);
+    std::env::set_var("https_proxy", &proxy);
+    std::env::set_var("all_proxy", &proxy);
+    Ok(true)
+}
+
+#[tauri::command]
+pub fn unset_proxy() -> Result<bool, ()> {
+    std::env::remove_var("http_proxy");
+    std::env::remove_var("https_proxy");
+    std::env::remove_var("all_proxy");
+    Ok(true)
+}

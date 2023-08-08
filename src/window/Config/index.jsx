@@ -70,7 +70,7 @@ export default function Config() {
                     <div style={{ display: 'flex' }}>{osType !== 'Darwin' && <WindowControl />}</div>
                 </div>
                 <Divider />
-                <div style={{ padding: '10px' }}>{page}</div>
+                <div style={{ padding: '10px', overflow: 'auto', height: 'calc(100vh - 36px)' }}>{page}</div>
             </div>
         </>
     );
