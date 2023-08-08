@@ -25,7 +25,6 @@ export default function App() {
 
     useEffect(() => {
         store.get('app_theme').then((t) => {
-            info(t);
             if (t && t !== 'system') {
                 setTheme(t);
             } else {

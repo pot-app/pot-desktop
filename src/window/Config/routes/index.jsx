@@ -1,9 +1,10 @@
 import { Navigate } from 'react-router-dom';
+import General from '../pages/General';
 
 const routes = [
     {
         path: '/general',
-        element: <div />,
+        element: <General />,
     },
     {
         path: '/translate',

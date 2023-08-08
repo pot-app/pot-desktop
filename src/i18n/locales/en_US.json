@@ -3,7 +3,16 @@
         "config": {
             "general": {
                 "label": "General",
-                "title": "General Settings"
+                "title": "General Settings",
+                "auto_start": "Auto Startup",
+                "check_update": "Check Update",
+                "app_language": "Application Language",
+                "app_theme": "Theme",
+                "theme": {
+                    "light": "Light",
+                    "dark": "Dark",
+                    "system": "System"
+                }
             },
             "translate": {
                 "label": "Translate",

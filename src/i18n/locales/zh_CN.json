@@ -3,7 +3,36 @@
         "config": {
             "general": {
                 "label": "常规设置",
-                "title": "常规设置"
+                "title": "常规设置",
+                "auto_start": "开机时启动应用",
+                "check_update": "启动时检查更新",
+                "server_port": "监听端口",
+                "server_port_change": "监听端口已更改，重启应用生效",
+                "app_language": "应用语言",
+                "app_theme": "应用主题",
+                "theme": {
+                    "light": "浅色",
+                    "dark": "深色",
+                    "system": "跟随系统"
+                },
+                "proxy": {
+                    "title": "网络代理",
+                    "host": "代理地址",
+                    "port": "代理端口",
+                    "username": "用户名",
+                    "password": "密码",
+                    "test": "测试"
+                },
+                "proxy_change": "代理已经改变，重启应用生效",
+                "proxy_error": "请填写代理地址和端口",
+                "tray_click_event": "托盘点击事件",
+                "event": {
+                    "config": "打开设置",
+                    "translate": "打开翻译窗口",
+                    "disable": "禁用",
+                    "ocr_recognize": "文字识别",
+                    "ocr_translate": "截图翻译"
+                }
             },
             "translate": {
                 "label": "翻译设置",
@@ -11,7 +40,7 @@
             },
             "recognize": {
                 "label": "文字识别",
-                "title": "文字识别设置"
+                "title": "文字识别"
             },
             "hotkey": {
                 "label": "热键设置",
