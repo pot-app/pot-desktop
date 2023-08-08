@@ -1,1 +1,38 @@
-{}
+{
+    "translation": {
+        "config": {
+            "general": {
+                "label": "常规设置",
+                "title": "常规设置"
+            },
+            "translate": {
+                "label": "翻译设置",
+                "title": "翻译设置"
+            },
+            "recognize": {
+                "label": "文字识别",
+                "title": "文字识别设置"
+            },
+            "hotkey": {
+                "label": "热键设置",
+                "title": "热键设置"
+            },
+            "external": {
+                "label": "外联设置",
+                "title": "外联设置"
+            },
+            "service": {
+                "label": "服务设置",
+                "title": "服务设置"
+            },
+            "history": {
+                "label": "历史记录",
+                "title": "历史记录"
+            },
+            "about": {
+                "label": "关于应用",
+                "title": "关于应用"
+            }
+        }
+    }
+}

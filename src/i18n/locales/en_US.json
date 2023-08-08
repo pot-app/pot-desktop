@@ -1,1 +1,38 @@
-{}
+{
+    "translation": {
+        "config": {
+            "general": {
+                "label": "General",
+                "title": "General Settings"
+            },
+            "translate": {
+                "label": "Translate",
+                "title": "Translation Settings"
+            },
+            "recognize": {
+                "label": "Recognize",
+                "title": "Recognition Settings"
+            },
+            "hotkey": {
+                "label": "Hotkey",
+                "title": "Hotkey Settings"
+            },
+            "external": {
+                "label": "External",
+                "title": "External Settings"
+            },
+            "service": {
+                "label": "Service",
+                "title": "Service Settings"
+            },
+            "history": {
+                "label": "History",
+                "title": "History"
+            },
+            "about": {
+                "label": "About",
+                "title": "About Application"
+            }
+        }
+    }
+}
