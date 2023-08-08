@@ -19,13 +19,13 @@
                 <key>Link</key>
                 <string>https://pot-app.com/</string>
                 <key>Name</key>
-                <string>Pylogmon</string>
+                <string>pot-app</string>
             </dict>
         </array>
         <key>Extension Description</key>
         <string>Translate text with Pot.</string>
         <key>Extension Identifier</key>
-        <string>com.pylogmon.popclip.extension.pot</string>
+        <string>com.pot-app.popclip.extension.desktop</string>
         <key>Extension Image File</key>
         <string>Pot.png</string>
         <key>Extension Name</key>

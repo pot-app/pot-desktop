@@ -8,7 +8,7 @@
     },
     "package": {
         "productName": "pot",
-        "version": "1.13.1"
+        "version": "2.0.0"
     },
     "tauri": {
         "allowlist": {
@@ -17,7 +17,7 @@
                 "all": false,
                 "open": true
             },
-            "globalShortcut": {
+            "path": {
                 "all": true
             },
             "window": {
@@ -26,22 +26,11 @@
             "clipboard": {
                 "all": true
             },
+            "globalShortcut": {
+                "all": true
+            },
             "notification": {
                 "all": true
-            },
-            "dialog": {
-                "open": true
-            },
-            "path": {
-                "all": true
-            },
-            "fs": {
-                "readFile": true,
-                "scope": ["$CACHE/**"]
-            },
-            "protocol": {
-                "asset": true,
-                "assetScope": ["$CACHE/**"]
             },
             "http": {
                 "all": true,
@@ -56,10 +45,12 @@
             "active": true,
             "category": "Utility",
             "copyright": "GPLv3",
-            "deb": {
-                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr-all"]
-            },
+            "targets": "all",
+            "identifier": "com.pot-app.desktop",
+            "longDescription": "A cross-platform text translation and ocr software",
+            "shortDescription": "A cross-platform text translation and ocr software",
             "externalBin": [],
+            "resources": [],
             "icon": [
                 "icons/32x32.png",
                 "icons/128x128.png",
@@ -67,25 +58,13 @@
                 "icons/icon.icns",
                 "icons/icon.ico"
             ],
-            "identifier": "com.pylogmon.pot",
-            "longDescription": "A cross-platform translation software",
-            "macOS": {
-                "entitlements": null,
-                "exceptionDomain": "",
-                "frameworks": [],
-                "providerShortName": null,
-                "signingIdentity": null
+            "deb": {
+                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr-all"]
             },
-            "resources": [],
-            "shortDescription": "A cross-platform translation software",
-            "targets": "all",
             "windows": {
                 "certificateThumbprint": null,
                 "digestAlgorithm": "sha256",
                 "timestampUrl": "",
-                "wix": {
-                    "language": "zh-CN"
-                },
                 "webviewInstallMode": {
                     "silent": true,
                     "type": "embedBootstrapper"
@@ -97,11 +76,29 @@
                     "installMode": "perMachine",
                     "languages": ["SimpChinese", "TradChinese", "English"]
                 }
+            },
+            "macOS": {
+                "entitlements": null,
+                "exceptionDomain": "",
+                "frameworks": [],
+                "providerShortName": null,
+                "signingIdentity": null
             }
         },
         "security": {
-            "csp": "default-src * data: ; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
-            "devCsp": "default-src * data: ; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
+            "csp": null
+        },
+        "windows": [
+            {
+                "title": "Daemon",
+                "label": "daemon",
+                "visible": false,
+                "url": "daemon.html"
+            }
+        ],
+        "systemTray": {
+            "iconPath": "icons/icon.png",
+            "iconAsTemplate": true
         },
         "updater": {
             "active": true,
