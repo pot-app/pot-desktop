@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { checkUpdate, onUpdaterEvent, installUpdate } from '@tauri-apps/api/updater';
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import { appWindow } from '@tauri-apps/api/window';
 import ReactMarkdown from 'react-markdown';
-import { Code, Card, CardBody, Button, Progress } from '@nextui-org/react';
+import { Code, Card, CardBody, Button, Progress, Skeleton } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import { store } from '../../utils/store';
 import { listen } from '@tauri-apps/api/event';
@@ -22,13 +22,14 @@ export default function Updater() {
                 i18n.changeLanguage(l);
             }
         });
+        if (appWindow.label === 'updater') {
+            appWindow.show();
+        }
         checkUpdate().then((update) => {
             if (update.shouldUpdate) {
-                console.log(update);
                 setBody(update.manifest.body);
-                if (appWindow.label === 'updater') {
-                    appWindow.show();
-                }
+            } else {
+                setBody(t('updater.latest'));
             }
         });
         if (unlisten === 0) {
@@ -68,52 +69,66 @@ export default function Updater() {
                     height: 'calc(100vh - 150px)',
                     overflow: 'auto',
                     margin: 'auto',
-                    marginTop: '20px',
+                    marginTop: '10px',
                 }}
             >
                 <CardBody>
-                    <ReactMarkdown
-                        className='markdown-body'
-                        components={{
-                            code: ({ node, ...props }) => {
-                                const { children } = props;
-                                return <Code size='sm'>{children}</Code>;
-                            },
-                            h2: ({ node, ...props }) => (
-                                <b>
-                                    <h2
-                                        style={{ fontSize: '24px' }}
-                                        {...props}
-                                    />
-                                    <hr />
-                                    <br />
-                                </b>
-                            ),
-                            h3: ({ node, ...props }) => (
-                                <b>
-                                    <br />
-                                    <h3
-                                        style={{ fontSize: '18px' }}
-                                        {...props}
-                                    />
-                                    <br />
-                                </b>
-                            ),
-                            li: ({ node, ...props }) => {
-                                const { children } = props;
-                                return (
-                                    <li
-                                        style={{ listStylePosition: 'inside', listStyleType: 'disc' }}
-                                        children={children}
-                                    />
-                                );
-                            },
-                        }}
-                    >
-                        {body}
-                    </ReactMarkdown>
+                    {body === '' ? (
+                        <div className='space-y-3'>
+                            <Skeleton className='w-3/5 rounded-lg'>
+                                <div className='h-3 w-3/5 rounded-lg bg-default-200'></div>
+                            </Skeleton>
+                            <Skeleton className='w-4/5 rounded-lg'>
+                                <div className='h-3 w-4/5 rounded-lg bg-default-200'></div>
+                            </Skeleton>
+                            <Skeleton className='w-2/5 rounded-lg'>
+                                <div className='h-3 w-2/5 rounded-lg bg-default-300'></div>
+                            </Skeleton>
+                        </div>
+                    ) : (
+                        <ReactMarkdown
+                            className='markdown-body'
+                            components={{
+                                code: ({ node, ...props }) => {
+                                    const { children } = props;
+                                    return <Code size='sm'>{children}</Code>;
+                                },
+                                h2: ({ node, ...props }) => (
+                                    <b>
+                                        <h2
+                                            style={{ fontSize: '24px' }}
+                                            {...props}
+                                        />
+                                        <hr />
+                                        <br />
+                                    </b>
+                                ),
+                                h3: ({ node, ...props }) => (
+                                    <b>
+                                        <br />
+                                        <h3
+                                            style={{ fontSize: '18px' }}
+                                            {...props}
+                                        />
+                                        <br />
+                                    </b>
+                                ),
+                                li: ({ node, ...props }) => {
+                                    const { children } = props;
+                                    return (
+                                        <li
+                                            style={{ listStylePosition: 'inside', listStyleType: 'disc' }}
+                                            children={children}
+                                        />
+                                    );
+                                },
+                            }}
+                            style={{ userSelect: 'text' }}
+                        >
+                            {body}
+                        </ReactMarkdown>
+                    )}
                 </CardBody>
-                {/* <MDXRemote compiledSource={body} /> */}
             </Card>
             <div
                 style={{
@@ -122,25 +137,41 @@ export default function Updater() {
                     marginTop: '5px',
                 }}
             >
-                <Progress
-                    aria-label='Loading...'
-                    value={(downloaded / total) * 100}
-                    color='success'
-                    style={{
-                        width: '100%',
-                    }}
-                />
+                {downloaded !== 0 && (
+                    <Progress
+                        aria-label='Downloading...'
+                        label={t('updater.progress')}
+                        value={(downloaded / total) * 100}
+                        classNames={{
+                            track: 'drop-shadow-md border border-default',
+                            indicator: 'bg-gradient-to-r from-pink-500 to-yellow-500',
+                            label: 'tracking-wider font-medium text-default-600',
+                            value: 'text-foreground/60',
+                        }}
+                        showValueLabel
+                        size='sm'
+                        style={{
+                            width: '100%',
+                        }}
+                    />
+                )}
             </div>
 
             <div style={{ margin: '10px', display: 'flex', justifyContent: 'space-around' }}>
                 <Button
                     variant='flat'
+                    isLoading={downloaded !== 0}
+                    isDisabled={downloaded !== 0}
                     color='primary'
                     onClick={() => {
                         installUpdate();
                     }}
                 >
-                    更新
+                    {downloaded !== 0
+                        ? downloaded > total
+                            ? t('updater.installing')
+                            : t('updater.downloading')
+                        : t('updater.update')}
                 </Button>
                 <Button
                     variant='flat'
