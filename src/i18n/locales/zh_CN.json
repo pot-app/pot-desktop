@@ -20,8 +20,7 @@
                     "host": "代理地址",
                     "port": "代理端口",
                     "username": "用户名",
-                    "password": "密码",
-                    "test": "测试"
+                    "password": "密码"
                 },
                 "proxy_change": "代理已经改变，重启应用生效",
                 "proxy_error": "请填写代理地址和端口",

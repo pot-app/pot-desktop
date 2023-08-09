@@ -18,7 +18,7 @@ import {
 import { info } from 'tauri-plugin-log-api';
 import { useConfig } from '../../../../hooks/useConfig';
 import './style.css';
-import { invoke } from '@tauri-apps/api';
+import { type } from '@tauri-apps/api/os';
 
 let timer = null;
 
@@ -36,7 +36,7 @@ export default function General() {
     const [proxyPassword, setProxy] = useConfig('proxy_password', '');
     const { t, i18n } = useTranslation();
     const { theme, setTheme } = useTheme();
-
+    const [osType, setOsType] = useState('linux');
     const languageName = {
         en: 'English',
         zh_cn: '简体中文',
@@ -48,6 +48,9 @@ export default function General() {
     };
 
     useEffect(() => {
+        type().then((v) => {
+            setOsType(v);
+        });
         isEnabled().then((v) => {
             setAutoStart(v);
         });
@@ -163,7 +166,10 @@ export default function General() {
                             </DropdownMenu>
                         </Dropdown>
                     </div>
-                    <div className='config-item'>
+                    <div
+                        className='config-item'
+                        style={{ display: osType === 'Linux' && 'none' }}
+                    >
                         <h3 style={{ margin: 'auto 0' }}>{t('config.general.tray_click_event')}</h3>
                         <Dropdown>
                             <DropdownTrigger>
@@ -206,11 +212,9 @@ export default function General() {
                                         return;
                                     } else {
                                         setProxyEnable(v);
-                                        await invoke('set_proxy');
                                     }
                                 } else {
                                     setProxyEnable(v);
-                                    await invoke('unset_proxy');
                                 }
                                 toast.success(t('config.general.proxy_change'), {
                                     duration: 1000,

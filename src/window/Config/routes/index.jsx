@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import General from '../pages/General';
-
+import Translate from '../pages/Translate';
 const routes = [
     {
         path: '/general',
@@ -8,7 +8,7 @@ const routes = [
     },
     {
         path: '/translate',
-        element: <div />,
+        element: <Translate />,
     },
     {
         path: '/recognize',
