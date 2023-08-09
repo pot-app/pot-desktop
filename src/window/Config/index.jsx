@@ -40,27 +40,38 @@ export default function Config() {
                     borderRadius: 0,
                 }}
             >
-                <div
-                    data-tauri-drag-region='true'
-                    style={{ height: '35px' }}
-                />
-                <div data-tauri-drag-region='true'>
-                    <img
-                        alt='pot logo'
-                        height={50}
-                        width={50}
-                        src='icon.png'
-                        style={{ margin: 'auto', marginBottom: '35px' }}
-                        draggable={false}
+                <div style={{ height: '35px', padding: '5px' }}>
+                    <div
+                        data-tauri-drag-region='true'
+                        style={{ width: '100%', height: '100%' }}
                     />
+                </div>
+                <div style={{ padding: '5px' }}>
+                    <div data-tauri-drag-region='true'>
+                        <img
+                            alt='pot logo'
+                            height={50}
+                            width={50}
+                            src='icon.png'
+                            style={{ margin: 'auto', marginBottom: '35px' }}
+                            draggable={false}
+                        />
+                    </div>
                 </div>
                 <SideBar />
             </Card>
             <div style={{ marginLeft: '230px', height: '100vh' }}>
                 <div
                     data-tauri-drag-region='true'
-                    style={{ height: '35px', display: 'flex', justifyContent: 'space-between' }}
-                >
+                    style={{
+                        top: '5px',
+                        left: '235px',
+                        right: '5px',
+                        height: '30px',
+                        position: 'fixed',
+                    }}
+                />
+                <div style={{ height: '35px', display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex' }}>
                         <h2 style={{ margin: 'auto', marginLeft: '10px' }}>
                             {t(`config.${location.pathname.slice(1)}.title`)}

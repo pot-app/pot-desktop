@@ -6,12 +6,31 @@
                 "title": "General Settings",
                 "auto_start": "Auto Startup",
                 "check_update": "Check Update",
+                "server_port": "Listen Port",
+                "server_port_change": "The listening port has been changed. Please restart the application for the changes to take effect.",
                 "app_language": "Application Language",
                 "app_theme": "Theme",
                 "theme": {
                     "light": "Light",
                     "dark": "Dark",
                     "system": "System"
+                },
+                "proxy": {
+                    "title": "Proxy",
+                    "host": "Host",
+                    "port": "Port",
+                    "username": "Username",
+                    "password": "Password"
+                },
+                "proxy_change": "The proxy has been changed. Restart the application for the changes to take effect.",
+                "proxy_error": "Please fill in the host and port.",
+                "tray_click_event": "Tray Click Event",
+                "event": {
+                    "config": "Config",
+                    "translate": "Translate",
+                    "disable": "Disable",
+                    "ocr_recognize": "Text Recognition",
+                    "ocr_translate": "Screenshot Translation"
                 }
             },
             "translate": {
