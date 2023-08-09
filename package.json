@@ -21,6 +21,7 @@
         "react-hot-toast": "^2.4.1",
         "react-i18next": "^13.0.3",
         "react-icons": "^4.10.1",
+        "react-markdown": "^8.0.7",
         "react-router-dom": "^6.14.2",
         "styled-components": "^6.0.7",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
