@@ -70,14 +70,8 @@ async function getChangeLog(token) {
         let data = await res.json();
         if (data['body']) {
             let changelog_md = data['body'];
-            let changelog = changelog_md.replaceAll('### ', '');
-            changelog = changelog.replaceAll('## ', '');
-            const extReg = /[\(\[].*[\)\)]/g;
-            let ext = changelog.match(extReg);
-            for (let i of ext) {
-                changelog = changelog.replaceAll(i, '');
-            }
-            return changelog;
+
+            return changelog_md;
         }
     }
 }
