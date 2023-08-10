@@ -61,6 +61,15 @@
                 "label": "About",
                 "title": "About Application"
             }
+        },
+        "updater": {
+            "title": "Check Update",
+            "latest": "## The latest version is installed.",
+            "progress": "Download Progress",
+            "update": "Update",
+            "downloading": "Downloading...",
+            "installing": "Installing...",
+            "cancel": "Cancel"
         }
     }
 }

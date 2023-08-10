@@ -38,7 +38,6 @@ export default function Updater() {
                     eventId = e.id;
                 }
                 if (e.id === eventId) {
-                    console.log(e);
                     setTotal(e.payload.contentLength);
                     setDownloaded((a) => {
                         return a + e.payload.chunkLength;
@@ -180,7 +179,7 @@ export default function Updater() {
                         appWindow.close();
                     }}
                 >
-                    取消
+                    {t('updater.cancel')}
                 </Button>
             </div>
         </div>
