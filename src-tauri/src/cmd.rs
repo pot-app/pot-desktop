@@ -1,5 +1,6 @@
 use crate::config::get;
 use crate::config::StoreWrapper;
+use crate::hotkey::register_shortcut;
 use crate::StringWrapper;
 use crate::APP;
 use log::info;

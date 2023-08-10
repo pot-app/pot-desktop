@@ -8,19 +8,16 @@ import { type } from '@tauri-apps/api/os';
 import WindowControl from '../../components/WindowControl';
 import SideBar from './components/sidebar';
 import { store } from '../../utils/store';
+import { osType } from '../../utils/env';
 import routes from './routes';
 import './style.css';
 
 export default function Config() {
-    const [osType, setOsTyoe] = useState('Darwin');
     const { t, i18n } = useTranslation();
     const location = useLocation();
     const page = useRoutes(routes);
 
     useEffect(() => {
-        type().then((t) => {
-            setOsTyoe(t);
-        });
         store.get('app_language').then((l) => {
             if (l) {
                 i18n.changeLanguage(l);
@@ -34,14 +31,7 @@ export default function Config() {
 
     return (
         <>
-            <Card
-                style={{
-                    width: '230px',
-                    height: '100vh',
-                    float: 'left',
-                    borderRadius: 0,
-                }}
-            >
+            <Card className='bg-background/80 float-left w-[230px] h-screen rounded-none'>
                 <div style={{ height: '35px', padding: '5px' }}>
                     <div
                         data-tauri-drag-region='true'
@@ -62,7 +52,10 @@ export default function Config() {
                 </div>
                 <SideBar />
             </Card>
-            <div style={{ marginLeft: '230px', height: '100vh' }}>
+            <div
+                className='bg-background'
+                style={{ marginLeft: '230px', height: '100vh' }}
+            >
                 <div
                     data-tauri-drag-region='true'
                     style={{

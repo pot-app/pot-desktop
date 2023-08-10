@@ -87,10 +87,7 @@ fn build_window(label: &str, title: &str) -> Window {
             .focused(true)
             .title(title)
             .visible(false);
-            #[cfg(target_os = "linux")]
-            {
-                builder = builder.transparent(true);
-            }
+
             #[cfg(target_os = "macos")]
             {
                 builder = builder
@@ -99,7 +96,7 @@ fn build_window(label: &str, title: &str) -> Window {
             }
             #[cfg(not(target_os = "macos"))]
             {
-                builder = builder.decorations(false);
+                builder = builder.transparent(true).decorations(false);
             }
             let window = builder.build().unwrap();
             #[cfg(not(target_os = "linux"))]

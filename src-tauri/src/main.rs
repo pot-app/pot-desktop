@@ -13,7 +13,7 @@ mod window;
 
 use cmd::*;
 use config::*;
-use hotkey::register_shortcut;
+use hotkey::*;
 use log::info;
 use once_cell::sync::OnceCell;
 use server::*;
@@ -103,7 +103,8 @@ fn main() {
             system_ocr,
             invoke_translate_plugin,
             set_proxy,
-            unset_proxy
+            unset_proxy,
+            register_shortcut_by_frontend
         ])
         .on_system_tray_event(tray_event_handler)
         .run(tauri::generate_context!())

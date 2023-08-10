@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 
 import Translate from '../pages/Translate';
 import General from '../pages/General';
+import Hotkey from '../pages/Hotkey';
 
 const routes = [
     {
@@ -22,7 +23,7 @@ const routes = [
     },
     {
         path: '/hotkey',
-        element: <div />,
+        element: <Hotkey />,
     },
     {
         path: '/service',
