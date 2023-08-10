@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@nextui-org/react": "^2.0.8",
+        "@nextui-org/theme": "^2.0.4",
         "@tauri-apps/api": "^1.4.0",
         "framer-motion": "^10.15.1",
         "i18next": "^23.4.4",
