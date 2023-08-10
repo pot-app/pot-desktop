@@ -48,29 +48,23 @@ export default function Updater() {
         }
     }, []);
     return (
-        <div>
-            <div style={{ padding: '5px', height: '35px', width: '100%' }}>
+        <div className='bg-background/90 h-screen'>
+            <div className='p-[5px] h-[35px] w-full'>
                 <div
                     data-tauri-drag-region='true'
-                    style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'left' }}
+                    className='h-full w-full flex'
                 >
                     <img
                         src='icon.png'
-                        height={25}
-                        style={{ height: '25px', marginRight: '10px' }}
+                        className='h-[25px] w-[25px] mr-[10px]'
                         draggable={false}
                     />
                     <h2>{t('updater.title')}</h2>
                 </div>
             </div>
             <Card
-                style={{
-                    width: '80%',
-                    height: 'calc(100vh - 150px)',
-                    overflow: 'auto',
-                    margin: 'auto',
-                    marginTop: '10px',
-                }}
+                className='mx-[80px] mt-[10px] overscroll-auto'
+                style={{ height: 'calc(100vh - 150px)' }}
             >
                 <CardBody>
                     {body === '' ? (
@@ -123,41 +117,30 @@ export default function Updater() {
                                     );
                                 },
                             }}
-                            style={{ userSelect: 'text' }}
                         >
                             {body}
                         </ReactMarkdown>
                     )}
                 </CardBody>
             </Card>
-            <div
-                style={{
-                    width: '80%',
-                    margin: 'auto',
-                    marginTop: '5px',
-                }}
-            >
-                {downloaded !== 0 && (
-                    <Progress
-                        aria-label='Downloading...'
-                        label={t('updater.progress')}
-                        value={(downloaded / total) * 100}
-                        classNames={{
-                            track: 'drop-shadow-md border border-default',
-                            indicator: 'bg-gradient-to-r from-pink-500 to-yellow-500',
-                            label: 'tracking-wider font-medium text-default-600',
-                            value: 'text-foreground/60',
-                        }}
-                        showValueLabel
-                        size='sm'
-                        style={{
-                            width: '100%',
-                        }}
-                    />
-                )}
-            </div>
+            {downloaded !== 0 && (
+                <Progress
+                    aria-label='Downloading...'
+                    label={t('updater.progress')}
+                    value={(downloaded / total) * 100}
+                    classNames={{
+                        base: 'w-full px-[80px]',
+                        track: 'drop-shadow-md border border-default',
+                        indicator: 'bg-gradient-to-r from-pink-500 to-yellow-500',
+                        label: 'tracking-wider font-medium text-default-600',
+                        value: 'text-foreground/60',
+                    }}
+                    showValueLabel
+                    size='sm'
+                />
+            )}
 
-            <div style={{ margin: '10px', display: 'flex', justifyContent: 'space-around' }}>
+            <div className='grid gap-4 grid-cols-2 h-[50px] my-[10px] mx-[80px]'>
                 <Button
                     variant='flat'
                     isLoading={downloaded !== 0}
