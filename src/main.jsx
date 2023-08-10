@@ -3,6 +3,7 @@ import { appWindow } from '@tauri-apps/api/window';
 import { NextUIProvider } from '@nextui-org/react';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
+
 import { initStore } from './utils/store';
 import App from './App';
 

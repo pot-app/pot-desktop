@@ -1,14 +1,14 @@
 import { appWindow } from '@tauri-apps/api/window';
 import { BrowserRouter } from 'react-router-dom';
-import { info } from 'tauri-plugin-log-api';
 import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
+
 import Screenshot from './window/Screenshot';
 import Translate from './window/Translate';
 import Recognize from './window/Recognize';
-import Config from './window/Config';
 import Updater from './window/Updater';
 import { store } from './utils/store';
+import Config from './window/Config';
 import './style.css';
 import './i18n';
 

@@ -1,6 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import General from '../pages/General';
+
 import Translate from '../pages/Translate';
+import General from '../pages/General';
+
 const routes = [
     {
         path: '/general',

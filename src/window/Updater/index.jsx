@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
-import { appWindow } from '@tauri-apps/api/window';
-import ReactMarkdown from 'react-markdown';
 import { Code, Card, CardBody, Button, Progress, Skeleton } from '@nextui-org/react';
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
+import React, { useEffect, useState } from 'react';
+import { appWindow } from '@tauri-apps/api/window';
 import { useTranslation } from 'react-i18next';
-import { store } from '../../utils/store';
 import { listen } from '@tauri-apps/api/event';
+import ReactMarkdown from 'react-markdown';
+
+import { store } from '../../utils/store';
 
 let unlisten = 0;
 let eventId = 0;
