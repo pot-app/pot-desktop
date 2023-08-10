@@ -4,10 +4,12 @@ import { appWindow } from '@tauri-apps/api/window';
 import { Card, Divider } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import { type } from '@tauri-apps/api/os';
+
 import WindowControl from '../../components/WindowControl';
 import SideBar from './components/sidebar';
 import { store } from '../../utils/store';
 import routes from './routes';
+import './style.css';
 
 export default function Config() {
     const [osType, setOsTyoe] = useState('Darwin');

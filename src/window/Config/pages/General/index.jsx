@@ -1,24 +1,22 @@
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
+import { DropdownTrigger } from '@nextui-org/react';
 import { semanticColors } from '@nextui-org/theme';
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useTheme } from 'next-themes';
+import { DropdownMenu } from '@nextui-org/react';
+import { DropdownItem } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
-import {
-    Switch,
-    Card,
-    CardBody,
-    Dropdown,
-    DropdownTrigger,
-    DropdownMenu,
-    DropdownItem,
-    Button,
-    Input,
-} from '@nextui-org/react';
+import { CardBody } from '@nextui-org/react';
+import { Dropdown } from '@nextui-org/react';
 import { info } from 'tauri-plugin-log-api';
-import { useConfig } from '../../../../hooks/useConfig';
-import './style.css';
+import { Button } from '@nextui-org/react';
+import { Switch } from '@nextui-org/react';
 import { type } from '@tauri-apps/api/os';
+import { Input } from '@nextui-org/react';
+import { Card } from '@nextui-org/react';
+import { useTheme } from 'next-themes';
+
+import { useConfig } from '../../../../hooks/useConfig';
 
 let timer = null;
 
