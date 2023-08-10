@@ -11,12 +11,12 @@ import { Dropdown } from '@nextui-org/react';
 import { info } from 'tauri-plugin-log-api';
 import { Button } from '@nextui-org/react';
 import { Switch } from '@nextui-org/react';
-import { type } from '@tauri-apps/api/os';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 
 import { useConfig } from '../../../../hooks/useConfig';
+import { osType } from '../../../../utils/env';
 
 let timer = null;
 
@@ -34,7 +34,7 @@ export default function General() {
     const [proxyPassword, setProxy] = useConfig('proxy_password', '');
     const { t, i18n } = useTranslation();
     const { theme, setTheme } = useTheme();
-    const [osType, setOsType] = useState('linux');
+
     const languageName = {
         en: 'English',
         zh_cn: '简体中文',
@@ -46,9 +46,6 @@ export default function General() {
     };
 
     useEffect(() => {
-        type().then((v) => {
-            setOsType(v);
-        });
         isEnabled().then((v) => {
             setAutoStart(v);
         });
@@ -92,7 +89,16 @@ export default function General() {
                             variant='bordered'
                             value={serverPort}
                             onValueChange={(v) => {
-                                setServerPort(parseInt(v));
+                                if (v === '') {
+                                    setServerPort(0);
+                                } else if (parseInt(v) > 65535) {
+                                    setServerPort(65535);
+                                } else if (parseInt(v) < 0) {
+                                    setServerPort(0);
+                                } else {
+                                    setServerPort(parseInt(v));
+                                }
+
                                 if (timer) {
                                     clearTimeout(timer);
                                 }
@@ -221,7 +227,7 @@ export default function General() {
                             }}
                         />
                     </div>
-                    <div className='config-item gap-4'>
+                    <div className='config-item'>
                         <Input
                             type='url'
                             variant='bordered'
@@ -232,7 +238,7 @@ export default function General() {
                             onValueChange={(v) => {
                                 setProxyHost(v);
                             }}
-                            width='100px'
+                            className='mr-2'
                         />
 
                         <Input
@@ -244,13 +250,18 @@ export default function General() {
                             onValueChange={(v) => {
                                 if (v === '') {
                                     setProxyPort(0);
+                                } else if (parseInt(v) > 65535) {
+                                    setProxyPort(65535);
+                                } else if (parseInt(v) < 0) {
+                                    setProxyPort(0);
                                 } else {
                                     setProxyPort(parseInt(v));
                                 }
                             }}
+                            className='ml-2'
                         />
                     </div>
-                    <div className='config-item gap-4'>
+                    <div className='config-item'>
                         <Input
                             type='text'
                             variant='bordered'
@@ -259,6 +270,7 @@ export default function General() {
                             onValueChange={(v) => {
                                 setProxyUsername(v);
                             }}
+                            className='mr-2'
                         />
                         <Input
                             type='password'
@@ -268,6 +280,7 @@ export default function General() {
                             onValueChange={(v) => {
                                 setProxy(v);
                             }}
+                            className='ml-2'
                         />
                     </div>
                 </CardBody>

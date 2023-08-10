@@ -1,11 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import { store } from '../utils/store';
 
-let timer = null;
-
 export const useConfig = (name, dft) => {
     const [s, setS] = useState(dft);
 
+    let timer;
     useEffect(() => {
         store.get(name).then((v) => {
             if (v) {
@@ -15,6 +14,7 @@ export const useConfig = (name, dft) => {
                 store.save();
             }
         });
+        timer = null;
     }, []);
 
     const setConfig = useCallback((v) => {
