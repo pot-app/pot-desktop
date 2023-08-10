@@ -63,12 +63,13 @@
             }
         },
         "updater": {
-            "title": "新版本可用",
+            "title": "检查更新",
             "latest": "## 已经是最新版本",
             "progress": "下载进度",
             "update": "更新",
             "downloading": "下载中...",
-            "installing": "安装中..."
+            "installing": "安装中...",
+            "cancel": "取消"
         }
     }
 }
