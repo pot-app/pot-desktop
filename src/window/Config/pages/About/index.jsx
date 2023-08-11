@@ -155,7 +155,6 @@ export default function About() {
                         </PopoverContent>
                     </Popover>
                 </div>
-
                 <Divider />
             </div>
             <div className='content-center px-[40px]'>
