@@ -3,6 +3,31 @@
         "common": {
             "ok": "确定"
         },
+        "languages": {
+            "auto": "自动检测",
+            "zh_cn": "简体中文",
+            "zh_tw": "繁體中文",
+            "ja": "日语 ",
+            "en": "英语",
+            "ko": "韩语",
+            "fr": "法语",
+            "es": "西班牙语",
+            "ru": "俄语",
+            "de": "德语",
+            "it": "意大利语",
+            "tr": "土耳其语",
+            "pt": "葡萄牙语",
+            "pt_br": "葡萄牙语 (巴西)",
+            "vi": "越南语",
+            "id": "印尼语",
+            "th": "泰语",
+            "ms": "马来语",
+            "ar": "阿拉伯语",
+            "hi": "印地语",
+            "mn_mo": "蒙古语",
+            "mn_cy": "蒙古语(西里尔)",
+            "km": "高棉语"
+        },
         "config": {
             "general": {
                 "label": "常规设置",
@@ -38,7 +63,23 @@
             },
             "translate": {
                 "label": "翻译设置",
-                "title": "翻译设置"
+                "title": "翻译设置",
+                "source_language": "源语言",
+                "target_language": "目标语言",
+                "second_language": "第二目标语言",
+                "auto_copy": "自动复制",
+                "source": "原文",
+                "target": "译文",
+                "source_target": "原文+译文",
+                "disable": "禁用",
+                "incremental_translate": "增量翻译",
+                "dynamic_translate": "动态翻译",
+                "delete_newline": "自动删除换行",
+                "remember_language": "记住目标语言",
+                "remember_window_size": "记住窗口大小",
+                "hide_source": "隐藏原文",
+                "hide_language": "隐藏语言栏",
+                "hide_window": "隐藏翻译窗口"
             },
             "recognize": {
                 "label": "文字识别",
@@ -68,7 +109,20 @@
             },
             "about": {
                 "label": "关于应用",
-                "title": "关于应用"
+                "title": "关于应用",
+                "website": "官网",
+                "github": "Github",
+                "feedback": "问题反馈",
+                "issue": "Issue",
+                "email": "邮件",
+                "community": "社区交流",
+                "check_update": "检查更新",
+                "view_log": "查看日志",
+                "view_config": "查看配置文件",
+                "qq_channel": "QQ 频道",
+                "qq_group": "QQ 群",
+                "telegram": "Telegram",
+                "discussion": "Github Discussion"
             }
         },
         "updater": {

@@ -25,6 +25,7 @@ use tauri_plugin_log::LogTarget;
 use tray::*;
 use updater::check_update;
 use window::config_window;
+use window::updater_window;
 
 // Global AppHandle
 pub static APP: OnceCell<tauri::AppHandle> = OnceCell::new();
@@ -69,7 +70,7 @@ fn main() {
             }
             app.manage(StringWrapper(Mutex::new("".to_string())));
             // Update Tray Menu
-            update_tray(&app.app_handle());
+            update_tray(app.app_handle(), "".to_string(), "".to_string());
             // Start http server
             start_server();
             // Register Global Shortcut
@@ -104,7 +105,9 @@ fn main() {
             invoke_translate_plugin,
             set_proxy,
             unset_proxy,
-            register_shortcut_by_frontend
+            register_shortcut_by_frontend,
+            update_tray,
+            updater_window
         ])
         .on_system_tray_event(tray_event_handler)
         .run(tauri::generate_context!())

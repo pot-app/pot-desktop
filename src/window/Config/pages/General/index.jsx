@@ -17,6 +17,7 @@ import { useTheme } from 'next-themes';
 
 import { useConfig } from '../../../../hooks/useConfig';
 import { osType } from '../../../../utils/env';
+import { invoke } from '@tauri-apps/api';
 
 let timer = null;
 
@@ -127,6 +128,7 @@ export default function General() {
                                 onAction={(key) => {
                                     setAppLanguage(key);
                                     i18n.changeLanguage(key);
+                                    invoke('update_tray', { language: key, copyMode: '' });
                                 }}
                             >
                                 <DropdownItem key='en'>English</DropdownItem>

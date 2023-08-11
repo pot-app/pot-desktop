@@ -4,6 +4,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 
+import { initAppVersion } from './utils/env';
 import { initOsVersion } from './utils/env';
 import { initStore } from './utils/store';
 import { initOsType } from './utils/env';
@@ -33,6 +34,7 @@ initStore().then(async () => {
     await initOsType();
     await initArch();
     await initOsVersion();
+    await initAppVersion();
     const rootElement = document.getElementById('root');
     const root = ReactDOM.createRoot(rootElement);
     root.render(
