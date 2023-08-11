@@ -5,7 +5,7 @@ import { Card, Divider } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 
 import WindowControl from '../../components/WindowControl';
-import SideBar from './components/sidebar';
+import SideBar from './components/SideBar';
 import { store } from '../../utils/store';
 import { osType } from '../../utils/env';
 import routes from './routes';
