@@ -173,7 +173,8 @@ export default function SourceArea() {
                     <IconButton
                         className='source-button'
                         onClick={() => {
-                            setFormatSourceText(newText);
+                            const temp = text.replace(/\s+/g, ' ');
+                            setText(temp);
                         }}
                     >
                         <Tooltip title={t('translator.sourcearea.deletenewline')}>
