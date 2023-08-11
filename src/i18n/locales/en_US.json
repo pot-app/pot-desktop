@@ -1,5 +1,34 @@
 {
     "translation": {
+        "common": {
+            "ok": "Ok"
+        },
+        "languages": {
+            "auto": "Auto Detect",
+            "zh_cn": "Simplified Chinese",
+            "zh_tw": "Traditional Chinese",
+            "yue": "Cantonese",
+            "ja": "Japanese ",
+            "en": "English",
+            "ko": "Korean",
+            "fr": "French",
+            "es": "Spanish",
+            "ru": "Russian",
+            "de": "German",
+            "it": "Italian",
+            "tr": "Turkish",
+            "pt": "Portuguese",
+            "pt_br": "Portuguese (Brazil)",
+            "vi": "Vietnamese",
+            "id": "Indonesian",
+            "th": "Thai",
+            "ms": "Malay",
+            "ar": "Arabic",
+            "hi": "Hindi",
+            "mn_mo": "Mongolian",
+            "mn_cy": "Mongolian(Cyrillic)",
+            "km": "Khmer"
+        },
         "config": {
             "general": {
                 "label": "General",
@@ -35,7 +64,23 @@
             },
             "translate": {
                 "label": "Translate",
-                "title": "Translation Settings"
+                "title": "Translation Settings",
+                "source_language": "Source Language",
+                "target_language": "Target Language",
+                "second_language": "Second Target Language",
+                "auto_copy": "Auto Copy",
+                "source": "Source",
+                "target": "Target",
+                "source_target": "Source+Target",
+                "disable": "Disable",
+                "incremental_translate": "Incremental Translate",
+                "dynamic_translate": "Dynamic Translate",
+                "delete_newline": "Delete Newline",
+                "remember_language": "Remember Target Language",
+                "remember_window_size": "Remember Window Size",
+                "hide_source": "Hide Source Area",
+                "hide_language": "Hide Language Area",
+                "hide_window": "Hide Translate Window"
             },
             "recognize": {
                 "label": "Recognize",
@@ -43,7 +88,13 @@
             },
             "hotkey": {
                 "label": "Hotkey",
-                "title": "Hotkey Settings"
+                "title": "Hotkey Settings",
+                "selection_translate": "Selection Translate",
+                "input_translate": "Input Translate",
+                "ocr_recognize": "Text Recognition",
+                "ocr_translate": "Screenshot Translation",
+                "is_register": "The hotkey is already registered.",
+                "success": "Hotkey register success"
             },
             "external": {
                 "label": "External",
@@ -59,7 +110,20 @@
             },
             "about": {
                 "label": "About",
-                "title": "About Application"
+                "title": "About Application",
+                "website": "Website",
+                "github": "Github",
+                "feedback": "Feedback",
+                "issue": "Issue",
+                "email": "Email",
+                "community": "Community",
+                "check_update": "Check Update",
+                "view_log": "View Log",
+                "view_config": "View Config",
+                "qq_channel": "QQ Channel",
+                "qq_group": "QQ Group",
+                "telegram": "Telegram",
+                "discussion": "Github Discussion"
             }
         },
         "updater": {
