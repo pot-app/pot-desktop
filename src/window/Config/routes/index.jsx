@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import Translate from '../pages/Translate';
 import General from '../pages/General';
 import Hotkey from '../pages/Hotkey';
+import About from '../pages/About';
 
 const routes = [
     {
@@ -35,7 +36,7 @@ const routes = [
     },
     {
         path: '/about',
-        element: <div />,
+        element: <About />,
     },
     {
         path: '/',

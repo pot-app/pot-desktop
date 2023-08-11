@@ -298,6 +298,7 @@ pub fn ocr_translate() {
     window.listen("success", |_| image_translate());
 }
 
+#[tauri::command(async)]
 pub fn updater_window() {
     let window = build_window("updater", "Updater");
     window

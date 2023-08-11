@@ -5,32 +5,38 @@ use crate::window::ocr_recognize;
 use crate::window::ocr_translate;
 use crate::window::updater_window;
 use log::info;
-use tauri::AppHandle;
 use tauri::CustomMenuItem;
 use tauri::GlobalShortcutManager;
 use tauri::SystemTrayEvent;
 use tauri::SystemTrayMenu;
 use tauri::SystemTrayMenuItem;
 use tauri::SystemTraySubmenu;
+use tauri::{AppHandle, Manager};
 
-pub fn update_tray(app: &tauri::AppHandle) {
-    let tray_handle = app.tray_handle();
+#[tauri::command]
+pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_mode: String) {
+    let tray_handle = app_handle.tray_handle();
     // ISO-639-1 + Country Code (Option)
     // https://zh.wikipedia.org/wiki/ISO_639-1%E4%BB%A3%E7%A0%81%E8%A1%A8
-    let language = match get("app_language") {
-        Some(v) => v.as_str().unwrap().to_string(),
-        None => {
-            set("app_language", "en");
-            "en".to_string()
-        }
-    };
-    let copy_mode = match get("auto_copy") {
-        Some(v) => v.as_str().unwrap().to_string(),
-        None => {
-            set("auto_copy", "disable");
-            "disable".to_string()
-        }
-    };
+    if language.is_empty() {
+        language = match get("app_language") {
+            Some(v) => v.as_str().unwrap().to_string(),
+            None => {
+                set("app_language", "en");
+                "en".to_string()
+            }
+        };
+    }
+    if copy_mode.is_empty() {
+        copy_mode = match get("translate_auto_copy") {
+            Some(v) => v.as_str().unwrap().to_string(),
+            None => {
+                set("translate_auto_copy", "disable");
+                "disable".to_string()
+            }
+        };
+    }
+
     info!(
         "Update tray with language: {}, copy mode: {}",
         language, copy_mode
@@ -44,7 +50,7 @@ pub fn update_tray(app: &tauri::AppHandle) {
         .unwrap();
     #[cfg(not(target_os = "linux"))]
     tray_handle
-        .set_tooltip(&format!("pot {}", app.package_info().version))
+        .set_tooltip(&format!("pot {}", app_handle.package_info().version))
         .unwrap();
     match copy_mode.as_str() {
         "source" => tray_handle
@@ -110,8 +116,8 @@ fn on_input_translate_click() {
 }
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {
     info!("Set copy mode to: {}", mode);
-    set("auto_copy", mode);
-    update_tray(app);
+    set("translate_auto_copy", mode);
+    update_tray(app.app_handle(), "".to_string(), mode.to_string());
 }
 fn on_ocr_recognize_click() {
     ocr_recognize();

@@ -120,7 +120,7 @@ export default function Hotkey() {
     }
 
     return (
-        <Card style={{ marginBottom: '10px' }}>
+        <Card>
             <Toaster />
             <CardBody>
                 <div className='config-item'>

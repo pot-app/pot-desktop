@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import { Card, Divider } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
-import { type } from '@tauri-apps/api/os';
 
 import WindowControl from '../../components/WindowControl';
 import SideBar from './components/sidebar';
@@ -31,7 +30,7 @@ export default function Config() {
 
     return (
         <>
-            <Card className='bg-background/80 float-left w-[230px] h-screen rounded-none'>
+            <Card className='bg-content1/90 float-left w-[230px] h-screen rounded-none'>
                 <div style={{ height: '35px', padding: '5px' }}>
                     <div
                         data-tauri-drag-region='true'
