@@ -95,10 +95,6 @@
                 "is_register": "快捷键已被注册",
                 "success": "快捷键注册成功"
             },
-            "external": {
-                "label": "外联设置",
-                "title": "外联设置"
-            },
             "service": {
                 "label": "服务设置",
                 "title": "服务设置"

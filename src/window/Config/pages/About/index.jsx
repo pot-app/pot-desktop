@@ -1,4 +1,3 @@
-import React from 'react';
 import { Divider, Button, Popover, PopoverTrigger, PopoverContent, Tooltip } from '@nextui-org/react';
 import { appLogDir, appConfigDir } from '@tauri-apps/api/path';
 import { useTranslation } from 'react-i18next';
@@ -6,9 +5,10 @@ import { open } from '@tauri-apps/api/shell';
 import { BsTencentQq } from 'react-icons/bs';
 import { BsTelegram } from 'react-icons/bs';
 import { BsGithub } from 'react-icons/bs';
+import { invoke } from '@tauri-apps/api';
+import React from 'react';
 
 import { appVersion } from '../../../../utils/env';
-import { invoke } from '@tauri-apps/api';
 
 export default function About() {
     const { t } = useTranslation();

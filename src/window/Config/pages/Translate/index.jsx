@@ -10,7 +10,7 @@ import { Button } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
 
 import { useConfig } from '../../../../hooks/useConfig';
-import language from '../../../../utils/language';
+import { languageList } from '../../../../utils/language';
 import { invoke } from '@tauri-apps/api';
 
 export default function Translate() {
@@ -47,8 +47,8 @@ export default function Translate() {
                                 }}
                             >
                                 <DropdownItem key='auto'>{t('languages.auto')}</DropdownItem>
-                                {language.map((item) => {
-                                    return <DropdownItem key={item.value}>{t(`languages.${item.value}`)}</DropdownItem>;
+                                {languageList.map((item) => {
+                                    return <DropdownItem key={item}>{t(`languages.${item}`)}</DropdownItem>;
                                 })}
                             </DropdownMenu>
                         </Dropdown>
@@ -66,8 +66,8 @@ export default function Translate() {
                                     setTargetLanguage(key);
                                 }}
                             >
-                                {language.map((item) => {
-                                    return <DropdownItem key={item.value}>{t(`languages.${item.value}`)}</DropdownItem>;
+                                {languageList.map((item) => {
+                                    return <DropdownItem key={item}>{t(`languages.${item}`)}</DropdownItem>;
                                 })}
                             </DropdownMenu>
                         </Dropdown>
@@ -85,8 +85,8 @@ export default function Translate() {
                                     setSecondLanguage(key);
                                 }}
                             >
-                                {language.map((item) => {
-                                    return <DropdownItem key={item.value}>{t(`languages.${item.value}`)}</DropdownItem>;
+                                {languageList.map((item) => {
+                                    return <DropdownItem key={item}>{t(`languages.${item}`)}</DropdownItem>;
                                 })}
                             </DropdownMenu>
                         </Dropdown>

@@ -1,5 +1,4 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { PiTranslateFill } from 'react-icons/pi';
 import { AiFillAppstore } from 'react-icons/ai';
@@ -69,18 +68,6 @@ export default function SideBar() {
                 startContent={<MdKeyboardAlt style={{ fontSize: '24px' }} />}
             >
                 <div style={{ width: '100%' }}>{t('config.hotkey.label')}</div>
-            </Button>
-            <Button
-                fullWidth
-                size='lg'
-                variant={setStyle('/external')}
-                style={{ marginBottom: '5px' }}
-                onClick={() => {
-                    navigate('/external');
-                }}
-                startContent={<FaExternalLinkSquareAlt style={{ fontSize: '24px' }} />}
-            >
-                <div style={{ width: '100%' }}>{t('config.external.label')}</div>
             </Button>
             <Button
                 fullWidth

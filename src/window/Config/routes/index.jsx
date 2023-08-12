@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 
 import Translate from '../pages/Translate';
 import General from '../pages/General';
+import Service from '../pages/Service';
 import Hotkey from '../pages/Hotkey';
 import About from '../pages/About';
 
@@ -19,16 +20,12 @@ const routes = [
         element: <div />,
     },
     {
-        path: '/external',
-        element: <div />,
-    },
-    {
         path: '/hotkey',
         element: <Hotkey />,
     },
     {
         path: '/service',
-        element: <div />,
+        element: <Service />,
     },
     {
         path: '/history',
