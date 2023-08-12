@@ -96,10 +96,6 @@
                 "is_register": "The hotkey is already registered.",
                 "success": "Hotkey register success"
             },
-            "external": {
-                "label": "External",
-                "title": "External Settings"
-            },
             "service": {
                 "label": "Service",
                 "title": "Service Settings"

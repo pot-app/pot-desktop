@@ -1,5 +1,4 @@
-import React from 'react';
-import { unregister, isRegistered, register } from '@tauri-apps/api/globalShortcut';
+import { unregister, isRegistered } from '@tauri-apps/api/globalShortcut';
 import { semanticColors } from '@nextui-org/theme';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import { Button } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
+import React from 'react';
 
 import { useConfig } from '../../../../hooks/useConfig';
 import { osType } from '../../../../utils/env';

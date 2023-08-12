@@ -16,8 +16,7 @@ use tauri::{AppHandle, Manager};
 #[tauri::command]
 pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_mode: String) {
     let tray_handle = app_handle.tray_handle();
-    // ISO-639-1 + Country Code (Option)
-    // https://zh.wikipedia.org/wiki/ISO_639-1%E4%BB%A3%E7%A0%81%E8%A1%A8
+
     if language.is_empty() {
         language = match get("app_language") {
             Some(v) => v.as_str().unwrap().to_string(),

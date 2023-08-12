@@ -38,12 +38,10 @@ initStore().then(async () => {
     const rootElement = document.getElementById('root');
     const root = ReactDOM.createRoot(rootElement);
     root.render(
-        <React.StrictMode>
-            <NextUIProvider>
-                <NextThemesProvider attribute='class'>
-                    <App />
-                </NextThemesProvider>
-            </NextUIProvider>
-        </React.StrictMode>
+        <NextUIProvider>
+            <NextThemesProvider attribute='class'>
+                <App />
+            </NextThemesProvider>
+        </NextUIProvider>
     );
 });
