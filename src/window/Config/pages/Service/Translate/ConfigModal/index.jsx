@@ -23,7 +23,7 @@ export default function ConfigModal(props) {
                                 className='h-[24px] w-[24px] my-auto'
                             />
                             <Spacer x={2} />
-                            {t(`services.translate.${name}`)}
+                            {t(`services.translate.${name}.title`)}
                         </ModalHeader>
                         <ModalBody>
                             <ConfigComponent

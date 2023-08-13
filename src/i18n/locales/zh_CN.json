@@ -100,9 +100,15 @@
             "service": {
                 "label": "服务设置",
                 "title": "服务设置",
+                "translate": "翻译",
+                "tts": "语音合成",
+                "recognize": "文字识别",
+                "collection": "生词本",
                 "least": "请至少保留一个",
                 "add_buildin_service": "添加内置服务",
-                "add_external_service": "添加外部插件"
+                "add_external_service": "添加外部插件",
+                "add_service": "添加服务",
+                "test_failed": "测试失败"
             },
             "history": {
                 "label": "历史记录",
@@ -137,10 +143,18 @@
         },
         "services": {
             "translate": {
-                "deepl": "DeepL",
-                "bing": "必应翻译",
-                "openai": "OpenAI",
-                "yandex": "Yandex"
+                "deepl": {
+                    "title": "DeepL",
+                    "custom_url": "DeepLX 地址",
+                    "auth_key": "API 密钥",
+                    "type": "服务类型",
+                    "free": "内置免费",
+                    "api": "Auth Key",
+                    "deeplx": "DeepLX"
+                },
+                "bing": { "title": "必应翻译" },
+                "openai": { "title": "OpenAI" },
+                "yandex": { "title": "Yandex" }
             }
         }
     }

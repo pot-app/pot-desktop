@@ -28,5 +28,5 @@ export const useConfig = (name, dft) => {
         }, 500);
     }, []);
 
-    return [s, setConfig];
+    return [s, setConfig, setS];
 };
