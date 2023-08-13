@@ -11,7 +11,7 @@
         "updater": "node updater/updater.mjs"
     },
     "dependencies": {
-        "@nextui-org/react": "^2.0.8",
+        "@nextui-org/react": "^2.0.14",
         "@nextui-org/theme": "^2.0.4",
         "@tauri-apps/api": "^1.4.0",
         "framer-motion": "^10.15.1",
@@ -21,10 +21,10 @@
         "react-beautiful-dnd": "^13.1.1",
         "react-dom": "^18.2.0",
         "react-hot-toast": "^2.4.1",
-        "react-i18next": "^13.0.3",
+        "react-i18next": "^13.1.2",
         "react-icons": "^4.10.1",
         "react-markdown": "^8.0.7",
-        "react-router-dom": "^6.14.2",
+        "react-router-dom": "^6.15.0",
         "styled-components": "^6.0.7",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
