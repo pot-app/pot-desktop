@@ -1,15 +1,14 @@
 import { unregister, isRegistered } from '@tauri-apps/api/globalShortcut';
-import { semanticColors } from '@nextui-org/theme';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CardBody } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
-import { useTheme } from 'next-themes';
 import React from 'react';
 
 import { useConfig } from '../../../../hooks/useConfig';
+import { useToastStyle } from '../../../../hooks';
 import { osType } from '../../../../utils/env';
 import { invoke } from '@tauri-apps/api';
 
@@ -52,13 +51,8 @@ export default function Hotkey() {
     const [ocrRecognize, setOcrRecognize] = useConfig('hotkey_ocr_recognize', '');
     const [ocrTranslate, setOcrTranslate] = useConfig('hotkey_ocr_translate', '');
 
-    const { theme } = useTheme();
     const { t } = useTranslation();
-
-    const toastStyle = {
-        background: theme == 'dark' ? semanticColors.dark.content1.DEFAULT : semanticColors.light.content1.DEFAULT,
-        color: theme == 'dark' ? semanticColors.dark.foreground.DEFAULT : semanticColors.light.foreground.DEFAULT,
-    };
+    const toastStyle = useToastStyle();
 
     function keyDown(e, setKey) {
         e.preventDefault();

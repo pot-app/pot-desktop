@@ -1,6 +1,5 @@
 import { enable, isEnabled, disable } from 'tauri-plugin-autostart-api';
 import { DropdownTrigger } from '@nextui-org/react';
-import { semanticColors } from '@nextui-org/theme';
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { DropdownMenu } from '@nextui-org/react';
@@ -16,6 +15,7 @@ import { Card } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 
 import { useConfig } from '../../../../hooks/useConfig';
+import { useToastStyle } from '../../../../hooks';
 import { osType } from '../../../../utils/env';
 import { invoke } from '@tauri-apps/api';
 
@@ -34,16 +34,12 @@ export default function General() {
     const [proxyUsername, setProxyUsername] = useConfig('proxy_username', '');
     const [proxyPassword, setProxy] = useConfig('proxy_password', '');
     const { t, i18n } = useTranslation();
-    const { theme, setTheme } = useTheme();
+    const { setTheme } = useTheme();
+    const toastStyle = useToastStyle();
 
     const languageName = {
         en: 'English',
         zh_cn: '简体中文',
-    };
-
-    const toastStyle = {
-        background: theme == 'dark' ? semanticColors.dark.content1.DEFAULT : semanticColors.light.content1.DEFAULT,
-        color: theme == 'dark' ? semanticColors.dark.foreground.DEFAULT : semanticColors.light.foreground.DEFAULT,
     };
 
     useEffect(() => {
