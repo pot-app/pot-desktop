@@ -1,7 +1,9 @@
 {
     "translation": {
         "common": {
-            "ok": "确定"
+            "ok": "确定",
+            "cancel": "取消",
+            "save": "保存"
         },
         "languages": {
             "auto": "自动检测",
@@ -97,7 +99,10 @@
             },
             "service": {
                 "label": "服务设置",
-                "title": "服务设置"
+                "title": "服务设置",
+                "least": "请至少保留一个",
+                "add_buildin_service": "添加内置服务",
+                "add_external_service": "添加外部插件"
             },
             "history": {
                 "label": "历史记录",
@@ -129,6 +134,14 @@
             "downloading": "下载中...",
             "installing": "安装中...",
             "cancel": "取消"
+        },
+        "services": {
+            "translate": {
+                "deepl": "DeepL",
+                "bing": "必应翻译",
+                "openai": "OpenAI",
+                "yandex": "Yandex"
+            }
         }
     }
 }

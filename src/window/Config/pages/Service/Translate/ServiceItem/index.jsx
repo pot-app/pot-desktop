@@ -5,8 +5,8 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { RxDragHandleHorizontal } from 'react-icons/rx';
 import { BiSolidEdit } from 'react-icons/bi';
 
-export default function InterfaceItem(props) {
-    const { name, deleteInterface, ...drag } = props;
+export default function ServiceItem(props) {
+    const { name, deleteService, setConfigName, onConfigOpen, ...drag } = props;
     const { t } = useTranslation();
 
     return (
@@ -22,16 +22,20 @@ export default function InterfaceItem(props) {
                 <Spacer x={2} />
                 <img
                     src={`${name}.svg`}
-                    className='h-[24px] my-auto'
+                    className='h-[24px] w-[24px] my-auto'
                 />
                 <Spacer x={2} />
-                <h2 className='my-auto'>{name}</h2>
+                <h2 className='my-auto'>{t(`services.translate.${name}`)}</h2>
             </div>
             <div className='flex'>
                 <Button
                     isIconOnly
                     size='sm'
                     variant='light'
+                    onPress={() => {
+                        setConfigName(name);
+                        onConfigOpen();
+                    }}
                 >
                     <BiSolidEdit className='text-2xl' />
                 </Button>
@@ -40,8 +44,9 @@ export default function InterfaceItem(props) {
                     isIconOnly
                     size='sm'
                     variant='light'
+                    color='danger'
                     onClick={() => {
-                        deleteInterface(name);
+                        deleteService(name);
                     }}
                 >
                     <MdDeleteOutline className='text-2xl' />

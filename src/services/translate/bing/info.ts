@@ -1,7 +1,7 @@
-export default {
-    name: 'deepl',
+export const info = {
+    name: 'bing',
     type: 'text',
-    icon: 'deepl.svg',
+    icon: 'bing.svg',
 };
 
 export enum Language {

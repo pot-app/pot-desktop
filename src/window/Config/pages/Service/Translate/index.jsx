@@ -1,16 +1,22 @@
-import React from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
+import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Card, Spacer, Button } from '@nextui-org/react';
+import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 import { useConfig } from '../../../../../hooks';
-import InterfaceItem from './InterfaceItem';
+import ServiceItem from './ServiceItem';
+import SelectModal from './SelectModal';
+import ConfigModal from './ConfigModal';
+import toast, { Toaster } from 'react-hot-toast';
+import { useToastStyle } from '../../../../../hooks';
 
 export default function Translate() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [translateInterfaceList, setTranslateInterfaceList] = useConfig('translate_interface_list', [
-        'deepl',
-        'bing',
-    ]);
+    const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();
+    const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
+    const [openConfigName, setOpenConfigName] = useState('deepl');
+    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const { t } = useTranslation();
+    const toastStyle = useToastStyle();
+
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
@@ -18,22 +24,30 @@ export default function Translate() {
         return result;
     };
     const onDragEnd = async (result) => {
-        console.log(result);
         if (!result.destination) return;
-        const items = reorder(translateInterfaceList, result.source.index, result.destination.index);
-        setTranslateInterfaceList(items);
+        const items = reorder(translateServiceList, result.source.index, result.destination.index);
+        setTranslateServiceList(items);
     };
 
-    function deleteInterface(name) {
-        if (translateInterfaceList.length === 1) {
-            alert('至少需要一个翻译接口');
+    const deleteService = (name) => {
+        if (translateServiceList.length === 1) {
+            toast.error(t('config.service.least'), { style: toastStyle });
             return;
         } else {
-            setTranslateInterfaceList(translateInterfaceList.filter((x) => x !== name));
+            setTranslateServiceList(translateServiceList.filter((x) => x !== name));
         }
-    }
+    };
+    const updateServiceList = (name) => {
+        if (translateServiceList.includes(name)) {
+            return;
+        } else {
+            const newList = [...translateServiceList, name];
+            setTranslateServiceList(newList);
+        }
+    };
     return (
         <>
+            <Toaster />
             <Card className='h-[calc(100vh-120px)] overflow-y-auto p-5 flex justify-between'>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable
@@ -46,7 +60,7 @@ export default function Translate() {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {translateInterfaceList.map((x, i) => {
+                                {translateServiceList.map((x, i) => {
                                     return (
                                         <Draggable
                                             key={x}
@@ -59,11 +73,13 @@ export default function Translate() {
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                     >
-                                                        <InterfaceItem
+                                                        <ServiceItem
                                                             {...provided.dragHandleProps}
                                                             name={x}
                                                             key={x}
-                                                            deleteInterface={deleteInterface}
+                                                            deleteService={deleteService}
+                                                            setConfigName={setOpenConfigName}
+                                                            onConfigOpen={onConfigOpen}
                                                         />
                                                         <Spacer y={2} />
                                                     </div>
@@ -80,64 +96,31 @@ export default function Translate() {
                 <div className='flex'>
                     <Button
                         fullWidth
-                        onPress={onOpen}
+                        onPress={onSelectOpen}
                     >
-                        添加内置接口
+                        {t('config.service.add_buildin_service')}
                     </Button>
                     <Spacer x={2} />
                     <Button
                         fullWidth
-                        onPress={onOpen}
+                        isDisabled
                     >
-                        添加外部插件
+                        {t('config.service.add_external_service')}
                     </Button>
                 </div>
             </Card>
-            <Modal
-                isOpen={isOpen}
-                onOpenChange={onOpenChange}
-                scrollBehavior='inside'
-            >
-                <ModalContent className='max-h-[80vh]'>
-                    {(onClose) => (
-                        <>
-                            <ModalHeader>添加接口</ModalHeader>
-                            <ModalBody>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                                <div>
-                                    <Button fullWidth>hello</Button>
-                                </div>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button
-                                    color='danger'
-                                    variant='light'
-                                    onClick={onClose}
-                                >
-                                    Close
-                                </Button>
-                            </ModalFooter>
-                        </>
-                    )}
-                </ModalContent>
-            </Modal>
+            <SelectModal
+                isOpen={isSelectOpen}
+                onOpenChange={onSelectOpenChange}
+                setConfigName={setOpenConfigName}
+                onConfigOpen={onConfigOpen}
+            />
+            <ConfigModal
+                name={openConfigName}
+                isOpen={isConfigOpen}
+                onOpenChange={onConfigOpenChange}
+                updateServiceList={updateServiceList}
+            />
         </>
     );
 }
