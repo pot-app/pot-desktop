@@ -25,7 +25,7 @@ export default function ServiceItem(props) {
                     className='h-[24px] w-[24px] my-auto'
                 />
                 <Spacer x={2} />
-                <h2 className='my-auto'>{t(`services.translate.${name}`)}</h2>
+                <h2 className='my-auto'>{t(`services.translate.${name}.title`)}</h2>
             </div>
             <div className='flex'>
                 <Button

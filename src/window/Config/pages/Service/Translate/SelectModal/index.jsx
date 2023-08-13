@@ -16,7 +16,7 @@ export default function SelectModal(props) {
             <ModalContent className='max-h-[80vh]'>
                 {(onClose) => (
                     <>
-                        <ModalHeader>添加接口</ModalHeader>
+                        <ModalHeader>{t('config.service.add_service')}</ModalHeader>
                         <ModalBody>
                             {Object.keys(buildinServices).map((x) => {
                                 return (
@@ -35,7 +35,7 @@ export default function SelectModal(props) {
                                             }
                                         >
                                             <div className='w-full'>
-                                                {t(`services.translate.${buildinServices[x].info.name}`)}
+                                                {t(`services.translate.${buildinServices[x].info.name}.title`)}
                                             </div>
                                         </Button>
                                     </div>

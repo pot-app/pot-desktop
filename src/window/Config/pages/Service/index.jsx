@@ -1,35 +1,37 @@
 import React from 'react';
 import { Tabs, Tab } from '@nextui-org/react';
-
+import { useTranslation } from 'react-i18next';
 import Collection from './Collection';
 import Recognize from './Recognize';
 import Translate from './Translate';
 import Tts from './Tts';
 
 export default function Service() {
+    const { t } = useTranslation();
+
     return (
         <Tabs className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'>
             <Tab
                 key='translate'
-                title='翻译'
+                title={t('config.service.translate')}
             >
                 <Translate />
             </Tab>
             <Tab
                 key='tts'
-                title='语音合成'
+                title={t('config.service.tts')}
             >
                 <Tts />
             </Tab>
             <Tab
                 key='recognize'
-                title='文字识别'
+                title={t('config.service.recognize')}
             >
                 <Recognize />
             </Tab>
             <Tab
                 key='collection'
-                title='生词本'
+                title={t('config.service.collection')}
             >
                 <Collection />
             </Tab>
