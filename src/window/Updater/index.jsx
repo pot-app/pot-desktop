@@ -2,10 +2,12 @@ import { Code, Card, CardBody, Button, Progress, Skeleton } from '@nextui-org/re
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import React, { useEffect, useState } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
+import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { listen } from '@tauri-apps/api/event';
 import ReactMarkdown from 'react-markdown';
 
+import { useToastStyle } from '../../hooks';
 import { store } from '../../utils/store';
 
 let unlisten = 0;
@@ -16,6 +18,7 @@ export default function Updater() {
     const [total, setTotal] = useState(0);
     const [body, setBody] = useState('');
     const { t, i18n } = useTranslation();
+    const toastStyle = useToastStyle();
 
     useEffect(() => {
         store.get('app_language').then((l) => {
@@ -26,13 +29,19 @@ export default function Updater() {
         if (appWindow.label === 'updater') {
             appWindow.show();
         }
-        checkUpdate().then((update) => {
-            if (update.shouldUpdate) {
-                setBody(update.manifest.body);
-            } else {
-                setBody(t('updater.latest'));
+        checkUpdate().then(
+            (update) => {
+                if (update.shouldUpdate) {
+                    setBody(update.manifest.body);
+                } else {
+                    setBody(t('updater.latest'));
+                }
+            },
+            (e) => {
+                setBody(e.toString());
+                toast.error(e.toString(), { style: toastStyle });
             }
-        });
+        );
         if (unlisten === 0) {
             unlisten = listen('tauri://update-download-progress', (e) => {
                 if (eventId === 0) {
@@ -47,8 +56,10 @@ export default function Updater() {
             });
         }
     }, []);
+
     return (
         <div className='bg-background/90 h-screen'>
+            <Toaster />
             <div className='p-[5px] h-[35px] w-full'>
                 <div
                     data-tauri-drag-region='true'
@@ -147,7 +158,14 @@ export default function Updater() {
                     isDisabled={downloaded !== 0}
                     color='primary'
                     onClick={() => {
-                        installUpdate();
+                        installUpdate().then(
+                            () => {
+                                toast.success(t('updater.installed'), { style: toastStyle });
+                            },
+                            (e) => {
+                                toast.error(e.toString(), { style: toastStyle });
+                            }
+                        );
                     }}
                 >
                     {downloaded !== 0

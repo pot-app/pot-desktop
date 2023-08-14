@@ -144,7 +144,8 @@
             "update": "Update",
             "downloading": "Downloading...",
             "installing": "Installing...",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "installed": "Install Complated, Restart the application for the changes to take effect"
         },
         "services": {
             "no_need": "No configuration required",
