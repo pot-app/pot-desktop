@@ -81,7 +81,7 @@ export default function SideBar() {
             >
                 <div style={{ width: '100%' }}>{t('config.service.label')}</div>
             </Button>
-            <Button
+            {/* <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/history')}
@@ -92,7 +92,7 @@ export default function SideBar() {
                 startContent={<FaHistory style={{ fontSize: '24px' }} />}
             >
                 <div style={{ width: '100%' }}>{t('config.history.label')}</div>
-            </Button>
+            </Button> */}
             <Button
                 fullWidth
                 size='lg'

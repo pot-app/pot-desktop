@@ -12,12 +12,12 @@ import { Button } from '@nextui-org/react';
 import { Switch } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
+import { invoke } from '@tauri-apps/api';
 import { useTheme } from 'next-themes';
 
 import { useConfig } from '../../../../hooks/useConfig';
 import { useToastStyle } from '../../../../hooks';
 import { osType } from '../../../../utils/env';
-import { invoke } from '@tauri-apps/api';
 
 let timer = null;
 

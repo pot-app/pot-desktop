@@ -1,9 +1,9 @@
-import React from 'react';
-import { Spacer, Button } from '@nextui-org/react';
-import { useTranslation } from 'react-i18next';
-import { MdDeleteOutline } from 'react-icons/md';
 import { RxDragHandleHorizontal } from 'react-icons/rx';
+import { Spacer, Button } from '@nextui-org/react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
 import { BiSolidEdit } from 'react-icons/bi';
+import React from 'react';
 
 export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, ...drag } = props;
