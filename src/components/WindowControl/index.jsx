@@ -50,11 +50,10 @@ export default function WindowControl() {
                 isIconOnly
                 variant='light'
                 style={{
-                    borderRadius: 0,
                     width: '35px',
                     height: '35px',
                 }}
-                className='close-button'
+                className='close-button rounded-none rounded-tr-[10px]'
                 onClick={() => appWindow.close()}
             >
                 <VscChromeClose style={{ fontSize: '16px' }} />
