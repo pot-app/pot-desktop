@@ -12,7 +12,7 @@ import Config from './window/Config';
 import './style.css';
 import './i18n';
 
-const windowRouter = {
+const windowMap = {
     translate: <Translate />,
     screenshot: <Screenshot />,
     recognize: <Recognize />,

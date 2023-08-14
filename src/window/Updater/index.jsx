@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { useToastStyle } from '../../hooks';
 import { store } from '../../utils/store';
+import { osType } from '../../utils/env';
 
 let unlisten = 0;
 let eventId = 0;
@@ -58,7 +59,7 @@ export default function Updater() {
     }, []);
 
     return (
-        <div className='bg-background/90 h-screen rounded-[10px]'>
+        <div className={`bg-background/90 h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>
             <Toaster />
             <div className='p-[5px] h-[35px] w-full'>
                 <div
