@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { DropdownTrigger } from '@nextui-org/react';
 import { Input, Button } from '@nextui-org/react';
 import { DropdownMenu } from '@nextui-org/react';
 import { DropdownItem } from '@nextui-org/react';
-import { Dropdown } from '@nextui-org/react';
-import { useConfig } from '../../../hooks/useConfig';
-import { translate } from './index';
 import toast, { Toaster } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import { Dropdown } from '@nextui-org/react';
+import React, { useState } from 'react';
+
+import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
+import { translate } from './index';
 
 export function Config(props) {
     const [deeplConfig, setDeeplConfig, setDeeplConfigState] = useConfig('deepl', {
@@ -76,27 +77,29 @@ export function Config(props) {
                     }}
                 />
             </div>
-            <Button
-                isLoading={isLoading}
-                fullWidth
-                onPress={() => {
-                    setIsLoading(true);
-                    translate('hello', 'auto', 'zh_cn').then(
-                        () => {
-                            setIsLoading(false);
-                            setDeeplConfig(deeplConfig);
-                            updateServiceList('deepl');
-                            onClose();
-                        },
-                        (e) => {
-                            setIsLoading(false);
-                            toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                        }
-                    );
-                }}
-            >
-                {t('common.save')}
-            </Button>
+            <div>
+                <Button
+                    isLoading={isLoading}
+                    fullWidth
+                    onPress={() => {
+                        setIsLoading(true);
+                        translate('hello', 'auto', 'zh_cn').then(
+                            () => {
+                                setIsLoading(false);
+                                setDeeplConfig(deeplConfig);
+                                updateServiceList('deepl');
+                                onClose();
+                            },
+                            (e) => {
+                                setIsLoading(false);
+                                toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                            }
+                        );
+                    }}
+                >
+                    {t('common.save')}
+                </Button>
+            </div>
         </>
     );
 }

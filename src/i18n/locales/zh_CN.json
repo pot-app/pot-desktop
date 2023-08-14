@@ -146,6 +146,7 @@
             "cancel": "取消"
         },
         "services": {
+            "no_need": "无需配置",
             "translate": {
                 "deepl": {
                     "title": "DeepL",

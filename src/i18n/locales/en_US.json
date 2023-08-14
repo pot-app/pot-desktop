@@ -147,6 +147,7 @@
             "cancel": "Cancel"
         },
         "services": {
+            "no_need": "No configuration required",
             "translate": {
                 "deepl": {
                     "title": "DeepL",
