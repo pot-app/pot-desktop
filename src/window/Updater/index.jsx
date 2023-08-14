@@ -58,7 +58,7 @@ export default function Updater() {
     }, []);
 
     return (
-        <div className='bg-background/90 h-screen'>
+        <div className='bg-background/90 h-screen rounded-[10px]'>
             <Toaster />
             <div className='p-[5px] h-[35px] w-full'>
                 <div

@@ -30,7 +30,7 @@ export default function Config() {
 
     return (
         <>
-            <Card className='bg-content1/90 float-left w-[230px] h-screen rounded-none'>
+            <Card className='bg-content1/90 float-left w-[230px] h-screen rounded-r-none rounded-l-[10px]'>
                 <div style={{ height: '35px', padding: '5px' }}>
                     <div
                         data-tauri-drag-region='true'
@@ -52,7 +52,7 @@ export default function Config() {
                 <SideBar />
             </Card>
             <div
-                className='bg-background'
+                className='bg-background rounded-r-[10px]'
                 style={{ marginLeft: '230px', height: '100vh' }}
             >
                 <div
