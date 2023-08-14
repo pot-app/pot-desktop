@@ -1,4 +1,3 @@
-import React from 'react';
 import { DropdownTrigger } from '@nextui-org/react';
 import { DropdownMenu } from '@nextui-org/react';
 import { DropdownItem } from '@nextui-org/react';
@@ -8,9 +7,10 @@ import { Dropdown } from '@nextui-org/react';
 import { Switch } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
+import React from 'react';
 
-import { useConfig } from '../../../../hooks/useConfig';
 import { languageList } from '../../../../utils/language';
+import { useConfig } from '../../../../hooks/useConfig';
 import { invoke } from '@tauri-apps/api';
 
 export default function Translate() {
@@ -20,7 +20,7 @@ export default function Translate() {
     const [autoCopy, setAutoCopy] = useConfig('translate_auto_copy', 'disable');
     const [incrementalTranslate, setIncrementalTranslate] = useConfig('incremental_translate', false);
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
-    const [deleteNewline, setDeleteNewline] = useConfig('delete_newline', false);
+    const [deleteNewline, setDeleteNewline] = useConfig('translate_delete_newline', false);
     const [rememberLanguage, setRememberLanguage] = useConfig('translate_remember_language', false);
     const [rememberWindowSize, setRememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [hideSource, setHideSource] = useConfig('hide_source', false);

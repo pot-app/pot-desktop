@@ -86,7 +86,11 @@
             },
             "recognize": {
                 "label": "Recognize",
-                "title": "Recognition Settings"
+                "title": "Recognition Settings",
+                "language": "Recognize Language",
+                "delete_newline": "Auto Delete Newline",
+                "auto_copy": "Auto Copy",
+                "hide_window": "Hide Recognize Window"
             },
             "hotkey": {
                 "label": "Hotkey",

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
 import { Card, Spacer, Button, useDisclosure, Tooltip } from '@nextui-org/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import React, { useState } from 'react';
+
+import { useToastStyle } from '../../../../../hooks';
 import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
-import toast, { Toaster } from 'react-hot-toast';
-import { useToastStyle } from '../../../../../hooks';
 
 export default function Recognize() {
     const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();

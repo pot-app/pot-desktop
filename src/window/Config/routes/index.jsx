@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 import Translate from '../pages/Translate';
+import Recognize from '../pages/Recognize';
 import General from '../pages/General';
 import Service from '../pages/Service';
 import Hotkey from '../pages/Hotkey';
@@ -17,7 +18,7 @@ const routes = [
     },
     {
         path: '/recognize',
-        element: <div />,
+        element: <Recognize />,
     },
     {
         path: '/hotkey',

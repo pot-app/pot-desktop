@@ -1,6 +1,7 @@
-import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
+
 import * as buildinServices from '../../../../../../services/recognize/index';
 
 export default function SelectModal(props) {

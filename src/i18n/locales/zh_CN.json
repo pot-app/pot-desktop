@@ -85,7 +85,11 @@
             },
             "recognize": {
                 "label": "文字识别",
-                "title": "文字识别"
+                "title": "文字识别",
+                "language": "识别语言",
+                "delete_newline": "自动删除换行",
+                "auto_copy": "自动复制",
+                "hide_window": "隐藏识别窗口"
             },
             "hotkey": {
                 "label": "热键设置",

@@ -1,6 +1,7 @@
-import React from 'react';
-import { Tabs, Tab } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
+import { Tabs, Tab } from '@nextui-org/react';
+import React from 'react';
+
 import Collection from './Collection';
 import Recognize from './Recognize';
 import Translate from './Translate';
