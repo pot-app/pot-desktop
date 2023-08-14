@@ -30,31 +30,30 @@ export default function Config() {
 
     return (
         <>
-            <Card className='bg-content1/90 float-left w-[230px] h-screen rounded-r-none rounded-l-[10px]'>
-                <div style={{ height: '35px', padding: '5px' }}>
+            <Card
+                className={`bg-content1/90 float-left w-[230px] h-screen rounded-none ${
+                    osType === 'Linux' && 'rounded-l-[10px]'
+                }`}
+            >
+                <div className='h-[35px] p-[5px]'>
                     <div
+                        className='w-full h-full'
                         data-tauri-drag-region='true'
-                        style={{ width: '100%', height: '100%' }}
                     />
                 </div>
-                <div style={{ padding: '5px' }}>
+                <div className='p-[5px]'>
                     <div data-tauri-drag-region='true'>
                         <img
                             alt='pot logo'
-                            height={50}
-                            width={50}
                             src='icon.png'
-                            style={{ margin: 'auto', marginBottom: '35px' }}
+                            className='h-[50px] w-[50px] m-auto mb-[35px]'
                             draggable={false}
                         />
                     </div>
                 </div>
                 <SideBar />
             </Card>
-            <div
-                className='bg-background rounded-r-[10px]'
-                style={{ marginLeft: '230px', height: '100vh' }}
-            >
+            <div className={`bg-background ml-[230px] h-screen ${osType === 'Linux' && 'rounded-r-[10px]'}`}>
                 <div
                     data-tauri-drag-region='true'
                     style={{

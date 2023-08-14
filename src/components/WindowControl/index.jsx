@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import { listen } from '@tauri-apps/api/event';
 import { Button } from '@nextui-org/react';
+
+import { osType } from '../../utils/env';
 import './style.css';
 
 export default function WindowControl() {
@@ -53,7 +55,7 @@ export default function WindowControl() {
                     width: '35px',
                     height: '35px',
                 }}
-                className='close-button rounded-none rounded-tr-[10px]'
+                className={`close-button rounded-none ${osType === 'Linux' && 'rounded-tr-[10px]'}`}
                 onClick={() => appWindow.close()}
             >
                 <VscChromeClose style={{ fontSize: '16px' }} />
