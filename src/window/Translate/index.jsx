@@ -22,7 +22,7 @@ export default function Translate() {
         }
     }, []);
     return (
-        <div>
+        <div className='h-screen w-screen bg-background/90'>
             <button>translate</button>
             {text}
         </div>

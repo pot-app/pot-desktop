@@ -275,27 +275,37 @@ fn screenshot_window() -> Window {
     let position = current_monitor.position();
     screenshot(position.x, position.y);
     let window = build_window("screenshot", "Screenshot");
-
+    window.set_skip_taskbar(true).unwrap();
     #[cfg(target_os = "macos")]
     {
         let monitor = window.current_monitor().unwrap().unwrap();
         let size = monitor.size();
+        window.set_decorations(false).unwrap();
         window.set_size(*size).unwrap();
     }
 
     #[cfg(not(target_os = "macos"))]
     window.set_fullscreen(true).unwrap();
+
     window.set_always_on_top(true).unwrap();
     window
 }
 
 pub fn ocr_recognize() {
     let window = screenshot_window();
-    window.listen("success", |_| recognize_window());
+    let window_ = window.clone();
+    window.listen("success", move |event| {
+        recognize_window();
+        window_.unlisten(event.id())
+    });
 }
 pub fn ocr_translate() {
     let window = screenshot_window();
-    window.listen("success", |_| image_translate());
+    let window_ = window.clone();
+    window.listen("success", move |event| {
+        image_translate();
+        window_.unlisten(event.id())
+    });
 }
 
 #[tauri::command(async)]

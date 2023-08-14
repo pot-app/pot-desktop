@@ -18,15 +18,16 @@ pub fn reload_store() {
 }
 
 #[tauri::command]
-pub fn cut_image(left: u32, top: u32, right: u32, bottom: u32, app_handle: tauri::AppHandle) {
+pub fn cut_image(left: u32, top: u32, width: u32, height: u32, app_handle: tauri::AppHandle) {
     use dirs::cache_dir;
     use image::GenericImage;
+    info!("Cut image: {}x{}+{}+{}", width, height, left, top);
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot.png");
 
     let mut img = image::open(&app_cache_dir_path).unwrap();
-    let img2 = img.sub_image(left, top, right - left, bottom - top);
+    let img2 = img.sub_image(left, top, width, height);
     app_cache_dir_path.pop();
     app_cache_dir_path.push("pot_screenshot_cut.png");
     match img2.to_image().save(&app_cache_dir_path) {
