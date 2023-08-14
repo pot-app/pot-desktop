@@ -43,5 +43,6 @@ export default function App() {
             }
         });
     }, []);
-    return <BrowserRouter>{windowRouter[appWindow.label]}</BrowserRouter>;
+
+    return <BrowserRouter>{windowMap[appWindow.label]}</BrowserRouter>;
 }
