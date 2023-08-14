@@ -1,7 +1,9 @@
 {
     "translation": {
         "common": {
-            "ok": "Ok"
+            "ok": "Ok",
+            "cancel": "Cancel",
+            "save": "Save"
         },
         "languages": {
             "auto": "Auto Detect",
@@ -98,7 +100,16 @@
             },
             "service": {
                 "label": "Service",
-                "title": "Service Settings"
+                "title": "Service Settings",
+                "translate": "Translate",
+                "tts": "TTS",
+                "recognize": "Recognize",
+                "collection": "Collection",
+                "least": "Please keep at least one.",
+                "add_buildin_service": "Add Buildin Service",
+                "add_external_service": "Add Extension",
+                "add_service": "Add Service",
+                "test_failed": "Test Failed"
             },
             "history": {
                 "label": "History",
@@ -130,6 +141,27 @@
             "downloading": "Downloading...",
             "installing": "Installing...",
             "cancel": "Cancel"
+        },
+        "services": {
+            "translate": {
+                "deepl": {
+                    "title": "DeepL",
+                    "custom_url": "DeepLX URL",
+                    "auth_key": "Auth Key",
+                    "type": "Service Type",
+                    "free": "Free",
+                    "api": "Auth Key",
+                    "deeplx": "DeepLX"
+                },
+                "bing": { "title": "Bing" },
+                "openai": { "title": "OpenAI" },
+                "yandex": { "title": "Yandex" }
+            },
+            "recognize": {
+                "system": { "title": "System OCR" },
+                "paddle": { "title": "Paddle OCR" },
+                "tesseract": { "title": "Tesseract.js" }
+            }
         }
     }
 }
