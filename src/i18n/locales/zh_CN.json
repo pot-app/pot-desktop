@@ -155,6 +155,11 @@
                 "bing": { "title": "必应翻译" },
                 "openai": { "title": "OpenAI" },
                 "yandex": { "title": "Yandex" }
+            },
+            "recognize": {
+                "system": { "title": "系统 OCR" },
+                "paddle": { "title": "Paddle OCR" },
+                "tesseract": { "title": "Tesseract.js" }
             }
         }
     }

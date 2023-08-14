@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Card, Spacer, Button, useDisclosure, Tooltip } from '@nextui-org/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
@@ -101,12 +101,14 @@ export default function Translate() {
                         {t('config.service.add_buildin_service')}
                     </Button>
                     <Spacer x={2} />
-                    <Button
-                        fullWidth
-                        isDisabled
-                    >
-                        {t('config.service.add_external_service')}
-                    </Button>
+                    <Tooltip content='敬请期待'>
+                        <Button
+                            fullWidth
+                            variant='light'
+                        >
+                            {t('config.service.add_external_service')}
+                        </Button>
+                    </Tooltip>
                 </div>
             </Card>
             <SelectModal

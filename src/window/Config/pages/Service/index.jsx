@@ -10,7 +10,10 @@ export default function Service() {
     const { t } = useTranslation();
 
     return (
-        <Tabs className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'>
+        <Tabs
+            disabledKeys={['tts', 'collection']}
+            className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'
+        >
             <Tab
                 key='translate'
                 title={t('config.service.translate')}
