@@ -7,8 +7,7 @@ import * as buildinServices from '../../../../../../services/recognize';
 export default function ConfigModal(props) {
     const { isOpen, onOpenChange, name, updateServiceList } = props;
     const { t } = useTranslation();
-    console.log(name);
-    console.log(buildinServices[name]);
+
     const ConfigComponent = buildinServices[name].Config;
     return (
         <Modal
