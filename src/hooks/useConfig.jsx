@@ -1,32 +1,31 @@
 import { useState, useCallback, useEffect } from 'react';
 import { store } from '../utils/store';
 
-export const useConfig = (name, dft) => {
-    const [s, setS] = useState(dft);
+export const useConfig = (key, defaultValue) => {
+    const [property, updateProperty] = useState(defaultValue);
 
-    let timer;
     useEffect(() => {
-        store.get(name).then((v) => {
-            if (v) {
-                setS(v);
-            } else {
-                store.set(name, dft);
+        store.get(key).then((v) => {
+            if (v === null) {
+                store.set(key, property);
                 store.save();
+            } else {
+                updateProperty(v);
             }
         });
-        timer = null;
     }, []);
 
-    const setConfig = useCallback((v) => {
-        setS(v);
+    let timer = null;
+    const saveProperty = useCallback((v) => {
+        updateProperty(v);
         if (timer) {
             clearTimeout(timer);
         }
         timer = setTimeout(() => {
-            store.set(name, v);
+            store.set(key, v);
             store.save();
         }, 500);
     }, []);
 
-    return [s, setConfig, setS];
+    return [property, saveProperty, updateProperty];
 };
