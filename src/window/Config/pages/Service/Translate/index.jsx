@@ -61,34 +61,35 @@ export default function Translate() {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {translateServiceList.map((x, i) => {
-                                    return (
-                                        <Draggable
-                                            key={x}
-                                            draggableId={x}
-                                            index={i}
-                                        >
-                                            {(provided) => {
-                                                return (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                    >
-                                                        <ServiceItem
-                                                            {...provided.dragHandleProps}
-                                                            name={x}
-                                                            key={x}
-                                                            deleteService={deleteService}
-                                                            setConfigName={setOpenConfigName}
-                                                            onConfigOpen={onConfigOpen}
-                                                        />
-                                                        <Spacer y={2} />
-                                                    </div>
-                                                );
-                                            }}
-                                        </Draggable>
-                                    );
-                                })}
+                                {translateServiceList !== null &&
+                                    translateServiceList.map((x, i) => {
+                                        return (
+                                            <Draggable
+                                                key={x}
+                                                draggableId={x}
+                                                index={i}
+                                            >
+                                                {(provided) => {
+                                                    return (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                        >
+                                                            <ServiceItem
+                                                                {...provided.dragHandleProps}
+                                                                name={x}
+                                                                key={x}
+                                                                deleteService={deleteService}
+                                                                setConfigName={setOpenConfigName}
+                                                                onConfigOpen={onConfigOpen}
+                                                            />
+                                                            <Spacer y={2} />
+                                                        </div>
+                                                    );
+                                                }}
+                                            </Draggable>
+                                        );
+                                    })}
                             </div>
                         )}
                     </Droppable>

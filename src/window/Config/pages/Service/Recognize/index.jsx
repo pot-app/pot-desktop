@@ -65,34 +65,35 @@ export default function Recognize() {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {recognizeServiceList.map((x, i) => {
-                                    return (
-                                        <Draggable
-                                            key={x}
-                                            draggableId={x}
-                                            index={i}
-                                        >
-                                            {(provided) => {
-                                                return (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                    >
-                                                        <ServiceItem
-                                                            {...provided.dragHandleProps}
-                                                            name={x}
-                                                            key={x}
-                                                            deleteService={deleteService}
-                                                            setConfigName={setOpenConfigName}
-                                                            onConfigOpen={onConfigOpen}
-                                                        />
-                                                        <Spacer y={2} />
-                                                    </div>
-                                                );
-                                            }}
-                                        </Draggable>
-                                    );
-                                })}
+                                {recognizeServiceList !== null &&
+                                    recognizeServiceList.map((x, i) => {
+                                        return (
+                                            <Draggable
+                                                key={x}
+                                                draggableId={x}
+                                                index={i}
+                                            >
+                                                {(provided) => {
+                                                    return (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                        >
+                                                            <ServiceItem
+                                                                {...provided.dragHandleProps}
+                                                                name={x}
+                                                                key={x}
+                                                                deleteService={deleteService}
+                                                                setConfigName={setOpenConfigName}
+                                                                onConfigOpen={onConfigOpen}
+                                                            />
+                                                            <Spacer y={2} />
+                                                        </div>
+                                                    );
+                                                }}
+                                            </Draggable>
+                                        );
+                                    })}
                             </div>
                         )}
                     </Droppable>

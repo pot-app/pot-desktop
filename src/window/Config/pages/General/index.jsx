@@ -47,6 +47,7 @@ export default function General() {
             setAutoStart(v);
         });
     }, []);
+
     return (
         <>
             <Toaster />
@@ -72,42 +73,46 @@ export default function General() {
                     </div>
                     <div className='config-item'>
                         <h3>{t('config.general.check_update')}</h3>
-                        <Switch
-                            isSelected={checkUpdate}
-                            onValueChange={(v) => {
-                                setCheckUpdate(v);
-                            }}
-                        />
+                        {checkUpdate !== null && (
+                            <Switch
+                                isSelected={checkUpdate}
+                                onValueChange={(v) => {
+                                    setCheckUpdate(v);
+                                }}
+                            />
+                        )}
                     </div>
                     <div className='config-item'>
                         <h3 style={{ margin: 'auto 0' }}>{t('config.general.server_port')}</h3>
-                        <Input
-                            type='number'
-                            variant='bordered'
-                            value={serverPort}
-                            onValueChange={(v) => {
-                                if (v === '') {
-                                    setServerPort(0);
-                                } else if (parseInt(v) > 65535) {
-                                    setServerPort(65535);
-                                } else if (parseInt(v) < 0) {
-                                    setServerPort(0);
-                                } else {
-                                    setServerPort(parseInt(v));
-                                }
+                        {serverPort !== null && (
+                            <Input
+                                type='number'
+                                variant='bordered'
+                                value={serverPort}
+                                onValueChange={(v) => {
+                                    if (v === '') {
+                                        setServerPort(0);
+                                    } else if (parseInt(v) > 65535) {
+                                        setServerPort(65535);
+                                    } else if (parseInt(v) < 0) {
+                                        setServerPort(0);
+                                    } else {
+                                        setServerPort(parseInt(v));
+                                    }
 
-                                if (timer) {
-                                    clearTimeout(timer);
-                                }
-                                timer = setTimeout(() => {
-                                    toast.success(t('config.general.server_port_change'), {
-                                        duration: 1000,
-                                        style: toastStyle,
-                                    });
-                                }, 1000);
-                            }}
-                            className='max-w-[100px]'
-                        />
+                                    if (timer) {
+                                        clearTimeout(timer);
+                                    }
+                                    timer = setTimeout(() => {
+                                        toast.success(t('config.general.server_port_change'), {
+                                            duration: 1000,
+                                            style: toastStyle,
+                                        });
+                                    }, 1000);
+                                }}
+                                className='max-w-[100px]'
+                            />
+                        )}
                     </div>
                 </CardBody>
             </Card>
@@ -115,85 +120,88 @@ export default function General() {
                 <CardBody>
                     <div className='config-item'>
                         <h3 style={{ margin: 'auto 0' }}>{t('config.general.app_language')}</h3>
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button variant='bordered'>{languageName[appLanguage]}</Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                aria-label='app language'
-                                onAction={(key) => {
-                                    setAppLanguage(key);
-                                    i18n.changeLanguage(key);
-                                    invoke('update_tray', { language: key, copyMode: '' });
-                                }}
-                            >
-                                <DropdownItem key='en'>English</DropdownItem>
-                                <DropdownItem key='zh_cn'>简体中文</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                        {appLanguage !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{languageName[appLanguage]}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='app language'
+                                    onAction={(key) => {
+                                        setAppLanguage(key);
+                                        i18n.changeLanguage(key);
+                                        invoke('update_tray', { language: key, copyMode: '' });
+                                    }}
+                                >
+                                    <DropdownItem key='en'>English</DropdownItem>
+                                    <DropdownItem key='zh_cn'>简体中文</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
                     </div>
                     <div className='config-item'>
                         <h3 style={{ margin: 'auto 0' }}>{t('config.general.app_theme')}</h3>
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button variant='bordered'>{t(`config.general.theme.${appTheme}`)}</Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                aria-label='app theme'
-                                onAction={(key) => {
-                                    setAppTheme(key);
-                                    if (key !== 'system') {
-                                        setTheme(key);
-                                    } else {
-                                        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                                            setTheme('dark');
+                        {appTheme !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.general.theme.${appTheme}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='app theme'
+                                    onAction={(key) => {
+                                        setAppTheme(key);
+                                        if (key !== 'system') {
+                                            setTheme(key);
                                         } else {
-                                            setTheme('light');
+                                            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                                                setTheme('dark');
+                                            } else {
+                                                setTheme('light');
+                                            }
+                                            window
+                                                .matchMedia('(prefers-color-scheme: dark)')
+                                                .addEventListener('change', (e) => {
+                                                    if (e.matches) {
+                                                        setTheme('dark');
+                                                    } else {
+                                                        setTheme('light');
+                                                    }
+                                                });
                                         }
-                                        window
-                                            .matchMedia('(prefers-color-scheme: dark)')
-                                            .addEventListener('change', (e) => {
-                                                if (e.matches) {
-                                                    setTheme('dark');
-                                                } else {
-                                                    setTheme('light');
-                                                }
-                                            });
-                                    }
-                                }}
-                            >
-                                <DropdownItem key='system'>{t('config.general.theme.system')}</DropdownItem>
-                                <DropdownItem key='light'>{t('config.general.theme.light')}</DropdownItem>
-                                <DropdownItem key='dark'>{t('config.general.theme.dark')}</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                                    }}
+                                >
+                                    <DropdownItem key='system'>{t('config.general.theme.system')}</DropdownItem>
+                                    <DropdownItem key='light'>{t('config.general.theme.light')}</DropdownItem>
+                                    <DropdownItem key='dark'>{t('config.general.theme.dark')}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
                     </div>
-                    <div
-                        className='config-item'
-                        style={{ display: osType === 'Linux' && 'none' }}
-                    >
+                    <div className={`config-item ${osType === 'Linux' && 'hidden'}`}>
                         <h3 style={{ margin: 'auto 0' }}>{t('config.general.tray_click_event')}</h3>
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button variant='bordered'>{t(`config.general.event.${trayClickEvent}`)}</Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                aria-label='tray click event'
-                                onAction={(key) => {
-                                    setTrayClickEvent(key);
-                                }}
-                            >
-                                <DropdownItem key='config'>{t('config.general.event.config')}</DropdownItem>
-                                <DropdownItem key='translate'>{t('config.general.event.translate')}</DropdownItem>
-                                <DropdownItem key='ocr_recognize'>
-                                    {t('config.general.event.ocr_recognize')}
-                                </DropdownItem>
-                                <DropdownItem key='ocr_translate'>
-                                    {t('config.general.event.ocr_translate')}
-                                </DropdownItem>
-                                <DropdownItem key='disable'>{t('config.general.event.disable')}</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                        {trayClickEvent !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.general.event.${trayClickEvent}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='tray click event'
+                                    onAction={(key) => {
+                                        setTrayClickEvent(key);
+                                    }}
+                                >
+                                    <DropdownItem key='config'>{t('config.general.event.config')}</DropdownItem>
+                                    <DropdownItem key='translate'>{t('config.general.event.translate')}</DropdownItem>
+                                    <DropdownItem key='ocr_recognize'>
+                                        {t('config.general.event.ocr_recognize')}
+                                    </DropdownItem>
+                                    <DropdownItem key='ocr_translate'>
+                                        {t('config.general.event.ocr_translate')}
+                                    </DropdownItem>
+                                    <DropdownItem key='disable'>{t('config.general.event.disable')}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
                     </div>
                 </CardBody>
             </Card>
@@ -201,85 +209,94 @@ export default function General() {
                 <CardBody>
                     <div className='config-item'>
                         <h3>{t('config.general.proxy.title')}</h3>
-                        <Switch
-                            isSelected={proxyEnable}
-                            onValueChange={async (v) => {
-                                if (v) {
-                                    if (proxyHost === '' || proxyPort === 0) {
-                                        setProxyEnable(false);
-                                        toast.error(t('config.general.proxy_error'), {
-                                            duration: 1000,
-                                            style: toastStyle,
-                                        });
-                                        return;
+                        {proxyEnable !== null && (
+                            <Switch
+                                isSelected={proxyEnable}
+                                onValueChange={async (v) => {
+                                    if (v) {
+                                        if (proxyHost === '' || proxyPort === 0) {
+                                            setProxyEnable(false);
+                                            toast.error(t('config.general.proxy_error'), {
+                                                duration: 1000,
+                                                style: toastStyle,
+                                            });
+                                            return;
+                                        } else {
+                                            setProxyEnable(v);
+                                        }
                                     } else {
                                         setProxyEnable(v);
                                     }
-                                } else {
-                                    setProxyEnable(v);
-                                }
-                                toast.success(t('config.general.proxy_change'), {
-                                    duration: 1000,
-                                    style: toastStyle,
-                                });
-                            }}
-                        />
+                                    toast.success(t('config.general.proxy_change'), {
+                                        duration: 1000,
+                                        style: toastStyle,
+                                    });
+                                }}
+                            />
+                        )}
                     </div>
                     <div className='config-item'>
-                        <Input
-                            type='url'
-                            variant='bordered'
-                            isRequired
-                            placeholder={t('config.general.proxy.host')}
-                            startContent={<span>http://</span>}
-                            value={proxyHost}
-                            onValueChange={(v) => {
-                                setProxyHost(v);
-                            }}
-                            className='mr-2'
-                        />
-
-                        <Input
-                            type='number'
-                            variant='bordered'
-                            isRequired
-                            placeholder={t('config.general.proxy.port')}
-                            value={proxyPort}
-                            onValueChange={(v) => {
-                                if (v === '') {
-                                    setProxyPort(0);
-                                } else if (parseInt(v) > 65535) {
-                                    setProxyPort(65535);
-                                } else if (parseInt(v) < 0) {
-                                    setProxyPort(0);
-                                } else {
-                                    setProxyPort(parseInt(v));
-                                }
-                            }}
-                            className='ml-2'
-                        />
+                        {proxyHost !== null && (
+                            <Input
+                                type='url'
+                                variant='bordered'
+                                isRequired
+                                placeholder={t('config.general.proxy.host')}
+                                startContent={<span>http://</span>}
+                                value={proxyHost}
+                                onValueChange={(v) => {
+                                    setProxyHost(v);
+                                }}
+                                className='mr-2'
+                            />
+                        )}
+                        {proxyPort !== null && (
+                            <Input
+                                type='number'
+                                variant='bordered'
+                                isRequired
+                                placeholder={t('config.general.proxy.port')}
+                                value={proxyPort}
+                                onValueChange={(v) => {
+                                    if (v === '') {
+                                        setProxyPort(0);
+                                    } else if (parseInt(v) > 65535) {
+                                        setProxyPort(65535);
+                                    } else if (parseInt(v) < 0) {
+                                        setProxyPort(0);
+                                    } else {
+                                        setProxyPort(parseInt(v));
+                                    }
+                                }}
+                                className='ml-2'
+                            />
+                        )}
                     </div>
                     <div className='config-item'>
-                        <Input
-                            type='text'
-                            variant='bordered'
-                            placeholder={t('config.general.proxy.username')}
-                            value={proxyUsername}
-                            onValueChange={(v) => {
-                                setProxyUsername(v);
-                            }}
-                            className='mr-2'
-                        />
-                        <Input
-                            type='password'
-                            variant='bordered'
-                            placeholder={t('config.general.proxy.password')}
-                            value={proxyPassword}
-                            onValueChange={(v) => {
-                                setProxy(v);
-                            }}
-                            className='ml-2'
-                        />
+                        {proxyUsername !== null && (
+                            <Input
+                                type='text'
+                                variant='bordered'
+                                placeholder={t('config.general.proxy.username')}
+                                value={proxyUsername}
+                                onValueChange={(v) => {
+                                    setProxyUsername(v);
+                                }}
+                                className='mr-2'
+                            />
+                        )}
+                        {proxyPassword !== null && (
+                            <Input
+                                type='password'
+                                variant='bordered'
+                                placeholder={t('config.general.proxy.password')}
+                                value={proxyPassword}
+                                onValueChange={(v) => {
+                                    setProxy(v);
+                                }}
+                                className='ml-2'
+                            />
+                        )}
                     </div>
                 </CardBody>
             </Card>

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { PiTextboxFill } from 'react-icons/pi';
 import { MdKeyboardAlt } from 'react-icons/md';
 import { MdExtension } from 'react-icons/md';
-import { FaHistory } from 'react-icons/fa';
+// import { FaHistory } from 'react-icons/fa';
 import { Button } from '@nextui-org/react';
 import React from 'react';
 

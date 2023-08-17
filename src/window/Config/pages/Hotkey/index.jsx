@@ -119,115 +119,123 @@ export default function Hotkey() {
             <CardBody>
                 <div className='config-item'>
                     <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.selection_translate')}</h3>
-                    <Input
-                        type='hotkey'
-                        variant='bordered'
-                        value={selectionTranslate}
-                        className='max-w-[50%]'
-                        onKeyDown={(e) => {
-                            keyDown(e, setSelectionTranslate);
-                        }}
-                        onFocus={() => {
-                            unregister(selectionTranslate);
-                            setSelectionTranslate('');
-                        }}
-                        endContent={
-                            <Button
-                                size='sm'
-                                variant='flat'
-                                style={{ display: selectionTranslate === '' && 'none' }}
-                                onClick={() => {
-                                    registerHandler('hotkey_selection_translate', selectionTranslate);
-                                }}
-                            >
-                                {t('common.ok')}
-                            </Button>
-                        }
-                    />
+                    {selectionTranslate !== null && (
+                        <Input
+                            type='hotkey'
+                            variant='bordered'
+                            value={selectionTranslate}
+                            className='max-w-[50%]'
+                            onKeyDown={(e) => {
+                                keyDown(e, setSelectionTranslate);
+                            }}
+                            onFocus={() => {
+                                unregister(selectionTranslate);
+                                setSelectionTranslate('');
+                            }}
+                            endContent={
+                                <Button
+                                    size='sm'
+                                    variant='flat'
+                                    style={{ display: selectionTranslate === '' && 'none' }}
+                                    onClick={() => {
+                                        registerHandler('hotkey_selection_translate', selectionTranslate);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            }
+                        />
+                    )}
                 </div>
                 <div className='config-item'>
                     <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.input_translate')}</h3>
-                    <Input
-                        type='hotkey'
-                        variant='bordered'
-                        value={inputTranslate}
-                        className='max-w-[50%]'
-                        onKeyDown={(e) => {
-                            keyDown(e, setInputTranslate);
-                        }}
-                        onFocus={() => {
-                            unregister(inputTranslate);
-                            setInputTranslate('');
-                        }}
-                        endContent={
-                            <Button
-                                size='sm'
-                                variant='flat'
-                                style={{ display: inputTranslate === '' && 'none' }}
-                                onClick={() => {
-                                    registerHandler('hotkey_input_translate', inputTranslate);
-                                }}
-                            >
-                                {t('common.ok')}
-                            </Button>
-                        }
-                    />
+                    {inputTranslate !== null && (
+                        <Input
+                            type='hotkey'
+                            variant='bordered'
+                            value={inputTranslate}
+                            className='max-w-[50%]'
+                            onKeyDown={(e) => {
+                                keyDown(e, setInputTranslate);
+                            }}
+                            onFocus={() => {
+                                unregister(inputTranslate);
+                                setInputTranslate('');
+                            }}
+                            endContent={
+                                <Button
+                                    size='sm'
+                                    variant='flat'
+                                    style={{ display: inputTranslate === '' && 'none' }}
+                                    onClick={() => {
+                                        registerHandler('hotkey_input_translate', inputTranslate);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            }
+                        />
+                    )}
                 </div>
                 <div className='config-item'>
                     <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.ocr_recognize')}</h3>
-                    <Input
-                        type='hotkey'
-                        variant='bordered'
-                        value={ocrRecognize}
-                        className='max-w-[50%]'
-                        onKeyDown={(e) => {
-                            keyDown(e, setOcrRecognize);
-                        }}
-                        onFocus={() => {
-                            unregister(ocrRecognize);
-                            setOcrRecognize('');
-                        }}
-                        endContent={
-                            <Button
-                                size='sm'
-                                variant='flat'
-                                style={{ display: ocrRecognize === '' && 'none' }}
-                                onClick={() => {
-                                    registerHandler('hotkey_ocr_recognize', ocrRecognize);
-                                }}
-                            >
-                                {t('common.ok')}
-                            </Button>
-                        }
-                    />
+                    {ocrRecognize !== null && (
+                        <Input
+                            type='hotkey'
+                            variant='bordered'
+                            value={ocrRecognize}
+                            className='max-w-[50%]'
+                            onKeyDown={(e) => {
+                                keyDown(e, setOcrRecognize);
+                            }}
+                            onFocus={() => {
+                                unregister(ocrRecognize);
+                                setOcrRecognize('');
+                            }}
+                            endContent={
+                                <Button
+                                    size='sm'
+                                    variant='flat'
+                                    style={{ display: ocrRecognize === '' && 'none' }}
+                                    onClick={() => {
+                                        registerHandler('hotkey_ocr_recognize', ocrRecognize);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            }
+                        />
+                    )}
                 </div>
                 <div className='config-item'>
                     <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.ocr_translate')}</h3>
-                    <Input
-                        type='hotkey'
-                        variant='bordered'
-                        value={ocrTranslate}
-                        className='max-w-[50%]'
-                        onKeyDown={(e) => {
-                            keyDown(e, setOcrTranslate);
-                        }}
-                        onFocus={() => {
-                            unregister(ocrTranslate);
-                            setOcrTranslate('');
-                        }}
-                        endContent={
-                            <Button
-                                size='sm'
-                                variant='flat'
-                                style={{ display: ocrTranslate === '' && 'none' }}
-                                onClick={() => {
-                                    registerHandler('hotkey_ocr_translate', ocrTranslate);
-                                }}
-                            >
-                                {t('common.ok')}
-                            </Button>
-                        }
-                    />
+                    {ocrTranslate !== null && (
+                        <Input
+                            type='hotkey'
+                            variant='bordered'
+                            value={ocrTranslate}
+                            className='max-w-[50%]'
+                            onKeyDown={(e) => {
+                                keyDown(e, setOcrTranslate);
+                            }}
+                            onFocus={() => {
+                                unregister(ocrTranslate);
+                                setOcrTranslate('');
+                            }}
+                            endContent={
+                                <Button
+                                    size='sm'
+                                    variant='flat'
+                                    style={{ display: ocrTranslate === '' && 'none' }}
+                                    onClick={() => {
+                                        registerHandler('hotkey_ocr_translate', ocrTranslate);
+                                    }}
+                                >
+                                    {t('common.ok')}
+                                </Button>
+                            }
+                        />
+                    )}
                 </div>
             </CardBody>
         </Card>
