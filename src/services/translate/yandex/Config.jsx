@@ -12,6 +12,7 @@ export function Config(props) {
             <div>
                 <Button
                     fullWidth
+                    color='primary'
                     onPress={() => {
                         updateServiceList('yandex');
                         onClose();

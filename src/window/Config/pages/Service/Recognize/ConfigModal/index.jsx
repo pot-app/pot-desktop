@@ -15,7 +15,7 @@ export default function ConfigModal(props) {
             onOpenChange={onOpenChange}
             scrollBehavior='inside'
         >
-            <ModalContent className='max-h-[80vh]'>
+            <ModalContent className='max-h-[75vh]'>
                 {(onClose) => (
                     <>
                         <ModalHeader>{t(`services.recognize.${name}.title`)}</ModalHeader>

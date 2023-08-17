@@ -147,6 +147,7 @@
             "installed": "安装完成，重启应用生效"
         },
         "services": {
+            "help": "配置指南",
             "no_need": "无需配置",
             "translate": {
                 "deepl": {
@@ -159,7 +160,17 @@
                     "deeplx": "DeepLX"
                 },
                 "bing": { "title": "必应翻译" },
-                "openai": { "title": "OpenAI" },
+                "openai": {
+                    "title": "OpenAI",
+                    "service": "服务提供商",
+                    "openai": "OpenAI",
+                    "azure": "Azure",
+                    "url_path": "Url Path",
+                    "custom_url": "自定义域名",
+                    "api_key": "Api Key",
+                    "model": "模型",
+                    "stream": "流式输出"
+                },
                 "yandex": { "title": "Yandex" }
             },
             "recognize": {

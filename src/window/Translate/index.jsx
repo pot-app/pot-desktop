@@ -67,7 +67,9 @@ export default function Translate() {
                 className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 data-tauri-drag-region='true'
             />
-            <div className='px-[8px] h-[35px] w-full flex justify-between'>
+            <div
+                className={`px-[8px] h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-right' : 'justify-between'}`}
+            >
                 <Button
                     isIconOnly
                     size='sm'
@@ -89,7 +91,7 @@ export default function Translate() {
                     isIconOnly
                     size='sm'
                     variant='light'
-                    className='my-auto'
+                    className={`my-auto ${osType === 'Darwin' && 'hidden'}`}
                     onPress={() => {
                         void appWindow.close();
                     }}
