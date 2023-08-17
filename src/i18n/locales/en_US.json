@@ -19,7 +19,7 @@
             "de": "German",
             "it": "Italian",
             "tr": "Turkish",
-            "pt": "Portuguese",
+            "pt_pt": "Portuguese",
             "pt_br": "Portuguese (Brazil)",
             "vi": "Vietnamese",
             "id": "Indonesian",
@@ -168,6 +168,9 @@
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" }
             }
+        },
+        "translate": {
+            "translate": "Translate"
         }
     }
 }

@@ -18,7 +18,7 @@
             "de": "德语",
             "it": "意大利语",
             "tr": "土耳其语",
-            "pt": "葡萄牙语",
+            "pt_pt": "葡萄牙语",
             "pt_br": "葡萄牙语 (巴西)",
             "vi": "越南语",
             "id": "印尼语",
@@ -167,6 +167,9 @@
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" }
             }
+        },
+        "translate": {
+            "translate": "翻译"
         }
     }
 }

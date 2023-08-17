@@ -1,4 +1,5 @@
-import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup } from '@nextui-org/react';
+import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
+import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useState } from 'react';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { MdContentCopy } from 'react-icons/md';
@@ -11,18 +12,43 @@ import { sourceTextAtom } from '../SourceArea';
 
 export default function TargetArea(props) {
     const { name, index, ...drag } = props;
-    const [text, setText] = useState('');
+    const [result, setResult] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
+    const type = buildinServices[name].info.type;
+    const LanguageEnum = buildinServices[name].Language;
     const { t } = useTranslation();
 
     useEffect(() => {
-        // Translate
         if (sourceText !== '' && sourceLanguage && targetLanguage) {
-            setText(sourceText);
+            setResult('');
+            setError('');
+            translate();
         }
     }, [sourceText, targetLanguage, sourceLanguage]);
+
+    const translate = async () => {
+        if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
+            setIsLoading(true);
+            buildinServices[name]
+                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[targetLanguage])
+                .then(
+                    (v) => {
+                        setResult(v);
+                        setIsLoading(false);
+                    },
+                    (e) => {
+                        setError(e.toString());
+                        setIsLoading(false);
+                    }
+                );
+        } else {
+            setError('Language not supported');
+        }
+    };
     return (
         <Card className='rounded-[10px]'>
             <CardHeader
@@ -36,7 +62,25 @@ export default function TargetArea(props) {
                 <Spacer x={2} />
                 {t(`services.translate.${name}.title`)}
             </CardHeader>
-            <CardBody className='p-[12px] select-text'>{text}</CardBody>
+            <CardBody className='p-[12px] select-text'>
+                {isLoading ? (
+                    <div className='space-y-3'>
+                        <Skeleton className='w-4/5 rounded-lg'>
+                            <div className='h-3 w-4/5 rounded-lg bg-default-200'></div>
+                        </Skeleton>
+                        <Skeleton className='w-3/5 rounded-lg'>
+                            <div className='h-3 w-3/5 rounded-lg bg-default-200'></div>
+                        </Skeleton>
+                    </div>
+                ) : buildinServices[name].info.type === 'text' ? (
+                    <>
+                        <div>{result}</div>
+                        <p className='text-red-400'>{error}</p>
+                    </>
+                ) : (
+                    <></>
+                )}
+            </CardBody>
             <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px]'>
                 <ButtonGroup>
                     <Button
@@ -50,6 +94,11 @@ export default function TargetArea(props) {
                         isIconOnly
                         variant='light'
                         size='sm'
+                        onPress={() => {
+                            if (typeof result === 'string' && result !== '') {
+                                writeText(result);
+                            }
+                        }}
                     >
                         <MdContentCopy className='text-[16px]' />
                     </Button>

@@ -1,5 +1,6 @@
 import { Card, Button, CardFooter, Dropdown, DropdownMenu, DropdownTrigger, DropdownItem } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
+import { BiTransferAlt } from 'react-icons/bi';
 import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 
@@ -43,7 +44,15 @@ export default function LanguageArea() {
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-
+                <div className='flex'>
+                    <Button
+                        isIconOnly
+                        variant='light'
+                        className='text-[20px]'
+                    >
+                        <BiTransferAlt />
+                    </Button>
+                </div>
                 <div className='flex'>
                     <Dropdown>
                         <DropdownTrigger>
@@ -52,7 +61,7 @@ export default function LanguageArea() {
                         <DropdownMenu
                             className='max-h-[50vh] overflow-y-auto'
                             onAction={(key) => {
-                                setSourceLanguage(key);
+                                setTargetLanguage(key);
                             }}
                         >
                             {languageList.map((x) => {

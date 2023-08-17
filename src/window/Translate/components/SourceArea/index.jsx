@@ -1,8 +1,12 @@
 import { Button, Card, CardBody, CardFooter, Textarea, ButtonGroup } from '@nextui-org/react';
-import { emit, listen } from '@tauri-apps/api/event';
+import { readText, writeText } from '@tauri-apps/api/clipboard';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
+import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
+import { MdSmartButton } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
+import { HiTranslate } from 'react-icons/hi';
 import React, { useEffect } from 'react';
 import { invoke } from '@tauri-apps/api';
 import { atom } from 'jotai';
@@ -19,7 +23,11 @@ export default function SourceArea() {
     const [, , getIncrementalTranslate] = useConfig('incremental_translate');
     const [, , getDynamicTranslate] = useConfig('dynamic_translate');
 
+    const { t } = useTranslation();
     const handleNewText = async (text) => {
+        if (text === '') {
+            text = (await readText()) ?? '';
+        }
         if (text === '[INPUT_TRANSLATE]') {
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
@@ -58,6 +66,7 @@ export default function SourceArea() {
     useEffect(() => {
         if (appWindow.label === 'translate') {
             appWindow.show();
+            appWindow.setFocus();
         }
         if (unlisten) {
             unlisten.then((f) => {
@@ -65,6 +74,7 @@ export default function SourceArea() {
             });
         }
         unlisten = listen('new_text', (event) => {
+            appWindow.setFocus();
             handleNewText(event.payload);
         });
         invoke('get_text').then((v) => {
@@ -102,8 +112,22 @@ export default function SourceArea() {
                         isIconOnly
                         variant='light'
                         size='sm'
+                        onPress={() => {
+                            writeText(sourceText);
+                        }}
                     >
                         <MdContentCopy className='text-[16px]' />
+                    </Button>
+                    <Button
+                        isIconOnly
+                        variant='light'
+                        size='sm'
+                        onPress={() => {
+                            const newText = sourceText.replace(/\s+/g, ' ');
+                            setSourceText(newText, true);
+                        }}
+                    >
+                        <MdSmartButton className='text-[16px]' />
                     </Button>
                 </ButtonGroup>
 
@@ -111,11 +135,12 @@ export default function SourceArea() {
                     size='sm'
                     color='primary'
                     variant='solid'
+                    startContent={<HiTranslate className='text-[16px]' />}
                     onPress={() => {
                         setSourceText(sourceText, true);
                     }}
                 >
-                    Translate
+                    {t('translate.translate')}
                 </Button>
             </CardFooter>
         </Card>

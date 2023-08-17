@@ -192,7 +192,6 @@ pub fn selection_translate() {
     let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
     let window = translate_window();
-    window.set_always_on_top(true).unwrap();
     window.emit("new_text", text).unwrap();
 }
 
@@ -206,7 +205,6 @@ pub fn input_translate() {
         .unwrap()
         .replace_range(.., "[INPUT_TRANSLATE]");
     let window = translate_window();
-    window.set_always_on_top(true).unwrap();
     window.center().unwrap();
     window.emit("new_text", "[INPUT_TRANSLATE]").unwrap();
 }
@@ -217,7 +215,6 @@ pub fn text_translate(text: String) {
     let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
     let window = translate_window();
-    window.set_always_on_top(true).unwrap();
     window.emit("new_text", text).unwrap();
 }
 

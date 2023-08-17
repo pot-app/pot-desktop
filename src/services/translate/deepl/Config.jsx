@@ -10,8 +10,10 @@ import React, { useState } from 'react';
 import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
+import { Language } from './index';
 
 export function Config(props) {
+    const { updateServiceList, onClose } = props;
     const [deeplConfig, setDeeplConfig] = useConfig(
         'deepl',
         {
@@ -23,7 +25,6 @@ export function Config(props) {
     );
     const [isLoading, setIsLoading] = useState(false);
 
-    const { updateServiceList, onClose } = props;
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -88,14 +89,15 @@ export function Config(props) {
                         fullWidth
                         onPress={() => {
                             setIsLoading(true);
-                            translate('hello', 'auto', 'zh_cn').then(
-                                (v) => {
+                            translate('hello', Language.auto, Language.zh_cn, deeplConfig).then(
+                                () => {
                                     setIsLoading(false);
                                     setDeeplConfig(deeplConfig, true);
                                     updateServiceList('deepl');
                                     onClose();
                                 },
                                 (e) => {
+                                    console.log(e);
                                     setIsLoading(false);
                                     toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
                                 }

@@ -1,6 +1,10 @@
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Spacer } from '@nextui-org/react';
-import React from 'react';
+import { Spacer, Button } from '@nextui-org/react';
+import { AiFillCloseCircle } from 'react-icons/ai';
+import { appWindow } from '@tauri-apps/api/window';
+import { listen } from '@tauri-apps/api/event';
+import { BsPinFill } from 'react-icons/bs';
+import React, { useState } from 'react';
 
 import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
@@ -8,8 +12,41 @@ import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 
+let blurTimeout = null;
+
+const listenBlur = () => {
+    return listen('tauri://blur', () => {
+        if (appWindow.label === 'translate') {
+            if (blurTimeout) {
+                clearTimeout(blurTimeout);
+            }
+            // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
+            // 如果直接关闭将导致窗口无法拖动
+            blurTimeout = setTimeout(async () => {
+                await appWindow.close();
+            }, 50);
+        }
+    });
+};
+
+let unlisten = listenBlur();
+// 取消 blur 监听
+const unlistenBlur = () => {
+    unlisten.then((f) => {
+        f();
+    });
+};
+
+// 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
+void listen('tauri://focus', () => {
+    if (blurTimeout) {
+        clearTimeout(blurTimeout);
+    }
+});
+
 export default function Translate() {
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const [pined, setPined] = useState(false);
 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -26,11 +63,39 @@ export default function Translate() {
 
     return (
         <div className={`h-screen w-screen bg-background ${osType === 'Linux' && 'rounded-[10px]'}`}>
-            <div className='p-[5px] h-[35px] w-full'>
-                <div
-                    className='flex h-full'
-                    data-tauri-drag-region='true'
-                />
+            <div
+                className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
+                data-tauri-drag-region='true'
+            />
+            <div className='px-[8px] h-[35px] w-full flex justify-between'>
+                <Button
+                    isIconOnly
+                    size='sm'
+                    variant='light'
+                    className='my-auto'
+                    onPress={() => {
+                        appWindow.setAlwaysOnTop(!pined);
+                        if (pined) {
+                            unlisten = listenBlur();
+                        } else {
+                            unlistenBlur();
+                        }
+                        setPined(!pined);
+                    }}
+                >
+                    <BsPinFill className={`text-[20px] ${pined ? 'text-primary' : 'text-default-400'}`} />
+                </Button>
+                <Button
+                    isIconOnly
+                    size='sm'
+                    variant='light'
+                    className='my-auto'
+                    onPress={() => {
+                        void appWindow.close();
+                    }}
+                >
+                    <AiFillCloseCircle className='text-[20px] text-default-400' />
+                </Button>
             </div>
             <div className='h-[calc(100vh-35px)] overflow-y-auto px-[8px]'>
                 <div>
