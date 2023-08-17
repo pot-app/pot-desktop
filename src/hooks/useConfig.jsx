@@ -1,31 +1,51 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useGetState } from './useGetState.js';
+import { listen } from '@tauri-apps/api/event';
 import { store } from '../utils/store';
+import { debounce } from '../utils';
 
-export const useConfig = (key, defaultValue) => {
-    const [property, updateProperty] = useState(defaultValue);
+export const useConfig = (key, defaultValue, options = {}) => {
+    const [property, setPropertyState, getProperty] = useGetState();
+    const { sync = true } = options;
 
-    useEffect(() => {
+    // 同步到Store (State -> Store)
+    const syncToStore = useCallback(
+        debounce((v) => {
+            store.set(key, v);
+            store.save();
+        }),
+        []
+    );
+
+    // 同步到State (Store -> State)
+    const syncToState = useCallback(() => {
         store.get(key).then((v) => {
             if (v === null) {
-                store.set(key, property);
+                setPropertyState(defaultValue);
+                store.set(key, defaultValue);
                 store.save();
             } else {
-                updateProperty(v);
+                setPropertyState(v);
             }
         });
     }, []);
 
-    let timer = null;
-    const saveProperty = useCallback((v) => {
-        updateProperty(v);
-        if (timer) {
-            clearTimeout(timer);
-        }
-        timer = setTimeout(() => {
-            store.set(key, v);
-            store.save();
-        }, 500);
+    const setProperty = useCallback((v, forceSync = false) => {
+        setPropertyState(v);
+        const isSync = forceSync || sync;
+        isSync && syncToStore(v);
     }, []);
 
-    return [property, saveProperty, updateProperty];
+    // 初始化
+    useEffect(() => {
+        syncToState();
+        const unlisten = listen('reload_store', syncToState);
+        return () => {
+            unlisten.then((f) => {
+                f();
+            });
+        };
+    }, []);
+
+    return [property, setProperty, getProperty];
 };
