@@ -8,7 +8,6 @@ import { listen } from '@tauri-apps/api/event';
 import ReactMarkdown from 'react-markdown';
 
 import { useToastStyle } from '../../hooks';
-import { store } from '../../utils/store';
 import { osType } from '../../utils/env';
 
 let unlisten = 0;
@@ -18,15 +17,10 @@ export default function Updater() {
     const [downloaded, setDownloaded] = useState(0);
     const [total, setTotal] = useState(0);
     const [body, setBody] = useState('');
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
     useEffect(() => {
-        store.get('app_language').then((l) => {
-            if (l) {
-                i18n.changeLanguage(l);
-            }
-        });
         if (appWindow.label === 'updater') {
             appWindow.show();
         }

@@ -1,5 +1,6 @@
 import { appWindow } from '@tauri-apps/api/window';
 import { BrowserRouter } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
@@ -22,6 +23,7 @@ const windowMap = {
 
 export default function App() {
     const { setTheme } = useTheme();
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         store.get('app_theme').then((t) => {
@@ -40,6 +42,15 @@ export default function App() {
                         setTheme('light');
                     }
                 });
+            }
+        });
+        store.get('app_language').then((l) => {
+            if (l) {
+                i18n.changeLanguage(l);
+            } else {
+                i18n.changeLanguage('en');
+                store.set('app_language', 'en');
+                store.save();
             }
         });
     }, []);

@@ -6,23 +6,16 @@ import { useTranslation } from 'react-i18next';
 
 import WindowControl from '../../components/WindowControl';
 import SideBar from './components/SideBar';
-import { store } from '../../utils/store';
 import { osType } from '../../utils/env';
 import routes from './routes';
 import './style.css';
 
 export default function Config() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const location = useLocation();
     const page = useRoutes(routes);
 
     useEffect(() => {
-        store.get('app_language').then((l) => {
-            if (l) {
-                i18n.changeLanguage(l);
-            }
-        });
-
         if (appWindow.label === 'config') {
             appWindow.show();
         }

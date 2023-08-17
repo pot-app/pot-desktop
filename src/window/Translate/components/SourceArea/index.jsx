@@ -1,0 +1,123 @@
+import { Button, Card, CardBody, CardFooter, Textarea, ButtonGroup } from '@nextui-org/react';
+import { emit, listen } from '@tauri-apps/api/event';
+import { HiOutlineVolumeUp } from 'react-icons/hi';
+import { appWindow } from '@tauri-apps/api/window';
+import { MdContentCopy } from 'react-icons/md';
+import React, { useEffect } from 'react';
+import { invoke } from '@tauri-apps/api';
+import { atom } from 'jotai';
+
+import { useConfig, useSyncAtom } from '../../../../hooks';
+import { store } from '../../../../utils/store';
+
+export const sourceTextAtom = atom('');
+let unlisten = null;
+let timer = null;
+
+export default function SourceArea() {
+    const [sourceText, setSourceText] = useSyncAtom(sourceTextAtom);
+    const [, , getIncrementalTranslate] = useConfig('incremental_translate');
+    const [, , getDynamicTranslate] = useConfig('dynamic_translate');
+
+    const handleNewText = async (text) => {
+        if (text === '[INPUT_TRANSLATE]') {
+            setSourceText('', true);
+        } else if (text === '[IMAGE_TRANSLATE]') {
+            // image translate
+        } else {
+            let newText = text;
+            const deleteNewline = await store.get('translate_delete_newline');
+            if (deleteNewline) {
+                newText = text.replace(/\s+/g, ' ');
+            } else {
+                newText = text;
+            }
+
+            if (getIncrementalTranslate()) {
+                setSourceText((old) => {
+                    return old + ' ' + newText;
+                }, true);
+            } else {
+                setSourceText(newText, true);
+            }
+        }
+    };
+    useEffect(() => {
+        if (sourceText !== '') {
+            if (getDynamicTranslate()) {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    setSourceText(sourceText, true);
+                }, 1000);
+            }
+        }
+    }, [sourceText]);
+
+    useEffect(() => {
+        if (appWindow.label === 'translate') {
+            appWindow.show();
+        }
+        if (unlisten) {
+            unlisten.then((f) => {
+                f();
+            });
+        }
+        unlisten = listen('new_text', (event) => {
+            handleNewText(event.payload);
+        });
+        invoke('get_text').then((v) => {
+            handleNewText(v);
+        });
+    }, []);
+
+    return (
+        <Card className='rounded-[10px] mt-[1px]'>
+            <CardBody className='p-0'>
+                <Textarea
+                    variant='bordered'
+                    minRows={1}
+                    value={sourceText}
+                    classNames={{
+                        inputWrapper: 'border-0',
+                        label: 'hidden',
+                    }}
+                    onValueChange={(v) => {
+                        setSourceText(v);
+                    }}
+                />
+            </CardBody>
+
+            <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
+                <ButtonGroup>
+                    <Button
+                        isIconOnly
+                        variant='light'
+                        size='sm'
+                    >
+                        <HiOutlineVolumeUp className='text-[16px]' />
+                    </Button>
+                    <Button
+                        isIconOnly
+                        variant='light'
+                        size='sm'
+                    >
+                        <MdContentCopy className='text-[16px]' />
+                    </Button>
+                </ButtonGroup>
+
+                <Button
+                    size='sm'
+                    color='primary'
+                    variant='solid'
+                    onPress={() => {
+                        setSourceText(sourceText, true);
+                    }}
+                >
+                    Translate
+                </Button>
+            </CardFooter>
+        </Card>
+    );
+}

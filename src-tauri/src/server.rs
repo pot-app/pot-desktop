@@ -23,6 +23,7 @@ pub fn start_server() {
 fn http_handle(request: Request) {
     info!("Handle {} request", request.url());
     match request.url() {
+        "/" => handle_translate(request),
         "/config" => handle_config(request),
         "/translate" => handle_translate(request),
         "/selection_translate" => handle_selection_translate(request),

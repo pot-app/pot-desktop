@@ -90,7 +90,6 @@ export function Config(props) {
                             setIsLoading(true);
                             translate('hello', 'auto', 'zh_cn').then(
                                 (v) => {
-                                    console.log(v);
                                     setIsLoading(false);
                                     setDeeplConfig(deeplConfig, true);
                                     updateServiceList('deepl');
