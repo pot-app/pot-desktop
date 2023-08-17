@@ -19,7 +19,6 @@ export const useConfig = (key, defaultValue, options = {}) => {
 
     // 同步到State (Store -> State)
     const syncToState = useCallback(() => {
-        console.log('syncToState', key);
         store.get(key).then((v) => {
             if (v === null) {
                 setPropertyState(defaultValue);
