@@ -110,6 +110,12 @@ fn main() {
             updater_window
         ])
         .on_system_tray_event(tray_event_handler)
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while running tauri application")
+        // 窗口关闭不退出
+        .run(|_app_handle, event| {
+            if let tauri::RunEvent::ExitRequested { api, .. } = event {
+                api.prevent_exit();
+            }
+        });
 }

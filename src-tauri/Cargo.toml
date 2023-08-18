@@ -1,7 +1,7 @@
 [package]
 name = "pot"
 version = "2.0.0"
-description = "A cross-platform text translation and ocr software"
+description = "Pot App"
 authors = ["pot-app"]
 license = "GPLv3"
 repository = "https://github.com/pot-app/pot-desktop"

@@ -52,7 +52,7 @@
             "targets": "all",
             "identifier": "com.pot-app.desktop",
             "longDescription": "A cross-platform text translation and ocr software",
-            "shortDescription": "A cross-platform text translation and ocr software",
+            "shortDescription": "Pot App",
             "externalBin": [],
             "resources": [],
             "icon": [
