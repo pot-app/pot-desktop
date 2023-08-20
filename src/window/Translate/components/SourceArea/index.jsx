@@ -83,8 +83,8 @@ export default function SourceArea() {
     }, []);
 
     return (
-        <Card className='rounded-[10px] mt-[1px]'>
-            <CardBody className='p-0'>
+        <Card className='bg-content1 rounded-[10px] mt-[1px]'>
+            <CardBody className='bg-content1 p-0'>
                 <Textarea
                     variant='bordered'
                     minRows={1}

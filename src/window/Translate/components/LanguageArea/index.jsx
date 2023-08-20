@@ -25,7 +25,7 @@ export default function LanguageArea() {
 
     return (
         <Card className='bg-content2 h-[35px] rounded-[10px]'>
-            <CardFooter className='flex justify-between p-0'>
+            <CardFooter className='bg-content2 flex justify-between p-0 rounded-[10px]'>
                 <div className='flex'>
                     <Dropdown>
                         <DropdownTrigger>

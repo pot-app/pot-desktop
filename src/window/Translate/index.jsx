@@ -2,15 +2,17 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Spacer, Button } from '@nextui-org/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { appWindow } from '@tauri-apps/api/window';
+import React, { useState, useMemo } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
-import React, { useState } from 'react';
 
 import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
 import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
+import { store } from '../../utils/store';
+import { info } from 'tauri-plugin-log-api';
 
 let blurTimeout = null;
 
@@ -48,6 +50,15 @@ export default function Translate() {
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
     const [appBlur] = useConfig('app_blur', 'disable');
     const [pined, setPined] = useState(false);
+    const [hideSource, setHideSource] = useState(false);
+    const [hideLanguage, setHideLanguage] = useState(false);
+
+    store.get('hide_source').then((v) => {
+        setHideSource(v);
+    });
+    store.get('hide_language').then((v) => {
+        setHideLanguage(v);
+    });
 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -105,11 +116,11 @@ export default function Translate() {
                 </Button>
             </div>
             <div className='h-[calc(100vh-35px)] overflow-y-auto px-[8px]'>
-                <div>
+                <div className={hideSource && 'hidden'}>
                     <SourceArea />
                     <Spacer y={2} />
                 </div>
-                <div>
+                <div className={hideLanguage && 'hidden'}>
                     <LanguageArea />
                     <Spacer y={2} />
                 </div>
