@@ -41,6 +41,14 @@
                 "server_port_change": "The listening port has been changed. Please restart the application for the changes to take effect.",
                 "app_language": "Application Language",
                 "app_theme": "Theme",
+                "app_blur": "Blur",
+                "blur_change": "Background blurring effect changed, restart the app to take effect",
+                "blur": {
+                    "blur": "Blur (Win 7/10/11)",
+                    "acrylic": "Acrylic (Win 10/11)",
+                    "mica": "Mica (Win 11)",
+                    "disable": "Disable"
+                },
                 "theme": {
                     "light": "Light",
                     "dark": "Dark",

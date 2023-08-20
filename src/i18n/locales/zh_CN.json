@@ -40,6 +40,14 @@
                 "server_port_change": "监听端口已更改，重启应用生效",
                 "app_language": "应用语言",
                 "app_theme": "应用主题",
+                "app_blur": "背景模糊",
+                "blur_change": "背景模糊效果重启应用生效",
+                "blur": {
+                    "blur": "模糊 (Win 7/10/11)",
+                    "acrylic": "亚克力 (Win 10/11)",
+                    "mica": "云母 (Win 11)",
+                    "disable": "禁用"
+                },
                 "theme": {
                     "light": "浅色",
                     "dark": "深色",

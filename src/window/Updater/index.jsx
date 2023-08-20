@@ -7,13 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { listen } from '@tauri-apps/api/event';
 import ReactMarkdown from 'react-markdown';
 
-import { useToastStyle } from '../../hooks';
+import { useToastStyle, useConfig } from '../../hooks';
 import { osType } from '../../utils/env';
 
 let unlisten = 0;
 let eventId = 0;
 
 export default function Updater() {
+    const [appBlur] = useConfig('app_blur', 'disable');
     const [downloaded, setDownloaded] = useState(0);
     const [total, setTotal] = useState(0);
     const [body, setBody] = useState('');
@@ -53,7 +54,11 @@ export default function Updater() {
     }, []);
 
     return (
-        <div className={`bg-background/90 h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>
+        <div
+            className={`${
+                appBlur === 'disable' || osType === 'Linux' ? 'bg-background/90' : 'bg-background/60'
+            } h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}
+        >
             <Toaster />
             <div className='p-[5px] h-[35px] w-full'>
                 <div

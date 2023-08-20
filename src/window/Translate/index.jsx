@@ -46,6 +46,7 @@ void listen('tauri://focus', () => {
 
 export default function Translate() {
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const [appBlur] = useConfig('app_blur', 'disable');
     const [pined, setPined] = useState(false);
 
     const reorder = (list, startIndex, endIndex) => {
@@ -62,7 +63,11 @@ export default function Translate() {
     };
 
     return (
-        <div className={`h-screen w-screen bg-background ${osType === 'Linux' && 'rounded-[10px]'}`}>
+        <div
+            className={`${
+                appBlur === 'disable' || osType === 'Linux' ? 'bg-background/90' : 'bg-background/60'
+            } h-screen w-screen ${osType === 'Linux' && 'rounded-[10px]'}`}
+        >
             <div
                 className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 data-tauri-drag-region='true'
