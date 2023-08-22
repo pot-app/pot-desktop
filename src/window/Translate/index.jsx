@@ -12,7 +12,6 @@ import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
-import { info } from 'tauri-plugin-log-api';
 
 let blurTimeout = null;
 
@@ -48,7 +47,6 @@ void listen('tauri://focus', () => {
 
 export default function Translate() {
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
-    const [appBlur] = useConfig('app_blur', 'disable');
     const [pined, setPined] = useState(false);
     const [hideSource, setHideSource] = useState(false);
     const [hideLanguage, setHideLanguage] = useState(false);
@@ -74,11 +72,7 @@ export default function Translate() {
     };
 
     return (
-        <div
-            className={`${
-                appBlur === 'disable' || osType === 'Linux' ? 'bg-background/90' : 'bg-background/60'
-            } h-screen w-screen ${osType === 'Linux' && 'rounded-[10px]'}`}
-        >
+        <div className={`bg-background h-screen w-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>
             <div
                 className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 data-tauri-drag-region='true'
@@ -116,11 +110,11 @@ export default function Translate() {
                 </Button>
             </div>
             <div className='h-[calc(100vh-35px)] overflow-y-auto px-[8px]'>
-                <div className={hideSource && 'hidden'}>
+                <div className={hideSource ? 'hidden' : ''}>
                     <SourceArea />
                     <Spacer y={2} />
                 </div>
-                <div className={hideLanguage && 'hidden'}>
+                <div className={hideLanguage ? 'hidden' : ''}>
                     <LanguageArea />
                     <Spacer y={2} />
                 </div>

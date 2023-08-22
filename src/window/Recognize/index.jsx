@@ -7,5 +7,5 @@ export default function Recognize() {
     useEffect(() => {
         appWindow.show();
     }, []);
-    return <div className={`bg-background/90 h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>Recognize</div>;
+    return <div className={`bg-background h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>Recognize</div>;
 }

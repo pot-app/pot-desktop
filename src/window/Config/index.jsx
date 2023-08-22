@@ -7,12 +7,10 @@ import { useTranslation } from 'react-i18next';
 import WindowControl from '../../components/WindowControl';
 import SideBar from './components/SideBar';
 import { osType } from '../../utils/env';
-import { useConfig } from '../../hooks';
 import routes from './routes';
 import './style.css';
 
 export default function Config() {
-    const [appBlur] = useConfig('app_blur', 'disable');
     const { t } = useTranslation();
     const location = useLocation();
     const page = useRoutes(routes);
@@ -26,9 +24,9 @@ export default function Config() {
     return (
         <>
             <Card
-                className={`${
-                    appBlur === 'disable' || osType === 'Linux' ? 'bg-content1/90' : 'bg-content1/60'
-                } float-left w-[230px] h-screen rounded-none ${osType === 'Linux' && 'rounded-l-[10px]'}`}
+                className={`bg-background/90 float-left w-[230px] h-screen rounded-none ${
+                    osType === 'Linux' && 'rounded-l-[10px]'
+                }`}
             >
                 <div className='h-[35px] p-[5px]'>
                     <div

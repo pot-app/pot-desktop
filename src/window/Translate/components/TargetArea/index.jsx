@@ -5,6 +5,7 @@ import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useAtomValue } from 'jotai';
+import { nanoid } from 'nanoid';
 
 import * as buildinServices from '../../../../services/translate/index';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
@@ -18,7 +19,6 @@ export default function TargetArea(props) {
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
-    const type = buildinServices[name].info.type;
     const LanguageEnum = buildinServices[name].Language;
     const { t } = useTranslation();
 
@@ -62,7 +62,7 @@ export default function TargetArea(props) {
                 <Spacer x={2} />
                 {t(`services.translate.${name}.title`)}
             </CardHeader>
-            <CardBody className='p-[12px] select-text'>
+            <CardBody className='p-[12px] pb-0'>
                 {isLoading ? (
                     <div className='space-y-3'>
                         <Skeleton className='w-4/5 rounded-lg'>
@@ -72,14 +72,25 @@ export default function TargetArea(props) {
                             <div className='h-3 w-3/5 rounded-lg bg-default-200'></div>
                         </Skeleton>
                     </div>
-                ) : buildinServices[name].info.type === 'text' ? (
-                    <>
-                        <div>{result}</div>
-                        <p className='text-red-400'>{error}</p>
-                    </>
+                ) : typeof result === 'string' ? (
+                    result.split('\n').map((v) => {
+                        if (v.trim() === '') {
+                            return <br key={nanoid()} />;
+                        } else {
+                            return (
+                                <p
+                                    key={nanoid()}
+                                    className='select-text'
+                                >
+                                    {v.replaceAll(' ', '\u00a0')}
+                                </p>
+                            );
+                        }
+                    })
                 ) : (
                     <></>
                 )}
+                {error !== '' ? <p className='text-red-500'>{error}</p> : <></>}
             </CardBody>
             <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px]'>
                 <ButtonGroup>

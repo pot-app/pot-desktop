@@ -1,6 +1,5 @@
 export const info = {
     name: 'openai',
-    type: 'text',
     icon: 'openai.svg',
 };
 

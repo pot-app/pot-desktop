@@ -27,7 +27,6 @@ export default function General() {
     const [serverPort, setServerPort] = useConfig('server_port', 60828);
     const [appLanguage, setAppLanguage] = useConfig('app_language', 'en');
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
-    const [appBlur, setAppBlur] = useConfig('app_blur', 'disable');
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
@@ -174,28 +173,6 @@ export default function General() {
                                     <DropdownItem key='system'>{t('config.general.theme.system')}</DropdownItem>
                                     <DropdownItem key='light'>{t('config.general.theme.light')}</DropdownItem>
                                     <DropdownItem key='dark'>{t('config.general.theme.dark')}</DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown>
-                        )}
-                    </div>
-                    <div className={`config-item ${osType !== 'Windows_NT' && 'hidden'}`}>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.general.app_blur')}</h3>
-                        {appTheme !== null && (
-                            <Dropdown>
-                                <DropdownTrigger>
-                                    <Button variant='bordered'>{t(`config.general.blur.${appBlur}`)}</Button>
-                                </DropdownTrigger>
-                                <DropdownMenu
-                                    aria-label='app theme'
-                                    onAction={(key) => {
-                                        setAppBlur(key);
-                                        toast.success(t('config.general.blur_change'), { style: toastStyle });
-                                    }}
-                                >
-                                    <DropdownItem key='blur'>{t('config.general.blur.blur')}</DropdownItem>
-                                    <DropdownItem key='acrylic'>{t('config.general.blur.acrylic')}</DropdownItem>
-                                    <DropdownItem key='mica'>{t('config.general.blur.mica')}</DropdownItem>
-                                    <DropdownItem key='disable'>{t('config.general.blur.disable')}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

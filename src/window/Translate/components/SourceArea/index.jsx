@@ -50,18 +50,13 @@ export default function SourceArea() {
             }
         }
     };
-    useEffect(() => {
-        if (sourceText !== '') {
-            if (getDynamicTranslate()) {
-                if (timer) {
-                    clearTimeout(timer);
-                }
-                timer = setTimeout(() => {
-                    setSourceText(sourceText, true);
-                }, 1000);
-            }
+
+    const keyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            setSourceText(event.target.value, true);
         }
-    }, [sourceText]);
+    };
 
     useEffect(() => {
         if (appWindow.label === 'translate') {
@@ -83,9 +78,10 @@ export default function SourceArea() {
     }, []);
 
     return (
-        <Card className='bg-content1 rounded-[10px] mt-[1px]'>
+        <Card className='bg-content1 rounded-[10px] mt-[1px] pb-0'>
             <CardBody className='bg-content1 p-0'>
                 <Textarea
+                    autoFocus
                     variant='bordered'
                     minRows={1}
                     value={sourceText}
@@ -93,8 +89,17 @@ export default function SourceArea() {
                         inputWrapper: 'border-0',
                         label: 'hidden',
                     }}
+                    onKeyDown={keyDown}
                     onValueChange={(v) => {
                         setSourceText(v);
+                        if (getDynamicTranslate()) {
+                            if (timer) {
+                                clearTimeout(timer);
+                            }
+                            timer = setTimeout(() => {
+                                setSourceText(v, true);
+                            }, 1000);
+                        }
                     }}
                 />
             </CardBody>
@@ -135,6 +140,7 @@ export default function SourceArea() {
                     size='sm'
                     color='primary'
                     variant='solid'
+                    className='text-[14px] font-bold'
                     startContent={<HiTranslate className='text-[16px]' />}
                     onPress={() => {
                         setSourceText(sourceText, true);

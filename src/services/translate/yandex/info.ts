@@ -1,6 +1,5 @@
 export const info = {
     name: 'yandex',
-    type: 'text',
     icon: 'yandex.svg',
 };
 

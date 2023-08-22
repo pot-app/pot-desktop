@@ -1,15 +1,14 @@
 export const info = {
-    name: 'bing',
-    icon: 'bing.svg',
+    name: 'google',
+    icon: 'google.svg',
 };
 
 export enum Language {
-    auto = '',
-    zh_cn = 'zh-Hans',
-    zh_tw = 'zh-Hant',
-    yue = 'yue',
-    en = 'en',
+    auto = 'auto',
+    zh_cn = 'zh-CN',
+    zh_tw = 'zh-TW',
     ja = 'ja',
+    en = 'en',
     ko = 'ko',
     fr = 'fr',
     es = 'es',
@@ -17,7 +16,7 @@ export enum Language {
     de = 'de',
     it = 'it',
     tr = 'tr',
-    pt = 'pt-pt',
+    pt = 'pt',
     pt_br = 'pt',
     vi = 'vi',
     id = 'id',
@@ -25,7 +24,6 @@ export enum Language {
     ms = 'ms',
     ar = 'ar',
     hi = 'hi',
-    mn_cy = 'mn-Cyrl',
-    mn_mo = 'mn-Mong',
+    mn_cy = 'mn',
     km = 'km',
 }

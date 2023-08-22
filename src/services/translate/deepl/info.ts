@@ -1,6 +1,5 @@
 export const info = {
     name: 'deepl',
-    type: 'text',
     icon: 'deepl.svg',
 };
 
