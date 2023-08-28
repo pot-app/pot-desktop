@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { appCacheDir, join } from '@tauri-apps/api/path';
+import { currentMonitor } from '@tauri-apps/api/window';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { appWindow } from '@tauri-apps/api/window';
 import { emit } from '@tauri-apps/api/event';
@@ -18,10 +19,14 @@ export default function Screenshot() {
     const imgRef = useRef();
 
     useEffect(() => {
-        void appWindow.show();
-        appCacheDir().then((appCacheDirPath) => {
-            join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
-                setImgurl(convertFileSrc(filePath));
+        currentMonitor().then((monitor) => {
+            const position = monitor.position;
+            invoke('screenshot', { x: position.x, y: position.y }).then(() => {
+                appCacheDir().then((appCacheDirPath) => {
+                    join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
+                        setImgurl(convertFileSrc(filePath));
+                    });
+                });
             });
         });
     }, []);
@@ -63,7 +68,6 @@ export default function Screenshot() {
                     left: 0,
                     bottom: 0,
                     right: 0,
-                    backgroundColor: '#00000020',
                     cursor: 'crosshair',
                 }}
                 onMouseDown={(e) => {

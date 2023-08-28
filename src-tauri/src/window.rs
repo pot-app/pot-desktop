@@ -180,15 +180,15 @@ fn translate_window() -> Window {
     }
 
     window
-        .set_position(tauri::PhysicalPosition::new(
-            mouse_position.x,
-            mouse_position.y,
-        ))
-        .unwrap();
-    window
         .set_size(tauri::PhysicalSize::new(
             (width as f64) * dpi,
             (height as f64) * dpi,
+        ))
+        .unwrap();
+    window
+        .set_position(tauri::PhysicalPosition::new(
+            mouse_position.x,
+            mouse_position.y,
         ))
         .unwrap();
     window
@@ -270,19 +270,6 @@ pub fn recognize_window() {
 }
 
 fn screenshot_window() -> Window {
-    use crate::screenshot::screenshot;
-    use mouse_position::mouse_position::{Mouse, Position};
-
-    let mouse_position = match Mouse::get_mouse_position() {
-        Mouse::Position { x, y } => Position { x, y },
-        Mouse::Error => {
-            warn!("Mouse position not found, using (0, 0) as default");
-            Position { x: 0, y: 0 }
-        }
-    };
-    let current_monitor = get_current_monitor(mouse_position.x, mouse_position.y);
-    let position = current_monitor.position();
-    screenshot(position.x, position.y);
     let window = build_window("screenshot", "Screenshot");
     window.set_skip_taskbar(true).unwrap();
     #[cfg(target_os = "macos")]
@@ -297,6 +284,7 @@ fn screenshot_window() -> Window {
     window.set_fullscreen(true).unwrap();
 
     window.set_always_on_top(true).unwrap();
+    window.show().unwrap();
     window
 }
 

@@ -1,5 +1,6 @@
 use log::info;
 
+#[tauri::command]
 pub fn screenshot(x: i32, y: i32) {
     use crate::APP;
     use dirs::cache_dir;

@@ -56,6 +56,9 @@ export default function SourceArea() {
             event.preventDefault();
             setSourceText(event.target.value, true);
         }
+        if (event.key === 'Escape') {
+            appWindow.close();
+        }
     };
 
     useEffect(() => {

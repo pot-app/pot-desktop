@@ -16,6 +16,7 @@ use config::*;
 use hotkey::*;
 use log::info;
 use once_cell::sync::OnceCell;
+use screenshot::screenshot;
 use server::*;
 use std::sync::Mutex;
 use system_ocr::*;
@@ -107,7 +108,8 @@ fn main() {
             unset_proxy,
             register_shortcut_by_frontend,
             update_tray,
-            updater_window
+            updater_window,
+            screenshot
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())
