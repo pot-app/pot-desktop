@@ -106,12 +106,14 @@ export default function SourceArea() {
             <CardBody className='bg-content1 p-0'>
                 <Textarea
                     autoFocus
+                    fullWidth
                     variant='bordered'
                     minRows={1}
                     value={sourceText}
                     classNames={{
                         inputWrapper: 'border-0',
                         label: 'hidden',
+                        helperWrapper: 'hidden',
                     }}
                     onKeyDown={keyDown}
                     onValueChange={(v) => {

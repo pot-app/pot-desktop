@@ -46,7 +46,7 @@ window-shadows = "0.2"
 window-vibrancy = "0.4.0"
 
 [target.'cfg(target_os = "linux")'.dependencies]
-openssl = {version="0.10.55",features = ["vendored"] }
+#openssl
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

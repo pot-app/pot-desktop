@@ -58,7 +58,7 @@ export default function Updater() {
             <div className='p-[5px] h-[35px] w-full'>
                 <div
                     data-tauri-drag-region='true'
-                    className='h-full w-full flex'
+                    className={`h-full w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-start'}`}
                 >
                     <img
                         src='icon.png'

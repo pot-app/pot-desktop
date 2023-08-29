@@ -134,11 +134,8 @@ fn on_check_update_click() {
     updater_window();
 }
 fn on_view_log_click(app: &AppHandle) {
-    use dirs::config_dir;
-
-    let config_path = config_dir().unwrap();
-    let config_path = config_path.join(app.config().tauri.bundle.identifier.clone());
-    let log_path = config_path.join("logs");
+    use tauri::api::path::app_log_dir;
+    let log_path = app_log_dir(&app.config()).unwrap();
     tauri::api::shell::open(&app.shell_scope(), log_path.to_str().unwrap(), None).unwrap();
 }
 fn on_restart_click(app: &AppHandle) {
