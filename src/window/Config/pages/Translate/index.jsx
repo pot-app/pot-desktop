@@ -17,6 +17,7 @@ export default function Translate() {
     const [sourceLanguage, setSourceLanguage] = useConfig('translate_source_language', 'auto');
     const [targetLanguage, setTargetLanguage] = useConfig('translate_target_language', 'zh_cn');
     const [secondLanguage, setSecondLanguage] = useConfig('translate_second_language', 'en');
+    const [detectEngine, setDetectEngine] = useConfig('translate_detect_engine', 'google');
     const [autoCopy, setAutoCopy] = useConfig('translate_auto_copy', 'disable');
     const [incrementalTranslate, setIncrementalTranslate] = useConfig('incremental_translate', false);
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
@@ -93,6 +94,27 @@ export default function Translate() {
                                     {languageList.map((item) => {
                                         return <DropdownItem key={item}>{t(`languages.${item}`)}</DropdownItem>;
                                     })}
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.translate.detect_engine')}</h3>
+                        {detectEngine !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.translate.${detectEngine}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='detect engine'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        setDetectEngine(key);
+                                    }}
+                                >
+                                    <DropdownItem key='baidu'>{t(`config.translate.baidu`)}</DropdownItem>
+                                    <DropdownItem key='google'>{t(`config.translate.google`)}</DropdownItem>
+                                    <DropdownItem key='local'>{t(`config.translate.local`)}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

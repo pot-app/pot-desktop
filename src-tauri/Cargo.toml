@@ -34,6 +34,7 @@ base64 = "0.21.2"
 arboard = "3.2.0"
 libloader = "0.1.4"
 libloading = "0.8.0"
+whatlang = "0.16.3"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 window-shadows = "0.2"

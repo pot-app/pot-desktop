@@ -81,7 +81,11 @@
                 "remember_window_size": "记住窗口大小",
                 "hide_source": "隐藏原文",
                 "hide_language": "隐藏语言栏",
-                "hide_window": "隐藏翻译窗口"
+                "hide_window": "隐藏翻译窗口",
+                "detect_engine": "语种检测引擎",
+                "baidu": "百度",
+                "google": "谷歌",
+                "local": "本地"
             },
             "recognize": {
                 "label": "文字识别",

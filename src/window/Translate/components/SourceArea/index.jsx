@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, Textarea, ButtonGroup } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, Textarea, ButtonGroup, Chip } from '@nextui-org/react';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
@@ -9,22 +9,28 @@ import { useTranslation } from 'react-i18next';
 import { HiTranslate } from 'react-icons/hi';
 import React, { useEffect } from 'react';
 import { invoke } from '@tauri-apps/api';
-import { atom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 
+import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
 import { useConfig, useSyncAtom } from '../../../../hooks';
 import { store } from '../../../../utils/store';
 
 export const sourceTextAtom = atom('');
+export const detectLanguageAtom = atom('');
+
 let unlisten = null;
 let timer = null;
 
 export default function SourceArea() {
     const [sourceText, setSourceText] = useSyncAtom(sourceTextAtom);
+    const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [, , getIncrementalTranslate] = useConfig('incremental_translate');
     const [, , getDynamicTranslate] = useConfig('dynamic_translate');
 
     const { t } = useTranslation();
+
     const handleNewText = async (text) => {
+        setDetectLanguage('');
         if (text === '') {
             text = (await readText()) ?? '';
         }
@@ -40,21 +46,25 @@ export default function SourceArea() {
             } else {
                 newText = text;
             }
-
-            if (getIncrementalTranslate()) {
-                setSourceText((old) => {
-                    return old + ' ' + newText;
-                }, true);
-            } else {
-                setSourceText(newText, true);
-            }
+            setSourceText(newText);
+            detect_language(newText).then(() => {
+                if (getIncrementalTranslate()) {
+                    setSourceText((old) => {
+                        return old + ' ' + newText;
+                    }, true);
+                } else {
+                    setSourceText(newText, true);
+                }
+            });
         }
     };
 
     const keyDown = (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            setSourceText(event.target.value, true);
+            detect_language(sourceText).then(() => {
+                setSourceText(event.target.value, true);
+            });
         }
         if (event.key === 'Escape') {
             appWindow.close();
@@ -80,6 +90,17 @@ export default function SourceArea() {
         });
     }, []);
 
+    const detect_language = async (text) => {
+        const engine = await store.get('translate_detect_engine');
+        if (engine === 'baidu') {
+            setDetectLanguage(await baidu_detect(text));
+        } else if (engine === 'google') {
+            setDetectLanguage(await google_detect(text));
+        } else {
+            setDetectLanguage(await local_detect(text));
+        }
+    };
+
     return (
         <Card className='bg-content1 rounded-[10px] mt-[1px] pb-0'>
             <CardBody className='bg-content1 p-0'>
@@ -94,13 +115,16 @@ export default function SourceArea() {
                     }}
                     onKeyDown={keyDown}
                     onValueChange={(v) => {
+                        setDetectLanguage('');
                         setSourceText(v);
                         if (getDynamicTranslate()) {
                             if (timer) {
                                 clearTimeout(timer);
                             }
                             timer = setTimeout(() => {
-                                setSourceText(v, true);
+                                detect_language(v).then(() => {
+                                    setSourceText(v, true);
+                                });
                             }, 1000);
                         }
                     }}
@@ -132,13 +156,30 @@ export default function SourceArea() {
                         size='sm'
                         onPress={() => {
                             const newText = sourceText.replace(/\s+/g, ' ');
-                            setSourceText(newText, true);
+                            detect_language(newText).then(() => {
+                                setSourceText(newText, true);
+                            });
                         }}
                     >
                         <MdSmartButton className='text-[16px]' />
                     </Button>
+                    {detectLanguage !== '' && (
+                        <Button
+                            variant='flat'
+                            size='sm'
+                            className='bg-transparent'
+                        >
+                            <Chip
+                                size='sm'
+                                color='secondary'
+                                variant='dot'
+                                className='my-auto'
+                            >
+                                {t(`languages.${detectLanguage}`)}
+                            </Chip>
+                        </Button>
+                    )}
                 </ButtonGroup>
-
                 <Button
                     size='sm'
                     color='primary'
@@ -146,7 +187,9 @@ export default function SourceArea() {
                     className='text-[14px] font-bold'
                     startContent={<HiTranslate className='text-[16px]' />}
                     onPress={() => {
-                        setSourceText(sourceText, true);
+                        detect_language(sourceText).then(() => {
+                            setSourceText(sourceText, true);
+                        });
                     }}
                 >
                     {t('translate.translate')}

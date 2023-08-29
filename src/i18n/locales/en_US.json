@@ -82,7 +82,11 @@
                 "remember_window_size": "Remember Window Size",
                 "hide_source": "Hide Source Area",
                 "hide_language": "Hide Language Area",
-                "hide_window": "Hide Translate Window"
+                "hide_window": "Hide Translate Window",
+                "detect_engine": "Language Detect Engine",
+                "baidu": "Baidu",
+                "google": "Google",
+                "local": "Local"
             },
             "recognize": {
                 "label": "Recognize",

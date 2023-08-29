@@ -23,7 +23,6 @@ export async function translate(text, from, to) {
     );
     if (res.ok) {
         let result = res.data;
-        console.log(result);
         let target = '';
 
         // 词典模式

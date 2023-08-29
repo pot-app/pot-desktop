@@ -109,7 +109,8 @@ fn main() {
             register_shortcut_by_frontend,
             update_tray,
             updater_window,
-            screenshot
+            screenshot,
+            lang_detect
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

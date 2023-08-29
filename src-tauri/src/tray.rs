@@ -85,6 +85,7 @@ pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
             "ocr_translate" => on_ocr_translate_click(),
             "config" => on_config_click(),
             "check_update" => on_check_update_click(),
+            "view_log" => on_view_log_click(app),
             "restart" => on_restart_click(app),
             "quit" => on_quit_click(app),
             _ => {}
@@ -132,6 +133,14 @@ fn on_config_click() {
 fn on_check_update_click() {
     updater_window();
 }
+fn on_view_log_click(app: &AppHandle) {
+    use dirs::config_dir;
+
+    let config_path = config_dir().unwrap();
+    let config_path = config_path.join(app.config().tauri.bundle.identifier.clone());
+    let log_path = config_path.join("logs");
+    tauri::api::shell::open(&app.shell_scope(), log_path.to_str().unwrap(), None).unwrap();
+}
 fn on_restart_click(app: &AppHandle) {
     info!("============== Restart App ==============");
     app.restart();
@@ -153,6 +162,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
     let ocr_translate = CustomMenuItem::new("ocr_translate", "OCR Translate");
     let config = CustomMenuItem::new("config", "Config");
     let check_update = CustomMenuItem::new("check_update", "Check Update");
+    let view_log = CustomMenuItem::new("view_log", "View Log");
     let restart = CustomMenuItem::new("restart", "Restart");
     let quit = CustomMenuItem::new("quit", "Quit");
     SystemTrayMenu::new()
@@ -172,6 +182,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(check_update)
+        .add_item(view_log)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(restart)
         .add_item(quit)
@@ -189,6 +200,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let config = CustomMenuItem::new("config", "偏好设置");
     let check_update = CustomMenuItem::new("check_update", "检查更新");
     let restart = CustomMenuItem::new("restart", "重启应用");
+    let view_log = CustomMenuItem::new("view_log", "查看日志");
     let quit = CustomMenuItem::new("quit", "退出");
     SystemTrayMenu::new()
         .add_item(input_translate)
@@ -207,6 +219,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(config)
         .add_item(check_update)
+        .add_item(view_log)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(restart)
         .add_item(quit)

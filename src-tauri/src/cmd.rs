@@ -141,3 +141,51 @@ pub fn unset_proxy() -> Result<bool, ()> {
     std::env::remove_var("all_proxy");
     Ok(true)
 }
+
+#[tauri::command]
+pub fn lang_detect(text: &str) -> Result<&str, ()> {
+    use whatlang::{Detector, Lang};
+    let allowlist = vec![
+        Lang::Eng,
+        Lang::Rus,
+        Lang::Cmn,
+        Lang::Spa,
+        Lang::Por,
+        Lang::Ita,
+        Lang::Fra,
+        Lang::Deu,
+        Lang::Ara,
+        Lang::Hin,
+        Lang::Jpn,
+        Lang::Kor,
+        Lang::Tur,
+        Lang::Vie,
+        Lang::Tha,
+        Lang::Khm,
+    ];
+
+    let detector = Detector::with_allowlist(allowlist);
+    if let Some(lang) = detector.detect_lang(text) {
+        return match lang {
+            Lang::Eng => Ok("en"),
+            Lang::Rus => Ok("ru"),
+            Lang::Cmn => Ok("zh_cn"),
+            Lang::Spa => Ok("es"),
+            Lang::Por => Ok("pt_pt"),
+            Lang::Ita => Ok("it"),
+            Lang::Fra => Ok("fr"),
+            Lang::Deu => Ok("de"),
+            Lang::Ara => Ok("ar"),
+            Lang::Hin => Ok("hi"),
+            Lang::Jpn => Ok("ja"),
+            Lang::Kor => Ok("ko"),
+            Lang::Tur => Ok("tr"),
+            Lang::Vie => Ok("vi"),
+            Lang::Tha => Ok("th"),
+            Lang::Khm => Ok("km"),
+            _ => Ok(""),
+        };
+    } else {
+        return Ok("");
+    }
+}

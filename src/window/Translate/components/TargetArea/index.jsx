@@ -9,7 +9,8 @@ import { nanoid } from 'nanoid';
 
 import * as buildinServices from '../../../../services/translate/index';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
-import { sourceTextAtom } from '../SourceArea';
+import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
+import { store } from '../../../../utils/store';
 
 export default function TargetArea(props) {
     const { name, index, ...drag } = props;
@@ -19,6 +20,7 @@ export default function TargetArea(props) {
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
+    const detectLanguage = useAtomValue(detectLanguageAtom);
     const LanguageEnum = buildinServices[name].Language;
     const { t } = useTranslation();
 
@@ -32,9 +34,13 @@ export default function TargetArea(props) {
 
     const translate = async () => {
         if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
+            let newTargetLanguage = targetLanguage;
+            if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
+                newTargetLanguage = await store.get('translate_second_language');
+            }
             setIsLoading(true);
             buildinServices[name]
-                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[targetLanguage])
+                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage])
                 .then(
                     (v) => {
                         setResult(v);
