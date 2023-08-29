@@ -1,6 +1,7 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useState } from 'react';
+import { TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
@@ -118,6 +119,46 @@ export default function TargetArea(props) {
                         }}
                     >
                         <MdContentCopy className='text-[16px]' />
+                    </Button>
+                    <Button
+                        isIconOnly
+                        variant='light'
+                        size='sm'
+                        onPress={() => {
+                            if (typeof result === 'string' && result !== '') {
+                                let newTargetLanguage = sourceLanguage;
+                                if (sourceLanguage === 'auto') {
+                                    newTargetLanguage = detectLanguage;
+                                }
+                                let newSourceLanguage = targetLanguage;
+                                if (sourceLanguage === 'auto') {
+                                    newSourceLanguage = 'auto';
+                                }
+                                if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
+                                    setIsLoading(true);
+                                    buildinServices[name]
+                                        .translate(
+                                            result,
+                                            LanguageEnum[newSourceLanguage],
+                                            LanguageEnum[newTargetLanguage]
+                                        )
+                                        .then(
+                                            (v) => {
+                                                setResult(v);
+                                                setIsLoading(false);
+                                            },
+                                            (e) => {
+                                                setError(e.toString());
+                                                setIsLoading(false);
+                                            }
+                                        );
+                                } else {
+                                    setError('Language not supported');
+                                }
+                            }
+                        }}
+                    >
+                        <TbTransformFilled className='text-[16px]' />
                     </Button>
                 </ButtonGroup>
             </CardFooter>
