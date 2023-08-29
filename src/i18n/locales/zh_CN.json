@@ -170,8 +170,7 @@
                     "service": "服务提供商",
                     "openai": "OpenAI",
                     "azure": "Azure",
-                    "url_path": "Url Path",
-                    "custom_url": "自定义域名",
+                    "request_path": "请求地址",
                     "api_key": "Api Key",
                     "model": "模型",
                     "stream": "流式输出"

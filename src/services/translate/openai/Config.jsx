@@ -19,10 +19,9 @@ export function Config(props) {
         'openai',
         {
             service: 'openai',
-            customUrl: 'api.openai.com',
+            requestPath: 'https://api.openai.com/v1/chat/completions',
             model: 'gpt-3.5-turbo',
             apiKey: '',
-            urlPath: '',
             stream: false,
         },
         { sync: false }
@@ -79,29 +78,15 @@ export function Config(props) {
                     />
                 </div>
                 <div className='config-item'>
-                    <h3 className='my-auto'>{t('services.translate.openai.custom_url')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.openai.request_path')}</h3>
                     <Input
-                        value={openaiConfig['customUrl']}
+                        value={openaiConfig['requestPath']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setOpenaiConfig({
                                 ...openaiConfig,
-                                customUrl: value,
-                            });
-                        }}
-                    />
-                </div>
-                <div className={`config-item ${openaiConfig.service === 'openai' && 'hidden'}`}>
-                    <h3 className='my-auto'>{t('services.translate.openai.url_path')}</h3>
-                    <Input
-                        value={openaiConfig['urlPath']}
-                        variant='bordered'
-                        className='max-w-[50%]'
-                        onValueChange={(value) => {
-                            setOpenaiConfig({
-                                ...openaiConfig,
-                                urlPath: value,
+                                requestPath: value,
                             });
                         }}
                     />

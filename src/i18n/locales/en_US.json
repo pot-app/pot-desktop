@@ -171,8 +171,7 @@
                     "service": "Service Provider",
                     "openai": "OpenAI",
                     "azure": "Azure",
-                    "url_path": "Url Path",
-                    "custom_url": "Custom Url",
+                    "request_path": "Request Path",
                     "api_key": "Api Key",
                     "model": "Model",
                     "stream": "Stream Mode"

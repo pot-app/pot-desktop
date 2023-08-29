@@ -125,6 +125,7 @@ export default function TargetArea(props) {
                         variant='light'
                         size='sm'
                         onPress={() => {
+                            setError('');
                             if (typeof result === 'string' && result !== '') {
                                 let newTargetLanguage = sourceLanguage;
                                 if (sourceLanguage === 'auto') {
