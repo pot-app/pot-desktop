@@ -94,6 +94,7 @@ fn main() {
             }
             // Check Update
             check_update(app.handle());
+            init_lang_detect();
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

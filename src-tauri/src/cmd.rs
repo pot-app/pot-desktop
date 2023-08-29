@@ -142,49 +142,80 @@ pub fn unset_proxy() -> Result<bool, ()> {
     Ok(true)
 }
 
+pub fn init_lang_detect() {
+    use lingua::{Language, LanguageDetectorBuilder};
+    let languages = vec![
+        Language::Chinese,
+        Language::Japanese,
+        Language::English,
+        Language::Korean,
+        Language::French,
+        Language::Spanish,
+        Language::German,
+        Language::Russian,
+        Language::Italian,
+        Language::Portuguese,
+        Language::Turkish,
+        Language::Arabic,
+        Language::Vietnamese,
+        Language::Thai,
+        Language::Indonesian,
+        Language::Malay,
+        Language::Hindi,
+        Language::Mongolian,
+    ];
+    let detector = LanguageDetectorBuilder::from_languages(&languages)
+        .with_preloaded_language_models()
+        .build();
+    let _ = detector.detect_language_of("Hello Language");
+}
 #[tauri::command]
 pub fn lang_detect(text: &str) -> Result<&str, ()> {
-    use whatlang::{Detector, Lang};
-    let allowlist = vec![
-        Lang::Eng,
-        Lang::Rus,
-        Lang::Cmn,
-        Lang::Spa,
-        Lang::Por,
-        Lang::Ita,
-        Lang::Fra,
-        Lang::Deu,
-        Lang::Ara,
-        Lang::Hin,
-        Lang::Jpn,
-        Lang::Kor,
-        Lang::Tur,
-        Lang::Vie,
-        Lang::Tha,
-        Lang::Khm,
+    use lingua::{Language, LanguageDetectorBuilder};
+    let languages = vec![
+        Language::Chinese,
+        Language::Japanese,
+        Language::English,
+        Language::Korean,
+        Language::French,
+        Language::Spanish,
+        Language::German,
+        Language::Russian,
+        Language::Italian,
+        Language::Portuguese,
+        Language::Turkish,
+        Language::Arabic,
+        Language::Vietnamese,
+        Language::Thai,
+        Language::Indonesian,
+        Language::Malay,
+        Language::Hindi,
+        Language::Mongolian,
     ];
-
-    let detector = Detector::with_allowlist(allowlist);
-    if let Some(lang) = detector.detect_lang(text) {
-        return match lang {
-            Lang::Eng => Ok("en"),
-            Lang::Rus => Ok("ru"),
-            Lang::Cmn => Ok("zh_cn"),
-            Lang::Spa => Ok("es"),
-            Lang::Por => Ok("pt_pt"),
-            Lang::Ita => Ok("it"),
-            Lang::Fra => Ok("fr"),
-            Lang::Deu => Ok("de"),
-            Lang::Ara => Ok("ar"),
-            Lang::Hin => Ok("hi"),
-            Lang::Jpn => Ok("ja"),
-            Lang::Kor => Ok("ko"),
-            Lang::Tur => Ok("tr"),
-            Lang::Vie => Ok("vi"),
-            Lang::Tha => Ok("th"),
-            Lang::Khm => Ok("km"),
-            _ => Ok(""),
-        };
+    let detector = LanguageDetectorBuilder::from_languages(&languages)
+        .with_preloaded_language_models()
+        .build();
+    if let Some(lang) = detector.detect_language_of(text) {
+        match lang {
+            Language::Chinese => Ok("zh_cn"),
+            Language::Japanese => Ok("ja"),
+            Language::English => Ok("en"),
+            Language::Korean => Ok("ko"),
+            Language::French => Ok("fr"),
+            Language::Spanish => Ok("es"),
+            Language::German => Ok("de"),
+            Language::Russian => Ok("ru"),
+            Language::Italian => Ok("it"),
+            Language::Portuguese => Ok("pt_pt"),
+            Language::Turkish => Ok("tr"),
+            Language::Arabic => Ok("ar"),
+            Language::Vietnamese => Ok("vi"),
+            Language::Thai => Ok("th"),
+            Language::Indonesian => Ok("id"),
+            Language::Malay => Ok("ms"),
+            Language::Hindi => Ok("hi"),
+            Language::Mongolian => Ok("mn_cy"),
+        }
     } else {
         return Ok("");
     }

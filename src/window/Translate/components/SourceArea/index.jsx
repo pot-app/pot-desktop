@@ -91,7 +91,7 @@ export default function SourceArea() {
     }, []);
 
     const detect_language = async (text) => {
-        const engine = await store.get('translate_detect_engine');
+        const engine = (await store.get('translate_detect_engine')) ?? 'local';
         if (engine === 'baidu') {
             setDetectLanguage(await baidu_detect(text));
         } else if (engine === 'google') {

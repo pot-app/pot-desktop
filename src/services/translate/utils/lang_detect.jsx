@@ -1,5 +1,5 @@
-import { invoke } from '@tauri-apps/api';
 import { fetch, Body } from '@tauri-apps/api/http';
+import { invoke } from '@tauri-apps/api';
 
 export async function baidu_detect(text) {
     const lang_map = {
