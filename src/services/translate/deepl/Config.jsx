@@ -112,7 +112,6 @@ export function Config(props) {
                                     onClose();
                                 },
                                 (e) => {
-                                    console.log(e);
                                     setIsLoading(false);
                                     toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
                                 }

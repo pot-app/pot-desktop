@@ -4,16 +4,19 @@
 mod cmd;
 mod config;
 mod hotkey;
+mod lang_detect;
 mod screenshot;
 mod server;
 mod system_ocr;
 mod tray;
 mod updater;
+mod webdav;
 mod window;
 
 use cmd::*;
 use config::*;
 use hotkey::*;
+use lang_detect::*;
 use log::info;
 use once_cell::sync::OnceCell;
 use screenshot::screenshot;
@@ -25,6 +28,7 @@ use tauri::Manager;
 use tauri_plugin_log::LogTarget;
 use tray::*;
 use updater::check_update;
+use webdav::*;
 use window::config_window;
 use window::updater_window;
 
@@ -111,7 +115,11 @@ fn main() {
             update_tray,
             updater_window,
             screenshot,
-            lang_detect
+            lang_detect,
+            backup_list,
+            get_backup,
+            put_backup,
+            delete_backup
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

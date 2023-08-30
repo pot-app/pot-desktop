@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { PiTextboxFill } from 'react-icons/pi';
 import { MdKeyboardAlt } from 'react-icons/md';
 import { MdExtension } from 'react-icons/md';
+import { AiFillCloud } from 'react-icons/ai';
 // import { FaHistory } from 'react-icons/fa';
 import { Button } from '@nextui-org/react';
 import React from 'react';
@@ -93,6 +94,18 @@ export default function SideBar() {
             >
                 <div style={{ width: '100%' }}>{t('config.history.label')}</div>
             </Button> */}
+            <Button
+                fullWidth
+                size='lg'
+                variant={setStyle('/backup')}
+                style={{ marginBottom: '5px' }}
+                onClick={() => {
+                    navigate('/backup');
+                }}
+                startContent={<AiFillCloud style={{ fontSize: '24px' }} />}
+            >
+                <div style={{ width: '100%' }}>{t('config.backup.label')}</div>
+            </Button>
             <Button
                 fullWidth
                 size='lg'

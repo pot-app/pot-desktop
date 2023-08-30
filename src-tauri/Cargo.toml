@@ -14,7 +14,7 @@ tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
 
-tauri = { version = "1.4", features = [ "protocol-asset", "shell-all", "clipboard-all", "os-all", "http-all", "http-multipart", "updater", "notification-all", "global-shortcut-all", "window-all", "path-all", "system-tray"] }
+tauri = { version = "1.4", features = [ "fs-read-file", "fs-write-file", "protocol-asset", "shell-all", "clipboard-all", "os-all", "http-all", "http-multipart", "updater", "notification-all", "global-shortcut-all", "window-all", "path-all", "system-tray"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
@@ -35,6 +35,7 @@ arboard = "3.2.0"
 libloader = "0.1.4"
 libloading = "0.8.0"
 lingua = { version = "1.5.0", default-features = false,features = ["chinese", "japanese", "english", "korean", "french", "spanish", "german", "russian", "italian", "portuguese", "turkish", "arabic", "vietnamese", "thai", "indonesian", "malay", "hindi", "mongolian",] }
+reqwest_dav = {git="https://github.com/pot-app/reqwest_dav.git"}
 
 [target.'cfg(target_os = "macos")'.dependencies]
 window-shadows = "0.2"

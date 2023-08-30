@@ -123,6 +123,19 @@
                 "label": "History",
                 "title": "History"
             },
+            "backup": {
+                "label": "Backup",
+                "title": "Backup Setting",
+                "type": "Service Type",
+                "webdav": "WebDav",
+                "url": "WebDav Url",
+                "username": "UserName",
+                "password": "Password",
+                "backup": "Backup",
+                "show": "View Backup",
+                "load_success": "Load Backup Success",
+                "backup_success": "Backup Success"
+            },
             "about": {
                 "label": "About",
                 "title": "About Application",
