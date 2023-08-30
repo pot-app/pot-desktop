@@ -25,7 +25,6 @@ export async function translate(text, from, to) {
         let result = res.data;
         // 词典模式
         if (result[1]) {
-            console.log(result);
             let target = { pronunciations: [], explanations: [], association: [], sentence: [] };
             // 发音
             if (result[0][1][3]) {
@@ -41,8 +40,6 @@ export async function translate(text, from, to) {
                     target.sentence.push({ source: i[0] });
                 }
             }
-
-            console.log(target);
             return target;
         } else {
             // 翻译模式
