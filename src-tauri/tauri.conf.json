@@ -108,7 +108,7 @@
         "updater": {
             "active": true,
             "dialog": false,
-            "endpoints": ["https://pot-app.com/.netlify/functions/update"],
+            "endpoints": ["https://update.pot-app.com"],
             "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVBRTQxQTNDQjM5QzQzM0EKUldRNlE1eXpQQnJrV21mM1Bram5LRlF6UDA3K0Jab2FYL2lZSWhXTE5McWs2NUdJS0dtYkd5VGMK"
         }
     }
