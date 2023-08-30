@@ -95,7 +95,85 @@ export default function TargetArea(props) {
                         }
                     })
                 ) : (
-                    <></>
+                    <div>
+                        <div>{sourceText}</div>
+                        {result['pronunciations'] &&
+                            result['pronunciations'].map((pronunciation) => {
+                                return (
+                                    <span key={nanoid()}>
+                                        {pronunciation['region'] && (
+                                            <span className='mr-[12px] text-default-500'>
+                                                {pronunciation['region']}
+                                            </span>
+                                        )}
+                                        <span className='mr-[12px] text-default-500'>{pronunciation['symbol']}</span>
+                                        {pronunciation['voice'] && (
+                                            <span className='mr-[12px] text-default-500'>{pronunciation['voice']}</span>
+                                        )}
+                                    </span>
+                                );
+                            })}
+                        {result['explanations'] &&
+                            result['explanations'].map((explanations) => {
+                                return (
+                                    <div key={nanoid()}>
+                                        {explanations['explains'].map((explain, index) => {
+                                            return (
+                                                <span key={nanoid()}>
+                                                    {index === 0 ? (
+                                                        <>
+                                                            <span className='font-bold text-[18px] select-text mr-[12px]'>
+                                                                {explain}
+                                                            </span>
+                                                            <span className='text-[10px] text-default-500'>
+                                                                {explanations['trait']}
+                                                            </span>
+                                                            <br />
+                                                        </>
+                                                    ) : (
+                                                        <span
+                                                            className='text-[12px] text-default-500 mr-[8px] select-text'
+                                                            key={nanoid()}
+                                                        >
+                                                            {explain}
+                                                        </span>
+                                                    )}
+                                                </span>
+                                            );
+                                        })}
+                                        <br />
+                                    </div>
+                                );
+                            })}
+                        {result['sentence'] &&
+                            result['sentence'].map((sentence, index) => {
+                                return (
+                                    <div key={nanoid()}>
+                                        <span className='mr-[12px]'>{index + 1}.</span>
+                                        <>
+                                            {sentence['source'] && (
+                                                <span
+                                                    className='select-text'
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: sentence['source'],
+                                                    }}
+                                                />
+                                            )}
+                                        </>
+                                        <>
+                                            {sentence['target'] && (
+                                                <div
+                                                    className='select-text text-default-500'
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: sentence['target'],
+                                                    }}
+                                                />
+                                            )}
+                                        </>
+                                    </div>
+                                );
+                            })}
+                    </div>
                 )}
                 {error !== '' ? <p className='text-red-500'>{error}</p> : <></>}
             </CardBody>
@@ -105,6 +183,7 @@ export default function TargetArea(props) {
                         isIconOnly
                         variant='light'
                         size='sm'
+                        isDisabled={typeof result !== 'string' || result === ''}
                     >
                         <HiOutlineVolumeUp className='text-[16px]' />
                     </Button>

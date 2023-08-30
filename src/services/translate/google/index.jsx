@@ -23,29 +23,30 @@ export async function translate(text, from, to) {
     );
     if (res.ok) {
         let result = res.data;
-        let target = '';
-
         // 词典模式
         if (result[1]) {
-            for (let i of result[1]) {
-                // 词性
-                target = target + '【词性】' + i[0] + '\n【释义】';
-                for (let r of i[1]) {
-                    target = target + r + ', ';
-                }
-                target = target + '\n【联想】\n';
-                for (let r of i[2]) {
-                    target = target + '  ' + r[0] + ':  ';
-                    for (let j of r[1]) {
-                        target = target + j + ', ';
-                    }
-                    target += '\n';
-                }
-                target += '\n';
+            console.log(result);
+            let target = { pronunciations: [], explanations: [], association: [], sentence: [] };
+            // 发音
+            if (result[0][1][3]) {
+                target.pronunciations.push({ symbol: result[0][1][3], voice: '' });
             }
-            return target.trim();
+            // 释义
+            for (let i of result[1]) {
+                target.explanations.push({ trait: i[0], explains: i[1] });
+            }
+            // 例句
+            if (result[13]) {
+                for (let i of result[13][0]) {
+                    target.sentence.push({ source: i[0] });
+                }
+            }
+
+            console.log(target);
+            return target;
         } else {
             // 翻译模式
+            let target = '';
             for (let r of result[0]) {
                 if (r[0]) {
                     target = target + r[0];
