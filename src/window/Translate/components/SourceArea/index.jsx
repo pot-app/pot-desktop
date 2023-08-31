@@ -102,7 +102,10 @@ export default function SourceArea() {
     };
 
     return (
-        <Card className='bg-content1 rounded-[10px] mt-[1px] pb-0'>
+        <Card
+            shadow='none'
+            className='bg-content1 rounded-[10px] mt-[1px] pb-0'
+        >
             <CardBody className='bg-content1 p-0'>
                 <Textarea
                     autoFocus

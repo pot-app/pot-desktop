@@ -2,9 +2,9 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Spacer, Button } from '@nextui-org/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { appWindow } from '@tauri-apps/api/window';
-import React, { useState, useMemo } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
+import React, { useState } from 'react';
 
 import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
@@ -107,53 +107,55 @@ export default function Translate() {
                     <AiFillCloseCircle className='text-[20px] text-default-400' />
                 </Button>
             </div>
-            <div className='h-[calc(100vh-35px)] overflow-y-auto px-[8px]'>
-                <div className={hideSource ? 'hidden' : ''}>
-                    <SourceArea />
-                    <Spacer y={2} />
+            <div className='h-[calc(100vh-35px)] px-[8px]'>
+                <div className='h-full overflow-y-auto'>
+                    <div className={hideSource ? 'hidden' : ''}>
+                        <SourceArea />
+                        <Spacer y={2} />
+                    </div>
+                    <div className={hideLanguage ? 'hidden' : ''}>
+                        <LanguageArea />
+                        <Spacer y={2} />
+                    </div>
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable
+                            droppableId='droppable'
+                            direction='vertical'
+                        >
+                            {(provided) => (
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                >
+                                    {translateServiceList !== null &&
+                                        translateServiceList.map((service, index) => {
+                                            return (
+                                                <Draggable
+                                                    key={service}
+                                                    draggableId={service}
+                                                    index={index}
+                                                >
+                                                    {(provided) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                        >
+                                                            <TargetArea
+                                                                {...provided.dragHandleProps}
+                                                                name={service}
+                                                                index={index}
+                                                            />
+                                                            <Spacer y={2} />
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            );
+                                        })}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
                 </div>
-                <div className={hideLanguage ? 'hidden' : ''}>
-                    <LanguageArea />
-                    <Spacer y={2} />
-                </div>
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable
-                        droppableId='droppable'
-                        direction='vertical'
-                    >
-                        {(provided) => (
-                            <div
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                            >
-                                {translateServiceList !== null &&
-                                    translateServiceList.map((service, index) => {
-                                        return (
-                                            <Draggable
-                                                key={service}
-                                                draggableId={service}
-                                                index={index}
-                                            >
-                                                {(provided) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                    >
-                                                        <TargetArea
-                                                            {...provided.dragHandleProps}
-                                                            name={service}
-                                                            index={index}
-                                                        />
-                                                        <Spacer y={2} />
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        );
-                                    })}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
             </div>
         </div>
     );

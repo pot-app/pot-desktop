@@ -57,7 +57,10 @@ export default function TargetArea(props) {
         }
     };
     return (
-        <Card className='rounded-[10px]'>
+        <Card
+            shadow='none'
+            className='rounded-[10px]'
+        >
             <CardHeader
                 className='rounded-t-[10px] bg-content2 h-[30px]'
                 {...drag}
