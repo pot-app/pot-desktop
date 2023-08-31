@@ -40,7 +40,7 @@ export default function SourceArea() {
             // image translate
         } else {
             let newText = text;
-            const deleteNewline = await store.get('translate_delete_newline');
+            const deleteNewline = (await store.get('translate_delete_newline')) ?? false;
             if (deleteNewline) {
                 newText = text.replace(/\s+/g, ' ');
             } else {

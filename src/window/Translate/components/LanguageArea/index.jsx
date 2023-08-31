@@ -18,10 +18,18 @@ export default function LanguageArea() {
     const { t } = useTranslation();
     useEffect(() => {
         store.get('translate_source_language').then((v) => {
-            setSourceLanguage(v);
+            if (v) {
+                setSourceLanguage(v);
+            } else {
+                setSourceLanguage('auto');
+            }
         });
         store.get('translate_target_language').then((v) => {
-            setTargetLanguage(v);
+            if (v) {
+                setTargetLanguage(v);
+            } else {
+                setTargetLanguage(zh_cn);
+            }
         });
     }, []);
 
@@ -62,15 +70,15 @@ export default function LanguageArea() {
                                 setTargetLanguage(oldSourceLanguage);
                             } else {
                                 if (detectLanguage !== '') {
-                                    const defaultLanguage = await store.get('translate_target_language');
+                                    const defaultLanguage = (await store.get('translate_target_language')) ?? 'zh_cn';
                                     if (targetLanguage === defaultLanguage) {
                                         setTargetLanguage(detectLanguage);
                                     } else {
                                         setTargetLanguage(defaultLanguage);
                                     }
                                 } else {
-                                    const secondLanguage = await store.get('translate_second_language');
-                                    const defaultLanguage = await store.get('translate_target_language');
+                                    const secondLanguage = (await store.get('translate_second_language')) ?? 'en';
+                                    const defaultLanguage = (await store.get('translate_target_language')) ?? 'zh_cn';
                                     if (targetLanguage === secondLanguage) {
                                         setTargetLanguage(defaultLanguage);
                                     } else {

@@ -41,7 +41,7 @@ export default function TargetArea(props) {
         if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
             let newTargetLanguage = targetLanguage;
             if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
-                newTargetLanguage = await store.get('translate_second_language');
+                newTargetLanguage = (await store.get('translate_second_language')) ?? 'en';
             }
             setIsLoading(true);
             buildinServices[name]
