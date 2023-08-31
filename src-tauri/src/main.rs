@@ -1,6 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod backup;
 mod cmd;
 mod config;
 mod hotkey;
@@ -10,9 +11,9 @@ mod server;
 mod system_ocr;
 mod tray;
 mod updater;
-mod webdav;
 mod window;
 
+use backup::*;
 use cmd::*;
 use config::*;
 use hotkey::*;
@@ -28,7 +29,6 @@ use tauri::Manager;
 use tauri_plugin_log::LogTarget;
 use tray::*;
 use updater::check_update;
-use webdav::*;
 use window::config_window;
 use window::updater_window;
 
@@ -116,10 +116,7 @@ fn main() {
             updater_window,
             screenshot,
             lang_detect,
-            backup_list,
-            get_backup,
-            put_backup,
-            delete_backup
+            webdav
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

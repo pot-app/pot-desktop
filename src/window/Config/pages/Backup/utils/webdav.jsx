@@ -3,7 +3,8 @@ import { store } from '../../../../../utils/store';
 import { invoke } from '@tauri-apps/api';
 
 export async function backup(url, username, password, name, body) {
-    return await invoke('put_backup', {
+    return await invoke('webdav', {
+        operate: 'put',
         url,
         username,
         password,
@@ -13,7 +14,8 @@ export async function backup(url, username, password, name, body) {
 }
 
 export async function list(url, username, password) {
-    const backup_list_text = await invoke('backup_list', {
+    const backup_list_text = await invoke('webdav', {
+        operate: 'list',
         url,
         username,
         password,
@@ -28,7 +30,8 @@ export async function list(url, username, password) {
 }
 
 export async function get(url, username, password, name) {
-    const body = await invoke('get_backup', {
+    const body = await invoke('webdav', {
+        operate: 'get',
         url,
         username,
         password,
@@ -39,7 +42,8 @@ export async function get(url, username, password, name) {
 }
 
 export async function remove(url, username, password, name) {
-    return await invoke('delete_backup', {
+    return await invoke('webdav', {
+        operate: 'delete',
         url,
         username,
         password,
