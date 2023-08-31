@@ -200,6 +200,10 @@
         },
         "translate": {
             "translate": "翻译"
+        },
+        "recognize": {
+            "recognize": "重新识别",
+            "translate": "翻译"
         }
     }
 }

@@ -267,6 +267,7 @@ pub fn recognize_window() {
         ))
         .unwrap();
     window.center().unwrap();
+    window.emit("new_image", "").unwrap();
 }
 
 fn screenshot_window() -> Window {

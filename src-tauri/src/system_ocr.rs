@@ -50,7 +50,13 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
             .Text()
             .unwrap()
             .to_string_lossy()),
-        Err(e) => Err(e.to_string()),
+        Err(e) => {
+            if e.to_string().contains("0x00000000") {
+                Err("Language package not installed!\n\nSee: https://learn.microsoft.com/zh-cn/windows/powertoys/text-extractor#supported-languages".to_string())
+            } else {
+                Err(e.to_string())
+            }
+        }
     }
 }
 

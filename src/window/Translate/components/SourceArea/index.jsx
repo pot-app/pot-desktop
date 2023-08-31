@@ -1,13 +1,13 @@
-import { Button, Card, CardBody, CardFooter, Textarea, ButtonGroup, Chip } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip } from '@nextui-org/react';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
+import React, { useEffect, useRef } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { HiTranslate } from 'react-icons/hi';
-import React, { useEffect } from 'react';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
@@ -28,7 +28,7 @@ export default function SourceArea() {
     const [, , getDynamicTranslate] = useConfig('dynamic_translate');
 
     const { t } = useTranslation();
-
+    const textAreaRef = useRef();
     const handleNewText = async (text) => {
         setDetectLanguage('');
         if (text === '') {
@@ -90,6 +90,11 @@ export default function SourceArea() {
         });
     }, []);
 
+    useEffect(() => {
+        textAreaRef.current.style.height = '50px';
+        textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
+    }, [sourceText]);
+
     const detect_language = async (text) => {
         const engine = (await store.get('translate_detect_engine')) ?? 'local';
         if (engine === 'baidu') {
@@ -106,20 +111,15 @@ export default function SourceArea() {
             shadow='none'
             className='bg-content1 rounded-[10px] mt-[1px] pb-0'
         >
-            <CardBody className='bg-content1 p-0'>
-                <Textarea
+            <CardBody className='bg-content1 p-[12px] pb-0 max-h-[40vh] overflow-y-auto'>
+                <textarea
                     autoFocus
-                    fullWidth
-                    variant='bordered'
-                    minRows={1}
+                    ref={textAreaRef}
+                    className='bg-content1 h-full resize-none focus:outline-none'
                     value={sourceText}
-                    classNames={{
-                        inputWrapper: 'border-0',
-                        label: 'hidden',
-                        helperWrapper: 'hidden',
-                    }}
                     onKeyDown={keyDown}
-                    onValueChange={(v) => {
+                    onChange={(e) => {
+                        const v = e.target.value;
                         setDetectLanguage('');
                         setSourceText(v);
                         if (getDynamicTranslate()) {
