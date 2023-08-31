@@ -12,6 +12,7 @@ import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
+import * as recognizeServices from '../../../../services/recognize';
 import { useConfig, useSyncAtom } from '../../../../hooks';
 import { store } from '../../../../utils/store';
 
@@ -37,6 +38,24 @@ export default function SourceArea() {
         if (text === '[INPUT_TRANSLATE]') {
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
+            setSourceText('Recognizing...');
+            const language = (await store.get('recognize_language')) ?? 'auto';
+            const serviceList = (await store.get('recognize_service_list')) ?? ['system'];
+            if (language in recognizeServices[serviceList[0]].Language) {
+                const base64 = await invoke('get_base64');
+                recognizeServices[serviceList[0]]
+                    .recognize(base64, recognizeServices[serviceList[0]].Language[language])
+                    .then(
+                        (v) => {
+                            setSourceText(v, true);
+                        },
+                        (e) => {
+                            setSourceText(e.toString());
+                        }
+                    );
+            } else {
+                setSourceText('Language not supported');
+            }
             // image translate
         } else {
             let newText = text;
