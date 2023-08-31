@@ -47,7 +47,16 @@ export default function SourceArea() {
                     .recognize(base64, recognizeServices[serviceList[0]].Language[language])
                     .then(
                         (v) => {
-                            setSourceText(v, true);
+                            setSourceText(v);
+                            detect_language(v).then(() => {
+                                if (getIncrementalTranslate()) {
+                                    setSourceText((old) => {
+                                        return old + ' ' + v;
+                                    }, true);
+                                } else {
+                                    setSourceText(v, true);
+                                }
+                            });
                         },
                         (e) => {
                             setSourceText(e.toString());
