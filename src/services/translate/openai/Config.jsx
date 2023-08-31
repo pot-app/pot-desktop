@@ -135,7 +135,7 @@ export function Config(props) {
                         color='primary'
                         onPress={() => {
                             setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, openaiConfig).then(
+                            translate('hello', Language.auto, Language.zh_cn, { config: openaiConfig }).then(
                                 () => {
                                     setIsLoading(false);
                                     setOpenaiConfig(openaiConfig, true);

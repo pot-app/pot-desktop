@@ -104,7 +104,7 @@ export function Config(props) {
                         fullWidth
                         onPress={() => {
                             setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, deeplConfig).then(
+                            translate('hello', Language.auto, Language.zh_cn, { config: deeplConfig }).then(
                                 () => {
                                     setIsLoading(false);
                                     setDeeplConfig(deeplConfig, true);

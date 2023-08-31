@@ -13,6 +13,8 @@ import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
 import { store } from '../../../../utils/store';
 
+let translateID = [];
+
 export default function TargetArea(props) {
     const { name, index, ...drag } = props;
     const [result, setResult] = useState('');
@@ -34,6 +36,8 @@ export default function TargetArea(props) {
     }, [sourceText, targetLanguage, sourceLanguage]);
 
     const translate = async () => {
+        let id = nanoid();
+        translateID[index] = id;
         if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
             let newTargetLanguage = targetLanguage;
             if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
@@ -41,13 +45,21 @@ export default function TargetArea(props) {
             }
             setIsLoading(true);
             buildinServices[name]
-                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage])
+                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
+                    setResult: (v) => {
+                        if (translateID[index] !== id) return;
+                        setResult(v);
+                        setIsLoading(false);
+                    },
+                })
                 .then(
                     (v) => {
+                        if (translateID[index] !== id) return;
                         setResult(v);
                         setIsLoading(false);
                     },
                     (e) => {
+                        if (translateID[index] !== id) return;
                         setError(e.toString());
                         setIsLoading(false);
                     }
