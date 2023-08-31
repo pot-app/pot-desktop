@@ -128,13 +128,15 @@
                 "title": "Backup Setting",
                 "type": "Service Type",
                 "webdav": "WebDav",
-                "url": "WebDav Url",
+                "webdav_url": "WebDav Url",
                 "username": "UserName",
                 "password": "Password",
                 "backup": "Backup",
                 "show": "View Backup",
+                "list": "Backup List",
                 "load_success": "Load Backup Success",
-                "backup_success": "Backup Success"
+                "backup_success": "Backup Success",
+                "empty": "You have not backed up yet"
             },
             "about": {
                 "label": "About",

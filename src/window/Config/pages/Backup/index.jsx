@@ -7,13 +7,14 @@ import { DropdownItem } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import { CardBody } from '@nextui-org/react';
 import { Dropdown } from '@nextui-org/react';
+import { warn } from 'tauri-plugin-log-api';
 import { Button } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
-import { invoke } from '@tauri-apps/api';
 import React, { useState } from 'react';
 
 import { useConfig, useToastStyle } from '../../../../hooks';
+import * as webdav from './utils/webdav';
 import WebDavModal from './WebDavModal';
 
 export default function Backup() {
@@ -29,6 +30,50 @@ export default function Backup() {
     const [uploading, setUploading] = useState(false);
     const toastStyle = useToastStyle();
     const { t } = useTranslation();
+
+    const onBackup = async () => {
+        setUploading(true);
+        const time = new Date();
+        const fileName = `${time.getFullYear()}-${
+            time.getMonth() + 1
+        }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.json`;
+        readTextFile('config.json', { dir: BaseDirectory.AppConfig }).then(
+            (v) => {
+                let result;
+                switch (backupType) {
+                    case 'webdav':
+                        result = webdav.backup(davUrl, davUserName, davPassword, fileName, v);
+                        break;
+                    default:
+                        warn('Unknown backup type');
+                }
+                result.then(
+                    () => {
+                        toast.success(t('config.backup.backup_success'), { style: toastStyle });
+                        setUploading(false);
+                    },
+                    (e) => {
+                        toast.error(e.toString(), { style: toastStyle });
+                        setUploading(false);
+                    }
+                );
+            },
+            (e) => {
+                toast.error(e.toString(), { style: toastStyle });
+                setUploading(false);
+            }
+        );
+    };
+
+    const onBackupListOpen = () => {
+        switch (backupType) {
+            case 'webdav':
+                onWebDavListOpen();
+                break;
+            default:
+                warn('Unknown backup type');
+        }
+    };
 
     return (
         <Card style={{ marginBottom: '10px' }}>
@@ -54,7 +99,7 @@ export default function Backup() {
                 </div>
                 <div className={backupType !== 'webdav' ? 'hidden' : ''}>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.backup.url')}</h3>
+                        <h3 style={{ margin: 'auto 0' }}>{t('config.backup.webdav_url')}</h3>
                         {davUrl !== null && (
                             <Input
                                 variant='bordered'
@@ -98,43 +143,14 @@ export default function Backup() {
                             color='success'
                             variant='flat'
                             isLoading={uploading}
-                            onPress={() => {
-                                setUploading(true);
-                                const time = new Date();
-                                readTextFile('config.json', { dir: BaseDirectory.AppConfig }).then(
-                                    (v) => {
-                                        invoke('put_backup', {
-                                            url: davUrl,
-                                            username: davUserName,
-                                            password: davPassword,
-                                            name: `${time.getFullYear()}-${
-                                                time.getMonth() + 1
-                                            }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.json`,
-                                            body: v,
-                                        }).then(
-                                            () => {
-                                                toast.success(t('config.backup.backup_success'), { style: toastStyle });
-                                                setUploading(false);
-                                            },
-                                            (e) => {
-                                                toast.error(e.toString(), { style: toastStyle });
-                                                setUploading(false);
-                                            }
-                                        );
-                                    },
-                                    (e) => {
-                                        toast.error(e.toString(), { style: toastStyle });
-                                        setUploading(false);
-                                    }
-                                );
-                            }}
+                            onPress={onBackup}
                         >
                             {t('config.backup.backup')}
                         </Button>
                         <Button
                             color='secondary'
                             variant='flat'
-                            onPress={onWebDavListOpen}
+                            onPress={onBackupListOpen}
                         >
                             {t('config.backup.show')}
                         </Button>

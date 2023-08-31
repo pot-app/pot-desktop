@@ -1,13 +1,11 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, Button } from '@nextui-org/react';
-import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+import { Modal, ModalContent, ModalHeader, ModalBody, Button, Skeleton } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { invoke } from '@tauri-apps/api';
 
 import { useToastStyle } from '../../../../../hooks';
-import { store } from '../../../../../utils/store';
+import * as webdav from '../utils/webdav';
 
 export default function WebDavModal(props) {
     const { isOpen, onOpenChange, url, username, password } = props;
@@ -21,19 +19,11 @@ export default function WebDavModal(props) {
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
-            invoke('backup_list', {
-                url,
-                username,
-                password,
-            }).then(
+            webdav.list(url, username, password).then(
                 (v) => {
-                    let backup_list = JSON.parse(v);
-                    backup_list = backup_list.filter((item) => {
-                        return item.hasOwnProperty('File');
-                    });
-                    setWebdavList(backup_list);
+                    setWebdavList(v);
                     setDownloading(
-                        backup_list.map(() => {
+                        v.map(() => {
                             return false;
                         })
                     );
@@ -48,16 +38,13 @@ export default function WebDavModal(props) {
     }, [isOpen]);
 
     const getBackup = async (name, onClose) => {
-        invoke('get_backup', {
-            url,
-            username,
-            password,
-            name,
-        }).then(
-            async (v) => {
-                setDownloading(false);
-                await writeTextFile('config.json', v, { dir: BaseDirectory.AppConfig });
-                await store.load();
+        webdav.get(url, username, password, name).then(
+            () => {
+                setDownloading(
+                    downloading.map(() => {
+                        return false;
+                    })
+                );
                 toast.success(t('config.backup.load_success'), { style: toastStyle });
                 onClose();
             },
@@ -82,55 +69,52 @@ export default function WebDavModal(props) {
             <ModalContent>
                 {(onClose) => (
                     <>
-                        <ModalHeader />
+                        <ModalHeader>{t('config.backup.list')}</ModalHeader>
                         <ModalBody>
                             {loading ? (
-                                <h2>Loading</h2>
+                                <div className='space-y-3'>
+                                    <Skeleton className='w-4/5 rounded-lg'>
+                                        <div className='h-3 w-4/5 rounded-lg bg-default-200'></div>
+                                    </Skeleton>
+                                    <Skeleton className='w-3/5 rounded-lg'>
+                                        <div className='h-3 w-3/5 rounded-lg bg-default-200'></div>
+                                    </Skeleton>
+                                </div>
                             ) : webdavList.length === 0 ? (
-                                <h2>Empty</h2>
+                                <h2>{t('config.backup.empty')}</h2>
                             ) : (
                                 <div>
                                     {webdavList.map((file, index) => {
                                         return (
-                                            <div className='flex justify-between'>
+                                            <div
+                                                className='flex justify-between'
+                                                key={file}
+                                            >
                                                 <Button
                                                     fullWidth
                                                     variant='flat'
                                                     className='mb-[8px] mr-[8px]'
                                                     isLoading={downloading[index]}
-                                                    key={file.File.href}
                                                     onPress={async () => {
                                                         setDownloading(
-                                                            downloading.map((v, i) => {
-                                                                if (i === index) {
-                                                                    return true;
-                                                                } else {
-                                                                    return false;
-                                                                }
+                                                            downloading.map((_, i) => {
+                                                                return i === index;
                                                             })
                                                         );
-                                                        await getBackup(
-                                                            file.File.href.split('/').slice(-1)[0],
-                                                            onClose
-                                                        );
+                                                        await getBackup(file, onClose);
                                                     }}
                                                 >
-                                                    {file.File.href.split('/').slice(-1)[0]}
+                                                    {file}
                                                 </Button>
                                                 <Button
                                                     isIconOnly
                                                     color='danger'
                                                     variant='flat'
                                                     onPress={() => {
-                                                        invoke('delete_backup', {
-                                                            url,
-                                                            username,
-                                                            password,
-                                                            name: file.File.href.split('/').slice(-1)[0],
-                                                        }).then(
+                                                        webdav.remove(url, username, password, file).then(
                                                             () => {
                                                                 setWebdavList(
-                                                                    webdavList.filter((v, i) => {
+                                                                    webdavList.filter((_, i) => {
                                                                         return i !== index;
                                                                     })
                                                                 );
@@ -141,7 +125,7 @@ export default function WebDavModal(props) {
                                                         );
                                                     }}
                                                 >
-                                                    <MdDeleteOutline />
+                                                    <MdDeleteOutline className='text-xl' />
                                                 </Button>
                                             </div>
                                         );
