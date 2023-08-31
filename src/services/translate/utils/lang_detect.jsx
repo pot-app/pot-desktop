@@ -64,14 +64,30 @@ export async function google_detect(text) {
         mn: 'mn_cy',
         km: 'km',
     };
-    const res = await fetch('https://detect.pot-app.com', {
-        method: 'POST',
-        body: Body.text(text),
-    });
+    let res = await fetch(
+        `https://translate.google.com/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
+        {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },
+            query: {
+                client: 'gtx',
+                sl: 'auto',
+                tl: 'zh-CN',
+                hl: 'zh-CN',
+                ie: 'UTF-8',
+                oe: 'UTF-8',
+                otf: '1',
+                ssel: '0',
+                tsel: '0',
+                kc: '7',
+                q: text,
+            },
+        }
+    );
     if (res.ok) {
         const result = res.data;
-        if (result['lang'] && result['lang'] in lang_map) {
-            return lang_map[result['lang']];
+        if (result[2] && result[2] in lang_map) {
+            return result[2];
         }
     }
     return '';

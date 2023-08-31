@@ -2,7 +2,7 @@ import { fetch } from '@tauri-apps/api/http';
 
 export async function translate(text, from, to) {
     let res = await fetch(
-        `https://google.pot-app.com/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
+        `https://translate.google.com/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
         {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
