@@ -1,6 +1,6 @@
 export const info = {
     name: 'deepl',
-    icon: 'deepl.svg',
+    icon: 'logo/deepl.svg',
 };
 
 export enum Language {

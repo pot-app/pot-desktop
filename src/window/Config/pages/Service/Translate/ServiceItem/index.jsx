@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { BiSolidEdit } from 'react-icons/bi';
 import React from 'react';
 
+import * as buildinServices from '../../../../../../services/translate';
+
 export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, ...drag } = props;
     const { t } = useTranslation();
@@ -21,7 +23,7 @@ export default function ServiceItem(props) {
 
                 <Spacer x={2} />
                 <img
-                    src={`${name}.svg`}
+                    src={`${buildinServices[name].info.icon}`}
                     className='h-[24px] w-[24px] my-auto'
                 />
                 <Spacer x={2} />

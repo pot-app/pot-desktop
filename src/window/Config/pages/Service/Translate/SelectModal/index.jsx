@@ -2,7 +2,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/translate/index';
+import * as buildinServices from '../../../../../../services/translate';
 
 export default function SelectModal(props) {
     const { isOpen, onOpenChange, setConfigName, onConfigOpen } = props;

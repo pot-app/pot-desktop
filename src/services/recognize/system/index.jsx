@@ -1,5 +1,7 @@
+import { local_detect } from '../../translate/utils/lang_detect';
 import { osType } from '../../../utils/env';
 import { invoke } from '@tauri-apps/api';
+import { Language } from './info';
 
 export async function recognize(_, lang) {
     const linuxLangMap = {
@@ -71,13 +73,31 @@ export async function recognize(_, lang) {
         ar: 'ar-SA',
         hi: 'hi-IN',
     };
+    let result = '';
     switch (osType) {
         case 'Linux':
-            return await invoke('system_ocr', { lang: linuxLangMap[lang] });
+            result = await invoke('system_ocr', { lang: linuxLangMap[lang] });
+            if (lang === Language.auto && (await local_detect(result)) === Language.zh_cn) {
+                result = result.replaceAll(' ', '');
+            } else {
+                if (lang === Language.zh_cn || lang === Language.zh_tw) {
+                    result = result.replaceAll(' ', '');
+                }
+            }
+            return result.trim();
         case 'Darwin':
-            return await invoke('system_ocr', { lang: macOSLangMap[lang] });
+            result = await invoke('system_ocr', { lang: macOSLangMap[lang] });
+            return result.trim();
         case 'Windows_NT':
-            return await invoke('system_ocr', { lang: windowsLangMap[lang] });
+            result = await invoke('system_ocr', { lang: windowsLangMap[lang] });
+            if (lang === Language.auto && (await local_detect(result)) === Language.zh_cn) {
+                result = result.replaceAll(' ', '');
+            } else {
+                if (lang === Language.zh_cn || lang === Language.zh_tw) {
+                    result = result.replaceAll(' ', '');
+                }
+            }
+            return result.trim();
     }
 }
 
