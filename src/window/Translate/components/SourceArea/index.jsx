@@ -165,7 +165,7 @@ export default function SourceArea() {
                 <textarea
                     autoFocus
                     ref={textAreaRef}
-                    className='bg-content1 h-full resize-none focus:outline-none'
+                    className='bg-content1 h-full resize-none outline-none'
                     value={sourceText}
                     onKeyDown={keyDown}
                     onChange={(e) => {

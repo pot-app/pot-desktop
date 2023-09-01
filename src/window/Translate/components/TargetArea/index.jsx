@@ -1,8 +1,8 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { sendNotification } from '@tauri-apps/api/notification';
+import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
-import React, { useEffect, useState } from 'react';
 import { TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { MdContentCopy } from 'react-icons/md';
@@ -14,7 +14,6 @@ import * as buildinServices from '../../../../services/translate/index';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
 import { useConfig } from '../../../../hooks';
-import { info } from 'tauri-plugin-log-api';
 
 let translateID = [];
 
@@ -33,6 +32,7 @@ export default function TargetArea(props) {
     const detectLanguage = useAtomValue(detectLanguageAtom);
     const LanguageEnum = buildinServices[name].Language;
     const { t } = useTranslation();
+    const textAreaRef = useRef();
 
     useEffect(() => {
         setResult('');
@@ -105,6 +105,14 @@ export default function TargetArea(props) {
             setError('Language not supported');
         }
     };
+    useEffect(() => {
+        if (textAreaRef.current !== null) {
+            textAreaRef.current.style.height = '0px';
+            if (result !== '') {
+                textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
+            }
+        }
+    }, [result]);
     return (
         <Card
             shadow='none'
@@ -140,7 +148,11 @@ export default function TargetArea(props) {
                     </Button>
                 </div>
             </CardHeader>
-            <CardBody className={`p-[12px] pb-0 ${hide && 'hidden'}`}>
+            <CardBody
+                className={`p-[12px] pb-0 ${hide && 'hidden'} ${
+                    result === '' && error === '' && !isLoading && 'hidden'
+                }`}
+            >
                 {isLoading ? (
                     <div className='space-y-3'>
                         <Skeleton className='w-4/5 rounded-lg'>
@@ -151,23 +163,14 @@ export default function TargetArea(props) {
                         </Skeleton>
                     </div>
                 ) : typeof result === 'string' ? (
-                    result.split('\n').map((v) => {
-                        if (v.trim() === '') {
-                            return <br key={nanoid()} />;
-                        } else {
-                            return (
-                                <p
-                                    key={nanoid()}
-                                    className='select-text'
-                                >
-                                    {v.replaceAll(' ', '\u00a0')}
-                                </p>
-                            );
-                        }
-                    })
+                    <textarea
+                        ref={textAreaRef}
+                        className='h-0 resize-none bg-transparent select-text outline-none'
+                        readOnly
+                        value={result}
+                    />
                 ) : (
                     <div>
-                        <div>{sourceText}</div>
                         {result['pronunciations'] &&
                             result['pronunciations'].map((pronunciation) => {
                                 return (
@@ -246,7 +249,20 @@ export default function TargetArea(props) {
                             })}
                     </div>
                 )}
-                {error !== '' ? <p className='text-red-500'>{error}</p> : <></>}
+                {error !== '' ? (
+                    error.split('\n').map((v) => {
+                        return (
+                            <p
+                                key={v}
+                                className='text-red-500'
+                            >
+                                {v}
+                            </p>
+                        );
+                    })
+                ) : (
+                    <></>
+                )}
             </CardBody>
             <CardFooter
                 className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'}`}

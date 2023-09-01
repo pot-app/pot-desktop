@@ -60,7 +60,11 @@ async function translate_by_free(text, from, to) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        if (res.data.error) {
+            throw `Status Code: ${res.status}\n${res.data.error.message}`;
+        } else {
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        }
     }
 }
 async function translate_by_deeplx(text, from, to, url) {
@@ -115,7 +119,11 @@ async function translate_by_key(text, from, to, key) {
             throw JSON.stringify(result);
         }
     } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        if (res.data.error) {
+            throw `Status Code: ${res.status}\n${res.data.error.message}`;
+        } else {
+            throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        }
     }
 }
 
