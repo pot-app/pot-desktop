@@ -1,5 +1,6 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
+import { sendNotification } from '@tauri-apps/api/notification';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useState } from 'react';
 import { TbTransformFilled } from 'react-icons/tb';
@@ -13,12 +14,14 @@ import * as buildinServices from '../../../../services/translate/index';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
 import { useConfig } from '../../../../hooks';
+import { info } from 'tauri-plugin-log-api';
 
 let translateID = [];
 
 export default function TargetArea(props) {
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
+    const [hideWindow] = useConfig('translate_hide_window', false);
     const { name, index, ...drag } = props;
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
@@ -32,15 +35,19 @@ export default function TargetArea(props) {
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null) {
+        setResult('');
+        setError('');
+        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null) {
             if (autoCopy === 'source') {
-                writeText(sourceText);
+                writeText(sourceText).then(() => {
+                    if (hideWindow) {
+                        sendNotification({ title: t('common.write_clipboard'), body: sourceText });
+                    }
+                });
             }
-            setResult('');
-            setError('');
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow]);
 
     const translate = async () => {
         let id = nanoid();
@@ -68,10 +75,21 @@ export default function TargetArea(props) {
                             console.log(autoCopy);
                             switch (autoCopy) {
                                 case 'target':
-                                    writeText(v);
+                                    writeText(v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({ title: 打破, body: v });
+                                        }
+                                    });
                                     break;
                                 case 'source_target':
-                                    writeText(sourceText + '\n\n' + v);
+                                    writeText(sourceText + '\n\n' + v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({
+                                                title: t('common.write_clipboard'),
+                                                body: sourceText + '\n\n' + v,
+                                            });
+                                        }
+                                    });
                                     break;
                                 default:
                                     break;

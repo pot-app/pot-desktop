@@ -12,6 +12,7 @@ import Config from './window/Config';
 import { useConfig } from './hooks';
 import './style.css';
 import './i18n';
+import { store } from './utils/store';
 
 const windowMap = {
     translate: <Translate />,
@@ -28,6 +29,7 @@ export default function App() {
     const { i18n } = useTranslation();
 
     useEffect(() => {
+        store.load();
         if (appTheme !== null) {
             if (appTheme !== 'system') {
                 setTheme(appTheme);

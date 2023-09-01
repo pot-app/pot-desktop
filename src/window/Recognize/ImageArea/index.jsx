@@ -5,33 +5,42 @@ import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
+import { useConfig } from '../../../hooks';
 
 export const base64Atom = atom('');
 let unlisten = null;
 
 export default function ImageArea() {
+    const [hideWindow] = useConfig('recognize_hide_window', false);
     const [base64, setBase64] = useAtom(base64Atom);
     const imgRef = useRef();
 
     const load_img = () => {
         invoke('get_base64').then((v) => {
             setBase64(v);
-            appWindow.show();
-            appWindow.setFocus(true);
+            console.log(hideWindow);
+            if (hideWindow) {
+                appWindow.hide();
+            } else {
+                appWindow.show();
+                appWindow.setFocus(true);
+            }
         });
     };
 
     useEffect(() => {
-        load_img();
-        if (unlisten) {
-            unlisten.then((f) => {
-                f();
+        if (hideWindow !== null) {
+            load_img();
+            if (unlisten) {
+                unlisten.then((f) => {
+                    f();
+                });
+            }
+            unlisten = listen('new_image', (_) => {
+                load_img();
             });
         }
-        unlisten = listen('new_image', (_) => {
-            load_img();
-        });
-    }, []);
+    }, [hideWindow]);
 
     return (
         <Card

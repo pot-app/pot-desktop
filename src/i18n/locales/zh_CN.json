@@ -3,7 +3,8 @@
         "common": {
             "ok": "确定",
             "cancel": "取消",
-            "save": "保存"
+            "save": "保存",
+            "write_clipboard": "写入剪贴板"
         },
         "languages": {
             "auto": "自动检测",

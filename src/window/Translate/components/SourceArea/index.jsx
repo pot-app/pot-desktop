@@ -30,16 +30,24 @@ export default function SourceArea() {
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
     const [langDetectEngine] = useConfig('translate_detect_engine', 'local');
-
+    const [hideWindow] = useConfig('translate_hide_window', false);
     const { t } = useTranslation();
     const textAreaRef = useRef();
 
     const handleNewText = async (text) => {
+        if (hideWindow) {
+            appWindow.hide();
+        } else {
+            appWindow.show();
+            appWindow.setFocus();
+        }
         setDetectLanguage('');
         if (text === '') {
             text = (await readText()) ?? '';
         }
         if (text === '[INPUT_TRANSLATE]') {
+            appWindow.show();
+            appWindow.setFocus();
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
             setSourceText('Recognizing...');
@@ -100,33 +108,32 @@ export default function SourceArea() {
     };
 
     useEffect(() => {
-        if (appWindow.label === 'translate') {
-            appWindow.show();
-            appWindow.setFocus();
-        }
-        if (unlisten) {
-            unlisten.then((f) => {
-                f();
+        if (hideWindow !== null) {
+            if (unlisten) {
+                unlisten.then((f) => {
+                    f();
+                });
+            }
+            unlisten = listen('new_text', (event) => {
+                appWindow.setFocus();
+                handleNewText(event.payload);
             });
         }
-        unlisten = listen('new_text', (event) => {
-            appWindow.setFocus();
-            handleNewText(event.payload);
-        });
-    }, []);
+    }, [hideWindow]);
 
     useEffect(() => {
         if (
             deleteNewline !== null &&
             incrementalTranslate !== null &&
             recognizeLanguage !== null &&
-            recognizeServiceList !== null
+            recognizeServiceList !== null &&
+            hideWindow !== null
         ) {
             invoke('get_text').then((v) => {
                 handleNewText(v);
             });
         }
-    }, [deleteNewline, incrementalTranslate, recognizeLanguage, recognizeServiceList]);
+    }, [deleteNewline, incrementalTranslate, recognizeLanguage, recognizeServiceList, hideWindow]);
 
     useEffect(() => {
         textAreaRef.current.style.height = '50px';

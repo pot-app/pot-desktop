@@ -1,8 +1,10 @@
 import { Card, CardBody, CardFooter, Button, Skeleton } from '@nextui-org/react';
+import { sendNotification } from '@tauri-apps/api/notification';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { MdContentCopy } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
 import { invoke } from '@tauri-apps/api';
 import { nanoid } from 'nanoid';
 
@@ -16,17 +18,19 @@ let recognizeId = 0;
 
 export default function TextArea() {
     const [autoCopy] = useConfig('recognize_auto_copy', false);
+    const [deleteNewline] = useConfig('recognize_delete_newline', false);
+    const [hideWindow] = useConfig('recognize_hide_window', false);
     const recognizeFlag = useAtomValue(recognizeFlagAtom);
     const serviceName = useAtomValue(serviceNameAtom);
     const language = useAtomValue(languageAtom);
     const base64 = useAtomValue(base64Atom);
-
     const [loading, setLoading] = useState(false);
     const [text, setText] = useAtom(textAtom);
     const [error, setError] = useState('');
+    const { t } = useTranslation();
 
     useEffect(() => {
-        if (base64 !== '' && serviceName && autoCopy !== null) {
+        if (base64 !== '' && serviceName && autoCopy !== null && deleteNewline !== null && hideWindow !== null) {
             setLoading(true);
             setText('');
             setError('');
@@ -36,10 +40,20 @@ export default function TextArea() {
                 buildinServices[serviceName].recognize(base64, buildinServices[serviceName].Language[language]).then(
                     (v) => {
                         if (recognizeId !== id) return;
+                        if (deleteNewline) {
+                            v = v.replace(/\s+/g, ' ');
+                        }
                         setText(v);
                         setLoading(false);
                         if (autoCopy) {
-                            writeText(v);
+                            writeText(v).then(() => {
+                                if (hideWindow) {
+                                    sendNotification({
+                                        title: t('common.write_clipboard'),
+                                        body: v,
+                                    });
+                                }
+                            });
                         }
                     },
                     (e) => {
@@ -53,7 +67,7 @@ export default function TextArea() {
                 setLoading(false);
             }
         }
-    }, [base64, serviceName, language, recognizeFlag, autoCopy]);
+    }, [base64, serviceName, language, recognizeFlag, autoCopy, deleteNewline, hideWindow]);
 
     return (
         <Card
