@@ -48,7 +48,12 @@ void listen('tauri://focus', () => {
 
 export default function Translate() {
     const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
-    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
+        'deepl',
+        'bing',
+        'yandex',
+        'google',
+    ]);
     const [hideSource] = useConfig('hide_source', false);
     const [hideLanguage] = useConfig('hide_language', false);
     const [pined, setPined] = useState(false);

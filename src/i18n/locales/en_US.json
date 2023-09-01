@@ -3,7 +3,8 @@
         "common": {
             "ok": "Ok",
             "cancel": "Cancel",
-            "save": "Save"
+            "save": "Save",
+            "write_clipboard": "Write to Clipboard"
         },
         "languages": {
             "auto": "Auto Detect",
@@ -189,7 +190,10 @@
                     "request_path": "Request Path",
                     "api_key": "Api Key",
                     "model": "Model",
-                    "stream": "Stream Mode"
+                    "stream": "Stream Mode",
+                    "system_prompt": "System Prompt",
+                    "user_prompt": "User Prompt",
+                    "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to will be replaced with the text to be translated, source language, and target language."
                 },
                 "yandex": { "title": "Yandex" }
             },
@@ -201,6 +205,10 @@
         },
         "translate": {
             "translate": "Translate"
+        },
+        "recognize": {
+            "recognize": "重新识别",
+            "translate": "翻译"
         }
     }
 }

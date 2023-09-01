@@ -14,7 +14,12 @@ export default function Translate() {
     const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();
     const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
     const [openConfigName, setOpenConfigName] = useState('deepl');
-    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
+        'deepl',
+        'bing',
+        'yandex',
+        'google',
+    ]);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
