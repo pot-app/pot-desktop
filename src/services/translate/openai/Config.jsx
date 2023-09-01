@@ -1,4 +1,4 @@
-import { Input, Button, Switch } from '@nextui-org/react';
+import { Input, Button, Switch, Textarea } from '@nextui-org/react';
 import { DropdownTrigger } from '@nextui-org/react';
 import { DropdownMenu } from '@nextui-org/react';
 import { DropdownItem } from '@nextui-org/react';
@@ -23,6 +23,8 @@ export function Config(props) {
             model: 'gpt-3.5-turbo',
             apiKey: '',
             stream: false,
+            systemPrompt: '',
+            userPrompt: '',
         },
         { sync: false }
     );
@@ -127,6 +129,39 @@ export function Config(props) {
                             <DropdownItem key='gpt-4-32k'>gpt-4-32k</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
+                </div>
+                <div className='config-item '>
+                    <Textarea
+                        label={t('services.translate.openai.system_prompt')}
+                        labelPlacement='outside'
+                        variant='faded'
+                        value={openaiConfig.systemPrompt}
+                        placeholder='You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.'
+                        description={t('services.translate.openai.prompt_description')}
+                        onValueChange={(value) => {
+                            setOpenaiConfig({
+                                ...openaiConfig,
+                                systemPrompt: value,
+                            });
+                        }}
+                    />
+                </div>
+                <div className='config-item '>
+                    <Textarea
+                        label={t('services.translate.openai.user_prompt')}
+                        className='mb-3'
+                        value={openaiConfig.userPrompt}
+                        labelPlacement='outside'
+                        variant='faded'
+                        placeholder={`Translate into $to:\n"""\n$text\n"""`}
+                        description={t('services.translate.openai.prompt_description')}
+                        onValueChange={(value) => {
+                            setOpenaiConfig({
+                                ...openaiConfig,
+                                userPrompt: value,
+                            });
+                        }}
+                    />
                 </div>
                 <div>
                     <Button

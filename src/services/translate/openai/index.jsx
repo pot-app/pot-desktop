@@ -8,14 +8,24 @@ export async function translate(text, from, to, options = {}) {
     if (config !== undefined) {
         openaiConfig = config;
     }
-    let { service, requestPath, model, apiKey, stream } = openaiConfig;
+    let { service, requestPath, model, apiKey, stream, systemPrompt, userPrompt } = openaiConfig;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
     }
-    const systemPrompt =
-        'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
-    const userPrompt = `Translate into ${to}:\n"""\n${text}\n"""`;
+    if (systemPrompt !== '') {
+        systemPrompt = systemPrompt.replaceAll('$text', text).replaceAll('$from', from).replaceAll('$to', to);
+    } else {
+        systemPrompt =
+            'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
+    }
+    if (userPrompt !== '') {
+        userPrompt = userPrompt.replaceAll('$text', text).replaceAll('$from', from).replaceAll('$to', to);
+        console.log(userPrompt);
+    } else {
+        userPrompt = `Translate into ${to}:\n"""\n${text}\n"""`;
+    }
+
     const headers =
         service === 'openai'
             ? {
