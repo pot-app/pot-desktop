@@ -18,7 +18,6 @@ export default function ImageArea() {
     const load_img = () => {
         invoke('get_base64').then((v) => {
             setBase64(v);
-            console.log(hideWindow);
             if (hideWindow) {
                 appWindow.hide();
             } else {

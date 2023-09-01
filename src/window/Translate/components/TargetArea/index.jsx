@@ -72,7 +72,6 @@ export default function TargetArea(props) {
                         setResult(v);
                         setIsLoading(false);
                         if (index === 0) {
-                            console.log(autoCopy);
                             switch (autoCopy) {
                                 case 'target':
                                     writeText(v).then(() => {

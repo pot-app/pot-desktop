@@ -12,14 +12,16 @@ export const sourceLanguageAtom = atom();
 export const targetLanguageAtom = atom();
 
 export default function LanguageArea() {
-    const [translateSourceLanguage] = useConfig('translate_source_language', 'auto');
-    const [translateTargetLanguage] = useConfig('translate_target_language', 'zh_cn');
+    const [rememberLanguage] = useConfig('translate_remember_language', false);
+    const [translateSourceLanguage, setTranslateSourceLanguage] = useConfig('translate_source_language', 'auto');
+    const [translateTargetLanguage, setTranslateTargetLanguage] = useConfig('translate_target_language', 'zh_cn');
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
 
     const [sourceLanguage, setSourceLanguage] = useAtom(sourceLanguageAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const detectLanguage = useAtomValue(detectLanguageAtom);
     const { t } = useTranslation();
+
     useEffect(() => {
         if (translateSourceLanguage) {
             setSourceLanguage(translateSourceLanguage);
@@ -28,6 +30,13 @@ export default function LanguageArea() {
             setTargetLanguage(translateTargetLanguage);
         }
     }, [translateSourceLanguage, translateTargetLanguage]);
+
+    useEffect(() => {
+        if (rememberLanguage !== null && rememberLanguage) {
+            setTranslateSourceLanguage(sourceLanguage);
+            setTranslateTargetLanguage(targetLanguage);
+        }
+    }, [sourceLanguage, targetLanguage, rememberLanguage]);
 
     return (
         <Card

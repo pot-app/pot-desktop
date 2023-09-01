@@ -2,17 +2,19 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Spacer, Button } from '@nextui-org/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { appWindow } from '@tauri-apps/api/window';
+import React, { useState, useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
-import React, { useState } from 'react';
 
 import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
 import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
+import { store } from '../../utils/store';
 
 let blurTimeout = null;
+let resizeTimeout = null;
 
 const listenBlur = () => {
     return listen('tauri://blur', () => {
@@ -45,6 +47,7 @@ void listen('tauri://focus', () => {
 });
 
 export default function Translate() {
+    const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
     const [hideSource] = useConfig('hide_source', false);
     const [hideLanguage] = useConfig('hide_language', false);
@@ -62,6 +65,31 @@ export default function Translate() {
         const items = reorder(translateServiceList, result.source.index, result.destination.index);
         setTranslateServiceList(items);
     };
+
+    useEffect(() => {
+        if (rememberWindowSize !== null && rememberWindowSize) {
+            const unlistenResize = listen('tauri://resize', async () => {
+                if (resizeTimeout) {
+                    clearTimeout(resizeTimeout);
+                }
+                resizeTimeout = setTimeout(async () => {
+                    if (appWindow.label === 'translate') {
+                        const psize = await appWindow.outerSize();
+                        const factor = await appWindow.scaleFactor();
+                        const lsize = psize.toLogical(factor);
+                        await store.set('translate_window_height', parseInt(lsize.height));
+                        await store.set('translate_window_width', parseInt(lsize.width));
+                        await store.save();
+                    }
+                }, 100);
+            });
+            return () => {
+                unlistenResize.then((f) => {
+                    f();
+                });
+            };
+        }
+    }, [rememberWindowSize]);
 
     return (
         <div
