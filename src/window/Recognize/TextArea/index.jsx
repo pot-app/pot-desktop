@@ -1,19 +1,21 @@
 import { Card, CardBody, CardFooter, Button, Skeleton } from '@nextui-org/react';
-import React, { useEffect, useState } from 'react';
+import { writeText } from '@tauri-apps/api/clipboard';
 import { atom, useAtom, useAtomValue } from 'jotai';
+import React, { useEffect, useState } from 'react';
 import { MdContentCopy } from 'react-icons/md';
 import { invoke } from '@tauri-apps/api';
-
 import { nanoid } from 'nanoid';
 
 import { serviceNameAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
 import * as buildinServices from '../../../services/recognize';
+import { useConfig } from '../../../hooks';
 import { base64Atom } from '../ImageArea';
 
 export const textAtom = atom();
 let recognizeId = 0;
 
 export default function TextArea() {
+    const [autoCopy] = useConfig('recognize_auto_copy', false);
     const recognizeFlag = useAtomValue(recognizeFlagAtom);
     const serviceName = useAtomValue(serviceNameAtom);
     const language = useAtomValue(languageAtom);
@@ -24,7 +26,7 @@ export default function TextArea() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        if (base64 !== '' && serviceName) {
+        if (base64 !== '' && serviceName && autoCopy !== null) {
             setLoading(true);
             setText('');
             setError('');
@@ -36,6 +38,9 @@ export default function TextArea() {
                         if (recognizeId !== id) return;
                         setText(v);
                         setLoading(false);
+                        if (autoCopy) {
+                            writeText(v);
+                        }
                     },
                     (e) => {
                         if (recognizeId !== id) return;
@@ -48,7 +53,7 @@ export default function TextArea() {
                 setLoading(false);
             }
         }
-    }, [base64, serviceName, language, recognizeFlag]);
+    }, [base64, serviceName, language, recognizeFlag, autoCopy]);
 
     return (
         <Card

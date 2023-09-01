@@ -38,7 +38,12 @@ export default function LanguageArea() {
                 <div className='flex'>
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant='light'>{t(`languages.${sourceLanguage}`)}</Button>
+                            <Button
+                                radius='sm'
+                                variant='light'
+                            >
+                                {t(`languages.${sourceLanguage}`)}
+                            </Button>
                         </DropdownTrigger>
                         <DropdownMenu
                             aria-label='Source Language'
@@ -57,6 +62,7 @@ export default function LanguageArea() {
                 <div className='flex'>
                     <Button
                         isIconOnly
+                        size='sm'
                         variant='light'
                         className='text-[20px]'
                         onPress={async () => {
@@ -87,7 +93,12 @@ export default function LanguageArea() {
                 <div className='flex'>
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant='light'>{t(`languages.${targetLanguage}`)}</Button>
+                            <Button
+                                radius='sm'
+                                variant='light'
+                            >
+                                {t(`languages.${targetLanguage}`)}
+                            </Button>
                         </DropdownTrigger>
                         <DropdownMenu
                             aria-label='Target Language'

@@ -1,4 +1,5 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
+import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useState } from 'react';
 import { TbTransformFilled } from 'react-icons/tb';
@@ -17,10 +18,12 @@ let translateID = [];
 
 export default function TargetArea(props) {
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
+    const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const { name, index, ...drag } = props;
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [hide, setHide] = useState(false);
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
@@ -29,12 +32,15 @@ export default function TargetArea(props) {
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (sourceText !== '' && sourceLanguage && targetLanguage) {
+        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null) {
+            if (autoCopy === 'source') {
+                writeText(sourceText);
+            }
             setResult('');
             setError('');
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy]);
 
     const translate = async () => {
         let id = nanoid();
@@ -58,6 +64,19 @@ export default function TargetArea(props) {
                         if (translateID[index] !== id) return;
                         setResult(v);
                         setIsLoading(false);
+                        if (index === 0) {
+                            console.log(autoCopy);
+                            switch (autoCopy) {
+                                case 'target':
+                                    writeText(v);
+                                    break;
+                                case 'source_target':
+                                    writeText(sourceText + '\n\n' + v);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     },
                     (e) => {
                         if (translateID[index] !== id) return;
@@ -75,17 +94,36 @@ export default function TargetArea(props) {
             className='rounded-[10px]'
         >
             <CardHeader
-                className='rounded-t-[10px] bg-content2 h-[30px]'
+                className={`flex justify-between py-1 pr-0 bg-content2 h-[30px] ${
+                    hide ? 'rounded-[10px]' : 'rounded-t-[10px]'
+                }`}
                 {...drag}
             >
-                <img
-                    src={buildinServices[name].info.icon}
-                    className='h-[20px]'
-                />
-                <Spacer x={2} />
-                {t(`services.translate.${name}.title`)}
+                <div className='flex'>
+                    <img
+                        src={buildinServices[name].info.icon}
+                        className='h-[20px] my-auto'
+                    />
+                    <Spacer x={2} />
+                    <div className='my-auto'>{t(`services.translate.${name}.title`)}</div>
+                </div>
+                <div className='flex'>
+                    <Button
+                        size='sm'
+                        isIconOnly
+                        variant='light'
+                        className='h-[20px] w-[20px]'
+                        onPress={() => setHide(!hide)}
+                    >
+                        {hide ? (
+                            <BiExpandVertical className='text-[16px]' />
+                        ) : (
+                            <BiCollapseVertical className='text-[16px]' />
+                        )}
+                    </Button>
+                </div>
             </CardHeader>
-            <CardBody className='p-[12px] pb-0'>
+            <CardBody className={`p-[12px] pb-0 ${hide && 'hidden'}`}>
                 {isLoading ? (
                     <div className='space-y-3'>
                         <Skeleton className='w-4/5 rounded-lg'>
@@ -193,7 +231,9 @@ export default function TargetArea(props) {
                 )}
                 {error !== '' ? <p className='text-red-500'>{error}</p> : <></>}
             </CardBody>
-            <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px]'>
+            <CardFooter
+                className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'}`}
+            >
                 <ButtonGroup>
                     <Button
                         isIconOnly

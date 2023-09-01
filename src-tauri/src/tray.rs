@@ -117,6 +117,7 @@ fn on_input_translate_click() {
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {
     info!("Set copy mode to: {}", mode);
     set("translate_auto_copy", mode);
+    app.emit_all("translate_auto_copy_changed", mode).unwrap();
     update_tray(app.app_handle(), "".to_string(), mode.to_string());
 }
 fn on_ocr_recognize_click() {
