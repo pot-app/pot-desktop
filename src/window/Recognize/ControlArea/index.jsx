@@ -10,7 +10,6 @@ import { nanoid } from 'nanoid';
 
 import { languageList } from '../../../utils/language';
 import { useConfig } from '../../../hooks';
-import { store } from '../../../utils/store';
 import { textAtom } from '../TextArea';
 
 export const serviceNameAtom = atom();
@@ -20,6 +19,7 @@ export const recognizeFlagAtom = atom();
 export default function ControlArea() {
     const [serviceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
+    const [serverPort] = useConfig('server_port', 60828);
     const setRecognizeFlag = useSetAtom(recognizeFlagAtom);
     const [serviceName, setServiceName] = useAtom(serviceNameAtom);
     const [language, setLanguage] = useAtom(languageAtom);
@@ -106,8 +106,7 @@ export default function ControlArea() {
                 startContent={<HiTranslate className='text-[16px]' />}
                 onPress={async () => {
                     if (text) {
-                        const port = await store.get('server_port');
-                        void fetch(`http://127.0.0.1:${port}/translate`, {
+                        void fetch(`http://127.0.0.1:${serverPort}/translate`, {
                             method: 'POST',
                             body: Body.text(text),
                             responseType: 2,

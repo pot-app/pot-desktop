@@ -8,8 +8,8 @@ import Screenshot from './window/Screenshot';
 import Translate from './window/Translate';
 import Recognize from './window/Recognize';
 import Updater from './window/Updater';
-import { store } from './utils/store';
 import Config from './window/Config';
+import { useConfig } from './hooks';
 import './style.css';
 import './i18n';
 
@@ -22,13 +22,15 @@ const windowMap = {
 };
 
 export default function App() {
+    const [appTheme] = useConfig('app_theme', 'system');
+    const [appLanguage] = useConfig('app_language', 'en');
     const { setTheme } = useTheme();
     const { i18n } = useTranslation();
 
     useEffect(() => {
-        store.get('app_theme').then((t) => {
-            if (t && t !== 'system') {
-                setTheme(t);
+        if (appTheme !== null) {
+            if (appTheme !== 'system') {
+                setTheme(appTheme);
             } else {
                 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     setTheme('dark');
@@ -43,17 +45,11 @@ export default function App() {
                     }
                 });
             }
-        });
-        store.get('app_language').then((l) => {
-            if (l) {
-                i18n.changeLanguage(l);
-            } else {
-                i18n.changeLanguage('en');
-                store.set('app_language', 'en');
-                store.save();
-            }
-        });
-    }, []);
+        }
+        if (appLanguage !== null) {
+            i18n.changeLanguage(appLanguage);
+        }
+    }, [appTheme, appLanguage]);
 
     return <BrowserRouter>{windowMap[appWindow.label]}</BrowserRouter>;
 }

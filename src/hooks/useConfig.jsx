@@ -39,12 +39,14 @@ export const useConfig = (key, defaultValue, options = {}) => {
     // 初始化
     useEffect(() => {
         syncToState();
-        const unlisten = listen('reload_store', syncToState);
-        return () => {
-            unlisten.then((f) => {
-                f();
-            });
-        };
+
+        // 会导致一些预料之外的情况
+        // const unlisten = listen('reload_store', syncToState);
+        // return () => {
+        //     unlisten.then((f) => {
+        //         f();
+        //     });
+        // };
     }, []);
 
     return [property, setProperty, getProperty];

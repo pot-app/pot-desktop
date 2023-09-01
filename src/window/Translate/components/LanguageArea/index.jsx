@@ -6,32 +6,28 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 
 import { languageList } from '../../../../utils/language';
 import { detectLanguageAtom } from '../SourceArea';
-import { store } from '../../../../utils/store';
+import { useConfig } from '../../../../hooks';
 
 export const sourceLanguageAtom = atom();
 export const targetLanguageAtom = atom();
 
 export default function LanguageArea() {
+    const [translateSourceLanguage] = useConfig('translate_source_language', 'auto');
+    const [translateTargetLanguage] = useConfig('translate_target_language', 'zh_cn');
+    const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
+
     const [sourceLanguage, setSourceLanguage] = useAtom(sourceLanguageAtom);
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const detectLanguage = useAtomValue(detectLanguageAtom);
     const { t } = useTranslation();
     useEffect(() => {
-        store.get('translate_source_language').then((v) => {
-            if (v) {
-                setSourceLanguage(v);
-            } else {
-                setSourceLanguage('auto');
-            }
-        });
-        store.get('translate_target_language').then((v) => {
-            if (v) {
-                setTargetLanguage(v);
-            } else {
-                setTargetLanguage(zh_cn);
-            }
-        });
-    }, []);
+        if (translateSourceLanguage) {
+            setSourceLanguage(translateSourceLanguage);
+        }
+        if (translateTargetLanguage) {
+            setTargetLanguage(translateTargetLanguage);
+        }
+    }, [translateSourceLanguage, translateTargetLanguage]);
 
     return (
         <Card
@@ -70,17 +66,14 @@ export default function LanguageArea() {
                                 setTargetLanguage(oldSourceLanguage);
                             } else {
                                 if (detectLanguage !== '') {
-                                    const defaultLanguage = (await store.get('translate_target_language')) ?? 'zh_cn';
-                                    if (targetLanguage === defaultLanguage) {
+                                    if (targetLanguage === translateTargetLanguage) {
                                         setTargetLanguage(detectLanguage);
                                     } else {
-                                        setTargetLanguage(defaultLanguage);
+                                        setTargetLanguage(translateTargetLanguage);
                                     }
                                 } else {
-                                    const secondLanguage = (await store.get('translate_second_language')) ?? 'en';
-                                    const defaultLanguage = (await store.get('translate_target_language')) ?? 'zh_cn';
-                                    if (targetLanguage === secondLanguage) {
-                                        setTargetLanguage(defaultLanguage);
+                                    if (targetLanguage === translateSecondLanguage) {
+                                        setTargetLanguage(translateTargetLanguage);
                                     } else {
                                         setTargetLanguage(secondLanguage);
                                     }

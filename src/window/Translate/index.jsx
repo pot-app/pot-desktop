@@ -11,7 +11,6 @@ import SourceArea from './components/SourceArea';
 import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
-import { store } from '../../utils/store';
 
 let blurTimeout = null;
 
@@ -47,16 +46,9 @@ void listen('tauri://focus', () => {
 
 export default function Translate() {
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', ['deepl', 'bing']);
+    const [hideSource] = useConfig('hide_source', false);
+    const [hideLanguage] = useConfig('hide_language', false);
     const [pined, setPined] = useState(false);
-    const [hideSource, setHideSource] = useState(false);
-    const [hideLanguage, setHideLanguage] = useState(false);
-
-    store.get('hide_source').then((v) => {
-        setHideSource(v);
-    });
-    store.get('hide_language').then((v) => {
-        setHideLanguage(v);
-    });
 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -109,11 +101,11 @@ export default function Translate() {
             </div>
             <div className='h-[calc(100vh-35px)] px-[8px]'>
                 <div className='h-full overflow-y-auto'>
-                    <div className={hideSource ? 'hidden' : ''}>
+                    <div className={`${hideSource && 'hidden'}`}>
                         <SourceArea />
                         <Spacer y={2} />
                     </div>
-                    <div className={hideLanguage ? 'hidden' : ''}>
+                    <div className={`${hideLanguage && 'hidden'}`}>
                         <LanguageArea />
                         <Spacer y={2} />
                     </div>

@@ -14,7 +14,6 @@ import { atom, useAtom } from 'jotai';
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
 import * as recognizeServices from '../../../../services/recognize';
 import { useConfig, useSyncAtom } from '../../../../hooks';
-import { store } from '../../../../utils/store';
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
@@ -25,11 +24,16 @@ let timer = null;
 export default function SourceArea() {
     const [sourceText, setSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
-    const [, , getIncrementalTranslate] = useConfig('incremental_translate');
-    const [, , getDynamicTranslate] = useConfig('dynamic_translate');
+    const [incrementalTranslate] = useConfig('incremental_translate', false);
+    const [dynamicTranslate] = useConfig('dynamic_translate', false);
+    const [deleteNewline] = useConfig('translate_delete_newline', false);
+    const [recognizeLanguage] = useConfig('recognize_language', 'auto');
+    const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
+    const [langDetectEngine] = useConfig('translate_detect_engine', 'local');
 
     const { t } = useTranslation();
     const textAreaRef = useRef();
+
     const handleNewText = async (text) => {
         setDetectLanguage('');
         if (text === '') {
@@ -39,17 +43,15 @@ export default function SourceArea() {
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
             setSourceText('Recognizing...');
-            const language = (await store.get('recognize_language')) ?? 'auto';
-            const serviceList = (await store.get('recognize_service_list')) ?? ['system'];
-            if (language in recognizeServices[serviceList[0]].Language) {
+            if (recognizeLanguage in recognizeServices[recognizeServiceList[0]].Language) {
                 const base64 = await invoke('get_base64');
-                recognizeServices[serviceList[0]]
-                    .recognize(base64, recognizeServices[serviceList[0]].Language[language])
+                recognizeServices[recognizeServiceList[0]]
+                    .recognize(base64, recognizeServices[recognizeServiceList[0]].Language[recognizeLanguage])
                     .then(
                         (v) => {
                             setSourceText(v);
                             detect_language(v).then(() => {
-                                if (getIncrementalTranslate()) {
+                                if (incrementalTranslate) {
                                     setSourceText((old) => {
                                         return old + ' ' + v;
                                     }, true);
@@ -65,10 +67,8 @@ export default function SourceArea() {
             } else {
                 setSourceText('Language not supported');
             }
-            // image translate
         } else {
             let newText = text;
-            const deleteNewline = (await store.get('translate_delete_newline')) ?? false;
             if (deleteNewline) {
                 newText = text.replace(/\s+/g, ' ');
             } else {
@@ -76,7 +76,7 @@ export default function SourceArea() {
             }
             setSourceText(newText);
             detect_language(newText).then(() => {
-                if (getIncrementalTranslate()) {
+                if (incrementalTranslate) {
                     setSourceText((old) => {
                         return old + ' ' + newText;
                     }, true);
@@ -113,10 +113,20 @@ export default function SourceArea() {
             appWindow.setFocus();
             handleNewText(event.payload);
         });
-        invoke('get_text').then((v) => {
-            handleNewText(v);
-        });
     }, []);
+
+    useEffect(() => {
+        if (
+            deleteNewline !== null &&
+            incrementalTranslate !== null &&
+            recognizeLanguage !== null &&
+            recognizeServiceList !== null
+        ) {
+            invoke('get_text').then((v) => {
+                handleNewText(v);
+            });
+        }
+    }, [deleteNewline, incrementalTranslate, recognizeLanguage, recognizeServiceList]);
 
     useEffect(() => {
         textAreaRef.current.style.height = '50px';
@@ -124,13 +134,18 @@ export default function SourceArea() {
     }, [sourceText]);
 
     const detect_language = async (text) => {
-        const engine = (await store.get('translate_detect_engine')) ?? 'local';
-        if (engine === 'baidu') {
-            setDetectLanguage(await baidu_detect(text));
-        } else if (engine === 'google') {
-            setDetectLanguage(await google_detect(text));
-        } else {
-            setDetectLanguage(await local_detect(text));
+        switch (langDetectEngine) {
+            case 'baidu':
+                setDetectLanguage(await baidu_detect(text));
+                break;
+            case 'google':
+                setDetectLanguage(await google_detect(text));
+                break;
+            case 'local':
+                setDetectLanguage(await local_detect(text));
+                break;
+            default:
+                setDetectLanguage(await local_detect(text));
         }
     };
 
@@ -150,7 +165,7 @@ export default function SourceArea() {
                         const v = e.target.value;
                         setDetectLanguage('');
                         setSourceText(v);
-                        if (getDynamicTranslate()) {
+                        if (dynamicTranslate) {
                             if (timer) {
                                 clearTimeout(timer);
                             }
