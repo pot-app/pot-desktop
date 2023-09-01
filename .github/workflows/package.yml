@@ -21,16 +21,16 @@ jobs:
           sudo apt-get install -y git
       - id: outputstep
         run: |
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> "$GITHUB_OUTPUT"
       - name: Change Version for Windows
         run: |
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\",/g" package.json
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\",/g" package.json
 
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/tauri.conf.json
+          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/tauri.conf.json
 
-          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')\"/g" src-tauri/Cargo.toml
+          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/Cargo.toml
 
-          echo $(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')
+          echo $(git describe --tags | sed 's/-[0-9]*-.*//g')
 
       - name: Upload Artifacts for Windows
         uses: actions/upload-artifact@v3
@@ -276,8 +276,8 @@ jobs:
 
       - name: Get Tag Name
         run: |
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -316,8 +316,8 @@ jobs:
           sudo apt-get install -y git
       - name: Get Tag Name
         run: |
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
       - name: Set up Git
@@ -349,8 +349,8 @@ jobs:
           sudo apt-get install -y git
       - name: Get Tag Name
         run: |
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | sed 's/.r.*//g')"
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
