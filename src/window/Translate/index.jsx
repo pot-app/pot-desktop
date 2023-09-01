@@ -64,7 +64,11 @@ export default function Translate() {
     };
 
     return (
-        <div className={`bg-background h-screen w-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>
+        <div
+            className={`bg-background h-screen w-screen ${
+                osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
+            }`}
+        >
             <div
                 className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 data-tauri-drag-region='true'
@@ -99,7 +103,7 @@ export default function Translate() {
                     <AiFillCloseCircle className='text-[20px] text-default-400' />
                 </Button>
             </div>
-            <div className='h-[calc(100vh-35px)] px-[8px]'>
+            <div className={`${osType === 'Linux' ? 'h-[calc(100vh-37px)]' : 'h-[calc(100vh-35px)]'} px-[8px]`}>
                 <div className='h-full overflow-y-auto'>
                     <div className={`${hideSource && 'hidden'}`}>
                         <SourceArea />

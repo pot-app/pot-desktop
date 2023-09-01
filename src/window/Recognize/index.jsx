@@ -8,7 +8,7 @@ import TextArea from './TextArea';
 
 export default function Recognize() {
     return (
-        <div className={`bg-background h-screen ${osType === 'Linux' && 'rounded-[10px]'}`}>
+        <div className={`bg-background h-screen ${osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'}`}>
             <div
                 data-tauri-drag-region='true'
                 style={{
@@ -20,7 +20,7 @@ export default function Recognize() {
                 }}
             />
             <div className='h-[35px] flex justify-end'>{osType !== 'Darwin' && <WindowControl />}</div>
-            <div className='h-[calc(100vh-85px)] grid grid-cols-2'>
+            <div className={`${osType === 'Linux' ? 'h-[calc(100vh-87px)]' : 'h-[calc(100vh-85px)]'} grid grid-cols-2`}>
                 <ImageArea />
                 <TextArea />
             </div>

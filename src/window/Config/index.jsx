@@ -24,9 +24,10 @@ export default function Config() {
     return (
         <>
             <Card
+                shadow='none'
                 className={`bg-background/90 float-left w-[230px] h-screen rounded-none ${
-                    osType === 'Linux' && 'rounded-l-[10px]'
-                }`}
+                    osType === 'Linux' && 'rounded-l-[10px] border-1'
+                } border-r-1 border-default-100`}
             >
                 <div className='h-[35px] p-[5px]'>
                     <div
@@ -46,7 +47,11 @@ export default function Config() {
                 </div>
                 <SideBar />
             </Card>
-            <div className={`bg-background ml-[230px] h-screen ${osType === 'Linux' && 'rounded-r-[10px]'}`}>
+            <div
+                className={`bg-background ml-[230px] h-screen ${
+                    osType === 'Linux' && 'rounded-r-[10px] border-1 border-l-0 border-default-100'
+                }`}
+            >
                 <div
                     data-tauri-drag-region='true'
                     style={{
@@ -67,7 +72,13 @@ export default function Config() {
                     <div style={{ display: 'flex' }}>{osType !== 'Darwin' && <WindowControl />}</div>
                 </div>
                 <Divider />
-                <div style={{ padding: '10px', overflow: 'auto', height: 'calc(100vh - 36px)' }}>{page}</div>
+                <div
+                    className={`p-[10px] overflow-y-auto ${
+                        osType === 'Linux' ? 'h-[calc(100vh-38px)]' : 'h-[calc(100vh-36px)]'
+                    }`}
+                >
+                    {page}
+                </div>
             </div>
         </>
     );
