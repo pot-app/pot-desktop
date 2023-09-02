@@ -14,6 +14,7 @@ import { Card } from '@nextui-org/react';
 import React, { useState } from 'react';
 
 import { useConfig, useToastStyle } from '../../../../hooks';
+import { osType } from '../../../../utils/env';
 import * as webdav from './utils/webdav';
 import WebDavModal from './WebDavModal';
 
@@ -34,7 +35,7 @@ export default function Backup() {
     const onBackup = async () => {
         setUploading(true);
         const time = new Date();
-        const fileName = `${time.getFullYear()}-${
+        const fileName = `${osType}-${time.getFullYear()}-${
             time.getMonth() + 1
         }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.zip`;
 

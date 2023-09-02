@@ -58,21 +58,24 @@ pub async fn webdav(
             let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
             zip.start_file("config.json", options)?;
             zip.write(&std::fs::read(&config_path)?)?;
-            for entry in WalkDir::new(plugin_path) {
-                let entry = entry?;
-                let path = entry.path();
-                let file_name = match path.strip_prefix(&config_dir_path)?.to_str() {
-                    Some(v) => v,
-                    None => return Err(Error::Error("WebDav Strip Prefix Error".into())),
-                };
-                if path.is_file() {
-                    println!("adding file {path:?} as {file_name:?} ...");
-                    zip.start_file(file_name, options)?;
-                    zip.write(&std::fs::read(entry.path())?)?;
-                } else {
-                    continue;
+            if plugin_path.exists() {
+                for entry in WalkDir::new(plugin_path) {
+                    let entry = entry?;
+                    let path = entry.path();
+                    let file_name = match path.strip_prefix(&config_dir_path)?.to_str() {
+                        Some(v) => v,
+                        None => return Err(Error::Error("WebDav Strip Prefix Error".into())),
+                    };
+                    if path.is_file() {
+                        println!("adding file {path:?} as {file_name:?} ...");
+                        zip.start_file(file_name, options)?;
+                        zip.write(&std::fs::read(entry.path())?)?;
+                    } else {
+                        continue;
+                    }
                 }
             }
+
             zip.finish()?;
             match client
                 .put(
