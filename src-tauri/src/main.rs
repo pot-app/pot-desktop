@@ -99,7 +99,16 @@ fn main() {
             }
             // Check Update
             check_update(app.handle());
-            init_lang_detect();
+            match get("translate_detect_engine") {
+                Some(v) => {
+                    if v.as_str().unwrap() == "local" {
+                        init_lang_detect();
+                    }
+                }
+                None => {
+                    init_lang_detect();
+                }
+            }
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

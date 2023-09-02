@@ -20,9 +20,7 @@ pub fn init_lang_detect() {
         Language::Hindi,
         Language::Mongolian,
     ];
-    let detector = LanguageDetectorBuilder::from_languages(&languages)
-        .with_preloaded_language_models()
-        .build();
+    let detector = LanguageDetectorBuilder::from_languages(&languages).build();
     let _ = detector.detect_language_of("Hello Language");
 }
 #[tauri::command]
@@ -48,9 +46,7 @@ pub fn lang_detect(text: &str) -> Result<&str, ()> {
         Language::Hindi,
         Language::Mongolian,
     ];
-    let detector = LanguageDetectorBuilder::from_languages(&languages)
-        .with_preloaded_language_models()
-        .build();
+    let detector = LanguageDetectorBuilder::from_languages(&languages).build();
     if let Some(lang) = detector.detect_language_of(text) {
         match lang {
             Language::Chinese => Ok("zh_cn"),
