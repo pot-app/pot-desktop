@@ -3,6 +3,7 @@ use crate::config::StoreWrapper;
 use crate::StringWrapper;
 use crate::APP;
 use log::info;
+use std::collections::HashMap;
 use tauri::Manager;
 
 #[tauri::command]
@@ -84,15 +85,12 @@ pub fn invoke_translate_plugin(
     text: &str,
     from: &str,
     to: &str,
-    needs: &str,
+    needs: HashMap<String, String>,
 ) -> Result<String, String> {
     use dirs::config_dir;
     use libloading;
     use std::env::consts::OS;
-    let proxy = match get("proxy") {
-        Some(v) => v.as_str().unwrap().to_string(),
-        None => "".to_string(),
-    };
+
     let ext_name = match OS {
         "linux" => ".so",
         "macos" => ".dylib",
@@ -106,14 +104,23 @@ pub fn invoke_translate_plugin(
     let config_path = config_path.join("plugins");
     let config_path = config_path.join("translate");
     let config_path = config_path.join(name);
-    let plugin_path = config_path.join(format!("{name}{ext_name}"));
+    let plugin_path = config_path.join(format!("plugin{ext_name}"));
     info!("Load plugin from: {:?}", plugin_path);
     unsafe {
         let lib = libloading::Library::new(plugin_path).unwrap();
-        let func: libloading::Symbol<fn(&str, &str, &str, &str, &str) -> Result<String, String>> =
-            lib.get(b"translate").unwrap();
-        return func(text, from, to, needs, &proxy);
-    };
+        let func: libloading::Symbol<
+            fn(
+                &str,
+                &str,
+                &str,
+                HashMap<String, String>,
+            ) -> Result<String, Box<dyn std::error::Error>>,
+        > = lib.get(b"translate").unwrap();
+        match func(text, from, to, needs) {
+            Ok(v) => Ok(v),
+            Err(e) => Err(e.to_string()),
+        }
+    }
 }
 
 #[tauri::command]

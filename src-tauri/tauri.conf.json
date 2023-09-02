@@ -42,13 +42,11 @@
             },
             "protocol": {
                 "asset": true,
-                "assetScope": ["$CACHE/**"]
+                "assetScope": ["$CACHE/**", "$CONFIG/**"]
             },
             "fs": {
-                "all": false,
-                "scope": ["$APPCONFIG/**"],
-                "writeFile": true,
-                "readFile": true
+                "all": true,
+                "scope": ["$APPCONFIG/**"]
             }
         },
         "bundle": {

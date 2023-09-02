@@ -44,7 +44,7 @@ export const useConfig = (key, defaultValue, options = {}) => {
     // 初始化
     useEffect(() => {
         syncToState(null);
-
+        if (key.includes('[')) return;
         const unlisten = listen(`${key}_changed`, (e) => {
             syncToState(e.payload);
         });

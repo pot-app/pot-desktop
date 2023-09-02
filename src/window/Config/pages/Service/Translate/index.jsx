@@ -1,16 +1,27 @@
-import { Card, Spacer, Button, useDisclosure, Tooltip } from '@nextui-org/react';
+import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { readDir, BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { atom, useSetAtom } from 'jotai';
 
 import { useToastStyle } from '../../../../../hooks';
+import SelectPluginModal from './SelectPluginModal';
 import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
 
+export const pluginListAtom = atom({});
+
 export default function Translate() {
+    const setPluginList = useSetAtom(pluginListAtom);
+    const {
+        isOpen: isSelectPluginOpen,
+        onOpen: onSelectPluginOpen,
+        onOpenChange: onSelectPluginOpenChange,
+    } = useDisclosure();
     const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();
     const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
     const [openConfigName, setOpenConfigName] = useState('deepl');
@@ -20,6 +31,7 @@ export default function Translate() {
         'yandex',
         'google',
     ]);
+
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -51,6 +63,20 @@ export default function Translate() {
             setTranslateServiceList(newList);
         }
     };
+    useEffect(() => {
+        readDir('plugins/translate', { dir: BaseDirectory.AppConfig }).then((plugins) => {
+            let temp = {};
+            for (const plugin of plugins) {
+                readTextFile(`plugins/translate/${plugin.name}/info.json`, {
+                    dir: BaseDirectory.AppConfig,
+                }).then((infoStr) => {
+                    temp[plugin.name] = JSON.parse(infoStr);
+                });
+            }
+            setPluginList(temp);
+        });
+    }, []);
+
     return (
         <>
             <Toaster />
@@ -108,16 +134,20 @@ export default function Translate() {
                         {t('config.service.add_buildin_service')}
                     </Button>
                     <Spacer x={2} />
-                    <Tooltip content='敬请期待'>
-                        <Button
-                            fullWidth
-                            variant='light'
-                        >
-                            {t('config.service.add_external_service')}
-                        </Button>
-                    </Tooltip>
+                    <Button
+                        fullWidth
+                        onPress={onSelectPluginOpen}
+                    >
+                        {t('config.service.add_external_service')}
+                    </Button>
                 </div>
             </Card>
+            <SelectPluginModal
+                isOpen={isSelectPluginOpen}
+                onOpenChange={onSelectPluginOpenChange}
+                setConfigName={setOpenConfigName}
+                onConfigOpen={onConfigOpen}
+            />
             <SelectModal
                 isOpen={isSelectOpen}
                 onOpenChange={onSelectOpenChange}

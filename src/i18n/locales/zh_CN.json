@@ -4,7 +4,8 @@
             "ok": "确定",
             "cancel": "取消",
             "save": "保存",
-            "write_clipboard": "写入剪贴板"
+            "write_clipboard": "写入剪贴板",
+            "plugin": "插件"
         },
         "languages": {
             "auto": "自动检测",

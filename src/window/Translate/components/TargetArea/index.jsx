@@ -1,4 +1,7 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
+import { appConfigDir, join } from '@tauri-apps/api/path';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
@@ -7,6 +10,7 @@ import { TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
+import { invoke } from '@tauri-apps/api';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 
@@ -21,22 +25,44 @@ export default function TargetArea(props) {
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const [hideWindow] = useConfig('translate_hide_window', false);
+    const [pluginImageUrl, setPluginImageUrl] = useState('');
     const { name, index, ...drag } = props;
+    const [pluginConfig] = useConfig(name, {});
+    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
+    const [pluginInfo, setPluginInfo] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(false);
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
     const detectLanguage = useAtomValue(detectLanguageAtom);
-    const LanguageEnum = buildinServices[name].Language;
     const { t } = useTranslation();
     const textAreaRef = useRef();
 
     useEffect(() => {
+        if (serviceType === 'buildin') return;
+        readTextFile(`plugins/translate/${name}/info.json`, {
+            dir: BaseDirectory.AppConfig,
+        }).then((infoStr) => {
+            setPluginInfo(JSON.parse(infoStr));
+        });
+    }, []);
+
+    useEffect(() => {
+        if (serviceType === 'buildin') return;
+        appConfigDir().then((appConfigDirPath) => {
+            join(appConfigDirPath, `/plugins/translate/${name}/${pluginInfo.icon}`).then((filePath) => {
+                setPluginImageUrl(convertFileSrc(filePath));
+            });
+        });
+    }, [pluginInfo]);
+
+    useEffect(() => {
         setResult('');
         setError('');
+        if (serviceType === 'plugin' && pluginInfo === null) return;
         if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null) {
             if (autoCopy === 'source') {
                 writeText(sourceText).then(() => {
@@ -47,26 +73,26 @@ export default function TargetArea(props) {
             }
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, pluginInfo]);
 
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
-        if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
-            let newTargetLanguage = targetLanguage;
-            if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
-                newTargetLanguage = translateSecondLanguage;
-            }
-            setIsLoading(true);
-            buildinServices[name]
-                .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
-                    setResult: (v) => {
-                        if (translateID[index] !== id) return;
-                        setResult(v);
-                        setIsLoading(false);
-                    },
-                })
-                .then(
+        if (serviceType === 'plugin') {
+            if (sourceLanguage in pluginInfo.language && targetLanguage in pluginInfo.language) {
+                let newTargetLanguage = targetLanguage;
+                if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
+                    newTargetLanguage = translateSecondLanguage;
+                }
+                setIsLoading(true);
+                console.log(pluginConfig);
+                invoke('invoke_translate_plugin', {
+                    name,
+                    text: sourceText,
+                    from: pluginInfo.language[sourceLanguage],
+                    to: pluginInfo.language[newTargetLanguage],
+                    needs: {},
+                }).then(
                     (v) => {
                         if (translateID[index] !== id) return;
                         setResult(v);
@@ -101,8 +127,61 @@ export default function TargetArea(props) {
                         setIsLoading(false);
                     }
                 );
+            }
         } else {
-            setError('Language not supported');
+            const LanguageEnum = buildinServices[name].Language;
+            if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
+                let newTargetLanguage = targetLanguage;
+                if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
+                    newTargetLanguage = translateSecondLanguage;
+                }
+                setIsLoading(true);
+                buildinServices[name]
+                    .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
+                        setResult: (v) => {
+                            if (translateID[index] !== id) return;
+                            setResult(v);
+                            setIsLoading(false);
+                        },
+                    })
+                    .then(
+                        (v) => {
+                            if (translateID[index] !== id) return;
+                            setResult(v);
+                            setIsLoading(false);
+                            if (index === 0) {
+                                switch (autoCopy) {
+                                    case 'target':
+                                        writeText(v).then(() => {
+                                            if (hideWindow) {
+                                                sendNotification({ title: 打破, body: v });
+                                            }
+                                        });
+                                        break;
+                                    case 'source_target':
+                                        writeText(sourceText + '\n\n' + v).then(() => {
+                                            if (hideWindow) {
+                                                sendNotification({
+                                                    title: t('common.write_clipboard'),
+                                                    body: sourceText + '\n\n' + v,
+                                                });
+                                            }
+                                        });
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        },
+                        (e) => {
+                            if (translateID[index] !== id) return;
+                            setError(e.toString());
+                            setIsLoading(false);
+                        }
+                    );
+            } else {
+                setError('Language not supported');
+            }
         }
     };
     useEffect(() => {
@@ -125,12 +204,26 @@ export default function TargetArea(props) {
                 {...drag}
             >
                 <div className='flex'>
-                    <img
-                        src={buildinServices[name].info.icon}
-                        className='h-[20px] my-auto'
-                    />
-                    <Spacer x={2} />
-                    <div className='my-auto'>{t(`services.translate.${name}.title`)}</div>
+                    {serviceType === 'buildin' && (
+                        <>
+                            <img
+                                src={buildinServices[name].info.icon}
+                                className='h-[20px] my-auto'
+                            />
+                            <Spacer x={2} />
+                            <div className='my-auto'>{t(`services.translate.${name}.title`)}</div>
+                        </>
+                    )}
+                    {serviceType === 'plugin' && pluginInfo && (
+                        <>
+                            <img
+                                src={pluginImageUrl}
+                                className='h-[20px] my-auto'
+                            />
+                            <Spacer x={2} />
+                            <div className='my-auto'>{`${pluginInfo.display} [${t('common.plugin')}]`}</div>
+                        </>
+                    )}
                 </div>
                 <div className='flex'>
                     <Button
