@@ -36,27 +36,20 @@ export default function Backup() {
         const time = new Date();
         const fileName = `${time.getFullYear()}-${
             time.getMonth() + 1
-        }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.json`;
-        readTextFile('config.json', { dir: BaseDirectory.AppConfig }).then(
-            (v) => {
-                let result;
-                switch (backupType) {
-                    case 'webdav':
-                        result = webdav.backup(davUrl, davUserName, davPassword, fileName, v);
-                        break;
-                    default:
-                        warn('Unknown backup type');
-                }
-                result.then(
-                    () => {
-                        toast.success(t('config.backup.backup_success'), { style: toastStyle });
-                        setUploading(false);
-                    },
-                    (e) => {
-                        toast.error(e.toString(), { style: toastStyle });
-                        setUploading(false);
-                    }
-                );
+        }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.zip`;
+
+        let result;
+        switch (backupType) {
+            case 'webdav':
+                result = webdav.backup(davUrl, davUserName, davPassword, fileName);
+                break;
+            default:
+                warn('Unknown backup type');
+        }
+        result.then(
+            () => {
+                toast.success(t('config.backup.backup_success'), { style: toastStyle });
+                setUploading(false);
             },
             (e) => {
                 toast.error(e.toString(), { style: toastStyle });

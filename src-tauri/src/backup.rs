@@ -1,5 +1,10 @@
-use log::error;
+use crate::error::Error;
+use dirs::config_dir;
 use reqwest_dav::{Auth, ClientBuilder, Depth};
+use std::io::Write;
+use walkdir::WalkDir;
+use zip::read::ZipArchive;
+use zip::write::FileOptions;
 
 #[tauri::command(async)]
 pub async fn webdav(
@@ -8,81 +13,91 @@ pub async fn webdav(
     username: String,
     password: String,
     name: Option<String>,
-    body: Option<String>,
-) -> Result<String, String> {
+) -> Result<String, Error> {
     // build a client
-    let client = match ClientBuilder::new()
+    let client = ClientBuilder::new()
         .set_host(url)
         .set_auth(Auth::Basic(username, password))
-        .build()
-    {
-        Ok(v) => v,
-        Err(e) => {
-            error!("Build WebDav Client Error: {}", e);
-            return Err(format!("Build WebDav Client Error: {}", e));
-        }
-    };
-    match client.mkcol("/pot-app").await {
-        Ok(()) => {}
-        Err(e) => {
-            error!("WebDav Mkcol Error: {}", e);
-            return Err(format!("WebDav Mkcol Error: {}", e));
-        }
-    };
+        .build()?;
+
+    client.mkcol("/pot-app").await?;
     match operate {
         "list" => {
-            let res = match client.list("pot-app", Depth::Number(1)).await {
-                Ok(v) => v,
-                Err(e) => {
-                    error!("WebDav List Error: {}", e);
-                    return Err(format!("WebDav List Error: {}", e));
-                }
-            };
-            match serde_json::to_string(&res) {
-                Ok(v) => Ok(v),
-                Err(e) => {
-                    error!("WebDav List Json Error: {}", e);
-                    Err(format!("WebDav List Json Error: {}", e))
-                }
-            }
+            let res = client.list("pot-app", Depth::Number(1)).await?;
+            let result = serde_json::to_string(&res)?;
+            Ok(result)
         }
         "get" => {
-            let res = match client.get(&format!("pot-app/{}", name.unwrap())).await {
-                Ok(v) => v,
-                Err(e) => {
-                    error!("WebDav Get Error: {}", e);
-                    return Err(format!("WebDav Get Error: {}", e));
+            let res = client.get(&format!("pot-app/{}", name.unwrap())).await?;
+            let data = res.bytes().await?;
+            let mut config_dir_path = config_dir().unwrap();
+            config_dir_path = config_dir_path.join("com.pot-app.desktop");
+            let zip_path = config_dir_path.join("archive.zip");
+
+            let mut zip_file = std::fs::File::create(&zip_path)?;
+            zip_file.write_all(&data)?;
+            let mut zip_file = std::fs::File::open(&zip_path)?;
+            let mut zip = ZipArchive::new(&mut zip_file)?;
+            zip.extract(config_dir_path)?;
+            Ok("".to_string())
+        }
+        "put" => {
+            let mut config_dir_path = match config_dir() {
+                Some(v) => v,
+                None => {
+                    return Err(Error::Error("WebDav Get Config Dir Error".into()));
                 }
             };
-            match res.text().await {
-                Ok(v) => Ok(v),
+            config_dir_path = config_dir_path.join("com.pot-app.desktop");
+            let zip_path = config_dir_path.join("archive.zip");
+            let config_path = config_dir_path.join("config.json");
+            let plugin_path = config_dir_path.join("plugins");
+
+            let zip_file = std::fs::File::create(&zip_path)?;
+            let mut zip = zip::ZipWriter::new(zip_file);
+            let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
+            zip.start_file("config.json", options)?;
+            zip.write(&std::fs::read(&config_path)?)?;
+            for entry in WalkDir::new(plugin_path) {
+                let entry = entry?;
+                let path = entry.path();
+                let file_name = match path.strip_prefix(&config_dir_path)?.to_str() {
+                    Some(v) => v,
+                    None => return Err(Error::Error("WebDav Strip Prefix Error".into())),
+                };
+                if path.is_file() {
+                    println!("adding file {path:?} as {file_name:?} ...");
+                    zip.start_file(file_name, options)?;
+                    zip.write(&std::fs::read(entry.path())?)?;
+                } else {
+                    continue;
+                }
+            }
+            zip.finish()?;
+            match client
+                .put(
+                    &format!("pot-app/{}", name.unwrap()),
+                    std::fs::read(&zip_path)?,
+                )
+                .await
+            {
+                Ok(()) => return Ok("".to_string()),
                 Err(e) => {
-                    error!("WebDav Get Text Error: {}", e);
-                    Err(format!("WebDav Get Text Error: {}", e))
+                    return Err(Error::Error(format!("WebDav Put Error: {}", e).into()));
                 }
             }
         }
-        "put" => match client
-            .put(&format!("pot-app/{}", name.unwrap()), body.unwrap())
-            .await
-        {
-            Ok(()) => return Ok("".to_string()),
-            Err(e) => {
-                error!("WebDav Put Error: {}", e);
-                return Err(format!("WebDav Put Error: {}", e));
-            }
-        },
 
         "delete" => match client.delete(&format!("pot-app/{}", name.unwrap())).await {
             Ok(()) => return Ok("".to_string()),
             Err(e) => {
-                error!("WebDav Delete Error: {}", e);
-                return Err(format!("WebDav Delete Error: {}", e));
+                return Err(Error::Error(format!("WebDav Delete Error: {}", e).into()));
             }
         },
         _ => {
-            error!("WebDav Operate Error: {}", operate);
-            return Err(format!("WebDav Operate Error: {}", operate));
+            return Err(Error::Error(
+                format!("WebDav Operate Error: {}", operate).into(),
+            ));
         }
     }
 }

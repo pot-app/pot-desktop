@@ -4,6 +4,7 @@
 mod backup;
 mod cmd;
 mod config;
+mod error;
 mod hotkey;
 mod lang_detect;
 mod screenshot;

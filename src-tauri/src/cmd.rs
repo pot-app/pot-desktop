@@ -1,5 +1,6 @@
 use crate::config::get;
 use crate::config::StoreWrapper;
+use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
 use log::info;
@@ -56,7 +57,7 @@ pub fn get_base64(app_handle: tauri::AppHandle) -> String {
 }
 
 #[tauri::command]
-pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) {
+pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) -> Result<(), Error> {
     use arboard::{Clipboard, ImageData};
     use dirs::cache_dir;
     use image::io::Reader as ImageReader;
@@ -65,17 +66,15 @@ pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) {
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot_cut.png");
-    let data = ImageReader::open(app_cache_dir_path)
-        .unwrap()
-        .decode()
-        .unwrap();
+    let data = ImageReader::open(app_cache_dir_path)?.decode()?;
 
     let img = ImageData {
         width,
         height,
         bytes: Cow::from(data.as_bytes()),
     };
-    Clipboard::new().unwrap().set_image(img).unwrap();
+    let result = Clipboard::new()?.set_image(img)?;
+    Ok(result)
 }
 
 #[tauri::command(async)]
@@ -95,9 +94,7 @@ pub fn invoke_translate_plugin(
         "linux" => ".so",
         "macos" => ".dylib",
         "windows" => ".dll",
-        _ => {
-            panic!("Unknown OS")
-        }
+        _ => return Err("Unknown OS".to_string()),
     };
     let config_path = config_dir().unwrap();
     let config_path = config_path.join(app_handle.config().tauri.bundle.identifier.clone());

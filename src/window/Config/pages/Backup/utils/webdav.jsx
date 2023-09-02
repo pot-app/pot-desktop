@@ -2,14 +2,13 @@ import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { store } from '../../../../../utils/store';
 import { invoke } from '@tauri-apps/api';
 
-export async function backup(url, username, password, name, body) {
+export async function backup(url, username, password, name) {
     return await invoke('webdav', {
         operate: 'put',
         url,
         username,
         password,
         name,
-        body,
     });
 }
 
@@ -30,15 +29,13 @@ export async function list(url, username, password) {
 }
 
 export async function get(url, username, password, name) {
-    const body = await invoke('webdav', {
+    const _ = await invoke('webdav', {
         operate: 'get',
         url,
         username,
         password,
         name,
     });
-    await writeTextFile('config.json', body, { dir: BaseDirectory.AppConfig });
-    await store.load();
 }
 
 export async function remove(url, username, password, name) {
