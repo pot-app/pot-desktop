@@ -63,7 +63,8 @@ export default function Translate() {
             setTranslateServiceList(newList);
         }
     };
-    useEffect(() => {
+
+    const getPluginList = () => {
         readDir('plugins/translate', { dir: BaseDirectory.AppConfig }).then((plugins) => {
             let temp = {};
             for (const plugin of plugins) {
@@ -75,6 +76,10 @@ export default function Translate() {
             }
             setPluginList(temp);
         });
+    };
+
+    useEffect(() => {
+        getPluginList();
     }, []);
 
     return (
@@ -147,6 +152,7 @@ export default function Translate() {
                 onOpenChange={onSelectPluginOpenChange}
                 setConfigName={setOpenConfigName}
                 onConfigOpen={onConfigOpen}
+                getPluginList={getPluginList}
             />
             <SelectModal
                 isOpen={isSelectOpen}

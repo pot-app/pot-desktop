@@ -119,7 +119,8 @@
                 "add_external_service": "Add Extension",
                 "add_service": "Add Service",
                 "test_failed": "Test Failed",
-                "install_plugin": "Install Plugin"
+                "install_plugin": "Install Plugin",
+                "uninstall_success": "Plugin Uninstall Successfully"
             },
             "history": {
                 "label": "History",

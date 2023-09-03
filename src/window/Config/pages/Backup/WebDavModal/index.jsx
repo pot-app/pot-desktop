@@ -66,7 +66,7 @@ export default function WebDavModal(props) {
             scrollBehavior='inside'
         >
             <Toaster />
-            <ModalContent>
+            <ModalContent className='max-h-[80vh]'>
                 {(onClose) => (
                     <>
                         <ModalHeader>{t('config.backup.list')}</ModalHeader>

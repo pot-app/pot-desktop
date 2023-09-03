@@ -158,12 +158,12 @@ pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, 
         _ => return Err(Error::Error("Unknown OS".into())),
     };
     for path in path_list {
-        if !path.ends_with("zip") {
+        if !path.ends_with("potext") {
             continue;
         }
         let path = std::path::Path::new(&path);
         let file_name = path.file_name().unwrap().to_str().unwrap();
-        let file_name = file_name.replace(".zip", "");
+        let file_name = file_name.replace(".potext", "");
         if !file_name.starts_with("[plugin]") {
             return Err(Error::Error(
                 "Invalid Plugin: file name must start with [plugin]".into(),

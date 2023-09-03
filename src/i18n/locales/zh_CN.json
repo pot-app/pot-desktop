@@ -119,7 +119,8 @@
                 "add_external_service": "添加外部插件",
                 "add_service": "添加服务",
                 "test_failed": "测试失败",
-                "install_plugin": "安装外部插件"
+                "install_plugin": "安装外部插件",
+                "uninstall_success": "插件卸载成功"
             },
             "history": {
                 "label": "历史记录",

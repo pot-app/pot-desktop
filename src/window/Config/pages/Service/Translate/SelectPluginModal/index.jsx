@@ -1,16 +1,19 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
+import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
 import toast, { Toaster } from 'react-hot-toast';
+import { MdDeleteOutline } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api';
+import React, { useState } from 'react';
 import { useAtomValue } from 'jotai';
-import React from 'react';
 
 import { useToastStyle } from '../../../../../../hooks';
 import { pluginListAtom } from '..';
 
 export default function SelectPluginModal(props) {
-    const { isOpen, onOpenChange, setConfigName, onConfigOpen } = props;
+    const { isOpen, onOpenChange, setConfigName, onConfigOpen, getPluginList } = props;
+    const [installing, setInstalling] = useState(false);
     const pluginList = useAtomValue(pluginListAtom);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
@@ -29,9 +32,13 @@ export default function SelectPluginModal(props) {
                         <ModalBody>
                             {Object.keys(pluginList).map((x) => {
                                 return (
-                                    <div key={x}>
+                                    <div
+                                        className='flex justify-between'
+                                        key={x}
+                                    >
                                         <Button
                                             fullWidth
+                                            className='mr-[8px]'
                                             onPress={() => {
                                                 setConfigName(x);
                                                 onConfigOpen();
@@ -39,22 +46,47 @@ export default function SelectPluginModal(props) {
                                         >
                                             <div className='w-full'>{pluginList[x].display}</div>
                                         </Button>
+                                        <Button
+                                            isIconOnly
+                                            color='danger'
+                                            variant='flat'
+                                            onPress={() => {
+                                                removeDir(`plugins/translate/${x}`, {
+                                                    dir: BaseDirectory.AppConfig,
+                                                    recursive: true,
+                                                }).then(
+                                                    (v) => {
+                                                        toast.success(t('config.service.delete_success'), {
+                                                            style: toastStyle,
+                                                        });
+                                                        getPluginList();
+                                                    },
+                                                    (e) => {
+                                                        toast.error(e.toString(), { style: toastStyle });
+                                                    }
+                                                );
+                                            }}
+                                        >
+                                            <MdDeleteOutline className='text-xl' />
+                                        </Button>
                                     </div>
                                 );
                             })}
                             <div>
                                 <Button
                                     fullWidth
+                                    isLoading={installing}
                                     color='secondary'
                                     variant='flat'
                                     onPress={async () => {
+                                        setInstalling(true);
                                         const selected = await open({
                                             multiple: true,
                                             directory: false,
                                             filters: [
                                                 {
-                                                    name: 'Plugin',
-                                                    extensions: ['zip'],
+                                                    name: '*.potext',
+                                                    extensions: ['potext'],
                                                 },
                                             ],
                                         });
@@ -64,14 +96,19 @@ export default function SelectPluginModal(props) {
                                                 pluginType: 'translate',
                                             }).then(
                                                 (count) => {
+                                                    setInstalling(false);
                                                     toast.success('Installed ' + count + ' plugins', {
                                                         style: toastStyle,
                                                     });
+                                                    getPluginList();
                                                 },
                                                 (e) => {
+                                                    setInstalling(false);
                                                     toast.error(e.toString(), { style: toastStyle });
                                                 }
                                             );
+                                        } else {
+                                            setInstalling(false);
                                         }
                                     }}
                                 >
