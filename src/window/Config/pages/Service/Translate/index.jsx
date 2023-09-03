@@ -1,6 +1,6 @@
-import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
+import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { readDir, BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
+import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
@@ -65,16 +65,21 @@ export default function Translate() {
     };
 
     const getPluginList = () => {
-        readDir('plugins/translate', { dir: BaseDirectory.AppConfig }).then((plugins) => {
-            let temp = {};
-            for (const plugin of plugins) {
-                readTextFile(`plugins/translate/${plugin.name}/info.json`, {
-                    dir: BaseDirectory.AppConfig,
-                }).then((infoStr) => {
-                    temp[plugin.name] = JSON.parse(infoStr);
-                });
+        exists('plugins/translate', { dir: BaseDirectory.AppConfig }).then((isExist) => {
+            if (!isExist) {
+                return;
             }
-            setPluginList(temp);
+            readDir('plugins/translate', { dir: BaseDirectory.AppConfig }).then((plugins) => {
+                let temp = {};
+                for (const plugin of plugins) {
+                    readTextFile(`plugins/translate/${plugin.name}/info.json`, {
+                        dir: BaseDirectory.AppConfig,
+                    }).then((infoStr) => {
+                        temp[plugin.name] = JSON.parse(infoStr);
+                    });
+                }
+                setPluginList(temp);
+            });
         });
     };
 
