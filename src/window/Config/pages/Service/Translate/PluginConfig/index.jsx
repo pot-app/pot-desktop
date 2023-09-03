@@ -1,20 +1,25 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from '@nextui-org/react';
-import React from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import React, { useState } from 'react';
 import { useAtomValue } from 'jotai';
 
+import { useConfig, useToastStyle } from '../../../../../../hooks';
+import { invoke } from '@tauri-apps/api';
 import { pluginListAtom } from '..';
-import { useConfig } from '../../../../../../hooks';
 
 export function PluginConfig(props) {
     const pluginList = useAtomValue(pluginListAtom);
     const { updateServiceList, onClose, name } = props;
+    const [loading, setLoading] = useState(false);
     const [pluginConfig, setPluginConfig] = useConfig(name, {}, { sync: false });
 
+    const toastStyle = useToastStyle();
     const { t } = useTranslation();
 
     return (
         <>
+            <Toaster />
             {pluginList[name].needs.length === 0 ? (
                 <div>{t('services.no_need')}</div>
             ) : (
@@ -45,11 +50,35 @@ export function PluginConfig(props) {
 
             <div>
                 <Button
+                    isLoading={loading}
                     fullWidth
                     color='primary'
                     onPress={() => {
-                        updateServiceList(name);
-                        onClose();
+                        if (Object.keys(pluginConfig).length !== 0) {
+                            setLoading(true);
+                            invoke('invoke_translate_plugin', {
+                                name,
+                                text: 'Hello',
+                                from: pluginList[name].language['auto'],
+                                to: pluginList[name].language['zh_cn'],
+                                needs: pluginConfig,
+                            }).then(
+                                (_) => {
+                                    setLoading(false);
+                                    setPluginConfig(pluginConfig, true);
+                                    updateServiceList(name);
+                                    onClose();
+                                },
+                                (err) => {
+                                    setLoading(false);
+                                    toast.error(err.toString(), { style: toastStyle });
+                                }
+                            );
+                        } else {
+                            setPluginConfig(pluginConfig, true);
+                            updateServiceList(name);
+                            onClose();
+                        }
                     }}
                 >
                     {t('common.save')}

@@ -63,7 +63,10 @@ export default function TargetArea(props) {
         setResult('');
         setError('');
         if (serviceType === 'plugin' && pluginInfo === null) return;
-        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null) {
+        if (
+            (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null,
+            pluginConfig !== null)
+        ) {
             if (autoCopy === 'source') {
                 writeText(sourceText).then(() => {
                     if (hideWindow) {
@@ -73,7 +76,7 @@ export default function TargetArea(props) {
             }
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, pluginInfo]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, pluginInfo, pluginConfig]);
 
     const translate = async () => {
         let id = nanoid();
@@ -85,13 +88,12 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                console.log(pluginConfig);
                 invoke('invoke_translate_plugin', {
                     name,
                     text: sourceText,
                     from: pluginInfo.language[sourceLanguage],
                     to: pluginInfo.language[newTargetLanguage],
-                    needs: {},
+                    needs: pluginConfig,
                 }).then(
                     (v) => {
                         if (translateID[index] !== id) return;

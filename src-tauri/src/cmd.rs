@@ -3,7 +3,7 @@ use crate::config::StoreWrapper;
 use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
-use log::info;
+use log::{error, info};
 use std::collections::HashMap;
 use tauri::Manager;
 
@@ -35,7 +35,7 @@ pub fn cut_image(left: u32, top: u32, width: u32, height: u32, app_handle: tauri
     match img2.to_image().save(&app_cache_dir_path) {
         Ok(_) => {}
         Err(e) => {
-            println!("{:?}", e.to_string());
+            error!("{:?}", e.to_string());
         }
     }
 }

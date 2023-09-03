@@ -21,7 +21,6 @@ export async function translate(text, from, to, options = {}) {
     }
     if (userPrompt !== '') {
         userPrompt = userPrompt.replaceAll('$text', text).replaceAll('$from', from).replaceAll('$to', to);
-        console.log(userPrompt);
     } else {
         userPrompt = `Translate into ${to}:\n"""\n${text}\n"""`;
     }
