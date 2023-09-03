@@ -3,10 +3,16 @@ import { Spacer, Button } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { BiSolidEdit } from 'react-icons/bi';
+import { useAtomValue } from 'jotai';
 import React from 'react';
+
+import { pluginListAtom } from '..';
 
 export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, ...drag } = props;
+    const pluginList = useAtomValue(pluginListAtom);
+    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
+
     const { t } = useTranslation();
 
     return (
@@ -19,6 +25,10 @@ export default function ServiceItem(props) {
                     <RxDragHandleHorizontal />
                 </div>
                 <Spacer x={2} />
+                {serviceType === 'buildin' && <h2 className='my-auto'>{t(`services.recognize.${name}.title`)}</h2>}
+                {serviceType === 'plugin' && name in pluginList && (
+                    <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>
+                )}
                 <h2 className='my-auto'>{t(`services.recognize.${name}.title`)}</h2>
             </div>
             <div className='flex'>
