@@ -4,7 +4,9 @@
             "ok": "Ok",
             "cancel": "Cancel",
             "save": "Save",
-            "write_clipboard": "Write to Clipboard"
+            "write_clipboard": "Write to Clipboard",
+            "plugin": "Plugin",
+            "coming": "Coming soon..."
         },
         "languages": {
             "auto": "Auto Detect",
@@ -203,6 +205,9 @@
                 "system": { "title": "System OCR" },
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" }
+            },
+            "tts": {
+                "lingva_tts": { "title": "Lingva", "request_path": "Request Path" }
             }
         },
         "translate": {

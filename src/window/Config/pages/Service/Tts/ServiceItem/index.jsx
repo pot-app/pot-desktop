@@ -8,7 +8,7 @@ import { BiSolidEdit } from 'react-icons/bi';
 import React, { useState, useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 
-import * as buildinServices from '../../../../../../services/translate';
+import * as buildinServices from '../../../../../../services/tts';
 import { pluginListAtom } from '..';
 
 export default function ServiceItem(props) {
@@ -22,7 +22,7 @@ export default function ServiceItem(props) {
         if (serviceType === 'buildin' || !pluginList) return;
         appConfigDir().then((appConfigDirPath) => {
             if (pluginList[name]) {
-                join(appConfigDirPath, `/plugins/translate/${name}/${pluginList[name].icon}`).then((filePath) => {
+                join(appConfigDirPath, `/plugins/tts/${name}/${pluginList[name].icon}`).then((filePath) => {
                     setPluginImageUrl(convertFileSrc(filePath));
                 });
             }
@@ -47,7 +47,7 @@ export default function ServiceItem(props) {
                             className='h-[24px] w-[24px] my-auto'
                         />
                         <Spacer x={2} />
-                        <h2 className='my-auto'>{t(`services.translate.${name}.title`)}</h2>
+                        <h2 className='my-auto'>{t(`services.tts.${name}.title`)}</h2>
                     </>
                 )}
                 {serviceType === 'plugin' && name in pluginList && (

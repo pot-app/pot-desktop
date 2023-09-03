@@ -107,7 +107,7 @@ export default function Recognize() {
                         {t('config.service.add_buildin_service')}
                     </Button>
                     <Spacer x={2} />
-                    <Tooltip content='敬请期待'>
+                    <Tooltip content={t('common.coming')}>
                         <Button
                             fullWidth
                             variant='light'

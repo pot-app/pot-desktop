@@ -14,14 +14,17 @@ import { invoke } from '@tauri-apps/api';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 
-import * as buildinServices from '../../../../services/translate/index';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
+import * as buildinServices from '../../../../services/translate';
+import * as buildinTtsServices from '../../../../services/tts';
+import { store } from '../../../../utils/store';
 import { useConfig } from '../../../../hooks';
 
 let translateID = [];
 
 export default function TargetArea(props) {
+    const [ttsServiceList] = useConfig('tts_service_list', ['lingva']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const [hideWindow] = useConfig('translate_hide_window', false);
@@ -32,6 +35,7 @@ export default function TargetArea(props) {
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
     const [pluginInfo, setPluginInfo] = useState();
+    const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(false);
     const sourceText = useAtomValue(sourceTextAtom);
@@ -51,12 +55,24 @@ export default function TargetArea(props) {
     }, []);
 
     useEffect(() => {
-        if (serviceType === 'buildin') return;
-        appConfigDir().then((appConfigDirPath) => {
-            join(appConfigDirPath, `/plugins/translate/${name}/${pluginInfo.icon}`).then((filePath) => {
-                setPluginImageUrl(convertFileSrc(filePath));
+        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
+            readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
+                dir: BaseDirectory.AppConfig,
+            }).then((infoStr) => {
+                setTtsPluginInfo(JSON.parse(infoStr));
             });
-        });
+        }
+    }, [ttsServiceList]);
+
+    useEffect(() => {
+        if (serviceType === 'buildin') return;
+        if (pluginInfo) {
+            appConfigDir().then((appConfigDirPath) => {
+                join(appConfigDirPath, `/plugins/translate/${name}/${pluginInfo.icon}`).then((filePath) => {
+                    setPluginImageUrl(convertFileSrc(filePath));
+                });
+            });
+        }
     }, [pluginInfo]);
 
     useEffect(() => {
@@ -88,8 +104,9 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                invoke('invoke_translate_plugin', {
+                invoke('invoke_plugin', {
                     name,
+                    pluginType: 'translate',
                     text: sourceText,
                     from: pluginInfo.language[sourceLanguage],
                     to: pluginInfo.language[newTargetLanguage],
@@ -368,6 +385,24 @@ export default function TargetArea(props) {
                         variant='light'
                         size='sm'
                         isDisabled={typeof result !== 'string' || result === ''}
+                        onPress={async () => {
+                            const serviceName = ttsServiceList[0];
+                            if (serviceName.startsWith('[plugin]')) {
+                                const config = (await store.get(serviceName)) ?? {};
+                                invoke('invoke_plugin', {
+                                    name: serviceName,
+                                    pluginType: 'tts',
+                                    text: result,
+                                    lang: ttsPluginInfo.language[targetLanguage],
+                                    needs: config,
+                                });
+                            } else {
+                                await buildinTtsServices[serviceName].tts(
+                                    result,
+                                    buildinTtsServices[serviceName].Language[targetLanguage]
+                                );
+                            }
+                        }}
                     >
                         <HiOutlineVolumeUp className='text-[16px]' />
                     </Button>

@@ -1,8 +1,10 @@
 import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip } from '@nextui-org/react';
+import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
-import React, { useEffect, useRef } from 'react';
+
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
@@ -13,7 +15,9 @@ import { atom, useAtom } from 'jotai';
 
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
 import * as recognizeServices from '../../../../services/recognize';
+import * as buildinTtsServices from '../../../../services/tts';
 import { useConfig, useSyncAtom } from '../../../../hooks';
+import { store } from '../../../../utils/store';
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
@@ -29,8 +33,10 @@ export default function SourceArea() {
     const [deleteNewline] = useConfig('translate_delete_newline', false);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
+    const [ttsServiceList] = useConfig('tts_service_list', ['lingva']);
     const [langDetectEngine] = useConfig('translate_detect_engine', 'local');
     const [hideWindow] = useConfig('translate_hide_window', false);
+    const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const { t } = useTranslation();
     const textAreaRef = useRef();
 
@@ -122,6 +128,16 @@ export default function SourceArea() {
     }, [hideWindow]);
 
     useEffect(() => {
+        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
+            readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
+                dir: BaseDirectory.AppConfig,
+            }).then((infoStr) => {
+                setTtsPluginInfo(JSON.parse(infoStr));
+            });
+        }
+    }, [ttsServiceList]);
+
+    useEffect(() => {
         if (
             deleteNewline !== null &&
             incrementalTranslate !== null &&
@@ -192,6 +208,24 @@ export default function SourceArea() {
                         isIconOnly
                         variant='light'
                         size='sm'
+                        onPress={async () => {
+                            const serviceName = ttsServiceList[0];
+                            if (serviceName.startsWith('[plugin]')) {
+                                const config = (await store.get(serviceName)) ?? {};
+                                invoke('invoke_plugin', {
+                                    name: serviceName,
+                                    pluginType: 'tts',
+                                    text: sourceText,
+                                    lang: ttsPluginInfo.language[detectLanguage],
+                                    needs: config,
+                                });
+                            } else {
+                                await buildinTtsServices[serviceName].tts(
+                                    sourceText,
+                                    buildinTtsServices[serviceName].Language[detectLanguage]
+                                );
+                            }
+                        }}
                     >
                         <HiOutlineVolumeUp className='text-[16px]' />
                     </Button>

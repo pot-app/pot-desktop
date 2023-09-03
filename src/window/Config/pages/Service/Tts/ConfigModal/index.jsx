@@ -5,7 +5,7 @@ import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useTranslation } from 'react-i18next';
 import { useAtomValue } from 'jotai';
 
-import * as buildinServices from '../../../../../../services/translate';
+import * as buildinServices from '../../../../../../services/tts';
 import { PluginConfig } from '../PluginConfig';
 import { pluginListAtom } from '..';
 
@@ -21,7 +21,7 @@ export default function ConfigModal(props) {
         if (serviceType === 'buildin' || !pluginList) return;
         appConfigDir().then((appConfigDirPath) => {
             if (pluginList[name]) {
-                join(appConfigDirPath, `/plugins/translate/${name}/${pluginList[name].icon}`).then((filePath) => {
+                join(appConfigDirPath, `/plugins/tts/${name}/${pluginList[name].icon}`).then((filePath) => {
                     setPluginImageUrl(convertFileSrc(filePath));
                 });
             }
@@ -45,7 +45,7 @@ export default function ConfigModal(props) {
                                         className='h-[24px] w-[24px] my-auto'
                                     />
                                     <Spacer x={2} />
-                                    {t(`services.translate.${name}.title`)}
+                                    {t(`services.tts.${name}.title`)}
                                 </>
                             )}
                             {serviceType === 'plugin' && (

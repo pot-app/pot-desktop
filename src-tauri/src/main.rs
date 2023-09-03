@@ -120,7 +120,7 @@ fn main() {
             get_base64,
             copy_img,
             system_ocr,
-            invoke_translate_plugin,
+            invoke_plugin,
             set_proxy,
             unset_proxy,
             register_shortcut_by_frontend,

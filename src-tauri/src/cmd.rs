@@ -78,12 +78,15 @@ pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) -> Re
 }
 
 #[tauri::command(async)]
-pub fn invoke_translate_plugin(
+pub fn invoke_plugin(
     app_handle: tauri::AppHandle,
+    plugin_type: &str,
     name: &str,
-    text: &str,
-    from: &str,
-    to: &str,
+    text: Option<&str>,
+    base64: Option<&str>,
+    from: Option<&str>,
+    to: Option<&str>,
+    lang: Option<&str>,
     needs: HashMap<String, String>,
 ) -> Result<String, String> {
     use dirs::config_dir;
@@ -99,26 +102,81 @@ pub fn invoke_translate_plugin(
     let config_path = config_dir().unwrap();
     let config_path = config_path.join(app_handle.config().tauri.bundle.identifier.clone());
     let config_path = config_path.join("plugins");
-    let config_path = config_path.join("translate");
+    let config_path = config_path.join(plugin_type);
     let config_path = config_path.join(name);
     let plugin_path = config_path.join(format!("plugin{ext_name}"));
     info!("Load plugin from: {:?}", plugin_path);
     unsafe {
         let lib = libloading::Library::new(plugin_path).unwrap();
-        let func: libloading::Symbol<
-            fn(
-                &str,
-                &str,
-                &str,
-                HashMap<String, String>,
-            ) -> Result<String, Box<dyn std::error::Error>>,
-        > = match lib.get(b"translate") {
-            Ok(v) => v,
-            Err(e) => return Err(e.to_string()),
-        };
-        match func(text, from, to, needs) {
-            Ok(v) => Ok(v),
-            Err(e) => Err(e.to_string()),
+        match plugin_type {
+            "translate" => {
+                let func: libloading::Symbol<
+                    fn(
+                        &str,
+                        &str,
+                        &str,
+                        HashMap<String, String>,
+                    ) -> Result<String, Box<dyn std::error::Error>>,
+                > = match lib.get(b"translate") {
+                    Ok(v) => v,
+                    Err(e) => return Err(e.to_string()),
+                };
+                match func(text.unwrap(), from.unwrap(), to.unwrap(), needs) {
+                    Ok(v) => Ok(v),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            "tts" => {
+                let func: libloading::Symbol<
+                    fn(
+                        &str,
+                        &str,
+                        HashMap<String, String>,
+                    ) -> Result<String, Box<dyn std::error::Error>>,
+                > = match lib.get(b"tts") {
+                    Ok(v) => v,
+                    Err(e) => return Err(e.to_string()),
+                };
+                match func(text.unwrap(), lang.unwrap(), needs) {
+                    Ok(v) => Ok(v),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            "recognize" => {
+                let func: libloading::Symbol<
+                    fn(
+                        &str,
+                        &str,
+                        HashMap<String, String>,
+                    ) -> Result<String, Box<dyn std::error::Error>>,
+                > = match lib.get(b"recogniza") {
+                    Ok(v) => v,
+                    Err(e) => return Err(e.to_string()),
+                };
+                match func(base64.unwrap(), lang.unwrap(), needs) {
+                    Ok(v) => Ok(v),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            "collection" => {
+                let func: libloading::Symbol<
+                    fn(
+                        &str,
+                        &str,
+                        HashMap<String, String>,
+                    ) -> Result<String, Box<dyn std::error::Error>>,
+                > = match lib.get(b"collection") {
+                    Ok(v) => v,
+                    Err(e) => return Err(e.to_string()),
+                };
+                match func(from.unwrap(), to.unwrap(), needs) {
+                    Ok(v) => Ok(v),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            _ => {
+                return Err("Unknown Plugin Type".to_string());
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ export default function Service() {
 
     return (
         <Tabs
-            disabledKeys={['tts', 'collection']}
+            disabledKeys={['collection']}
             className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'
         >
             <Tab

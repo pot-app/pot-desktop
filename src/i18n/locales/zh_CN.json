@@ -5,7 +5,8 @@
             "cancel": "取消",
             "save": "保存",
             "write_clipboard": "写入剪贴板",
-            "plugin": "插件"
+            "plugin": "插件",
+            "coming": "敬请期待..."
         },
         "languages": {
             "auto": "自动检测",
@@ -203,6 +204,9 @@
                 "system": { "title": "系统 OCR" },
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" }
+            },
+            "tts": {
+                "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
             }
         },
         "translate": {

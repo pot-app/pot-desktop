@@ -58,10 +58,9 @@ export function PluginConfig(props) {
                             setLoading(true);
                             invoke('invoke_plugin', {
                                 name,
-                                pluginType: 'translate',
+                                pluginType: 'tts',
                                 text: 'Hello',
-                                from: pluginList[name].language['auto'],
-                                to: pluginList[name].language['zh_cn'],
+                                lang: pluginList[name].language['en'],
                                 needs: pluginConfig,
                             }).then(
                                 (_) => {

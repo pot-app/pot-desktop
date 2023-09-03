@@ -277,6 +277,7 @@ export default function General() {
                             <Input
                                 type='text'
                                 variant='bordered'
+                                isDisabled
                                 placeholder={t('config.general.proxy.username')}
                                 value={proxyUsername}
                                 onValueChange={(v) => {
@@ -289,6 +290,7 @@ export default function General() {
                             <Input
                                 type='password'
                                 variant='bordered'
+                                isDisabled
                                 placeholder={t('config.general.proxy.password')}
                                 value={proxyPassword}
                                 onValueChange={(v) => {
