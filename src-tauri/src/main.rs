@@ -63,6 +63,8 @@ fn main() {
         .system_tray(tauri::SystemTray::new())
         .setup(|app| {
             info!("============== Start App ==============");
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             // Global AppHandle
             APP.get_or_init(|| app.handle());
             // Init Config
