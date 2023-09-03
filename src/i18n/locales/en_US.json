@@ -118,7 +118,8 @@
                 "add_buildin_service": "Add Buildin Service",
                 "add_external_service": "Add Extension",
                 "add_service": "Add Service",
-                "test_failed": "Test Failed"
+                "test_failed": "Test Failed",
+                "install_plugin": "Install Plugin"
             },
             "history": {
                 "label": "History",

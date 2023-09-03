@@ -145,3 +145,48 @@ pub fn unset_proxy() -> Result<bool, ()> {
     std::env::remove_var("all_proxy");
     Ok(true)
 }
+
+#[tauri::command]
+pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, Error> {
+    let mut success_count = 0;
+    use std::env::consts::OS;
+
+    let ext_name = match OS {
+        "linux" => ".so",
+        "macos" => ".dylib",
+        "windows" => ".dll",
+        _ => return Err(Error::Error("Unknown OS".into())),
+    };
+    for path in path_list {
+        if !path.ends_with("zip") {
+            continue;
+        }
+        let path = std::path::Path::new(&path);
+        let file_name = path.file_name().unwrap().to_str().unwrap();
+        let file_name = file_name.replace(".zip", "");
+        if !file_name.starts_with("[plugin]") {
+            return Err(Error::Error(
+                "Invalid Plugin: file name must start with [plugin]".into(),
+            ));
+        }
+        let config_path = dirs::config_dir().unwrap();
+        let config_path =
+            config_path.join(APP.get().unwrap().config().tauri.bundle.identifier.clone());
+        let config_path = config_path.join("plugins");
+        let config_path = config_path.join(plugin_type);
+        let plugin_path = config_path.join(file_name);
+        std::fs::create_dir_all(&config_path)?;
+        let mut zip = zip::ZipArchive::new(std::fs::File::open(path)?)?;
+        if zip.by_name("info.json").is_err() {
+            return Err(Error::Error("Invalid Plugin: miss info.json".into()));
+        }
+        if zip.by_name(format!("plugin{ext_name}").as_str()).is_err() {
+            return Err(Error::Error(
+                format!("Invalid Plugin: miss plugin{ext_name}").into(),
+            ));
+        }
+        zip.extract(plugin_path)?;
+        success_count += 1;
+    }
+    Ok(success_count)
+}

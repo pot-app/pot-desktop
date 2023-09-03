@@ -118,7 +118,8 @@
                 "add_buildin_service": "添加内置服务",
                 "add_external_service": "添加外部插件",
                 "add_service": "添加服务",
-                "test_failed": "测试失败"
+                "test_failed": "测试失败",
+                "install_plugin": "安装外部插件"
             },
             "history": {
                 "label": "历史记录",

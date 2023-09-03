@@ -126,7 +126,8 @@ fn main() {
             updater_window,
             screenshot,
             lang_detect,
-            webdav
+            webdav,
+            install_plugin
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

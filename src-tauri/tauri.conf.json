@@ -47,6 +47,9 @@
             "fs": {
                 "all": true,
                 "scope": ["$APPCONFIG/**"]
+            },
+            "dialog": {
+                "open": true
             }
         },
         "bundle": {
