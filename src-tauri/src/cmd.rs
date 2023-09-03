@@ -112,7 +112,10 @@ pub fn invoke_translate_plugin(
                 &str,
                 HashMap<String, String>,
             ) -> Result<String, Box<dyn std::error::Error>>,
-        > = lib.get(b"translate").unwrap();
+        > = match lib.get(b"translate") {
+            Ok(v) => v,
+            Err(e) => return Err(e.to_string()),
+        };
         match func(text, from, to, needs) {
             Ok(v) => Ok(v),
             Err(e) => Err(e.to_string()),

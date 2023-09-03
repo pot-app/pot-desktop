@@ -1,5 +1,6 @@
 use crate::error::Error;
 use dirs::config_dir;
+use log::info;
 use reqwest_dav::{Auth, ClientBuilder, Depth};
 use std::io::Write;
 use walkdir::WalkDir;
@@ -67,7 +68,7 @@ pub async fn webdav(
                         None => return Err(Error::Error("WebDav Strip Prefix Error".into())),
                     };
                     if path.is_file() {
-                        println!("adding file {path:?} as {file_name:?} ...");
+                        info!("adding file {path:?} as {file_name:?} ...");
                         zip.start_file(file_name, options)?;
                         zip.write(&std::fs::read(entry.path())?)?;
                     } else {

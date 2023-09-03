@@ -56,7 +56,7 @@ export default function SelectPluginModal(props) {
                                                     recursive: true,
                                                 }).then(
                                                     (v) => {
-                                                        toast.success(t('config.service.delete_success'), {
+                                                        toast.success(t('config.service.uninstall_success'), {
                                                             style: toastStyle,
                                                         });
                                                         getPluginList();
