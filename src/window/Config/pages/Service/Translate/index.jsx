@@ -133,6 +133,7 @@ export default function Translate(props) {
                 onConfigOpen={onConfigOpen}
                 pluginType='translate'
                 pluginList={pluginList}
+                deleteService={deleteService}
             />
             <SelectModal
                 isOpen={isSelectOpen}

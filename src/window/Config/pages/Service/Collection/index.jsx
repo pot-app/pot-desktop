@@ -123,6 +123,7 @@ export default function Collection(props) {
                 onConfigOpen={onConfigOpen}
                 pluginType='collection'
                 pluginList={pluginList}
+                deleteService={deleteService}
             />
             <SelectModal
                 isOpen={isSelectOpen}

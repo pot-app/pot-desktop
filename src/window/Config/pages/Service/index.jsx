@@ -45,9 +45,19 @@ export default function Service() {
 
     useEffect(() => {
         loadPluginList();
-        if (!unlisten) {
-            unlisten = listen('reload_plugin_list', loadPluginList);
+        if (unlisten) {
+            unlisten.then((f) => {
+                f();
+            });
         }
+        unlisten = listen('reload_plugin_list', loadPluginList);
+        return () => {
+            if (unlisten) {
+                unlisten.then((f) => {
+                    f();
+                });
+            }
+        };
     }, []);
     return (
         pluginList !== null && (

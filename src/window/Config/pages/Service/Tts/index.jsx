@@ -128,6 +128,7 @@ export default function Tts(props) {
                 onConfigOpen={onConfigOpen}
                 pluginType='tts'
                 pluginList={pluginList}
+                deleteService={deleteService}
             />
             <SelectModal
                 isOpen={isSelectOpen}

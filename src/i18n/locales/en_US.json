@@ -208,6 +208,9 @@
             },
             "tts": {
                 "lingva_tts": { "title": "Lingva", "request_path": "Request Path" }
+            },
+            "collection": {
+                "anki": { "title": "Anki" }
             }
         },
         "translate": {

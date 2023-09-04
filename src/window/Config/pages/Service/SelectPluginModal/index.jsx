@@ -6,17 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api';
 import React, { useState } from 'react';
-import { useAtomValue } from 'jotai';
 
 import { useToastStyle } from '../../../../../hooks';
-// import { pluginListAtom } from '..';
 import { emit } from '@tauri-apps/api/event';
-import { nanoid } from 'nanoid';
 
 export default function SelectPluginModal(props) {
-    const { isOpen, onOpenChange, setConfigName, onConfigOpen, pluginType, pluginList } = props;
+    const { isOpen, onOpenChange, setConfigName, onConfigOpen, pluginType, pluginList, deleteService } = props;
     const [installing, setInstalling] = useState(false);
-    // const pluginList = useAtomValue(pluginListAtom);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -33,7 +29,6 @@ export default function SelectPluginModal(props) {
                         <ModalHeader>{t('config.service.add_service')}</ModalHeader>
                         <ModalBody>
                             {Object.keys(pluginList).map((x) => {
-                                console.log(x);
                                 return (
                                     <div
                                         className='flex justify-between'
@@ -68,6 +63,7 @@ export default function SelectPluginModal(props) {
                                                         toast.success(t('config.service.uninstall_success'), {
                                                             style: toastStyle,
                                                         });
+                                                        deleteService(x);
                                                         emit('reload_plugin_list');
                                                     },
                                                     (e) => {

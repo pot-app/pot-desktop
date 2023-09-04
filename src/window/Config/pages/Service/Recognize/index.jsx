@@ -132,6 +132,7 @@ export default function Recognize(props) {
                 onConfigOpen={onConfigOpen}
                 pluginType='recognize'
                 pluginList={pluginList}
+                deleteService={deleteService}
             />
             <SelectModal
                 isOpen={isSelectOpen}
