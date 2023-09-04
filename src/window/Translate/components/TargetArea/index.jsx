@@ -1,7 +1,4 @@
 import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
-import { appConfigDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
-import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
@@ -24,18 +21,13 @@ import { useConfig } from '../../../../hooks';
 let translateID = [];
 
 export default function TargetArea(props) {
-    const [ttsServiceList] = useConfig('tts_service_list', ['lingva']);
+    const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const [hideWindow] = useConfig('translate_hide_window', false);
-    const [pluginImageUrl, setPluginImageUrl] = useState('');
-    const { name, index, ...drag } = props;
-    const [pluginConfig] = useConfig(name, {});
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
+    const { name, index, pluginList, ...drag } = props;
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
-    const [pluginInfo, setPluginInfo] = useState();
-    const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(false);
     const sourceText = useAtomValue(sourceTextAtom);
@@ -46,47 +38,9 @@ export default function TargetArea(props) {
     const textAreaRef = useRef();
 
     useEffect(() => {
-        if (serviceType === 'buildin') return;
-        readTextFile(`plugins/translate/${name}/info.json`, {
-            dir: BaseDirectory.AppConfig,
-        }).then((infoStr) => {
-            setPluginInfo(JSON.parse(infoStr));
-        });
-    }, []);
-
-    useEffect(() => {
-        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
-            readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
-                dir: BaseDirectory.AppConfig,
-            }).then((infoStr) => {
-                setTtsPluginInfo(JSON.parse(infoStr));
-            });
-        }
-    }, [ttsServiceList]);
-
-    useEffect(() => {
-        if (serviceType === 'buildin') return;
-        if (pluginInfo) {
-            appConfigDir().then((appConfigDirPath) => {
-                join(appConfigDirPath, `/plugins/translate/${name}/${pluginInfo.icon}`).then((filePath) => {
-                    setPluginImageUrl(convertFileSrc(filePath));
-                });
-            });
-        }
-    }, [pluginInfo]);
-
-    useEffect(() => {
         setResult('');
         setError('');
-        if (serviceType === 'plugin' && pluginInfo === null) return;
-        if (
-            sourceText !== '' &&
-            sourceLanguage &&
-            targetLanguage &&
-            autoCopy !== null &&
-            hideWindow !== null &&
-            pluginConfig !== null
-        ) {
+        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null) {
             if (autoCopy === 'source') {
                 writeText(sourceText).then(() => {
                     if (hideWindow) {
@@ -96,18 +50,20 @@ export default function TargetArea(props) {
             }
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, pluginInfo, pluginConfig]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow]);
 
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
-        if (serviceType === 'plugin') {
+        if (name.startsWith('[plugin]')) {
+            const pluginInfo = pluginList['translate'][name];
             if (sourceLanguage in pluginInfo.language && targetLanguage in pluginInfo.language) {
                 let newTargetLanguage = targetLanguage;
                 if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
+                const pluginConfig = (await store.get(name)) ?? {};
                 invoke('invoke_plugin', {
                     name,
                     pluginType: 'translate',
@@ -125,7 +81,7 @@ export default function TargetArea(props) {
                                 case 'target':
                                     writeText(v).then(() => {
                                         if (hideWindow) {
-                                            sendNotification({ title: 打破, body: v });
+                                            sendNotification({ title: t('common.write_clipboard'), body: v });
                                         }
                                     });
                                     break;
@@ -227,7 +183,18 @@ export default function TargetArea(props) {
                 {...drag}
             >
                 <div className='flex'>
-                    {serviceType === 'buildin' && (
+                    {name.startsWith('[plugin]') ? (
+                        <>
+                            <img
+                                src={pluginList['translate'][name].icon}
+                                className='h-[20px] my-auto'
+                            />
+                            <Spacer x={2} />
+                            <div className='my-auto'>{`${pluginList['translate'][name].display} [${t(
+                                'common.plugin'
+                            )}]`}</div>
+                        </>
+                    ) : (
                         <>
                             <img
                                 src={buildinServices[name].info.icon}
@@ -235,16 +202,6 @@ export default function TargetArea(props) {
                             />
                             <Spacer x={2} />
                             <div className='my-auto'>{t(`services.translate.${name}.title`)}</div>
-                        </>
-                    )}
-                    {serviceType === 'plugin' && pluginInfo && (
-                        <>
-                            <img
-                                src={pluginImageUrl}
-                                className='h-[20px] my-auto'
-                            />
-                            <Spacer x={2} />
-                            <div className='my-auto'>{`${pluginInfo.display} [${t('common.plugin')}]`}</div>
                         </>
                     )}
                 </div>

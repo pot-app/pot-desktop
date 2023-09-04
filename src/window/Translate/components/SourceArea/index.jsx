@@ -25,7 +25,8 @@ export const detectLanguageAtom = atom('');
 let unlisten = null;
 let timer = null;
 
-export default function SourceArea() {
+export default function SourceArea(props) {
+    const { pluginList } = props;
     const [sourceText, setSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [incrementalTranslate] = useConfig('incremental_translate', false);
@@ -33,7 +34,7 @@ export default function SourceArea() {
     const [deleteNewline] = useConfig('translate_delete_newline', false);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
-    const [ttsServiceList] = useConfig('tts_service_list', ['lingva']);
+    const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [langDetectEngine] = useConfig('translate_detect_engine', 'local');
     const [hideWindow] = useConfig('translate_hide_window', false);
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
@@ -57,11 +58,18 @@ export default function SourceArea() {
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
             setSourceText('Recognizing...');
-            if (recognizeLanguage in recognizeServices[recognizeServiceList[0]].Language) {
-                const base64 = await invoke('get_base64');
-                recognizeServices[recognizeServiceList[0]]
-                    .recognize(base64, recognizeServices[recognizeServiceList[0]].Language[recognizeLanguage])
-                    .then(
+            const base64 = await invoke('get_base64');
+            const serviceName = recognizeServiceList[0];
+            if (serviceName.startsWith('[plugin]')) {
+                if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
+                    const pluginConfig = (await store.get(serviceName)) ?? {};
+                    invoke('invoke_plugin', {
+                        name: serviceName,
+                        base64,
+                        lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
+                        pluginType: 'recognize',
+                        needs: pluginConfig,
+                    }).then(
                         (v) => {
                             setSourceText(v);
                             detect_language(v).then(() => {
@@ -78,8 +86,33 @@ export default function SourceArea() {
                             setSourceText(e.toString());
                         }
                     );
+                } else {
+                    setSourceText('Language not supported');
+                }
             } else {
-                setSourceText('Language not supported');
+                if (recognizeLanguage in recognizeServices[serviceName].Language) {
+                    recognizeServices[serviceName]
+                        .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
+                        .then(
+                            (v) => {
+                                setSourceText(v);
+                                detect_language(v).then(() => {
+                                    if (incrementalTranslate) {
+                                        setSourceText((old) => {
+                                            return old + ' ' + v;
+                                        }, true);
+                                    } else {
+                                        setSourceText(v, true);
+                                    }
+                                });
+                            },
+                            (e) => {
+                                setSourceText(e.toString());
+                            }
+                        );
+                } else {
+                    setSourceText('Language not supported');
+                }
             }
         } else {
             let newText = text;
