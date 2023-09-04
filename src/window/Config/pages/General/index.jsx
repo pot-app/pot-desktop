@@ -10,12 +10,14 @@ import { Dropdown } from '@nextui-org/react';
 import { info } from 'tauri-plugin-log-api';
 import { Button } from '@nextui-org/react';
 import { Switch } from '@nextui-org/react';
+import 'flag-icons/css/flag-icons.min.css';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
 import { invoke } from '@tauri-apps/api';
 import { useTheme } from 'next-themes';
 
 import { useConfig } from '../../../../hooks/useConfig';
+import { LanguageFlag } from '../../../../utils/language';
 import { useToastStyle } from '../../../../hooks';
 import { osType } from '../../../../utils/env';
 
@@ -123,7 +125,12 @@ export default function General() {
                         {appLanguage !== null && (
                             <Dropdown>
                                 <DropdownTrigger>
-                                    <Button variant='bordered'>{languageName[appLanguage]}</Button>
+                                    <Button
+                                        variant='bordered'
+                                        startContent={<span className={`fi fi-${LanguageFlag[appLanguage]}`} />}
+                                    >
+                                        {languageName[appLanguage]}
+                                    </Button>
                                 </DropdownTrigger>
                                 <DropdownMenu
                                     aria-label='app language'
@@ -133,8 +140,18 @@ export default function General() {
                                         invoke('update_tray', { language: key, copyMode: '' });
                                     }}
                                 >
-                                    <DropdownItem key='en'>English</DropdownItem>
-                                    <DropdownItem key='zh_cn'>简体中文</DropdownItem>
+                                    <DropdownItem
+                                        key='en'
+                                        startContent={<span className={`fi fi-${LanguageFlag.en}`} />}
+                                    >
+                                        English
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='zh_cn'
+                                        startContent={<span className={`fi fi-${LanguageFlag.zh_cn}`} />}
+                                    >
+                                        简体中文
+                                    </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

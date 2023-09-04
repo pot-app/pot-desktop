@@ -71,14 +71,20 @@ export default function SourceArea(props) {
                         needs: pluginConfig,
                     }).then(
                         (v) => {
-                            setSourceText(v);
-                            detect_language(v).then(() => {
+                            let newText = v;
+                            if (deleteNewline) {
+                                newText = v.replace(/\s+/g, ' ');
+                            } else {
+                                newText = v;
+                            }
+                            setSourceText(newText);
+                            detect_language(newText).then(() => {
                                 if (incrementalTranslate) {
                                     setSourceText((old) => {
-                                        return old + ' ' + v;
+                                        return old + ' ' + newText;
                                     }, true);
                                 } else {
-                                    setSourceText(v, true);
+                                    setSourceText(newText, true);
                                 }
                             });
                         },
@@ -95,14 +101,20 @@ export default function SourceArea(props) {
                         .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
                         .then(
                             (v) => {
-                                setSourceText(v);
-                                detect_language(v).then(() => {
+                                let newText = v;
+                                if (deleteNewline) {
+                                    newText = v.replace(/\s+/g, ' ');
+                                } else {
+                                    newText = v;
+                                }
+                                setSourceText(newText);
+                                detect_language(newText).then(() => {
                                     if (incrementalTranslate) {
                                         setSourceText((old) => {
-                                            return old + ' ' + v;
+                                            return old + ' ' + newText;
                                         }, true);
                                     } else {
-                                        setSourceText(v, true);
+                                        setSourceText(newText, true);
                                     }
                                 });
                             },

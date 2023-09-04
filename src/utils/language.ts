@@ -39,7 +39,7 @@ export enum LanguageFlag {
     de = 'de',
     it = 'it',
     tr = 'tr',
-    pt = 'pt',
+    pt_pt = 'pt',
     pt_br = 'br',
     vi = 'vn',
     id = 'id',
