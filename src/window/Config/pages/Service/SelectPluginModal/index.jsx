@@ -8,13 +8,15 @@ import { invoke } from '@tauri-apps/api';
 import React, { useState } from 'react';
 import { useAtomValue } from 'jotai';
 
-import { useToastStyle } from '../../../../../../hooks';
-import { pluginListAtom } from '..';
+import { useToastStyle } from '../../../../../hooks';
+// import { pluginListAtom } from '..';
+import { emit } from '@tauri-apps/api/event';
+import { nanoid } from 'nanoid';
 
 export default function SelectPluginModal(props) {
-    const { isOpen, onOpenChange, setConfigName, onConfigOpen, getPluginList } = props;
+    const { isOpen, onOpenChange, setConfigName, onConfigOpen, pluginType, pluginList } = props;
     const [installing, setInstalling] = useState(false);
-    const pluginList = useAtomValue(pluginListAtom);
+    // const pluginList = useAtomValue(pluginListAtom);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -31,6 +33,7 @@ export default function SelectPluginModal(props) {
                         <ModalHeader>{t('config.service.add_service')}</ModalHeader>
                         <ModalBody>
                             {Object.keys(pluginList).map((x) => {
+                                console.log(x);
                                 return (
                                     <div
                                         className='flex justify-between'
@@ -43,6 +46,12 @@ export default function SelectPluginModal(props) {
                                                 setConfigName(x);
                                                 onConfigOpen();
                                             }}
+                                            startContent={
+                                                <img
+                                                    src={pluginList[x].icon}
+                                                    className='h-[24px] w-[24px] my-auto'
+                                                />
+                                            }
                                         >
                                             <div className='w-full'>{pluginList[x].display}</div>
                                         </Button>
@@ -51,7 +60,7 @@ export default function SelectPluginModal(props) {
                                             color='danger'
                                             variant='flat'
                                             onPress={() => {
-                                                removeDir(`plugins/tts/${x}`, {
+                                                removeDir(`plugins/${pluginType}/${x}`, {
                                                     dir: BaseDirectory.AppConfig,
                                                     recursive: true,
                                                 }).then(
@@ -59,7 +68,7 @@ export default function SelectPluginModal(props) {
                                                         toast.success(t('config.service.uninstall_success'), {
                                                             style: toastStyle,
                                                         });
-                                                        getPluginList();
+                                                        emit('reload_plugin_list');
                                                     },
                                                     (e) => {
                                                         toast.error(e.toString(), { style: toastStyle });
@@ -93,14 +102,14 @@ export default function SelectPluginModal(props) {
                                         if (selected !== null) {
                                             invoke('install_plugin', {
                                                 pathList: selected,
-                                                pluginType: 'tts',
+                                                pluginType,
                                             }).then(
                                                 (count) => {
                                                     setInstalling(false);
                                                     toast.success('Installed ' + count + ' plugins', {
                                                         style: toastStyle,
                                                     });
-                                                    getPluginList();
+                                                    emit('reload_plugin_list');
                                                 },
                                                 (e) => {
                                                     setInstalling(false);

@@ -3,19 +3,19 @@ import { Spacer, Button } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { BiSolidEdit } from 'react-icons/bi';
-import { useAtomValue } from 'jotai';
 import React from 'react';
 
-import { pluginListAtom } from '..';
+import * as buildinServices from '../../../../../../services/recognize';
+import { osType } from '../../../../../../utils/env';
 
 export default function ServiceItem(props) {
-    const { name, deleteService, setConfigName, onConfigOpen, ...drag } = props;
-    const pluginList = useAtomValue(pluginListAtom);
+    const { name, deleteService, setConfigName, onConfigOpen, pluginList, ...drag } = props;
     const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
-
     const { t } = useTranslation();
-
-    return (
+    console.log(pluginList);
+    return serviceType === 'plugin' && !(name in pluginList) ? (
+        <></>
+    ) : (
         <div className='bg-content2 rounded-md px-[10px] py-[20px] flex justify-between'>
             <div className='flex'>
                 <div
@@ -24,10 +24,27 @@ export default function ServiceItem(props) {
                 >
                     <RxDragHandleHorizontal />
                 </div>
+
                 <Spacer x={2} />
-                {serviceType === 'buildin' && <h2 className='my-auto'>{t(`services.recognize.${name}.title`)}</h2>}
-                {serviceType === 'plugin' && name in pluginList && (
-                    <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>
+                {serviceType === 'buildin' && (
+                    <>
+                        <img
+                            src={name === 'system' ? `logo/${osType}.svg` : buildinServices[name].info.icon}
+                            className='h-[24px] w-[24px] my-auto'
+                        />
+                        <Spacer x={2} />
+                        <h2 className='my-auto'>{t(`services.recognize.${name}.title`)}</h2>
+                    </>
+                )}
+                {serviceType === 'plugin' && (
+                    <>
+                        <img
+                            src={pluginList[name].icon}
+                            className='h-[24px] w-[24px] my-auto'
+                        />
+                        <Spacer x={2} />
+                        <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>
+                    </>
                 )}
             </div>
             <div className='flex'>

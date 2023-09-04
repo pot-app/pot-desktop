@@ -2,7 +2,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Space
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/translate';
+import * as buildinServices from '../../../../../../services/collection';
 import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
@@ -30,7 +30,7 @@ export default function ConfigModal(props) {
                                         className='h-[24px] w-[24px] my-auto'
                                     />
                                     <Spacer x={2} />
-                                    {t(`services.translate.${name}.title`)}
+                                    {t(`services.collection.${name}.title`)}
                                 </>
                             )}
                             {serviceType === 'plugin' && (
@@ -48,7 +48,7 @@ export default function ConfigModal(props) {
                         <ModalBody>
                             <ConfigComponent
                                 name={name}
-                                pluginType='translate'
+                                pluginType='collection'
                                 pluginList={pluginList}
                                 updateServiceList={updateServiceList}
                                 onClose={onClose}

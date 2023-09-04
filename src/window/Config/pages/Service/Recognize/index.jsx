@@ -1,22 +1,18 @@
-import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
-import { Card, Spacer, Button, useDisclosure, Tooltip } from '@nextui-org/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import React, { useState, useEffect } from 'react';
-import { atom, useSetAtom } from 'jotai';
+import React, { useState } from 'react';
 
 import { useToastStyle } from '../../../../../hooks';
-import SelectPluginModal from './SelectPluginModal';
+import SelectPluginModal from '../SelectPluginModal';
 import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
 
-export const pluginListAtom = atom({});
-
-export default function Recognize() {
-    const setPluginList = useSetAtom(pluginListAtom);
+export default function Recognize(props) {
+    const { pluginList } = props;
     const {
         isOpen: isSelectPluginOpen,
         onOpen: onSelectPluginOpen,
@@ -30,6 +26,7 @@ export default function Recognize() {
         'tesseract',
         'paddle',
     ]);
+
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -61,28 +58,6 @@ export default function Recognize() {
             setRecognizeServiceList(newList);
         }
     };
-    const getPluginList = () => {
-        exists('plugins/recognize', { dir: BaseDirectory.AppConfig }).then((isExist) => {
-            if (!isExist) {
-                return;
-            }
-            readDir('plugins/recognize', { dir: BaseDirectory.AppConfig }).then((plugins) => {
-                let temp = {};
-                for (const plugin of plugins) {
-                    readTextFile(`plugins/recognize/${plugin.name}/info.json`, {
-                        dir: BaseDirectory.AppConfig,
-                    }).then((infoStr) => {
-                        temp[plugin.name] = JSON.parse(infoStr);
-                    });
-                }
-                setPluginList(temp);
-            });
-        });
-    };
-
-    useEffect(() => {
-        getPluginList();
-    }, []);
 
     return (
         <>
@@ -117,6 +92,7 @@ export default function Recognize() {
                                                                 {...provided.dragHandleProps}
                                                                 name={x}
                                                                 key={x}
+                                                                pluginList={pluginList}
                                                                 deleteService={deleteService}
                                                                 setConfigName={setOpenConfigName}
                                                                 onConfigOpen={onConfigOpen}
@@ -154,7 +130,8 @@ export default function Recognize() {
                 onOpenChange={onSelectPluginOpenChange}
                 setConfigName={setOpenConfigName}
                 onConfigOpen={onConfigOpen}
-                getPluginList={getPluginList}
+                pluginType='recognize'
+                pluginList={pluginList}
             />
             <SelectModal
                 isOpen={isSelectOpen}
@@ -165,6 +142,7 @@ export default function Recognize() {
             <ConfigModal
                 name={openConfigName}
                 isOpen={isConfigOpen}
+                pluginList={pluginList}
                 onOpenChange={onConfigOpenChange}
                 updateServiceList={updateServiceList}
             />

@@ -2,8 +2,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/recognize';
-import { osType } from '../../../../../../utils/env';
+import * as buildinServices from '../../../../../../services/collection';
 
 export default function SelectModal(props) {
     const { isOpen, onOpenChange, setConfigName, onConfigOpen } = props;
@@ -31,17 +30,13 @@ export default function SelectModal(props) {
                                             }}
                                             startContent={
                                                 <img
-                                                    src={
-                                                        x === 'system'
-                                                            ? `logo/${osType}.svg`
-                                                            : buildinServices[x].info.icon
-                                                    }
+                                                    src={buildinServices[x].info.icon}
                                                     className='h-[24px] w-[24px] my-auto'
                                                 />
                                             }
                                         >
                                             <div className='w-full'>
-                                                {t(`services.recognize.${buildinServices[x].info.name}.title`)}
+                                                {t(`services.collection.${buildinServices[x].info.name}.title`)}
                                             </div>
                                         </Button>
                                     </div>

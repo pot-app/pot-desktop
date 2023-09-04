@@ -1,20 +1,20 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Spacer } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
-import React, { useEffect, useState } from 'react';
-import { useAtomValue } from 'jotai';
+import React from 'react';
 
 import * as buildinServices from '../../../../../../services/recognize';
-import { PluginConfig } from '../PluginConfig';
-import { pluginListAtom } from '..';
+import { osType } from '../../../../../../utils/env';
+import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
-    const { isOpen, onOpenChange, name, updateServiceList } = props;
+    const { isOpen, onOpenChange, name, updateServiceList, pluginList } = props;
     const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
-    const pluginList = useAtomValue(pluginListAtom);
     const { t } = useTranslation();
     const ConfigComponent = name.startsWith('[plugin]') ? PluginConfig : buildinServices[name].Config;
 
-    return (
+    return serviceType === 'plugin' && !(name in pluginList) ? (
+        <></>
+    ) : (
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
@@ -24,13 +24,33 @@ export default function ConfigModal(props) {
                 {(onClose) => (
                     <>
                         <ModalHeader>
-                            {serviceType === 'buildin'
-                                ? t(`services.recognize.${name}.title`)
-                                : `${pluginList[name].display} [${t('common.plugin')}]`}
+                            {serviceType === 'buildin' && (
+                                <>
+                                    <img
+                                        src={name === 'system' ? `logo/${osType}.svg` : buildinServices[name].info.icon}
+                                        className='h-[24px] w-[24px] my-auto'
+                                    />
+                                    <Spacer x={2} />
+                                    {t(`services.recognize.${name}.title`)}
+                                </>
+                            )}
+                            {serviceType === 'plugin' && (
+                                <>
+                                    <img
+                                        src={pluginList[name].icon}
+                                        className='h-[24px] w-[24px] my-auto'
+                                    />
+
+                                    <Spacer x={2} />
+                                    {`${pluginList[name].display} [${t('common.plugin')}]`}
+                                </>
+                            )}
                         </ModalHeader>
                         <ModalBody>
                             <ConfigComponent
                                 name={name}
+                                pluginType='recognize'
+                                pluginList={pluginList}
                                 updateServiceList={updateServiceList}
                                 onClose={onClose}
                             />

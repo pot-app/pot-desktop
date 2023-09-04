@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { BiSolidEdit } from 'react-icons/bi';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/tts';
+import * as buildinServices from '../../../../../../services/collection';
 
 export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, pluginList, ...drag } = props;
@@ -32,7 +32,7 @@ export default function ServiceItem(props) {
                             className='h-[24px] w-[24px] my-auto'
                         />
                         <Spacer x={2} />
-                        <h2 className='my-auto'>{t(`services.tts.${name}.title`)}</h2>
+                        <h2 className='my-auto'>{t(`services.collection.${name}.title`)}</h2>
                     </>
                 )}
                 {serviceType === 'plugin' && (

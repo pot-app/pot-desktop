@@ -87,7 +87,7 @@ fn build_window(label: &str, title: &str) -> Window {
             .transparent(true)
             .focused(true)
             .title(title)
-            .visible(false);
+            .visible(true);
 
             #[cfg(target_os = "macos")]
             {

@@ -1,5 +1,6 @@
 export const info = {
     name: 'system',
+    icon: `system`,
 };
 
 export enum Language {

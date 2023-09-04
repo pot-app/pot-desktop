@@ -6,11 +6,12 @@ import { HiTranslate } from 'react-icons/hi';
 import { GiCycle } from 'react-icons/gi';
 import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
-
+import * as buildinService from '../../../services/recognize';
 import { languageList } from '../../../utils/language';
 import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
 import { pluginListAtom } from '..';
+import { osType } from '../../../utils/env';
 
 export const serviceNameAtom = atom();
 export const languageAtom = atom();
@@ -45,6 +46,18 @@ export default function ControlArea() {
                             className='my-auto'
                             variant='bordered'
                             size='sm'
+                            startContent={
+                                <img
+                                    className='h-[16px] w-[16px] my-auto'
+                                    src={
+                                        serviceName.startsWith('[plugin]')
+                                            ? pluginList[serviceName].icon
+                                            : buildinService[serviceName].info.icon === 'system'
+                                            ? `logo/${osType}.svg`
+                                            : buildinService[serviceName].info.icon
+                                    }
+                                />
+                            }
                         >
                             {serviceName.startsWith('[plugin]')
                                 ? pluginList[serviceName].display
@@ -60,7 +73,21 @@ export default function ControlArea() {
                     >
                         {serviceList.map((name) => {
                             return (
-                                <DropdownItem key={name}>
+                                <DropdownItem
+                                    key={name}
+                                    startContent={
+                                        <img
+                                            className='h-[16px] w-[16px] my-auto'
+                                            src={
+                                                name.startsWith('[plugin]')
+                                                    ? pluginList[name].icon
+                                                    : buildinService[name].info.icon === 'system'
+                                                    ? `logo/${osType}.svg`
+                                                    : buildinService[name].info.icon
+                                            }
+                                        />
+                                    }
+                                >
                                     {name.startsWith('[plugin]')
                                         ? pluginList[name].display
                                         : t(`services.recognize.${name}.title`)}

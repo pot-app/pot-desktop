@@ -1,4 +1,6 @@
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
+import { appConfigDir, join } from '@tauri-apps/api/path';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { atom, useAtom } from 'jotai';
 import React from 'react';
 
@@ -12,23 +14,31 @@ export const pluginListAtom = atom();
 export default function Recognize() {
     const [pluginList, setPluginList] = useAtom(pluginListAtom);
 
-    React.useEffect(() => {
-        exists(`plugins/recognize`, { dir: BaseDirectory.AppConfig }).then((isExist) => {
-            if (!isExist) {
-                return;
-            }
-            readDir(`plugins/recognize`, { dir: BaseDirectory.AppConfig }).then((plugins) => {
-                let temp = {};
-                for (const plugin of plugins) {
-                    readTextFile(`plugins/recognize/${plugin.name}/info.json`, {
-                        dir: BaseDirectory.AppConfig,
-                    }).then((infoStr) => {
-                        temp[plugin.name] = JSON.parse(infoStr);
-                    });
+    const loadPluginList = async () => {
+        if (await exists(`plugins/recognize`, { dir: BaseDirectory.AppConfig })) {
+            let temp = {};
+            const plugins = await readDir(`plugins/recognize`, { dir: BaseDirectory.AppConfig });
+            for (const plugin of plugins) {
+                const infoStr = await readTextFile(`plugins/recognize/${plugin.name}/info.json`, {
+                    dir: BaseDirectory.AppConfig,
+                });
+                let pluginInfo = JSON.parse(infoStr);
+                if ('icon' in pluginInfo) {
+                    const appConfigDirPath = await appConfigDir();
+                    const iconPath = await join(
+                        appConfigDirPath,
+                        `/plugins/recognize/${plugin.name}/${pluginInfo.icon}`
+                    );
+                    pluginInfo.icon = convertFileSrc(iconPath);
                 }
-                setPluginList(temp);
-            });
-        });
+                temp[plugin.name] = pluginInfo;
+            }
+            setPluginList({ ...temp });
+        }
+    };
+
+    React.useEffect(() => {
+        loadPluginList();
     }, []);
 
     return (

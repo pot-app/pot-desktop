@@ -1,5 +1,6 @@
 export const info = {
     name: 'paddle',
+    icon: 'logo/paddle.png',
 };
 
 export enum Language {
