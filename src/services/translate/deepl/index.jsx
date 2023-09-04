@@ -4,17 +4,17 @@ import { store } from '../../../utils/store';
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let deeplConfig = (await store.get('deepl')) ?? {};
+    let translateConfig = (await store.get('deepl')) ?? {};
     if (config !== undefined) {
-        deeplConfig = config;
+        translateConfig = config;
     }
-    const serviceType = deeplConfig['type'];
+    const serviceType = translateConfig['type'];
     if (serviceType === 'free') {
         return translate_by_free(text, from, to);
     } else if (serviceType === 'api') {
-        return translate_by_key(text, from, to, deeplConfig.authKey);
+        return translate_by_key(text, from, to, translateConfig.authKey);
     } else if (serviceType === 'deeplx') {
-        return translate_by_deeplx(text, from, to, deeplConfig.customUrl);
+        return translate_by_deeplx(text, from, to, translateConfig.customUrl);
     } else {
         return translate_by_free(text, from, to);
     }

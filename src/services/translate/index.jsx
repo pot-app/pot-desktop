@@ -7,3 +7,4 @@ export * as openai_polish from './openai_polish';
 export * as openai_custom from './openai_custom';
 export * as google from './google';
 export * as transmart from './transmart';
+export * as alibaba from './alibaba';

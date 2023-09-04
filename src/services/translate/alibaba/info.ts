@@ -1,0 +1,30 @@
+export const info = {
+    name: 'alibaba',
+    icon: 'logo/alibaba.svg',
+};
+
+export enum Language {
+    auto = 'auto',
+    zh_cn = 'zh',
+    zh_tw = 'zh-tw',
+    yue = 'yue',
+    ja = 'ja',
+    en = 'en',
+    ko = 'ko',
+    fr = 'fr',
+    es = 'es',
+    ru = 'ru',
+    de = 'de',
+    it = 'it',
+    tr = 'tr',
+    pt_pt = 'pt',
+    pt_br = 'pt',
+    vi = 'vi',
+    id = 'id',
+    th = 'th',
+    ms = 'ms',
+    ar = 'ar',
+    hi = 'hi',
+    mn_mo = 'mn',
+    km = 'km',
+}

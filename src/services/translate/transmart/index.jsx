@@ -4,12 +4,12 @@ import { store } from '../../../utils/store';
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let transmartConfig = (await store.get('transmart')) ?? {};
+    let translateConfig = (await store.get('transmart')) ?? {};
     if (config !== undefined) {
-        transmartConfig = config;
+        translateConfig = config;
     }
-    const user = transmartConfig['username'];
-    const token = transmartConfig['token'];
+    const user = translateConfig['username'];
+    const token = translateConfig['token'];
 
     let header = {};
     if (user === '' || token === '') {

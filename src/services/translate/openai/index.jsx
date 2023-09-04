@@ -4,11 +4,11 @@ import { store } from '../../../utils/store';
 export async function translate(text, from, to, options = {}) {
     const { config, setResult } = options;
 
-    let openaiConfig = await store.get('openai');
+    let translateConfig = await store.get('openai');
     if (config !== undefined) {
-        openaiConfig = config;
+        translateConfig = config;
     }
-    let { service, requestPath, model, apiKey, stream, systemPrompt, userPrompt } = openaiConfig;
+    let { service, requestPath, model, apiKey, stream, systemPrompt, userPrompt } = translateConfig;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;

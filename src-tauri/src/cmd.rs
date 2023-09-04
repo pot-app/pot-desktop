@@ -196,7 +196,7 @@ pub fn set_proxy() -> Result<bool, ()> {
     std::env::set_var("http_proxy", &proxy);
     std::env::set_var("https_proxy", &proxy);
     std::env::set_var("all_proxy", &proxy);
-    std::env::set_var("no_proxy", "127.0.0.1,localhost");
+    std::env::set_var("no_proxy", "127.0.0.1,localhost,aliyuncs.com");
     Ok(true)
 }
 

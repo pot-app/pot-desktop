@@ -12,10 +12,10 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [config, setConfig] = useConfig(
-        'transmart',
+        'alibaba',
         {
-            username: '',
-            token: '',
+            accesskey_id: '',
+            accesskey_secret: '',
         },
         { sync: false }
     );
@@ -32,36 +32,36 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button
                         onPress={() => {
-                            open('https://pot-app.com/docs/tutorial/api/translate/transmart');
+                            open('https://pot-app.com/docs/tutorial/api/translate/alibaba');
                         }}
                     >
                         {t('services.help')}
                     </Button>
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.transmart.username')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_id')}</h3>
                     <Input
-                        value={config['username']}
+                        value={config['accesskey_id']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                username: value,
+                                accesskey_id: value,
                             });
                         }}
                     />
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.transmart.token')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_secret')}</h3>
                     <Input
-                        value={config['token']}
+                        value={config['accesskey_secret']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                token: value,
+                                accesskey_secret: value,
                             });
                         }}
                     />
