@@ -238,7 +238,8 @@
             "recognize": {
                 "system": { "title": "系统 OCR" },
                 "paddle": { "title": "Paddle OCR" },
-                "tesseract": { "title": "Tesseract.js" }
+                "tesseract": { "title": "Tesseract.js" },
+                "baidu_ocr": { "title": "百度 OCR", "client_id": "API Key", "client_secret": "Secret Key" }
             },
             "tts": {
                 "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
