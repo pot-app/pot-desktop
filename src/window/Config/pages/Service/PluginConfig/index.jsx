@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
+import { open } from '@tauri-apps/api/shell';
 import React, { useState } from 'react';
-import { useAtomValue } from 'jotai';
 
 import { useConfig, useToastStyle } from '../../../../../hooks';
 import { invoke } from '@tauri-apps/api';
@@ -19,6 +19,16 @@ export function PluginConfig(props) {
     return (
         <>
             <Toaster />
+            <div className={'config-item'}>
+                <h3 className='my-auto'>{t('config.service.homepage')}</h3>
+                <Button
+                    onPress={() => {
+                        open(pluginList[name].homepage);
+                    }}
+                >
+                    {t('config.service.homepage')}
+                </Button>
+            </div>
             {pluginList[name].needs.length === 0 ? (
                 <div>{t('services.no_need')}</div>
             ) : (

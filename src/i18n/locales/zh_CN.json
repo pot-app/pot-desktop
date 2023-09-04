@@ -121,7 +121,8 @@
                 "add_service": "添加服务",
                 "test_failed": "测试失败",
                 "install_plugin": "安装外部插件",
-                "uninstall_success": "插件卸载成功"
+                "uninstall_success": "插件卸载成功",
+                "homepage": "插件主页"
             },
             "history": {
                 "label": "历史记录",
