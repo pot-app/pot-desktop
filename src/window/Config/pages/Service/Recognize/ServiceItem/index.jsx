@@ -29,7 +29,6 @@ export default function ServiceItem(props) {
                 {serviceType === 'plugin' && name in pluginList && (
                     <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>
                 )}
-                <h2 className='my-auto'>{t(`services.recognize.${name}.title`)}</h2>
             </div>
             <div className='flex'>
                 <Button

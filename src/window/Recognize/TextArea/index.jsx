@@ -11,8 +11,10 @@ import { nanoid } from 'nanoid';
 
 import { serviceNameAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
 import * as buildinServices from '../../../services/recognize';
+import { store } from '../../../utils/store';
 import { useConfig } from '../../../hooks';
 import { base64Atom } from '../ImageArea';
+import { pluginListAtom } from '..';
 
 export const textAtom = atom();
 let recognizeId = 0;
@@ -28,44 +30,87 @@ export default function TextArea() {
     const [loading, setLoading] = useState(false);
     const [text, setText] = useAtom(textAtom);
     const [error, setError] = useState('');
+    const pluginList = useAtomValue(pluginListAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
+        setText('');
+        setError('');
         if (base64 !== '' && serviceName && autoCopy !== null && deleteNewline !== null && hideWindow !== null) {
             setLoading(true);
-            setText('');
-            setError('');
-            if (language in buildinServices[serviceName].Language) {
-                let id = nanoid();
-                recognizeId = id;
-                buildinServices[serviceName].recognize(base64, buildinServices[serviceName].Language[language]).then(
-                    (v) => {
-                        if (recognizeId !== id) return;
-                        if (deleteNewline) {
-                            v = v.replace(/\s+/g, ' ');
-                        }
-                        setText(v);
-                        setLoading(false);
-                        if (autoCopy) {
-                            writeText(v).then(() => {
-                                if (hideWindow) {
-                                    sendNotification({
-                                        title: t('common.write_clipboard'),
-                                        body: v,
+            if (serviceName.startsWith('[plugin]')) {
+                if (language in pluginList[serviceName].language) {
+                    let id = nanoid();
+                    recognizeId = id;
+                    store.get(serviceName).then((pluginConfig) => {
+                        invoke('invoke_plugin', {
+                            name: serviceName,
+                            pluginType: 'recognize',
+                            lang: pluginList[serviceName].language[language],
+                            base64: base64,
+                            needs: pluginConfig,
+                        }).then(
+                            (v) => {
+                                if (recognizeId !== id) return;
+                                if (deleteNewline) {
+                                    v = v.replace(/\s+/g, ' ');
+                                }
+                                setText(v);
+                                setLoading(false);
+                                if (autoCopy) {
+                                    writeText(v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({
+                                                title: t('common.write_clipboard'),
+                                                body: v,
+                                            });
+                                        }
                                     });
                                 }
-                            });
-                        }
-                    },
-                    (e) => {
-                        if (recognizeId !== id) return;
-                        setError(e.toString());
-                        setLoading(false);
-                    }
-                );
+                            },
+                            (e) => {
+                                if (recognizeId !== id) return;
+                                setError(e.toString());
+                                setLoading(false);
+                            }
+                        );
+                    });
+                }
             } else {
-                setError('Language not supported');
-                setLoading(false);
+                if (language in buildinServices[serviceName].Language) {
+                    let id = nanoid();
+                    recognizeId = id;
+                    buildinServices[serviceName]
+                        .recognize(base64, buildinServices[serviceName].Language[language])
+                        .then(
+                            (v) => {
+                                if (recognizeId !== id) return;
+                                if (deleteNewline) {
+                                    v = v.replace(/\s+/g, ' ');
+                                }
+                                setText(v);
+                                setLoading(false);
+                                if (autoCopy) {
+                                    writeText(v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({
+                                                title: t('common.write_clipboard'),
+                                                body: v,
+                                            });
+                                        }
+                                    });
+                                }
+                            },
+                            (e) => {
+                                if (recognizeId !== id) return;
+                                setError(e.toString());
+                                setLoading(false);
+                            }
+                        );
+                } else {
+                    setError('Language not supported');
+                    setLoading(false);
+                }
             }
         }
     }, [base64, serviceName, language, recognizeFlag, autoCopy, deleteNewline, hideWindow]);

@@ -80,8 +80,12 @@ export default function TargetArea(props) {
         setError('');
         if (serviceType === 'plugin' && pluginInfo === null) return;
         if (
-            (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null,
-            pluginConfig !== null)
+            sourceText !== '' &&
+            sourceLanguage &&
+            targetLanguage &&
+            autoCopy !== null &&
+            hideWindow !== null &&
+            pluginConfig !== null
         ) {
             if (autoCopy === 'source') {
                 writeText(sourceText).then(() => {

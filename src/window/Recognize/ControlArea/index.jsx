@@ -1,9 +1,8 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Button } from '@nextui-org/react';
-import { fetch, Body } from '@tauri-apps/api/http';
 import { atom, useAtom, useSetAtom, useAtomValue } from 'jotai';
+import { fetch, Body } from '@tauri-apps/api/http';
 import { useTranslation } from 'react-i18next';
 import { HiTranslate } from 'react-icons/hi';
-
 import { GiCycle } from 'react-icons/gi';
 import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
@@ -11,12 +10,14 @@ import { nanoid } from 'nanoid';
 import { languageList } from '../../../utils/language';
 import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
+import { pluginListAtom } from '..';
 
 export const serviceNameAtom = atom();
 export const languageAtom = atom();
 export const recognizeFlagAtom = atom();
 
 export default function ControlArea() {
+    const pluginList = useAtomValue(pluginListAtom);
     const [serviceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [serverPort] = useConfig('server_port', 60828);
@@ -45,7 +46,9 @@ export default function ControlArea() {
                             variant='bordered'
                             size='sm'
                         >
-                            {t(`services.recognize.${serviceName}.title`)}
+                            {serviceName.startsWith('[plugin]')
+                                ? pluginList[serviceName].display
+                                : t(`services.recognize.${serviceName}.title`)}
                         </Button>
                     </DropdownTrigger>
                     <DropdownMenu
@@ -56,7 +59,13 @@ export default function ControlArea() {
                         }}
                     >
                         {serviceList.map((name) => {
-                            return <DropdownItem key={name}>{t(`services.recognize.${name}.title`)}</DropdownItem>;
+                            return (
+                                <DropdownItem key={name}>
+                                    {name.startsWith('[plugin]')
+                                        ? pluginList[name].display
+                                        : t(`services.recognize.${name}.title`)}
+                                </DropdownItem>
+                            );
                         })}
                     </DropdownMenu>
                 </Dropdown>

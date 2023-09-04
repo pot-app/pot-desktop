@@ -149,7 +149,7 @@ pub fn invoke_plugin(
                         &str,
                         HashMap<String, String>,
                     ) -> Result<String, Box<dyn std::error::Error>>,
-                > = match lib.get(b"recogniza") {
+                > = match lib.get(b"recognize") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
                 };
