@@ -2,6 +2,7 @@ use crate::config::{get, set};
 use crate::window::*;
 use log::{info, warn};
 use std::thread;
+use tauri::api::notification;
 use tiny_http::{Request, Response, Server};
 
 pub fn start_server() {
@@ -13,7 +14,17 @@ pub fn start_server() {
         }
     };
     thread::spawn(move || {
-        let server = Server::http(format!("127.0.0.1:{port}")).unwrap();
+        let server = match Server::http(format!("127.0.0.1:{port}")) {
+            Ok(v) => v,
+            Err(e) => {
+                let _ = notification::Notification::new("com.pot-spp.com")
+                    .title("Server start failed")
+                    .body("Please Change Server Port and restart the application")
+                    .show();
+                warn!("Server start failed: {}", e);
+                return;
+            }
+        };
         for request in server.incoming_requests() {
             http_handle(request);
         }

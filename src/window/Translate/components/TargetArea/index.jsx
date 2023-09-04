@@ -13,14 +13,17 @@ import { nanoid } from 'nanoid';
 
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
+import * as buildinCollectionServices from '../../../../services/collection';
 import * as buildinServices from '../../../../services/translate';
 import * as buildinTtsServices from '../../../../services/tts';
+import { useConfig, useToastStyle } from '../../../../hooks';
 import { store } from '../../../../utils/store';
-import { useConfig } from '../../../../hooks';
+import { toast } from 'react-hot-toast';
 
 let translateID = [];
 
 export default function TargetArea(props) {
+    const [collectionServiceList] = useConfig('collection_service_list', []);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
@@ -36,6 +39,7 @@ export default function TargetArea(props) {
     const detectLanguage = useAtomValue(detectLanguageAtom);
     const { t } = useTranslation();
     const textAreaRef = useRef();
+    const toastStyle = useToastStyle();
 
     useEffect(() => {
         setResult('');
@@ -420,6 +424,59 @@ export default function TargetArea(props) {
                     >
                         <TbTransformFilled className='text-[16px]' />
                     </Button>
+                    {collectionServiceList &&
+                        collectionServiceList.map((serviceName) => {
+                            return (
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    onPress={async () => {
+                                        if (serviceName.startsWith('[plugin]')) {
+                                            const pluginConfig = (await store.get(serviceName)) ?? {};
+                                            invoke('invoke_plugin', {
+                                                name: serviceName,
+                                                pluginType: 'collection',
+                                                from: sourceText,
+                                                to: result.toString(),
+                                                needs: pluginConfig,
+                                            }).then(
+                                                (_) => {
+                                                    toast.success(t('services.collection.success'), {
+                                                        style: toastStyle,
+                                                    });
+                                                },
+                                                (e) => {
+                                                    toast.error(e.toString(), { style: toastStyle });
+                                                }
+                                            );
+                                        } else {
+                                            buildinCollectionServices[serviceName]
+                                                .collection(sourceText, result.toString())
+                                                .then(
+                                                    (_) => {
+                                                        toast.success(t('services.collection.success'), {
+                                                            style: toastStyle,
+                                                        });
+                                                    },
+                                                    (e) => {
+                                                        toast.error(e.toString(), { style: toastStyle });
+                                                    }
+                                                );
+                                        }
+                                    }}
+                                >
+                                    <img
+                                        src={
+                                            serviceName.startsWith('[plugin]')
+                                                ? pluginList['collection'][serviceName].icon
+                                                : buildinCollectionServices[serviceName].info.icon
+                                        }
+                                        className='h-[16px] w-[16px]'
+                                    />
+                                </Button>
+                            );
+                        })}
                 </ButtonGroup>
             </CardFooter>
         </Card>

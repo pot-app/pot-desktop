@@ -1,10 +1,8 @@
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card, Spacer, Button, useDisclosure } from '@nextui-org/react';
-import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 
-import { useToastStyle } from '../../../../../hooks';
 import SelectPluginModal from '../SelectPluginModal';
 import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
@@ -24,7 +22,6 @@ export default function Collection(props) {
     const [collectionServiceList, setCollectionServiceList] = useConfig('collection_service_list', []);
 
     const { t } = useTranslation();
-    const toastStyle = useToastStyle();
 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -52,7 +49,6 @@ export default function Collection(props) {
 
     return (
         <>
-            <Toaster />
             <Card className='h-[calc(100vh-120px)] overflow-y-auto p-5 flex justify-between'>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable

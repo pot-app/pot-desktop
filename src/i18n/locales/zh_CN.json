@@ -209,7 +209,7 @@
                 "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
             },
             "collection": {
-                "anki": { "title": "Anki" }
+                "anki": { "title": "Anki", "port": "端口号" }
             }
         },
         "translate": {

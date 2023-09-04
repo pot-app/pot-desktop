@@ -20,6 +20,7 @@ let blurTimeout = null;
 let resizeTimeout = null;
 
 const listenBlur = () => {
+    return;
     return listen('tauri://blur', () => {
         if (appWindow.label === 'translate') {
             if (blurTimeout) {
