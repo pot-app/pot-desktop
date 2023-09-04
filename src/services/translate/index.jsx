@@ -8,3 +8,5 @@ export * as openai_custom from './openai_custom';
 export * as google from './google';
 export * as transmart from './transmart';
 export * as alibaba from './alibaba';
+export * as baidu from './baidu';
+export * as baidu_field from './baidu_field';

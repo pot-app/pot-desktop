@@ -1,6 +1,10 @@
+import { DropdownTrigger } from '@nextui-org/react';
 import { Input, Button } from '@nextui-org/react';
+import { DropdownMenu } from '@nextui-org/react';
+import { DropdownItem } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { Dropdown } from '@nextui-org/react';
 import { open } from '@tauri-apps/api/shell';
 import React, { useState } from 'react';
 
@@ -12,15 +16,28 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [config, setConfig] = useConfig(
-        'alibaba',
+        'baidu_field',
         {
-            accesskey_id: '',
-            accesskey_secret: '',
+            appid: '',
+            secret: '',
+            field: 'it',
         },
         { sync: false }
     );
     const [isLoading, setIsLoading] = useState(false);
-
+    const fieldList = [
+        'it',
+        'finance',
+        'machinery',
+        'senimed',
+        'novel',
+        'academic',
+        'aerospace',
+        'wiki',
+        'news',
+        'law',
+        'contract',
+    ];
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
@@ -32,36 +49,62 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button
                         onPress={() => {
-                            open('https://pot-app.com/docs/tutorial/api/translate/alibaba');
+                            open('https://pot-app.com/docs/tutorial/api/translate/baidu');
                         }}
                     >
                         {t('services.help')}
                     </Button>
                 </div>
+                <div className='config-item'>
+                    <h3 style={{ margin: 'auto 0' }}>{t('services.translate.deepl.type')}</h3>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button variant='bordered'>{t(`services.translate.baidu_field.${config.field}`)}</Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label='app language'
+                            className='max-h-[50vh] overflow-y-auto'
+                            onAction={(key) => {
+                                setDeeplConfig({
+                                    ...config,
+                                    field: key,
+                                });
+                            }}
+                        >
+                            {fieldList.map((item) => {
+                                return (
+                                    <DropdownItem key={item}>
+                                        {t(`services.translate.baidu_field.${item}`)}
+                                    </DropdownItem>
+                                );
+                            })}
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_id')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.baidu.appid')}</h3>
                     <Input
-                        value={config['accesskey_id']}
+                        value={config['appid']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                accesskey_id: value,
+                                appid: value,
                             });
                         }}
                     />
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_secret')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.baidu.secret')}</h3>
                     <Input
-                        value={config['accesskey_secret']}
+                        value={config['secret']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                accesskey_secret: value,
+                                secret: value,
                             });
                         }}
                     />
@@ -77,7 +120,7 @@ export function Config(props) {
                                 () => {
                                     setIsLoading(false);
                                     setConfig(config, true);
-                                    updateServiceList('alibaba');
+                                    updateServiceList('baidu_field');
                                     onClose();
                                 },
                                 (e) => {

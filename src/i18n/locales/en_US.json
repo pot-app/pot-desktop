@@ -201,7 +201,27 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to will be replaced with the text to be translated, source language, and target language."
                 },
                 "yandex": { "title": "Yandex" },
-                "transmart": { "title": "TranSmart", "username": "User Name", "token": "Token" }
+                "transmart": { "title": "TranSmart", "username": "User Name", "token": "Token" },
+                "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },
+                "baidu_field": {
+                    "title": "Baidu Field",
+                    "it": "Information Technology",
+                    "finance": "Finance and Economics",
+                    "machinery": "Machinery Manufacturing",
+                    "senimed": "Biomedicine",
+                    "novel": "Network literature",
+                    "academic": "Academic Paper",
+                    "aerospace": "Aerospace",
+                    "wiki": "Humanities and Social Sciences",
+                    "news": "News and Information.",
+                    "law": "Laws and Regulations.",
+                    "contract": "Contract."
+                },
+                "alibaba": {
+                    "title": "Alibaba",
+                    "accesskey_id": "AccessKey ID",
+                    "accesskey_secret": "AccessKey Secret"
+                }
             },
             "recognize": {
                 "system": { "title": "System OCR" },

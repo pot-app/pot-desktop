@@ -12,10 +12,10 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [config, setConfig] = useConfig(
-        'alibaba',
+        'baidu',
         {
-            accesskey_id: '',
-            accesskey_secret: '',
+            appid: '',
+            secret: '',
         },
         { sync: false }
     );
@@ -32,36 +32,37 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button
                         onPress={() => {
-                            open('https://pot-app.com/docs/tutorial/api/translate/alibaba');
+                            open('https://pot-app.com/docs/tutorial/api/translate/baidu');
                         }}
                     >
                         {t('services.help')}
                     </Button>
                 </div>
+
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_id')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.baidu.appid')}</h3>
                     <Input
-                        value={config['accesskey_id']}
+                        value={config['appid']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                accesskey_id: value,
+                                appid: value,
                             });
                         }}
                     />
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.alibaba.accesskey_secret')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.baidu.secret')}</h3>
                     <Input
-                        value={config['accesskey_secret']}
+                        value={config['secret']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                accesskey_secret: value,
+                                secret: value,
                             });
                         }}
                     />
@@ -77,7 +78,7 @@ export function Config(props) {
                                 () => {
                                     setIsLoading(false);
                                     setConfig(config, true);
-                                    updateServiceList('alibaba');
+                                    updateServiceList('baidu');
                                     onClose();
                                 },
                                 (e) => {

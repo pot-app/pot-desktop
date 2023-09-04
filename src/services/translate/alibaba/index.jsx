@@ -20,20 +20,15 @@ export async function translate(text, from, to, options = {}) {
     if (accesskey_id === '' || accesskey_secret === '') {
         throw 'Please configure AccessKey ID and AccessKey Secret';
     }
-    if (!(from in supportLanguage) || !(to in supportLanguage)) {
-        throw 'Unsupported Language';
-    }
 
     let today = new Date();
     let timestamp = today.toISOString().replaceAll(/\.[0-9]*/g, '');
     let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
-    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${
-        supportLanguage[from]
-    }&SourceText=${encodeURIComponent(text)}&TargetLanguage=${supportLanguage[to]}&Timestamp=${encodeURIComponent(
-        timestamp
-    )}&Version=2018-10-12`;
+    let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${from}&SourceText=${encodeURIComponent(
+        text
+    )}&TargetLanguage=${to}&Timestamp=${encodeURIComponent(timestamp)}&Version=2018-10-12`;
 
     let CanonicalizedQueryString = endpoint + url_path + '?' + query;
 
@@ -58,13 +53,6 @@ export async function translate(text, from, to, options = {}) {
     if (res.ok) {
         let result = res.data;
         if (result['Code'] === '200') {
-            if (result['Data']['Translated'] === text) {
-                let secondLanguage = get('second_language') ?? 'en';
-                if (to !== secondLanguage) {
-                    await translate(text, from, secondLanguage, setText, id);
-                    return;
-                }
-            }
             return result['Data']['Translated'].trim();
         } else {
             throw JSON.stringify(result);
