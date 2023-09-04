@@ -221,6 +221,16 @@
                     "title": "Alibaba",
                     "accesskey_id": "AccessKey ID",
                     "accesskey_secret": "AccessKey Secret"
+                },
+                "tencent": {
+                    "title": "Tencent",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "volcengine": {
+                    "title": "VolcEngine",
+                    "appid": "AppID",
+                    "secret": "Secret"
                 }
             },
             "recognize": {

@@ -223,6 +223,16 @@
                     "title": "阿里翻译",
                     "accesskey_id": "AccessKey ID",
                     "accesskey_secret": "AccessKey Secret"
+                },
+                "tencent": {
+                    "title": "腾讯翻译",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "volcengine": {
+                    "title": "火山翻译",
+                    "appid": "AppID",
+                    "secret": "Secret"
                 }
             },
             "recognize": {
