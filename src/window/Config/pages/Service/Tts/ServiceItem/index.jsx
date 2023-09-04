@@ -11,7 +11,7 @@ export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, pluginList, ...drag } = props;
     const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
     const { t } = useTranslation();
-    console.log(pluginList);
+
     return serviceType === 'plugin' && !(name in pluginList) ? (
         <></>
     ) : (

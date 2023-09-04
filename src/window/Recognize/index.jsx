@@ -15,8 +15,8 @@ export default function Recognize() {
     const [pluginList, setPluginList] = useAtom(pluginListAtom);
 
     const loadPluginList = async () => {
+        let temp = {};
         if (await exists(`plugins/recognize`, { dir: BaseDirectory.AppConfig })) {
-            let temp = {};
             const plugins = await readDir(`plugins/recognize`, { dir: BaseDirectory.AppConfig });
             for (const plugin of plugins) {
                 const infoStr = await readTextFile(`plugins/recognize/${plugin.name}/info.json`, {
@@ -33,8 +33,8 @@ export default function Recognize() {
                 }
                 temp[plugin.name] = pluginInfo;
             }
-            setPluginList({ ...temp });
         }
+        setPluginList({ ...temp });
     };
 
     React.useEffect(() => {
