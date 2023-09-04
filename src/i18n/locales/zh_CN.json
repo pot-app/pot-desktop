@@ -186,6 +186,9 @@
                 },
                 "google": { "title": "谷歌翻译" },
                 "bing": { "title": "必应翻译" },
+                "openai_summary": { "title": "OpenAI 总结" },
+                "openai_polish": { "title": "OpenAI 润色" },
+                "openai_custom": { "title": "OpenAI 自定义" },
                 "openai": {
                     "title": "OpenAI",
                     "service": "服务提供商",
@@ -199,7 +202,8 @@
                     "user_prompt": "User Prompt",
                     "prompt_description": "通过自定义Prompt自定义OpenAI行为, $text $from $to 将会被替换为 待翻译文本，源语言和目标语言。"
                 },
-                "yandex": { "title": "Yandex" }
+                "yandex": { "title": "Yandex" },
+                "transmart": { "title": "腾讯交互翻译", "username": "用户名", "token": "Token" }
             },
             "recognize": {
                 "system": { "title": "系统 OCR" },

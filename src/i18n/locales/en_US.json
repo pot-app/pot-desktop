@@ -200,7 +200,8 @@
                     "user_prompt": "User Prompt",
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to will be replaced with the text to be translated, source language, and target language."
                 },
-                "yandex": { "title": "Yandex" }
+                "yandex": { "title": "Yandex" },
+                "transmart": { "title": "TranSmart", "username": "User Name", "token": "Token" }
             },
             "recognize": {
                 "system": { "title": "System OCR" },
