@@ -10,25 +10,38 @@ import { collection } from './index';
 export function Config(props) {
     const [isLoading, setIsLoading] = useState(false);
     const { updateServiceList, onClose } = props;
-    const [ankiConfig, setAnkiConfig] = useConfig('anki', { port: 8765 }, { sync: false });
+    const [config, setConfig] = useConfig('eudic', { name: 'pot', token: '' }, { sync: false });
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
     return (
-        ankiConfig !== null && (
+        config !== null && (
             <>
                 <Toaster />
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.collection.anki.port')}</h3>
+                    <h3 className='my-auto'>{t('services.collection.eudic.name')}</h3>
                     <Input
-                        value={ankiConfig['port']}
-                        type='number'
+                        value={config['name']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
-                            setAnkiConfig({
-                                ...ankiConfig,
-                                port: value,
+                            setConfig({
+                                ...config,
+                                name: value,
+                            });
+                        }}
+                    />
+                </div>
+                <div className={'config-item'}>
+                    <h3 className='my-auto'>{t('services.collection.eudic.token')}</h3>
+                    <Input
+                        value={config['token']}
+                        variant='bordered'
+                        className='max-w-[50%]'
+                        onValueChange={(value) => {
+                            setConfig({
+                                ...config,
+                                token: value,
                             });
                         }}
                     />
@@ -40,11 +53,11 @@ export function Config(props) {
                         color='primary'
                         onPress={() => {
                             setIsLoading(true);
-                            collection('test', '测试', { config: ankiConfig }).then(
+                            collection('test', '测试', { config }).then(
                                 () => {
                                     setIsLoading(false);
-                                    setAnkiConfig(ankiConfig, true);
-                                    updateServiceList('anki');
+                                    setConfig(config, true);
+                                    updateServiceList('eudic');
                                     onClose();
                                 },
                                 (e) => {

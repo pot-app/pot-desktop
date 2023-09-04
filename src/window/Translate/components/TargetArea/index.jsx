@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
+import toast, { Toaster } from 'react-hot-toast';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { invoke } from '@tauri-apps/api';
@@ -18,7 +19,6 @@ import * as buildinServices from '../../../../services/translate';
 import * as buildinTtsServices from '../../../../services/tts';
 import { useConfig, useToastStyle } from '../../../../hooks';
 import { store } from '../../../../utils/store';
-import { toast } from 'react-hot-toast';
 
 let translateID = [];
 
@@ -180,6 +180,7 @@ export default function TargetArea(props) {
             shadow='none'
             className='rounded-[10px]'
         >
+            <Toaster />
             <CardHeader
                 className={`flex justify-between py-1 pr-0 bg-content2 h-[30px] ${
                     hide ? 'rounded-[10px]' : 'rounded-t-[10px]'
@@ -428,6 +429,7 @@ export default function TargetArea(props) {
                         collectionServiceList.map((serviceName) => {
                             return (
                                 <Button
+                                    key={serviceName}
                                     isIconOnly
                                     variant='light'
                                     size='sm'
@@ -442,7 +444,7 @@ export default function TargetArea(props) {
                                                 needs: pluginConfig,
                                             }).then(
                                                 (_) => {
-                                                    toast.success(t('services.collection.success'), {
+                                                    toast.success(t('translate.add_collection_success'), {
                                                         style: toastStyle,
                                                     });
                                                 },
@@ -455,7 +457,7 @@ export default function TargetArea(props) {
                                                 .collection(sourceText, result.toString())
                                                 .then(
                                                     (_) => {
-                                                        toast.success(t('services.collection.success'), {
+                                                        toast.success(t('translate.add_collection_success'), {
                                                             style: toastStyle,
                                                         });
                                                     },

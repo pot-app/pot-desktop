@@ -209,11 +209,13 @@
                 "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
             },
             "collection": {
-                "anki": { "title": "Anki", "port": "端口号" }
+                "anki": { "title": "Anki", "port": "端口号" },
+                "eudic": { "title": "欧路词典", "name": "生词本名称", "token": "Token" }
             }
         },
         "translate": {
-            "translate": "翻译"
+            "translate": "翻译",
+            "add_collection_success": "添加成功"
         },
         "recognize": {
             "recognize": "重新识别",
