@@ -70,7 +70,7 @@
                 "icons/icon.ico"
             ],
             "deb": {
-                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr-all"]
+                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr"]
             },
             "windows": {
                 "certificateThumbprint": null,
