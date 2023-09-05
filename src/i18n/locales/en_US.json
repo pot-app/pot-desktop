@@ -249,7 +249,8 @@
         },
         "translate": {
             "translate": "Translate",
-            "add_collection_success": "Add to collection successfully"
+            "add_collection_success": "Add to collection successfully",
+            "recognizing": "Recognizing..."
         },
         "recognize": {
             "recognize": "Recognize",

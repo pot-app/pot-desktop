@@ -57,7 +57,7 @@ export default function SourceArea(props) {
             appWindow.setFocus();
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
-            setSourceText('Recognizing...');
+            setSourceText(t('translate.recognizing'));
             const base64 = await invoke('get_base64');
             const serviceName = recognizeServiceList[0];
             if (serviceName.startsWith('[plugin]')) {

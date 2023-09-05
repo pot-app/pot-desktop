@@ -195,9 +195,7 @@ export default function TargetArea(props) {
                                 className='h-[20px] my-auto'
                             />
                             <Spacer x={2} />
-                            <div className='my-auto'>{`${pluginList['translate'][name].display} [${t(
-                                'common.plugin'
-                            )}]`}</div>
+                            <div className='my-auto'>{`${pluginList['translate'][name].display} `}</div>
                         </>
                     ) : (
                         <>

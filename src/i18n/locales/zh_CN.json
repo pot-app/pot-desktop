@@ -239,7 +239,12 @@
                 "system": { "title": "系统 OCR" },
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "百度 OCR", "client_id": "API Key", "client_secret": "Secret Key" }
+                "baidu_ocr": { "title": "百度 OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "baidu_accurate_ocr": {
+                    "title": "百度 OCR (高精度)",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                }
             },
             "tts": {
                 "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
@@ -251,7 +256,8 @@
         },
         "translate": {
             "translate": "翻译",
-            "add_collection_success": "添加成功"
+            "add_collection_success": "添加成功",
+            "recognizing": "识别中..."
         },
         "recognize": {
             "recognize": "重新识别",
