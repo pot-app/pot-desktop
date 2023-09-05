@@ -237,6 +237,11 @@
                 "niutrans": {
                     "title": "小牛翻译",
                     "apikey": "API Key"
+                },
+                "youdao": {
+                    "title": "有道翻译",
+                    "appkey": "App ID",
+                    "key": "Key"
                 }
             },
             "recognize": {

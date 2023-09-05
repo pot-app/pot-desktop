@@ -61,10 +61,7 @@ export default function Service() {
     }, []);
     return (
         pluginList !== null && (
-            <Tabs
-                // disabledKeys={['collection']}
-                className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'
-            >
+            <Tabs className='flex justify-center max-h-[calc(100%-40px)] overflow-y-auto'>
                 <Tab
                     key='translate'
                     title={t(`config.service.translate`)}

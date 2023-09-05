@@ -235,6 +235,11 @@
                 "niutrans": {
                     "title": "NiuTrans",
                     "apikey": "API Key"
+                },
+                "youdao": {
+                    "title": "Youdao",
+                    "appkey": "App ID",
+                    "key": "Key"
                 }
             },
             "recognize": {

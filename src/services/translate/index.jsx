@@ -13,3 +13,4 @@ export * as baidu_field from './baidu_field';
 export * as tencent from './tencent';
 export * as volcengine from './volcengine';
 export * as niutrans from './niutrans';
+export * as youdao from './youdao';
