@@ -4,7 +4,7 @@ import { store } from '../../../utils/store';
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('baidu_ocr')) ?? {};
+    let recognizeConfig = (await store.get('baidu_accurate_ocr')) ?? {};
     if (config !== undefined) {
         recognizeConfig = config;
     }
