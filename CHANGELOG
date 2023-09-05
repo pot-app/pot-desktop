@@ -1,24 +1,21 @@
-## 2.0.0-beta.0 (2023-09-01)
+## 2.0.0 (2023-09-05)
 
-## 注意：此版本为预览版本，有大量接口缺失，请按需谨慎升级
+### 注意：V2 版本完全重写，配置文件和 V1 不兼容，如有需要请先备份相关信息
 
-## 注意：V2 版本完全重写，配置文件和 V1 不兼容，如有需要请先备份相关信息
+### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
-## 注意：Windows 用户请以管理员权限运行 pot 之后再更新
+### Note: V2 version is completely rewritten, the configuration file is not compatible with V1, please backup the related information if needed.
 
-## Note: This version is a preview version, there are a lot of interfaces missing, please upgrade carefully according to your needs.
+### Note: For Windows users, please run pot with administrator privileges before updating.
 
-## Note: V2 version is completely rewritten, the configuration file is not compatible with V1, please backup the related information if needed.
+### 新特性:
 
-## Note: For Windows users, please run pot with administrator privileges before updating.
+-   全新 UI
+-   支持插件系统
+-   支持 WebDav 备份设置和插件
 
 ### New feature:
 
--   New User Interface (by @Pylogmon)
--   Add WebDav Backup (by @Pylogmon)
--   Custom OpenAI Prompt (by @Pylogmon)
--   Add Window Border for Linux (by @Pylogmon)
--   Fix Chinese OCR Space Error (by @Pylogmon)
--   Add Translate Back (by @Pylogmon)
--   Add Language Detecter (by @Pylogmon)
--   Updater Window (by @Pylogmon)
+-   New User Interface
+-   Support Plugin System
+-   Support WebDav Backup
