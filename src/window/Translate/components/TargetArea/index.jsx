@@ -386,7 +386,7 @@ export default function TargetArea(props) {
                         isIconOnly
                         variant='light'
                         size='sm'
-                        onPress={() => {
+                        onPress={async () => {
                             setError('');
                             if (typeof result === 'string' && result !== '') {
                                 let newTargetLanguage = sourceLanguage;
@@ -397,15 +397,23 @@ export default function TargetArea(props) {
                                 if (sourceLanguage === 'auto') {
                                     newSourceLanguage = 'auto';
                                 }
-                                if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
-                                    setIsLoading(true);
-                                    buildinServices[name]
-                                        .translate(
-                                            result,
-                                            LanguageEnum[newSourceLanguage],
-                                            LanguageEnum[newTargetLanguage]
-                                        )
-                                        .then(
+                                if (name.startsWith('[plugin]')) {
+                                    const pluginInfo = pluginList['translate'][name];
+                                    if (
+                                        newSourceLanguage in pluginInfo.language &&
+                                        newTargetLanguage in pluginInfo.language
+                                    ) {
+                                        setIsLoading(true);
+                                        const pluginConfig = (await store.get(name)) ?? {};
+
+                                        invoke('invoke_plugin', {
+                                            name,
+                                            pluginType: 'translate',
+                                            text: result,
+                                            from: pluginInfo.language[newSourceLanguage],
+                                            to: pluginInfo.language[newTargetLanguage],
+                                            needs: pluginConfig,
+                                        }).then(
                                             (v) => {
                                                 setResult(v);
                                                 setIsLoading(false);
@@ -415,8 +423,32 @@ export default function TargetArea(props) {
                                                 setIsLoading(false);
                                             }
                                         );
+                                    } else {
+                                        setError('Language not supported');
+                                    }
                                 } else {
-                                    setError('Language not supported');
+                                    const LanguageEnum = buildinServices[name].Language;
+                                    if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
+                                        setIsLoading(true);
+                                        buildinServices[name]
+                                            .translate(
+                                                result,
+                                                LanguageEnum[newSourceLanguage],
+                                                LanguageEnum[newTargetLanguage]
+                                            )
+                                            .then(
+                                                (v) => {
+                                                    setResult(v);
+                                                    setIsLoading(false);
+                                                },
+                                                (e) => {
+                                                    setError(e.toString());
+                                                    setIsLoading(false);
+                                                }
+                                            );
+                                    } else {
+                                        setError('Language not supported');
+                                    }
                                 }
                             }
                         }}

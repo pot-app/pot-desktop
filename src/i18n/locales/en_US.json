@@ -284,6 +284,16 @@
                     "title": "Tencent Image Translate",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
+                },
+                "volcengine_ocr": {
+                    "title": "VolcEngine OCR",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "title": "VolcEngine OCR (Multi Language)",
+                    "appid": "App ID",
+                    "secret": "Secret"
                 }
             },
             "tts": {

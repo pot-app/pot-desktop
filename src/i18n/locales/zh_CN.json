@@ -286,6 +286,16 @@
                     "title": "腾讯图片翻译",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
+                },
+                "volcengine_ocr": {
+                    "title": "火山 OCR",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "title": "火山 OCR (多语言)",
+                    "appid": "App ID",
+                    "secret": "Secret"
                 }
             },
             "tts": {
