@@ -152,6 +152,12 @@ export default function General() {
                                     >
                                         简体中文
                                     </DropdownItem>
+                                    <DropdownItem
+                                        key='pt_br'
+                                        startContent={<span className={`fi fi-${LanguageFlag.pt_pt}`} />}
+                                    >
+                                        Português (Brasil)
+                                    </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

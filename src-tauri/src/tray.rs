@@ -44,6 +44,7 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
         .set_menu(match language.as_str() {
             "en" => tray_menu_en(),
             "zh_cn" => tray_menu_zh_cn(),
+            "pt_br" => tray_menu_pt_br(),
             _ => tray_menu_en(),
         })
         .unwrap();
@@ -204,6 +205,43 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
         .add_item(input_translate)
         .add_submenu(SystemTraySubmenu::new(
             "自动复制",
+            SystemTrayMenu::new()
+                .add_item(copy_source)
+                .add_item(copy_target)
+                .add_item(copy_source_target)
+                .add_native_item(SystemTrayMenuItem::Separator)
+                .add_item(copy_disable),
+        ))
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(ocr_recognize)
+        .add_item(ocr_translate)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(config)
+        .add_item(check_update)
+        .add_item(view_log)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(restart)
+        .add_item(quit)
+}
+
+fn tray_menu_pt_br() -> tauri::SystemTrayMenu {
+    let input_translate = CustomMenuItem::new("input_translate", "Traduzir Entrada");
+    let copy_source = CustomMenuItem::new("copy_source", "Origem");
+    let copy_target = CustomMenuItem::new("copy_target", "Destino");
+
+    let copy_source_target = CustomMenuItem::new("copy_source_target", "Origem+Destino");
+    let copy_disable = CustomMenuItem::new("copy_disable", "Desabilitar");
+    let ocr_recognize = CustomMenuItem::new("ocr_recognize", "Reconhecimento de Texto");
+    let ocr_translate = CustomMenuItem::new("ocr_translate", "Tradução de Imagem");
+    let config = CustomMenuItem::new("config", "Configurações");
+    let check_update = CustomMenuItem::new("check_update", "Checar por Atualização");
+    let restart = CustomMenuItem::new("restart", "Reiniciar aplicativo");
+    let view_log = CustomMenuItem::new("view_log", "Exibir Registro");
+    let quit = CustomMenuItem::new("quit", "Sair");
+    SystemTrayMenu::new()
+        .add_item(input_translate)
+        .add_submenu(SystemTraySubmenu::new(
+            "Copiar Automaticamente",
             SystemTrayMenu::new()
                 .add_item(copy_source)
                 .add_item(copy_target)
