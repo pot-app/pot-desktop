@@ -237,7 +237,29 @@
                 "system": { "title": "System OCR" },
                 "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" }
+                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "baidu_accurate_ocr": {
+                    "title": "Baidu OCR (Accurate)",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
+                "baidu_img_ocr": {
+                    "title": "Baidu Image Translate",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "iflytek_ocr": {
+                    "title": "iFlyTek OCR",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                },
+                "iflytek_intsig_ocr": {
+                    "title": "iFlyTek OCR (Intsig)",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                }
             },
             "tts": {
                 "lingva_tts": { "title": "Lingva", "request_path": "Request Path" }

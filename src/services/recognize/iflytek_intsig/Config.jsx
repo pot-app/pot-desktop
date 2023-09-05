@@ -12,10 +12,11 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [config, setConfig] = useConfig(
-        'baidu_img_ocr',
+        'iflytek_intsig_ocr',
         {
             appid: '',
-            secret: '',
+            apisecret: '',
+            apikey: '',
         },
         { sync: false }
     );
@@ -39,7 +40,7 @@ export function Config(props) {
                     </Button>
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.recognize.baidu_img_ocr.appid')}</h3>
+                    <h3 className='my-auto'>{t('services.recognize.iflytek_intsig_ocr.appid')}</h3>
                     <Input
                         value={config['appid']}
                         variant='bordered'
@@ -53,15 +54,29 @@ export function Config(props) {
                     />
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.recognize.baidu_img_ocr.secret')}</h3>
+                    <h3 className='my-auto'>{t('services.recognize.iflytek_intsig_ocr.apisecret')}</h3>
                     <Input
-                        value={config['secret']}
+                        value={config['apisecret']}
                         variant='bordered'
                         className='max-w-[50%]'
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
-                                secret: value,
+                                apisecret: value,
+                            });
+                        }}
+                    />
+                </div>
+                <div className={'config-item'}>
+                    <h3 className='my-auto'>{t('services.recognize.iflytek_intsig_ocr.apikey')}</h3>
+                    <Input
+                        value={config['apikey']}
+                        variant='bordered'
+                        className='max-w-[50%]'
+                        onValueChange={(value) => {
+                            setConfig({
+                                ...config,
+                                apikey: value,
                             });
                         }}
                     />
@@ -81,7 +96,7 @@ export function Config(props) {
                                 () => {
                                     setIsLoading(false);
                                     setConfig(config, true);
-                                    updateServiceList('baidu_img_ocr');
+                                    updateServiceList('iflytek_intsig_ocr');
                                     onClose();
                                 },
                                 (e) => {

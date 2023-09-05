@@ -204,7 +204,7 @@
                 },
                 "yandex": { "title": "Yandex" },
                 "transmart": { "title": "腾讯交互翻译", "username": "用户名", "token": "Token" },
-                "baidu": { "title": "百度翻译", "appid": "AppID", "secret": "Secret" },
+                "baidu": { "title": "百度翻译", "appid": "App ID", "secret": "Secret" },
                 "baidu_field": {
                     "title": "百度领域翻译",
                     "it": "信息技术",
@@ -231,7 +231,7 @@
                 },
                 "volcengine": {
                     "title": "火山翻译",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Secret"
                 }
             },
@@ -244,6 +244,23 @@
                     "title": "百度 OCR (高精度)",
                     "client_id": "API Key",
                     "client_secret": "Secret Key"
+                },
+                "baidu_img_ocr": {
+                    "title": "百度图片翻译",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "iflytek_ocr": {
+                    "title": "讯飞 OCR",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                },
+                "iflytek_intsig_ocr": {
+                    "title": "讯飞 OCR (Intsig)",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
                 }
             },
             "tts": {
