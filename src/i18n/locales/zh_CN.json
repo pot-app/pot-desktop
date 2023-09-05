@@ -296,6 +296,9 @@
                     "title": "火山 OCR (多语言)",
                     "appid": "App ID",
                     "secret": "Secret"
+                },
+                "qrcode": {
+                    "title": "二维码识别"
                 }
             },
             "tts": {

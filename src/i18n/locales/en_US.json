@@ -294,6 +294,9 @@
                     "title": "VolcEngine OCR (Multi Language)",
                     "appid": "App ID",
                     "secret": "Secret"
+                },
+                "qrcode": {
+                    "title": "QR Code"
                 }
             },
             "tts": {

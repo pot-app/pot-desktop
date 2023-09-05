@@ -13,3 +13,4 @@ export * as tencent_accurate_ocr from './tencent_accurate';
 export * as tencent_img_ocr from './tencent_img';
 export * as volcengine_ocr from './volcengine';
 export * as volcengine_multi_lang_ocr from './volcengine_multi_lang';
+export * as qrcode from './qrcode';
