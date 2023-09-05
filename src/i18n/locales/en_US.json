@@ -259,6 +259,12 @@
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
+                },
+                "iflytek_latex_ocr": {
+                    "title": "iFlyTek Latex",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
                 }
             },
             "tts": {

@@ -261,6 +261,12 @@
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
+                },
+                "iflytek_latex_ocr": {
+                    "title": "讯飞公式识别",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
                 }
             },
             "tts": {
