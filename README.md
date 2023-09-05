@@ -37,8 +37,8 @@
     <td>Press the shortcut key for translation input, enter the text to be translated, and press <code>Enter</code> to translate.
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/>
 <tr>
-    <td>Plugin Invocation
-    <td>Select the text to be translated and click the plugin icon. More information <a href="#plugin-invocation" target="_blank">Plugin Invocation</a>
+    <td>Invoke by other Software
+    <td>Achieving more convenient and efficient functionality through being called by other software. More information <a href="#invoke-by-other-software" target="_blank">Invoke by other Software</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/>
 <tr>
     <td>Clipboard Listening Mode
@@ -205,36 +205,60 @@ paru -S pot-translation # or pot-translation-bin or pot-translation-git
 2. If you are using `archlinuxcn`, you can install directly using pacman:
 
 ```bash
-sudo pacman -S pot-translation-bin
+sudo pacman -S pot-translation
 ```
 
 <div align="center">
 
-# Plugin Invocation
+# Invoke by other Software
 
 </div>
 
 ## Introduction
 
-Pot supports invoke by other software. In this way, with the help of other software, it is very convenient to translate.
+Pot supports invoke by other software. In this way, with the help of other software, it is very convenient to translate and ocr.
 
-Pot provides two ways to call it from outside, you can also call it through other software you like
+> This require the pot to keep running in the background.
 
-> Both ways require the pot to keep running in the background.
+Pot provides an HTTP interface that can be called by other software. You can call pot by sending a request to `127.0.0.1:port`, where `port` is the port number that pot listens on and can be changed in the software settings.
 
-1. Call the pot via the command line
-
-```bash
-pot popclip "hello world" # The second parameter is what you want to translate
-```
-
-2. Call the pot via the HTTP Request
+### API Documentation:
 
 ```bash
-curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # The body content is what you want to translate
+POST "/" => Translate the specified text.(Body is the text that needs to be translated),
+GET "/config" => Open App Config,
+GET "/translate" => Translate the specified text.(Same as "/"),
+GET "/selection_translate" => Selection Translate,
+GET "/input_translate" => Input Translate,
+GET "/ocr_recognize" => Screenshot OCR,
+GET "/ocr_translate" => Screenshot Translate,
+GET "/ocr_recognize?screenshot=false" => Screenshot OCR(Do not use in-software screenshots),
+GET "/ocr_translate?screenshot=false" => Screenshot Translate(Do not use in-software screenshots),
+GET "/ocr_recognize?screenshot=true" => Screenshot OCR,
+GET "/ocr_translate?screenshot=true" => Screenshot Translate,
 ```
 
-## Existing Usage
+### Example
+
+-   Invoke Selection Translate：
+
+```bash
+curl "127.0.0.1:60828/selection_translate"
+```
+
+-   Using grim for OCR screenshot on Wayland(When you don't want to use the in-app screenshot feature or it's not available, simply save the screenshot using another software to $CACHE/com.pot-app.desktop/pot_screenshot_cut.png and then call pot to complete OCR.)：
+
+```bash
+grim -g "$(slurp)" ~/.cache/com.pot-app.pot-desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_recognize?screenshot=false"
+```
+
+-   Translate "Hello World"：
+
+```bash
+curl "127.0.0.1:60828/translate" -X POST -d "Hello World"
+```
+
+## Existing Usage (Quick Selection Translate)
 
 ### SnipDo (Windows)
 
@@ -267,29 +291,17 @@ Due to the varying levels of support for Wayland among different distributions, 
 ## Shortcut key cannot be used
 
 Due to Tauri's lack of support for Wayland, the shortcut key scheme in the pot application cannot be used under Wayland.
-To address this issue, pot provides command-line startup parameters that allow system shortcuts to be set through commands.
-
-> All commands need "pot" to remain running in the background.
-
-```bash
-pot cofig # Start the configuration window
-pot persistent # Input translation
-pot translate # Selection translation
-pot screenshot_ocr # Screenshot OCR
-pot screenshot_translate # Screenshot Translate
-pot screenshot_ocr without_screenshot # Screenshot OCR(without screenshot)
-pot screenshot_translate without_screenshot # Screenshot Translate(without screenshot)
-```
+You can set the system shortcut and send a request with `curl` to call pot, see [Invoke by other Software](#invoke-by-other-software) for details
 
 ## Screenshot doesn't work
 
-In some pure Wayland desktop environments/window managers (such as Hyprland), the built-in screenshot feature of pot cannot be used. In this case, you can use other screenshot tools instead by using command line parameters. Simply save the screenshot to `~/.cache/com.pylogmon.pot/pot_screenshot_cut.png` and then execute `pot screenshot_ocr without_screenshot`.
+In some pure Wayland desktop environments/window managers (such as Hyprland), the built-in screenshot feature of pot cannot be used. In this case, you can use other screenshot tools instead by using command line parameters. Simply save the screenshot to `~/.cache/com.pot-app.desktop/pot_screenshot_cut.png` and then execute `pot screenshot_ocr without_screenshot`.
 
 Here is an example configuration in Hyprland (using grim and slurp for screenshots):
 
 ```conf
-bind = ALT, X, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_ocr without_screenshot
-bind = ALT, C, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_translate without_screenshot
+bind = ALT, X, exec, grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_recognize?screenshot=false"
+bind = ALT, C, exec, grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_translate?screenshot=false"
 ```
 
 Other desktop environments/window managers also have similar operations.

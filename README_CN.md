@@ -37,8 +37,8 @@
     <td>按下输入翻译快捷键呼出翻译窗口，输入待翻译文本后按下 <code>回车</code> 翻译
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/>
 <tr>
-    <td>插件调用
-    <td>选中需要翻译的文本后点击插件图标翻译，详情见 <a href="#插件调用" target="_blank">插件调用</a>
+    <td>通过其他软件调用
+    <td>通过被其他软件调用实现更加方便高效的功能。，详情见 <a href="#通过其他软件调用" target="_blank">通过其他软件调用</a>
     <td><img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/>
 <tr>
     <td>剪切板监听模式
@@ -209,36 +209,60 @@ yay -S pot-translation # 或 pot-translation-bin
 2. 如果你使用 `archlinuxcn` 源，可以直接使用 pacman 安装
 
 ```bash
-sudo pacman -S pot-translation-bin
+sudo pacman -S pot-translation
 ```
 
 <div align="center">
 
-# 插件调用
+# 通过其他软件调用
 
 </div>
 
-## 使用说明
+## 简介
 
-Pot 支持被其他软件调用。通过这种方式，借助其他软件的帮助，可以实现更方便地翻译。。
+Pot 支持被其他软件调用。配合其他软件，可以更加方便快捷地完成翻译和 OCR。
 
-Pot 提供了两种外部调用的方式，你也可以通过喜欢的其他软件来调用它。
+> This require the pot to keep running in the background.
 
-> 两种方式都需要 pot 保持后台运行
+Pot 提供了一个 HTTP 接口，可以被其他软件调用。您可以通过向`127.0.0.1:port`发送请求来调用 pot，其中的`port`是 pot 监听的端口号，并且可以在软件设置中进行更改。
 
-1. 通过命令行调用（不支持 MacOS）
-
-```bash
-pot popclip "hello world" # 第二个参数为需要翻译的文本
-```
-
-2. 通过 Http 请求调用
+### API 文档:
 
 ```bash
-curl 'http://127.0.0.1:60828' -X POST -d "Hello world" # Body内容为需要翻译的文本
+POST "/" => 翻译指定文本(body为需要翻译的文本),
+GET "/config" => 打开设置,
+GET "/translate" => 翻译指定文本(同"/"),
+GET "/selection_translate" => 划词翻译,
+GET "/input_translate" => 输入翻译,
+GET "/ocr_recognize" => 截图OCR,
+GET "/ocr_translate" => 截图翻译,
+GET "/ocr_recognize?screenshot=false" => 截图OCR(不使用软件内截图),
+GET "/ocr_translate?screenshot=false" => 截图翻译(不使用软件内截图),
+GET "/ocr_recognize?screenshot=true" => 截图OCR,
+GET "/ocr_translate?screenshot=true" => 截图翻译,
 ```
 
-## 现有用法
+### 示例：
+
+-   调用划词翻译：
+
+```bash
+curl "127.0.0.1:60828/selection_translate"
+```
+
+-   Wayland 下使用 grim 截图 OCR(当您不想使用应用内截图功能或该功能不可用时，只需使用其他软件将截图保存到`$CACHE/com.pot-app.desktop/pot_screenshot_cut.png`，然后调用 pot 完成 OCR)：
+
+```bash
+grim -g "$(slurp)" ~/.cache/com.pot-app.pot-desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_recognize?screenshot=false"
+```
+
+-   翻译 "Hello World"：
+
+```bash
+curl "127.0.0.1:60828/translate" -X POST -d "Hello World"
+```
+
+## 现有用法 (快捷划词翻译)
 
 ### SnipDo (Windows)
 
@@ -270,29 +294,17 @@ Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 ## 快捷键无法使用
 
-由于 Tauri 的快捷键方案并没有支持 Wayland，所以 pot 应用内的快捷键设置在 Wayland 下无法使用。 针对这一问题 pot 提供了命令行启动参数，可以通过命令来设置系统快捷键。
-
-> 所有命令都需要 pot 保持后台运行
-
-```bash
-pot cofig # 启动pot设置
-pot persistent # 启动输入翻译窗口
-pot translate # 划词翻译
-pot screenshot_ocr # 截图OCR
-pot screenshot_translate # 截图翻译
-pot screenshot_ocr without_screenshot # 截图OCR(不使用pot截图)
-pot screenshot_translate without_screenshot # 截图翻译(不使用pot截图)
-```
+由于 Tauri 的快捷键方案并没有支持 Wayland，所以 pot 应用内的快捷键设置在 Wayland 下无法使用。 您可以设置系统快捷用 curl 发送请求调用 pot，详见[通过其他软件调用](#通过其他软件调用)
 
 ## 截图无法使用
 
-在一些纯 Wayland 桌面环境/窗口管理器(如 Hyprland)上，pot 内置的截图无法使用，这时可以通过命令行参数来使用其他截图工具代替，只要实现截图后保存在 `~/.cache/com.pylogmon.pot/pot_screenshot_cut.png` 后再执行 `pot screenshot_ocr without_screenshot` 即可。
+在一些纯 Wayland 桌面环境/窗口管理器(如 Hyprland)上，pot 内置的截图无法使用，这时可以通过命令行参数来使用其他截图工具代替，只要实现截图后保存在 `~/.cache/com.pot-app.desktop/pot_screenshot_cut.png` 后再执行 `pot screenshot_ocr without_screenshot` 即可。
 
 下面给出在 Hyprland 下的配置示例(通过 grim 和 slurp 实现截图)：
 
 ```conf
-bind = ALT, X, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_ocr without_screenshot
-bind = ALT, C, exec, grim -g "$(slurp)" ~/.cache/com.pylogmon.pot/pot_screenshot_cut.png && pot screenshot_translate without_screenshot
+bind = ALT, X, exec, grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_recognize?screenshot=false"
+bind = ALT, C, exec, grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && curl "127.0.0.1:60828/ocr_translate?screenshot=false"
 ```
 
 其他桌面环境/窗口管理器也是类似的操作
