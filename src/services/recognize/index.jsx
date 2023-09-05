@@ -7,3 +7,4 @@ export * as baidu_img_ocr from './baidu_img';
 export * as iflytek_ocr from './iflytek';
 export * as iflytek_intsig_ocr from './iflytek_intsig';
 export * as iflytek_latex_ocr from './iflytek_latex';
+export * as simple_latex_ocr from './simple_latex';

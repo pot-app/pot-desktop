@@ -265,6 +265,10 @@
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
+                },
+                "simple_latex_ocr": {
+                    "title": "Simple Latex",
+                    "token": "Token"
                 }
             },
             "tts": {
