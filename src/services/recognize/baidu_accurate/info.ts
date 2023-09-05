@@ -17,7 +17,7 @@ export enum Language {
     de = 'GER',
     it = 'ITA',
     tr = 'TUR',
-    pt = 'POR',
+    pt_pt = 'POR',
     pt_br = 'POR',
     vi = 'VIE',
     id = 'IND',

@@ -233,6 +233,10 @@
                     "title": "火山翻译",
                     "appid": "App ID",
                     "secret": "Secret"
+                },
+                "niutrans": {
+                    "title": "小牛翻译",
+                    "apikey": "API Key"
                 }
             },
             "recognize": {

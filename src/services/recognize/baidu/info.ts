@@ -16,6 +16,6 @@ export enum Language {
     ru = 'RUS',
     de = 'GER',
     it = 'ITA',
-    pt = 'POR',
+    pt_pt = 'POR',
     pt_br = 'POR',
 }

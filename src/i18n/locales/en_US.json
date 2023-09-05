@@ -231,6 +231,10 @@
                     "title": "VolcEngine",
                     "appid": "AppID",
                     "secret": "Secret"
+                },
+                "niutrans": {
+                    "title": "NiuTrans",
+                    "apikey": "API Key"
                 }
             },
             "recognize": {

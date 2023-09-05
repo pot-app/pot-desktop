@@ -16,7 +16,7 @@ export enum Language {
     ru = 'ru',
     de = 'de',
     it = 'it',
-    pt = 'pt',
+    pt_pt = 'pt',
     pt_br = 'pt',
     vi = 'vi',
     th = 'th',
