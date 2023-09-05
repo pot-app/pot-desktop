@@ -279,6 +279,11 @@
                     "title": "Tencent OCR (Accurate)",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
+                },
+                "tencent_img_ocr": {
+                    "title": "Tencent Image Translate",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
                 }
             },
             "tts": {

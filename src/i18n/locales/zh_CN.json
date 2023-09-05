@@ -281,6 +281,11 @@
                     "title": "腾讯 OCR (高精度)",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
+                },
+                "tencent_img_ocr": {
+                    "title": "腾讯图片翻译",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
                 }
             },
             "tts": {
