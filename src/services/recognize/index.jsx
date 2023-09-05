@@ -8,3 +8,5 @@ export * as iflytek_ocr from './iflytek';
 export * as iflytek_intsig_ocr from './iflytek_intsig';
 export * as iflytek_latex_ocr from './iflytek_latex';
 export * as simple_latex_ocr from './simple_latex';
+export * as tencent_ocr from './tencent';
+export * as tencent_accurate_ocr from './tencent_accurate';

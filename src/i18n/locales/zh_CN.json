@@ -271,6 +271,16 @@
                 "simple_latex_ocr": {
                     "title": "Simple Latex",
                     "token": "Token"
+                },
+                "tencent_ocr": {
+                    "title": "腾讯 OCR",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "tencent_accurate_ocr": {
+                    "title": "腾讯 OCR (高精度)",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
                 }
             },
             "tts": {
