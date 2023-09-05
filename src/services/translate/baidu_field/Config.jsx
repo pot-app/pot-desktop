@@ -65,7 +65,7 @@ export function Config(props) {
                             aria-label='app language'
                             className='max-h-[50vh] overflow-y-auto'
                             onAction={(key) => {
-                                setDeeplConfig({
+                                setConfig({
                                     ...config,
                                     field: key,
                                 });
