@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAtom } from 'jotai';
 
 export const useSyncAtom = (atom) => {

@@ -35,7 +35,7 @@ export default function SourceArea(props) {
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
-    const [langDetectEngine] = useConfig('translate_detect_engine', 'local');
+    const [langDetectEngine] = useConfig('translate_detect_engine', 'baidu');
     const [hideWindow] = useConfig('translate_hide_window', false);
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const { t } = useTranslation();

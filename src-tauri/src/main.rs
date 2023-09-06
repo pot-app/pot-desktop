@@ -103,7 +103,7 @@ fn main() {
             check_update(app.handle());
             match get("translate_detect_engine") {
                 Some(v) => {
-                    if v.as_str().unwrap() == "local" {
+                    if v.as_str().unwrap() == "baidu" {
                         init_lang_detect();
                     }
                 }
