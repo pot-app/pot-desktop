@@ -61,7 +61,7 @@ export default function Translate() {
     const [hideLanguage] = useConfig('hide_language', false);
     const [pined, setPined] = useState(false);
     const [pluginList, setPluginList] = useState(null);
-
+    const [serviceConfig, setServiceConfig] = useState(null);
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
@@ -134,6 +134,19 @@ export default function Translate() {
         }
     }, []);
 
+    const getServiceConfig = async () => {
+        let config = {};
+        for (const service of translateServiceList) {
+            config[service] = (await store.get(service)) ?? {};
+        }
+        setServiceConfig({ ...config });
+    };
+    useEffect(() => {
+        if (translateServiceList !== null) {
+            getServiceConfig();
+        }
+    }, [translateServiceList]);
+
     return (
         pluginList && (
             <div
@@ -200,8 +213,11 @@ export default function Translate() {
                                         {...provided.droppableProps}
                                     >
                                         {translateServiceList !== null &&
+                                            serviceConfig !== null &&
                                             translateServiceList.map((service, index) => {
-                                                return (
+                                                const enable = serviceConfig[service]['enable'] ?? true;
+
+                                                return enable ? (
                                                     <Draggable
                                                         key={service}
                                                         draggableId={service}
@@ -217,11 +233,14 @@ export default function Translate() {
                                                                     pluginList={pluginList}
                                                                     name={service}
                                                                     index={index}
+                                                                    translateServiceList={translateServiceList}
                                                                 />
                                                                 <Spacer y={2} />
                                                             </div>
                                                         )}
                                                     </Draggable>
+                                                ) : (
+                                                    <></>
                                                 );
                                             })}
                                     </div>

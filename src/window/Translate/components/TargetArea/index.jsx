@@ -1,4 +1,17 @@
-import { Card, CardBody, CardHeader, CardFooter, Spacer, Button, ButtonGroup, Skeleton } from '@nextui-org/react';
+import {
+    Card,
+    CardBody,
+    CardHeader,
+    CardFooter,
+    Spacer,
+    Button,
+    ButtonGroup,
+    Skeleton,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+} from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
@@ -28,7 +41,8 @@ export default function TargetArea(props) {
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const [hideWindow] = useConfig('translate_hide_window', false);
-    const { name, index, pluginList, ...drag } = props;
+    const { name, index, translateServiceList, pluginList, ...drag } = props;
+    const [translateServiceName, setTranslateServiceName] = useState(name);
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -54,22 +68,22 @@ export default function TargetArea(props) {
             }
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, translateServiceName]);
 
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
-        if (name.startsWith('[plugin]')) {
-            const pluginInfo = pluginList['translate'][name];
+        if (translateServiceName.startsWith('[plugin]')) {
+            const pluginInfo = pluginList['translate'][translateServiceName];
             if (sourceLanguage in pluginInfo.language && targetLanguage in pluginInfo.language) {
                 let newTargetLanguage = targetLanguage;
                 if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                const pluginConfig = (await store.get(name)) ?? {};
+                const pluginConfig = (await store.get(translateServiceName)) ?? {};
                 invoke('invoke_plugin', {
-                    name,
+                    name: translateServiceName,
                     pluginType: 'translate',
                     text: sourceText,
                     from: pluginInfo.language[sourceLanguage],
@@ -112,14 +126,14 @@ export default function TargetArea(props) {
                 );
             }
         } else {
-            const LanguageEnum = buildinServices[name].Language;
+            const LanguageEnum = buildinServices[translateServiceName].Language;
             if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
                 let newTargetLanguage = targetLanguage;
                 if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                buildinServices[name]
+                buildinServices[translateServiceName]
                     .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
                         setResult: (v) => {
                             if (translateID[index] !== id) return;
@@ -182,31 +196,76 @@ export default function TargetArea(props) {
         >
             <Toaster />
             <CardHeader
-                className={`flex justify-between py-1 pr-0 bg-content2 h-[30px] ${
+                className={`flex justify-between py-1 px-0 bg-content2 h-[30px] ${
                     hide ? 'rounded-[10px]' : 'rounded-t-[10px]'
                 }`}
                 {...drag}
             >
                 <div className='flex'>
-                    {name.startsWith('[plugin]') ? (
-                        <>
-                            <img
-                                src={pluginList['translate'][name].icon}
-                                className='h-[20px] my-auto'
-                            />
-                            <Spacer x={2} />
-                            <div className='my-auto'>{`${pluginList['translate'][name].display} `}</div>
-                        </>
-                    ) : (
-                        <>
-                            <img
-                                src={buildinServices[name].info.icon}
-                                className='h-[20px] my-auto'
-                            />
-                            <Spacer x={2} />
-                            <div className='my-auto'>{t(`services.translate.${name}.title`)}</div>
-                        </>
-                    )}
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button
+                                size='sm'
+                                variant='solid'
+                                className='bg-transparent'
+                                startContent={
+                                    translateServiceName.startsWith('[plugin]') ? (
+                                        <img
+                                            src={pluginList['translate'][translateServiceName].icon}
+                                            className='h-[20px] my-auto'
+                                        />
+                                    ) : (
+                                        <img
+                                            src={buildinServices[translateServiceName].info.icon}
+                                            className='h-[20px] my-auto'
+                                        />
+                                    )
+                                }
+                            >
+                                {translateServiceName.startsWith('[plugin]') ? (
+                                    <div className='my-auto'>{`${pluginList['translate'][translateServiceName].display} `}</div>
+                                ) : (
+                                    <div className='my-auto'>
+                                        {t(`services.translate.${translateServiceName}.title`)}
+                                    </div>
+                                )}
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label='app language'
+                            className='max-h-[40vh] overflow-y-auto'
+                            onAction={(key) => {
+                                setTranslateServiceName(key);
+                            }}
+                        >
+                            {translateServiceList.map((x) => {
+                                return (
+                                    <DropdownItem
+                                        key={x}
+                                        startContent={
+                                            x.startsWith('[plugin]') ? (
+                                                <img
+                                                    src={pluginList['translate'][x].icon}
+                                                    className='h-[20px] my-auto'
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={buildinServices[x].info.icon}
+                                                    className='h-[20px] my-auto'
+                                                />
+                                            )
+                                        }
+                                    >
+                                        {x.startsWith('[plugin]') ? (
+                                            <div className='my-auto'>{`${pluginList['translate'][x].display} `}</div>
+                                        ) : (
+                                            <div className='my-auto'>{t(`services.translate.${x}.title`)}</div>
+                                        )}
+                                    </DropdownItem>
+                                );
+                            })}
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
                 <div className='flex'>
                     <Button
@@ -397,17 +456,17 @@ export default function TargetArea(props) {
                                 if (sourceLanguage === 'auto') {
                                     newSourceLanguage = 'auto';
                                 }
-                                if (name.startsWith('[plugin]')) {
-                                    const pluginInfo = pluginList['translate'][name];
+                                if (translateServiceName.startsWith('[plugin]')) {
+                                    const pluginInfo = pluginList['translate'][translateServiceName];
                                     if (
                                         newSourceLanguage in pluginInfo.language &&
                                         newTargetLanguage in pluginInfo.language
                                     ) {
                                         setIsLoading(true);
-                                        const pluginConfig = (await store.get(name)) ?? {};
+                                        const pluginConfig = (await store.get(translateServiceName)) ?? {};
 
                                         invoke('invoke_plugin', {
-                                            name,
+                                            name: translateServiceName,
                                             pluginType: 'translate',
                                             text: result,
                                             from: pluginInfo.language[newSourceLanguage],
@@ -427,10 +486,10 @@ export default function TargetArea(props) {
                                         setError('Language not supported');
                                     }
                                 } else {
-                                    const LanguageEnum = buildinServices[name].Language;
+                                    const LanguageEnum = buildinServices[translateServiceName].Language;
                                     if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
                                         setIsLoading(true);
-                                        buildinServices[name]
+                                        buildinServices[translateServiceName]
                                             .translate(
                                                 result,
                                                 LanguageEnum[newSourceLanguage],
