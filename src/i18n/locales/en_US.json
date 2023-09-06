@@ -234,6 +234,7 @@
                 },
                 "niutrans": {
                     "title": "NiuTrans",
+                    "https": "Use Https",
                     "apikey": "API Key"
                 },
                 "youdao": {

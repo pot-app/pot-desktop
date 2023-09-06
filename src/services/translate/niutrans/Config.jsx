@@ -1,4 +1,4 @@
-import { Input, Button } from '@nextui-org/react';
+import { Input, Button, Switch } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { open } from '@tauri-apps/api/shell';
@@ -14,6 +14,7 @@ export function Config(props) {
     const [config, setConfig] = useConfig(
         'niutrans',
         {
+            https: true,
             apikey: '',
         },
         { sync: false }
@@ -36,6 +37,15 @@ export function Config(props) {
                     >
                         {t('services.help')}
                     </Button>
+                </div>
+                <div className={'config-item'}>
+                    <h3 className='my-auto'>{t('services.translate.niutrans.https')}</h3>
+                    <Switch
+                        isSelected={config['https'] ?? true}
+                        onValueChange={(v) => {
+                            setConfig({ ...config, https: v });
+                        }}
+                    />
                 </div>
                 <div className={'config-item'}>
                     <h3 className='my-auto'>{t('services.translate.niutrans.apikey')}</h3>

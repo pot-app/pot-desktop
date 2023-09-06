@@ -236,6 +236,7 @@
                 },
                 "niutrans": {
                     "title": "小牛翻译",
+                    "https": "使用 Https",
                     "apikey": "API Key"
                 },
                 "youdao": {
