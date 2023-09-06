@@ -37,7 +37,7 @@ export async function recognize(base64, language, options = {}) {
                 fileName: 'pot_screenshot_cut.png',
             },
             from: 'auto',
-            to: language,
+            to: language === 'auto' ? 'zh' : language,
             appid: appid,
             salt: salt,
             cuid: 'APICUID',

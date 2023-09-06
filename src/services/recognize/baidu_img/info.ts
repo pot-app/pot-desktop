@@ -4,7 +4,7 @@ export const info = {
 };
 
 export enum Language {
-    auto = 'zh',
+    auto = 'auto',
     zh_cn = 'zh',
     zh_tw = 'cht',
     yue = 'yue',
