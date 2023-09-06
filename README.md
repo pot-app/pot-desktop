@@ -119,7 +119,7 @@
 -   [x] [iFlytek](https://www.xfyun.cn/services/common-ocr)
 -   [x] [Tencent Image Translation](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [Baidu Image Translation](https://fanyi-api.baidu.com/product/22)
--   [x] [Simple Latex](https://simpletex.cn/)
+-   [x] [Simple LaTeX](https://simpletex.cn/)
 -   [ ] and more...
 
 <div align="center">

@@ -119,7 +119,7 @@
 -   [x] [迅飞](https://www.xfyun.cn/services/common-ocr)
 -   [x] [腾讯图片翻译](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [百度图片翻译](https://fanyi-api.baidu.com/product/22)
--   [x] [Simple Latex](https://simpletex.cn/)
+-   [x] [Simple LaTeX](https://simpletex.cn/)
 -   [ ] 持续增加...
 
 <div align="center">

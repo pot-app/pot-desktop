@@ -278,7 +278,7 @@
                     "apikey": "API Key"
                 },
                 "simple_latex_ocr": {
-                    "title": "Simple Latex",
+                    "title": "Simple LaTeX",
                     "token": "Token"
                 },
                 "tencent_ocr": {

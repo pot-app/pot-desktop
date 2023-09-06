@@ -270,13 +270,13 @@
                     "apikey": "API Key"
                 },
                 "iflytek_latex_ocr": {
-                    "title": "iFlyTek Latex",
+                    "title": "iFlyTek LaTeX",
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
                 "simple_latex_ocr": {
-                    "title": "Simple Latex",
+                    "title": "Simple LaTeX",
                     "token": "Token"
                 },
                 "tencent_ocr": {
