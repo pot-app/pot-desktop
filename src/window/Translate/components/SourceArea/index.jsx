@@ -248,72 +248,68 @@ export default function SourceArea(props) {
             </CardBody>
 
             <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
-                <ButtonGroup>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        onPress={async () => {
-                            const serviceName = ttsServiceList[0];
-                            if (serviceName.startsWith('[plugin]')) {
-                                const config = (await store.get(serviceName)) ?? {};
-                                invoke('invoke_plugin', {
-                                    name: serviceName,
-                                    pluginType: 'tts',
-                                    text: sourceText,
-                                    lang: ttsPluginInfo.language[detectLanguage],
-                                    needs: config,
-                                });
-                            } else {
-                                await buildinTtsServices[serviceName].tts(
-                                    sourceText,
-                                    buildinTtsServices[serviceName].Language[detectLanguage]
-                                );
-                            }
-                        }}
-                    >
-                        <HiOutlineVolumeUp className='text-[16px]' />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        onPress={() => {
-                            writeText(sourceText);
-                        }}
-                    >
-                        <MdContentCopy className='text-[16px]' />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        onPress={() => {
-                            const newText = sourceText.replace(/\s+/g, ' ');
-                            detect_language(newText).then(() => {
-                                setSourceText(newText, true);
-                            });
-                        }}
-                    >
-                        <MdSmartButton className='text-[16px]' />
-                    </Button>
-                    {detectLanguage !== '' && (
+                <div className='flex justify-start'>
+                    <ButtonGroup className='mr-[5px]'>
                         <Button
-                            variant='flat'
+                            isIconOnly
+                            variant='light'
                             size='sm'
-                            className='bg-transparent'
+                            onPress={async () => {
+                                const serviceName = ttsServiceList[0];
+                                if (serviceName.startsWith('[plugin]')) {
+                                    const config = (await store.get(serviceName)) ?? {};
+                                    invoke('invoke_plugin', {
+                                        name: serviceName,
+                                        pluginType: 'tts',
+                                        text: sourceText,
+                                        lang: ttsPluginInfo.language[detectLanguage],
+                                        needs: config,
+                                    });
+                                } else {
+                                    await buildinTtsServices[serviceName].tts(
+                                        sourceText,
+                                        buildinTtsServices[serviceName].Language[detectLanguage]
+                                    );
+                                }
+                            }}
                         >
-                            <Chip
-                                size='sm'
-                                color='secondary'
-                                variant='dot'
-                                className='my-auto'
-                            >
-                                {t(`languages.${detectLanguage}`)}
-                            </Chip>
+                            <HiOutlineVolumeUp className='text-[16px]' />
                         </Button>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            onPress={() => {
+                                writeText(sourceText);
+                            }}
+                        >
+                            <MdContentCopy className='text-[16px]' />
+                        </Button>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            onPress={() => {
+                                const newText = sourceText.replace(/\s+/g, ' ');
+                                detect_language(newText).then(() => {
+                                    setSourceText(newText, true);
+                                });
+                            }}
+                        >
+                            <MdSmartButton className='text-[16px]' />
+                        </Button>
+                    </ButtonGroup>
+                    {detectLanguage !== '' && (
+                        <Chip
+                            size='sm'
+                            color='secondary'
+                            variant='dot'
+                            className='my-auto'
+                        >
+                            {t(`languages.${detectLanguage}`)}
+                        </Chip>
                     )}
-                </ButtonGroup>
+                </div>
                 <Button
                     size='sm'
                     color='primary'
