@@ -185,7 +185,7 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "Google" },
+                "google": { "title": "Google", "custom_url": "Custom URL" },
                 "bing": { "title": "Bing" },
                 "openai": {
                     "title": "OpenAI",

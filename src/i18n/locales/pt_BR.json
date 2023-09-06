@@ -186,7 +186,8 @@
                     "deeplx": "DeepLX"
                 },
                 "google": {
-                    "title": "Google"
+                    "title": "Google",
+                    "custom_url": "URL personalizado"
                 },
                 "bing": {
                     "title": "Bing"

@@ -1,8 +1,24 @@
 import { fetch } from '@tauri-apps/api/http';
 
-export async function translate(text, from, to) {
+export async function translate(text, from, to, options = {}) {
+    const { config } = options;
+
+    let translateConfig = (await store.get('google')) ?? {};
+    if (config !== undefined) {
+        translateConfig = config;
+    }
+
+    let { custom_url } = translateConfig;
+
+    if (custom_url === undefined || custom_url === '') {
+        custom_url = 'https://translate.google.com';
+    }
+    if (!custom_url.startsWith('http')) {
+        custom_url = 'https://' + custom_url;
+    }
+
     let res = await fetch(
-        `https://translate.google.com/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
+        `${custom_url}/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
         {
             method: 'GET',
             headers: { 'content-type': 'application/json' },

@@ -184,7 +184,7 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "谷歌翻译" },
+                "google": { "title": "谷歌翻译", "custom_url": "自定义 URL" },
                 "bing": { "title": "必应翻译" },
                 "openai_summary": { "title": "OpenAI 总结" },
                 "openai_polish": { "title": "OpenAI 润色" },
