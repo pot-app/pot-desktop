@@ -41,6 +41,7 @@ export default function General() {
 
     const languageName = {
         en: 'English',
+        pt_br: 'Português (Brasil)',
         zh_cn: '简体中文',
     };
 
@@ -154,7 +155,7 @@ export default function General() {
                                     </DropdownItem>
                                     <DropdownItem
                                         key='pt_br'
-                                        startContent={<span className={`fi fi-${LanguageFlag.pt_pt}`} />}
+                                        startContent={<span className={`fi fi-${LanguageFlag.pt_br}`} />}
                                     >
                                         Português (Brasil)
                                     </DropdownItem>
