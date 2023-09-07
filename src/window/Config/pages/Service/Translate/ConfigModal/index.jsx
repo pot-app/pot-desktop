@@ -28,6 +28,7 @@ export default function ConfigModal(props) {
                                     <img
                                         src={buildinServices[name].info.icon}
                                         className='h-[24px] w-[24px] my-auto'
+                                        draggable={false}
                                     />
                                     <Spacer x={2} />
                                     {t(`services.translate.${name}.title`)}
@@ -38,6 +39,7 @@ export default function ConfigModal(props) {
                                     <img
                                         src={pluginList[name].icon}
                                         className='h-[24px] w-[24px] my-auto'
+                                        draggable={false}
                                     />
 
                                     <Spacer x={2} />

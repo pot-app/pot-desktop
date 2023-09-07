@@ -35,12 +35,7 @@ export default function Screenshot() {
         <>
             <img
                 ref={imgRef}
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                }}
+                className='fixed top-0 left-0 w-full select-none'
                 src={imgurl}
                 draggable={false}
                 onLoad={() => {
@@ -50,26 +45,16 @@ export default function Screenshot() {
                 }}
             />
             <div
+                className={`fixed bg-[#2080f020] border border-solid border-sky-500 ${!isMoved && 'hidden'}`}
                 style={{
-                    position: 'fixed',
                     top: Math.min(mouseDownY, mouseMoveY),
                     left: Math.min(mouseDownX, mouseMoveX),
                     bottom: screen.height - Math.max(mouseDownY, mouseMoveY),
                     right: screen.width - Math.max(mouseDownX, mouseMoveX),
-                    backgroundColor: '#2080f020',
-                    border: '1px solid #2080f0',
-                    display: !isMoved && 'none',
                 }}
             />
             <div
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    cursor: 'crosshair',
-                }}
+                className='fixed top-0 left-0 bottom-0 right-0 cursor-crosshair select-none'
                 onMouseDown={(e) => {
                     if (e.buttons === 1) {
                         setIsDown(true);

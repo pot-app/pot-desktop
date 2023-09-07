@@ -59,7 +59,7 @@ export default function Updater() {
             }`}
         >
             <Toaster />
-            <div className='p-[5px] h-[35px] w-full'>
+            <div className='p-[5px] h-[35px] w-full select-none cursor-default'>
                 <div
                     data-tauri-drag-region='true'
                     className={`h-full w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-start'}`}
@@ -91,7 +91,7 @@ export default function Updater() {
                         </div>
                     ) : (
                         <ReactMarkdown
-                            className='markdown-body'
+                            className='markdown-body select-text'
                             components={{
                                 code: ({ node, ...props }) => {
                                     const { children } = props;

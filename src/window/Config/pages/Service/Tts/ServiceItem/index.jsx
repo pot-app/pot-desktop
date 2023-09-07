@@ -30,6 +30,7 @@ export default function ServiceItem(props) {
                         <img
                             src={`${buildinServices[name].info.icon}`}
                             className='h-[24px] w-[24px] my-auto'
+                            draggable={false}
                         />
                         <Spacer x={2} />
                         <h2 className='my-auto'>{t(`services.tts.${name}.title`)}</h2>
@@ -40,6 +41,7 @@ export default function ServiceItem(props) {
                         <img
                             src={pluginList[name].icon}
                             className='h-[24px] w-[24px] my-auto'
+                            draggable={false}
                         />
                         <Spacer x={2} />
                         <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>

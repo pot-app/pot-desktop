@@ -20,7 +20,7 @@ export function PluginConfig(props) {
         <>
             <Toaster />
             <div className={'config-item'}>
-                <h3 className='my-auto'>{t('config.service.homepage')}</h3>
+                <h3 className='my-auto select-none cursor-default'>{t('config.service.homepage')}</h3>
                 <Button
                     onPress={() => {
                         open(pluginList[name].homepage);
@@ -39,7 +39,7 @@ export function PluginConfig(props) {
                                 key={x.key}
                                 className={`config-item`}
                             >
-                                <h3 className='my-auto'>{x.display}</h3>
+                                <h3 className='my-auto select-none cursor-default'>{x.display}</h3>
                                 <Input
                                     value={`${pluginConfig.hasOwnProperty(x.key) ? pluginConfig[x.key] : ''}`}
                                     variant='bordered'

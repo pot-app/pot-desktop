@@ -29,6 +29,7 @@ export default function ConfigModal(props) {
                                     <img
                                         src={name === 'system' ? `logo/${osType}.svg` : buildinServices[name].info.icon}
                                         className='h-[24px] w-[24px] my-auto'
+                                        draggable={false}
                                     />
                                     <Spacer x={2} />
                                     {t(`services.recognize.${name}.title`)}
@@ -39,6 +40,7 @@ export default function ConfigModal(props) {
                                     <img
                                         src={pluginList[name].icon}
                                         className='h-[24px] w-[24px] my-auto'
+                                        draggable={false}
                                     />
 
                                     <Spacer x={2} />
