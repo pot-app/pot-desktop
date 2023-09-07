@@ -23,6 +23,7 @@ export default function Translate() {
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
     const [deleteNewline, setDeleteNewline] = useConfig('translate_delete_newline', false);
     const [rememberLanguage, setRememberLanguage] = useConfig('translate_remember_language', false);
+    const [windowPosition, setWindowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize, setRememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [hideSource, setHideSource] = useConfig('hide_source', false);
     const [hideLanguage, setHideLanguage] = useConfig('hide_language', false);
@@ -196,6 +197,26 @@ export default function Translate() {
             </Card>
             <Card>
                 <CardBody>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.translate.window_position')}</h3>
+                        {windowPosition !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.translate.${windowPosition}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='window position'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        setWindowPosition(key);
+                                    }}
+                                >
+                                    <DropdownItem key='mouse'>{t('config.translate.mouse')}</DropdownItem>
+                                    <DropdownItem key='pre_state'>{t('config.translate.pre_state')}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
                     <div className='config-item'>
                         <h3 className='my-auto mx-0'>{t('config.translate.remember_window_size')}</h3>
                         {rememberWindowSize !== null && (

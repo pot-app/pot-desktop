@@ -18,6 +18,7 @@ import { store } from '../../utils/store';
 
 let blurTimeout = null;
 let resizeTimeout = null;
+let moveTimeout = null;
 
 const listenBlur = () => {
     return listen('tauri://blur', () => {
@@ -50,6 +51,7 @@ void listen('tauri://focus', () => {
 });
 
 export default function Translate() {
+    const [windowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
         'deepl',
@@ -74,7 +76,30 @@ export default function Translate() {
         const items = reorder(translateServiceList, result.source.index, result.destination.index);
         setTranslateServiceList(items);
     };
-
+    useEffect(() => {
+        if (windowPosition !== null && windowPosition === 'pre_state') {
+            const unlistenMove = listen('tauri://move', async () => {
+                if (moveTimeout) {
+                    clearTimeout(moveTimeout);
+                }
+                moveTimeout = setTimeout(async () => {
+                    if (appWindow.label === 'translate') {
+                        let position = await appWindow.outerPosition();
+                        const factor = await appWindow.scaleFactor();
+                        position = position.toLogical(factor);
+                        await store.set('translate_window_position_x', parseInt(position.x));
+                        await store.set('translate_window_position_y', parseInt(position.y));
+                        await store.save();
+                    }
+                }, 100);
+            });
+            return () => {
+                unlistenMove.then((f) => {
+                    f();
+                });
+            };
+        }
+    }, [windowPosition]);
     useEffect(() => {
         if (rememberWindowSize !== null && rememberWindowSize) {
             const unlistenResize = listen('tauri://resize', async () => {

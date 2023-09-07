@@ -87,7 +87,7 @@ export async function google_detect(text) {
     if (res.ok) {
         const result = res.data;
         if (result[2] && result[2] in lang_map) {
-            return result[2];
+            return lang_map[result[2]];
         }
     }
     return '';

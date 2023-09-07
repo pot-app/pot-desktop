@@ -54,7 +54,7 @@ fn get_current_monitor(x: i32, y: i32) -> Monitor {
 }
 
 // Creating a window on the mouse monitor
-fn build_window(label: &str, title: &str) -> Window {
+fn build_window(label: &str, title: &str) -> (Window, bool) {
     use mouse_position::mouse_position::{Mouse, Position};
 
     let mouse_position = match Mouse::get_mouse_position() {
@@ -74,7 +74,7 @@ fn build_window(label: &str, title: &str) -> Window {
         Some(v) => {
             info!("Window existence: {}", label);
             v.set_focus().unwrap();
-            v
+            (v, true)
         }
         None => {
             info!("Window not existence, Creating new window: {}", label);
@@ -126,13 +126,13 @@ fn build_window(label: &str, title: &str) -> Window {
             }
             let _ = window.current_monitor();
             window.set_focus().unwrap();
-            window
+            (window, false)
         }
     }
 }
 
 pub fn config_window() {
-    let window = build_window("config", "Config");
+    let (window, _exists) = build_window("config", "Config");
     window
         .set_min_size(Some(tauri::LogicalSize::new(800, 400)))
         .unwrap();
@@ -150,7 +150,10 @@ fn translate_window() -> Window {
             Position { x: 0, y: 0 }
         }
     };
-    let window = build_window("translate", "Translate");
+    let (window, exists) = build_window("translate", "Translate");
+    if exists {
+        return window;
+    }
     window.set_skip_taskbar(true).unwrap();
     // Get Translate Window Size
     let width = match get("translate_window_width") {
@@ -167,28 +170,9 @@ fn translate_window() -> Window {
             420
         }
     };
-    // Adjust window position
-    let monitor = window.current_monitor().unwrap().unwrap();
-    let monitor_size = monitor.size();
-    let monitor_size_width = monitor_size.width as f64;
-    let monitor_size_height = monitor_size.height as f64;
-    let monitor_position = monitor.position();
-    let monitor_position_x = monitor_position.x as f64;
-    let monitor_position_y = monitor_position.y as f64;
 
+    let monitor = window.current_monitor().unwrap().unwrap();
     let dpi = monitor.scale_factor();
-    if mouse_position.x as f64 + width as f64 * dpi > monitor_position_x + monitor_size_width {
-        mouse_position.x -= (width as f64 * dpi) as i32;
-        if (mouse_position.x as f64) < monitor_position_x {
-            mouse_position.x = monitor_position_x as i32;
-        }
-    }
-    if mouse_position.y as f64 + height as f64 * dpi > monitor_position_y + monitor_size_height {
-        mouse_position.y -= (height as f64 * dpi) as i32;
-        if (mouse_position.y as f64) < monitor_position_y {
-            mouse_position.y = monitor_position_y as i32;
-        }
-    }
 
     window
         .set_size(tauri::PhysicalSize::new(
@@ -196,12 +180,64 @@ fn translate_window() -> Window {
             (height as f64) * dpi,
         ))
         .unwrap();
-    window
-        .set_position(tauri::PhysicalPosition::new(
-            mouse_position.x,
-            mouse_position.y,
-        ))
-        .unwrap();
+
+    let position_type = match get("translate_window_position") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => "mouse".to_string(),
+    };
+
+    match position_type.as_str() {
+        "mouse" => {
+            // Adjust window position
+            let monitor_size = monitor.size();
+            let monitor_size_width = monitor_size.width as f64;
+            let monitor_size_height = monitor_size.height as f64;
+            let monitor_position = monitor.position();
+            let monitor_position_x = monitor_position.x as f64;
+            let monitor_position_y = monitor_position.y as f64;
+
+            if mouse_position.x as f64 + width as f64 * dpi
+                > monitor_position_x + monitor_size_width
+            {
+                mouse_position.x -= (width as f64 * dpi) as i32;
+                if (mouse_position.x as f64) < monitor_position_x {
+                    mouse_position.x = monitor_position_x as i32;
+                }
+            }
+            if mouse_position.y as f64 + height as f64 * dpi
+                > monitor_position_y + monitor_size_height
+            {
+                mouse_position.y -= (height as f64 * dpi) as i32;
+                if (mouse_position.y as f64) < monitor_position_y {
+                    mouse_position.y = monitor_position_y as i32;
+                }
+            }
+
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    mouse_position.x,
+                    mouse_position.y,
+                ))
+                .unwrap();
+        }
+        _ => {
+            let position_x = match get("translate_window_position_x") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            let position_y = match get("translate_window_position_y") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    (position_x as f64) * dpi,
+                    (position_y as f64) * dpi,
+                ))
+                .unwrap();
+        }
+    }
+
     window
 }
 
@@ -228,7 +264,14 @@ pub fn input_translate() {
         .unwrap()
         .replace_range(.., "[INPUT_TRANSLATE]");
     let window = translate_window();
-    window.center().unwrap();
+    let position_type = match get("translate_window_position") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => "mouse".to_string(),
+    };
+    if position_type == "mouse" {
+        window.center().unwrap();
+    }
+
     window.emit("new_text", "[INPUT_TRANSLATE]").unwrap();
 }
 
@@ -254,7 +297,11 @@ pub fn image_translate() {
 }
 
 pub fn recognize_window() {
-    let window = build_window("recognize", "Recognize");
+    let (window, exists) = build_window("recognize", "Recognize");
+    if exists {
+        window.emit("new_image", "").unwrap();
+        return;
+    }
     let width = match get("recognize_window_width") {
         Some(v) => v.as_i64().unwrap(),
         None => {
@@ -282,7 +329,8 @@ pub fn recognize_window() {
 }
 
 fn screenshot_window() -> Window {
-    let window = build_window("screenshot", "Screenshot");
+    let (window, _exists) = build_window("screenshot", "Screenshot");
+
     window.set_skip_taskbar(true).unwrap();
     #[cfg(target_os = "macos")]
     {
@@ -318,7 +366,7 @@ pub fn ocr_translate() {
 
 #[tauri::command(async)]
 pub fn updater_window() {
-    let window = build_window("updater", "Updater");
+    let (window, _exists) = build_window("updater", "Updater");
     window
         .set_min_size(Some(tauri::LogicalSize::new(600, 400)))
         .unwrap();
