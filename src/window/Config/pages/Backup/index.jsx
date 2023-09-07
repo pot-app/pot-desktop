@@ -17,6 +17,7 @@ import { useConfig, useToastStyle } from '../../../../hooks';
 import { osType } from '../../../../utils/env';
 import * as webdav from './utils/webdav';
 import WebDavModal from './WebDavModal';
+import * as local from './utils/local';
 
 export default function Backup() {
     const [backupType, setBackupType] = useConfig('backup_type', 'webdav');
@@ -37,15 +38,19 @@ export default function Backup() {
         const time = new Date();
         const fileName = `${osType}-${time.getFullYear()}-${
             time.getMonth() + 1
-        }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}.zip`;
+        }-${time.getDate()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
 
         let result;
         switch (backupType) {
             case 'webdav':
-                result = webdav.backup(davUrl, davUserName, davPassword, fileName);
+                result = webdav.backup(davUrl, davUserName, davPassword, fileName + '.zip');
+                break;
+            case 'local':
+                result = local.backup(fileName);
                 break;
             default:
                 warn('Unknown backup type');
+                return;
         }
         result.then(
             () => {
@@ -63,6 +68,16 @@ export default function Backup() {
         switch (backupType) {
             case 'webdav':
                 onWebDavListOpen();
+                break;
+            case 'local':
+                local.get().then(
+                    () => {
+                        toast.success(t('config.backup.load_success'), { style: toastStyle });
+                    },
+                    (e) => {
+                        toast.error(e.toString(), { style: toastStyle });
+                    }
+                );
                 break;
             default:
                 warn('Unknown backup type');
@@ -87,6 +102,7 @@ export default function Backup() {
                                 }}
                             >
                                 <DropdownItem key='webdav'>{t('config.backup.webdav')}</DropdownItem>
+                                <DropdownItem key='local'>{t('config.backup.local')}</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     )}
@@ -132,23 +148,23 @@ export default function Backup() {
                             />
                         )}
                     </div>
-                    <div className='flex justify-around'>
-                        <Button
-                            color='success'
-                            variant='flat'
-                            isLoading={uploading}
-                            onPress={onBackup}
-                        >
-                            {t('config.backup.backup')}
-                        </Button>
-                        <Button
-                            color='secondary'
-                            variant='flat'
-                            onPress={onBackupListOpen}
-                        >
-                            {t('config.backup.show')}
-                        </Button>
-                    </div>
+                </div>
+                <div className='flex justify-around'>
+                    <Button
+                        color='success'
+                        variant='flat'
+                        isLoading={uploading}
+                        onPress={onBackup}
+                    >
+                        {t('config.backup.backup')}
+                    </Button>
+                    <Button
+                        color='secondary'
+                        variant='flat'
+                        onPress={onBackupListOpen}
+                    >
+                        {t('config.backup.restore')}
+                    </Button>
                 </div>
             </CardBody>
             <WebDavModal

@@ -105,3 +105,60 @@ pub async fn webdav(
         }
     }
 }
+
+#[tauri::command(async)]
+pub async fn local(operate: &str, path: String) -> Result<String, Error> {
+    match operate {
+        "put" => {
+            let mut config_dir_path = match config_dir() {
+                Some(v) => v,
+                None => {
+                    return Err(Error::Error("WebDav Get Config Dir Error".into()));
+                }
+            };
+            config_dir_path = config_dir_path.join("com.pot-app.desktop");
+            let config_path = config_dir_path.join("config.json");
+            let plugin_path = config_dir_path.join("plugins");
+
+            let zip_file = std::fs::File::create(&path)?;
+            let mut zip = zip::ZipWriter::new(zip_file);
+            let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
+            zip.start_file("config.json", options)?;
+            zip.write(&std::fs::read(&config_path)?)?;
+            if plugin_path.exists() {
+                for entry in WalkDir::new(plugin_path) {
+                    let entry = entry?;
+                    let path = entry.path();
+                    let file_name = match path.strip_prefix(&config_dir_path)?.to_str() {
+                        Some(v) => v,
+                        None => return Err(Error::Error("Strip Prefix Error".into())),
+                    };
+                    if path.is_file() {
+                        info!("adding file {path:?} as {file_name:?} ...");
+                        zip.start_file(file_name, options)?;
+                        zip.write(&std::fs::read(entry.path())?)?;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+
+            zip.finish()?;
+            Ok("".to_string())
+        }
+        "get" => {
+            let mut config_dir_path = config_dir().unwrap();
+            config_dir_path = config_dir_path.join("com.pot-app.desktop");
+
+            let mut zip_file = std::fs::File::open(&path)?;
+            let mut zip = ZipArchive::new(&mut zip_file)?;
+            zip.extract(config_dir_path)?;
+            Ok("".to_string())
+        }
+        _ => {
+            return Err(Error::Error(
+                format!("Local Operate Error: {}", operate).into(),
+            ));
+        }
+    }
+}

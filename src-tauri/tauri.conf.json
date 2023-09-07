@@ -49,7 +49,8 @@
                 "scope": ["$APPCONFIG/**", "$APPCACHE/**"]
             },
             "dialog": {
-                "open": true
+                "open": true,
+                "save": true
             }
         },
         "bundle": {

@@ -125,6 +125,7 @@ fn main() {
             screenshot,
             lang_detect,
             webdav,
+            local,
             install_plugin
         ])
         .on_system_tray_event(tray_event_handler)

@@ -1,5 +1,3 @@
-import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
-import { store } from '../../../../../utils/store';
 import { invoke } from '@tauri-apps/api';
 
 export async function backup(url, username, password, name) {
