@@ -29,6 +29,7 @@ export default function General() {
     const [serverPort, setServerPort] = useConfig('server_port', 60828);
     const [appLanguage, setAppLanguage] = useConfig('app_language', 'en');
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
+    const [transparent, setTransparent] = useConfig('transparent', true);
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
@@ -226,6 +227,20 @@ export default function General() {
                                 </DropdownMenu>
                             </Dropdown>
                         )}
+                    </div>
+                    <div className='config-item'>
+                        <h3>{t('config.general.transparent')}</h3>
+                        <Switch
+                            isSelected={transparent}
+                            onValueChange={(v) => {
+                                setTransparent(v);
+
+                                toast.success(t('config.general.change_transparent'), {
+                                    duration: 1000,
+                                    style: toastStyle,
+                                });
+                            }}
+                        />
                     </div>
                 </CardBody>
             </Card>

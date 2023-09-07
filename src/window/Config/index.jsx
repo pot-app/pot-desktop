@@ -25,7 +25,7 @@ export default function Config() {
         <>
             <Card
                 shadow='none'
-                className={`bg-background/90 float-left w-[230px] h-screen rounded-none ${
+                className={`bg-content1/90 float-left w-[230px] h-screen rounded-none ${
                     osType === 'Linux' && 'rounded-l-[10px] border-1'
                 } border-r-1 border-default-100 select-none cursor-default`}
             >

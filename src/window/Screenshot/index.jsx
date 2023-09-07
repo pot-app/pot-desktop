@@ -39,9 +39,11 @@ export default function Screenshot() {
                 src={imgurl}
                 draggable={false}
                 onLoad={() => {
-                    void appWindow.show();
-                    void appWindow.setFocus();
-                    void appWindow.setResizable(false);
+                    if (imgurl !== '' && imgRef.current.complete) {
+                        void appWindow.show();
+                        void appWindow.setFocus();
+                        void appWindow.setResizable(false);
+                    }
                 }}
             />
             <div

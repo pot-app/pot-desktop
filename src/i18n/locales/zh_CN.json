@@ -48,6 +48,8 @@
                     "dark": "深色",
                     "system": "跟随系统"
                 },
+                "transparent": "透明效果",
+                "change_transparent": "透明效果重启软件生效",
                 "proxy": {
                     "title": "网络代理",
                     "host": "代理地址",
