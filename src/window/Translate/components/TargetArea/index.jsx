@@ -433,10 +433,9 @@ export default function TargetArea(props) {
                         isIconOnly
                         variant='light'
                         size='sm'
+                        isDisabled={typeof result !== 'string' || result === ''}
                         onPress={() => {
-                            if (typeof result === 'string' && result !== '') {
-                                writeText(result);
-                            }
+                            writeText(result);
                         }}
                     >
                         <MdContentCopy className='text-[16px]' />

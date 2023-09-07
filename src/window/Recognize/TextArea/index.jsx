@@ -164,11 +164,8 @@ export default function TextArea() {
                         isIconOnly
                         size='sm'
                         variant='light'
-                        onPress={async () => {
-                            await invoke('copy_img', {
-                                width: imgRef.current.naturalWidth,
-                                height: imgRef.current.naturalHeight,
-                            });
+                        onPress={() => {
+                            writeText(text);
                         }}
                     >
                         <MdContentCopy className='text-[16px]' />
