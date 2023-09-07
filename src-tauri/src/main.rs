@@ -101,16 +101,12 @@ fn main() {
             }
             // Check Update
             check_update(app.handle());
-            match get("translate_detect_engine") {
-                Some(v) => {
-                    if v.as_str().unwrap() == "baidu" {
-                        init_lang_detect();
-                    }
-                }
-                None => {
+            if let Some(engine) = get("translate_detect_engine") {
+                if engine.as_str().unwrap() == "local" {
                     init_lang_detect();
                 }
             }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
