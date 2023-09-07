@@ -215,7 +215,8 @@ export default function Translate() {
                                         {translateServiceList !== null &&
                                             serviceConfig !== null &&
                                             translateServiceList.map((service, index) => {
-                                                const enable = serviceConfig[service]['enable'] ?? true;
+                                                const config = serviceConfig[service] ?? {};
+                                                const enable = config['enable'] ?? true;
 
                                                 return enable ? (
                                                     <Draggable
