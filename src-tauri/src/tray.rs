@@ -52,6 +52,20 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
     tray_handle
         .set_tooltip(&format!("pot {}", app_handle.package_info().version))
         .unwrap();
+
+    let enable_clipboard_monitor = match get("clipboard_monitor") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("clipboard_monitor", false);
+            false
+        }
+    };
+
+    tray_handle
+        .get_item("clipboard_monitor")
+        .set_selected(enable_clipboard_monitor)
+        .unwrap();
+
     match copy_mode.as_str() {
         "source" => tray_handle
             .get_item("copy_source")
@@ -79,6 +93,7 @@ pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
         SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
             "input_translate" => on_input_translate_click(),
             "copy_source" => on_auto_copy_click(app, "source"),
+            "clipboard_monitor" => on_clipboard_monitor_click(app),
             "copy_target" => on_auto_copy_click(app, "target"),
             "copy_source_target" => on_auto_copy_click(app, "source_target"),
             "copy_disable" => on_auto_copy_click(app, "disable"),
@@ -114,6 +129,20 @@ fn on_tray_click() {
 }
 fn on_input_translate_click() {
     input_translate();
+}
+fn on_clipboard_monitor_click(app: &AppHandle) {
+    let enable_clipboard_monitor = match get("clipboard_monitor") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("clipboard_monitor", false);
+            false
+        }
+    };
+    set("clipboard_monitor", !enable_clipboard_monitor);
+    app.tray_handle()
+        .get_item("clipboard_monitor")
+        .set_selected(!enable_clipboard_monitor)
+        .unwrap();
 }
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {
     info!("Set copy mode to: {}", mode);
@@ -154,7 +183,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
     let input_translate = CustomMenuItem::new("input_translate", "Input Translate");
     let copy_source = CustomMenuItem::new("copy_source", "Source");
     let copy_target = CustomMenuItem::new("copy_target", "Target");
-
+    let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "Clipboard Monitor");
     let copy_source_target = CustomMenuItem::new("copy_source_target", "Source+Target");
     let copy_disable = CustomMenuItem::new("copy_disable", "Disable");
     let ocr_recognize = CustomMenuItem::new("ocr_recognize", "OCR Recognize");
@@ -166,6 +195,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "Quit");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "Auto Copy",
             SystemTrayMenu::new()
@@ -189,6 +219,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
 
 fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let input_translate = CustomMenuItem::new("input_translate", "输入翻译");
+    let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "监听剪切板");
     let copy_source = CustomMenuItem::new("copy_source", "原文");
     let copy_target = CustomMenuItem::new("copy_target", "译文");
 
@@ -203,6 +234,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "退出");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "自动复制",
             SystemTrayMenu::new()
@@ -226,6 +258,8 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
 
 fn tray_menu_pt_br() -> tauri::SystemTrayMenu {
     let input_translate = CustomMenuItem::new("input_translate", "Traduzir Entrada");
+    let clipboard_monitor =
+        CustomMenuItem::new("clipboard_monitor", "Monitorando a área de transferência");
     let copy_source = CustomMenuItem::new("copy_source", "Origem");
     let copy_target = CustomMenuItem::new("copy_target", "Destino");
 
@@ -240,6 +274,7 @@ fn tray_menu_pt_br() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "Sair");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "Copiar Automaticamente",
             SystemTrayMenu::new()

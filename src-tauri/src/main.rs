@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod backup;
+mod clipboard;
 mod cmd;
 mod config;
 mod error;
@@ -15,6 +16,7 @@ mod updater;
 mod window;
 
 use backup::*;
+use clipboard::start_clipboard_monitor;
 use cmd::*;
 use config::*;
 use hotkey::*;
@@ -106,6 +108,7 @@ fn main() {
                     init_lang_detect();
                 }
             }
+            start_clipboard_monitor(app.handle());
 
             Ok(())
         })
