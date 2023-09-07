@@ -75,7 +75,6 @@ export function Config(props) {
                             setIsLoading(true);
                             translate('hello', Language.auto, Language.zh_cn, { config }).then(
                                 (v) => {
-                                    console.log(v);
                                     setIsLoading(false);
                                     setConfig(config, true);
                                     updateServiceList('volcengine');
