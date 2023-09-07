@@ -1,17 +1,10 @@
-## 2.0.1 (2023-09-06)
+## 2.0.2 (2023-09-07)
 
 ### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
 ### Note: For Windows users, please run pot with administrator privileges before updating.
 
-### New feature:
-
--   Support Change Service on Translate Card([`5fb0025`](https://github.com/pot-app/pot-desktop/commit/5fb00251a8380c3c2d1c14cc8ed46de35be37fc0)) (by @Pylogmon)
--   Support Http for NiuTrans([`6ecc04f`](https://github.com/pot-app/pot-desktop/commit/6ecc04f7c6ca366c27215fd73a03f51fe3712a51)) (by @Pylogmon)
--   Add Custom URL for Google Translate([`bc5b372`](https://github.com/pot-app/pot-desktop/commit/bc5b3723403700e7ad6ad4e22473f674ae6b51d7)) (by @Pylogmon)
--   Add pt_BR (#414)([`d41d5e8`](https://github.com/pot-app/pot-desktop/commit/d41d5e8607d4cd718e03648c97b5493c3e9d698c)) (by @Havokdan)
-
 ### Bugs fixed:
 
--   Baidu Image Translate([`75e2e2b`](https://github.com/pot-app/pot-desktop/commit/75e2e2bfda5866b56c2f23779309e50e79a10772)) (by @Pylogmon)
--   Can't select field for baidu field translate([`9d0c136`](https://github.com/pot-app/pot-desktop/commit/9d0c136667223feaf1910168c6e055ca5aa6d057)) (by @Pylogmon)
+-   Google Translate Save Error([`523baac`](https://github.com/pot-app/pot-desktop/commit/523baacb421081d25b5e52cb6e597551c573a747)) (by @Pylogmon)
+-   pt_BR Change Error([`61933e6`](https://github.com/pot-app/pot-desktop/commit/61933e6743115e6973b9975e3347d1e25557e6bf)) (by @Pylogmon)
