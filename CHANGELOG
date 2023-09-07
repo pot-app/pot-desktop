@@ -4,7 +4,16 @@
 
 ### Note: For Windows users, please run pot with administrator privileges before updating.
 
+### New feature:
+
+-   Add Clipboard Monitor([`a6a41cd`](https://github.com/pot-app/pot-desktop/commit/a6a41cd9f272785a68f36df236286fad7ce506db)) (by @Pylogmon)
+-   Support Local Backup([`72806cb`](https://github.com/pot-app/pot-desktop/commit/72806cb01545ba5c6b43f469b6723c2099f370b2)) (by @Pylogmon)
+-   Choose Translate Window Position([`86869f8`](https://github.com/pot-app/pot-desktop/commit/86869f884cc47eba1f44208384707a1aeaf009c0)) (by @Pylogmon)
+-   Switch Transparent Effect([`15e7a26`](https://github.com/pot-app/pot-desktop/commit/15e7a2669a7d573ac70fd2d3f1524e50432537f4)) (by @Pylogmon)
+
 ### Bugs fixed:
 
--   Google Translate Save Error([`523baac`](https://github.com/pot-app/pot-desktop/commit/523baacb421081d25b5e52cb6e597551c573a747)) (by @Pylogmon)
--   pt_BR Change Error([`61933e6`](https://github.com/pot-app/pot-desktop/commit/61933e6743115e6973b9975e3347d1e25557e6bf)) (by @Pylogmon)
+-   Crash when Add Service([`b952e61`](https://github.com/pot-app/pot-desktop/commit/b952e61e9281a15d603daa2ed0cefdfdf22f7997)) (by @Pylogmon)
+-   Copy Text Failed when Recognize([`738b535`](https://github.com/pot-app/pot-desktop/commit/738b535ffacea32cad9a954cbf84c4f0b9c4f69f)) (by @Pylogmon)
+-   Can't Input on some Platform([`79b09e1`](https://github.com/pot-app/pot-desktop/commit/79b09e13139678c46293f2f2c729c4713dae32a6)) (by @Pylogmon)
+-   Init Language Model when Use Baidu([`5eed62b`](https://github.com/pot-app/pot-desktop/commit/5eed62bc2af26f889dafde809dd6cbc288cc0138)) (by @Pylogmon)
