@@ -54,7 +54,7 @@ export default function General() {
     return (
         <>
             <Toaster />
-            <Card style={{ marginBottom: '10px' }}>
+            <Card className='mb-[10px]'>
                 <CardBody>
                     <div className='config-item'>
                         <h3>{t('config.general.auto_start')}</h3>
@@ -86,7 +86,7 @@ export default function General() {
                         )}
                     </div>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.general.server_port')}</h3>
+                        <h3 className='my-auto'>{t('config.general.server_port')}</h3>
                         {serverPort !== null && (
                             <Input
                                 type='number'
@@ -119,10 +119,10 @@ export default function General() {
                     </div>
                 </CardBody>
             </Card>
-            <Card style={{ marginBottom: '10px' }}>
+            <Card className='mb-[10px]'>
                 <CardBody>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.general.app_language')}</h3>
+                        <h3 className='my-auto'>{t('config.general.app_language')}</h3>
                         {appLanguage !== null && (
                             <Dropdown>
                                 <DropdownTrigger>
@@ -164,7 +164,7 @@ export default function General() {
                         )}
                     </div>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.general.app_theme')}</h3>
+                        <h3 className='my-auto'>{t('config.general.app_theme')}</h3>
                         {appTheme !== null && (
                             <Dropdown>
                                 <DropdownTrigger>
@@ -202,7 +202,7 @@ export default function General() {
                         )}
                     </div>
                     <div className={`config-item ${osType === 'Linux' && 'hidden'}`}>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.general.tray_click_event')}</h3>
+                        <h3 className='my-auto'>{t('config.general.tray_click_event')}</h3>
                         {trayClickEvent !== null && (
                             <Dropdown>
                                 <DropdownTrigger>

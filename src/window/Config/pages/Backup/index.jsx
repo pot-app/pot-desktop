@@ -70,11 +70,11 @@ export default function Backup() {
     };
 
     return (
-        <Card style={{ marginBottom: '10px' }}>
+        <Card className='mb-[10px]'>
             <Toaster />
             <CardBody>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('config.backup.type')}</h3>
+                    <h3 className='my-auto'>{t('config.backup.type')}</h3>
                     {backupType !== null && (
                         <Dropdown>
                             <DropdownTrigger>
@@ -93,7 +93,7 @@ export default function Backup() {
                 </div>
                 <div className={backupType !== 'webdav' ? 'hidden' : ''}>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.backup.webdav_url')}</h3>
+                        <h3 className='my-auto'>{t('config.backup.webdav_url')}</h3>
                         {davUrl !== null && (
                             <Input
                                 variant='bordered'
@@ -106,7 +106,7 @@ export default function Backup() {
                         )}
                     </div>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.backup.username')}</h3>
+                        <h3 className='my-auto'>{t('config.backup.username')}</h3>
                         {davUserName !== null && (
                             <Input
                                 variant='bordered'
@@ -119,7 +119,7 @@ export default function Backup() {
                         )}
                     </div>
                     <div className='config-item'>
-                        <h3 style={{ margin: 'auto 0' }}>{t('config.backup.password')}</h3>
+                        <h3 className='my-auto'>{t('config.backup.password')}</h3>
                         {davPassword !== null && (
                             <Input
                                 type='password'

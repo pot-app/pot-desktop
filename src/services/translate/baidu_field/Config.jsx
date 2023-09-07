@@ -56,7 +56,7 @@ export function Config(props) {
                     </Button>
                 </div>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('services.translate.deepl.type')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.deepl.type')}</h3>
                     <Dropdown>
                         <DropdownTrigger>
                             <Button variant='bordered'>{t(`services.translate.baidu_field.${config.field}`)}</Button>

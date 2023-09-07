@@ -50,13 +50,7 @@ export default function Recognize() {
             >
                 <div
                     data-tauri-drag-region='true'
-                    style={{
-                        top: '5px',
-                        left: '5px',
-                        right: '5px',
-                        height: '30px',
-                        position: 'fixed',
-                    }}
+                    className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 />
                 <div className='h-[35px] flex justify-end'>{osType !== 'Darwin' && <WindowControl />}</div>
                 <div

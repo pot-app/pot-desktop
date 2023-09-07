@@ -52,8 +52,7 @@ export default function ImageArea() {
                     <img
                         ref={imgRef}
                         draggable={false}
-                        className='object-contain'
-                        style={{ height: '100%', width: '100%' }}
+                        className='object-contain h-full w-full'
                         src={'data:image/png;base64,' + base64}
                     />
                 )}

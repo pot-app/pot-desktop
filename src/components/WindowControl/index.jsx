@@ -25,15 +25,15 @@ export default function WindowControl() {
             <Button
                 isIconOnly
                 variant='light'
-                style={{ borderRadius: 0, width: '35px', height: '35px' }}
+                className='w-[35px] h-[35px] rounded-none'
                 onClick={() => appWindow.minimize()}
             >
-                <VscChromeMinimize style={{ fontSize: '16px' }} />
+                <VscChromeMinimize className='text-[16px]' />
             </Button>
             <Button
                 isIconOnly
                 variant='light'
-                style={{ borderRadius: 0, width: '35px', height: '35px' }}
+                className='w-[35px] h-[35px] rounded-none'
                 onClick={() => {
                     if (isMax) {
                         appWindow.unmaximize();
@@ -42,23 +42,15 @@ export default function WindowControl() {
                     }
                 }}
             >
-                {isMax ? (
-                    <VscChromeRestore style={{ fontSize: '16px' }} />
-                ) : (
-                    <VscChromeMaximize style={{ fontSize: '16px' }} />
-                )}
+                {isMax ? <VscChromeRestore className='text-[16px]' /> : <VscChromeMaximize className='text-[16px]' />}
             </Button>
             <Button
                 isIconOnly
                 variant='light'
-                style={{
-                    width: '35px',
-                    height: '35px',
-                }}
-                className={`close-button rounded-none ${osType === 'Linux' && 'rounded-tr-[10px]'}`}
+                className={`w-[35px] h-[35px] rounded-none close-button ${osType === 'Linux' && 'rounded-tr-[10px]'}`}
                 onClick={() => appWindow.close()}
             >
-                <VscChromeClose style={{ fontSize: '16px' }} />
+                <VscChromeClose className='text-[16px]' />
             </Button>
         </div>
     );

@@ -54,22 +54,14 @@ export default function Config() {
             >
                 <div
                     data-tauri-drag-region='true'
-                    style={{
-                        top: '5px',
-                        left: '235px',
-                        right: '5px',
-                        height: '30px',
-                        position: 'fixed',
-                    }}
+                    className='top-[5px] left-[235px] right-[5px] h-[30px] fixed'
                 />
-                <div style={{ height: '35px', display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex' }}>
-                        <h2 style={{ margin: 'auto', marginLeft: '10px' }}>
-                            {t(`config.${location.pathname.slice(1)}.title`)}
-                        </h2>
+                <div className='h-[35px] flex justify-between'>
+                    <div className='flex'>
+                        <h2 className='m-auto ml-[10px]'>{t(`config.${location.pathname.slice(1)}.title`)}</h2>
                     </div>
 
-                    <div style={{ display: 'flex' }}>{osType !== 'Darwin' && <WindowControl />}</div>
+                    <div className='flex'>{osType !== 'Darwin' && <WindowControl />}</div>
                 </div>
                 <Divider />
                 <div

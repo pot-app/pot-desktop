@@ -21,102 +21,102 @@ export default function SideBar() {
     }
 
     return (
-        <div style={{ margin: '0 12px', overflow: 'auto' }}>
+        <div className='mx-[12px] overflow-y-auto'>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/general')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/general');
                 }}
-                startContent={<AiFillAppstore style={{ fontSize: '24px' }} />}
+                startContent={<AiFillAppstore className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.general.label')}</div>
+                <div className='w-full'>{t('config.general.label')}</div>
             </Button>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/translate')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/translate');
                 }}
-                startContent={<PiTranslateFill style={{ fontSize: '24px' }} />}
+                startContent={<PiTranslateFill className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.translate.label')}</div>
+                <div className='w-full'>{t('config.translate.label')}</div>
             </Button>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/recognize')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/recognize');
                 }}
-                startContent={<PiTextboxFill style={{ fontSize: '24px' }} />}
+                startContent={<PiTextboxFill className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.recognize.label')}</div>
+                <div className='w-full'>{t('config.recognize.label')}</div>
             </Button>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/hotkey')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/hotkey');
                 }}
-                startContent={<MdKeyboardAlt style={{ fontSize: '24px' }} />}
+                startContent={<MdKeyboardAlt className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.hotkey.label')}</div>
+                <div className='w-full'>{t('config.hotkey.label')}</div>
             </Button>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/service')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/service');
                 }}
-                startContent={<MdExtension style={{ fontSize: '24px' }} />}
+                startContent={<MdExtension className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.service.label')}</div>
+                <div className='w-full'>{t('config.service.label')}</div>
             </Button>
             {/* <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/history')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/history');
                 }}
-                startContent={<FaHistory style={{ fontSize: '24px' }} />}
+                startContent={<FaHistory className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.history.label')}</div>
+                <div className='w-full'>{t('config.history.label')}</div>
             </Button> */}
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/backup')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/backup');
                 }}
-                startContent={<AiFillCloud style={{ fontSize: '24px' }} />}
+                startContent={<AiFillCloud className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.backup.label')}</div>
+                <div className='w-full'>{t('config.backup.label')}</div>
             </Button>
             <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/about')}
-                style={{ marginBottom: '5px' }}
+                className='mb-[5px]'
                 onClick={() => {
                     navigate('/about');
                 }}
-                startContent={<BsInfoSquareFill style={{ fontSize: '24px' }} />}
+                startContent={<BsInfoSquareFill className='text-[24px]' />}
             >
-                <div style={{ width: '100%' }}>{t('config.about.label')}</div>
+                <div className='w-full'>{t('config.about.label')}</div>
             </Button>
         </div>
     );

@@ -118,7 +118,7 @@ export default function Hotkey() {
             <Toaster />
             <CardBody>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.selection_translate')}</h3>
+                    <h3 className='my-auto'>{t('config.hotkey.selection_translate')}</h3>
                     {selectionTranslate !== null && (
                         <Input
                             type='hotkey'
@@ -136,7 +136,7 @@ export default function Hotkey() {
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    style={{ display: selectionTranslate === '' && 'none' }}
+                                    className={`${selectionTranslate === '' && 'hidden'}`}
                                     onClick={() => {
                                         registerHandler('hotkey_selection_translate', selectionTranslate);
                                     }}
@@ -148,7 +148,7 @@ export default function Hotkey() {
                     )}
                 </div>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.input_translate')}</h3>
+                    <h3 className='my-auto'>{t('config.hotkey.input_translate')}</h3>
                     {inputTranslate !== null && (
                         <Input
                             type='hotkey'
@@ -166,7 +166,7 @@ export default function Hotkey() {
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    style={{ display: inputTranslate === '' && 'none' }}
+                                    className={`${inputTranslate === '' && 'hidden'}`}
                                     onClick={() => {
                                         registerHandler('hotkey_input_translate', inputTranslate);
                                     }}
@@ -178,7 +178,7 @@ export default function Hotkey() {
                     )}
                 </div>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.ocr_recognize')}</h3>
+                    <h3 className='my-auto'>{t('config.hotkey.ocr_recognize')}</h3>
                     {ocrRecognize !== null && (
                         <Input
                             type='hotkey'
@@ -196,7 +196,7 @@ export default function Hotkey() {
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    style={{ display: ocrRecognize === '' && 'none' }}
+                                    className={`${ocrRecognize === '' && 'hidden'}`}
                                     onClick={() => {
                                         registerHandler('hotkey_ocr_recognize', ocrRecognize);
                                     }}
@@ -208,7 +208,7 @@ export default function Hotkey() {
                     )}
                 </div>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('config.hotkey.ocr_translate')}</h3>
+                    <h3 className='my-auto'>{t('config.hotkey.ocr_translate')}</h3>
                     {ocrTranslate !== null && (
                         <Input
                             type='hotkey'
@@ -226,7 +226,7 @@ export default function Hotkey() {
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    style={{ display: ocrTranslate === '' && 'none' }}
+                                    className={`${ocrTranslate === '' && 'hidden'}`}
                                     onClick={() => {
                                         registerHandler('hotkey_ocr_translate', ocrTranslate);
                                     }}

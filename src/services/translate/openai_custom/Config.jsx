@@ -48,7 +48,7 @@ export function Config(props) {
                     </Button>
                 </div>
                 <div className='config-item'>
-                    <h3 style={{ margin: 'auto 0' }}>{t('services.translate.openai.service')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.openai.service')}</h3>
                     <Dropdown>
                         <DropdownTrigger>
                             <Button variant='bordered'>{t(`services.translate.openai.${openaiConfig.service}`)}</Button>
@@ -109,7 +109,7 @@ export function Config(props) {
                     />
                 </div>
                 <div className={`config-item ${openaiConfig.service === 'azure' && 'hidden'}`}>
-                    <h3 style={{ margin: 'auto 0' }}>{t('services.translate.openai.model')}</h3>
+                    <h3 className='my-auto'>{t('services.translate.openai.model')}</h3>
                     <Dropdown>
                         <DropdownTrigger>
                             <Button variant='bordered'>{openaiConfig.model}</Button>

@@ -72,10 +72,7 @@ export default function Updater() {
                     <h2>{t('updater.title')}</h2>
                 </div>
             </div>
-            <Card
-                className='mx-[80px] mt-[10px] overscroll-auto'
-                style={{ height: 'calc(100vh - 150px)' }}
-            >
+            <Card className='mx-[80px] mt-[10px] overscroll-auto h-[calc(100vh-150px)]'>
                 <CardBody>
                     {body === '' ? (
                         <div className='space-y-3'>
@@ -100,7 +97,7 @@ export default function Updater() {
                                 h2: ({ node, ...props }) => (
                                     <b>
                                         <h2
-                                            style={{ fontSize: '24px' }}
+                                            className='text-[24px]'
                                             {...props}
                                         />
                                         <hr />
@@ -111,7 +108,7 @@ export default function Updater() {
                                     <b>
                                         <br />
                                         <h3
-                                            style={{ fontSize: '18px' }}
+                                            className='text-[18px]'
                                             {...props}
                                         />
                                         <br />
@@ -121,7 +118,7 @@ export default function Updater() {
                                     const { children } = props;
                                     return (
                                         <li
-                                            style={{ listStylePosition: 'inside', listStyleType: 'disc' }}
+                                            className='list-disc list-inside'
                                             children={children}
                                         />
                                     );
