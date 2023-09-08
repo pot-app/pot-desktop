@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { useAtom } from 'jotai';
+
+import { useGetState } from './useGetState';
 
 export const useSyncAtom = (atom) => {
     const [atomValue, setAtomValue] = useAtom(atom);
-    const [localValue, setLocalValue] = useState(atomValue);
+    const [localValue, setLocalValue, getLocalValue] = useGetState(atomValue);
 
-    const setAtom = (v, sync = false) => {
-        setLocalValue(v);
-        sync && setAtomValue(v);
-    };
+    const syncAtom = () => setAtomValue(getLocalValue());
 
-    return [localValue, setAtom];
+    return [localValue, setLocalValue, syncAtom];
 };

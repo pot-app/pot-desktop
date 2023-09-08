@@ -27,7 +27,7 @@ let timer = null;
 
 export default function SourceArea(props) {
     const { pluginList } = props;
-    const [sourceText, setSourceText] = useSyncAtom(sourceTextAtom);
+    const [sourceText, setSourceText, syncSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [incrementalTranslate] = useConfig('incremental_translate', false);
     const [dynamicTranslate] = useConfig('dynamic_translate', false);
@@ -57,7 +57,6 @@ export default function SourceArea(props) {
             appWindow.setFocus();
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
-            setSourceText(t('translate.recognizing'));
             const base64 = await invoke('get_base64');
             const serviceName = recognizeServiceList[0];
             if (serviceName.startsWith('[plugin]')) {
@@ -77,15 +76,15 @@ export default function SourceArea(props) {
                             } else {
                                 newText = v;
                             }
-                            setSourceText(newText);
+                            if (incrementalTranslate) {
+                                setSourceText((old) => {
+                                    return old + ' ' + newText;
+                                });
+                            } else {
+                                setSourceText(newText);
+                            }
                             detect_language(newText).then(() => {
-                                if (incrementalTranslate) {
-                                    setSourceText((old) => {
-                                        return old + ' ' + newText;
-                                    }, true);
-                                } else {
-                                    setSourceText(newText, true);
-                                }
+                                syncSourceText();
                             });
                         },
                         (e) => {
@@ -107,15 +106,15 @@ export default function SourceArea(props) {
                                 } else {
                                     newText = v;
                                 }
-                                setSourceText(newText);
+                                if (incrementalTranslate) {
+                                    setSourceText((old) => {
+                                        return old + ' ' + newText;
+                                    });
+                                } else {
+                                    setSourceText(newText);
+                                }
                                 detect_language(newText).then(() => {
-                                    if (incrementalTranslate) {
-                                        setSourceText((old) => {
-                                            return old + ' ' + newText;
-                                        }, true);
-                                    } else {
-                                        setSourceText(newText, true);
-                                    }
+                                    syncSourceText();
                                 });
                             },
                             (e) => {
@@ -133,15 +132,15 @@ export default function SourceArea(props) {
             } else {
                 newText = text;
             }
-            setSourceText(newText);
+            if (incrementalTranslate) {
+                setSourceText((old) => {
+                    return old + ' ' + newText;
+                });
+            } else {
+                setSourceText(newText);
+            }
             detect_language(newText).then(() => {
-                if (incrementalTranslate) {
-                    setSourceText((old) => {
-                        return old + ' ' + newText;
-                    }, true);
-                } else {
-                    setSourceText(newText, true);
-                }
+                syncSourceText();
             });
         }
     };
@@ -150,7 +149,7 @@ export default function SourceArea(props) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             detect_language(sourceText).then(() => {
-                setSourceText(event.target.value, true);
+                syncSourceText();
             });
         }
         if (event.key === 'Escape') {
@@ -239,7 +238,7 @@ export default function SourceArea(props) {
                             }
                             timer = setTimeout(() => {
                                 detect_language(v).then(() => {
-                                    setSourceText(v, true);
+                                    syncSourceText();
                                 });
                             }, 1000);
                         }
@@ -291,8 +290,9 @@ export default function SourceArea(props) {
                             size='sm'
                             onPress={() => {
                                 const newText = sourceText.replace(/\s+/g, ' ');
+                                setSourceText(newText);
                                 detect_language(newText).then(() => {
-                                    setSourceText(newText, true);
+                                    syncSourceText();
                                 });
                             }}
                         >
@@ -318,7 +318,7 @@ export default function SourceArea(props) {
                     startContent={<HiTranslate className='text-[16px]' />}
                     onPress={() => {
                         detect_language(sourceText).then(() => {
-                            setSourceText(sourceText, true);
+                            syncSourceText();
                         });
                     }}
                 >
