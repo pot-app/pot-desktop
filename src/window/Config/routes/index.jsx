@@ -4,6 +4,7 @@ import Translate from '../pages/Translate';
 import Recognize from '../pages/Recognize';
 import General from '../pages/General';
 import Service from '../pages/Service';
+import History from '../pages/History';
 import Hotkey from '../pages/Hotkey';
 import Backup from '../pages/Backup';
 import About from '../pages/About';
@@ -31,7 +32,7 @@ const routes = [
     },
     {
         path: '/history',
-        element: <div />,
+        element: <History />,
     },
     {
         path: '/backup',

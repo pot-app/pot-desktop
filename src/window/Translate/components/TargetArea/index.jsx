@@ -3,7 +3,6 @@ import {
     CardBody,
     CardHeader,
     CardFooter,
-    Spacer,
     Button,
     ButtonGroup,
     Skeleton,
@@ -21,6 +20,7 @@ import { HiOutlineVolumeUp } from 'react-icons/hi';
 import toast, { Toaster } from 'react-hot-toast';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
+import Database from 'tauri-plugin-sql-api';
 import { invoke } from '@tauri-apps/api';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
@@ -70,6 +70,29 @@ export default function TargetArea(props) {
         }
     }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, translateServiceName]);
 
+    const addToHistory = async (text, source, target, service, result) => {
+        const db = await Database.load('sqlite:history.db');
+
+        await db
+            .execute(
+                'INSERT into history (text, source, target, service, result, timestamp) VALUES ($1, $2, $3, $4, $5, $6)',
+                [text, source, target, service, result, Date.now()]
+            )
+            .then(
+                (v) => {
+                    db.close();
+                },
+                (e) => {
+                    db.execute(
+                        'CREATE TABLE history(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT NOT NULL,source TEXT NOT NULL,target TEXT NOT NULL,service TEXT NOT NULL, result TEXT NOT NULL,timestamp INTEGER NOT NULL)'
+                    ).then(() => {
+                        db.close();
+                        addToHistory(text, source, target, service, result);
+                    });
+                }
+            );
+    };
+
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
@@ -94,6 +117,7 @@ export default function TargetArea(props) {
                         if (translateID[index] !== id) return;
                         setResult(v);
                         setIsLoading(false);
+                        addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
                         if (index === 0) {
                             switch (autoCopy) {
                                 case 'target':
@@ -146,6 +170,7 @@ export default function TargetArea(props) {
                             if (translateID[index] !== id) return;
                             setResult(v);
                             setIsLoading(false);
+                            addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
                             if (index === 0) {
                                 switch (autoCopy) {
                                     case 'target':

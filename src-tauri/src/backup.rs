@@ -52,6 +52,7 @@ pub async fn webdav(
             config_dir_path = config_dir_path.join("com.pot-app.desktop");
             let zip_path = config_dir_path.join("archive.zip");
             let config_path = config_dir_path.join("config.json");
+            let database_path = config_dir_path.join("history.db");
             let plugin_path = config_dir_path.join("plugins");
 
             let zip_file = std::fs::File::create(&zip_path)?;
@@ -59,6 +60,10 @@ pub async fn webdav(
             let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
             zip.start_file("config.json", options)?;
             zip.write(&std::fs::read(&config_path)?)?;
+            if database_path.exists() {
+                zip.start_file("history.db", options)?;
+                zip.write(&std::fs::read(&database_path)?)?;
+            }
             if plugin_path.exists() {
                 for entry in WalkDir::new(plugin_path) {
                     let entry = entry?;
@@ -118,6 +123,7 @@ pub async fn local(operate: &str, path: String) -> Result<String, Error> {
             };
             config_dir_path = config_dir_path.join("com.pot-app.desktop");
             let config_path = config_dir_path.join("config.json");
+            let database_path = config_dir_path.join("history.db");
             let plugin_path = config_dir_path.join("plugins");
 
             let zip_file = std::fs::File::create(&path)?;
@@ -125,6 +131,10 @@ pub async fn local(operate: &str, path: String) -> Result<String, Error> {
             let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
             zip.start_file("config.json", options)?;
             zip.write(&std::fs::read(&config_path)?)?;
+            if database_path.exists() {
+                zip.start_file("history.db", options)?;
+                zip.write(&std::fs::read(&database_path)?)?;
+            }
             if plugin_path.exists() {
                 for entry in WalkDir::new(plugin_path) {
                     let entry = entry?;

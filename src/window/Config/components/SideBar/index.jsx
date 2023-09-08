@@ -7,7 +7,7 @@ import { PiTextboxFill } from 'react-icons/pi';
 import { MdKeyboardAlt } from 'react-icons/md';
 import { MdExtension } from 'react-icons/md';
 import { AiFillCloud } from 'react-icons/ai';
-// import { FaHistory } from 'react-icons/fa';
+import { FaHistory } from 'react-icons/fa';
 import { Button } from '@nextui-org/react';
 import React from 'react';
 
@@ -82,7 +82,7 @@ export default function SideBar() {
             >
                 <div className='w-full'>{t('config.service.label')}</div>
             </Button>
-            {/* <Button
+            <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/history')}
@@ -93,7 +93,7 @@ export default function SideBar() {
                 startContent={<FaHistory className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.history.label')}</div>
-            </Button> */}
+            </Button>
             <Button
                 fullWidth
                 size='lg'
