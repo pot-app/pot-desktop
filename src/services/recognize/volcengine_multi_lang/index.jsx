@@ -12,20 +12,20 @@ export async function recognize(base64, language, options = {}) {
 
     const { appid, secret } = recognizeConfig;
 
-    let text = await normal_ocr(base64, appid, secret);
+    let text = await multi_lang_ocr(base64, appid, secret);
 
     return text.trim();
 }
 
-async function normal_ocr(img_base64, appid, secret) {
-    let res = await query(img_base64, 'OCRNormal', '2020-08-26', appid, secret);
+async function multi_lang_ocr(img_base64, appid, secret) {
+    let res = await query(img_base64, 'MultiLanguageOCR', '2022-08-31', appid, secret);
     if (res.ok) {
         let result = res.data;
         if (result['data']) {
             let data = result['data'];
             var texts = '';
-            for (let text of data['line_texts']) {
-                texts += text + '\n';
+            for (let text of data['ocr_infos']) {
+                texts += text['text'] + '\n';
             }
             return texts;
         }
@@ -140,7 +140,7 @@ async function query(img_base64, action, serviceVersion, appid, secret) {
     let res = await fetch(url, {
         method: method,
         headers: headers,
-        body: { type: 'Text', payload: body },
+        body: Body.text(body),
     });
     return res;
 }
