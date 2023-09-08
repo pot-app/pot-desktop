@@ -15,7 +15,7 @@ export async function baidu_detect(text) {
         de: 'de',
         it: 'it',
         tr: 'tr',
-        pt: 'pt',
+        pt: 'pt_pt',
         vie: 'vi',
         id: 'id',
         th: 'th',
@@ -44,7 +44,7 @@ export async function baidu_detect(text) {
 export async function google_detect(text) {
     const lang_map = {
         'zh-CN': 'zh_cn',
-        'zh-TW': 'zh_Ttw',
+        'zh-TW': 'zh_tw',
         ja: 'ja',
         en: 'en',
         ko: 'ko',

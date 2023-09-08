@@ -43,9 +43,8 @@ export default function History() {
     };
     const getData = async () => {
         const db = await Database.load('sqlite:history.db');
-        let result = await db.select('SELECT * FROM history ORDER BY id DESC LIMIT 20 OFFSET $1', [
-            20 * (page - 1) + 1,
-        ]);
+        let result = await db.select('SELECT * FROM history ORDER BY id DESC LIMIT 20 OFFSET $1', [20 * (page - 1)]);
+        console.log(result);
         setItems(result);
         await db.close();
     };
@@ -106,7 +105,7 @@ export default function History() {
                     selectionBehavior='toggle'
                     aria-label='History Table'
                     classNames={{
-                        base: 'h-[calc(100vh-100px)] overflow-y-auto',
+                        base: 'h-[calc(100vh-130px)] overflow-y-auto',
                         td: 'px-0',
                     }}
                     onRowAction={(id) => {
@@ -132,34 +131,30 @@ export default function History() {
                                     {item.service.startsWith('[plugin]') ? (
                                         <img
                                             src={pluginList['translate'][item.service].icon}
-                                            className='h-[18px] w-[18px] my-auto'
+                                            className='h-[18px] w-[18px] my-auto mr-[8px]'
                                             draggable={false}
                                         />
                                     ) : (
                                         <img
                                             src={`${buildinServices[item.service].info.icon}`}
-                                            className='h-[18px] w-[18px] m-auto mr-[8px]'
+                                            className='h-[18px] w-[18px] my-auto mr-[8px]'
                                             draggable={false}
                                         />
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px)*0.5)] text-ellipsis overflow-hidden'>
+                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)] text-ellipsis overflow-hidden'>
                                         {item.text}
                                     </p>
                                 </TableCell>
                                 <TableCell>
-                                    <span
-                                        className={`w-[30px] fi fi-${
-                                            LanguageFlag[item.source === '' ? 'en' : item.source]
-                                        }`}
-                                    />
+                                    <span className={`w-[30px] fi fi-${LanguageFlag[item.source]}`} />
                                 </TableCell>
                                 <TableCell>
                                     <span className={`w-[30px] fi fi-${LanguageFlag[item.target]}`} />
                                 </TableCell>
                                 <TableCell>
-                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px)*0.5)] text-ellipsis overflow-hidden'>
+                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)] text-ellipsis overflow-hidden'>
                                         {item.result}
                                     </p>
                                 </TableCell>
