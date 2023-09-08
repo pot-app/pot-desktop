@@ -4,6 +4,7 @@ use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
 use log::{error, info};
+use serde_json::Value;
 use std::collections::HashMap;
 use tauri::Manager;
 
@@ -88,7 +89,7 @@ pub fn invoke_plugin(
     to: Option<&str>,
     lang: Option<&str>,
     needs: HashMap<String, String>,
-) -> Result<String, String> {
+) -> Result<Value, String> {
     use dirs::config_dir;
     use libloading;
     use std::env::consts::OS;
@@ -116,7 +117,7 @@ pub fn invoke_plugin(
                         &str,
                         &str,
                         HashMap<String, String>,
-                    ) -> Result<String, Box<dyn std::error::Error>>,
+                    ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"translate") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
@@ -132,7 +133,7 @@ pub fn invoke_plugin(
                         &str,
                         &str,
                         HashMap<String, String>,
-                    ) -> Result<String, Box<dyn std::error::Error>>,
+                    ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"tts") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
@@ -148,7 +149,7 @@ pub fn invoke_plugin(
                         &str,
                         &str,
                         HashMap<String, String>,
-                    ) -> Result<String, Box<dyn std::error::Error>>,
+                    ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"recognize") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
@@ -164,7 +165,7 @@ pub fn invoke_plugin(
                         &str,
                         &str,
                         HashMap<String, String>,
-                    ) -> Result<String, Box<dyn std::error::Error>>,
+                    ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"collection") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
