@@ -4,7 +4,7 @@ import { store } from '../../../utils/store';
 export async function translate(text, from, to, options = {}) {
     const { config, setResult } = options;
 
-    let translateConfig = await store.get('openai');
+    let translateConfig = await store.get('openai_custom');
     if (config !== undefined) {
         translateConfig = config;
     }
