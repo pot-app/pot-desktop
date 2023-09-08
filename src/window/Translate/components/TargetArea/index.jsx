@@ -498,7 +498,12 @@ export default function TargetArea(props) {
                                             needs: pluginConfig,
                                         }).then(
                                             (v) => {
-                                                setResult(v);
+                                                if (v === result) {
+                                                    setResult(v + ' ');
+                                                } else {
+                                                    setResult(v);
+                                                }
+                                                setForceUpdate(nanoid());
                                                 setIsLoading(false);
                                             },
                                             (e) => {
@@ -521,7 +526,11 @@ export default function TargetArea(props) {
                                             )
                                             .then(
                                                 (v) => {
-                                                    setResult(v);
+                                                    if (v === result) {
+                                                        setResult(v + ' ');
+                                                    } else {
+                                                        setResult(v);
+                                                    }
                                                     setIsLoading(false);
                                                 },
                                                 (e) => {
