@@ -1,5 +1,14 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure } from '@nextui-org/react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
+import {
+    Table,
+    TableHeader,
+    TableColumn,
+    TableBody,
+    TableRow,
+    TableCell,
+    useDisclosure,
+    Textarea,
+} from '@nextui-org/react';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, ButtonGroup } from '@nextui-org/react';
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
 import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
@@ -39,22 +48,29 @@ export default function History() {
         if (result[0] && result[0]['COUNT(*)']) {
             setTotal(result[0]['COUNT(*)']);
         }
-        await db.close();
     };
     const getData = async () => {
         const db = await Database.load('sqlite:history.db');
         let result = await db.select('SELECT * FROM history ORDER BY id DESC LIMIT 20 OFFSET $1', [20 * (page - 1)]);
-        console.log(result);
         setItems(result);
-        await db.close();
     };
 
     const getSelectedData = async (id) => {
         const db = await Database.load('sqlite:history.db');
         let result = await db.select('SELECT * FROM history WHERE id=$1', [id]);
         setSelectItem(result[0]);
-        await db.close();
     };
+
+    const updateData = async (id) => {
+        const db = await Database.load('sqlite:history.db');
+        await db.execute('UPDATE history SET text=$1, result=$2 WHERE id=$3', [
+            selectedItem.text,
+            selectedItem.result,
+            selectedItem.id,
+        ]);
+        await getData();
+    };
+
     const formatDate = (date) => {
         function padTo2Digits(num) {
             return num.toString().padStart(2, '0');
@@ -176,6 +192,7 @@ export default function History() {
                         onChange={setPage}
                     />
                 </div>
+
                 <Modal
                     isOpen={isOpen}
                     onOpenChange={onOpenChange}
@@ -203,46 +220,48 @@ export default function History() {
                                         </div>
                                     </ModalHeader>
                                     <ModalBody>
-                                        <p>{selectedItem.text}</p>
-                                        <p>{selectedItem.result}</p>
+                                        <Textarea
+                                            value={selectedItem.text}
+                                            onChange={(e) => {
+                                                setSelectItem({ ...selectedItem, text: e.target.value });
+                                            }}
+                                        />
+                                        <Textarea
+                                            value={selectedItem.result}
+                                            onChange={(e) => {
+                                                setSelectItem({ ...selectedItem, result: e.target.value });
+                                            }}
+                                        />
                                     </ModalBody>
-                                    <ModalFooter>
-                                        {collectionServiceList &&
-                                            collectionServiceList.map((serviceName) => {
-                                                return (
-                                                    <Button
-                                                        key={serviceName}
-                                                        isIconOnly
-                                                        variant='light'
-                                                        onPress={async () => {
-                                                            if (serviceName.startsWith('[plugin]')) {
-                                                                const pluginConfig =
-                                                                    (await store.get(serviceName)) ?? {};
-                                                                invoke('invoke_plugin', {
-                                                                    name: serviceName,
-                                                                    pluginType: 'collection',
-                                                                    from: selectedItem.text,
-                                                                    to: selectedItem.result,
-                                                                    needs: pluginConfig,
-                                                                }).then(
-                                                                    (_) => {
-                                                                        toast.success(
-                                                                            t('translate.add_collection_success'),
-                                                                            {
-                                                                                style: toastStyle,
-                                                                            }
-                                                                        );
-                                                                    },
-                                                                    (e) => {
-                                                                        toast.error(e.toString(), {
-                                                                            style: toastStyle,
-                                                                        });
-                                                                    }
-                                                                );
-                                                            } else {
-                                                                buildinCollectionServices[serviceName]
-                                                                    .collection(selectedItem.text, selectedItem.result)
-                                                                    .then(
+                                    <ModalFooter className='flex justify-between'>
+                                        <Button
+                                            color='primary'
+                                            onPress={async () => {
+                                                await updateData();
+                                                onClose();
+                                            }}
+                                        >
+                                            {t('common.save')}
+                                        </Button>
+                                        <ButtonGroup>
+                                            {collectionServiceList &&
+                                                collectionServiceList.map((serviceName) => {
+                                                    return (
+                                                        <Button
+                                                            key={serviceName}
+                                                            isIconOnly
+                                                            variant='light'
+                                                            onPress={async () => {
+                                                                if (serviceName.startsWith('[plugin]')) {
+                                                                    const pluginConfig =
+                                                                        (await store.get(serviceName)) ?? {};
+                                                                    invoke('invoke_plugin', {
+                                                                        name: serviceName,
+                                                                        pluginType: 'collection',
+                                                                        from: selectedItem.text,
+                                                                        to: selectedItem.result,
+                                                                        needs: pluginConfig,
+                                                                    }).then(
                                                                         (_) => {
                                                                             toast.success(
                                                                                 t('translate.add_collection_success'),
@@ -257,20 +276,45 @@ export default function History() {
                                                                             });
                                                                         }
                                                                     );
-                                                            }
-                                                        }}
-                                                    >
-                                                        <img
-                                                            src={
-                                                                serviceName.startsWith('[plugin]')
-                                                                    ? pluginList['collection'][serviceName].icon
-                                                                    : buildinCollectionServices[serviceName].info.icon
-                                                            }
-                                                            className='h-[24px] w-[24px]'
-                                                        />
-                                                    </Button>
-                                                );
-                                            })}
+                                                                } else {
+                                                                    buildinCollectionServices[serviceName]
+                                                                        .collection(
+                                                                            selectedItem.text,
+                                                                            selectedItem.result
+                                                                        )
+                                                                        .then(
+                                                                            (_) => {
+                                                                                toast.success(
+                                                                                    t(
+                                                                                        'translate.add_collection_success'
+                                                                                    ),
+                                                                                    {
+                                                                                        style: toastStyle,
+                                                                                    }
+                                                                                );
+                                                                            },
+                                                                            (e) => {
+                                                                                toast.error(e.toString(), {
+                                                                                    style: toastStyle,
+                                                                                });
+                                                                            }
+                                                                        );
+                                                                }
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={
+                                                                    serviceName.startsWith('[plugin]')
+                                                                        ? pluginList['collection'][serviceName].icon
+                                                                        : buildinCollectionServices[serviceName].info
+                                                                              .icon
+                                                                }
+                                                                className='h-[24px] w-[24px]'
+                                                            />
+                                                        </Button>
+                                                    );
+                                                })}
+                                        </ButtonGroup>
                                     </ModalFooter>
                                 </>
                             )
