@@ -81,8 +81,11 @@ async function getSignature(url) {
         method: 'GET',
         headers: { 'Content-Type': 'application/octet-stream' },
     });
-
-    return response.text();
+    if (response.ok) {
+        return response.text();
+    } else {
+        return '';
+    }
 }
 
 resolveUpdater().catch(console.error);
