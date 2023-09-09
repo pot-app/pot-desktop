@@ -1,4 +1,4 @@
-## 2.1.0 (2023-09-08)
+## 2.2.0 (2023-09-09)
 
 ### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
@@ -6,14 +6,16 @@
 
 ### New feature:
 
--   Add Clipboard Monitor([`a6a41cd`](https://github.com/pot-app/pot-desktop/commit/a6a41cd9f272785a68f36df236286fad7ce506db)) (by @Pylogmon)
--   Support Local Backup([`72806cb`](https://github.com/pot-app/pot-desktop/commit/72806cb01545ba5c6b43f469b6723c2099f370b2)) (by @Pylogmon)
--   Choose Translate Window Position([`86869f8`](https://github.com/pot-app/pot-desktop/commit/86869f884cc47eba1f44208384707a1aeaf009c0)) (by @Pylogmon)
--   Switch Transparent Effect([`15e7a26`](https://github.com/pot-app/pot-desktop/commit/15e7a2669a7d573ac70fd2d3f1524e50432537f4)) (by @Pylogmon)
+-   Support Edit History Item([`621f2eb`](https://github.com/pot-app/pot-desktop/commit/621f2eb99264440de49f61cc72a46b640df466f1)) (by @Pylogmon)
+-   Add Translate History([`424dac9`](https://github.com/pot-app/pot-desktop/commit/424dac9a6681415ee7a9c874da54c75cda4514fa)) (by @Pylogmon)
+-   Support Return Json From Plugin([`23c73bc`](https://github.com/pot-app/pot-desktop/commit/23c73bc6f0d1a2d9f04ce3818db5077e0823ab5c)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Crash when Add Service([`b952e61`](https://github.com/pot-app/pot-desktop/commit/b952e61e9281a15d603daa2ed0cefdfdf22f7997)) (by @Pylogmon)
--   Copy Text Failed when Recognize([`738b535`](https://github.com/pot-app/pot-desktop/commit/738b535ffacea32cad9a954cbf84c4f0b9c4f69f)) (by @Pylogmon)
--   Can't Input on some Platform([`79b09e1`](https://github.com/pot-app/pot-desktop/commit/79b09e13139678c46293f2f2c729c4713dae32a6)) (by @Pylogmon)
--   Init Language Model when Use Baidu([`5eed62b`](https://github.com/pot-app/pot-desktop/commit/5eed62bc2af26f889dafde809dd6cbc288cc0138)) (by @Pylogmon)
+-   Tesseract Error Message([`6ab31bd`](https://github.com/pot-app/pot-desktop/commit/6ab31bd4c85db494e2b7a9e33f9d90befa97a04f)) (by @Pylogmon)
+-   Do Not Copy Anything when ClipboardMonitor is on([`7c30180`](https://github.com/pot-app/pot-desktop/commit/7c3018055de8386c572567d18693b2f8f73863c2)) (by @Pylogmon)
+-   Fix Style on Linux([`e564200`](https://github.com/pot-app/pot-desktop/commit/e5642002ec2fba52bd25cbde995b98b65a638cab)) (by @Pylogmon)
+-   Text Disappears when Back Translation Twice([`d4c14ca`](https://github.com/pot-app/pot-desktop/commit/d4c14ca6eddf2e79c50496848018bd9234953049)) (by @Pylogmon)
+-   Show Source text Twice([`516f301`](https://github.com/pot-app/pot-desktop/commit/516f3015cdd6908a83f0c9e420d66661437f2b81)) (by @Pylogmon)
+-   Can't use Volcengine OCR([`79e153f`](https://github.com/pot-app/pot-desktop/commit/79e153f0ded7743a4379214d1355139d9fe212f8)) (by @Pylogmon)
+-   OpenAI Custom Config not Read([`1dd79ba`](https://github.com/pot-app/pot-desktop/commit/1dd79bac11f516a457a76b1e5eec1f1716c54789)) (by @Pylogmon)
