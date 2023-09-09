@@ -1,28 +1,23 @@
-import {
-    Table,
-    TableHeader,
-    TableColumn,
-    TableBody,
-    TableRow,
-    TableCell,
-    useDisclosure,
-    Textarea,
-} from '@nextui-org/react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, ButtonGroup } from '@nextui-org/react';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/react';
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
+import { Textarea, Button, ButtonGroup } from '@nextui-org/react';
 import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
-import { Pagination } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
-import Database from 'tauri-plugin-sql-api';
-import { invoke } from '@tauri-apps/api/tauri';
 import toast, { Toaster } from 'react-hot-toast';
-import { store } from '../../../../utils/store';
+import { Pagination } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
+import { invoke } from '@tauri-apps/api/tauri';
+import Database from 'tauri-plugin-sql-api';
+
 import * as buildinCollectionServices from '../../../../services/collection';
 import * as buildinServices from '../../../../services/translate';
-import { LanguageFlag } from '../../../../utils/language';
 import { useConfig, useToastStyle } from '../../../../hooks';
-import { useTranslation } from 'react-i18next';
+import { LanguageFlag } from '../../../../utils/language';
+import { store } from '../../../../utils/store';
+import { osType } from '../../../../utils/env';
+
 export default function History() {
     const [collectionServiceList] = useConfig('collection_service_list', []);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -121,7 +116,9 @@ export default function History() {
                     selectionBehavior='toggle'
                     aria-label='History Table'
                     classNames={{
-                        base: 'h-[calc(100vh-130px)] overflow-y-auto',
+                        base: `${
+                            osType === 'Linux' ? 'h-[calc(100vh-130px)]' : 'h-[calc(100vh-100px)]'
+                        } overflow-y-auto`,
                         td: 'px-0',
                     }}
                     onRowAction={(id) => {
@@ -159,7 +156,11 @@ export default function History() {
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)] text-ellipsis overflow-hidden'>
+                                    <p
+                                        className={`whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px${
+                                            osType === 'Linux' ? '-30px' : ''
+                                        })*0.5)] text-ellipsis overflow-hidden`}
+                                    >
                                         {item.text}
                                     </p>
                                 </TableCell>
@@ -170,7 +171,11 @@ export default function History() {
                                     <span className={`w-[30px] fi fi-${LanguageFlag[item.target]}`} />
                                 </TableCell>
                                 <TableCell>
-                                    <p className='whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)] text-ellipsis overflow-hidden'>
+                                    <p
+                                        className={`whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px${
+                                            osType === 'Linux' ? '-30px' : ''
+                                        })*0.5)] text-ellipsis overflow-hidden`}
+                                    >
                                         {item.result}
                                     </p>
                                 </TableCell>
