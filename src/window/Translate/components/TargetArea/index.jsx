@@ -40,6 +40,7 @@ export default function TargetArea(props) {
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
+    const [clipboardMonitor] = useConfig('clipboard_monitor', false);
     const [hideWindow] = useConfig('translate_hide_window', false);
     const { name, index, translateServiceList, pluginList, ...drag } = props;
     const [translateServiceName, setTranslateServiceName] = useState(name);
@@ -58,8 +59,16 @@ export default function TargetArea(props) {
     useEffect(() => {
         setResult('');
         setError('');
-        if (sourceText !== '' && sourceLanguage && targetLanguage && autoCopy !== null && hideWindow !== null) {
-            if (autoCopy === 'source') {
+        if (
+            sourceText !== '' &&
+            sourceLanguage &&
+            targetLanguage &&
+            autoCopy !== null &&
+            hideWindow !== null &&
+            clipboardMonitor !== null
+        ) {
+            console.log(clipboardMonitor);
+            if (autoCopy === 'source' && !clipboardMonitor) {
                 writeText(sourceText).then(() => {
                     if (hideWindow) {
                         sendNotification({ title: t('common.write_clipboard'), body: sourceText });
@@ -68,7 +77,7 @@ export default function TargetArea(props) {
             }
             translate();
         }
-    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, translateServiceName]);
+    }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, translateServiceName, clipboardMonitor]);
 
     const addToHistory = async (text, source, target, service, result) => {
         const db = await Database.load('sqlite:history.db');
@@ -118,7 +127,7 @@ export default function TargetArea(props) {
                         setResult(v);
                         setIsLoading(false);
                         addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
-                        if (index === 0) {
+                        if (index === 0 && !clipboardMonitor) {
                             switch (autoCopy) {
                                 case 'target':
                                     writeText(v).then(() => {
@@ -171,7 +180,7 @@ export default function TargetArea(props) {
                             setResult(v);
                             setIsLoading(false);
                             addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
-                            if (index === 0) {
+                            if (index === 0 && !clipboardMonitor) {
                                 switch (autoCopy) {
                                     case 'target':
                                         writeText(v).then(() => {
