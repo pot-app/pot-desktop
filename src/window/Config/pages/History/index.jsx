@@ -157,9 +157,11 @@ export default function History() {
                                 </TableCell>
                                 <TableCell>
                                     <p
-                                        className={`whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px${
-                                            osType === 'Linux' ? '-30px' : ''
-                                        })*0.5)] text-ellipsis overflow-hidden`}
+                                        className={`whitespace-nowrap ${
+                                            osType === 'Linux'
+                                                ? 'w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)]'
+                                                : 'w-[calc((100vw-287px-26px-60px-140px)*0.5)]'
+                                        } text-ellipsis overflow-hidden`}
                                     >
                                         {item.text}
                                     </p>
@@ -172,9 +174,11 @@ export default function History() {
                                 </TableCell>
                                 <TableCell>
                                     <p
-                                        className={`whitespace-nowrap w-[calc((100vw-287px-26px-60px-140px${
-                                            osType === 'Linux' ? '-30px' : ''
-                                        })*0.5)] text-ellipsis overflow-hidden`}
+                                        className={`whitespace-nowrap ${
+                                            osType === 'Linux'
+                                                ? 'w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)]'
+                                                : 'w-[calc((100vw-287px-26px-60px-140px)*0.5)]'
+                                        } text-ellipsis overflow-hidden`}
                                     >
                                         {item.result}
                                     </p>

@@ -121,13 +121,22 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
         .output()
     {
         Ok(v) => v,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => {
+            if e.to_string().contains("os error 2") {
+                return Err("Tesseract not installed!".to_string());
+            }
+            return Err(e.to_string());
+        }
     };
     if output.status.success() {
         let content = String::from_utf8(output.stdout).unwrap_or_default();
         Ok(content)
     } else {
         let content = String::from_utf8(output.stderr).unwrap_or_default();
+
+        if content.contains("data") {
+            return Err("Language data not installed!".to_string());
+        }
         Err(content)
     }
 }
