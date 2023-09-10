@@ -50,7 +50,6 @@
                     "system": "System"
                 },
                 "transparent": "Transparent Effect",
-                "change_transparent": "The transparent effect will take effect after restarting the software.",
                 "proxy": {
                     "title": "Proxy",
                     "host": "Host",

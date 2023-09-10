@@ -84,21 +84,10 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
                 tauri::WindowUrl::App("index.html".into()),
             )
             .position(position.x, position.y)
+            .transparent(true)
             .focused(true)
             .title(title)
             .visible(false);
-
-            match get("transparent") {
-                Some(v) => {
-                    if v.as_bool().unwrap() {
-                        builder = builder.transparent(true);
-                    }
-                }
-                None => {
-                    set("transparent", true);
-                    builder = builder.transparent(true);
-                }
-            }
 
             #[cfg(target_os = "macos")]
             {

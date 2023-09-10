@@ -234,11 +234,6 @@ export default function General() {
                             isSelected={transparent}
                             onValueChange={(v) => {
                                 setTransparent(v);
-
-                                toast.success(t('config.general.change_transparent'), {
-                                    duration: 1000,
-                                    style: toastStyle,
-                                });
                             }}
                         />
                     </div>
