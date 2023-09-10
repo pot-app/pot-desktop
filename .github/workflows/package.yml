@@ -302,22 +302,18 @@ jobs:
 
   homebrew:
     name: Update Homebrew cask
-    # needs: build-for-macos
+    needs: build-for-macos
     runs-on: macos-latest
-    # if: startsWith(github.ref, 'refs/tags')
+    if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      # - name: Install git
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y git
-      # - name: Get Tag Name
-      #   run: |
-      #     echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
-      #     echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
       - name: Set up Git
@@ -331,7 +327,7 @@ jobs:
         run: |
           brew tap pot-app/homebrew-tap
           brew update
-          brew bump-cask-pr pot --version 2.2.0 --no-browse
+          brew bump-cask-pr pot --version ${{ env.VERSION }} --no-browse
 
   winget:
     name: Update WinGet Package
