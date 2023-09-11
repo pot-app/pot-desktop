@@ -228,7 +228,7 @@ export default function General() {
                             </Dropdown>
                         )}
                     </div>
-                    <div className='config-item'>
+                    <div className={`config-item ${osType === 'Darwin' && 'hidden'}`}>
                         <h3>{t('config.general.transparent')}</h3>
                         <Switch
                             isSelected={transparent}

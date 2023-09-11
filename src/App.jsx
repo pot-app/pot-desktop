@@ -1,6 +1,7 @@
 import { appWindow } from '@tauri-apps/api/window';
 import { BrowserRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { warn } from 'tauri-plugin-log-api';
 import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
@@ -8,11 +9,11 @@ import Screenshot from './window/Screenshot';
 import Translate from './window/Translate';
 import Recognize from './window/Recognize';
 import Updater from './window/Updater';
+import { store } from './utils/store';
 import Config from './window/Config';
 import { useConfig } from './hooks';
 import './style.css';
 import './i18n';
-import { store } from './utils/store';
 
 const windowMap = {
     translate: <Translate />,
@@ -34,18 +35,22 @@ export default function App() {
             if (appTheme !== 'system') {
                 setTheme(appTheme);
             } else {
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    setTheme('dark');
-                } else {
-                    setTheme('light');
-                }
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (e.matches) {
+                try {
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                         setTheme('dark');
                     } else {
                         setTheme('light');
                     }
-                });
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                        if (e.matches) {
+                            setTheme('dark');
+                        } else {
+                            setTheme('light');
+                        }
+                    });
+                } catch {
+                    warn("Can't detect system theme.");
+                }
             }
         }
         if (appLanguage !== null) {

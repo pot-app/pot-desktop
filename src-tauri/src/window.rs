@@ -84,7 +84,6 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
                 tauri::WindowUrl::App("index.html".into()),
             )
             .position(position.x, position.y)
-            .transparent(true)
             .focused(true)
             .title(title)
             .visible(false);
@@ -97,23 +96,15 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
             }
             #[cfg(not(target_os = "macos"))]
             {
-                builder = builder.decorations(false);
+                builder = builder.transparent(true).decorations(false);
             }
             let window = builder.build().unwrap();
 
             if label != "screenshot" {
                 #[cfg(not(target_os = "linux"))]
                 set_shadow(&window, true).unwrap_or_default();
-
-                // #[cfg(target_os = "macos")]
-                // {
-                //     use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
-                //     apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
-                //         .unwrap_or_default();
-                // }
             }
             let _ = window.current_monitor();
-            window.set_focus().unwrap();
             (window, false)
         }
     }

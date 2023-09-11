@@ -6,7 +6,6 @@
         },
         "bundle": {
             "resources": ["resources/*"]
-        },
-        "macOSPrivateApi": true
+        }
     }
 }
