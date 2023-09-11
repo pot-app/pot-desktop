@@ -108,9 +108,8 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
                 #[cfg(target_os = "macos")]
                 {
                     use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
-                    apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None).expect(
-                        "Unsupported platform! 'apply_vibrancy' is only supported on macOS",
-                    );
+                    apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
+                        .unwrap_or_default();
                 }
             }
             let _ = window.current_monitor();
