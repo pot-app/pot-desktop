@@ -28,7 +28,9 @@ pub fn cut_image(left: u32, top: u32, width: u32, height: u32, app_handle: tauri
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot.png");
-
+    if !app_cache_dir_path.exists() {
+        return;
+    }
     let mut img = image::open(&app_cache_dir_path).unwrap();
     let img2 = img.sub_image(left, top, width, height);
     app_cache_dir_path.pop();
@@ -50,6 +52,9 @@ pub fn get_base64(app_handle: tauri::AppHandle) -> String {
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");
     app_cache_dir_path.push(&app_handle.config().tauri.bundle.identifier);
     app_cache_dir_path.push("pot_screenshot_cut.png");
+    if !app_cache_dir_path.exists() {
+        return "".to_string();
+    }
     let mut file = File::open(app_cache_dir_path).unwrap();
     let mut vec = Vec::new();
     file.read_to_end(&mut vec).unwrap();
