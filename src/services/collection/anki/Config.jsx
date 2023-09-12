@@ -18,45 +18,52 @@ export function Config(props) {
         ankiConfig !== null && (
             <>
                 <Toaster />
-                <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.collection.anki.port')}</h3>
-                    <Input
-                        value={ankiConfig['port']}
-                        type='number'
-                        variant='bordered'
-                        className='max-w-[50%]'
-                        onValueChange={(value) => {
-                            setAnkiConfig({
-                                ...ankiConfig,
-                                port: value,
-                            });
-                        }}
-                    />
-                </div>
-                <div>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        setIsLoading(true);
+                        collection('test', '测试', { config: ankiConfig }).then(
+                            () => {
+                                setIsLoading(false);
+                                setAnkiConfig(ankiConfig, true);
+                                updateServiceList('anki');
+                                onClose();
+                            },
+                            (e) => {
+                                setIsLoading(false);
+                                toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                            }
+                        );
+                    }}
+                >
+                    <div className={'config-item'}>
+                        <Input
+                            label={t('services.collection.anki.port')}
+                            labelPlacement='outside-left'
+                            value={ankiConfig['port']}
+                            type='number'
+                            variant='bordered'
+                            classNames={{
+                                base: 'justify-between',
+                                label: 'text-[length:--nextui-font-size-medium]',
+                                mainWrapper: 'max-w-[50%]',
+                            }}
+                            onValueChange={(value) => {
+                                setAnkiConfig({
+                                    ...ankiConfig,
+                                    port: value,
+                                });
+                            }}
+                        />
+                    </div>
                     <Button
                         isLoading={isLoading}
                         fullWidth
                         color='primary'
-                        onPress={() => {
-                            setIsLoading(true);
-                            collection('test', '测试', { config: ankiConfig }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setAnkiConfig(ankiConfig, true);
-                                    updateServiceList('anki');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
                     >
                         {t('common.save')}
                     </Button>
-                </div>
+                </form>
             </>
         )
     );
