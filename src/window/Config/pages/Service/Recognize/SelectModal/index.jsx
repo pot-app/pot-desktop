@@ -2,7 +2,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/recognize';
+import * as builtinServices from '../../../../../../services/recognize';
 import { osType } from '../../../../../../utils/env';
 
 export default function SelectModal(props) {
@@ -20,7 +20,7 @@ export default function SelectModal(props) {
                     <>
                         <ModalHeader>{t('config.service.add_service')}</ModalHeader>
                         <ModalBody>
-                            {Object.keys(buildinServices).map((x) => {
+                            {Object.keys(builtinServices).map((x) => {
                                 return (
                                     <div key={x}>
                                         <Button
@@ -34,14 +34,14 @@ export default function SelectModal(props) {
                                                     src={
                                                         x === 'system'
                                                             ? `logo/${osType}.svg`
-                                                            : buildinServices[x].info.icon
+                                                            : builtinServices[x].info.icon
                                                     }
                                                     className='h-[24px] w-[24px] my-auto'
                                                 />
                                             }
                                         >
                                             <div className='w-full'>
-                                                {t(`services.recognize.${buildinServices[x].info.name}.title`)}
+                                                {t(`services.recognize.${builtinServices[x].info.name}.title`)}
                                             </div>
                                         </Button>
                                     </div>

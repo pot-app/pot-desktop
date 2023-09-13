@@ -27,9 +27,9 @@ import { nanoid } from 'nanoid';
 
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
-import * as buildinCollectionServices from '../../../../services/collection';
-import * as buildinServices from '../../../../services/translate';
-import * as buildinTtsServices from '../../../../services/tts';
+import * as builtinCollectionServices from '../../../../services/collection';
+import * as builtinServices from '../../../../services/translate';
+import * as builtinTtsServices from '../../../../services/tts';
 import { useConfig, useToastStyle } from '../../../../hooks';
 import { store } from '../../../../utils/store';
 
@@ -159,14 +159,14 @@ export default function TargetArea(props) {
                 );
             }
         } else {
-            const LanguageEnum = buildinServices[translateServiceName].Language;
+            const LanguageEnum = builtinServices[translateServiceName].Language;
             if (sourceLanguage in LanguageEnum && targetLanguage in LanguageEnum) {
                 let newTargetLanguage = targetLanguage;
                 if (sourceLanguage === 'auto' && targetLanguage === detectLanguage) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                buildinServices[translateServiceName]
+                builtinServices[translateServiceName]
                     .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
                         setResult: (v) => {
                             if (translateID[index] !== id) return;
@@ -250,7 +250,7 @@ export default function TargetArea(props) {
                                         />
                                     ) : (
                                         <img
-                                            src={buildinServices[translateServiceName].info.icon}
+                                            src={builtinServices[translateServiceName].info.icon}
                                             className='h-[20px] my-auto'
                                         />
                                     )
@@ -284,7 +284,7 @@ export default function TargetArea(props) {
                                                 />
                                             ) : (
                                                 <img
-                                                    src={buildinServices[x].info.icon}
+                                                    src={builtinServices[x].info.icon}
                                                     className='h-[20px] my-auto'
                                                 />
                                             )
@@ -454,9 +454,9 @@ export default function TargetArea(props) {
                                     needs: config,
                                 });
                             } else {
-                                await buildinTtsServices[serviceName].tts(
+                                await builtinTtsServices[serviceName].tts(
                                     result,
-                                    buildinTtsServices[serviceName].Language[targetLanguage]
+                                    builtinTtsServices[serviceName].Language[targetLanguage]
                                 );
                             }
                         }}
@@ -524,10 +524,10 @@ export default function TargetArea(props) {
                                         setError('Language not supported');
                                     }
                                 } else {
-                                    const LanguageEnum = buildinServices[translateServiceName].Language;
+                                    const LanguageEnum = builtinServices[translateServiceName].Language;
                                     if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
                                         setIsLoading(true);
-                                        buildinServices[translateServiceName]
+                                        builtinServices[translateServiceName]
                                             .translate(
                                                 result,
                                                 LanguageEnum[newSourceLanguage],
@@ -584,7 +584,7 @@ export default function TargetArea(props) {
                                                 }
                                             );
                                         } else {
-                                            buildinCollectionServices[serviceName]
+                                            builtinCollectionServices[serviceName]
                                                 .collection(sourceText, result.toString())
                                                 .then(
                                                     (_) => {
@@ -603,7 +603,7 @@ export default function TargetArea(props) {
                                         src={
                                             serviceName.startsWith('[plugin]')
                                                 ? pluginList['collection'][serviceName].icon
-                                                : buildinCollectionServices[serviceName].info.icon
+                                                : builtinCollectionServices[serviceName].info.icon
                                         }
                                         className='h-[16px] w-[16px]'
                                     />

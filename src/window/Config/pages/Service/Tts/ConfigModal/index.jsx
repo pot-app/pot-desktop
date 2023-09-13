@@ -2,14 +2,14 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Space
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-import * as buildinServices from '../../../../../../services/tts';
+import * as builtinServices from '../../../../../../services/tts';
 import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
     const { isOpen, onOpenChange, name, updateServiceList, pluginList } = props;
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'buildin';
+    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'builtin';
     const { t } = useTranslation();
-    const ConfigComponent = name.startsWith('[plugin]') ? PluginConfig : buildinServices[name].Config;
+    const ConfigComponent = name.startsWith('[plugin]') ? PluginConfig : builtinServices[name].Config;
 
     return serviceType === 'plugin' && !(name in pluginList) ? (
         <></>
@@ -23,10 +23,10 @@ export default function ConfigModal(props) {
                 {(onClose) => (
                     <>
                         <ModalHeader>
-                            {serviceType === 'buildin' && (
+                            {serviceType === 'builtin' && (
                                 <>
                                     <img
-                                        src={buildinServices[name].info.icon}
+                                        src={builtinServices[name].info.icon}
                                         className='h-[24px] w-[24px] my-auto'
                                         draggable={false}
                                     />

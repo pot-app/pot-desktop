@@ -120,7 +120,7 @@
                 "recognize": "文字识别",
                 "collection": "生词本",
                 "least": "请至少保留一个",
-                "add_buildin_service": "添加内置服务",
+                "add_builtin_service": "添加内置服务",
                 "add_external_service": "添加外部插件",
                 "add_service": "添加服务",
                 "test_failed": "测试失败",

@@ -121,7 +121,7 @@
                 "recognize": "Reconhecimento",
                 "collection": "Coleção",
                 "least": "Por favor, mantenha pelo menos um.",
-                "add_buildin_service": "Adicionar Serviço Integrado",
+                "add_builtin_service": "Adicionar Serviço Integrado",
                 "add_external_service": "Adicionar Extensão",
                 "add_service": "Adicionar Serviço",
                 "test_failed": "Teste Falhou",
