@@ -57,6 +57,7 @@ export function Config(props) {
                         />
                     </div>
                     <Button
+                        type='submit'
                         isLoading={isLoading}
                         fullWidth
                         color='primary'
