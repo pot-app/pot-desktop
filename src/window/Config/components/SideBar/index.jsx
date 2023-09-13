@@ -27,7 +27,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/general')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/general');
                 }}
                 startContent={<AiFillAppstore className='text-[24px]' />}
@@ -39,7 +39,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/translate')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/translate');
                 }}
                 startContent={<PiTranslateFill className='text-[24px]' />}
@@ -51,7 +51,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/recognize')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/recognize');
                 }}
                 startContent={<PiTextboxFill className='text-[24px]' />}
@@ -63,7 +63,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/hotkey')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/hotkey');
                 }}
                 startContent={<MdKeyboardAlt className='text-[24px]' />}
@@ -75,7 +75,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/service')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/service');
                 }}
                 startContent={<MdExtension className='text-[24px]' />}
@@ -87,7 +87,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/history')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/history');
                 }}
                 startContent={<FaHistory className='text-[24px]' />}
@@ -99,7 +99,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/backup')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/backup');
                 }}
                 startContent={<AiFillCloud className='text-[24px]' />}
@@ -111,7 +111,7 @@ export default function SideBar() {
                 size='lg'
                 variant={setStyle('/about')}
                 className='mb-[5px]'
-                onClick={() => {
+                onPress={() => {
                     navigate('/about');
                 }}
                 startContent={<BsInfoSquareFill className='text-[24px]' />}

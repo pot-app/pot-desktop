@@ -67,7 +67,7 @@ export default function ServiceItem(props) {
                     size='sm'
                     variant='light'
                     color='danger'
-                    onClick={() => {
+                    onPress={() => {
                         deleteService(name);
                     }}
                 >

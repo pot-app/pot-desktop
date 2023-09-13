@@ -154,7 +154,7 @@ export default function Updater() {
                     isLoading={downloaded !== 0}
                     isDisabled={downloaded !== 0}
                     color='primary'
-                    onClick={() => {
+                    onPress={() => {
                         installUpdate().then(
                             () => {
                                 toast.success(t('updater.installed'), { style: toastStyle });
@@ -174,7 +174,7 @@ export default function Updater() {
                 <Button
                     variant='flat'
                     color='danger'
-                    onClick={() => {
+                    onPress={() => {
                         appWindow.close();
                     }}
                 >

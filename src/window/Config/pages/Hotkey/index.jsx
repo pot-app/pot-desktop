@@ -137,7 +137,7 @@ export default function Hotkey() {
                                     size='sm'
                                     variant='flat'
                                     className={`${selectionTranslate === '' && 'hidden'}`}
-                                    onClick={() => {
+                                    onPress={() => {
                                         registerHandler('hotkey_selection_translate', selectionTranslate);
                                     }}
                                 >
@@ -167,7 +167,7 @@ export default function Hotkey() {
                                     size='sm'
                                     variant='flat'
                                     className={`${inputTranslate === '' && 'hidden'}`}
-                                    onClick={() => {
+                                    onPress={() => {
                                         registerHandler('hotkey_input_translate', inputTranslate);
                                     }}
                                 >
@@ -197,7 +197,7 @@ export default function Hotkey() {
                                     size='sm'
                                     variant='flat'
                                     className={`${ocrRecognize === '' && 'hidden'}`}
-                                    onClick={() => {
+                                    onPress={() => {
                                         registerHandler('hotkey_ocr_recognize', ocrRecognize);
                                     }}
                                 >
@@ -227,7 +227,7 @@ export default function Hotkey() {
                                     size='sm'
                                     variant='flat'
                                     className={`${ocrTranslate === '' && 'hidden'}`}
-                                    onClick={() => {
+                                    onPress={() => {
                                         registerHandler('hotkey_ocr_translate', ocrTranslate);
                                     }}
                                 >

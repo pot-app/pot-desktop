@@ -18,58 +18,73 @@ export function Config(props) {
         config !== null && (
             <>
                 <Toaster />
-                <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.collection.eudic.name')}</h3>
-                    <Input
-                        value={config['name']}
-                        variant='bordered'
-                        className='max-w-[50%]'
-                        onValueChange={(value) => {
-                            setConfig({
-                                ...config,
-                                name: value,
-                            });
-                        }}
-                    />
-                </div>
-                <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.collection.eudic.token')}</h3>
-                    <Input
-                        value={config['token']}
-                        variant='bordered'
-                        className='max-w-[50%]'
-                        onValueChange={(value) => {
-                            setConfig({
-                                ...config,
-                                token: value,
-                            });
-                        }}
-                    />
-                </div>
-                <div>
-                    <Button
-                        isLoading={isLoading}
-                        fullWidth
-                        color='primary'
-                        onPress={() => {
-                            setIsLoading(true);
-                            collection('test', '测试', { config }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setConfig(config, true);
-                                    updateServiceList('eudic');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        setIsLoading(true);
+                        collection('test', '测试', { config }).then(
+                            () => {
+                                setIsLoading(false);
+                                setConfig(config, true);
+                                updateServiceList('eudic');
+                                onClose();
+                            },
+                            (e) => {
+                                setIsLoading(false);
+                                toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                            }
+                        );
+                    }}
+                >
+                    <div className={'config-item'}>
+                        <Input
+                            label={t('services.collection.eudic.name')}
+                            labelPlacement='outside-left'
+                            value={config['name']}
+                            variant='bordered'
+                            classNames={{
+                                base: 'justify-between',
+                                label: 'text-[length:--nextui-font-size-medium]',
+                                mainWrapper: 'max-w-[50%]'
+                            }}
+                            onValueChange={(value) => {
+                                setConfig({
+                                    ...config,
+                                    name: value,
+                                });
+                            }}
+                        />
+                    </div>
+                    <div className={'config-item'}>
+                        <Input
+                            label={t('services.collection.eudic.token')}
+                            labelPlacement='outside-left'
+                            value={config['token']}
+                            variant='bordered'
+                            classNames={{
+                                base: 'justify-between',
+                                label: 'text-[length:--nextui-font-size-medium]',
+                                mainWrapper: 'max-w-[50%]'
+                            }}
+                            onValueChange={(value) => {
+                                setConfig({
+                                    ...config,
+                                    token: value,
+                                });
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <Button
+                            type='submit'
+                            isLoading={isLoading}
+                            fullWidth
+                            color='primary'
+                        >
+                            {t('common.save')}
+                        </Button>
+                    </div>
+                </form>
             </>
         )
     );

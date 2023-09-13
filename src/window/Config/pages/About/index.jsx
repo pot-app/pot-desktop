@@ -29,7 +29,7 @@ export default function About() {
                         variant='light'
                         className='my-[5px]'
                         size='sm'
-                        onClick={() => {
+                        onPress={() => {
                             open('https://pot-app.com');
                         }}
                     >
@@ -39,7 +39,7 @@ export default function About() {
                         variant='light'
                         className='my-[5px]'
                         size='sm'
-                        onClick={() => {
+                        onPress={() => {
                             open('https://github.com/pot-app/pot-desktop');
                         }}
                     >
@@ -64,7 +64,7 @@ export default function About() {
                                     variant='light'
                                     className='my-[5px]'
                                     size='sm'
-                                    onClick={() => {
+                                    onPress={() => {
                                         open('https://github.com/pot-app/pot-desktop/issues');
                                     }}
                                 >
@@ -74,7 +74,7 @@ export default function About() {
                                     variant='light'
                                     className='my-[5px]'
                                     size='sm'
-                                    onClick={() => {
+                                    onPress={() => {
                                         open('mailto:support@pot-app.com');
                                     }}
                                 >
@@ -105,7 +105,7 @@ export default function About() {
                                         variant='light'
                                         className='my-[5px]'
                                         size='lg'
-                                        onClick={() => {
+                                        onPress={() => {
                                             open('https://pd.qq.com/s/akns94e1r');
                                         }}
                                     >
@@ -118,7 +118,7 @@ export default function About() {
                                         variant='light'
                                         className='my-[5px]'
                                         size='lg'
-                                        onClick={() => {
+                                        onPress={() => {
                                             open('https://pot-app.com/img/qq_group.png');
                                         }}
                                     >
@@ -131,7 +131,7 @@ export default function About() {
                                         variant='light'
                                         className='my-[5px]'
                                         size='lg'
-                                        onClick={() => {
+                                        onPress={() => {
                                             open('https://t.me/pot_app');
                                         }}
                                     >
@@ -144,7 +144,7 @@ export default function About() {
                                         variant='light'
                                         className='my-[5px]'
                                         size='lg'
-                                        onClick={() => {
+                                        onPress={() => {
                                             open('https://github.com/pot-app/pot-desktop/discussions');
                                         }}
                                     >
@@ -163,7 +163,7 @@ export default function About() {
                         variant='light'
                         className='my-[5px]'
                         size='sm'
-                        onClick={() => {
+                        onPress={() => {
                             invoke('updater_window');
                         }}
                     >
@@ -173,7 +173,7 @@ export default function About() {
                         variant='light'
                         className='my-[5px]'
                         size='sm'
-                        onClick={async () => {
+                        onPress={async () => {
                             const dir = await appLogDir();
                             open(dir);
                         }}
@@ -184,7 +184,7 @@ export default function About() {
                         variant='light'
                         className='my-[5px]'
                         size='sm'
-                        onClick={async () => {
+                        onPress={async () => {
                             const dir = await appConfigDir();
                             open(dir);
                         }}

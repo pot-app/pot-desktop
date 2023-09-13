@@ -47,7 +47,7 @@ export default function SelectModal(props) {
                             <Button
                                 color='danger'
                                 variant='light'
-                                onClick={onClose}
+                                onPress={onClose}
                             >
                                 {t('common.cancel')}
                             </Button>
