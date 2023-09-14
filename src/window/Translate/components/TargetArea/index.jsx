@@ -67,7 +67,6 @@ export default function TargetArea(props) {
             hideWindow !== null &&
             clipboardMonitor !== null
         ) {
-            console.log(clipboardMonitor);
             if (autoCopy === 'source' && !clipboardMonitor) {
                 writeText(sourceText).then(() => {
                     if (hideWindow) {
@@ -360,30 +359,31 @@ export default function TargetArea(props) {
                             result['explanations'].map((explanations) => {
                                 return (
                                     <div key={nanoid()}>
-                                        {explanations['explains'].map((explain, index) => {
-                                            return (
-                                                <span key={nanoid()}>
-                                                    {index === 0 ? (
-                                                        <>
-                                                            <span className='font-bold text-[18px] select-text mr-[12px]'>
+                                        {explanations['explains'] &&
+                                            explanations['explains'].map((explain, index) => {
+                                                return (
+                                                    <span key={nanoid()}>
+                                                        {index === 0 ? (
+                                                            <>
+                                                                <span className='font-bold text-[18px] select-text mr-[12px]'>
+                                                                    {explain}
+                                                                </span>
+                                                                <span className='text-[10px] text-default-500'>
+                                                                    {explanations['trait']}
+                                                                </span>
+                                                                <br />
+                                                            </>
+                                                        ) : (
+                                                            <span
+                                                                className='text-[12px] text-default-500 mr-[8px] select-text'
+                                                                key={nanoid()}
+                                                            >
                                                                 {explain}
                                                             </span>
-                                                            <span className='text-[10px] text-default-500'>
-                                                                {explanations['trait']}
-                                                            </span>
-                                                            <br />
-                                                        </>
-                                                    ) : (
-                                                        <span
-                                                            className='text-[12px] text-default-500 mr-[8px] select-text'
-                                                            key={nanoid()}
-                                                        >
-                                                            {explain}
-                                                        </span>
-                                                    )}
-                                                </span>
-                                            );
-                                        })}
+                                                        )}
+                                                    </span>
+                                                );
+                                            })}
                                         <br />
                                     </div>
                                 );

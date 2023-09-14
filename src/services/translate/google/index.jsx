@@ -49,7 +49,12 @@ export async function translate(text, from, to, options = {}) {
             }
             // 释义
             for (let i of result[1]) {
-                target.explanations.push({ trait: i[0], explains: i[1] });
+                target.explanations.push({
+                    trait: i[0],
+                    explains: i[2].map((x) => {
+                        return x[0];
+                    }),
+                });
             }
             // 例句
             if (result[13]) {
