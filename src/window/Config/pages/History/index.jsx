@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { invoke } from '@tauri-apps/api/tauri';
 import Database from 'tauri-plugin-sql-api';
 
-import * as buildinCollectionServices from '../../../../services/collection';
-import * as buildinServices from '../../../../services/translate';
+import * as builtinCollectionServices from '../../../../services/collection';
+import * as builtinServices from '../../../../services/translate';
 import { useConfig, useToastStyle } from '../../../../hooks';
 import { LanguageFlag } from '../../../../utils/language';
 import { store } from '../../../../utils/store';
@@ -149,7 +149,7 @@ export default function History() {
                                         />
                                     ) : (
                                         <img
-                                            src={`${buildinServices[item.service].info.icon}`}
+                                            src={`${builtinServices[item.service].info.icon}`}
                                             className='h-[18px] w-[18px] my-auto mr-[8px]'
                                             draggable={false}
                                         />
@@ -221,7 +221,7 @@ export default function History() {
                                                 />
                                             ) : (
                                                 <img
-                                                    src={`${buildinServices[selectedItem.service].info.icon}`}
+                                                    src={`${builtinServices[selectedItem.service].info.icon}`}
                                                     className='h-[24px] w-[24px] m-auto mr-[8px]'
                                                     draggable={false}
                                                 />
@@ -286,7 +286,7 @@ export default function History() {
                                                                         }
                                                                     );
                                                                 } else {
-                                                                    buildinCollectionServices[serviceName]
+                                                                    builtinCollectionServices[serviceName]
                                                                         .collection(
                                                                             selectedItem.text,
                                                                             selectedItem.result
@@ -315,7 +315,7 @@ export default function History() {
                                                                 src={
                                                                     serviceName.startsWith('[plugin]')
                                                                         ? pluginList['collection'][serviceName].icon
-                                                                        : buildinCollectionServices[serviceName].info
+                                                                        : builtinCollectionServices[serviceName].info
                                                                               .icon
                                                                 }
                                                                 className='h-[24px] w-[24px]'

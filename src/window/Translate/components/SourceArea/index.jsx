@@ -15,7 +15,7 @@ import { atom, useAtom } from 'jotai';
 
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
 import * as recognizeServices from '../../../../services/recognize';
-import * as buildinTtsServices from '../../../../services/tts';
+import * as builtinTtsServices from '../../../../services/tts';
 import { useConfig, useSyncAtom } from '../../../../hooks';
 import { store } from '../../../../utils/store';
 
@@ -265,9 +265,9 @@ export default function SourceArea(props) {
                                         needs: config,
                                     });
                                 } else {
-                                    await buildinTtsServices[serviceName].tts(
+                                    await builtinTtsServices[serviceName].tts(
                                         sourceText,
-                                        buildinTtsServices[serviceName].Language[detectLanguage]
+                                        builtinTtsServices[serviceName].Language[detectLanguage]
                                     );
                                 }
                             }}

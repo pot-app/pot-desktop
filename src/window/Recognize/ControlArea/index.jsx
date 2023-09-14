@@ -6,7 +6,7 @@ import { HiTranslate } from 'react-icons/hi';
 import { GiCycle } from 'react-icons/gi';
 import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import * as buildinService from '../../../services/recognize';
+import * as builtinService from '../../../services/recognize';
 import { languageList } from '../../../utils/language';
 import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
@@ -52,9 +52,9 @@ export default function ControlArea() {
                                     src={
                                         serviceName.startsWith('[plugin]')
                                             ? pluginList[serviceName].icon
-                                            : buildinService[serviceName].info.icon === 'system'
+                                            : builtinService[serviceName].info.icon === 'system'
                                             ? `logo/${osType}.svg`
-                                            : buildinService[serviceName].info.icon
+                                            : builtinService[serviceName].info.icon
                                     }
                                 />
                             }
@@ -81,9 +81,9 @@ export default function ControlArea() {
                                             src={
                                                 name.startsWith('[plugin]')
                                                     ? pluginList[name].icon
-                                                    : buildinService[name].info.icon === 'system'
+                                                    : builtinService[name].info.icon === 'system'
                                                     ? `logo/${osType}.svg`
-                                                    : buildinService[name].info.icon
+                                                    : builtinService[name].info.icon
                                             }
                                         />
                                     }

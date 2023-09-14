@@ -10,7 +10,7 @@ import { invoke } from '@tauri-apps/api';
 import { nanoid } from 'nanoid';
 
 import { serviceNameAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
-import * as buildinServices from '../../../services/recognize';
+import * as builtinServices from '../../../services/recognize';
 import { store } from '../../../utils/store';
 import { useConfig } from '../../../hooks';
 import { base64Atom } from '../ImageArea';
@@ -77,11 +77,11 @@ export default function TextArea() {
                     });
                 }
             } else {
-                if (language in buildinServices[serviceName].Language) {
+                if (language in builtinServices[serviceName].Language) {
                     let id = nanoid();
                     recognizeId = id;
-                    buildinServices[serviceName]
-                        .recognize(base64, buildinServices[serviceName].Language[language])
+                    builtinServices[serviceName]
+                        .recognize(base64, builtinServices[serviceName].Language[language])
                         .then(
                             (v) => {
                                 if (recognizeId !== id) return;

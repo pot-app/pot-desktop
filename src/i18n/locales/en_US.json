@@ -121,7 +121,7 @@
                 "recognize": "Recognize",
                 "collection": "Collection",
                 "least": "Please keep at least one.",
-                "add_buildin_service": "Add Buildin Service",
+                "add_builtin_service": "Add Builtin Service",
                 "add_external_service": "Add Extension",
                 "add_service": "Add Service",
                 "test_failed": "Test Failed",

@@ -115,7 +115,7 @@ export default function Tts(props) {
                         fullWidth
                         onPress={onSelectOpen}
                     >
-                        {t('config.service.add_buildin_service')}
+                        {t('config.service.add_builtin_service')}
                     </Button>
                     <Spacer x={2} />
                     <Button
