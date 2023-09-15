@@ -114,6 +114,7 @@ export default function TargetArea(props) {
                 }
                 setIsLoading(true);
                 const pluginConfig = (await store.get(translateServiceName)) ?? {};
+                pluginConfig['enable'] = 'true';
                 invoke('invoke_plugin', {
                     name: translateServiceName,
                     pluginType: 'translate',
