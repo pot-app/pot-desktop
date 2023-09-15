@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, Button, Skeleton, ButtonGroup } from '@nextui-org/react';
+import { Card, CardBody, CardFooter, Button, Skeleton, ButtonGroup, Tooltip } from '@nextui-org/react';
 import { sendNotification } from '@tauri-apps/api/notification';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { atom, useAtom, useAtomValue } from 'jotai';
@@ -160,26 +160,30 @@ export default function TextArea() {
             </CardBody>
             <CardFooter className='bg-content1 flex justify-start px-[12px]'>
                 <ButtonGroup>
-                    <Button
-                        isIconOnly
-                        size='sm'
-                        variant='light'
-                        onPress={() => {
-                            writeText(text);
-                        }}
-                    >
-                        <MdContentCopy className='text-[16px]' />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        onPress={() => {
-                            setText(text.replace(/\s+/g, ' '));
-                        }}
-                    >
-                        <MdSmartButton className='text-[16px]' />
-                    </Button>
+                    <Tooltip content={t('recognize.copy_text')}>
+                        <Button
+                            isIconOnly
+                            size='sm'
+                            variant='light'
+                            onPress={() => {
+                                writeText(text);
+                            }}
+                        >
+                            <MdContentCopy className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content={t('recognize.delete_newline')}>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            onPress={() => {
+                                setText(text.replace(/\s+/g, ' '));
+                            }}
+                        >
+                            <MdSmartButton className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
                 </ButtonGroup>
             </CardFooter>
         </Card>

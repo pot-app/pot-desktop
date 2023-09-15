@@ -55,8 +55,15 @@ export default function History() {
         let result = await db.select('SELECT * FROM history WHERE id=$1', [id]);
         setSelectItem(result[0]);
     };
-
-    const updateData = async (id) => {
+    const clearData = async () => {
+        const db = await Database.load('sqlite:history.db');
+        await db.execute('DROP TABLE history');
+        await db.execute('VACUUM');
+        setItems([]);
+        setTotal(0);
+        setPage(1);
+    };
+    const updateData = async () => {
         const db = await Database.load('sqlite:history.db');
         await db.execute('UPDATE history SET text=$1, result=$2 WHERE id=$3', [
             selectedItem.text,
@@ -192,7 +199,7 @@ export default function History() {
                         )}
                     </TableBody>
                 </Table>
-                <div className='mt-[8px] flex justify-center'>
+                <div className='mt-[8px] flex justify-around'>
                     <Pagination
                         showControls
                         isCompact
@@ -200,6 +207,13 @@ export default function History() {
                         page={page}
                         onChange={setPage}
                     />
+                    <Button
+                        size='sm'
+                        className='my-auto'
+                        onPress={clearData}
+                    >
+                        {t('common.clear')}
+                    </Button>
                 </div>
 
                 <Modal

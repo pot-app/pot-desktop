@@ -6,7 +6,8 @@
             "save": "保存",
             "write_clipboard": "写入剪贴板",
             "plugin": "插件",
-            "coming": "敬请期待..."
+            "coming": "敬请期待...",
+            "clear": "清空"
         },
         "languages": {
             "auto": "自动检测",
@@ -327,11 +328,18 @@
         "translate": {
             "translate": "翻译",
             "add_collection_success": "添加成功",
-            "recognizing": "识别中..."
+            "recognizing": "识别中...",
+            "speak": "朗读",
+            "copy": "复制",
+            "delete_newline": "删除换行",
+            "translate_back": "翻译回原文"
         },
         "recognize": {
             "recognize": "重新识别",
-            "translate": "翻译"
+            "translate": "翻译",
+            "copy_img": "复制图片",
+            "copy_text": "复制",
+            "delete_newline": "删除换行"
         }
     }
 }

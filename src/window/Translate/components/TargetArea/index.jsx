@@ -10,6 +10,7 @@ import {
     DropdownItem,
     DropdownMenu,
     DropdownTrigger,
+    Tooltip,
 } from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { sendNotification } from '@tauri-apps/api/notification';
@@ -437,109 +438,88 @@ export default function TargetArea(props) {
                 className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'}`}
             >
                 <ButtonGroup>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        isDisabled={typeof result !== 'string' || result === ''}
-                        onPress={async () => {
-                            const serviceName = ttsServiceList[0];
-                            if (serviceName.startsWith('[plugin]')) {
-                                const config = (await store.get(serviceName)) ?? {};
-                                invoke('invoke_plugin', {
-                                    name: serviceName,
-                                    pluginType: 'tts',
-                                    text: result,
-                                    lang: ttsPluginInfo.language[targetLanguage],
-                                    needs: config,
-                                });
-                            } else {
-                                await builtinTtsServices[serviceName].tts(
-                                    result,
-                                    builtinTtsServices[serviceName].Language[targetLanguage]
-                                );
-                            }
-                        }}
-                    >
-                        <HiOutlineVolumeUp className='text-[16px]' />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        isDisabled={typeof result !== 'string' || result === ''}
-                        onPress={() => {
-                            writeText(result);
-                        }}
-                    >
-                        <MdContentCopy className='text-[16px]' />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        variant='light'
-                        size='sm'
-                        onPress={async () => {
-                            setError('');
-                            if (typeof result === 'string' && result !== '') {
-                                let newTargetLanguage = sourceLanguage;
-                                if (sourceLanguage === 'auto') {
-                                    newTargetLanguage = detectLanguage;
-                                }
-                                let newSourceLanguage = targetLanguage;
-                                if (sourceLanguage === 'auto') {
-                                    newSourceLanguage = 'auto';
-                                }
-                                if (translateServiceName.startsWith('[plugin]')) {
-                                    const pluginInfo = pluginList['translate'][translateServiceName];
-                                    if (
-                                        newSourceLanguage in pluginInfo.language &&
-                                        newTargetLanguage in pluginInfo.language
-                                    ) {
-                                        setIsLoading(true);
-                                        const pluginConfig = (await store.get(translateServiceName)) ?? {};
-
-                                        invoke('invoke_plugin', {
-                                            name: translateServiceName,
-                                            pluginType: 'translate',
-                                            text: result,
-                                            from: pluginInfo.language[newSourceLanguage],
-                                            to: pluginInfo.language[newTargetLanguage],
-                                            needs: pluginConfig,
-                                        }).then(
-                                            (v) => {
-                                                if (v === result) {
-                                                    setResult(v + ' ');
-                                                } else {
-                                                    setResult(v);
-                                                }
-                                                setForceUpdate(nanoid());
-                                                setIsLoading(false);
-                                            },
-                                            (e) => {
-                                                setError(e.toString());
-                                                setIsLoading(false);
-                                            }
-                                        );
-                                    } else {
-                                        setError('Language not supported');
-                                    }
+                    <Tooltip content={t('translate.speak')}>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            isDisabled={typeof result !== 'string' || result === ''}
+                            onPress={async () => {
+                                const serviceName = ttsServiceList[0];
+                                if (serviceName.startsWith('[plugin]')) {
+                                    const config = (await store.get(serviceName)) ?? {};
+                                    invoke('invoke_plugin', {
+                                        name: serviceName,
+                                        pluginType: 'tts',
+                                        text: result,
+                                        lang: ttsPluginInfo.language[targetLanguage],
+                                        needs: config,
+                                    });
                                 } else {
-                                    const LanguageEnum = builtinServices[translateServiceName].Language;
-                                    if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
-                                        setIsLoading(true);
-                                        builtinServices[translateServiceName]
-                                            .translate(
-                                                result,
-                                                LanguageEnum[newSourceLanguage],
-                                                LanguageEnum[newTargetLanguage]
-                                            )
-                                            .then(
+                                    await builtinTtsServices[serviceName].tts(
+                                        result,
+                                        builtinTtsServices[serviceName].Language[targetLanguage]
+                                    );
+                                }
+                            }}
+                        >
+                            <HiOutlineVolumeUp className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content={t('translate.copy')}>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            isDisabled={typeof result !== 'string' || result === ''}
+                            onPress={() => {
+                                writeText(result);
+                            }}
+                        >
+                            <MdContentCopy className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content={t('translate.translate_back')}>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            isDisabled={typeof result !== 'string' || result === ''}
+                            onPress={async () => {
+                                setError('');
+                                if (typeof result === 'string' && result !== '') {
+                                    let newTargetLanguage = sourceLanguage;
+                                    if (sourceLanguage === 'auto') {
+                                        newTargetLanguage = detectLanguage;
+                                    }
+                                    let newSourceLanguage = targetLanguage;
+                                    if (sourceLanguage === 'auto') {
+                                        newSourceLanguage = 'auto';
+                                    }
+                                    if (translateServiceName.startsWith('[plugin]')) {
+                                        const pluginInfo = pluginList['translate'][translateServiceName];
+                                        if (
+                                            newSourceLanguage in pluginInfo.language &&
+                                            newTargetLanguage in pluginInfo.language
+                                        ) {
+                                            setIsLoading(true);
+                                            const pluginConfig = (await store.get(translateServiceName)) ?? {};
+
+                                            invoke('invoke_plugin', {
+                                                name: translateServiceName,
+                                                pluginType: 'translate',
+                                                text: result,
+                                                from: pluginInfo.language[newSourceLanguage],
+                                                to: pluginInfo.language[newTargetLanguage],
+                                                needs: pluginConfig,
+                                            }).then(
                                                 (v) => {
                                                     if (v === result) {
                                                         setResult(v + ' ');
                                                     } else {
                                                         setResult(v);
                                                     }
+                                                    setForceUpdate(nanoid());
                                                     setIsLoading(false);
                                                 },
                                                 (e) => {
@@ -547,15 +527,43 @@ export default function TargetArea(props) {
                                                     setIsLoading(false);
                                                 }
                                             );
+                                        } else {
+                                            setError('Language not supported');
+                                        }
                                     } else {
-                                        setError('Language not supported');
+                                        const LanguageEnum = builtinServices[translateServiceName].Language;
+                                        if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
+                                            setIsLoading(true);
+                                            builtinServices[translateServiceName]
+                                                .translate(
+                                                    result,
+                                                    LanguageEnum[newSourceLanguage],
+                                                    LanguageEnum[newTargetLanguage]
+                                                )
+                                                .then(
+                                                    (v) => {
+                                                        if (v === result) {
+                                                            setResult(v + ' ');
+                                                        } else {
+                                                            setResult(v);
+                                                        }
+                                                        setIsLoading(false);
+                                                    },
+                                                    (e) => {
+                                                        setError(e.toString());
+                                                        setIsLoading(false);
+                                                    }
+                                                );
+                                        } else {
+                                            setError('Language not supported');
+                                        }
                                     }
                                 }
-                            }
-                        }}
-                    >
-                        <TbTransformFilled className='text-[16px]' />
-                    </Button>
+                            }}
+                        >
+                            <TbTransformFilled className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
                     {collectionServiceList &&
                         collectionServiceList.map((serviceName) => {
                             return (

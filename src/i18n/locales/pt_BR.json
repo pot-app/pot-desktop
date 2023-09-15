@@ -6,7 +6,8 @@
             "save": "Salvar",
             "write_clipboard": "Escrever na Área de Transferência",
             "plugin": "Plugin",
-            "coming": "Em breve..."
+            "coming": "Em breve...",
+            "clear": "Claro"
         },
         "languages": {
             "auto": "Detectar Automaticamente",
@@ -360,11 +361,18 @@
         "translate": {
             "translate": "Traduzir",
             "add_collection_success": "Adicionar à coleção com sucesso",
-            "recognizing": "Reconhecendo..."
+            "recognizing": "Reconhecendo...",
+            "speak": "Falar",
+            "copy": "Copiar",
+            "delete_newline": "Excluir Quebra de Linha",
+            "translate_back": "Tradução de volta ao original"
         },
         "recognize": {
             "recognize": "Reconhecimento",
-            "translate": "Traduzir"
+            "translate": "Traduzir",
+            "copy_img": "Copiar imagem",
+            "copy_text": "Copiar",
+            "delete_newline": "Excluir Quebra de Linha"
         }
     }
 }

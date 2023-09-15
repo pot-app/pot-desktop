@@ -6,7 +6,8 @@
             "save": "Save",
             "write_clipboard": "Write to Clipboard",
             "plugin": "Plugin",
-            "coming": "Coming soon..."
+            "coming": "Coming soon...",
+            "clear": "Clear"
         },
         "languages": {
             "auto": "Auto Detect",
@@ -325,11 +326,18 @@
         "translate": {
             "translate": "Translate",
             "add_collection_success": "Add to collection successfully",
-            "recognizing": "Recognizing..."
+            "recognizing": "Recognizing...",
+            "speak": "Speak",
+            "copy": "Copy",
+            "delete_newline": "Delete Newline",
+            "translate_back": "Translation back to the original"
         },
         "recognize": {
             "recognize": "Recognize",
-            "translate": "Translate"
+            "translate": "Translate",
+            "copy_img": "Copy Image",
+            "copy_text": "Copy",
+            "delete_newline": "Delete Newline"
         }
     }
 }

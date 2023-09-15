@@ -1,15 +1,15 @@
-import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip, Tooltip } from '@nextui-org/react';
 import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useRef, useState } from 'react';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
-
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { HiTranslate } from 'react-icons/hi';
+import { LuDelete } from 'react-icons/lu';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
@@ -249,55 +249,74 @@ export default function SourceArea(props) {
             <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
                 <div className='flex justify-start'>
                     <ButtonGroup className='mr-[5px]'>
-                        <Button
-                            isIconOnly
-                            variant='light'
-                            size='sm'
-                            onPress={async () => {
-                                const serviceName = ttsServiceList[0];
-                                if (serviceName.startsWith('[plugin]')) {
-                                    const config = (await store.get(serviceName)) ?? {};
-                                    invoke('invoke_plugin', {
-                                        name: serviceName,
-                                        pluginType: 'tts',
-                                        text: sourceText,
-                                        lang: ttsPluginInfo.language[detectLanguage],
-                                        needs: config,
+                        <Tooltip content={t('translate.speak')}>
+                            <Button
+                                isIconOnly
+                                variant='light'
+                                size='sm'
+                                onPress={async () => {
+                                    const serviceName = ttsServiceList[0];
+                                    if (serviceName.startsWith('[plugin]')) {
+                                        const config = (await store.get(serviceName)) ?? {};
+                                        invoke('invoke_plugin', {
+                                            name: serviceName,
+                                            pluginType: 'tts',
+                                            text: sourceText,
+                                            lang: ttsPluginInfo.language[detectLanguage],
+                                            needs: config,
+                                        });
+                                    } else {
+                                        await builtinTtsServices[serviceName].tts(
+                                            sourceText,
+                                            builtinTtsServices[serviceName].Language[detectLanguage]
+                                        );
+                                    }
+                                }}
+                            >
+                                <HiOutlineVolumeUp className='text-[16px]' />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip content={t('translate.copy')}>
+                            <Button
+                                isIconOnly
+                                variant='light'
+                                size='sm'
+                                onPress={() => {
+                                    writeText(sourceText);
+                                }}
+                            >
+                                <MdContentCopy className='text-[16px]' />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip content={t('translate.delete_newline')}>
+                            <Button
+                                isIconOnly
+                                variant='light'
+                                size='sm'
+                                onPress={() => {
+                                    const newText = sourceText.replace(/\s+/g, ' ');
+                                    setSourceText(newText);
+                                    detect_language(newText).then(() => {
+                                        syncSourceText();
                                     });
-                                } else {
-                                    await builtinTtsServices[serviceName].tts(
-                                        sourceText,
-                                        builtinTtsServices[serviceName].Language[detectLanguage]
-                                    );
-                                }
-                            }}
-                        >
-                            <HiOutlineVolumeUp className='text-[16px]' />
-                        </Button>
-                        <Button
-                            isIconOnly
-                            variant='light'
-                            size='sm'
-                            onPress={() => {
-                                writeText(sourceText);
-                            }}
-                        >
-                            <MdContentCopy className='text-[16px]' />
-                        </Button>
-                        <Button
-                            isIconOnly
-                            variant='light'
-                            size='sm'
-                            onPress={() => {
-                                const newText = sourceText.replace(/\s+/g, ' ');
-                                setSourceText(newText);
-                                detect_language(newText).then(() => {
-                                    syncSourceText();
-                                });
-                            }}
-                        >
-                            <MdSmartButton className='text-[16px]' />
-                        </Button>
+                                }}
+                            >
+                                <MdSmartButton className='text-[16px]' />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip content={t('common.clear')}>
+                            <Button
+                                variant='light'
+                                size='sm'
+                                isIconOnly
+                                isDisabled={sourceText === ''}
+                                onPress={() => {
+                                    setSourceText('');
+                                }}
+                            >
+                                <LuDelete className='text-[16px]' />
+                            </Button>
+                        </Tooltip>
                     </ButtonGroup>
                     {detectLanguage !== '' && (
                         <Chip

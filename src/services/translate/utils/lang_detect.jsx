@@ -38,7 +38,7 @@ export async function baidu_detect(text) {
             return lang_map[result.lan];
         }
     }
-    return '';
+    return 'en';
 }
 
 export async function google_detect(text) {
@@ -90,7 +90,7 @@ export async function google_detect(text) {
             return lang_map[result[2]];
         }
     }
-    return '';
+    return 'en';
 }
 
 export async function local_detect(text) {
