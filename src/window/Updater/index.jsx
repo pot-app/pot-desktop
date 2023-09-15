@@ -2,6 +2,7 @@ import { Code, Card, CardBody, Button, Progress, Skeleton } from '@nextui-org/re
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import React, { useEffect, useState } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
+import { relaunch } from '@tauri-apps/api/process';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { listen } from '@tauri-apps/api/event';
@@ -157,7 +158,8 @@ export default function Updater() {
                     onPress={() => {
                         installUpdate().then(
                             () => {
-                                toast.success(t('updater.installed'), { style: toastStyle });
+                                toast.success(t('updater.installed'), { style: toastStyle, duration: 10000 });
+                                relaunch();
                             },
                             (e) => {
                                 toast.error(e.toString(), { style: toastStyle });
