@@ -14,7 +14,7 @@ export async function translate(text, from, to) {
     }
     // only supports word translation
     if (text.split(/[\s,，]/).length > 1) {
-        return;
+        return '';
     }
 
     const res = await fetch(

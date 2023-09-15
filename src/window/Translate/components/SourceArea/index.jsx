@@ -42,6 +42,7 @@ export default function SourceArea(props) {
     const textAreaRef = useRef();
 
     const handleNewText = async (text) => {
+        text = text.trim();
         if (hideWindow) {
             appWindow.hide();
         } else {
