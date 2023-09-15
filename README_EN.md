@@ -143,7 +143,7 @@ The file extension of pot plugin is `.potext`. After downloading the `.potext` f
 
 ## Develop Plugin
 
-The [Template](https://github.com/pot-app/pot-app-plugin-list/blob/main/README.md#templates) section in the [pot-app-plugin-list](https://github.com/pot-app/pot-app-plugin-list) repo provides plugin development templates for various plugins. Please check the corresponding template repo for specific documentation.
+The [Template](https://github.com/pot-app/pot-app-plugin-list/blob/main/README_EN.md#template) section in the [pot-app-plugin-list](https://github.com/pot-app/pot-app-plugin-list) repo provides plugin development templates for various plugins. Please check the corresponding template repo for specific documentation.
 
 <div align="center">
 
@@ -361,7 +361,7 @@ Node.js >= 18.0.0
 
 pnpm >= 8.5.0
 
-Rust >= 1.69.0
+Rust >= 1.70.0
 
 ### Start compilation
 

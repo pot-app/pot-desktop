@@ -143,7 +143,7 @@ pot 插件的扩展名为 `.potext`, 下载得到`.potext`文件之后， 在 �
 
 ## 插件开发
 
-在 [pot-app-plugin-list](https://github.com/pot-app/pot-app-plugin-list) 仓库中的 [模板](https://github.com/pot-app/pot-app-plugin-list/blob/main/README_CN.md#%E6%A8%A1%E6%9D%BF) 章节提供了各种插件的开发模板，具体的开发文档请查看对应的模板仓库。
+在 [pot-app-plugin-list](https://github.com/pot-app/pot-app-plugin-list) 仓库中的 [模板](https://github.com/pot-app/pot-app-plugin-list/blob/main/README.md#%E6%A8%A1%E6%9D%BF) 章节提供了各种插件的开发模板，具体的开发文档请查看对应的模板仓库。
 
 <div align="center">
 
@@ -363,7 +363,7 @@ Node.js >= 18.0.0
 
 pnpm >= 8.5.0
 
-Rust >= 1.69.0
+Rust >= 1.70.0
 
 ### 开始编译
 
