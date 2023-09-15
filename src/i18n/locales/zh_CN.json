@@ -249,6 +249,9 @@
                     "title": "有道翻译",
                     "appkey": "App ID",
                     "key": "Key"
+                },
+                "bing_dict": {
+                    "title": "必应词典"
                 }
             },
             "recognize": {

@@ -247,6 +247,9 @@
                     "title": "Youdao",
                     "appkey": "App ID",
                     "key": "Key"
+                },
+                "bing_dict": {
+                    "title": "Bing Dictionary"
                 }
             },
             "recognize": {

@@ -262,6 +262,9 @@
                     "title": "Youdao",
                     "appkey": "ID do App",
                     "key": "Chave"
+                },
+                "bing_dict": {
+                    "title": "Bing Dictionary"
                 }
             },
             "recognize": {

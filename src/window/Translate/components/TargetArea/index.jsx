@@ -349,7 +349,11 @@ export default function TargetArea(props) {
                                                 {pronunciation['region']}
                                             </span>
                                         )}
-                                        <span className='mr-[12px] text-default-500'>{pronunciation['symbol']}</span>
+                                        {pronunciation['symbol'] && (
+                                            <span className='mr-[12px] text-default-500'>
+                                                {pronunciation['symbol']}
+                                            </span>
+                                        )}
                                         {pronunciation['voice'] && (
                                             <span className='mr-[12px] text-default-500'>{pronunciation['voice']}</span>
                                         )}
@@ -386,6 +390,14 @@ export default function TargetArea(props) {
                                                 );
                                             })}
                                         <br />
+                                    </div>
+                                );
+                            })}
+                        {result['associations'] &&
+                            result['associations'].map((association) => {
+                                return (
+                                    <div key={nanoid()}>
+                                        <span className='mr-[12px] text-default-500'>{association}</span>
                                     </div>
                                 );
                             })}
