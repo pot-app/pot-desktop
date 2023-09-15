@@ -1,12 +1,15 @@
-## 2.2.1 (2023-09-11)
+## 2.3.0 (2023-09-15)
 
 ### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
 ### Note: For Windows users, please run pot with administrator privileges before updating.
 
+### New feature:
+
+-   Add Bing Dictionary([`6cdf776`](https://github.com/pot-app/pot-desktop/commit/6cdf776d6a21250a4e1121f3c6fa1e2dd3c9dfd0)) (by @Pylogmon)
+-   Add Clear Button and Tooltip([`14c8390`](https://github.com/pot-app/pot-desktop/commit/14c83907fc457231c4c460319e83ba88e32ecd47)) (by @Pylogmon)
+
 ### Bugs fixed:
 
--   Check file Exists([`0c063c0`](https://github.com/pot-app/pot-desktop/commit/0c063c02789677bd595b8a5b7645201ad2af979d)) (by @Pylogmon)
--   Support low version Safari([`b0c3536`](https://github.com/pot-app/pot-desktop/commit/b0c35368f9cd3628824b18d26235e4d0e32d9234)) (by @Pylogmon)
--   Panic when Apply Vibrancy([`a77e567`](https://github.com/pot-app/pot-desktop/commit/a77e5673327e5a82bf75151b27f53186950ccd19)) (by @Pylogmon)
--   Fix Homebrew Updater([`93e47e8`](https://github.com/pot-app/pot-desktop/commit/93e47e813e443fae1eff2c0356742384feee4830)) (by @Pylogmon)
+-   Set Always on Top for Translate Window([`be221a9`](https://github.com/pot-app/pot-desktop/commit/be221a96cb8c78fedc9de2862c67a8334acf7159)) (by @Pylogmon)
+-   Google Translate crashes([`d01bedc`](https://github.com/pot-app/pot-desktop/commit/d01bedca2640d707a6338a0542341cf1b8ad4f9a)) (by @Pylogmon)

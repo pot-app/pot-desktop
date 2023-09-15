@@ -42,7 +42,7 @@ export async function translate(text, from, to, options = {}) {
         let result = res.data;
         // 词典模式
         if (result[1]) {
-            let target = { pronunciations: [], explanations: [], association: [], sentence: [] };
+            let target = { pronunciations: [], explanations: [], associations: [], sentence: [] };
             // 发音
             if (result[0][1][3]) {
                 target.pronunciations.push({ symbol: result[0][1][3], voice: '' });
