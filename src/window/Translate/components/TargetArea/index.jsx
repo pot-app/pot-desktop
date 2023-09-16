@@ -26,12 +26,13 @@ import { invoke } from '@tauri-apps/api';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 
-import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
-import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
 import * as builtinCollectionServices from '../../../../services/collection';
+import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
+import { useConfig, useToastStyle, useVoice } from '../../../../hooks';
+import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
 import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
-import { useConfig, useToastStyle } from '../../../../hooks';
+
 import { store } from '../../../../utils/store';
 
 let translateID = [];
@@ -56,6 +57,7 @@ export default function TargetArea(props) {
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const toastStyle = useToastStyle();
+    const speak = useVoice();
 
     useEffect(() => {
         setResult('');
@@ -359,17 +361,7 @@ export default function TargetArea(props) {
                                             <HiOutlineVolumeUp
                                                 className='inline-block my-auto mr-[12px] cursor-pointer'
                                                 onClick={() => {
-                                                    const audioContext = new AudioContext();
-                                                    const audioSource = audioContext.createBufferSource();
-
-                                                    audioContext.decodeAudioData(
-                                                        new Uint8Array(pronunciation['voice']).buffer,
-                                                        (buffer) => {
-                                                            audioSource.buffer = buffer;
-                                                            audioSource.connect(audioContext.destination);
-                                                            audioSource.start();
-                                                        }
-                                                    );
+                                                    speak(pronunciation['voice']);
                                                 }}
                                             />
                                         )}
@@ -476,18 +468,20 @@ export default function TargetArea(props) {
                                 const serviceName = ttsServiceList[0];
                                 if (serviceName.startsWith('[plugin]')) {
                                     const config = (await store.get(serviceName)) ?? {};
-                                    invoke('invoke_plugin', {
+                                    let data = await invoke('invoke_plugin', {
                                         name: serviceName,
                                         pluginType: 'tts',
                                         text: result,
                                         lang: ttsPluginInfo.language[targetLanguage],
                                         needs: config,
                                     });
+                                    speak(data);
                                 } else {
-                                    await builtinTtsServices[serviceName].tts(
+                                    let data = await builtinTtsServices[serviceName].tts(
                                         result,
                                         builtinTtsServices[serviceName].Language[targetLanguage]
                                     );
+                                    speak(data);
                                 }
                             }}
                         >

@@ -14,9 +14,9 @@ import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
+import { useConfig, useSyncAtom, useVoice } from '../../../../hooks';
 import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
-import { useConfig, useSyncAtom } from '../../../../hooks';
 import { store } from '../../../../utils/store';
 
 export const sourceTextAtom = atom('');
@@ -40,6 +40,7 @@ export default function SourceArea(props) {
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const { t } = useTranslation();
     const textAreaRef = useRef();
+    const speak = useVoice();
 
     const handleNewText = async (text) => {
         text = text.trim();
@@ -259,18 +260,20 @@ export default function SourceArea(props) {
                                     const serviceName = ttsServiceList[0];
                                     if (serviceName.startsWith('[plugin]')) {
                                         const config = (await store.get(serviceName)) ?? {};
-                                        invoke('invoke_plugin', {
+                                        const data = invoke('invoke_plugin', {
                                             name: serviceName,
                                             pluginType: 'tts',
                                             text: sourceText,
                                             lang: ttsPluginInfo.language[detectLanguage],
                                             needs: config,
                                         });
+                                        speak(data);
                                     } else {
-                                        await builtinTtsServices[serviceName].tts(
+                                        let data = await builtinTtsServices[serviceName].tts(
                                             sourceText,
                                             builtinTtsServices[serviceName].Language[detectLanguage]
                                         );
+                                        speak(data);
                                     }
                                 }}
                             >

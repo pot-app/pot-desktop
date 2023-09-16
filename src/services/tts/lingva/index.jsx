@@ -17,14 +17,7 @@ export async function tts(text, lang, options = {}) {
     const res = await fetch(`${requestPath}/api/v1/audio/${lang}/${encodeURIComponent(text)}`);
 
     if (res.ok) {
-        const audioContext = new AudioContext();
-        const audioSource = audioContext.createBufferSource();
-
-        audioContext.decodeAudioData(new Uint8Array(res.data['audio']).buffer, (buffer) => {
-            audioSource.buffer = buffer;
-            audioSource.connect(audioContext.destination);
-            audioSource.start();
-        });
+        return res.data['audio'];
     }
 }
 
