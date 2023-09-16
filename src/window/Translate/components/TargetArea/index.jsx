@@ -344,7 +344,7 @@ export default function TargetArea(props) {
                         {result['pronunciations'] &&
                             result['pronunciations'].map((pronunciation) => {
                                 return (
-                                    <span key={nanoid()}>
+                                    <div key={nanoid()}>
                                         {pronunciation['region'] && (
                                             <span className='mr-[12px] text-default-500'>
                                                 {pronunciation['region']}
@@ -355,10 +355,25 @@ export default function TargetArea(props) {
                                                 {pronunciation['symbol']}
                                             </span>
                                         )}
-                                        {pronunciation['voice'] && (
-                                            <span className='mr-[12px] text-default-500'>{pronunciation['voice']}</span>
+                                        {pronunciation['voice'] && pronunciation['voice'] !== '' && (
+                                            <HiOutlineVolumeUp
+                                                className='inline-block my-auto mr-[12px] cursor-pointer'
+                                                onClick={() => {
+                                                    const audioContext = new AudioContext();
+                                                    const audioSource = audioContext.createBufferSource();
+
+                                                    audioContext.decodeAudioData(
+                                                        new Uint8Array(pronunciation['voice']).buffer,
+                                                        (buffer) => {
+                                                            audioSource.buffer = buffer;
+                                                            audioSource.connect(audioContext.destination);
+                                                            audioSource.start();
+                                                        }
+                                                    );
+                                                }}
+                                            />
                                         )}
-                                    </span>
+                                    </div>
                                 );
                             })}
                         {result['explanations'] &&
@@ -371,17 +386,17 @@ export default function TargetArea(props) {
                                                     <span key={nanoid()}>
                                                         {index === 0 ? (
                                                             <>
-                                                                <span className='font-bold text-[18px] select-text mr-[12px]'>
-                                                                    {explain}
-                                                                </span>
-                                                                <span className='text-[10px] text-default-500'>
+                                                                <span className='text-[12px] text-default-500 mr-[12px]'>
                                                                     {explanations['trait']}
+                                                                </span>
+                                                                <span className='font-bold text-[16px] select-text'>
+                                                                    {explain}
                                                                 </span>
                                                                 <br />
                                                             </>
                                                         ) : (
                                                             <span
-                                                                className='text-[12px] text-default-500 mr-[8px] select-text'
+                                                                className='text-[14px] text-default-500 mr-[8px] select-text'
                                                                 key={nanoid()}
                                                             >
                                                                 {explain}
@@ -390,10 +405,10 @@ export default function TargetArea(props) {
                                                     </span>
                                                 );
                                             })}
-                                        <br />
                                     </div>
                                 );
                             })}
+                        <br />
                         {result['associations'] &&
                             result['associations'].map((association) => {
                                 return (
