@@ -74,8 +74,7 @@ export async function translate(text, from, to) {
                 const region = pronunciationNode.querySelector('.region').innerText;
                 const symbol = pronunciationNode.querySelector('.pron').innerText;
                 let voice = pronunciationNode.querySelector('.daud source').src;
-                voice = voice.replace(/^http?:\/\/[^/]+/, 'https://dictionary.cambridge.org');
-
+                voice = voice.replace(/^https?:\/\/[^/]+/, 'https://dictionary.cambridge.org');
                 return new Pronunciation(region, symbol, voice);
             });
             wordTranslateResult.pronunciations.push(...pronunciations);
