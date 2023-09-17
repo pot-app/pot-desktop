@@ -1,4 +1,4 @@
-## 2.4.0 (2023-09-17)
+## 2.4.1 (2023-09-17)
 
 ### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
@@ -16,3 +16,4 @@
 ### Bugs fixed:
 
 -   Auto Relaunch after Install([`464e76e`](https://github.com/pot-app/pot-desktop/commit/464e76ebf123ba0c2f5e23f2b45971946339ab7f)) (by @Pylogmon)
+-   Cambridge Fetch Error([`84d95e9`](https://github.com/pot-app/pot-desktop/commit/84d95e94a98db02baad6187fac46762a3cc6a27d)) (by @Pylogmon)
