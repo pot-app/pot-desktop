@@ -339,6 +339,7 @@
             "recognizing": "Recognizing...",
             "speak": "Speak",
             "copy": "Copy",
+            "retry": "Try again",
             "delete_newline": "Delete Newline",
             "translate_back": "Translation back to the original"
         },

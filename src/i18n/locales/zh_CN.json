@@ -341,6 +341,7 @@
             "recognizing": "识别中...",
             "speak": "朗读",
             "copy": "复制",
+            "retry": "重试",
             "delete_newline": "删除换行",
             "translate_back": "翻译回原文"
         },
