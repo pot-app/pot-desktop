@@ -252,6 +252,9 @@
                 },
                 "bing_dict": {
                     "title": "必应词典"
+                },
+                "cambridge_dict": {
+                    "title": "剑桥词典"
                 }
             },
             "recognize": {

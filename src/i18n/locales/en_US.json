@@ -250,6 +250,9 @@
                 },
                 "bing_dict": {
                     "title": "Bing Dictionary"
+                },
+                "cambridge_dict": {
+                    "title": "Cambridge Dictionary"
                 }
             },
             "recognize": {

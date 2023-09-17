@@ -15,6 +15,7 @@ import * as _volcengine from './volcengine';
 import * as _niutrans from './niutrans';
 import * as _youdao from './youdao';
 import * as _bing_dict from './bing_dict';
+import * as _cambridge_dict from './cambridge_dict';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -33,3 +34,4 @@ export const volcengine = _volcengine;
 export const niutrans = _niutrans;
 export const youdao = _youdao;
 export const bing_dict = _bing_dict;
+export const cambridge_dict = _cambridge_dict;

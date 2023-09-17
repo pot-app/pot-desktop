@@ -265,6 +265,9 @@
                 },
                 "bing_dict": {
                     "title": "Bing Dicionário"
+                },
+                "cambridge_dict": {
+                    "title": "Cambridge Dictionary"
                 }
             },
             "recognize": {
