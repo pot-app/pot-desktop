@@ -85,27 +85,22 @@ export async function translate(text, from, to) {
         const defBlockNodes = entryNode.querySelectorAll('.sense-body.dsense_b .def-block.ddef_block');
         const explanations = [...defBlockNodes].map((defBlockNode) => {
             const trait =
-                wordPos ??
-                defBlockNode
-                    .querySelector('.ddef_h .def.ddef_d.db')
-                    .innerText.replace(CambridgeDictWordTranslator.spacesReg, ' ')
-                    .trim();
+                wordPos ?? defBlockNode.querySelector('.ddef_h .def.ddef_d.db').innerText.replace(/\s+/g, ' ').trim();
             const explains = defBlockNode.querySelector('.def-body.ddef_b .trans.dtrans.dtrans-se.break-cj').innerText;
             return new Explanation(trait, explains.split(';'));
         });
         wordTranslateResult.explanations.push(...explanations);
 
         dict['result'] = wordTranslateResult;
-        return dict['result'];
+        return dict;
     }, {});
-
-    for (let i of resultMap.pronunciations) {
+    for (let i of resultMap.result.pronunciations) {
         const res = await fetch(i.voice, { responseType: 3 });
         if (res.ok) {
             i.voice = res.data;
         }
     }
-    return resultMap;
+    return resultMap.result;
 }
 
 export * from './Config';
