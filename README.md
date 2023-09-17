@@ -94,10 +94,7 @@
 -   [x] [DeepL](https://www.deepl.com/)
 -   [x] [有道翻译](https://ai.youdao.com/)
 -   [x] [剑桥词典](https://dictionary.cambridge.org/)
--   [x] [MoJi 辞书](https://www.mojidict.com/)
 -   [x] [Yandex](https://translate.yandex.com/)
--   [x] [Tatoeba](https://tatoeba.org/)
--   [x] [PALM2](https://ai.google/discover/palm2/)
 -   [ ] 持续增加...
 
 ## 文字识别

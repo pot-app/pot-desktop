@@ -94,10 +94,7 @@
 -   [x] [DeepL](https://www.deepl.com/)
 -   [x] [Youdao](https://ai.youdao.com/)
 -   [x] [Cambridge Dictionary](https://dictionary.cambridge.org/)
--   [x] [MoJi Dictionary](https://www.mojidict.com/)
 -   [x] [Yandex](https://translate.yandex.com/)
--   [x] [Tatoeba](https://tatoeba.org/)
--   [x] [PALM2](https://ai.google/discover/palm2/)
 -   [ ] More to come...
 
 ## Text Recognize
