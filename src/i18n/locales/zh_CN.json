@@ -255,6 +255,10 @@
                 },
                 "cambridge_dict": {
                     "title": "剑桥词典"
+                },
+                "caiyun": {
+                    "title": "彩云小译",
+                    "token": "Token"
                 }
             },
             "recognize": {

@@ -253,6 +253,10 @@
                 },
                 "cambridge_dict": {
                     "title": "Cambridge Dictionary"
+                },
+                "caiyun": {
+                    "title": "Caiyun",
+                    "token": "Token"
                 }
             },
             "recognize": {
