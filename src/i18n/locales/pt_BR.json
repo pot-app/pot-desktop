@@ -193,7 +193,7 @@
                 },
                 "google": {
                     "title": "Google",
-                    "custom_url": "URL personalizado"
+                    "custom_url": "URL personalizada"
                 },
                 "bing": {
                     "title": "Bing"
@@ -267,7 +267,7 @@
                     "title": "Bing Dicionário"
                 },
                 "cambridge_dict": {
-                    "title": "Cambridge Dictionary"
+                    "title": "Cambridge Dicionário"
                 },
                 "caiyun": {
                     "title": "Caiyun",
