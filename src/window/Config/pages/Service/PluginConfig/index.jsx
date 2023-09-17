@@ -8,7 +8,6 @@ import { useConfig, useToastStyle } from '../../../../../hooks';
 import { invoke } from '@tauri-apps/api';
 
 export function PluginConfig(props) {
-    // const pluginList = useAtomValue(pluginListAtom);
     const { updateServiceList, onClose, name, pluginType, pluginList } = props;
     const [loading, setLoading] = useState(false);
     const [pluginConfig, setPluginConfig] = useConfig(name, {}, { sync: false });
@@ -63,8 +62,9 @@ export function PluginConfig(props) {
                     fullWidth
                     color='primary'
                     onPress={() => {
-                        if (Object.keys(pluginConfig).length !== 0) {
+                        if (pluginList[name].needs.length !== 0) {
                             setLoading(true);
+                            pluginConfig['enable'] = 'true';
                             invoke('invoke_plugin', {
                                 name,
                                 pluginType,
