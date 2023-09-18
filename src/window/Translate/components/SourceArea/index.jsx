@@ -260,7 +260,7 @@ export default function SourceArea(props) {
                                     const serviceName = ttsServiceList[0];
                                     if (serviceName.startsWith('[plugin]')) {
                                         const config = (await store.get(serviceName)) ?? {};
-                                        const data = invoke('invoke_plugin', {
+                                        const data = await invoke('invoke_plugin', {
                                             name: serviceName,
                                             pluginType: 'tts',
                                             text: sourceText,

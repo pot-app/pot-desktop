@@ -13,6 +13,7 @@ import {
     Tooltip,
 } from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
+import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
@@ -55,6 +56,7 @@ export default function TargetArea(props) {
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
     const detectLanguage = useAtomValue(detectLanguageAtom);
+    const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const toastStyle = useToastStyle();
@@ -229,6 +231,17 @@ export default function TargetArea(props) {
             }
         }
     }, [result]);
+
+    useEffect(() => {
+        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
+            readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
+                dir: BaseDirectory.AppConfig,
+            }).then((infoStr) => {
+                setTtsPluginInfo(JSON.parse(infoStr));
+            });
+        }
+    }, [ttsServiceList]);
+
     return (
         <Card
             shadow='none'
