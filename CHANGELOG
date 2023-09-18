@@ -1,20 +1,11 @@
-## 2.4.2 (2023-09-17)
+## 2.4.3 (2023-09-19)
 
 ### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
 
 ### Note: For Windows users, please run pot with administrator privileges before updating.
 
-### New feature:
-
--   Add Retry Button([`bb8b13e`](https://github.com/pot-app/pot-desktop/commit/bb8b13e7e4576ee134ede456a08fb2512f0640e5)) (by @Pylogmon)
--   Add Caiyun Translation([`239d15e`](https://github.com/pot-app/pot-desktop/commit/239d15eb16070b98c4f8e2494787c42d822b2f5e)) (by @Pylogmon)
--   Add Cambridge Dictionary([`59c8592`](https://github.com/pot-app/pot-desktop/commit/59c8592e76503f2c28e730dedd643847da832160)) (by @Pylogmon)
--   Play Audio for Dictionary([`2658765`](https://github.com/pot-app/pot-desktop/commit/2658765939adf3d17f1ba240cc2566d2fee6163d)) (by @Pylogmon)
--   Add Youdao Dictionary([`237dbdb`](https://github.com/pot-app/pot-desktop/commit/237dbdbcc1c17abbace96af057aa9c56df62ad1d)) (by @Pylogmon)
--   Support Deepl-Pro (#462)([`69265df`](https://github.com/pot-app/pot-desktop/commit/69265df43e1034c9237778003cbbae66cdba5f80)) (by @lol2025)
-
 ### Bugs fixed:
 
--   Auto Relaunch after Install([`464e76e`](https://github.com/pot-app/pot-desktop/commit/464e76ebf123ba0c2f5e23f2b45971946339ab7f)) (by @Pylogmon)
--   Cambridge Fetch Error([`84d95e9`](https://github.com/pot-app/pot-desktop/commit/84d95e94a98db02baad6187fac46762a3cc6a27d)) (by @Pylogmon)
--   Invoke Plugin Error([`7839e8b`](https://github.com/pot-app/pot-desktop/commit/7839e8b1ee9efa8040e3d876d976b6bdb6302a13)) (by @Pylogmon)
+-   Fix TTS Plugin([`312a069`](https://github.com/pot-app/pot-desktop/commit/312a06979ea8aa1b58d4adedf32a9bd37b57f190)) (by @Pylogmon)
+-   Fix cambridge on Linux([`13def1b`](https://github.com/pot-app/pot-desktop/commit/13def1bf46262fbbaf7503c011e7e3cdebcd3780)) (by @Pylogmon)
+-   Fix DeepL Free API (#486)([`e90bc58`](https://github.com/pot-app/pot-desktop/commit/e90bc5898809fe95b3c7a5cd3a904a6d5cd81dba)) (by @Integral-Tech)
