@@ -103,7 +103,7 @@ async function translate_by_key(text, from, to, key) {
     }
     let url;
     if (key.endsWith(':fx')) {
-        url = 'https://api.deepl-free.com/v2/translate';
+        url = 'https://api-free.deepl.com/v2/translate';
     } else if (key.endsWith(':dp')) {
         url = 'https://api.deepl-pro.com/v2/translate';
     } else {
