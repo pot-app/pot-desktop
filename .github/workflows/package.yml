@@ -48,25 +48,25 @@ jobs:
           fetch-depth: 0
       - name: Build Popclipext
         run: |
-          cd popclip
+          cd .scripts/popclip
           bash ./build.sh
-          cd ..
+          cd ../..
       - name: Build SnipDo
         run: |
-          cd snipdo
+          cd .scripts/snipdo
           bash ./build.sh
-          cd ..
+          cd ../..
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Pot.popclipextz
-          path: popclip/Pot.popclipextz
+          path: .scripts/popclip/Pot.popclipextz
           if-no-files-found: error
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: pot.pbar
-          path: snipdo/pot.pbar
+          path: .scripts/snipdo/pot.pbar
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
@@ -74,14 +74,14 @@ jobs:
         with:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
-          files: popclip/Pot.popclipextz
+          files: .scripts/popclip/Pot.popclipextz
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
-          files: snipdo/pot.pbar
+          files: .scripts/snipdo/pot.pbar
   build-for-macos:
     needs: change-version
     strategy:
@@ -239,7 +239,7 @@ jobs:
         with:
           name: source
       - name: Build for Linux
-        uses: ./build-for-linux
+        uses: ./.actions/build-for-linux
         env:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
