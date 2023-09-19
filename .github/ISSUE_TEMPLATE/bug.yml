@@ -7,14 +7,9 @@ body:
   attributes:
     value: |
       ## Thank you for your feedback, pot has become better because of it!
-- type: checkboxes
-  attributes:
-    label: Please confirm the following before submitting a new issue.
-    options:
-      - label: I have carefully reviewed the official website's usage documentation.
-        required: true
-      - label: I have searched through the historical issues but could not find an answer.
-        required: true
+      ### Please confirm the following before submitting a new issue.
+      - [ ] I have carefully reviewed the official website's usage documentation.
+      - [ ] I have searched through the historical issues but could not find an answer.
 - type: textarea
   attributes:
     label: Description
@@ -36,21 +31,28 @@ body:
       - MacOS
   validations:
     required: true
-- type: textarea
+- type: input
   attributes:
     label: System Version
-    description: 'Eg: Windows 11 Home Edition 22621.1702'
+    placeholder: 'Eg: Windows 11 Home Edition 22621.1702'
   validations:
     required: true
 - type: dropdown
   attributes:
-    label: Window System(Linux Only)
+    label: Window System (Linux Only)
     options:
       - X11
       - Wayland
-- type: textarea
+- type: input
   attributes:
     label: Software Version
+    placeholder: 'Eg: 2.0.0'
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Log File
+    description: 'pot.log file content'
 - type: textarea
   attributes:
     label: Additional Information
