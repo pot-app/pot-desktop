@@ -69,6 +69,6 @@ pub fn lang_detect(text: &str) -> Result<&str, ()> {
             Language::Mongolian => Ok("mn_cy"),
         }
     } else {
-        return Ok("");
+        return Ok("en");
     }
 }

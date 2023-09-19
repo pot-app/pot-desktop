@@ -223,6 +223,33 @@ export default function TargetArea(props) {
             }
         }
     };
+
+    const handleSpeak = async () => {
+        const serviceName = ttsServiceList[0];
+        if (serviceName.startsWith('[plugin]')) {
+            const config = (await store.get(serviceName)) ?? {};
+            if (!(targetLanguage in ttsPluginInfo.language)) {
+                throw new Error('Language not supported');
+            }
+            let data = await invoke('invoke_plugin', {
+                name: serviceName,
+                pluginType: 'tts',
+                text: result,
+                lang: ttsPluginInfo.language[targetLanguage],
+                needs: config,
+            });
+            speak(data);
+        } else {
+            if (!(targetLanguage in builtinTtsServices[serviceName].Language)) {
+                throw new Error('Language not supported');
+            }
+            let data = await builtinTtsServices[serviceName].tts(
+                result,
+                builtinTtsServices[serviceName].Language[targetLanguage]
+            );
+            speak(data);
+        }
+    };
     useEffect(() => {
         if (textAreaRef.current !== null) {
             textAreaRef.current.style.height = '0px';
@@ -480,25 +507,10 @@ export default function TargetArea(props) {
                             variant='light'
                             size='sm'
                             isDisabled={typeof result !== 'string' || result === ''}
-                            onPress={async () => {
-                                const serviceName = ttsServiceList[0];
-                                if (serviceName.startsWith('[plugin]')) {
-                                    const config = (await store.get(serviceName)) ?? {};
-                                    let data = await invoke('invoke_plugin', {
-                                        name: serviceName,
-                                        pluginType: 'tts',
-                                        text: result,
-                                        lang: ttsPluginInfo.language[targetLanguage],
-                                        needs: config,
-                                    });
-                                    speak(data);
-                                } else {
-                                    let data = await builtinTtsServices[serviceName].tts(
-                                        result,
-                                        builtinTtsServices[serviceName].Language[targetLanguage]
-                                    );
-                                    speak(data);
-                                }
+                            onPress={() => {
+                                handleSpeak().catch((e) => {
+                                    toast.error(e.toString(), { style: toastStyle });
+                                });
                             }}
                         >
                             <HiOutlineVolumeUp className='text-[16px]' />

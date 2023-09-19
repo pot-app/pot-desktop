@@ -4,6 +4,7 @@ import { readText, writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useRef, useState } from 'react';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
+import toast, { Toaster } from 'react-hot-toast';
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
@@ -14,7 +15,7 @@ import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
 import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
-import { useConfig, useSyncAtom, useVoice } from '../../../../hooks';
+import { useConfig, useSyncAtom, useVoice, useToastStyle } from '../../../../hooks';
 import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
 import { store } from '../../../../utils/store';
@@ -38,6 +39,7 @@ export default function SourceArea(props) {
     const [langDetectEngine] = useConfig('translate_detect_engine', 'baidu');
     const [hideWindow] = useConfig('translate_hide_window', false);
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
+    const toastStyle = useToastStyle();
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const speak = useVoice();
@@ -159,6 +161,33 @@ export default function SourceArea(props) {
         }
     };
 
+    const handleSpeak = async () => {
+        const serviceName = ttsServiceList[0];
+        if (serviceName.startsWith('[plugin]')) {
+            if (!(detectLanguage in ttsPluginInfo.language)) {
+                throw new Error('Language not supported');
+            }
+            const config = (await store.get(serviceName)) ?? {};
+            const data = await invoke('invoke_plugin', {
+                name: serviceName,
+                pluginType: 'tts',
+                text: sourceText,
+                lang: ttsPluginInfo.language[detectLanguage],
+                needs: config,
+            });
+            speak(data);
+        } else {
+            if (!(detectLanguage in builtinTtsServices[serviceName].Language)) {
+                throw new Error('Language not supported');
+            }
+            let data = await builtinTtsServices[serviceName].tts(
+                sourceText,
+                builtinTtsServices[serviceName].Language[detectLanguage]
+            );
+            speak(data);
+        }
+    };
+
     useEffect(() => {
         if (hideWindow !== null) {
             if (unlisten) {
@@ -223,6 +252,7 @@ export default function SourceArea(props) {
             shadow='none'
             className='bg-content1 rounded-[10px] mt-[1px] pb-0'
         >
+            <Toaster />
             <CardBody className='bg-content1 p-[12px] pb-0 max-h-[40vh] overflow-y-auto'>
                 <textarea
                     autoFocus
@@ -256,25 +286,10 @@ export default function SourceArea(props) {
                                 isIconOnly
                                 variant='light'
                                 size='sm'
-                                onPress={async () => {
-                                    const serviceName = ttsServiceList[0];
-                                    if (serviceName.startsWith('[plugin]')) {
-                                        const config = (await store.get(serviceName)) ?? {};
-                                        const data = await invoke('invoke_plugin', {
-                                            name: serviceName,
-                                            pluginType: 'tts',
-                                            text: sourceText,
-                                            lang: ttsPluginInfo.language[detectLanguage],
-                                            needs: config,
-                                        });
-                                        speak(data);
-                                    } else {
-                                        let data = await builtinTtsServices[serviceName].tts(
-                                            sourceText,
-                                            builtinTtsServices[serviceName].Language[detectLanguage]
-                                        );
-                                        speak(data);
-                                    }
+                                onPress={() => {
+                                    handleSpeak().catch((e) => {
+                                        toast.error(e.toString(), { style: toastStyle });
+                                    });
                                 }}
                             >
                                 <HiOutlineVolumeUp className='text-[16px]' />
