@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "tauri:dev",
+            "type": "shell",
+            "command": "pnpm",
+            "args": ["tauri", "dev"]
+        },
+        {
+            "label": "tauri:build",
+            "type": "shell",
+            "command": "pnpm",
+            "args": ["tauri", "build"]
+        },
+        {
+            "label": "ui:dev",
+            "type": "shell",
+            "isBackground": true,
+            "command": "pnpm",
+            "args": ["dev"]
+        },
+        {
+            "label": "ui:build",
+            "type": "shell",
+            "command": "pnpm",
+            "args": ["build"]
+        }
+    ]
+}
