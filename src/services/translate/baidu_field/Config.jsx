@@ -43,7 +43,24 @@ export function Config(props) {
 
     return (
         config !== null && (
-            <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    translate('hello', Language.auto, Language.zh_cn, { config }).then(
+                        () => {
+                            setIsLoading(false);
+                            setConfig(config, true);
+                            updateServiceList('baidu_field');
+                            onClose();
+                        },
+                        (e) => {
+                            setIsLoading(false);
+                            toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                        }
+                    );
+                }}
+            >
                 <Toaster />
                 <div className={'config-item'}>
                     <h3 className='my-auto'>{t('services.help')}</h3>
@@ -62,6 +79,7 @@ export function Config(props) {
                             <Button variant='bordered'>{t(`services.translate.baidu_field.${config.field}`)}</Button>
                         </DropdownTrigger>
                         <DropdownMenu
+                            autoFocus='first'
                             aria-label='app language'
                             className='max-h-[50vh] overflow-y-auto'
                             onAction={(key) => {
@@ -82,11 +100,16 @@ export function Config(props) {
                     </Dropdown>
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.baidu.appid')}</h3>
                     <Input
+                        label={t('services.translate.baidu.appid')}
+                        labelPlacement='outside-left'
                         value={config['appid']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
@@ -96,11 +119,16 @@ export function Config(props) {
                     />
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.baidu.secret')}</h3>
                     <Input
+                        label={t('services.translate.baidu.secret')}
+                        labelPlacement='outside-left'
                         value={config['secret']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
@@ -109,31 +137,15 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div>
-                    <Button
-                        isLoading={isLoading}
-                        color='primary'
-                        fullWidth
-                        onPress={() => {
-                            setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, { config }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setConfig(config, true);
-                                    updateServiceList('baidu_field');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
-            </>
+                <Button
+                    type='submit'
+                    isLoading={isLoading}
+                    color='primary'
+                    fullWidth
+                >
+                    {t('common.save')}
+                </Button>
+            </form>
         )
     );
 }

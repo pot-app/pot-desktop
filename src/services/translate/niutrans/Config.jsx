@@ -26,7 +26,24 @@ export function Config(props) {
 
     return (
         config !== null && (
-            <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    translate('hello', Language.auto, Language.zh_cn, { config }).then(
+                        () => {
+                            setIsLoading(false);
+                            setConfig(config, true);
+                            updateServiceList('niutrans');
+                            onClose();
+                        },
+                        (e) => {
+                            setIsLoading(false);
+                            toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                        }
+                    );
+                }}
+            >
                 <Toaster />
                 <div className={'config-item'}>
                     <h3 className='my-auto'>{t('services.help')}</h3>
@@ -39,20 +56,29 @@ export function Config(props) {
                     </Button>
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.niutrans.https')}</h3>
                     <Switch
                         isSelected={config['https'] ?? true}
                         onValueChange={(v) => {
                             setConfig({ ...config, https: v });
                         }}
-                    />
+                        classNames={{
+                            base: 'flex flex-row-reverse justify-between w-full max-w-full',
+                        }}
+                    >
+                        {t('services.translate.niutrans.https')}
+                    </Switch>
                 </div>
                 <div className={'config-item'}>
-                    <h3 className='my-auto'>{t('services.translate.niutrans.apikey')}</h3>
                     <Input
+                        label={t('services.translate.niutrans.apikey')}
+                        labelPlacement='outside-left'
                         value={config['apikey']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setConfig({
                                 ...config,
@@ -61,31 +87,15 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div>
-                    <Button
-                        isLoading={isLoading}
-                        color='primary'
-                        fullWidth
-                        onPress={() => {
-                            setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, { config }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setConfig(config, true);
-                                    updateServiceList('niutrans');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
-            </>
+                <Button
+                    type='submit'
+                    isLoading={isLoading}
+                    color='primary'
+                    fullWidth
+                >
+                    {t('common.save')}
+                </Button>
+            </form>
         )
     );
 }

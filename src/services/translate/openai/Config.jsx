@@ -35,7 +35,24 @@ export function Config(props) {
 
     return (
         openaiConfig !== null && (
-            <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    translate('hello', Language.auto, Language.zh_cn, { config: openaiConfig }).then(
+                        () => {
+                            setIsLoading(false);
+                            setOpenaiConfig(openaiConfig, true);
+                            updateServiceList('openai');
+                            onClose();
+                        },
+                        (e) => {
+                            setIsLoading(false);
+                            toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                        }
+                    );
+                }}
+            >
                 <Toaster />
                 <div className='config-item'>
                     <h3 className='my-auto'>{t('services.help')}</h3>
@@ -54,6 +71,7 @@ export function Config(props) {
                             <Button variant='bordered'>{t(`services.translate.openai.${openaiConfig.service}`)}</Button>
                         </DropdownTrigger>
                         <DropdownMenu
+                            autoFocus='first'
                             aria-label='service'
                             onAction={(key) => {
                                 setOpenaiConfig({
@@ -68,7 +86,6 @@ export function Config(props) {
                     </Dropdown>
                 </div>
                 <div className='config-item'>
-                    <h3 className='my-auto'>{t('services.translate.openai.stream')}</h3>
                     <Switch
                         isSelected={openaiConfig['stream']}
                         onValueChange={(value) => {
@@ -77,14 +94,24 @@ export function Config(props) {
                                 stream: value,
                             });
                         }}
-                    />
+                        classNames={{
+                            base: 'flex flex-row-reverse justify-between w-full max-w-full',
+                        }}
+                    >
+                        {t('services.translate.openai.stream')}
+                    </Switch>
                 </div>
                 <div className='config-item'>
-                    <h3 className='my-auto'>{t('services.translate.openai.request_path')}</h3>
                     <Input
+                        label={t('services.translate.openai.request_path')}
+                        labelPlacement='outside-left'
                         value={openaiConfig['requestPath']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setOpenaiConfig({
                                 ...openaiConfig,
@@ -93,13 +120,18 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div className='config-item '>
-                    <h3 className='my-auto'>{t('services.translate.openai.api_key')}</h3>
+                <div className='config-item'>
                     <Input
+                        label={t('services.translate.openai.api_key')}
+                        labelPlacement='outside-left'
                         type='password'
                         value={openaiConfig['apiKey']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setOpenaiConfig({
                                 ...openaiConfig,
@@ -115,6 +147,7 @@ export function Config(props) {
                             <Button variant='bordered'>{openaiConfig.model}</Button>
                         </DropdownTrigger>
                         <DropdownMenu
+                            autoFocus='first'
                             aria-label='service'
                             onAction={(key) => {
                                 setOpenaiConfig({
@@ -130,7 +163,7 @@ export function Config(props) {
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div className='config-item '>
+                <div className='config-item'>
                     <Textarea
                         label={t('services.translate.openai.system_prompt')}
                         labelPlacement='outside'
@@ -146,7 +179,7 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div className='config-item '>
+                <div className='config-item'>
                     <Textarea
                         label={t('services.translate.openai.user_prompt')}
                         className='mb-3'
@@ -163,31 +196,15 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div>
-                    <Button
-                        isLoading={isLoading}
-                        fullWidth
-                        color='primary'
-                        onPress={() => {
-                            setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, { config: openaiConfig }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setOpenaiConfig(openaiConfig, true);
-                                    updateServiceList('openai');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
-            </>
+                <Button
+                    type='submit'
+                    isLoading={isLoading}
+                    fullWidth
+                    color='primary'
+                >
+                    {t('common.save')}
+                </Button>
+            </form>
         )
     );
 }
