@@ -1,1 +1,355 @@
-{}
+{
+    "translation": {
+        "common": {
+            "ok": "ОК",
+            "cancel": "Отмена",
+            "save": "Сохранить",
+            "write_clipboard": "Сохранить в буфер обмена",
+            "plugin": "Плагин",
+            "coming": "Скоро…",
+            "clear": "Очистить"
+        },
+        "languages": {
+            "auto": "Автоопределение",
+            "zh_cn": "Упрощённый китайский",
+            "zh_tw": "Традиционный китайский",
+            "yue": "Кантонский",
+            "ja": "Японский",
+            "en": "Английский",
+            "ko": "Корейский",
+            "fr": "Французский",
+            "es": "Испанский",
+            "ru": "Русский",
+            "de": "Немецкий",
+            "it": "Итальянский",
+            "tr": "Турецкий",
+            "pt_pt": "Португальский",
+            "pt_br": "Португальский (Бразилия)",
+            "vi": "Вьетнамский",
+            "id": "Индонезийский",
+            "th": "Тайский",
+            "ms": "Малайский",
+            "ar": "Арабский",
+            "hi": "Хинди",
+            "mn_mo": "Монгольский",
+            "mn_cy": "Монгольский (кириллица)",
+            "km": "Кхмерский"
+        },
+        "config": {
+            "general": {
+                "label": "Общие",
+                "title": "Общие настройки",
+                "auto_start": "Автозагрузка",
+                "check_update": "Проверка обновлений",
+                "server_port": "Порт прослушивания",
+                "server_port_change": "Порт прослушивания был изменён. Перезапустите приложение, чтобы изменения вступили в силу.",
+                "app_language": "Язык приложения",
+                "app_theme": "Тема",
+                "theme": {
+                    "light": "Светлая",
+                    "dark": "Тёмная",
+                    "system": "Системная"
+                },
+                "transparent": "Эффект прозрачности",
+                "proxy": {
+                    "title": "Прокси",
+                    "host": "Хостинг",
+                    "port": "Порт",
+                    "username": "Имя пользователя",
+                    "password": "Пароль"
+                },
+                "proxy_change": "Прокси-сервер был изменен. Перезапустите приложение, чтобы изменения вступили в силу.",
+                "proxy_error": "Пожалуйста, укажите хост и порт.",
+                "tray_click_event": "Действие по значку в трее",
+                "event": {
+                    "config": "Настройки",
+                    "translate": "Перевод",
+                    "disable": "Нет",
+                    "ocr_recognize": "Распознавание текста",
+                    "ocr_translate": "Перевод скриншота"
+                }
+            },
+            "translate": {
+                "label": "Перевод",
+                "title": "Настройки перевода",
+                "source_language": "Исходный язык",
+                "target_language": "Целевой язык",
+                "second_language": "Второй целевой язык",
+                "auto_copy": "Автокопирование",
+                "source": "Исходный",
+                "target": "Перевод",
+                "source_target": "Исходный+Перевод",
+                "disable": "Отключить",
+                "incremental_translate": "Инкрементный перевод",
+                "dynamic_translate": "Динамический перевод",
+                "delete_newline": "Автоудаление новой строки",
+                "remember_language": "Запомнить целевой язык",
+                "window_position": "Положение окна",
+                "mouse": "Следовать за курсором",
+                "pre_state": "Запомнить позицию",
+                "remember_window_size": "Запомнить размер окна",
+                "hide_source": "Скрыть область исходника",
+                "hide_language": "Скрыть область языков",
+                "hide_window": "Скрыть окно перевода",
+                "detect_engine": "Система определения языка",
+                "baidu": "Baidu",
+				"tencent": "Tencent",
+                "google": "Google",
+                "local": "Локально"
+            },
+            "recognize": {
+                "label": "Распознавания",
+                "title": "Настройки распознавания",
+                "language": "Язык распознавания",
+                "delete_newline": "Автоудаление новой строки",
+                "auto_copy": "Автокопирование",
+                "hide_window": "Скрыть окно распознавания"
+            },
+            "hotkey": {
+                "label": "Горячие клавиши",
+                "title": "Настройки горячих клавиш",
+                "selection_translate": "Перевод выделенного",
+                "input_translate": "Ввести для перевода",
+                "ocr_recognize": "Распознавание текста",
+                "ocr_translate": "Перевод скриншота",
+                "is_register": "Горячая клавиша уже назначена.",
+                "success": "Горячая клавиша успешно назначена"
+            },
+            "service": {
+                "label": "Сервис",
+                "title": "Настройки сервисов",
+                "translate": "Перевод",
+                "tts": "TTS",
+                "recognize": "Распознавание",
+                "collection": "Коллекция",
+                "least": "Пожалуйста, сохраните хотя бы один.",
+                "add_builtin_service": "Добавить встроенный сервис",
+                "add_external_service": "Добавить расширение",
+                "add_service": "Добавить сервис",
+                "test_failed": "Ошибка теста",
+                "install_plugin": "Установить плагин",
+                "uninstall_success": "Плагин успешно удалён",
+                "homepage": "Домашняя страница"
+            },
+            "history": {
+                "label": "История",
+                "title": "История"
+            },
+            "backup": {
+                "label": "Бэкап",
+                "title": "Настройка бэкапа",
+                "type": "Тип сервиса",
+                "webdav": "WebDav",
+                "local": "Локально",
+                "webdav_url": "Ссылка WebDav",
+                "username": "Имя пользователя",
+                "password": "Пароль",
+                "backup": "Бэкап",
+                "restore": "Восстановить",
+                "list": "Список бэкапов",
+                "load_success": "Успешная загрузка бэкапа",
+                "backup_success": "Бэкап выполнен",
+                "empty": "Вы ещё не создали бэкап"
+            },
+            "about": {
+                "label": "О приложении",
+                "title": "О приложении",
+                "website": "Сайт",
+                "github": "GitHub",
+                "feedback": "Обратная связь",
+                "issue": "Проблема",
+                "email": "Эл. почта",
+                "community": "Сообщество",
+                "check_update": "Проверить обновление",
+                "view_log": "Посмотреть журнал",
+                "view_config": "Посмотреть конфигурацию",
+                "qq_channel": "QQ канал",
+                "qq_group": "QQ группа",
+                "telegram": "Telegram",
+                "discussion": "Обсуждение на GitHub"
+            }
+        },
+        "updater": {
+            "title": "Проверка обновления",
+            "latest": "## Установлена последняя версия.",
+            "progress": "Прогресс загрузки",
+            "update": "Обновить",
+            "downloading": "Загрузка…",
+            "installing": "Установка…",
+            "cancel": "Отмена",
+            "installed": "Установка завершена, перезапустите приложение, чтобы изменения вступили в силу"
+        },
+        "services": {
+            "help": "Руководство по настройке",
+            "no_need": "Настройка не требуется",
+            "translate": {
+                "deepl": {
+                    "title": "DeepL",
+                    "custom_url": "DeepLX URL",
+                    "auth_key": "Auth Key",
+                    "type": "Тип сервиса",
+                    "free": "Бесплатный",
+                    "api": "Auth Key",
+                    "deeplx": "DeepLX"
+                },
+                "google": { "title": "Google", "custom_url": "Пользовательский адрес" },
+                "bing": { "title": "Bing" },
+                "openai": {
+                    "title": "OpenAI",
+                    "service": "Поставщик услуг",
+                    "openai": "OpenAI",
+                    "azure": "Azure",
+                    "request_path": "Путь запроса",
+                    "api_key": "Api Key",
+                    "model": "Модель",
+                    "stream": "Режим потока",
+                    "system_prompt": "System Prompt",
+                    "user_prompt": "User Prompt",
+                    "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to will be replaced with the text to be translated, source language, and target language."
+                },
+                "yandex": { "title": "Яндекс" },
+                "transmart": { "title": "TranSmart", "username": "Имя пользователя", "token": "Токен" },
+                "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },
+                "baidu_field": {
+                    "title": "Baidu Field",
+                    "it": "Информационные технологии",
+                    "finance": "Финансы и экономика",
+                    "machinery": "Машиностроение",
+                    "senimed": "Биомедицина",
+                    "novel": "Сетевая литература",
+                    "academic": "Научная статья",
+                    "aerospace": "Аэрокосмос",
+                    "wiki": "Гуманитарные и социальные науки",
+                    "news": "Новости и информация.",
+                    "law": "Законы и нормативные акты",
+                    "contract": "Контракт."
+                },
+                "alibaba": {
+                    "title": "Alibaba",
+                    "accesskey_id": "AccessKey ID",
+                    "accesskey_secret": "AccessKey Secret"
+                },
+                "tencent": {
+                    "title": "Tencent",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "volcengine": {
+                    "title": "VolcEngine",
+                    "appid": "AppID",
+                    "secret": "Secret"
+                },
+                "niutrans": {
+                    "title": "NiuTrans",
+                    "https": "Исп. Https",
+                    "apikey": "API Key"
+                },
+                "youdao": {
+                    "title": "Youdao",
+                    "appkey": "App ID",
+                    "key": "Key"
+                },
+                "bing_dict": {
+                    "title": "Словарь Bing"
+                },
+                "cambridge_dict": {
+                    "title": "Кембриджский словарь"
+                },
+                "caiyun": {
+                    "title": "Caiyun",
+                    "token": "Токен"
+                }
+            },
+            "recognize": {
+                "system": { "title": "Системный OCR" },
+                "paddle": { "title": "Paddle OCR" },
+                "tesseract": { "title": "Tesseract.js" },
+                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "baidu_accurate_ocr": {
+                    "title": "Baidu OCR (Точный)",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
+                "baidu_img_ocr": {
+                    "title": "Перевод изображения Baidu",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "iflytek_ocr": {
+                    "title": "iFlyTek OCR",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                },
+                "iflytek_intsig_ocr": {
+                    "title": "iFlyTek OCR (Intsig)",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                },
+                "iflytek_latex_ocr": {
+                    "title": "iFlyTek LaTeX",
+                    "appid": "App ID",
+                    "apisecret": "API Secret",
+                    "apikey": "API Key"
+                },
+                "simple_latex_ocr": {
+                    "title": "Simple LaTeX",
+                    "token": "Токен"
+                },
+                "tencent_ocr": {
+                    "title": "Tencent OCR",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "tencent_accurate_ocr": {
+                    "title": "Tencent OCR (Точный)",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "tencent_img_ocr": {
+                    "title": "Перевод изображений Tencent",
+                    "secret_id": "Secret ID",
+                    "secret_key": "Secret Key"
+                },
+                "volcengine_ocr": {
+                    "title": "VolcEngine OCR",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "title": "VolcEngine OCR (Многоязычный)",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
+                "qrcode": {
+                    "title": "QR-код"
+                }
+            },
+            "tts": {
+                "lingva_tts": { "title": "Lingva", "request_path": "Путь запроса" }
+            },
+            "collection": {
+                "anki": { "title": "Anki", "port": "Порт" },
+                "eudic": { "title": "Eudic", "name": "Название коллекции", "token": "Токен" }
+            }
+        },
+        "translate": {
+            "translate": "Перевод",
+            "add_collection_success": "Успешно добавлено в коллекцию",
+            "recognizing": "Распознавание…",
+            "speak": "Озвучить",
+            "copy": "Копировать",
+            "retry": "Пробовать снова",
+            "delete_newline": "Удалить новую строку",
+            "translate_back": "Перевод обратно к оригиналу"
+        },
+        "recognize": {
+            "recognize": "Распознать",
+            "translate": "Перевести",
+            "copy_img": "Копировать изображение",
+            "copy_text": "Копировать",
+            "delete_newline": "Удалить новую строку"
+        }
+    }
+}
