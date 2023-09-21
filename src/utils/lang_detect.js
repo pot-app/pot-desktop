@@ -45,7 +45,6 @@ async function tencent_detect(text) {
     const lang_map = {
         zh: 'zh_cn',
         en: 'en',
-        en: 'en',
         ja: 'ja',
         ko: 'ko',
         fr: 'fr',
