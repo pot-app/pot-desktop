@@ -93,6 +93,7 @@
                 "hide_window": "Ocultar Janela de Tradução",
                 "detect_engine": "Mecanismo de Detecção de Idioma",
                 "baidu": "Baidu",
+                "tencent": "Tencent",
                 "google": "Google",
                 "local": "Local"
             },

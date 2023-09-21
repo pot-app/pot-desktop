@@ -14,10 +14,10 @@ import { LuDelete } from 'react-icons/lu';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
-import { local_detect, google_detect, baidu_detect } from '../../../../services/translate/utils/lang_detect';
 import { useConfig, useSyncAtom, useVoice, useToastStyle } from '../../../../hooks';
 import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
+import detect from '../../../../utils/lang_detect';
 import { store } from '../../../../utils/store';
 
 export const sourceTextAtom = atom('');
@@ -232,19 +232,7 @@ export default function SourceArea(props) {
     }, [sourceText]);
 
     const detect_language = async (text) => {
-        switch (langDetectEngine) {
-            case 'baidu':
-                setDetectLanguage(await baidu_detect(text));
-                break;
-            case 'google':
-                setDetectLanguage(await google_detect(text));
-                break;
-            case 'local':
-                setDetectLanguage(await local_detect(text));
-                break;
-            default:
-                setDetectLanguage(await local_detect(text));
-        }
+        setDetectLanguage(await detect(text));
     };
 
     return (

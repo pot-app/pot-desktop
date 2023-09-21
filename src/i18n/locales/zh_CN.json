@@ -92,6 +92,7 @@
                 "hide_window": "隐藏翻译窗口",
                 "detect_engine": "语种检测引擎",
                 "baidu": "百度",
+                "tencent": "腾讯",
                 "google": "谷歌",
                 "local": "本地"
             },
