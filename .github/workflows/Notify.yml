@@ -187,7 +187,7 @@ jobs:
       # issue_comment
       - name: send issue_comment message
         if: github.event_name == 'issue_comment'
-        run: python3 .github/.actions/qq_notify/qq_notify.py
+        run: python3 .github/actions/qq_notify/qq_notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
           TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
@@ -203,7 +203,7 @@ jobs:
       # discussion_comment
       - name: send discussion_comment message
         if: github.event_name == 'discussion_comment'
-        run: python3 .github/.actions/qq_notify/qq_notify.py
+        run: python3 .github/actions/qq_notify/qq_notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
           TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
@@ -219,7 +219,7 @@ jobs:
       # issues
       - name: send issue message
         if: github.event_name == 'issues'
-        run: python3 .github/.actions/qq_notify/qq_notify.py
+        run: python3 .github/actions/qq_notify/qq_notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
           TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
@@ -235,7 +235,7 @@ jobs:
       # discussion
       - name: send discussion message
         if: github.event_name == 'discussion'
-        run: python3 .github/.actions/qq_notify/qq_notify.py
+        run: python3 .github/actions/qq_notify/qq_notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
           TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
@@ -251,7 +251,7 @@ jobs:
       # pull_request
       - name: send pull_request_target message
         if: github.event_name == 'pull_request_target'
-        run: python3 .github/.actions/qq_notify/qq_notify.py
+        run: python3 .github/actions/qq_notify/qq_notify.py
         env:
           APPID: ${{ secrets.QQ_BOT_APPID }}
           TOKEN: ${{ secrets.QQ_BOT_TOKEN }}

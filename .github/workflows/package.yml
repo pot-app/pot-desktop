@@ -239,7 +239,7 @@ jobs:
         with:
           name: source
       - name: Build for Linux
-        uses: ./.github/.actions/build-for-linux
+        uses: ./.github/actions/build-for-linux
         env:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
