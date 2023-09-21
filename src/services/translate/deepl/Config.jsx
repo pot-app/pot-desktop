@@ -31,7 +31,24 @@ export function Config(props) {
 
     return (
         deeplConfig !== null && (
-            <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsLoading(true);
+                    translate('hello', Language.auto, Language.zh_cn, { config: deeplConfig }).then(
+                        () => {
+                            setIsLoading(false);
+                            setDeeplConfig(deeplConfig, true);
+                            updateServiceList('deepl');
+                            onClose();
+                        },
+                        (e) => {
+                            setIsLoading(false);
+                            toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
+                        }
+                    );
+                }}
+            >
                 <Toaster />
                 <div className={`config-item ${deeplConfig.type === 'free' && 'hidden'}`}>
                     <h3 className='my-auto'>{t('services.help')}</h3>
@@ -54,6 +71,7 @@ export function Config(props) {
                             <Button variant='bordered'>{t(`services.translate.deepl.${deeplConfig.type}`)}</Button>
                         </DropdownTrigger>
                         <DropdownMenu
+                            autoFocus='first'
                             aria-label='app language'
                             onAction={(key) => {
                                 setDeeplConfig({
@@ -69,12 +87,17 @@ export function Config(props) {
                     </Dropdown>
                 </div>
                 <div className={`config-item ${deeplConfig.type !== 'api' && 'hidden'}`}>
-                    <h3 className='my-auto'>{t('services.translate.deepl.auth_key')}</h3>
                     <Input
+                        label={t('services.translate.deepl.auth_key')}
+                        labelPlacement='outside-left'
                         type='password'
                         value={deeplConfig['authKey']}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setDeeplConfig({
                                 ...deeplConfig,
@@ -84,11 +107,16 @@ export function Config(props) {
                     />
                 </div>
                 <div className={`config-item ${deeplConfig.type !== 'deeplx' && 'hidden'}`}>
-                    <h3 className='my-auto'>{t('services.translate.deepl.custom_url')}</h3>
                     <Input
+                        label={t('services.translate.deepl.custom_url')}
+                        labelPlacement='outside-left'
                         value={deeplConfig.customUrl}
                         variant='bordered'
-                        className='max-w-[50%]'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
                         onValueChange={(value) => {
                             setDeeplConfig({
                                 ...deeplConfig,
@@ -97,31 +125,15 @@ export function Config(props) {
                         }}
                     />
                 </div>
-                <div>
-                    <Button
-                        isLoading={isLoading}
-                        color='primary'
-                        fullWidth
-                        onPress={() => {
-                            setIsLoading(true);
-                            translate('hello', Language.auto, Language.zh_cn, { config: deeplConfig }).then(
-                                () => {
-                                    setIsLoading(false);
-                                    setDeeplConfig(deeplConfig, true);
-                                    updateServiceList('deepl');
-                                    onClose();
-                                },
-                                (e) => {
-                                    setIsLoading(false);
-                                    toast.error(t('config.service.test_failed') + e.toString(), { style: toastStyle });
-                                }
-                            );
-                        }}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
-            </>
+                <Button
+                    type='submit'
+                    isLoading={isLoading}
+                    color='primary'
+                    fullWidth
+                >
+                    {t('common.save')}
+                </Button>
+            </form>
         )
     );
 }
