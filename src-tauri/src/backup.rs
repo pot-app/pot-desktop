@@ -17,19 +17,22 @@ pub async fn webdav(
 ) -> Result<String, Error> {
     // build a client
     let client = ClientBuilder::new()
-        .set_host(url)
+        .set_host(url.clone())
+        .set_auth(Auth::Basic(username.clone(), password.clone()))
+        .build()?;
+    client.mkcol("/pot-app").await?;
+    let client = ClientBuilder::new()
+        .set_host(format!("{}/pot-app", url.trim_end_matches("/")))
         .set_auth(Auth::Basic(username, password))
         .build()?;
-
-    client.mkcol("/pot-app").await?;
     match operate {
         "list" => {
-            let res = client.list("pot-app", Depth::Number(1)).await?;
+            let res = client.list("/", Depth::Number(1)).await?;
             let result = serde_json::to_string(&res)?;
             Ok(result)
         }
         "get" => {
-            let res = client.get(&format!("pot-app/{}", name.unwrap())).await?;
+            let res = client.get(&format!("/{}", name.unwrap())).await?;
             let data = res.bytes().await?;
             let mut config_dir_path = config_dir().unwrap();
             config_dir_path = config_dir_path.join("com.pot-app.desktop");
@@ -84,10 +87,7 @@ pub async fn webdav(
 
             zip.finish()?;
             match client
-                .put(
-                    &format!("pot-app/{}", name.unwrap()),
-                    std::fs::read(&zip_path)?,
-                )
+                .put(&format!("/{}", name.unwrap()), std::fs::read(&zip_path)?)
                 .await
             {
                 Ok(()) => return Ok("".to_string()),
@@ -97,7 +97,7 @@ pub async fn webdav(
             }
         }
 
-        "delete" => match client.delete(&format!("pot-app/{}", name.unwrap())).await {
+        "delete" => match client.delete(&format!("/{}", name.unwrap())).await {
             Ok(()) => return Ok("".to_string()),
             Err(e) => {
                 return Err(Error::Error(format!("WebDav Delete Error: {}", e).into()));
