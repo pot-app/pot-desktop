@@ -20,7 +20,7 @@ pub async fn webdav(
         .set_host(url.clone())
         .set_auth(Auth::Basic(username.clone(), password.clone()))
         .build()?;
-    client.mkcol("/pot-app").await?;
+    client.mkcol("/pot-app").await.unwrap_or_default();
     let client = ClientBuilder::new()
         .set_host(format!("{}/pot-app", url.trim_end_matches("/")))
         .set_auth(Auth::Basic(username, password))
