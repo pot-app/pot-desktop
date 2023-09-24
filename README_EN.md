@@ -211,6 +211,10 @@ Please note that: There are two deb package, `universal` is based on `glibc2.28`
 
 ### Arch/Manjaro
 
+> [!WARNING]  
+> In newer version of [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0), Because nVidia Proprietary drives are not fully implemented DMABUF, it will cause failure to start and crash.<br>
+> Please downgrade or add the `WEBKIT_DISABLE_DMABUF_RENDERER=1` environment variable to `/etc/environment` (or other places where environment variables are set) to turn off the use of DMABUF.
+
 1. View on [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation)
 
 Use aur helper：
