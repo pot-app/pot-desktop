@@ -402,6 +402,5 @@ Rust >= 1.70.0
 -   [@uiYzzi](https://github.com/uiYzzi) Implementation ideas
 -   [@Lichenkass](https://github.com/Lichenkass) Maintaining the Deepin App Store.
 -   [Tauri](https://github.com/tauri-apps/tauri) A user-friendly GUI framework.
--   [eSearch-OCR](https://github.com/xushengfeng/eSearch-OCR) PaddleOCR Implementation
 
 <div align="center">

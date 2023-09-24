@@ -404,6 +404,5 @@ sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev 
 -   [@uiYzzi](https://github.com/uiYzzi) 实现思路
 -   [@Lichenkass](https://github.com/Lichenkass) 维护 Deepin 应用商店中的 pot
 -   [Tauri](https://github.com/tauri-apps/tauri) 好用的 GUI 框架
--   [eSearch-OCR](https://github.com/xushengfeng/eSearch-OCR) PaddleOCR 实现
 
 <div align="center">

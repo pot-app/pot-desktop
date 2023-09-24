@@ -262,7 +262,6 @@
             },
             "recognize": {
                 "system": { "title": "System OCR" },
-                "paddle": { "title": "Paddle OCR" },
                 "tesseract": { "title": "Tesseract.js" },
                 "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
                 "baidu_accurate_ocr": {

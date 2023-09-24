@@ -279,9 +279,6 @@
                 "system": {
                     "title": "OCR do Sistema"
                 },
-                "paddle": {
-                    "title": "OCR da Paddle"
-                },
                 "tesseract": {
                     "title": "Tesseract.js"
                 },
