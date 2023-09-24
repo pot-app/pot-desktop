@@ -215,6 +215,10 @@ brew upgrade --cask pot
 
 ### Arch/Manjaro
 
+> [!WARNING]  
+> 在最新版本的 [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0) 中，由于nVidia专有驱动未完全实现DMABUF，将导致无法启动和崩溃的情况发生。<br>
+> 请降级或在 `/etc/environment` （或者其他设置环境变量的地方）中加入 `WEBKIT_DISABLE_DMABUF_RENDERER=1` 环境变量关闭DMABUF的使用。
+
 1. 在 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 查看
 
 使用 `AUR helper` 安装：
