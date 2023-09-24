@@ -34,7 +34,7 @@ export default function SourceArea(props) {
     const [dynamicTranslate] = useConfig('dynamic_translate', false);
     const [deleteNewline] = useConfig('translate_delete_newline', false);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
-    const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
+    const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [langDetectEngine] = useConfig('translate_detect_engine', 'baidu');
     const [hideWindow] = useConfig('translate_hide_window', false);

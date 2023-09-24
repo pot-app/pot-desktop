@@ -104,7 +104,6 @@
     -   [x] [Apple Vision Framework](https://developer.apple.com/documentation/vision/recognizing_text_in_images) on MacOS
     -   [x] [Tesseract OCR](https://github.com/tesseract-ocr) on Linux
 -   [x] [Tesseract.js](https://tesseract.projectnaptha.com/) (离线)
--   [x] [PaddleOCR](https://github.com/xushengfeng/eSearch-OCR) (离线)
 -   [x] [百度](https://ai.baidu.com/tech/ocr/general)
 -   [x] [腾讯](https://cloud.tencent.com/product/ocr-catalog)
 -   [x] [OCR Space](http://ocr.space/)

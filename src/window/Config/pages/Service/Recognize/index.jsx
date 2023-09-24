@@ -25,7 +25,6 @@ export default function Recognize(props) {
     const [recognizeServiceList, setRecognizeServiceList] = useConfig('recognize_service_list', [
         'system',
         'tesseract',
-        'paddle',
     ]);
 
     const { t } = useTranslation();

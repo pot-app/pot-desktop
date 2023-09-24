@@ -19,7 +19,7 @@ export const recognizeFlagAtom = atom();
 
 export default function ControlArea() {
     const pluginList = useAtomValue(pluginListAtom);
-    const [serviceList] = useConfig('recognize_service_list', ['system', 'tesseract', 'paddle']);
+    const [serviceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [serverPort] = useConfig('server_port', 60828);
     const setRecognizeFlag = useSetAtom(recognizeFlagAtom);

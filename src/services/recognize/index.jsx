@@ -1,6 +1,5 @@
 import * as _system from './system';
 import * as _tesseract from './tesseract';
-import * as _paddle from './paddle';
 import * as _baidu_ocr from './baidu';
 import * as _baidu_accurate_ocr from './baidu_accurate';
 import * as _baidu_img_ocr from './baidu_img';
@@ -17,7 +16,6 @@ import * as _qrcode from './qrcode';
 
 export const system = _system;
 export const tesseract = _tesseract;
-export const paddle = _paddle;
 export const baidu_ocr = _baidu_ocr;
 export const baidu_accurate_ocr = _baidu_accurate_ocr;
 export const baidu_img_ocr = _baidu_img_ocr;
