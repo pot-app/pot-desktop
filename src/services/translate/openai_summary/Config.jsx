@@ -185,7 +185,7 @@ export function Config(props) {
                         value={openaiConfig.userPrompt}
                         labelPlacement='outside'
                         variant='faded'
-                        placeholder={`Summarize in $to:\n"""\n$text\n"""`}
+                        placeholder={`Summarize in $detect:\n"""\n$text\n"""`}
                         description={t('services.translate.openai.prompt_description')}
                         onValueChange={(value) => {
                             setOpenaiConfig({

@@ -205,7 +205,7 @@
                     "stream": "Режим потока",
                     "system_prompt": "System Prompt",
                     "user_prompt": "User Prompt",
-                    "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to will be replaced with the text to be translated, source language, and target language."
+                    "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language."
                 },
                 "yandex": { "title": "Яндекс" },
                 "transmart": { "title": "TranSmart", "username": "Имя пользователя", "token": "Токен" },

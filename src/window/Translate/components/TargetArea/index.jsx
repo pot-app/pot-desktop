@@ -123,9 +123,10 @@ export default function TargetArea(props) {
                 invoke('invoke_plugin', {
                     name: translateServiceName,
                     pluginType: 'translate',
-                    text: sourceText,
+                    source: sourceText,
                     from: pluginInfo.language[sourceLanguage],
                     to: pluginInfo.language[newTargetLanguage],
+                    lang: detectLanguage,
                     needs: pluginConfig,
                 }).then(
                     (v) => {
@@ -176,6 +177,7 @@ export default function TargetArea(props) {
                 setIsLoading(true);
                 builtinServices[translateServiceName]
                     .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
+                        detect: detectLanguage,
                         setResult: (v) => {
                             if (translateID[index] !== id) return;
                             setResult(v);
@@ -234,7 +236,7 @@ export default function TargetArea(props) {
             let data = await invoke('invoke_plugin', {
                 name: serviceName,
                 pluginType: 'tts',
-                text: result,
+                source: result,
                 lang: ttsPluginInfo.language[targetLanguage],
                 needs: config,
             });
@@ -557,9 +559,10 @@ export default function TargetArea(props) {
                                         invoke('invoke_plugin', {
                                             name: translateServiceName,
                                             pluginType: 'translate',
-                                            text: result,
+                                            source: result,
                                             from: pluginInfo.language[newSourceLanguage],
                                             to: pluginInfo.language[newTargetLanguage],
+                                            lang: newSourceLanguage,
                                             needs: pluginConfig,
                                         }).then(
                                             (v) => {
@@ -636,8 +639,10 @@ export default function TargetArea(props) {
                                             invoke('invoke_plugin', {
                                                 name: serviceName,
                                                 pluginType: 'collection',
-                                                from: sourceText,
-                                                to: result.toString(),
+                                                source: sourceText,
+                                                target: result.toString(),
+                                                from: detectLanguage,
+                                                to: targetLanguage,
                                                 needs: pluginConfig,
                                             }).then(
                                                 (_) => {

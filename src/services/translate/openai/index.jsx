@@ -1,8 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
 import { store } from '../../../utils/store';
+import { Language } from './info';
 
 export async function translate(text, from, to, options = {}) {
-    const { config, setResult } = options;
+    const { config, setResult, detect } = options;
 
     let translateConfig = await store.get('openai');
     if (config !== undefined) {
@@ -14,13 +15,21 @@ export async function translate(text, from, to, options = {}) {
         requestPath = `https://${requestPath}`;
     }
     if (systemPrompt !== '') {
-        systemPrompt = systemPrompt.replaceAll('$text', text).replaceAll('$from', from).replaceAll('$to', to);
+        systemPrompt = systemPrompt
+            .replaceAll('$text', text)
+            .replaceAll('$from', from)
+            .replaceAll('$to', to)
+            .replaceAll('$detect', Language[detect]);
     } else {
         systemPrompt =
             'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.';
     }
     if (userPrompt !== '') {
-        userPrompt = userPrompt.replaceAll('$text', text).replaceAll('$from', from).replaceAll('$to', to);
+        userPrompt = userPrompt
+            .replaceAll('$text', text)
+            .replaceAll('$from', from)
+            .replaceAll('$to', to)
+            .replaceAll('$detect', Language[detect]);
     } else {
         userPrompt = `Translate into ${to}:\n"""\n${text}\n"""`;
     }

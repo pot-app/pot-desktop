@@ -88,8 +88,8 @@ pub fn invoke_plugin(
     app_handle: tauri::AppHandle,
     plugin_type: &str,
     name: &str,
-    text: Option<&str>,
-    base64: Option<&str>,
+    source: Option<&str>,
+    target: Option<&str>,
     from: Option<&str>,
     to: Option<&str>,
     lang: Option<&str>,
@@ -121,13 +121,20 @@ pub fn invoke_plugin(
                         &str,
                         &str,
                         &str,
+                        &str,
                         HashMap<String, String>,
                     ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"translate") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
                 };
-                match func(text.unwrap(), from.unwrap(), to.unwrap(), needs) {
+                match func(
+                    source.unwrap(),
+                    from.unwrap(),
+                    to.unwrap(),
+                    lang.unwrap(),
+                    needs,
+                ) {
                     Ok(v) => Ok(v),
                     Err(e) => Err(e.to_string()),
                 }
@@ -143,7 +150,7 @@ pub fn invoke_plugin(
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
                 };
-                match func(text.unwrap(), lang.unwrap(), needs) {
+                match func(source.unwrap(), lang.unwrap(), needs) {
                     Ok(v) => Ok(v),
                     Err(e) => Err(e.to_string()),
                 }
@@ -159,7 +166,7 @@ pub fn invoke_plugin(
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
                 };
-                match func(base64.unwrap(), lang.unwrap(), needs) {
+                match func(source.unwrap(), lang.unwrap(), needs) {
                     Ok(v) => Ok(v),
                     Err(e) => Err(e.to_string()),
                 }
@@ -169,13 +176,21 @@ pub fn invoke_plugin(
                     fn(
                         &str,
                         &str,
+                        &str,
+                        &str,
                         HashMap<String, String>,
                     ) -> Result<Value, Box<dyn std::error::Error>>,
                 > = match lib.get(b"collection") {
                     Ok(v) => v,
                     Err(e) => return Err(e.to_string()),
                 };
-                match func(from.unwrap(), to.unwrap(), needs) {
+                match func(
+                    source.unwrap(),
+                    target.unwrap(),
+                    from.unwrap(),
+                    to.unwrap(),
+                    needs,
+                ) {
                     Ok(v) => Ok(v),
                     Err(e) => Err(e.to_string()),
                 }

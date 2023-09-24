@@ -68,9 +68,9 @@ export default function SourceArea(props) {
                     const pluginConfig = (await store.get(serviceName)) ?? {};
                     invoke('invoke_plugin', {
                         name: serviceName,
-                        base64,
-                        lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
                         pluginType: 'recognize',
+                        source: base64,
+                        lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
                         needs: pluginConfig,
                     }).then(
                         (v) => {
@@ -171,7 +171,7 @@ export default function SourceArea(props) {
             const data = await invoke('invoke_plugin', {
                 name: serviceName,
                 pluginType: 'tts',
-                text: sourceText,
+                source: sourceText,
                 lang: ttsPluginInfo.language[detectLanguage],
                 needs: config,
             });

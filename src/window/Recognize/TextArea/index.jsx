@@ -46,8 +46,8 @@ export default function TextArea() {
                         invoke('invoke_plugin', {
                             name: serviceName,
                             pluginType: 'recognize',
+                            source: base64,
                             lang: pluginList[serviceName].language[language],
-                            base64: base64,
                             needs: pluginConfig,
                         }).then(
                             (v) => {

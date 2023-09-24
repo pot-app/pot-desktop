@@ -281,8 +281,10 @@ export default function History() {
                                                                     invoke('invoke_plugin', {
                                                                         name: serviceName,
                                                                         pluginType: 'collection',
-                                                                        from: selectedItem.text,
-                                                                        to: selectedItem.result,
+                                                                        source: selectedItem.text,
+                                                                        target: selectedItem.result,
+                                                                        from: selectedItem.source,
+                                                                        to: selectedItem.target,
                                                                         needs: pluginConfig,
                                                                     }).then(
                                                                         (_) => {

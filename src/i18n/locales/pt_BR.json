@@ -210,7 +210,7 @@
                     "stream": "Modo de Stream",
                     "system_prompt": "Prompt do Sistema",
                     "user_prompt": "Prompt do Usuário",
-                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do OpenAI. $text $from $to será substituído pelo texto a ser traduzido, idioma de origem e idioma de destino."
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do OpenAI. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado."
                 },
                 "yandex": {
                     "title": "Yandex"

@@ -186,7 +186,7 @@ export function Config(props) {
                         value={openaiConfig.userPrompt}
                         labelPlacement='outside'
                         variant='faded'
-                        placeholder={`Embellish in $to:\n"""\n$text\n"""`}
+                        placeholder={`Embellish in $detect:\n"""\n$text\n"""`}
                         description={t('services.translate.openai.prompt_description')}
                         onValueChange={(value) => {
                             setOpenaiConfig({
