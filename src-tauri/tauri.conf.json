@@ -87,6 +87,9 @@
                     "license": "../LICENSE",
                     "installMode": "perMachine",
                     "languages": ["SimpChinese", "TradChinese", "English"]
+                },
+                "wix": {
+                    "license": "../LICENSE"
                 }
             },
             "macOS": {
