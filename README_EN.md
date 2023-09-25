@@ -1,4 +1,4 @@
-<img width="200px" src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/public/icon.png" align="left"/>
+<img width="200px" src="public/icon.png" align="left"/>
 
 # Pot (A cute translator)
 
@@ -20,9 +20,9 @@
 
 <table>
 <tr>
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/1.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/2.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/3.png">
+    <td> <img src="asset/1.png">
+    <td> <img src="asset/2.png">
+    <td> <img src="asset/3.png">
 </table>
 
 # Table of Contents
@@ -45,15 +45,15 @@
 
 </div>
 
-| Translation by selection                                                           | Translate by input                                                                 | External calls                                                                           |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Select text and press the shortcut to translate                                    | Press shortcut to open translation window, translate by hitting Enter              | More efficient workflow by integrating other apps, see [External Calls](#external-calls) |
-| <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg1.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/>       |
+| Translation by selection                        | Translate by input                                                    | External calls                                                                           |
+| ----------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Select text and press the shortcut to translate | Press shortcut to open translation window, translate by hitting Enter | More efficient workflow by integrating other apps, see [External Calls](#external-calls) |
+| <img src="asset/eg1.gif"/>                      | <img src="asset/eg2.gif"/>                                            | <img src="asset/eg3.gif"/>                                                               |
 
-| Clipboard Listening                                                                                                          | Screenshot OCR                                                                     | Screenshot Translation                                                             |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Click the top left icon on any translation panel to start clipboard listening. Copied text will be translated automatically. | Press shortcut, select area to OCR                                                 | Press shortcut, select area to translate                                           |
-| <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg4.gif"/>                                           | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg5.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg6.gif"/> |
+| Clipboard Listening                                                                                                          | Screenshot OCR                     | Screenshot Translation                   |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------- |
+| Click the top left icon on any translation panel to start clipboard listening. Copied text will be translated automatically. | Press shortcut, select area to OCR | Press shortcut, select area to translate |
+| <img src="asset/eg4.gif"/>                                                                                                   | <img src="asset/eg5.gif"/>         | <img src="asset/eg6.gif"/>               |
 
 <div align="center">
 
@@ -87,7 +87,6 @@
 -   [x] [Tencent Interactive Translate](https://transmart.qq.com/)
 -   [x] [Volcengine Translate](https://translate.volcengine.com/)
 -   [x] [NiuTrans](https://niutrans.com/)
--   [x] [Lingva](https://github.com/thedaviddelta/lingva-translate)
 -   [x] [Google Translate](https://translate.google.com)
 -   [x] [Bing Translate](https://learn.microsoft.com/zh-cn/azure/cognitive-services/translator/)
 -   [x] [Bing Dictionary](https://www.bing.com/dict)
@@ -95,7 +94,8 @@
 -   [x] [Youdao](https://ai.youdao.com/)
 -   [x] [Cambridge Dictionary](https://dictionary.cambridge.org/)
 -   [x] [Yandex](https://translate.yandex.com/)
--   [ ] More to come...
+
+More Services see [Plugin System](#plugin-system)
 
 ## Text Recognize
 
@@ -106,22 +106,26 @@
 -   [x] [Tesseract.js](https://tesseract.projectnaptha.com/) (Offline)
 -   [x] [Baidu](https://ai.baidu.com/tech/ocr/general)
 -   [x] [Tencent](https://cloud.tencent.com/product/ocr-catalog)
--   [x] [OCR Space](http://ocr.space/)
 -   [x] [Volcengine](https://www.volcengine.com/product/OCR)
 -   [x] [iflytek](https://www.xfyun.cn/services/common-ocr)
 -   [x] [Tencent Image Translate](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [Baidu Image Translate](https://fanyi-api.baidu.com/product/22)
 -   [x] [Simple LaTeX](https://simpletex.cn/)
--   [ ] More to come...
+
+More Services see [Plugin System](#plugin-system)
 
 ## Text-to-Speech
 
 -   [x] [Lingva](https://github.com/thedaviddelta/lingva-translate)
 
+More Services see [Plugin System](#plugin-system)
+
 ## Collection
 
 -   [x] [Anki](https://apps.ankiweb.net/)
 -   [x] [Youdao Dictionary](https://dict.eudic.net/)
+
+More Services see [Plugin System](#plugin-system)
 
 <div align="center">
 
@@ -205,14 +209,14 @@ brew upgrade --cask pot
 
 ### Debian/Ubuntu
 
-We provide `AppImage` and `deb` packages for Linux.
+We provide `deb` packages for Linux.
 
 Please note that: There are two deb package, `universal` is based on `glibc2.28` and `openssl-1.1`, If the regular deb package can't run on your machine due to dependency problems, please download the `universal` package, Due to its low version dependency, it can run on most systems.
 
 ### Arch/Manjaro
 
 > [!WARNING]  
-> In newer version of [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0), Because nVidia Proprietary drives are not fully implemented DMABUF, it will cause failure to start and crash.<br>
+> In newer version of [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0), Because Nvidia Proprietary drives are not fully implemented DMABUF, it will cause failure to start and crash.<br>
 > Please downgrade or add the `WEBKIT_DISABLE_DMABUF_RENDERER=1` environment variable to `/etc/environment` (or other places where environment variables are set) to turn off the use of DMABUF.
 
 1. View on [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation)

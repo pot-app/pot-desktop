@@ -1,4 +1,4 @@
-<img width="200px" src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/public/icon.png" align="left"/>
+<img width="200px" src="public/icon.png" align="left"/>
 
 # Pot (派了个萌的翻译器)
 
@@ -20,9 +20,9 @@
 
 <table>
 <tr>
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/1.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/2.png">
-    <td> <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/3.png">
+    <td> <img src="asset/1.png">
+    <td> <img src="asset/2.png">
+    <td> <img src="asset/3.png">
 </table>
 
 # 目录
@@ -43,15 +43,15 @@
 
 # 使用说明
 
-| 划词翻译                                                                           | 输入翻译                                                                           | 外部调用                                                                           |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| 鼠标选中需要翻译的文本，按下设置的划词翻译快捷键即可                               | 按下输入翻译快捷键呼出翻译窗口，输入待翻译文本后按下 回车 翻译                     | 通过被其他软件调用实现更加方便高效的功能, 详见 [外部调用](#外部调用)               |
-| <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg1.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg2.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg3.gif"/> |
+| 划词翻译                                             | 输入翻译                                                       | 外部调用                                                             |
+| ---------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------- |
+| 鼠标选中需要翻译的文本，按下设置的划词翻译快捷键即可 | 按下输入翻译快捷键呼出翻译窗口，输入待翻译文本后按下 回车 翻译 | 通过被其他软件调用实现更加方便高效的功能, 详见 [外部调用](#外部调用) |
+| <img src="asset/eg1.gif"/>                           | <img src="asset/eg2.gif"/>                                     | <img src="asset/eg3.gif"/>                                           |
 
-| 剪切板监听模式                                                                     | 截图 OCR                                                                           | 截图翻译                                                                           |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| 在任意翻译面板上点击左上角图标启动剪切板监听默认，复制文字即可完成翻译             | 按下截图 OCR 快捷键后框选需要识别区域即可完成识别                                  | 按下截图翻译快捷键后框选需要识别区域即可完成翻译                                   |
-| <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg4.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg5.gif"/> | <img src="https://cdn.staticaly.com/gh/pot-app/pot-desktop/master/asset/eg6.gif"/> |
+| 剪切板监听模式                                                         | 截图 OCR                                          | 截图翻译                                         |
+| ---------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ |
+| 在任意翻译面板上点击左上角图标启动剪切板监听默认，复制文字即可完成翻译 | 按下截图 OCR 快捷键后框选需要识别区域即可完成识别 | 按下截图翻译快捷键后框选需要识别区域即可完成翻译 |
+| <img src="asset/eg4.gif"/>                                             | <img src="asset/eg5.gif"/>                        | <img src="asset/eg6.gif"/>                       |
 
 </div>
 
@@ -87,7 +87,6 @@
 -   [x] [腾讯交互翻译](https://transmart.qq.com/)
 -   [x] [火山翻译](https://translate.volcengine.com/)
 -   [x] [小牛翻译](https://niutrans.com/)
--   [x] [Lingva](https://github.com/thedaviddelta/lingva-translate)
 -   [x] [Google](https://translate.google.com)
 -   [x] [Bing](https://learn.microsoft.com/zh-cn/azure/cognitive-services/translator/)
 -   [x] [Bing 词典](https://www.bing.com/dict)
@@ -95,7 +94,8 @@
 -   [x] [有道翻译](https://ai.youdao.com/)
 -   [x] [剑桥词典](https://dictionary.cambridge.org/)
 -   [x] [Yandex](https://translate.yandex.com/)
--   [ ] 持续增加...
+
+更多接口支持见 [插件系统](#插件系统)
 
 ## 文字识别
 
@@ -106,22 +106,26 @@
 -   [x] [Tesseract.js](https://tesseract.projectnaptha.com/) (离线)
 -   [x] [百度](https://ai.baidu.com/tech/ocr/general)
 -   [x] [腾讯](https://cloud.tencent.com/product/ocr-catalog)
--   [x] [OCR Space](http://ocr.space/)
 -   [x] [火山](https://www.volcengine.com/product/OCR)
 -   [x] [迅飞](https://www.xfyun.cn/services/common-ocr)
 -   [x] [腾讯图片翻译](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [百度图片翻译](https://fanyi-api.baidu.com/product/22)
 -   [x] [Simple LaTeX](https://simpletex.cn/)
--   [ ] 持续增加...
+
+更多接口支持见 [插件系统](#插件系统)
 
 ## 语音合成
 
 -   [x] [Lingva](https://github.com/thedaviddelta/lingva-translate)
 
+更多接口支持见 [插件系统](#插件系统)
+
 ## 生词本
 
 -   [x] [Anki](https://apps.ankiweb.net/)
 -   [x] [欧路词典](https://dict.eudic.net/)
+
+更多接口支持见 [插件系统](#插件系统)
 
 <div align="center">
 
@@ -216,8 +220,8 @@ brew upgrade --cask pot
 ### Arch/Manjaro
 
 > [!WARNING]  
-> 在最新版本的 [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0) 中，由于nVidia专有驱动未完全实现DMABUF，将导致无法启动和崩溃的情况发生。<br>
-> 请降级或在 `/etc/environment` （或者其他设置环境变量的地方）中加入 `WEBKIT_DISABLE_DMABUF_RENDERER=1` 环境变量关闭DMABUF的使用。
+> 在最新版本的 [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0) 中，由于 Nvidia 专有驱动未完全实现 DMABUF，将导致无法启动和崩溃的情况发生。<br>
+> 请降级或在 `/etc/environment` （或者其他设置环境变量的地方）中加入 `WEBKIT_DISABLE_DMABUF_RENDERER=1` 环境变量关闭 DMABUF 的使用。
 
 1. 在 [AUR](https://aur.archlinux.org/packages?O=0&K=pot-translation) 查看
 
