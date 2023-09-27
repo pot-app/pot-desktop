@@ -1,10 +1,10 @@
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { appWindow, currentMonitor } from '@tauri-apps/api/window';
 import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { Spacer, Button } from '@nextui-org/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { appWindow } from '@tauri-apps/api/window';
 import React, { useState, useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
@@ -15,6 +15,7 @@ import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
+import { info } from 'tauri-plugin-log-api';
 
 let blurTimeout = null;
 let resizeTimeout = null;
@@ -85,7 +86,8 @@ export default function Translate() {
                 moveTimeout = setTimeout(async () => {
                     if (appWindow.label === 'translate') {
                         let position = await appWindow.outerPosition();
-                        const factor = await appWindow.scaleFactor();
+                        const monitor = await currentMonitor();
+                        const factor = monitor.scaleFactor;
                         position = position.toLogical(factor);
                         await store.set('translate_window_position_x', parseInt(position.x));
                         await store.set('translate_window_position_y', parseInt(position.y));
@@ -109,7 +111,8 @@ export default function Translate() {
                 resizeTimeout = setTimeout(async () => {
                     if (appWindow.label === 'translate') {
                         let size = await appWindow.outerSize();
-                        const factor = await appWindow.scaleFactor();
+                        const monitor = await currentMonitor();
+                        const factor = monitor.scaleFactor;
                         size = size.toLogical(factor);
                         await store.set('translate_window_height', parseInt(size.height));
                         await store.set('translate_window_width', parseInt(size.width));
