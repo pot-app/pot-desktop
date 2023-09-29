@@ -1,29 +1,13 @@
-## 2.5.1 (2023-09-24)
-
-### 注意：由于当前的 PaddleOCR 实现有严重的性能问题，所以该版本删除了 PaddleOCR
-
-### ⚠️ 请务必将 PaddleOCR 从服务列表中移除之后再更新 Pot ⚠️
-
-### ⚠️ 如果遇到插件翻译闪退的问题请下载安装新版插件 ⚠️
-
-### 注意：Windows 用户请以管理员权限运行 pot 之后再更新
-
-### Note: Due to serious performance issues with the current implementation of PaddleOCR, this version has removed PaddleOCR.
-
-### ⚠️ Please make sure to remove PaddleOCR from the service list before updating Pot. ⚠️
-
-### ⚠️ If you encounter a problem of translation plugin crashing, please download and install the latest version of the plugin. ⚠️
-
-### Note: For Windows users, please run pot with administrator privileges before updating.
+## 2.6.0 (2023-09-29)
 
 ### New feature:
 
--   Add Tencent Language Detect([`f93c75b`](https://github.com/pot-app/pot-desktop/commit/f93c75b326c762bb2b4b2837f702d373d2d37549)) (by @Pylogmon)
+-   Add ChatGLM([`a308186`](https://github.com/pot-app/pot-desktop/commit/a308186078c23916f1efa7e61f7d34064c21ab23)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   WebDav Error([`a53c87a`](https://github.com/pot-app/pot-desktop/commit/a53c87ad8f0e9ceb8a4d5d0e11fa7ddcb2d8b1c9)) (by @Pylogmon)
+-   HI-DPI Error([`39e0287`](https://github.com/pot-app/pot-desktop/commit/39e02871e5e29dfd90353788163d8df96edcb27f)) (by @Pylogmon)
 
-### Performance improves:
+### Refactor
 
--   Remove PaddleOCR that Causes Serious Performance Problems([`265736d`](https://github.com/pot-app/pot-desktop/commit/265736d8c8c1854a0a4c5a95dc03c1e328dd9c12)) (by @Pylogmon)
+-   Optimize OpenAI Prompt Configuration([`8c90288`](https://github.com/pot-app/pot-desktop/commit/8c90288048d5492e8a2dd431c93e67c7bbb73b29)) (by @Pylogmon)
