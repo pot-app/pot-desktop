@@ -5,7 +5,7 @@ import * as jose from 'jose';
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('chatglm');
+    let translateConfig = await store.get('chatglm_polish');
     if (config !== undefined) {
         translateConfig = config;
     }

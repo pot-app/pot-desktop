@@ -221,6 +221,15 @@
                     "prompt_description": "通过自定义Prompt自定义AI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
                 },
+                "chatglm_summary": {
+                    "title": "智谱 AI 总结"
+                },
+                "chatglm_polish": {
+                    "title": "智谱 AI 润色"
+                },
+                "chatglm_custom": {
+                    "title": "智谱 AI 自定义"
+                },
                 "yandex": { "title": "Yandex" },
                 "transmart": { "title": "腾讯交互翻译", "username": "用户名", "token": "Token" },
                 "baidu": { "title": "百度翻译", "appid": "App ID", "secret": "Secret" },

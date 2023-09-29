@@ -219,6 +219,15 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of AI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
+                "chatglm_summary": {
+                    "title": "ChatGLM Summary"
+                },
+                "chatglm_polish": {
+                    "title": "ChatGLM Polish"
+                },
+                "chatglm_custom": {
+                    "title": "ChatGLM Custom"
+                },
                 "yandex": { "title": "Yandex" },
                 "transmart": { "title": "TranSmart", "username": "User Name", "token": "Token" },
                 "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },

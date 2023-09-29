@@ -18,6 +18,9 @@ import * as _bing_dict from './bing_dict';
 import * as _cambridge_dict from './cambridge_dict';
 import * as _caiyun from './caiyun';
 import * as _chatglm from './chatglm';
+import * as _chatglm_summary from './chatglm_summary';
+import * as _chatglm_polish from './chatglm_polish';
+import * as _chatglm_custom from './chatglm_custom';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -39,3 +42,6 @@ export const bing_dict = _bing_dict;
 export const cambridge_dict = _cambridge_dict;
 export const caiyun = _caiyun;
 export const chatglm = _chatglm;
+export const chatglm_summary = _chatglm_summary;
+export const chatglm_polish = _chatglm_polish;
+export const chatglm_custom = _chatglm_custom;
