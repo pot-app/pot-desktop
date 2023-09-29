@@ -1,5 +1,6 @@
 import { Input, Button, Switch, Textarea } from '@nextui-org/react';
 import { DropdownTrigger } from '@nextui-org/react';
+import { MdDeleteOutline } from 'react-icons/md';
 import { DropdownMenu } from '@nextui-org/react';
 import { DropdownItem } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -23,11 +24,33 @@ export function Config(props) {
             model: 'gpt-3.5-turbo',
             apiKey: '',
             stream: false,
-            systemPrompt: '',
-            userPrompt: '',
+            promptList: [
+                {
+                    role: 'system',
+                    content: 'You are a helpful assistant.',
+                },
+                { role: 'user', content: '$text' },
+            ],
         },
         { sync: false }
     );
+
+    // 兼容旧版本
+    if (openaiConfig) {
+        if (openaiConfig.promptList === undefined) {
+            setOpenaiConfig({
+                ...openaiConfig,
+                promptList: [
+                    {
+                        role: 'system',
+                        content: 'You are a helpful assistant.',
+                    },
+                    { role: 'user', content: '$text' },
+                ],
+            });
+        }
+    }
+
     const [isLoading, setIsLoading] = useState(false);
 
     const { t } = useTranslation();
@@ -163,37 +186,84 @@ export function Config(props) {
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div className='config-item'>
-                    <Textarea
-                        label={t('services.translate.openai.system_prompt')}
-                        labelPlacement='outside'
-                        variant='faded'
-                        value={openaiConfig.systemPrompt}
-                        description={t('services.translate.openai.prompt_description')}
-                        onValueChange={(value) => {
+                <h3 className='my-auto'>Prompt List</h3>
+                <p className='text-[10px] text-default-700'>{t('services.translate.openai.prompt_description')}</p>
+
+                <div className='bg-content2 rounded-[10px] p-3'>
+                    {openaiConfig.promptList &&
+                        openaiConfig.promptList.map((prompt, index) => {
+                            return (
+                                <div className='config-item'>
+                                    <Textarea
+                                        label={prompt.role}
+                                        labelPlacement='outside'
+                                        variant='faded'
+                                        value={prompt.content}
+                                        placeholder={`Input Some ${prompt.role} Prompt`}
+                                        onValueChange={(value) => {
+                                            setOpenaiConfig({
+                                                ...openaiConfig,
+                                                promptList: openaiConfig.promptList.map((p, i) => {
+                                                    if (i === index) {
+                                                        if (i === 0) {
+                                                            return {
+                                                                role: 'system',
+                                                                content: value,
+                                                            };
+                                                        } else {
+                                                            return {
+                                                                role: index % 2 !== 0 ? 'user' : 'assistant',
+                                                                content: value,
+                                                            };
+                                                        }
+                                                    } else {
+                                                        return p;
+                                                    }
+                                                }),
+                                            });
+                                        }}
+                                    />
+                                    <Button
+                                        isIconOnly
+                                        color='danger'
+                                        className='my-auto mx-1'
+                                        variant='flat'
+                                        onPress={() => {
+                                            setOpenaiConfig({
+                                                ...openaiConfig,
+                                                promptList: openaiConfig.promptList.filter((_, i) => i !== index),
+                                            });
+                                        }}
+                                    >
+                                        <MdDeleteOutline className='text-[18px]' />
+                                    </Button>
+                                </div>
+                            );
+                        })}
+                    <Button
+                        fullWidth
+                        onPress={() => {
                             setOpenaiConfig({
                                 ...openaiConfig,
-                                systemPrompt: value,
+                                promptList: [
+                                    ...openaiConfig.promptList,
+                                    {
+                                        role:
+                                            openaiConfig.promptList.length === 0
+                                                ? 'system'
+                                                : openaiConfig.promptList.length % 2 === 0
+                                                ? 'assistant'
+                                                : 'user',
+                                        content: '',
+                                    },
+                                ],
                             });
                         }}
-                    />
+                    >
+                        {t('services.translate.openai.add')}
+                    </Button>
                 </div>
-                <div className='config-item'>
-                    <Textarea
-                        label={t('services.translate.openai.user_prompt')}
-                        className='mb-3'
-                        value={openaiConfig.userPrompt}
-                        labelPlacement='outside'
-                        variant='faded'
-                        description={t('services.translate.openai.prompt_description')}
-                        onValueChange={(value) => {
-                            setOpenaiConfig({
-                                ...openaiConfig,
-                                userPrompt: value,
-                            });
-                        }}
-                    />
-                </div>
+                <br />
                 <Button
                     type='submit'
                     isLoading={isLoading}

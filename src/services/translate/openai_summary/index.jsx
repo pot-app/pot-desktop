@@ -9,29 +9,32 @@ export async function translate(text, from, to, options = {}) {
     if (config !== undefined) {
         translateConfig = config;
     }
-    let { service, requestPath, model, apiKey, stream, systemPrompt, userPrompt } = translateConfig;
+    let { service, requestPath, model, apiKey, stream, promptList } = translateConfig;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
     }
-    if (systemPrompt !== '') {
-        systemPrompt = systemPrompt
-            .replaceAll('$text', text)
-            .replaceAll('$from', from)
-            .replaceAll('$to', to)
-            .replaceAll('$detect', Language[detect]);
-    } else {
-        systemPrompt = `You are a text summarizer, you can only summarize the text, don't interpret it.`;
+    // 兼容旧版
+    if (promptList === undefined) {
+        promptList = [
+            {
+                role: 'system',
+                content: 'You are a text summarizer, you can only summarize the text, never interpret it.',
+            },
+            { role: 'user', content: `Summarize in $detect:\n"""\n$text\n"""` },
+        ];
     }
-    if (userPrompt !== '') {
-        userPrompt = userPrompt
-            .replaceAll('$text', text)
-            .replaceAll('$from', from)
-            .replaceAll('$to', to)
-            .replaceAll('$detect', Language[detect]);
-    } else {
-        userPrompt = `Summarize in ${Language[detect]}:\n"""\n${text}\n"""`;
-    }
+
+    promptList = promptList.map((item) => {
+        return {
+            ...item,
+            content: item.content
+                .replaceAll('$text', text)
+                .replaceAll('$from', from)
+                .replaceAll('$to', to)
+                .replaceAll('$detect', Language[detect]),
+        };
+    });
 
     const headers =
         service === 'openai'
@@ -49,10 +52,7 @@ export async function translate(text, from, to, options = {}) {
         top_p: 1,
         frequency_penalty: 1,
         presence_penalty: 1,
-        messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userPrompt },
-        ],
+        messages: promptList,
     };
     if (service === 'openai') {
         body['model'] = model;

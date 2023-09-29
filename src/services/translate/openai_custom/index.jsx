@@ -9,23 +9,33 @@ export async function translate(text, from, to, options = {}) {
     if (config !== undefined) {
         translateConfig = config;
     }
-    let { service, requestPath, model, apiKey, stream, systemPrompt, userPrompt } = translateConfig;
+    let { service, requestPath, model, apiKey, stream, promptList } = translateConfig;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
     }
 
-    systemPrompt = systemPrompt
-        .replaceAll('$text', text)
-        .replaceAll('$from', from)
-        .replaceAll('$to', to)
-        .replaceAll('$detect', Language[detect]);
+    // 兼容旧版
+    if (promptList === undefined) {
+        promptList = [
+            {
+                role: 'system',
+                content: 'You are a helpful assistant.',
+            },
+            { role: 'user', content: '$text' },
+        ];
+    }
 
-    userPrompt = userPrompt
-        .replaceAll('$text', text)
-        .replaceAll('$from', from)
-        .replaceAll('$to', to)
-        .replaceAll('$detect', Language[detect]);
+    promptList = promptList.map((item) => {
+        return {
+            ...item,
+            content: item.content
+                .replaceAll('$text', text)
+                .replaceAll('$from', from)
+                .replaceAll('$to', to)
+                .replaceAll('$detect', Language[detect]),
+        };
+    });
 
     const headers =
         service === 'openai'
@@ -43,10 +53,7 @@ export async function translate(text, from, to, options = {}) {
         top_p: 1,
         frequency_penalty: 1,
         presence_penalty: 1,
-        messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userPrompt },
-        ],
+        messages: promptList,
     };
     if (service === 'openai') {
         body['model'] = model;
