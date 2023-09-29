@@ -209,6 +209,18 @@
                     "user_prompt": "User Prompt",
                     "prompt_description": "通过自定义Prompt自定义OpenAI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言,，目标语言和检测到的语言。"
                 },
+                "chatglm": {
+                    "title": "智谱 AI",
+                    "model": "模型",
+                    "chatglm_pro": "ChatGLM Pro",
+                    "chatglm_std": "ChatGLM Std",
+                    "chatglm_lite": "ChatGLM Lite",
+                    "api_key": "Api Key",
+                    "model": "模型",
+                    "system_prompt": "System Prompt",
+                    "user_prompt": "User Prompt",
+                    "prompt_description": "通过自定义Prompt自定义OpenAI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言,，目标语言和检测到的语言。"
+                },
                 "yandex": { "title": "Yandex" },
                 "transmart": { "title": "腾讯交互翻译", "username": "用户名", "token": "Token" },
                 "baidu": { "title": "百度翻译", "appid": "App ID", "secret": "Secret" },

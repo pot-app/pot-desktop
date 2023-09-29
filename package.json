@@ -18,6 +18,7 @@
         "flag-icons": "^6.11.1",
         "framer-motion": "^10.16.4",
         "i18next": "^23.5.1",
+        "jose": "^4.14.6",
         "jotai": "^2.4.3",
         "js-clipper": "^1.0.1",
         "jsqr": "^1.4.0",

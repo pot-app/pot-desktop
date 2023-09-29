@@ -17,6 +17,7 @@ import * as _youdao from './youdao';
 import * as _bing_dict from './bing_dict';
 import * as _cambridge_dict from './cambridge_dict';
 import * as _caiyun from './caiyun';
+import * as _chatglm from './chatglm';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -37,3 +38,4 @@ export const youdao = _youdao;
 export const bing_dict = _bing_dict;
 export const cambridge_dict = _cambridge_dict;
 export const caiyun = _caiyun;
+export const chatglm = _chatglm;

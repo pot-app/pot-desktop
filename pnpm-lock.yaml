@@ -26,6 +26,9 @@ dependencies:
   i18next:
     specifier: ^23.5.1
     version: 23.5.1
+  jose:
+    specifier: ^4.14.6
+    version: 4.14.6
   jotai:
     specifier: ^2.4.3
     version: 2.4.3(@types/react@18.2.23)(react@18.2.0)
@@ -4705,6 +4708,10 @@ packages:
   /jiti@1.20.0:
     resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
+
+  /jose@4.14.6:
+    resolution: {integrity: sha512-EqJPEUlZD0/CSUMubKtMaYUOtWe91tZXTWMJZoKSbLk+KtdhNdcvppH8lA9XwVu2V4Ailvsj0GBZJ2ZwDjfesQ==}
+    dev: false
 
   /jotai@2.4.3(@types/react@18.2.23)(react@18.2.0):
     resolution: {integrity: sha512-CSAHX9LqWG5WCrU8OgBoZbBJ+Bo9rQU0mPusEF4e0CZ/SNFgurG26vb3UpgvCSJZgYVcUQNiUBM5q86PA8rstQ==}
