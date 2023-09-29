@@ -80,6 +80,7 @@
 ## 翻译
 
 -   [x] [OpenAI](https://platform.openai.com/)
+-   [x] [智谱 AI](https://www.zhipuai.cn/)
 -   [x] [阿里翻译](https://www.aliyun.com/product/ai/alimt)
 -   [x] [百度翻译](https://fanyi.baidu.com/)
 -   [x] [彩云小译](https://fanyi.caiyunapp.com/)
