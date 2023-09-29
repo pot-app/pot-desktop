@@ -54,6 +54,19 @@ export async function translate(text, from, to, options = {}) {
     });
     if (res.ok) {
         let target = '';
+        let err = '';
+        try {
+            let newRes = res.clone();
+            let json = await newRes.json();
+            if (json.msg) {
+                err = json.msg;
+            } else {
+                err = JSON.stringify(json);
+            }
+        } catch (e) {}
+        if (err !== '') {
+            throw err;
+        }
         const reader = res.body.getReader();
         try {
             while (true) {
@@ -63,13 +76,20 @@ export async function translate(text, from, to, options = {}) {
                     return target.trim();
                 }
                 const str = new TextDecoder().decode(value);
-                let block = str.split(/id:|event:|data:|meta:/);
-                if (block[1].trim() === 'add') {
-                    target += block[3].replace(/(.*)\n\n/, '$1');
-                    if (setResult) {
-                        setResult(target + '_');
-                    } else {
-                        return '[STREAM]';
+                let list = str.split('\n');
+                for (let line of list) {
+                    if (line.startsWith('data:')) {
+                        let data = line.replace('data:', '');
+                        if (data === '') {
+                            target += '\n';
+                        } else {
+                            target += data;
+                        }
+                        if (setResult) {
+                            setResult(target + '_');
+                        } else {
+                            return '[STREAM]';
+                        }
                     }
                 }
             }

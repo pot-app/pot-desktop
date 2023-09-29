@@ -27,9 +27,9 @@ export function Config(props) {
                     content:
                         'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
                 },
-                { role: 'assistant', content: 'Ok.' },
-                { role: 'user', content: `Translate into Chinese\n"""\ntext\n"""` },
-                { role: 'assistant', content: '文本' },
+                { role: 'assistant', content: 'Ok, I will only translate the text content, never interpret it.' },
+                { role: 'user', content: `Translate into Chinese\n"""\nhello\n"""` },
+                { role: 'assistant', content: '你好' },
                 { role: 'user', content: `Translate into $to\n"""\n$text\n"""` },
             ],
         },
