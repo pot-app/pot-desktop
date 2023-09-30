@@ -13,7 +13,7 @@
     "dependencies": {
         "@nextui-org/react": "^2.1.13",
         "@nextui-org/theme": "^2.1.9",
-        "@tauri-apps/api": "^1.4.0",
+        "@tauri-apps/api": "^1.5.0",
         "crypto-js": "^4.1.1",
         "flag-icons": "^6.11.1",
         "framer-motion": "^10.16.4",
@@ -44,11 +44,11 @@
         "tesseract.js": "^5.0.0"
     },
     "devDependencies": {
-        "@tauri-apps/cli": "^1.4.0",
+        "@tauri-apps/cli": "^1.5.0",
         "@vitejs/plugin-react": "^4.1.0",
         "autoprefixer": "^10.4.16",
         "node-fetch": "^3.3.2",
-        "postcss": "^8.4.30",
+        "postcss": "^8.4.31",
         "prettier": "2.8.8",
         "tailwindcss": "^3.3.3",
         "typescript": "^5.2.2",

@@ -12,8 +12,8 @@ dependencies:
     specifier: ^2.1.9
     version: 2.1.9(tailwindcss@3.3.3)
   '@tauri-apps/api':
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^1.5.0
+    version: 1.5.0
   crypto-js:
     specifier: ^4.1.1
     version: 4.1.1
@@ -82,39 +82,39 @@ dependencies:
     version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
   tauri-plugin-autostart-api:
     specifier: github:tauri-apps/tauri-plugin-autostart#v1
-    version: github.com/tauri-apps/tauri-plugin-autostart/f3a55a40d664b2caa2b15bfbfdf15156355762e8
+    version: github.com/tauri-apps/tauri-plugin-autostart/ddb8917170309ce52fb9d433f58570b5caf6b27a
   tauri-plugin-fs-watch-api:
     specifier: github:tauri-apps/tauri-plugin-fs-watch#v1
-    version: github.com/tauri-apps/tauri-plugin-fs-watch/c477ddb517f148b471b0048e597052a61eaf114e
+    version: github.com/tauri-apps/tauri-plugin-fs-watch/dac5524d0b13d81e2ae2eb609fcfbc7869c08dc9
   tauri-plugin-log-api:
     specifier: github:tauri-apps/tauri-plugin-log#v1
-    version: github.com/tauri-apps/tauri-plugin-log/6f56109458b09942bfc6442d32ad8637c4e6a314
+    version: github.com/tauri-apps/tauri-plugin-log/f7142fcf10841cdabab2fbe8650e9adc3f0bb212
   tauri-plugin-sql-api:
     specifier: github:tauri-apps/tauri-plugin-sql#v1
-    version: github.com/tauri-apps/tauri-plugin-sql/533198dd3b6cfca36d876918d22efcdaac43065a
+    version: github.com/tauri-apps/tauri-plugin-sql/1c79471feb06366fe1c11cb1cb6c67bcdb80c215
   tauri-plugin-store-api:
     specifier: github:tauri-apps/tauri-plugin-store#v1
-    version: github.com/tauri-apps/tauri-plugin-store/66e06b7830037fdae0b42b5499e23334eaf4e017
+    version: github.com/tauri-apps/tauri-plugin-store/1a741b721ed1eae0de0d811ecfe86fc6ad54fb73
   tesseract.js:
     specifier: ^5.0.0
     version: 5.0.0
 
 devDependencies:
   '@tauri-apps/cli':
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^1.5.0
+    version: 1.5.0
   '@vitejs/plugin-react':
     specifier: ^4.1.0
     version: 4.1.0(vite@4.4.9)
   autoprefixer:
     specifier: ^10.4.16
-    version: 10.4.16(postcss@8.4.30)
+    version: 10.4.16(postcss@8.4.31)
   node-fetch:
     specifier: ^3.3.2
     version: 3.3.2
   postcss:
-    specifier: ^8.4.30
-    version: 8.4.30
+    specifier: ^8.4.31
+    version: 8.4.31
   prettier:
     specifier: 2.8.8
     version: 2.8.8
@@ -223,7 +223,7 @@ packages:
     dependencies:
       '@babel/compat-data': 7.22.20
       '@babel/helper-validator-option': 7.22.15
-      browserslist: 4.22.0
+      browserslist: 4.22.1
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -3795,13 +3795,13 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tauri-apps/api@1.4.0:
-    resolution: {integrity: sha512-Jd6HPoTM1PZSFIzq7FB8VmMu3qSSyo/3lSwLpoapW+lQ41CL5Dow2KryLg+gyazA/58DRWI9vu/XpEeHK4uMdw==}
+  /@tauri-apps/api@1.5.0:
+    resolution: {integrity: sha512-yQY9wpVNuiYhLLuyDlu1nBpqJELT1fGp7OctN4rW9I2W1T2p7A3tqPxsEzQprEwneQRBAlPM9vC8NsnMbct+pg==}
     engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
-  /@tauri-apps/cli-darwin-arm64@1.4.0:
-    resolution: {integrity: sha512-nA/ml0SfUt6/CYLVbHmT500Y+ijqsuv5+s9EBnVXYSLVg9kbPUZJJHluEYK+xKuOj6xzyuT/+rZFMRapmJD3jQ==}
+  /@tauri-apps/cli-darwin-arm64@1.5.0:
+    resolution: {integrity: sha512-wvEfcSBjlh1G8uBiylMNFgBtAyk4mXfvDFcGyigf/2ui7Wve6fcAFDJdTVwiHOZ4Wxnw6BD3lIkVMQdDpE+nFg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -3809,8 +3809,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-darwin-x64@1.4.0:
-    resolution: {integrity: sha512-ov/F6Zr+dg9B0PtRu65stFo2G0ow2TUlneqYYrkj+vA3n+moWDHfVty0raDjMLQbQt3rv3uayFMXGPMgble9OA==}
+  /@tauri-apps/cli-darwin-x64@1.5.0:
+    resolution: {integrity: sha512-pWzLMAMslx3dkLyq1f4PpuEhgUs8mPISM5nQoHfgYYchJk6Ip1YtWupo56h5QjqyRNPUsSYT8DVGIw0Oi8auXQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -3818,8 +3818,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-linux-arm-gnueabihf@1.4.0:
-    resolution: {integrity: sha512-zwjbiMncycXDV7doovymyKD7sCg53ouAmfgpUqEBOTY3vgBi9TwijyPhJOqoG5vUVWhouNBC08akGmE4dja15g==}
+  /@tauri-apps/cli-linux-arm-gnueabihf@1.5.0:
+    resolution: {integrity: sha512-hP3nAd0TjxblIAgriXhdX33sKXwbkY3CKsWBVB3O+5DOGy7XzKosIt0KaqiV8BHI2pbHMVOwTZuvjdK8pPLULQ==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
@@ -3827,8 +3827,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-linux-arm64-gnu@1.4.0:
-    resolution: {integrity: sha512-5MCBcziqXC72mMXnkZU68mutXIR6zavDxopArE2gQtK841IlE06bIgtLi0kUUhlFJk2nhPRgiDgdLbrPlyt7fw==}
+  /@tauri-apps/cli-linux-arm64-gnu@1.5.0:
+    resolution: {integrity: sha512-/AwGSjUplzeiGWbKP8rAW4gQx5umWiaQJ0ifx6NakA/sIrhRXPYTobwzg4ixw31ALQNXaEosJCkmvXyHUvoUYw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -3837,8 +3837,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-linux-arm64-musl@1.4.0:
-    resolution: {integrity: sha512-7J3pRB6n6uNYgIfCeKt2Oz8J7oSaz2s8GGFRRH2HPxuTHrBNCinzVYm68UhVpJrL3bnGkU0ziVZLsW/iaOGfUg==}
+  /@tauri-apps/cli-linux-arm64-musl@1.5.0:
+    resolution: {integrity: sha512-OFzKMkg3bmBjr/BYQ1kx4QOHL+JSkzX+Cw8RcG7CKnq8QoJyg8N0K0UTskgsVwlCN4l7bxeuSLvEveg4SBA2AQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -3847,8 +3847,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-linux-x64-gnu@1.4.0:
-    resolution: {integrity: sha512-Zh5gfAJxOv5AVWxcwuueaQ2vIAhlg0d6nZui6nMyfIJ8dbf3aZQ5ZzP38sYow5h/fbvgL+3GSQxZRBIa3c2E1w==}
+  /@tauri-apps/cli-linux-x64-gnu@1.5.0:
+    resolution: {integrity: sha512-V2stfUH3Qrc3cIXAd+cKbJruS1oJqqGd40GTVcKOKlRk9Ef9H3WNUQ5PyWKj1t1rk8AxjcBO/vK+Unkuy1WSCw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -3857,8 +3857,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-linux-x64-musl@1.4.0:
-    resolution: {integrity: sha512-OLAYoICU3FaYiTdBsI+lQTKnDHeMmFMXIApN0M+xGiOkoIOQcV9CConMPjgmJQ867+NHRNgUGlvBEAh9CiJodQ==}
+  /@tauri-apps/cli-linux-x64-musl@1.5.0:
+    resolution: {integrity: sha512-qpcGeesuksxzE7lC3RCnikTY9DCRMnAYwhWa9i8MA7pKDX1IXaEvAaXrse44XCZUohxLLgn2k2o6Pb+65dDijQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -3867,8 +3867,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-win32-arm64-msvc@1.4.0:
-    resolution: {integrity: sha512-gZ05GENFbI6CB5MlOUsLlU0kZ9UtHn9riYtSXKT6MYs8HSPRffPHaHSL0WxsJweWh9nR5Hgh/TUU8uW3sYCzCg==}
+  /@tauri-apps/cli-win32-arm64-msvc@1.5.0:
+    resolution: {integrity: sha512-Glt/AEWwbFmFnQuoPRbB6vMzCIT9jYSpD59zRP8ljhRSzwDHE59q5nXOrheLKICwMmaXqtAuCIq9ndDBKghwoQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -3876,8 +3876,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-win32-ia32-msvc@1.4.0:
-    resolution: {integrity: sha512-JsetT/lTx/Zq98eo8T5CiRyF1nKeX04RO8JlJrI3ZOYsZpp/A5RJvMd/szQ17iOzwiHdge+tx7k2jHysR6oBlQ==}
+  /@tauri-apps/cli-win32-ia32-msvc@1.5.0:
+    resolution: {integrity: sha512-k+R2VI8eZJfRjaRS8LwbkjMBKFaKcWtA/byaFnGDDUnb3VM/WFW++3KjC5Ne2wXpxFW9RVaFiBNIpmRcExI0Qw==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
@@ -3885,8 +3885,8 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli-win32-x64-msvc@1.4.0:
-    resolution: {integrity: sha512-z8Olcnwp5aYhzqUAarFjqF+oELCjuYWnB2HAJHlfsYNfDCAORY5kct3Fklz8PSsubC3U2EugWn8n42DwnThurg==}
+  /@tauri-apps/cli-win32-x64-msvc@1.5.0:
+    resolution: {integrity: sha512-jEwq9UuUldVyDJ/dsYoHFuZfNZIkxbeDYSMELfZXsRvWWEA8xRYeTkH38S++KU1eBl5dTK0LbxhztEB2HjRT1g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -3894,21 +3894,21 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/cli@1.4.0:
-    resolution: {integrity: sha512-VXYr2i2iVFl98etQSQsqLzXgX96bnWiNZd1YADgatqwy/qecbd6Kl5ZAPB5R4ynsgE8A1gU7Fbzh7dCEQYFfmA==}
+  /@tauri-apps/cli@1.5.0:
+    resolution: {integrity: sha512-usY7Ncfkxl2f/ufjWDtp+eJsodlj8ipMKExIt160KR+tx0GtQgLtxRnrKxe1o7wu18Pkqd5JIuWMaOmT3YZeYA==}
     engines: {node: '>= 10'}
     hasBin: true
     optionalDependencies:
-      '@tauri-apps/cli-darwin-arm64': 1.4.0
-      '@tauri-apps/cli-darwin-x64': 1.4.0
-      '@tauri-apps/cli-linux-arm-gnueabihf': 1.4.0
-      '@tauri-apps/cli-linux-arm64-gnu': 1.4.0
-      '@tauri-apps/cli-linux-arm64-musl': 1.4.0
-      '@tauri-apps/cli-linux-x64-gnu': 1.4.0
-      '@tauri-apps/cli-linux-x64-musl': 1.4.0
-      '@tauri-apps/cli-win32-arm64-msvc': 1.4.0
-      '@tauri-apps/cli-win32-ia32-msvc': 1.4.0
-      '@tauri-apps/cli-win32-x64-msvc': 1.4.0
+      '@tauri-apps/cli-darwin-arm64': 1.5.0
+      '@tauri-apps/cli-darwin-x64': 1.5.0
+      '@tauri-apps/cli-linux-arm-gnueabihf': 1.5.0
+      '@tauri-apps/cli-linux-arm64-gnu': 1.5.0
+      '@tauri-apps/cli-linux-arm64-musl': 1.5.0
+      '@tauri-apps/cli-linux-x64-gnu': 1.5.0
+      '@tauri-apps/cli-linux-x64-musl': 1.5.0
+      '@tauri-apps/cli-win32-arm64-msvc': 1.5.0
+      '@tauri-apps/cli-win32-ia32-msvc': 1.5.0
+      '@tauri-apps/cli-win32-x64-msvc': 1.5.0
     dev: true
 
   /@types/babel__core@7.20.2:
@@ -4023,8 +4023,8 @@ packages:
     resolution: {integrity: sha512-xPSg0jm4mqgEkNhowKgZFBNtwoEwF6gJ4Dhww+GFpm3IgtNseHQZ5IqdNwnquZEoANxyDAKDRAdVo4Z72VvD/g==}
     dev: false
 
-  /@types/node@20.7.1:
-    resolution: {integrity: sha512-LT+OIXpp2kj4E2S/p91BMe+VgGX2+lfO+XTpfXhh+bCk2LkQtHZSub8ewFBMGP5ClysPjTDFa4sMI8Q3n4T0wg==}
+  /@types/node@20.7.2:
+    resolution: {integrity: sha512-RcdC3hOBOauLP+r/kRt27NrByYtDjsXyAuSbR87O6xpsvi763WI+5fbSIvYJrXnt9w4RuxhV6eAXfIs7aaf/FQ==}
     dev: false
 
   /@types/prop-types@15.7.7:
@@ -4095,19 +4095,19 @@ packages:
   /arg@5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
 
-  /autoprefixer@10.4.16(postcss@8.4.30):
+  /autoprefixer@10.4.16(postcss@8.4.31):
     resolution: {integrity: sha512-7vd3UC6xKp0HLfua5IjZlcXvGAGy7cBAXTg2lyQ/8WpNhd6SiZ8Be+xm3FyBSYJx5GKcpRCzBh7RH4/0dnY+uQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.22.0
+      browserslist: 4.22.1
       caniuse-lite: 1.0.30001541
       fraction.js: 4.3.6
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.30
+      postcss: 8.4.31
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -4174,15 +4174,15 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /browserslist@4.22.0:
-    resolution: {integrity: sha512-v+Jcv64L2LbfTC6OnRcaxtqJNJuQAVhZKSJfR/6hn7lhnChUXl4amwVviqN1k411BB+3rRoKMitELRn1CojeRA==}
+  /browserslist@4.22.1:
+    resolution: {integrity: sha512-FEVc202+2iuClEhZhrWy6ZiAcRLvNMyYcxZ8raemul1DYVOVdFsbqckWLdsixQZCpJlwe77Z3UTalE7jsjnKfQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001541
-      electron-to-chromium: 1.4.532
+      electron-to-chromium: 1.4.537
       node-releases: 2.0.13
-      update-browserslist-db: 1.0.13(browserslist@4.22.0)
+      update-browserslist-db: 1.0.13(browserslist@4.22.1)
 
   /busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -4300,7 +4300,7 @@ packages:
   /core-js-compat@3.32.2:
     resolution: {integrity: sha512-+GjlguTDINOijtVRUxrQOv3kfu9rl+qPNdX2LTbJ/ZyVTuxK+ksVSAGX1nHstu4hrv1En/uPTtWgq2gI5wt4AQ==}
     dependencies:
-      browserslist: 4.22.0
+      browserslist: 4.22.1
     dev: false
 
   /crypt@0.0.2:
@@ -4386,8 +4386,8 @@ packages:
   /dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
-  /electron-to-chromium@1.4.532:
-    resolution: {integrity: sha512-piIR0QFdIGKmOJTSNg5AwxZRNWQSXlRYycqDB9Srstx4lip8KpcmRxVP6zuFWExWziHYZpJ0acX7TxqX95KBpg==}
+  /electron-to-chromium@1.4.537:
+    resolution: {integrity: sha512-W1+g9qs9hviII0HAwOdehGYkr+zt7KKdmCcJcjH0mYg6oL8+ioT3Skjmt7BLoAQqXhjf40AXd+HlR4oAWMlXjA==}
 
   /esbuild@0.18.20:
     resolution: {integrity: sha512-ceqxoedUrcayh7Y7ZX6NdbbDzGROiyVBgC4PriJThBKSVPWnnFHZAkfI1lJT8QFkOwH4qOS2SJkS4wvpGl8BpA==}
@@ -5248,27 +5248,27 @@ packages:
     resolution: {integrity: sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==}
     dev: false
 
-  /postcss-import@15.1.0(postcss@8.4.30):
+  /postcss-import@15.1.0(postcss@8.4.31):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.30
+      postcss: 8.4.31
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.6
 
-  /postcss-js@4.0.1(postcss@8.4.30):
+  /postcss-js@4.0.1(postcss@8.4.31):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.30
+      postcss: 8.4.31
 
-  /postcss-load-config@4.0.1(postcss@8.4.30):
+  /postcss-load-config@4.0.1(postcss@8.4.31):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -5281,16 +5281,16 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.30
+      postcss: 8.4.31
       yaml: 2.3.2
 
-  /postcss-nested@6.0.1(postcss@8.4.30):
+  /postcss-nested@6.0.1(postcss@8.4.31):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.30
+      postcss: 8.4.31
       postcss-selector-parser: 6.0.13
 
   /postcss-selector-parser@6.0.13:
@@ -5312,8 +5312,8 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
-  /postcss@8.4.30:
-    resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}
+  /postcss@8.4.31:
+    resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -5353,7 +5353,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.7.1
+      '@types/node': 20.7.2
       long: 5.2.3
     dev: false
 
@@ -5790,7 +5790,7 @@ packages:
       '@types/stylis': 4.2.1
       css-to-react-native: 3.2.0
       csstype: 3.1.2
-      postcss: 8.4.30
+      postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       shallowequal: 1.1.0
@@ -5878,11 +5878,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
-      postcss: 8.4.30
-      postcss-import: 15.1.0(postcss@8.4.30)
-      postcss-js: 4.0.1(postcss@8.4.30)
-      postcss-load-config: 4.0.1(postcss@8.4.30)
-      postcss-nested: 6.0.1(postcss@8.4.30)
+      postcss: 8.4.31
+      postcss-import: 15.1.0(postcss@8.4.31)
+      postcss-js: 4.0.1(postcss@8.4.31)
+      postcss-load-config: 4.0.1(postcss@8.4.31)
+      postcss-nested: 6.0.1(postcss@8.4.31)
       postcss-selector-parser: 6.0.13
       resolve: 1.22.6
       sucrase: 3.34.0
@@ -6033,13 +6033,13 @@ packages:
       unist-util-visit-parents: 5.1.3
     dev: false
 
-  /update-browserslist-db@1.0.13(browserslist@4.22.0):
+  /update-browserslist-db@1.0.13(browserslist@4.22.1):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
-      browserslist: 4.22.0
+      browserslist: 4.22.1
       escalade: 3.1.1
       picocolors: 1.0.0
 
@@ -6176,7 +6176,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.18.20
-      postcss: 8.4.30
+      postcss: 8.4.31
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
@@ -6233,42 +6233,42 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-autostart/f3a55a40d664b2caa2b15bfbfdf15156355762e8:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/f3a55a40d664b2caa2b15bfbfdf15156355762e8}
+  github.com/tauri-apps/tauri-plugin-autostart/ddb8917170309ce52fb9d433f58570b5caf6b27a:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/ddb8917170309ce52fb9d433f58570b5caf6b27a}
     name: tauri-plugin-autostart-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.4.0
+      '@tauri-apps/api': 1.5.0
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-fs-watch/c477ddb517f148b471b0048e597052a61eaf114e:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-fs-watch/tar.gz/c477ddb517f148b471b0048e597052a61eaf114e}
+  github.com/tauri-apps/tauri-plugin-fs-watch/dac5524d0b13d81e2ae2eb609fcfbc7869c08dc9:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-fs-watch/tar.gz/dac5524d0b13d81e2ae2eb609fcfbc7869c08dc9}
     name: tauri-plugin-fs-watch-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.4.0
+      '@tauri-apps/api': 1.5.0
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-log/6f56109458b09942bfc6442d32ad8637c4e6a314:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-log/tar.gz/6f56109458b09942bfc6442d32ad8637c4e6a314}
+  github.com/tauri-apps/tauri-plugin-log/f7142fcf10841cdabab2fbe8650e9adc3f0bb212:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-log/tar.gz/f7142fcf10841cdabab2fbe8650e9adc3f0bb212}
     name: tauri-plugin-log-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.4.0
+      '@tauri-apps/api': 1.5.0
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-sql/533198dd3b6cfca36d876918d22efcdaac43065a:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-sql/tar.gz/533198dd3b6cfca36d876918d22efcdaac43065a}
+  github.com/tauri-apps/tauri-plugin-sql/1c79471feb06366fe1c11cb1cb6c67bcdb80c215:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-sql/tar.gz/1c79471feb06366fe1c11cb1cb6c67bcdb80c215}
     name: tauri-plugin-sql-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.4.0
+      '@tauri-apps/api': 1.5.0
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-store/66e06b7830037fdae0b42b5499e23334eaf4e017:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/66e06b7830037fdae0b42b5499e23334eaf4e017}
+  github.com/tauri-apps/tauri-plugin-store/1a741b721ed1eae0de0d811ecfe86fc6ad54fb73:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/1a741b721ed1eae0de0d811ecfe86fc6ad54fb73}
     name: tauri-plugin-store-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.4.0
+      '@tauri-apps/api': 1.5.0
     dev: false
