@@ -14,10 +14,12 @@ async function resolveUpdater() {
     const darwin_aarch64_sig = await getSignature(darwin_aarch64 + '.sig');
     const darwin_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64.app.tar.gz`;
     const darwin_x86_64_sig = await getSignature(darwin_x86_64 + '.sig');
-    const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_en-US.msi.zip`;
+    const windows_x86_64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64-setup.nsis.zip`;
     const windows_x86_64_sig = await getSignature(windows_x86_64 + '.sig');
-    const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_en-US.msi.zip`;
+    const windows_i686 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86-setup.nsis.zip`;
     const windows_i686_sig = await getSignature(windows_i686 + '.sig');
+    const windows_aarch64 = `https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64-setup.nsis.zip`;
+    const windows_aarch64_sig = await getSignature(windows_aarch64 + '.sig');
 
     let updateData = {
         name: version,
@@ -28,6 +30,7 @@ async function resolveUpdater() {
             'darwin-x86_64': { signature: darwin_x86_64_sig, url: 'https://ghproxy.com/' + darwin_x86_64 },
             'windows-x86_64': { signature: windows_x86_64_sig, url: 'https://ghproxy.com/' + windows_x86_64 },
             'windows-i686': { signature: windows_i686_sig, url: 'https://ghproxy.com/' + windows_i686 },
+            'windows-aarch64': { signature: windows_aarch64_sig, url: 'https://ghproxy.com/' + windows_aarch64 },
             'linux-x86_64': { signature: darwin_aarch64_sig, url: 'https://ghproxy.com/' + darwin_aarch64 },
             'linux-i686': { signature: darwin_aarch64_sig, url: 'https://ghproxy.com/' + darwin_aarch64 },
             'linux-aarch64': { signature: darwin_aarch64_sig, url: 'https://ghproxy.com/' + darwin_aarch64 },
