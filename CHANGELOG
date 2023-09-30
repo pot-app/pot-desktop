@@ -1,8 +1,11 @@
-## 2.6.0 (2023-09-29)
+## 2.6.0 (2023-09-30)
+
+后续版本更新将不再需要管理员权限
 
 ### New feature:
 
 -   Add ChatGLM([`a308186`](https://github.com/pot-app/pot-desktop/commit/a308186078c23916f1efa7e61f7d34064c21ab23)) (by @Pylogmon)
+-   Update Tauri to 1.5.0([`6cb9bdb`](https://github.com/pot-app/pot-desktop/commit/6cb9bdb5abec747cde32e022cb72ebdec1308af3)) (by @Pylogmon)
 
 ### Bugs fixed:
 
