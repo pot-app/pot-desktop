@@ -88,6 +88,7 @@
                 "mouse": "Follow the Mouse",
                 "pre_state": "Remember Position",
                 "remember_window_size": "Remember Window Size",
+                "close_on_blur": "Close on Blur",
                 "hide_source": "Hide Source Area",
                 "hide_language": "Hide Language Area",
                 "hide_window": "Hide Translate Window",

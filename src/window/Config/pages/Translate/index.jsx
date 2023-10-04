@@ -28,6 +28,7 @@ export default function Translate() {
     const [hideSource, setHideSource] = useConfig('hide_source', false);
     const [hideLanguage, setHideLanguage] = useConfig('hide_language', false);
     const [hideWindow, setHideWindow] = useConfig('translate_hide_window', false);
+    const [closeOnBlur, setCloseOnBlur] = useConfig('translate_close_on_blur', true);
 
     const { t } = useTranslation();
 
@@ -225,6 +226,17 @@ export default function Translate() {
                                 isSelected={rememberWindowSize}
                                 onValueChange={(v) => {
                                     setRememberWindowSize(v);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.translate.close_on_blur')}</h3>
+                        {closeOnBlur !== null && (
+                            <Switch
+                                isSelected={closeOnBlur}
+                                onValueChange={(v) => {
+                                    setCloseOnBlur(v);
                                 }}
                             />
                         )}

@@ -87,6 +87,7 @@
                 "mouse": "跟随鼠标",
                 "pre_state": "记住位置",
                 "remember_window_size": "记住窗口大小",
+                "close_on_blur": "失去焦点时关闭窗口",
                 "hide_source": "隐藏原文",
                 "hide_language": "隐藏语言栏",
                 "hide_window": "隐藏翻译窗口",

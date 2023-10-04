@@ -15,7 +15,6 @@ import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
-import { info } from 'tauri-plugin-log-api';
 
 let blurTimeout = null;
 let resizeTimeout = null;
@@ -52,6 +51,7 @@ void listen('tauri://focus', () => {
 });
 
 export default function Translate() {
+    const [closeOnBlur] = useConfig('translate_close_on_blur', true);
     const [windowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
@@ -77,6 +77,14 @@ export default function Translate() {
         const items = reorder(translateServiceList, result.source.index, result.destination.index);
         setTranslateServiceList(items);
     };
+    // 是否自动关闭窗口
+    useEffect(() => {
+        if (closeOnBlur !== null && !closeOnBlur) {
+            setPined(true);
+            unlistenBlur();
+        }
+    }, [closeOnBlur]);
+    // 保存窗口位置
     useEffect(() => {
         if (windowPosition !== null && windowPosition === 'pre_state') {
             const unlistenMove = listen('tauri://move', async () => {
@@ -102,6 +110,7 @@ export default function Translate() {
             };
         }
     }, [windowPosition]);
+    // 保存窗口大小
     useEffect(() => {
         if (rememberWindowSize !== null && rememberWindowSize) {
             const unlistenResize = listen('tauri://resize', async () => {
@@ -197,7 +206,6 @@ export default function Translate() {
                         variant='light'
                         className='my-auto'
                         onPress={() => {
-                            appWindow.setAlwaysOnTop(!pined);
                             if (pined) {
                                 unlisten = listenBlur();
                             } else {
