@@ -1,18 +1,56 @@
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
 import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { appWindow } from '@tauri-apps/api/window';
+import { listen } from '@tauri-apps/api/event';
+import React, { useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
-import React from 'react';
 
 import WindowControl from '../../components/WindowControl';
 import { osType } from '../../utils/env';
+import { useConfig } from '../../hooks';
 import ControlArea from './ControlArea';
 import ImageArea from './ImageArea';
 import TextArea from './TextArea';
+
 export const pluginListAtom = atom();
+
+let blurTimeout = null;
+
+const listenBlur = () => {
+    return listen('tauri://blur', () => {
+        console.log(appWindow.label);
+        if (appWindow.label === 'recognize') {
+            if (blurTimeout) {
+                clearTimeout(blurTimeout);
+            }
+            // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
+            // 如果直接关闭将导致窗口无法拖动
+            blurTimeout = setTimeout(async () => {
+                await appWindow.close();
+            }, 50);
+        }
+    });
+};
+
+let unlisten = listenBlur();
+// 取消 blur 监听
+const unlistenBlur = () => {
+    unlisten.then((f) => {
+        f();
+    });
+};
+
+// 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
+void listen('tauri://focus', () => {
+    if (blurTimeout) {
+        clearTimeout(blurTimeout);
+    }
+});
 
 export default function Recognize() {
     const [pluginList, setPluginList] = useAtom(pluginListAtom);
+    const [closeOnBlur] = useConfig('recognize_close_on_blur', false);
 
     const loadPluginList = async () => {
         let temp = {};
@@ -37,9 +75,15 @@ export default function Recognize() {
         setPluginList({ ...temp });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         loadPluginList();
     }, []);
+    // 是否自动关闭窗口
+    useEffect(() => {
+        if (closeOnBlur !== null && !closeOnBlur) {
+            unlistenBlur();
+        }
+    }, [closeOnBlur]);
 
     return (
         pluginList && (

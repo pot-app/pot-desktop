@@ -103,6 +103,7 @@
                 "language": "识别语言",
                 "delete_newline": "自动删除换行",
                 "auto_copy": "自动复制",
+                "close_on_blur": "失去焦点时关闭窗口",
                 "hide_window": "隐藏识别窗口"
             },
             "hotkey": {

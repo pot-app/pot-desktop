@@ -17,6 +17,7 @@ export default function Recognize() {
     const [deleteNewline, setDeleteNewline] = useConfig('recognize_delete_newline', false);
     const [autoCopy, setAutoCopy] = useConfig('recognize_auto_copy', false);
     const [hideWindow, setHideWindow] = useConfig('recognize_hide_window', false);
+    const [closeOnBlur, setCloseOnBlur] = useConfig('recognize_close_on_blur', false);
     const { t } = useTranslation();
     return (
         <Card className='mb-[10px]'>
@@ -61,6 +62,17 @@ export default function Recognize() {
                             isSelected={autoCopy}
                             onValueChange={(v) => {
                                 setAutoCopy(v);
+                            }}
+                        />
+                    )}
+                </div>
+                <div className='config-item'>
+                    <h3 className='my-auto mx-0'>{t('config.recognize.close_on_blur')}</h3>
+                    {closeOnBlur !== null && (
+                        <Switch
+                            isSelected={closeOnBlur}
+                            onValueChange={(v) => {
+                                setCloseOnBlur(v);
                             }}
                         />
                     )}

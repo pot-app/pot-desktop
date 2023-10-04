@@ -104,6 +104,7 @@
                 "language": "Recognize Language",
                 "delete_newline": "Auto Delete Newline",
                 "auto_copy": "Auto Copy",
+                "close_on_blur": "Close on Blur",
                 "hide_window": "Hide Recognize Window"
             },
             "hotkey": {
