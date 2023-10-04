@@ -1,16 +1,14 @@
-## 2.6.0 (2023-09-30)
-
-后续版本更新将不再需要管理员权限
+## 2.6.1 (2023-10-04)
 
 ### New feature:
 
--   Add ChatGLM([`a308186`](https://github.com/pot-app/pot-desktop/commit/a308186078c23916f1efa7e61f7d34064c21ab23)) (by @Pylogmon)
--   Update Tauri to 1.5.0([`6cb9bdb`](https://github.com/pot-app/pot-desktop/commit/6cb9bdb5abec747cde32e022cb72ebdec1308af3)) (by @Pylogmon)
+-   Add Option to Control Auto Close Translate Window([`e8b72e2`](https://github.com/pot-app/pot-desktop/commit/e8b72e21ba28af6da58ffcab84c6403a7626e2b7)) (by @Pylogmon)
+-   Add Option to Control Auto Close Recognize Window([`51c9fea`](https://github.com/pot-app/pot-desktop/commit/51c9feaa7825548931dd3b7d3897f7ee545737e9)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   HI-DPI Error([`39e0287`](https://github.com/pot-app/pot-desktop/commit/39e02871e5e29dfd90353788163d8df96edcb27f)) (by @Pylogmon)
+-   Crash on MacOS([`db48508`](https://github.com/pot-app/pot-desktop/commit/db48508a7803b7362af237a1d1aadaa21b05729c)) (by @Pylogmon)
 
-### Refactor
+### Refactor:
 
--   Optimize OpenAI Prompt Configuration([`8c90288`](https://github.com/pot-app/pot-desktop/commit/8c90288048d5492e8a2dd431c93e67c7bbb73b29)) (by @Pylogmon)
+-   Use Last Text when not select text([`16db1a3`](https://github.com/pot-app/pot-desktop/commit/16db1a3dc04125c1c9486ed487eaa3fe1fb80d47)) (by @Pylogmon)

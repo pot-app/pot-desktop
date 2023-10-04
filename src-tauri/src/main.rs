@@ -67,7 +67,12 @@ fn main() {
         .setup(|app| {
             info!("============== Start App ==============");
             #[cfg(target_os = "macos")]
-            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            {
+                app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+                let trusted =
+                    macos_accessibility_client::accessibility::application_is_trusted_with_prompt();
+                info!("MacOS Accessibility Trusted: {}", trusted);
+            }
             // Global AppHandle
             APP.get_or_init(|| app.handle());
             // Init Config

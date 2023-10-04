@@ -2835,6 +2835,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "macos-accessibility-client"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "edf7710fbff50c24124331760978fb9086d6de6288dcdb38b25a97f8b1bdebbb"
+dependencies = [
+ "core-foundation",
+ "core-foundation-sys",
+]
+
+[[package]]
 name = "malloc_buf"
 version = "0.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3755,6 +3765,7 @@ dependencies = [
  "libloading 0.8.1",
  "lingua",
  "log",
+ "macos-accessibility-client",
  "mouse_position",
  "once_cell",
  "reqwest_dav",
