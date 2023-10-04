@@ -225,11 +225,13 @@ pub fn selection_translate() {
     use selection::get_text;
     // Get Selected Text
     let text = get_text();
+    if !text.trim().is_empty() {
+        let app_handle = APP.get().unwrap();
+        // Write into State
+        let state: tauri::State<StringWrapper> = app_handle.state();
+        state.0.lock().unwrap().replace_range(.., &text);
+    }
 
-    let app_handle = APP.get().unwrap();
-    // Write into State
-    let state: tauri::State<StringWrapper> = app_handle.state();
-    state.0.lock().unwrap().replace_range(.., &text);
     let window = translate_window();
     window.emit("new_text", text).unwrap();
 }

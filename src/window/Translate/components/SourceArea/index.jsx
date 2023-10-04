@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip, Tooltip } from '@nextui-org/react';
 import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
-import { readText, writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useRef, useState } from 'react';
+import { writeText } from '@tauri-apps/api/clipboard';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
@@ -36,7 +36,6 @@ export default function SourceArea(props) {
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
-    const [langDetectEngine] = useConfig('translate_detect_engine', 'baidu');
     const [hideWindow] = useConfig('translate_hide_window', false);
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
     const toastStyle = useToastStyle();
@@ -52,10 +51,8 @@ export default function SourceArea(props) {
             appWindow.show();
             appWindow.setFocus();
         }
+        // 清空检测语言
         setDetectLanguage('');
-        if (text === '') {
-            text = (await readText()) ?? '';
-        }
         if (text === '[INPUT_TRANSLATE]') {
             appWindow.show();
             appWindow.setFocus();
