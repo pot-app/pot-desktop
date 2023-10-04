@@ -14,6 +14,12 @@ export async function translate(text, from, to, options = {}) {
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
     }
+    if (requestPath.endsWith('/')) {
+        requestPath = requestPath.slice(0, -1);
+    }
+    if (service === 'openai' && !requestPath.endsWith('/v1/chat/completions')) {
+        requestPath += '/v1/chat/completions';
+    }
     // 兼容旧版
     if (promptList === undefined) {
         promptList = [
