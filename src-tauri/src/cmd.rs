@@ -31,7 +31,13 @@ pub fn cut_image(left: u32, top: u32, width: u32, height: u32, app_handle: tauri
     if !app_cache_dir_path.exists() {
         return;
     }
-    let mut img = image::open(&app_cache_dir_path).unwrap();
+    let mut img = match image::open(&app_cache_dir_path) {
+        Ok(v) => v,
+        Err(e) => {
+            error!("{:?}", e.to_string());
+            return;
+        }
+    };
     let img2 = img.sub_image(left, top, width, height);
     app_cache_dir_path.pop();
     app_cache_dir_path.push("pot_screenshot_cut.png");
@@ -57,7 +63,13 @@ pub fn get_base64(app_handle: tauri::AppHandle) -> String {
     }
     let mut file = File::open(app_cache_dir_path).unwrap();
     let mut vec = Vec::new();
-    file.read_to_end(&mut vec).unwrap();
+    match file.read_to_end(&mut vec) {
+        Ok(_) => {}
+        Err(e) => {
+            error!("{:?}", e.to_string());
+            return "".to_string();
+        }
+    }
     let base64 = general_purpose::STANDARD.encode(&vec);
     base64.replace("\r\n", "")
 }
@@ -113,7 +125,12 @@ pub fn invoke_plugin(
     let plugin_path = config_path.join(format!("plugin{ext_name}"));
     info!("Load plugin from: {:?}", plugin_path);
     unsafe {
-        let lib = libloading::Library::new(plugin_path).unwrap();
+        let lib = match libloading::Library::new(plugin_path) {
+            Ok(v) => v,
+            Err(e) => {
+                return Err(format!("{e:?}"));
+            }
+        };
         match plugin_type {
             "translate" => {
                 let func: libloading::Symbol<
@@ -261,15 +278,22 @@ pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, 
         let plugin_path = config_path.join(file_name);
         std::fs::create_dir_all(&config_path)?;
         let mut zip = zip::ZipArchive::new(std::fs::File::open(path)?)?;
-        if zip.by_name("info.json").is_err() {
-            return Err(Error::Error("Invalid Plugin: miss info.json".into()));
-        }
         if zip.by_name(format!("plugin{ext_name}").as_str()).is_err() {
             return Err(Error::Error(
                 format!("Invalid Plugin: miss plugin{ext_name}").into(),
             ));
         }
-        zip.extract(plugin_path)?;
+        if zip.by_name("info.json").is_err() {
+            return Err(Error::Error("Invalid Plugin: miss info.json".into()));
+        }
+        zip.extract(&plugin_path)?;
+        let info_file_path = plugin_path.join("info.json");
+        let info_content = std::fs::read_to_string(info_file_path)?;
+        let info: serde_json::Value = serde_json::from_str(&info_content)?;
+        if info["plugin_type"].as_str().unwrap() != plugin_type {
+            std::fs::remove_dir_all(plugin_path)?;
+            return Err(Error::Error("Invalid Plugin: plugin type not match".into()));
+        }
         success_count += 1;
     }
     Ok(success_count)
