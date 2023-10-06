@@ -47,10 +47,10 @@ release:
               --assets-link "{\"name\":\"pot.pbar\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.pbar\"}" \
               --assets-link "{\"name\":\"Pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/Pot.popclipextz\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\"}" \
-              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\"}" \\
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.dmg\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.app.tar.gz\"}" \
-              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\"}" \\
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.dmg\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_amd64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_amd64.deb\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_arm64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_arm64.deb\"}" \
@@ -61,4 +61,4 @@ release:
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.exe\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\"}" \
-              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\"}"
