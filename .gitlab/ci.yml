@@ -1,0 +1,64 @@
+stages:
+    - download
+    - upload
+    - release
+
+download:
+    stage: download
+    image: curlimages/curl:latest
+    script:
+        - curl -LJO $(curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "browser_download_url" | cut -d '"' -f 4)
+    artifacts:
+        paths:
+            - '*.deb'
+            - '*.exe'
+            - '*.dmg'
+            - '*.zip'
+            - '*.sig'
+            - '*.tar.gz'
+            - '*.pbar'
+            - '*.popclipextz'
+upload:
+    stage: upload
+    image: curlimages/curl:latest
+    variables:
+        PACKAGE_VERSION: '${CI_COMMIT_TAG}'
+        PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/pot-desktop/${PACKAGE_VERSION}'
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        # 上传所有下载的文件到 GitLab Package Registry
+        - |
+            for file in *.deb *.exe *.dmg *.zip *.sig *.tar.gz *.pbar *.popclipextz; do
+                curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file $file "${PACKAGE_REGISTRY_URL}/$file"
+            done
+
+release:
+    stage: release
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    variables:
+        PACKAGE_VERSION: '${CI_COMMIT_TAG}'
+        PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/pot-desktop/${PACKAGE_VERSION}'
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        - |
+            release-cli create --name "Release $CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG \
+              --assets-link "{\"name\":\"pot.pbar\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.pbar\"}" \
+              --assets-link "{\"name\":\"pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.popclipextz\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_aarch64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_aarch64.app.tar.gz\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_aarch64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_aarch64.app.tar.gz.sig\"}" \\
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_aarch64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_aarch64.dmg\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64.app.tar.gz\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64.app.tar.gz.sig\"}" \\
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64.dmg\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_amd64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_amd64.deb\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_arm64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_arm64.deb\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_armhf.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_armhf.deb\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_i386.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_i386.deb\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64-setup.exe\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64-setup.nsis.zip\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x64-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x64-setup.nsis.zip.sig\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x86-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x86-setup.exe\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x86-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x86-setup.nsis.zip\"}" \
+              --assets-link "{\"name\":\"pot_${CI_COMMIT_TAG}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${CI_COMMIT_TAG}_x86-setup.nsis.zip.sig\"}" \
