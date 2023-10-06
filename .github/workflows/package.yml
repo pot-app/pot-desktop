@@ -259,8 +259,28 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
-  release-update:
+  sync-to-jihulab:
     needs: [build-for-macos, build-for-windows, build-for-linux]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags')
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Mirror
+      uses: SvanBoxel/gitlab-mirror-and-ci-action@master
+      with:
+        args: "https://jihulab.com/pot-app/pot-desktop"
+      env:
+        FOLLOW_TAGS: "true"
+        FORCE_PUSH: "false"
+        GITLAB_HOSTNAME: "jihulab.com"
+        GITLAB_USERNAME: "pylogmon"
+        GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
+        GITLAB_PROJECT_ID: "153845"
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+  release-update:
+    needs: [sync-to-jihulab]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:

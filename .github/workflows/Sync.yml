@@ -14,7 +14,7 @@ jobs:
       with:
         args: "https://jihulab.com/pot-app/pot-desktop"
       env:
-        FOLLOW_TAGS: "true"
+        FOLLOW_TAGS: "false"
         FORCE_PUSH: "false"
         GITLAB_HOSTNAME: "jihulab.com"
         GITLAB_USERNAME: "pylogmon"
