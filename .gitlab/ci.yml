@@ -45,7 +45,7 @@ release:
         - |
             release-cli create --name "Release $PACKAGE_VERSION" --tag-name $PACKAGE_VERSION \
               --assets-link "{\"name\":\"pot.pbar\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.pbar\"}" \
-              --assets-link "{\"name\":\"pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.popclipextz\"}" \
+              --assets-link "{\"name\":\"Pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/Pot.popclipextz\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\"}" \\
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.dmg\"}" \
