@@ -45,7 +45,9 @@ release:
         - if: $CI_COMMIT_TAG
     script:
         - |
+            BODY=$(curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "body" | cut -d '"' -f 4)
             release-cli create --name "Release $PACKAGE_VERSION" --tag-name $PACKAGE_VERSION \
+              --description $BODY \
               --assets-link "{\"name\":\"pot.pbar\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.pbar\"}" \
               --assets-link "{\"name\":\"Pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/Pot.popclipextz\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\"}" \
