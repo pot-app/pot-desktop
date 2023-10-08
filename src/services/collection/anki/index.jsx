@@ -18,6 +18,23 @@ export async function collection(source, target, options = {}) {
         return res.data;
     }
 
+    async function ankiText(target){
+        let result = "";
+        if (typeof target === "object") {
+            for (let explanation of target.explanations) {
+                result += explanation.trait + ". ";
+                for (let explain of explanation.explains) {
+                    result += explain + ", ";
+                }
+                result += "<br>";
+            }
+        } else {
+            return target;
+        }
+
+        return result;
+    }
+
     await ankiConnect('createDeck', 6, { deck: 'Pot' });
     await ankiConnect('createModel', 6, {
         modelName: 'Pot Card',
@@ -27,7 +44,7 @@ export async function collection(source, target, options = {}) {
             {
                 Name: 'Pot Card',
                 Front: '{{Front}}',
-                Back: '{{Back}}',
+                Back: '{{FrontSide}}<hr id=answer>{{Back}}',
             },
         ],
     });
@@ -37,7 +54,7 @@ export async function collection(source, target, options = {}) {
             modelName: 'Pot Card',
             fields: {
                 Front: source,
-                Back: target,
+                Back: await ankiText(target),
             },
         },
     });

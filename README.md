@@ -220,7 +220,7 @@ brew upgrade --cask pot
 
 ### Arch/Manjaro
 
-> [!WARNING]  
+> [!WARNING]
 > 在最新版本的 [Webkit2Gtk](https://archlinux.org/packages/extra/x86_64/webkit2gtk) (2.42.0) 中，由于 Nvidia 专有驱动未完全实现 DMABUF，将导致无法启动和崩溃的情况发生。<br>
 > 请降级或在 `/etc/environment` （或者其他设置环境变量的地方）中加入 `WEBKIT_DISABLE_DMABUF_RENDERER=1` 环境变量关闭 DMABUF 的使用。
 
@@ -388,7 +388,7 @@ Rust >= 1.70.0
 3. 安装依赖(仅 Linux 需要)
 
     ```bash
-    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
+    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev cargo librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
     ```
 
 4. 开发调试

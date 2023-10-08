@@ -656,7 +656,7 @@ export default function TargetArea(props) {
                                             );
                                         } else {
                                             builtinCollectionServices[serviceName]
-                                                .collection(sourceText, result.toString())
+                                                .collection(sourceText, result)
                                                 .then(
                                                     (_) => {
                                                         toast.success(t('translate.add_collection_success'), {
