@@ -388,7 +388,7 @@ Rust >= 1.70.0
 3. 安装依赖(仅 Linux 需要)
 
     ```bash
-    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev cargo librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
+    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
     ```
 
 4. 开发调试

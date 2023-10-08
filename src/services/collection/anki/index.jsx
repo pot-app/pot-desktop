@@ -18,15 +18,20 @@ export async function collection(source, target, options = {}) {
         return res.data;
     }
 
-    async function ankiText(target){
+    function ankiText(target){
         let result = "";
         if (typeof target === "object") {
             for (let explanation of target.explanations) {
                 result += explanation.trait + ". ";
+                let index=0;
                 for (let explain of explanation.explains) {
-                    result += explain + ", ";
+                    index++;
+                    if (index !== explanation.explains.length) {
+                        result += explain + "; "
+                    } else {
+                        result += explain + "<br>"
+                    }
                 }
-                result += "<br>";
             }
         } else {
             return target;
@@ -54,7 +59,7 @@ export async function collection(source, target, options = {}) {
             modelName: 'Pot Card',
             fields: {
                 Front: source,
-                Back: await ankiText(target),
+                Back: ankiText(target),
             },
         },
     });
