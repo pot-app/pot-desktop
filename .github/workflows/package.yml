@@ -82,6 +82,7 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: .scripts/snipdo/pot.pbar
+
   build-for-macos:
     needs: change-version
     strategy:
@@ -155,6 +156,7 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
+
   build-for-windows:
     needs: change-version
     strategy:
@@ -213,6 +215,7 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+
   build-for-linux:
     needs: change-version
     strategy:
@@ -259,6 +262,7 @@ jobs:
           body_path: CHANGELOG
           token: ${{ secrets.TOKEN }}
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+
   sync-to-jihulab:
     needs: [build-for-macos, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest
@@ -279,6 +283,7 @@ jobs:
         GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
         GITLAB_PROJECT_ID: "153845"
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
   release-update:
     needs: [sync-to-jihulab]
     runs-on: ubuntu-latest
@@ -288,30 +293,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
       - name: Install git
         run: |
           sudo apt-get update
-          sudo apt-get install -y git
-
+          sudo apt-get install -y git curl
       - name: Get Tag Name
         run: |
           echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
           echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-
       - name: pnpm install
         run: pnpm install
-
       - name: Release updater file
         run: pnpm run updater
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
@@ -319,6 +318,9 @@ jobs:
           tag_name: updater
           token: ${{ secrets.TOKEN }}
           files: update.json
+      - name: Upload Jihulab Release
+        run: |
+          curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update.json"
 
   homebrew:
     name: Update Homebrew cask
