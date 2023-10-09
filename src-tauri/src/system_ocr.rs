@@ -135,7 +135,16 @@ pub fn system_ocr(app_handle: tauri::AppHandle, lang: &str) -> Result<String, St
         let content = String::from_utf8(output.stderr).unwrap_or_default();
 
         if content.contains("data") {
-            return Err("Language data not installed!".to_string());
+            if lang == "auto" {
+                return Err(
+                    "Language data not installed!\nPlease try install tesseract-ocr-eng"
+                        .to_string(),
+                );
+            } else {
+                return Err(format!(
+                    "Language data not installed!\nPlease try install tesseract-ocr-{lang}"
+                ));
+            }
         }
         Err(content)
     }
