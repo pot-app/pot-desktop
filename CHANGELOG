@@ -1,14 +1,12 @@
-## 2.6.1 (2023-10-04)
-
-### New feature:
-
--   Add Option to Control Auto Close Translate Window([`e8b72e2`](https://github.com/pot-app/pot-desktop/commit/e8b72e21ba28af6da58ffcab84c6403a7626e2b7)) (by @Pylogmon)
--   Add Option to Control Auto Close Recognize Window([`51c9fea`](https://github.com/pot-app/pot-desktop/commit/51c9feaa7825548931dd3b7d3897f7ee545737e9)) (by @Pylogmon)
+## 2.6.2 (2023-10-10)
 
 ### Bugs fixed:
 
--   Crash on MacOS([`db48508`](https://github.com/pot-app/pot-desktop/commit/db48508a7803b7362af237a1d1aadaa21b05729c)) (by @Pylogmon)
+-   Add Error Message for Linux System OCR([`0d3bce2`](https://github.com/pot-app/pot-desktop/commit/0d3bce2afc462f7fa11b905810c6ba9fb3bb801f)) (by @Pylogmon)
+-   Stream Translate Back Error([`63983cd`](https://github.com/pot-app/pot-desktop/commit/63983cd86e259952fd3783c667b6f739126bddcd)) (by @Pylogmon)
+-   when add object to anki, the back turns out to [Object Object] (#531)([`54a3fde`](https://github.com/pot-app/pot-desktop/commit/54a3fde3f816a9f0c55796d96b956f9598f6f904)) (by @lihz1990)
 
 ### Refactor:
 
--   Use Last Text when not select text([`16db1a3`](https://github.com/pot-app/pot-desktop/commit/16db1a3dc04125c1c9486ed487eaa3fe1fb80d47)) (by @Pylogmon)
+-   Update Tesseract LangData Path([`42aa97a`](https://github.com/pot-app/pot-desktop/commit/42aa97ade482c58c6e5a997e8a17b268b2b71394)) (by @Pylogmon)
+-   Change Update.json Request Path([`79a0a5a`](https://github.com/pot-app/pot-desktop/commit/79a0a5a21508dc3c7efb6be78181ffd0263eaf84)) (by @Pylogmon)
