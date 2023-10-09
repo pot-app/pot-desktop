@@ -589,7 +589,14 @@ export default function TargetArea(props) {
                                             .translate(
                                                 result,
                                                 LanguageEnum[newSourceLanguage],
-                                                LanguageEnum[newTargetLanguage]
+                                                LanguageEnum[newTargetLanguage],
+                                                {
+                                                    detect: newSourceLanguage,
+                                                    setResult: (v) => {
+                                                        setResult(v);
+                                                        setIsLoading(false);
+                                                    },
+                                                }
                                             )
                                             .then(
                                                 (v) => {
@@ -620,7 +627,11 @@ export default function TargetArea(props) {
                             variant='light'
                             size='sm'
                             className={`${error === '' && 'hidden'}`}
-                            onPress={translate}
+                            onPress={() => {
+                                setError('');
+                                setResult('');
+                                translate();
+                            }}
                         >
                             <GiCycle className='text-[16px]' />
                         </Button>
@@ -655,18 +666,16 @@ export default function TargetArea(props) {
                                                 }
                                             );
                                         } else {
-                                            builtinCollectionServices[serviceName]
-                                                .collection(sourceText, result)
-                                                .then(
-                                                    (_) => {
-                                                        toast.success(t('translate.add_collection_success'), {
-                                                            style: toastStyle,
-                                                        });
-                                                    },
-                                                    (e) => {
-                                                        toast.error(e.toString(), { style: toastStyle });
-                                                    }
-                                                );
+                                            builtinCollectionServices[serviceName].collection(sourceText, result).then(
+                                                (_) => {
+                                                    toast.success(t('translate.add_collection_success'), {
+                                                        style: toastStyle,
+                                                    });
+                                                },
+                                                (e) => {
+                                                    toast.error(e.toString(), { style: toastStyle });
+                                                }
+                                            );
                                         }
                                     }}
                                 >
