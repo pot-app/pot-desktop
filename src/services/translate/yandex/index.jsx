@@ -1,4 +1,5 @@
 import { fetch, Body } from '@tauri-apps/api/http';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function translate(text, from, to) {
     const url = 'https://translate.yandex.net/api/v1/tr.json/translate';
@@ -8,7 +9,7 @@ export async function translate(text, from, to) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         query: {
-            id: `${generateSid()}-0-0`,
+            id: uuidv4().replaceAll('-', '') + '-0-0',
             srv: 'android',
         },
         body: Body.form({
@@ -27,10 +28,6 @@ export async function translate(text, from, to) {
     } else {
         throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
     }
-}
-
-function generateSid() {
-    return crypto.randomUUID().replaceAll('-', '');
 }
 
 export * from './Config';

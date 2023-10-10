@@ -97,6 +97,7 @@
                 "tencent": "Tencent",
                 "niutrans": "NiuTrans",
                 "google": "Google",
+                "yandex": "Yandex",
                 "local": "Local"
             },
             "recognize": {

@@ -118,6 +118,7 @@ export default function Translate() {
                                     <DropdownItem key='tencent'>{t(`config.translate.tencent`)}</DropdownItem>
                                     <DropdownItem key='niutrans'>{t(`config.translate.niutrans`)}</DropdownItem>
                                     <DropdownItem key='google'>{t(`config.translate.google`)}</DropdownItem>
+                                    <DropdownItem key='yandex'>{t(`config.translate.yandex`)}</DropdownItem>
                                     <DropdownItem key='local'>{t(`config.translate.local`)}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

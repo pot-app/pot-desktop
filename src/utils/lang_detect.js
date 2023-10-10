@@ -1,6 +1,7 @@
 import { fetch, Body } from '@tauri-apps/api/http';
 import { invoke } from '@tauri-apps/api';
 import { store } from './store';
+import { v4 as uuidv4 } from 'uuid';
 
 async function baidu_detect(text) {
     const lang_map = {
@@ -176,6 +177,47 @@ async function niutrans_detect(text) {
     return 'en';
 }
 
+async function yandex_detect(text) {
+    const lang_map = {
+        zh: 'zh_cn',
+        en: 'en',
+        ja: 'ja',
+        ko: 'ko',
+        fr: 'fr',
+        es: 'es',
+        ru: 'ru',
+        de: 'de',
+        it: 'it',
+        tr: 'tr',
+        pt: 'pt_pt',
+        vi: 'vi',
+        id: 'id',
+        th: 'th',
+        ms: 'ms',
+        ar: 'ar',
+        hi: 'hi',
+    };
+
+    let res = await fetch(
+        'https://translate.yandex.net/api/v1/tr.json/detect',
+        {
+            method: 'GET',
+            query: {
+                id: uuidv4().replaceAll('-', '') + '-0-0',
+                srv: 'android',
+                text: text
+            },
+        }
+    );
+    if (res.ok) {
+        const result = res.data;
+        if (result['lang'] && result['lang'] in lang_map) {
+            return lang_map[result['lang']];
+        }
+    }
+    return 'en';
+}
+
 async function local_detect(text) {
     return await invoke('lang_detect', { text: text });
 }
@@ -194,6 +236,8 @@ export default async function detect(text) {
             return await tencent_detect(text);
         case 'niutrans':
             return await niutrans_detect(text);
+        case 'yandex':
+            return await yandex_detect(text);
         default:
             return await local_detect(text);
     }
