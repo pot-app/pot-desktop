@@ -131,6 +131,51 @@ async function google_detect(text) {
     return 'en';
 }
 
+async function niutrans_detect(text) {
+    const lang_map = {
+        zh: 'zh_cn',
+        cht: 'zh_cn',
+        en: 'en',
+        ja: 'ja',
+        ko: 'ko',
+        fr: 'fr',
+        es: 'es',
+        ru: 'ru',
+        de: 'de',
+        it: 'it',
+        tr: 'tr',
+        pt: 'pt_pt',
+        vi: 'vi',
+        id: 'id',
+        th: 'th',
+        ms: 'ms',
+        ar: 'ar',
+        hi: 'hi',
+        mn: 'mn_cy',
+        mo: 'mn_mo',
+        km: 'km',
+    };
+    let res = await fetch(
+        'https://test.niutrans.com/NiuTransServer/language',
+        {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },
+            query: {
+                src_text: text,
+                source: 'text',
+                time: new String(new Date().getTime()),
+            },
+        }
+    );
+    if (res.ok) {
+        const result = res.data;
+        if (result['language'] && result['language'] in lang_map) {
+            return lang_map[result['language']];
+        }
+    }
+    return 'en';
+}
+
 async function local_detect(text) {
     return await invoke('lang_detect', { text: text });
 }
@@ -147,6 +192,8 @@ export default async function detect(text) {
             return await local_detect(text);
         case 'tencent':
             return await tencent_detect(text);
+        case 'niutrans':
+            return await niutrans_detect(text);
         default:
             return await local_detect(text);
     }

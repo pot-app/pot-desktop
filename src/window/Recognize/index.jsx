@@ -19,7 +19,6 @@ let blurTimeout = null;
 
 const listenBlur = () => {
     return listen('tauri://blur', () => {
-        console.log(appWindow.label);
         if (appWindow.label === 'recognize') {
             if (blurTimeout) {
                 clearTimeout(blurTimeout);

@@ -94,6 +94,7 @@
                 "detect_engine": "语种检测引擎",
                 "baidu": "百度",
                 "tencent": "腾讯",
+                "niutrans": "小牛",
                 "google": "谷歌",
                 "local": "本地"
             },

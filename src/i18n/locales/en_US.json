@@ -95,6 +95,7 @@
                 "detect_engine": "Language Detect Engine",
                 "baidu": "Baidu",
                 "tencent": "Tencent",
+                "niutrans": "NiuTrans",
                 "google": "Google",
                 "local": "Local"
             },
