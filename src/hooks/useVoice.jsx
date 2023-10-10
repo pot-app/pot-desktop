@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { debounce } from '../utils';
+var AudioContext = window.AudioContext || window.webkitAudioContext;
 
 export const useVoice = () => {
     const [data, setData] = useState(null);
@@ -9,7 +10,9 @@ export const useVoice = () => {
         return new AudioContext();
     }, [data]);
     const audioSource = useMemo(() => {
-        return audioContext.createBufferSource();
+        if (audioContext) {
+            return audioContext.createBufferSource();
+        }
     }, [data]);
 
     const start = useCallback(

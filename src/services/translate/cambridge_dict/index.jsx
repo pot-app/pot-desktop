@@ -2,9 +2,6 @@ import { fetch } from '@tauri-apps/api/http';
 import { Language } from './info';
 
 class Pronunciation {
-    region;
-    symbol;
-    voice;
     constructor(region, symbol, voice) {
         this.region = region;
         this.symbol = symbol;
@@ -13,8 +10,6 @@ class Pronunciation {
 }
 
 class Explanation {
-    trait;
-    explains;
     constructor(trait, explains) {
         this.trait = trait;
         this.explains = explains;
@@ -22,8 +17,6 @@ class Explanation {
 }
 
 class WordTranslateResult {
-    pronunciations;
-    explanations;
     constructor(pronunciations, explanations) {
         this.pronunciations = pronunciations;
         this.explanations = explanations;
