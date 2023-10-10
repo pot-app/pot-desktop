@@ -218,6 +218,81 @@ async function yandex_detect(text) {
     return 'en';
 }
 
+async function bing_detect(text) {
+    const lang_map = {
+        'zh-Hans': 'zh_cn',
+        'zh-Hant': 'zh_tw',
+        en: 'en',
+        ja: 'ja',
+        ko: 'ko',
+        fr: 'fr',
+        es: 'es',
+        ru: 'ru',
+        de: 'de',
+        it: 'it',
+        tr: 'tr',
+        'pt-pt': 'pt_pt',
+        pt: 'pt_br',
+        vi: 'vi',
+        id: 'id',
+        th: 'th',
+        ms: 'ms',
+        ar: 'ar',
+        hi: 'hi',
+        'mn-Cyrl': 'mn_cy',
+        'mn-Mong': 'mn_mo',
+        km: 'km',
+    };
+    const token_url = 'https://edge.microsoft.com/translate/auth';
+
+    let token = await fetch(token_url, {
+        method: 'GET',
+        headers: {
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42',
+        },
+        responseType: 2,
+    });
+    if (token.ok) {
+        const url = 'https://api-edge.cognitive.microsofttranslator.com/detect';
+
+        let res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                accept: '*/*',
+                'accept-language': 'zh-TW,zh;q=0.9,ja;q=0.8,zh-CN;q=0.7,en-US;q=0.6,en;q=0.5',
+                authorization: 'Bearer ' + token.data,
+                'cache-control': 'no-cache',
+                'content-type': 'application/json',
+                pragma: 'no-cache',
+                'sec-ch-ua': '"Microsoft Edge";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'cross-site',
+                Referer: 'https://appsumo.com/',
+                'Referrer-Policy': 'strict-origin-when-cross-origin',
+                'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42',
+            },
+            query: {
+                'api-version': '3.0'
+            },
+            body: { type: 'Json', payload: [{ Text: text }] },
+        });
+
+        if (res.ok) {
+            let result = res.data;
+            console.log(result[0].language);
+            if (result[0].language && result[0].language in lang_map) {
+                return lang_map[result[0].language];
+            }
+        }
+    }
+    return 'en';
+}
+
 async function local_detect(text) {
     return await invoke('lang_detect', { text: text });
 }
@@ -238,6 +313,8 @@ export default async function detect(text) {
             return await niutrans_detect(text);
         case 'yandex':
             return await yandex_detect(text);
+        case 'bing':
+            return await bing_detect(text);
         default:
             return await local_detect(text);
     }
