@@ -32,7 +32,6 @@
         "react-icons": "^4.11.0",
         "react-markdown": "^8.0.7",
         "react-router-dom": "^6.16.0",
-        "styled-components": "^6.0.8",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
         "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log#v1",
