@@ -29,7 +29,7 @@ export default function Translate() {
     const [hideLanguage, setHideLanguage] = useConfig('hide_language', false);
     const [hideWindow, setHideWindow] = useConfig('translate_hide_window', false);
     const [closeOnBlur, setCloseOnBlur] = useConfig('translate_close_on_blur', true);
-
+    const [alwaysOnTop, setAlwaysOnTop] = useConfig('translate_always_on_top', false);
     const { t } = useTranslation();
 
     return (
@@ -240,6 +240,17 @@ export default function Translate() {
                                 isSelected={closeOnBlur}
                                 onValueChange={(v) => {
                                     setCloseOnBlur(v);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.translate.always_on_top')}</h3>
+                        {alwaysOnTop !== null && (
+                            <Switch
+                                isSelected={alwaysOnTop}
+                                onValueChange={(v) => {
+                                    setAlwaysOnTop(v);
                                 }}
                             />
                         )}

@@ -52,6 +52,7 @@ void listen('tauri://focus', () => {
 
 export default function Translate() {
     const [closeOnBlur] = useConfig('translate_close_on_blur', true);
+    const [alwaysOnTop] = useConfig('translate_always_on_top', false);
     const [windowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
@@ -80,10 +81,17 @@ export default function Translate() {
     // 是否自动关闭窗口
     useEffect(() => {
         if (closeOnBlur !== null && !closeOnBlur) {
-            setPined(true);
             unlistenBlur();
         }
     }, [closeOnBlur]);
+    // 是否默认置顶
+    useEffect(() => {
+        if (alwaysOnTop !== null && alwaysOnTop) {
+            appWindow.setAlwaysOnTop(true);
+            unlistenBlur();
+            setPined(true);
+        }
+    }, [alwaysOnTop]);
     // 保存窗口位置
     useEffect(() => {
         if (windowPosition !== null && windowPosition === 'pre_state') {
@@ -195,21 +203,22 @@ export default function Translate() {
                     className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                     data-tauri-drag-region='true'
                 />
-                <div
-                    className={`px-[8px] h-[35px] w-full flex ${
-                        osType === 'Darwin' ? 'justify-end' : 'justify-between'
-                    }`}
-                >
+                <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
                     <Button
                         isIconOnly
                         size='sm'
-                        variant='light'
-                        className='my-auto'
+                        variant='flat'
+                        disableAnimation
+                        className='my-auto bg-transparent'
                         onPress={() => {
                             if (pined) {
-                                unlisten = listenBlur();
+                                if (closeOnBlur) {
+                                    unlisten = listenBlur();
+                                }
+                                appWindow.setAlwaysOnTop(false);
                             } else {
                                 unlistenBlur();
+                                appWindow.setAlwaysOnTop(true);
                             }
                             setPined(!pined);
                         }}
@@ -219,8 +228,9 @@ export default function Translate() {
                     <Button
                         isIconOnly
                         size='sm'
-                        variant='light'
-                        className={`my-auto ${osType === 'Darwin' && 'hidden'}`}
+                        variant='flat'
+                        disableAnimation
+                        className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
                         onPress={() => {
                             void appWindow.close();
                         }}
