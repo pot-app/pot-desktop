@@ -284,7 +284,6 @@ async function bing_detect(text) {
 
         if (res.ok) {
             let result = res.data;
-            console.log(result[0].language);
             if (result[0].language && result[0].language in lang_map) {
                 return lang_map[result[0].language];
             }
