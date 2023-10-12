@@ -1,40 +1,28 @@
-import { useCallback, useMemo, useState } from 'react';
-import { debounce } from '../utils';
-var AudioContext = window.AudioContext || window.webkitAudioContext;
+import { useCallback } from 'react';
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let source = null;
 
 export const useVoice = () => {
-    const [data, setData] = useState(null);
-    const [isStart, setIsStart] = useState(false);
-
-    const audioContext = useMemo(() => {
-        return new AudioContext();
-    }, [data]);
-    const audioSource = useMemo(() => {
-        if (audioContext) {
-            return audioContext.createBufferSource();
+    const playOrStop = useCallback((data) => {
+        if (source) {
+            // 如果正在播放，停止播放
+            source.stop();
+            source.disconnect();
+            source = null;
+        } else {
+            // 如果没在播放，开始播放
+            audioContext.decodeAudioData(new Uint8Array(data).buffer, (buffer) => {
+                source = audioContext.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioContext.destination);
+                source.start();
+                source.onended = () => {
+                    source.disconnect();
+                    source = null;
+                };
+            });
         }
-    }, [data]);
+    });
 
-    const start = useCallback(
-        debounce((data) => {
-            if (isStart) {
-                audioSource.connect(audioContext.destination);
-                audioSource.stop();
-                setData(data);
-            } else {
-                audioContext.decodeAudioData(new Uint8Array(data).buffer, (buffer) => {
-                    audioSource.buffer = buffer;
-                    audioSource.connect(audioContext.destination);
-                    audioSource.start();
-                    setIsStart(true);
-                    audioSource.onended = () => {
-                        setIsStart(false);
-                        setData(data);
-                    };
-                });
-            }
-        })
-    );
-
-    return start;
+    return playOrStop;
 };
