@@ -197,8 +197,13 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "Google", "custom_url": "Custom URL" },
-                "bing": { "title": "Bing" },
+                "google": {
+                    "title": "Google",
+                    "custom_url": "Custom URL"
+                },
+                "bing": {
+                    "title": "Bing"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "Service Provider",
@@ -234,9 +239,19 @@
                 "chatglm_custom": {
                     "title": "ChatGLM Custom"
                 },
-                "yandex": { "title": "Yandex" },
-                "transmart": { "title": "TranSmart", "username": "User Name", "token": "Token" },
-                "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },
+                "yandex": {
+                    "title": "Yandex"
+                },
+                "transmart": {
+                    "title": "TranSmart",
+                    "username": "User Name",
+                    "token": "Token"
+                },
+                "baidu": {
+                    "title": "Baidu",
+                    "appid": "AppID",
+                    "secret": "Secret"
+                },
                 "baidu_field": {
                     "title": "Baidu Field",
                     "it": "Information Technology",
@@ -288,9 +303,17 @@
                 }
             },
             "recognize": {
-                "system": { "title": "System OCR" },
-                "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "system": {
+                    "title": "System OCR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "baidu_ocr": {
+                    "title": "Baidu OCR",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
                 "baidu_accurate_ocr": {
                     "title": "Baidu OCR (Accurate)",
                     "client_id": "API Key",
@@ -353,11 +376,21 @@
                 }
             },
             "tts": {
-                "lingva_tts": { "title": "Lingva", "request_path": "Request Path" }
+                "lingva_tts": {
+                    "title": "Lingva",
+                    "request_path": "Request Path"
+                }
             },
             "collection": {
-                "anki": { "title": "Anki", "port": "Port" },
-                "eudic": { "title": "Eudic", "name": "Collection Name", "token": "Token" }
+                "anki": {
+                    "title": "Anki",
+                    "port": "Port"
+                },
+                "eudic": {
+                    "title": "Eudic",
+                    "name": "Collection Name",
+                    "token": "Token"
+                }
             }
         },
         "translate": {
