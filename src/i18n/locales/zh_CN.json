@@ -13,7 +13,7 @@
             "auto": "自动检测",
             "zh_cn": "简体中文",
             "zh_tw": "繁體中文",
-            "ja": "日语 ",
+            "ja": "日语",
             "en": "英语",
             "ko": "韩语",
             "fr": "法语",
@@ -32,8 +32,7 @@
             "hi": "印地语",
             "mn_mo": "蒙古语",
             "mn_cy": "蒙古语(西里尔)",
-            "km": "高棉语",
-            "yue": "粤语"
+            "km": "高棉语"
         },
         "config": {
             "general": {
@@ -42,7 +41,7 @@
                 "auto_start": "开机时启动应用",
                 "check_update": "启动时检查更新",
                 "server_port": "监听端口",
-                "server_port_change": "监听端口已更改，重启应用生效。",
+                "server_port_change": "监听端口已更改，重启应用生效",
                 "app_language": "应用语言",
                 "app_theme": "应用主题",
                 "theme": {
@@ -58,8 +57,8 @@
                     "username": "用户名",
                     "password": "密码"
                 },
-                "proxy_change": "代理已经改变，重启应用生效。",
-                "proxy_error": "请填写代理地址和端口。",
+                "proxy_change": "代理已经改变，重启应用生效",
+                "proxy_error": "请填写代理地址和端口",
                 "tray_click_event": "托盘点击事件",
                 "event": {
                     "config": "打开设置",
@@ -118,7 +117,7 @@
                 "input_translate": "输入翻译",
                 "ocr_recognize": "文字识别",
                 "ocr_translate": "截图翻译",
-                "is_register": "快捷键已被注册。",
+                "is_register": "快捷键已被注册",
                 "success": "快捷键注册成功"
             },
             "service": {
@@ -128,7 +127,7 @@
                 "tts": "语音合成",
                 "recognize": "文字识别",
                 "collection": "生词本",
-                "least": "请至少保留一个。",
+                "least": "请至少保留一个",
                 "add_builtin_service": "添加内置服务",
                 "add_external_service": "添加外部插件",
                 "add_service": "添加服务",
@@ -163,7 +162,7 @@
                 "website": "官网",
                 "github": "Github",
                 "feedback": "问题反馈",
-                "issue": "Issue",
+                "issue": "议题",
                 "email": "邮件",
                 "community": "社区交流",
                 "check_update": "检查更新",
@@ -172,7 +171,7 @@
                 "qq_channel": "QQ 频道",
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
-                "discussion": "Github Discussion"
+                "discussion": "Github 讨论"
             }
         },
         "updater": {
@@ -204,15 +203,6 @@
                 },
                 "bing": {
                     "title": "必应翻译"
-                },
-                "openai_summary": {
-                    "title": "OpenAI 总结"
-                },
-                "openai_polish": {
-                    "title": "OpenAI 润色"
-                },
-                "openai_custom": {
-                    "title": "OpenAI 自定义"
                 },
                 "openai": {
                     "title": "OpenAI",
