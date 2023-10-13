@@ -352,6 +352,16 @@ windowrulev2 = move cursor 0 0, class:(pot), title:(Translator|PopClip|Screensho
 
 <div align="center">
 
+# Internationalization([Weblate](https://hosted.weblate.org/engage/pot-app/))
+
+[![](https://hosted.weblate.org/widget/pot-app/pot-desktop/svg-badge.svg)](https://hosted.weblate.org/engage/pot-app/)
+
+</div>
+
+[![](https://hosted.weblate.org/widget/pot-app/pot-desktop/multi-auto.svg)](https://hosted.weblate.org/engage/pot-app/)
+
+<div align="center">
+
 # Contributors
 
 </div>
