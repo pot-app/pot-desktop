@@ -41,9 +41,19 @@ export default function General() {
     const toastStyle = useToastStyle();
 
     const languageName = {
-        en: 'English',
-        pt_br: 'Português (Brasil)',
         zh_cn: '简体中文',
+        zh_tw: '繁體中文',
+        en: 'English',
+        ja: '日本語',
+        ko: '한국어',
+        fr: 'Français',
+        es: 'Español',
+        ru: 'Русский',
+        de: 'Deutsch',
+        it: 'Italiano',
+        tr: 'Türkçe',
+        pt_pt: 'Português',
+        pt_br: 'Português (Brasil)',
     };
 
     useEffect(() => {
@@ -143,16 +153,76 @@ export default function General() {
                                     }}
                                 >
                                     <DropdownItem
+                                        key='zh_cn'
+                                        startContent={<span className={`fi fi-${LanguageFlag.zh_cn}`} />}
+                                    >
+                                        简体中文
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='zh_tw'
+                                        startContent={<span className={`fi fi-${LanguageFlag.zh_cn}`} />}
+                                    >
+                                        繁體中文
+                                    </DropdownItem>
+                                    <DropdownItem
                                         key='en'
                                         startContent={<span className={`fi fi-${LanguageFlag.en}`} />}
                                     >
                                         English
                                     </DropdownItem>
                                     <DropdownItem
-                                        key='zh_cn'
-                                        startContent={<span className={`fi fi-${LanguageFlag.zh_cn}`} />}
+                                        key='ja'
+                                        startContent={<span className={`fi fi-${LanguageFlag.ja}`} />}
                                     >
-                                        简体中文
+                                        日本語
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='ko'
+                                        startContent={<span className={`fi fi-${LanguageFlag.ko}`} />}
+                                    >
+                                        한국어
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='fr'
+                                        startContent={<span className={`fi fi-${LanguageFlag.fr}`} />}
+                                    >
+                                        Français
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='de'
+                                        startContent={<span className={`fi fi-${LanguageFlag.de}`} />}
+                                    >
+                                        Deutsch
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='es'
+                                        startContent={<span className={`fi fi-${LanguageFlag.es}`} />}
+                                    >
+                                        Español
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='ru'
+                                        startContent={<span className={`fi fi-${LanguageFlag.ru}`} />}
+                                    >
+                                        Русский
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='it'
+                                        startContent={<span className={`fi fi-${LanguageFlag.it}`} />}
+                                    >
+                                        Italiano
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='tr'
+                                        startContent={<span className={`fi fi-${LanguageFlag.tr}`} />}
+                                    >
+                                        Türkçe
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='pt_pt'
+                                        startContent={<span className={`fi fi-${LanguageFlag.pt_pt}`} />}
+                                    >
+                                        Português
                                     </DropdownItem>
                                     <DropdownItem
                                         key='pt_br'
