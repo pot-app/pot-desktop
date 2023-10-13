@@ -5,7 +5,7 @@ import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { Spacer, Button } from '@nextui-org/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
 
@@ -16,39 +16,9 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 
-let blurTimeout = null;
+
 let resizeTimeout = null;
 let moveTimeout = null;
-
-const listenBlur = () => {
-    return listen('tauri://blur', () => {
-        if (appWindow.label === 'translate') {
-            if (blurTimeout) {
-                clearTimeout(blurTimeout);
-            }
-            // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
-            // 如果直接关闭将导致窗口无法拖动
-            blurTimeout = setTimeout(async () => {
-                await appWindow.close();
-            }, 50);
-        }
-    });
-};
-
-let unlisten = listenBlur();
-// 取消 blur 监听
-const unlistenBlur = () => {
-    unlisten.then((f) => {
-        f();
-    });
-};
-
-// 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
-void listen('tauri://focus', () => {
-    if (blurTimeout) {
-        clearTimeout(blurTimeout);
-    }
-});
 
 export default function Translate() {
     const [closeOnBlur] = useConfig('translate_close_on_blur', true);
@@ -66,6 +36,9 @@ export default function Translate() {
     const [pined, setPined] = useState(false);
     const [pluginList, setPluginList] = useState(null);
     const [serviceConfig, setServiceConfig] = useState(null);
+
+    const unlistenRef = useRef(null);
+
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
@@ -171,11 +144,45 @@ export default function Translate() {
         }
         setPluginList({ ...temp });
     };
+    
+    // 取消 blur 监听
+    const unlistenBlur = () => {
+        unlistenRef.current.then((f) => {
+            f();
+        });
+    };
 
     useEffect(() => {
+        let blurTimeout = null;
+
+        listen('tauri://focus', () => {
+            if (blurTimeout) {
+                clearTimeout(blurTimeout);
+            }
+        });
+
+        unlistenRef.current = listen('tauri://blur', () => {
+            if (appWindow.label === 'translate') {
+                if (blurTimeout) {
+                    clearTimeout(blurTimeout);
+                }
+                // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
+                // 如果直接关闭将导致窗口无法拖动
+                blurTimeout = setTimeout(async () => {
+                    if(closeOnBlur === false){
+                        await appWindow.hide();
+                    }else{
+                        await appWindow.close();
+                    }
+                }, 50);
+            }
+        })
         loadPluginList();
-        if (!unlisten) {
-            unlisten = listen('reload_plugin_list', loadPluginList);
+        if (!unlistenRef.current) {
+            unlistenRef.current = listen('reload_plugin_list', loadPluginList);
+        }
+        return () => {
+            clearTimeout(blurTimeout);
         }
     }, []);
 
@@ -213,7 +220,7 @@ export default function Translate() {
                         onPress={() => {
                             if (pined) {
                                 if (closeOnBlur) {
-                                    unlisten = listenBlur();
+                                    unlistenRef.current = listenBlur();
                                 }
                                 appWindow.setAlwaysOnTop(false);
                             } else {
