@@ -6,14 +6,14 @@
             "save": "保存",
             "write_clipboard": "写入剪贴板",
             "plugin": "插件",
-            "coming": "敬请期待...",
+            "coming": "敬请期待…",
             "clear": "清空"
         },
         "languages": {
             "auto": "自动检测",
             "zh_cn": "简体中文",
             "zh_tw": "繁體中文",
-            "ja": "日语 ",
+            "ja": "日语",
             "en": "英语",
             "ko": "韩语",
             "fr": "法语",
@@ -162,7 +162,7 @@
                 "website": "官网",
                 "github": "Github",
                 "feedback": "问题反馈",
-                "issue": "Issue",
+                "issue": "议题",
                 "email": "邮件",
                 "community": "社区交流",
                 "check_update": "检查更新",
@@ -171,7 +171,7 @@
                 "qq_channel": "QQ 频道",
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
-                "discussion": "Github Discussion"
+                "discussion": "Github 讨论"
             }
         },
         "updater": {
@@ -179,8 +179,8 @@
             "latest": "## 已经是最新版本",
             "progress": "下载进度",
             "update": "更新",
-            "downloading": "下载中...",
-            "installing": "安装中...",
+            "downloading": "下载中…",
+            "installing": "安装中…",
             "cancel": "取消",
             "installed": "安装完成，重启应用生效"
         },
@@ -396,7 +396,7 @@
         "translate": {
             "translate": "翻译",
             "add_collection_success": "添加成功",
-            "recognizing": "识别中...",
+            "recognizing": "识别中…",
             "speak": "朗读",
             "copy": "复制",
             "retry": "重试",
