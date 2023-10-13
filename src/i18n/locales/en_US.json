@@ -6,14 +6,13 @@
             "save": "Save",
             "write_clipboard": "Write to Clipboard",
             "plugin": "Plugin",
-            "coming": "Coming soon...",
+            "coming": "Coming soon…",
             "clear": "Clear"
         },
         "languages": {
             "auto": "Auto Detect",
             "zh_cn": "Simplified Chinese",
             "zh_tw": "Traditional Chinese",
-            "yue": "Cantonese",
             "ja": "Japanese ",
             "en": "English",
             "ko": "Korean",
@@ -42,7 +41,7 @@
                 "auto_start": "Auto Startup",
                 "check_update": "Check Update",
                 "server_port": "Listen Port",
-                "server_port_change": "The listening port has been changed. Please restart the application for the changes to take effect.",
+                "server_port_change": "The listening port has been changed, Please restart the application for the changes to take effect",
                 "app_language": "Application Language",
                 "app_theme": "Theme",
                 "theme": {
@@ -58,8 +57,8 @@
                     "username": "Username",
                     "password": "Password"
                 },
-                "proxy_change": "The proxy has been changed. Restart the application for the changes to take effect.",
-                "proxy_error": "Please fill in the host and port.",
+                "proxy_change": "The proxy has been changed, Restart the application for the changes to take effect",
+                "proxy_error": "Please fill in the host and port",
                 "tray_click_event": "Tray Click Event",
                 "event": {
                     "config": "Config",
@@ -118,7 +117,7 @@
                 "input_translate": "Input Translate",
                 "ocr_recognize": "Text Recognition",
                 "ocr_translate": "Screenshot Translation",
-                "is_register": "The hotkey is already registered.",
+                "is_register": "The hotkey is already registered",
                 "success": "Hotkey register success"
             },
             "service": {
@@ -128,7 +127,7 @@
                 "tts": "TTS",
                 "recognize": "Recognize",
                 "collection": "Collection",
-                "least": "Please keep at least one.",
+                "least": "Please keep at least one",
                 "add_builtin_service": "Add Builtin Service",
                 "add_external_service": "Add Extension",
                 "add_service": "Add Service",
@@ -177,11 +176,11 @@
         },
         "updater": {
             "title": "Check Update",
-            "latest": "## The latest version is installed.",
+            "latest": "## The latest version is installed",
             "progress": "Download Progress",
             "update": "Update",
-            "downloading": "Downloading...",
-            "installing": "Installing...",
+            "downloading": "Downloading…",
+            "installing": "Installing…",
             "cancel": "Cancel",
             "installed": "Install Complated, Restart the application for the changes to take effect"
         },
@@ -248,9 +247,9 @@
                     "academic": "Academic Paper",
                     "aerospace": "Aerospace",
                     "wiki": "Humanities and Social Sciences",
-                    "news": "News and Information.",
-                    "law": "Laws and Regulations.",
-                    "contract": "Contract."
+                    "news": "News and Information",
+                    "law": "Laws and Regulations",
+                    "contract": "Contract"
                 },
                 "alibaba": {
                     "title": "Alibaba",
@@ -364,7 +363,7 @@
         "translate": {
             "translate": "Translate",
             "add_collection_success": "Add to collection successfully",
-            "recognizing": "Recognizing...",
+            "recognizing": "Recognizing…",
             "speak": "Speak",
             "copy": "Copy",
             "retry": "Try again",
