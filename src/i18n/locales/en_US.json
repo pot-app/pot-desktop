@@ -54,7 +54,7 @@
                     "title": "Proxy",
                     "host": "Host",
                     "port": "Port",
-                    "username": "Username",
+                    "username": "User Name",
                     "password": "Password"
                 },
                 "proxy_change": "The proxy has been changed, Restart the application for the changes to take effect",
@@ -147,7 +147,7 @@
                 "webdav": "WebDav",
                 "local": "Local",
                 "webdav_url": "WebDav Url",
-                "username": "UserName",
+                "username": "User Name",
                 "password": "Password",
                 "backup": "Backup",
                 "restore": "Restore",
@@ -249,7 +249,7 @@
                 },
                 "baidu": {
                     "title": "Baidu",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Secret"
                 },
                 "baidu_field": {
@@ -278,7 +278,7 @@
                 },
                 "volcengine": {
                     "title": "VolcEngine",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Secret"
                 },
                 "niutrans": {
