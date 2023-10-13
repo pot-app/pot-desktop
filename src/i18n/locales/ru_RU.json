@@ -13,7 +13,6 @@
             "auto": "Автоопределение",
             "zh_cn": "Упрощённый китайский",
             "zh_tw": "Традиционный китайский",
-            "yue": "Кантонский",
             "ja": "Японский",
             "en": "Английский",
             "ko": "Корейский",
@@ -42,7 +41,7 @@
                 "auto_start": "Автозагрузка",
                 "check_update": "Проверка обновлений",
                 "server_port": "Порт прослушивания",
-                "server_port_change": "Порт прослушивания был изменён. Перезапустите приложение, чтобы изменения вступили в силу.",
+                "server_port_change": "Порт прослушивания был изменён. Перезапустите приложение, чтобы изменения вступили в силу",
                 "app_language": "Язык приложения",
                 "app_theme": "Тема",
                 "theme": {
@@ -58,31 +57,31 @@
                     "username": "Имя пользователя",
                     "password": "Пароль"
                 },
-                "proxy_change": "Прокси-сервер был изменен. Перезапустите приложение, чтобы изменения вступили в силу.",
-                "proxy_error": "Пожалуйста, укажите хост и порт.",
+                "proxy_change": "Прокси-сервер был изменен. Перезапустите приложение, чтобы изменения вступили в силу",
+                "proxy_error": "Пожалуйста, укажите хост и порт",
                 "tray_click_event": "Действие по значку в трее",
                 "event": {
                     "config": "Настройки",
-                    "translate": "Перевод",
+                    "translate": "Перевести",
                     "disable": "Нет",
                     "ocr_recognize": "Распознавание текста",
                     "ocr_translate": "Перевод скриншота"
                 }
             },
             "translate": {
-                "label": "Перевод",
+                "label": "Перевести",
                 "title": "Настройки перевода",
                 "source_language": "Исходный язык",
                 "target_language": "Целевой язык",
                 "second_language": "Второй целевой язык",
                 "auto_copy": "Автокопирование",
                 "source": "Исходный",
-                "target": "Перевод",
+                "target": "Цель",
                 "source_target": "Исходный+Перевод",
                 "disable": "Отключить",
                 "incremental_translate": "Инкрементный перевод",
                 "dynamic_translate": "Динамический перевод",
-                "delete_newline": "Автоудаление новой строки",
+                "delete_newline": "Удалить Newline",
                 "remember_language": "Запомнить целевой язык",
                 "window_position": "Положение окна",
                 "mouse": "Следовать за курсором",
@@ -95,7 +94,12 @@
                 "baidu": "Baidu",
                 "tencent": "Tencent",
                 "google": "Google",
-                "local": "Локально"
+                "local": "Локально",
+                "bing": "Bing",
+                "yandex": "Yandex",
+                "niutrans": "NiuTrans",
+                "always_on_top": "Стандартно всегда сверху",
+                "close_on_blur": "Закрыть при потере фокуса"
             },
             "recognize": {
                 "label": "Распознавания",
@@ -103,7 +107,8 @@
                 "language": "Язык распознавания",
                 "delete_newline": "Автоудаление новой строки",
                 "auto_copy": "Автокопирование",
-                "hide_window": "Скрыть окно распознавания"
+                "hide_window": "Скрыть окно распознавания",
+                "close_on_blur": "Закрыть при потере фокуса"
             },
             "hotkey": {
                 "label": "Горячие клавиши",
@@ -112,17 +117,17 @@
                 "input_translate": "Ввести для перевода",
                 "ocr_recognize": "Распознавание текста",
                 "ocr_translate": "Перевод скриншота",
-                "is_register": "Горячая клавиша уже назначена.",
+                "is_register": "Горячая клавиша уже назначена",
                 "success": "Горячая клавиша успешно назначена"
             },
             "service": {
                 "label": "Сервис",
                 "title": "Настройки сервисов",
-                "translate": "Перевод",
+                "translate": "Перевести",
                 "tts": "TTS",
                 "recognize": "Распознавание",
                 "collection": "Коллекция",
-                "least": "Пожалуйста, сохраните хотя бы один.",
+                "least": "Пожалуйста, сохраните хотя бы один",
                 "add_builtin_service": "Добавить встроенный сервис",
                 "add_external_service": "Добавить расширение",
                 "add_service": "Добавить сервис",
@@ -152,7 +157,7 @@
                 "empty": "Вы ещё не создали бэкап"
             },
             "about": {
-                "label": "О приложении",
+                "label": "О компании",
                 "title": "О приложении",
                 "website": "Сайт",
                 "github": "GitHub",
@@ -171,7 +176,7 @@
         },
         "updater": {
             "title": "Проверка обновления",
-            "latest": "## Установлена последняя версия.",
+            "latest": "## Установлена последняя версия",
             "progress": "Прогресс загрузки",
             "update": "Обновить",
             "downloading": "Загрузка…",
@@ -192,8 +197,13 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "Google", "custom_url": "Пользовательский адрес" },
-                "bing": { "title": "Bing" },
+                "google": {
+                    "title": "Google",
+                    "custom_url": "Пользовательский адрес"
+                },
+                "bing": {
+                    "title": "Bing"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "Поставщик услуг",
@@ -205,11 +215,22 @@
                     "stream": "Режим потока",
                     "system_prompt": "System Prompt",
                     "user_prompt": "User Prompt",
-                    "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language."
+                    "prompt_description": "Настроив Prompt, вы можете настроить поведение OpenAI. $text $from $to $detect будет заменен текстом для перевода, исходным языком, целевым языком и обнаруженным языком.",
+                    "add": "Добавить Prompt"
                 },
-                "yandex": { "title": "Яндекс" },
-                "transmart": { "title": "TranSmart", "username": "Имя пользователя", "token": "Токен" },
-                "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },
+                "yandex": {
+                    "title": "Яндекс"
+                },
+                "transmart": {
+                    "title": "TranSmart",
+                    "username": "Имя пользователя",
+                    "token": "Токен"
+                },
+                "baidu": {
+                    "title": "Baidu",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
                 "baidu_field": {
                     "title": "Baidu Field",
                     "it": "Информационные технологии",
@@ -220,9 +241,9 @@
                     "academic": "Научная статья",
                     "aerospace": "Аэрокосмос",
                     "wiki": "Гуманитарные и социальные науки",
-                    "news": "Новости и информация.",
+                    "news": "Новости и информация",
                     "law": "Законы и нормативные акты",
-                    "contract": "Контракт."
+                    "contract": "Контракт"
                 },
                 "alibaba": {
                     "title": "Alibaba",
@@ -236,7 +257,7 @@
                 },
                 "volcengine": {
                     "title": "VolcEngine",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Secret"
                 },
                 "niutrans": {
@@ -258,12 +279,41 @@
                 "caiyun": {
                     "title": "Caiyun",
                     "token": "Токен"
+                },
+                "chatglm": {
+                    "title": "ChatGLM",
+                    "api_key": "Api Key",
+                    "chatglm_lite": "ChatGLM Lite",
+                    "user_prompt": "User Prompt",
+                    "chatglm_pro": "ChatGLM Pro",
+                    "system_prompt": "System Prompt",
+                    "model": "Модель",
+                    "chatglm_std": "ChatGLM Std",
+                    "add": "Добавить Prompt",
+                    "prompt_description": "Путем настройки приглашения вы можете настроить поведение искусственного интеллекта. $text Auto Russian English будет заменено текстом для перевода, языком источника, языком назначения и обнаруженным языком."
+                },
+                "chatglm_custom": {
+                    "title": "ChatGLM Обычай"
+                },
+                "chatglm_polish": {
+                    "title": "ChatGLM Редактирование"
+                },
+                "chatglm_summary": {
+                    "title": "ChatGLM Сводка"
                 }
             },
             "recognize": {
-                "system": { "title": "Системный OCR" },
-                "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "system": {
+                    "title": "Системный OCR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "baidu_ocr": {
+                    "title": "Baidu OCR",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
                 "baidu_accurate_ocr": {
                     "title": "Baidu OCR (Точный)",
                     "client_id": "API Key",
@@ -326,15 +376,25 @@
                 }
             },
             "tts": {
-                "lingva_tts": { "title": "Lingva", "request_path": "Путь запроса" }
+                "lingva_tts": {
+                    "title": "Lingva",
+                    "request_path": "Путь запроса"
+                }
             },
             "collection": {
-                "anki": { "title": "Anki", "port": "Порт" },
-                "eudic": { "title": "Eudic", "name": "Название коллекции", "token": "Токен" }
+                "anki": {
+                    "title": "Anki",
+                    "port": "Порт"
+                },
+                "eudic": {
+                    "title": "Eudic",
+                    "name": "Название коллекции",
+                    "token": "Токен"
+                }
             }
         },
         "translate": {
-            "translate": "Перевод",
+            "translate": "Перевести",
             "add_collection_success": "Успешно добавлено в коллекцию",
             "recognizing": "Распознавание…",
             "speak": "Озвучить",

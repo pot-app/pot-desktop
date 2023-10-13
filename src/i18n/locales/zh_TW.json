@@ -6,14 +6,14 @@
             "save": "保存",
             "write_clipboard": "写入剪贴板",
             "plugin": "插件",
-            "coming": "敬请期待...",
+            "coming": "敬请期待…",
             "clear": "清空"
         },
         "languages": {
             "auto": "自动检测",
             "zh_cn": "简体中文",
             "zh_tw": "繁體中文",
-            "ja": "日语 ",
+            "ja": "日语",
             "en": "英语",
             "ko": "韩语",
             "fr": "法语",
@@ -162,7 +162,7 @@
                 "website": "官网",
                 "github": "Github",
                 "feedback": "问题反馈",
-                "issue": "Issue",
+                "issue": "议题",
                 "email": "邮件",
                 "community": "社区交流",
                 "check_update": "检查更新",
@@ -171,7 +171,7 @@
                 "qq_channel": "QQ 频道",
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
-                "discussion": "Github Discussion"
+                "discussion": "Github 讨论"
             }
         },
         "updater": {
@@ -179,8 +179,8 @@
             "latest": "## 已经是最新版本",
             "progress": "下载进度",
             "update": "更新",
-            "downloading": "下载中...",
-            "installing": "安装中...",
+            "downloading": "下载中…",
+            "installing": "安装中…",
             "cancel": "取消",
             "installed": "安装完成，重启应用生效"
         },
@@ -197,11 +197,13 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "谷歌翻译", "custom_url": "自定义 URL" },
-                "bing": { "title": "必应翻译" },
-                "openai_summary": { "title": "OpenAI 总结" },
-                "openai_polish": { "title": "OpenAI 润色" },
-                "openai_custom": { "title": "OpenAI 自定义" },
+                "google": {
+                    "title": "谷歌翻译",
+                    "custom_url": "自定义 URL"
+                },
+                "bing": {
+                    "title": "必应翻译"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "服务提供商",
@@ -237,9 +239,19 @@
                 "chatglm_custom": {
                     "title": "智谱 AI 自定义"
                 },
-                "yandex": { "title": "Yandex" },
-                "transmart": { "title": "腾讯交互翻译", "username": "用户名", "token": "Token" },
-                "baidu": { "title": "百度翻译", "appid": "App ID", "secret": "Secret" },
+                "yandex": {
+                    "title": "Yandex"
+                },
+                "transmart": {
+                    "title": "腾讯交互翻译",
+                    "username": "用户名",
+                    "token": "Token"
+                },
+                "baidu": {
+                    "title": "百度翻译",
+                    "appid": "App ID",
+                    "secret": "Secret"
+                },
                 "baidu_field": {
                     "title": "百度领域翻译",
                     "it": "信息技术",
@@ -291,9 +303,17 @@
                 }
             },
             "recognize": {
-                "system": { "title": "系统 OCR" },
-                "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "百度 OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "system": {
+                    "title": "系统 OCR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "baidu_ocr": {
+                    "title": "百度 OCR",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
                 "baidu_accurate_ocr": {
                     "title": "百度 OCR (高精度)",
                     "client_id": "API Key",
@@ -356,17 +376,27 @@
                 }
             },
             "tts": {
-                "lingva_tts": { "title": "Lingva", "request_path": "请求地址" }
+                "lingva_tts": {
+                    "title": "Lingva",
+                    "request_path": "请求地址"
+                }
             },
             "collection": {
-                "anki": { "title": "Anki", "port": "端口号" },
-                "eudic": { "title": "欧路词典", "name": "生词本名称", "token": "Token" }
+                "anki": {
+                    "title": "Anki",
+                    "port": "端口号"
+                },
+                "eudic": {
+                    "title": "欧路词典",
+                    "name": "生词本名称",
+                    "token": "Token"
+                }
             }
         },
         "translate": {
             "translate": "翻译",
             "add_collection_success": "添加成功",
-            "recognizing": "识别中...",
+            "recognizing": "识别中…",
             "speak": "朗读",
             "copy": "复制",
             "retry": "重试",
