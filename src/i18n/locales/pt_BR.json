@@ -6,14 +6,14 @@
             "save": "Salvar",
             "write_clipboard": "Escrever na Área de Transferência",
             "plugin": "Plugin",
-            "coming": "Em breve...",
+            "coming": "Em breve…",
             "clear": "Claro"
         },
         "languages": {
             "auto": "Detectar Automaticamente",
             "zh_cn": "Chinês Simplificado",
             "zh_tw": "Chinês Tradicional",
-            "ja": "Japonês ",
+            "ja": "Japonês",
             "en": "Inglês",
             "ko": "Coreano",
             "fr": "Francês",
@@ -41,15 +41,15 @@
                 "auto_start": "Iniciar Automaticamente",
                 "check_update": "Checar por Atualização",
                 "server_port": "Escutar Porta",
-                "server_port_change": "A porta de escuta foi alterada. Reinicie o aplicativo para que as alterações tenham efeito.",
+                "server_port_change": "A porta de escuta foi alterada. Reinicie o aplicativo para que as alterações tenham efeito",
                 "app_language": "Idioma do Aplicativo",
                 "app_theme": "Tema",
                 "theme": {
-                    "light": "Claro",
+                    "light": "Luz",
                     "dark": "Escuro",
                     "system": "Sistema"
                 },
-                "transparent": "Efeito transparente.",
+                "transparent": "Efeito transparente",
                 "proxy": {
                     "title": "Proxy",
                     "host": "Host",
@@ -57,11 +57,11 @@
                     "username": "Nome de usuário",
                     "password": "Senha"
                 },
-                "proxy_change": "O proxy foi alterado. Reinicie o aplicativo para que as alterações tenham efeito.",
-                "proxy_error": "Por favor preencha o host e a porta.",
+                "proxy_change": "O proxy foi alterado. Reinicie o aplicativo para que as alterações tenham efeito",
+                "proxy_error": "Por favor preencha o host e a porta",
                 "tray_click_event": "Evento de Clique na Bandeja",
                 "event": {
-                    "config": "Config",
+                    "config": "Configuração",
                     "translate": "Traduzir",
                     "disable": "Desabilitar",
                     "ocr_recognize": "Reconhecimento de Texto",
@@ -96,7 +96,10 @@
                 "baidu": "Baidu",
                 "tencent": "Tencent",
                 "google": "Google",
-                "local": "Local"
+                "local": "Local",
+                "bing": "Bing",
+                "yandex": "Yandex",
+                "niutrans": "NiuTrans"
             },
             "recognize": {
                 "label": "Reconhecimento",
@@ -104,7 +107,8 @@
                 "language": "Idioma de Reconhecimento",
                 "delete_newline": "Excluir Nova Linha Automaticamente",
                 "auto_copy": "Copiar Automaticamente",
-                "hide_window": "Ocultar Janela de Reconhecimento"
+                "hide_window": "Ocultar Janela de Reconhecimento",
+                "close_on_blur": "Fechar no Desfoque"
             },
             "hotkey": {
                 "label": "Atalho",
@@ -113,7 +117,7 @@
                 "input_translate": "Traduzir Entrada",
                 "ocr_recognize": "Reconhecimento de Texto",
                 "ocr_translate": "Tradução de Imagem",
-                "is_register": "O atalho já está registrado.",
+                "is_register": "O atalho já está registrado",
                 "success": "Atalho registrado com sucesso"
             },
             "service": {
@@ -123,7 +127,7 @@
                 "tts": "TTS",
                 "recognize": "Reconhecimento",
                 "collection": "Coleção",
-                "least": "Por favor, mantenha pelo menos um.",
+                "least": "Por favor, mantenha pelo menos um",
                 "add_builtin_service": "Adicionar Serviço Integrado",
                 "add_external_service": "Adicionar Extensão",
                 "add_service": "Adicionar Serviço",
@@ -157,7 +161,7 @@
                 "title": "Sobre o Aplicativo",
                 "website": "Website",
                 "github": "Github",
-                "feedback": "Feedback",
+                "feedback": "Realimentação",
                 "issue": "Problemas",
                 "email": "Email",
                 "community": "Comunidade",
@@ -172,11 +176,11 @@
         },
         "updater": {
             "title": "Checar por Atualização",
-            "latest": "## A versão mais recente está instalada.",
+            "latest": "## A versão mais recente está instalada",
             "progress": "Progresso do Download",
             "update": "Atualizar",
-            "downloading": "Baixando...",
-            "installing": "Instalando...",
+            "downloading": "Baixando…",
+            "installing": "Instalando…",
             "cancel": "Cancelar",
             "installed": "Instalação Completa, reinicie o aplicativo para que as alterações tenham efeito"
         },
@@ -206,12 +210,13 @@
                     "openai": "OpenAI",
                     "azure": "Azure",
                     "request_path": "Caminho do Pedido",
-                    "api_key": "Chave de API",
+                    "api_key": "Api Key",
                     "model": "Modelo",
                     "stream": "Modo de Stream",
                     "system_prompt": "Prompt do Sistema",
                     "user_prompt": "Prompt do Usuário",
-                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do OpenAI. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado."
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do OpenAI. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado.",
+                    "add": "Adicionar Prompt"
                 },
                 "yandex": {
                     "title": "Yandex"
@@ -223,7 +228,7 @@
                 },
                 "baidu": {
                     "title": "Baidu",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Segredo"
                 },
                 "baidu_field": {
@@ -236,9 +241,9 @@
                     "academic": "Papéis Acadêmicos",
                     "aerospace": "Aeroespacial",
                     "wiki": "Ciências sociais e humanas",
-                    "news": "Notícias e informações.",
-                    "law": "Legislação e Regulamentação.",
-                    "contract": "Contrato."
+                    "news": "Notícias e informações",
+                    "law": "Legislação e Regulamentação",
+                    "contract": "Contrato"
                 },
                 "alibaba": {
                     "title": "Alibaba",
@@ -252,13 +257,13 @@
                 },
                 "volcengine": {
                     "title": "VolcEngine",
-                    "appid": "AppID",
+                    "appid": "App ID",
                     "secret": "Segredo"
                 },
                 "niutrans": {
                     "title": "NiuTrans",
                     "https": "Usando Https",
-                    "apikey": "Chave de API"
+                    "apikey": "API Key"
                 },
                 "youdao": {
                     "title": "Youdao",
@@ -274,6 +279,27 @@
                 "caiyun": {
                     "title": "Caiyun",
                     "token": "Token"
+                },
+                "chatglm": {
+                    "title": "ChatGLM",
+                    "api_key": "Api Key",
+                    "chatglm_lite": "ChatGLM Lite",
+                    "user_prompt": "User Prompt",
+                    "chatglm_pro": "ChatGLM Pro",
+                    "system_prompt": "System Prompt",
+                    "model": "Modelo",
+                    "chatglm_std": "ChatGLM Std",
+                    "add": "Adicionar Prompt",
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento da IA. $text $from $to $detect será substituído pelo texto a ser traduzido, o idioma de origem, o idioma de destino e o idioma detectado."
+                },
+                "chatglm_custom": {
+                    "title": "ChatGLM Costume"
+                },
+                "chatglm_polish": {
+                    "title": "ChatGLM Polonês"
+                },
+                "chatglm_summary": {
+                    "title": "ChatGLM Resumo"
                 }
             },
             "recognize": {
@@ -285,12 +311,12 @@
                 },
                 "baidu_ocr": {
                     "title": "OCR da Baidu",
-                    "client_id": "Chave de API",
+                    "client_id": "API Key",
                     "client_secret": "Chave Secreta"
                 },
                 "baidu_accurate_ocr": {
                     "title": "Baidu OCR (Preciso)",
-                    "client_id": "Chave de API",
+                    "client_id": "API Key",
                     "client_secret": "Chave Secreta"
                 },
                 "baidu_img_ocr": {
@@ -302,19 +328,19 @@
                     "title": "OCR da iFlyTek",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "Chave de API"
+                    "apikey": "API Key"
                 },
                 "iflytek_intsig_ocr": {
                     "title": "OCR da iFlyTek (Intsig)",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "Chave de API"
+                    "apikey": "API Key"
                 },
                 "iflytek_latex_ocr": {
                     "title": "iFlyTek LaTeX",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "Chave de API"
+                    "apikey": "API Key"
                 },
                 "simple_latex_ocr": {
                     "title": "LaTeX Simples",
@@ -370,11 +396,12 @@
         "translate": {
             "translate": "Traduzir",
             "add_collection_success": "Adicionar à coleção com sucesso",
-            "recognizing": "Reconhecendo...",
+            "recognizing": "Reconhecendo…",
             "speak": "Falar",
             "copy": "Copiar",
             "delete_newline": "Excluir Quebra de Linha",
-            "translate_back": "Tradução de volta ao original"
+            "translate_back": "Tradução de volta ao original",
+            "retry": "Tentar novamente"
         },
         "recognize": {
             "recognize": "Reconhecimento",
