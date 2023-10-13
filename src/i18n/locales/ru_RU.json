@@ -13,7 +13,6 @@
             "auto": "Автоопределение",
             "zh_cn": "Упрощённый китайский",
             "zh_tw": "Традиционный китайский",
-            "yue": "Кантонский",
             "ja": "Японский",
             "en": "Английский",
             "ko": "Корейский",
@@ -192,8 +191,13 @@
                     "api": "Auth Key",
                     "deeplx": "DeepLX"
                 },
-                "google": { "title": "Google", "custom_url": "Пользовательский адрес" },
-                "bing": { "title": "Bing" },
+                "google": {
+                    "title": "Google",
+                    "custom_url": "Пользовательский адрес"
+                },
+                "bing": {
+                    "title": "Bing"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "Поставщик услуг",
@@ -207,9 +211,19 @@
                     "user_prompt": "User Prompt",
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language."
                 },
-                "yandex": { "title": "Яндекс" },
-                "transmart": { "title": "TranSmart", "username": "Имя пользователя", "token": "Токен" },
-                "baidu": { "title": "Baidu", "appid": "AppID", "secret": "Secret" },
+                "yandex": {
+                    "title": "Яндекс"
+                },
+                "transmart": {
+                    "title": "TranSmart",
+                    "username": "Имя пользователя",
+                    "token": "Токен"
+                },
+                "baidu": {
+                    "title": "Baidu",
+                    "appid": "AppID",
+                    "secret": "Secret"
+                },
                 "baidu_field": {
                     "title": "Baidu Field",
                     "it": "Информационные технологии",
@@ -261,9 +275,17 @@
                 }
             },
             "recognize": {
-                "system": { "title": "Системный OCR" },
-                "tesseract": { "title": "Tesseract.js" },
-                "baidu_ocr": { "title": "Baidu OCR", "client_id": "API Key", "client_secret": "Secret Key" },
+                "system": {
+                    "title": "Системный OCR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "baidu_ocr": {
+                    "title": "Baidu OCR",
+                    "client_id": "API Key",
+                    "client_secret": "Secret Key"
+                },
                 "baidu_accurate_ocr": {
                     "title": "Baidu OCR (Точный)",
                     "client_id": "API Key",
@@ -326,11 +348,21 @@
                 }
             },
             "tts": {
-                "lingva_tts": { "title": "Lingva", "request_path": "Путь запроса" }
+                "lingva_tts": {
+                    "title": "Lingva",
+                    "request_path": "Путь запроса"
+                }
             },
             "collection": {
-                "anki": { "title": "Anki", "port": "Порт" },
-                "eudic": { "title": "Eudic", "name": "Название коллекции", "token": "Токен" }
+                "anki": {
+                    "title": "Anki",
+                    "port": "Порт"
+                },
+                "eudic": {
+                    "title": "Eudic",
+                    "name": "Название коллекции",
+                    "token": "Токен"
+                }
             }
         },
         "translate": {
