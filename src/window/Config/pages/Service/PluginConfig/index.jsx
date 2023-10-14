@@ -68,7 +68,6 @@ export function PluginConfig(props) {
                                             </Button>
                                         </DropdownTrigger>
                                         <DropdownMenu
-                                            autoFocus='first'
                                             aria-label={x.key}
                                             className='max-h-[40vh] overflow-y-auto'
                                             onAction={(key) => {

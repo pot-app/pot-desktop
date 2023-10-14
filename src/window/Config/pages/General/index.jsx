@@ -146,6 +146,7 @@ export default function General() {
                                 </DropdownTrigger>
                                 <DropdownMenu
                                     aria-label='app language'
+                                    className='max-h-[50vh] overflow-y-auto'
                                     onAction={(key) => {
                                         setAppLanguage(key);
                                         i18n.changeLanguage(key);
