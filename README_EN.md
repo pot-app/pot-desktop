@@ -36,6 +36,7 @@
 -   [Installation](#installation)
 -   [External Calls](#external-calls)
 -   [Wayland Support](#wayland-support)
+-   [Internationalization](#internationalizationweblate)
 -   [Contributors](#contributors)
 -   [Thanks](#thanks)
 
@@ -95,6 +96,9 @@
 -   [x] [Youdao](https://ai.youdao.com/)
 -   [x] [Cambridge Dictionary](https://dictionary.cambridge.org/)
 -   [x] [Yandex](https://translate.yandex.com/)
+-   [x] [Lingva](https://github.com/TheDavidDelta/lingva-translate) ([Plugin](https://github.com/pot-app/pot-app-translate-plugin-template))
+-   [x] [Tatoeba](https://tatoeba.org/) ([Plugin](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
+-   [x] [ECDICT](https://github.com/skywind3000/ECDICT) (Offline Dictionary [Plugin](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
 
 More Services see [Plugin System](#plugin-system)
 
@@ -112,6 +116,9 @@ More Services see [Plugin System](#plugin-system)
 -   [x] [Tencent Image Translate](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [Baidu Image Translate](https://fanyi-api.baidu.com/product/22)
 -   [x] [Simple LaTeX](https://simpletex.cn/)
+-   [x] [OCRSpace](https://ocr.space/) ([Plugin](https://github.com/pot-app/pot-app-recognize-plugin-template))
+-   [x] [Rapid](https://github.com/RapidAI/RapidOcrOnnx) (Offline [Plugin](https://github.com/pot-app/pot-app-recognize-plugin-rapid))
+-   [x] [Paddle](https://github.com/hiroi-sora/PaddleOCR-json) (Offline [Plugin](https://github.com/pot-app/pot-app-recognize-plugin-paddle))
 
 More Services see [Plugin System](#plugin-system)
 
@@ -124,7 +131,9 @@ More Services see [Plugin System](#plugin-system)
 ## Collection
 
 -   [x] [Anki](https://apps.ankiweb.net/)
--   [x] [Youdao Dictionary](https://dict.eudic.net/)
+-   [x] [Eudic](https://dict.eudic.net/)
+-   [x] [Youdao](https://www.youdao.com/) ([Plugin](https://github.com/pot-app/pot-app-collection-plugin-youdao))
+-   [x] [ShanBay](https://web.shanbay.com/web/main) ([Plugin](https://github.com/pot-app/pot-app-collection-plugin-shanbay))
 
 More Services see [Plugin System](#plugin-system)
 

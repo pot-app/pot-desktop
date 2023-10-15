@@ -36,6 +36,7 @@
 -   [安装指南](#安装指南)
 -   [外部调用](#外部调用)
 -   [Wayland 支持](#wayland-支持)
+-   [国际化](#国际化weblate)
 -   [贡献者](#贡献者)
 -   [感谢](#感谢)
 
@@ -95,6 +96,9 @@
 -   [x] [有道翻译](https://ai.youdao.com/)
 -   [x] [剑桥词典](https://dictionary.cambridge.org/)
 -   [x] [Yandex](https://translate.yandex.com/)
+-   [x] [Lingva](https://github.com/TheDavidDelta/lingva-translate) ([插件](https://github.com/pot-app/pot-app-translate-plugin-template))
+-   [x] [Tatoeba](https://tatoeba.org/) ([插件](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
+-   [x] [ECDICT](https://github.com/skywind3000/ECDICT) (离线词典 [插件](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
 
 更多接口支持见 [插件系统](#插件系统)
 
@@ -112,6 +116,9 @@
 -   [x] [腾讯图片翻译](https://cloud.tencent.com/document/product/551/17232)
 -   [x] [百度图片翻译](https://fanyi-api.baidu.com/product/22)
 -   [x] [Simple LaTeX](https://simpletex.cn/)
+-   [x] [OCRSpace](https://ocr.space/) ([插件](https://github.com/pot-app/pot-app-recognize-plugin-template))
+-   [x] [Rapid](https://github.com/RapidAI/RapidOcrOnnx) (离线 [插件](https://github.com/pot-app/pot-app-recognize-plugin-rapid))
+-   [x] [Paddle](https://github.com/hiroi-sora/PaddleOCR-json) (离线 [插件](https://github.com/pot-app/pot-app-recognize-plugin-paddle))
 
 更多接口支持见 [插件系统](#插件系统)
 
@@ -125,6 +132,8 @@
 
 -   [x] [Anki](https://apps.ankiweb.net/)
 -   [x] [欧路词典](https://dict.eudic.net/)
+-   [x] [有道](https://www.youdao.com/) ([插件](https://github.com/pot-app/pot-app-collection-plugin-youdao))
+-   [x] [扇贝](https://web.shanbay.com/web/main) ([插件](https://github.com/pot-app/pot-app-collection-plugin-shanbay))
 
 更多接口支持见 [插件系统](#插件系统)
 
