@@ -163,7 +163,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [windows-latest]
-        target: [x86_64-pc-windows-msvc, i686-pc-windows-msvc]
+        target: [x86_64-pc-windows-msvc, i686-pc-windows-msvc, aarch64-pc-windows-msvc]
         include:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
@@ -171,9 +171,9 @@ jobs:
           - os: windows-latest
             target: i686-pc-windows-msvc
             toolchain: stable-i686-pc-windows-msvc
-          # - os: windows-latest
-          #   target: aarch64-pc-windows-msvc
-          #   toolchain: stable-aarch64-pc-windows-msvc
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
+            toolchain: stable-aarch64-pc-windows-msvc
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/download-artifact@v3
