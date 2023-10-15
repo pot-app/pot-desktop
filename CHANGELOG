@@ -1,20 +1,10 @@
-## 2.6.3 (2023-10-12)
+## 2.6.4 (2023-10-15)
 
 ### New feature:
 
--   Add Always on Top Option and Add Pin Button for Recognize Window([`be4127a`](https://github.com/pot-app/pot-desktop/commit/be4127a68e2ba14ebd8f34ebef3fcfa9d50eee3a)) (by @Pylogmon)
--   Add Bing Language Detect([`723b333`](https://github.com/pot-app/pot-desktop/commit/723b33314573b691619f514987787b7f6caea391)) (by @Pylogmon)
--   Add Yandex Language Detect([`f79d0c7`](https://github.com/pot-app/pot-desktop/commit/f79d0c70e393d96df31d8b70340f6d223c287ab6)) (by @Pylogmon)
--   Add NiuTrans Language Detect([`355977c`](https://github.com/pot-app/pot-desktop/commit/355977c2999ab81f655df823336063319eb105f5)) (by @Pylogmon)
+-   Support Select Component for Plugin([`37eb8d9`](https://github.com/pot-app/pot-desktop/commit/37eb8d93c44f9cd42abf92eb92ac774187f7f78b)) (by @Pylogmon)
+-   Support More App Language([`b2acd35`](https://github.com/pot-app/pot-desktop/commit/b2acd35b98c8416d32fdcebd7540623c9b03779c)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Compatible with MacOS 10.15([`67e7335`](https://github.com/pot-app/pot-desktop/commit/67e7335c5b5aa3744c263718215a6927f028b398)) (by @Pylogmon)
-
-### Refactor:
-
--   Optimize `useVoice` Hook([`b0e1fbc`](https://github.com/pot-app/pot-desktop/commit/b0e1fbcb83259cf3ea31133bcf44fda54b8590f9)) (by @Pylogmon)
-
-### Package:
-
--   Add AppImage Package for Linux x64([`a6dc8b1`](https://github.com/pot-app/pot-desktop/commit/a6dc8b1888546987ef7fcd21c53ee86f7de051d2)) (by @Pylogmon)
+-   Fix Styles([`e5789cd`](https://github.com/pot-app/pot-desktop/commit/e5789cd9abfdd798178f4a4a420327ff3c69a0c7)) (by @Pylogmon)
