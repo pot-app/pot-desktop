@@ -206,7 +206,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: windows_${{ matrix.target }}
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.setup*
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
           if-no-files-found: error
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags')
