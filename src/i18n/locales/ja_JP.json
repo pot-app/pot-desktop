@@ -1,1 +1,41 @@
-{}
+{
+    "translation": {
+        "config": {
+            "translate": {
+                "title": "トランスレートせっち",
+                "label": "トランスレート"
+            },
+            "backup": {
+                "title": "ばっくあっぷせっち",
+                "label": "ばっくあっぷ"
+            },
+            "about": {
+                "title": "に関する"
+            },
+            "general": {
+                "label": "ジェネラル",
+                "event": {
+                    "translate": "トランスレート",
+                    "config": "コンフィグ"
+                },
+                "title": "ジェネラルせっち"
+            },
+            "hotkey": {
+                "label": "ホットキー",
+                "title": "ホットキーせっち"
+            },
+            "recognize": {
+                "title": "しきべつせっち",
+                "label": "しきべつ"
+            },
+            "service": {
+                "title": "サービスせっち",
+                "label": "サービス"
+            },
+            "history": {
+                "label": "ひすとりー",
+                "title": "ひすとりー"
+            }
+        }
+    }
+}
