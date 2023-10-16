@@ -300,6 +300,15 @@
                 },
                 "chatglm_summary": {
                     "title": "ChatGLM Сводка"
+                },
+                "openai_custom": {
+                    "title": "OpenAI Обычай"
+                },
+                "openai_polish": {
+                    "title": "OpenAI подправить"
+                },
+                "openai_summary": {
+                    "title": "OpenAI Резюме"
                 }
             },
             "recognize": {
