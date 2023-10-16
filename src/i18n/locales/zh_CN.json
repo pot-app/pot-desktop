@@ -133,6 +133,7 @@
                 "add_service": "添加服务",
                 "test_failed": "测试失败",
                 "install_plugin": "安装外部插件",
+                "view_plugin_list": "查看插件列表",
                 "uninstall_success": "插件卸载成功",
                 "homepage": "插件主页"
             },
