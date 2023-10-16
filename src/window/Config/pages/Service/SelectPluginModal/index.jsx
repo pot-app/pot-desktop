@@ -1,5 +1,6 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
 import { removeDir, BaseDirectory } from '@tauri-apps/api/fs';
+import { open as openInBrowser } from '@tauri-apps/api/shell';
 import toast, { Toaster } from 'react-hot-toast';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +29,18 @@ export default function SelectPluginModal(props) {
                     <>
                         <ModalHeader>{t('config.service.add_service')}</ModalHeader>
                         <ModalBody>
+                            {Object.keys(pluginList).length === 0 && (
+                                <Button
+                                    fullWidth
+                                    variant='flat'
+                                    onPress={() => {
+                                        openInBrowser('https://github.com/pot-app/pot-app-plugin-list');
+                                    }}
+                                >
+                                    <div className='w-full'>{t('config.service.view_plugin_list')}</div>
+                                </Button>
+                            )}
+
                             {Object.keys(pluginList).map((x) => {
                                 return (
                                     <div
