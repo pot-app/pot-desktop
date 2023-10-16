@@ -300,6 +300,15 @@
                 "caiyun": {
                     "title": "彩云小译",
                     "token": "Token"
+                },
+                "openai_custom": {
+                    "title": "OpenAI 自定义"
+                },
+                "openai_polish": {
+                    "title": "OpenAI 润色"
+                },
+                "openai_summary": {
+                    "title": "OpenAI 总结"
                 }
             },
             "recognize": {

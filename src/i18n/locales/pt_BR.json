@@ -300,6 +300,15 @@
                 },
                 "chatglm_summary": {
                     "title": "ChatGLM Resumo"
+                },
+                "openai_custom": {
+                    "title": "OpenAI Customização"
+                },
+                "openai_polish": {
+                    "title": "OpenAI Retoque"
+                },
+                "openai_summary": {
+                    "title": "OpenAI Resumo"
                 }
             },
             "recognize": {
