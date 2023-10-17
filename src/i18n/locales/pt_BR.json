@@ -40,7 +40,7 @@
                 "title": "Configurações Gerais",
                 "auto_start": "Iniciar Automaticamente",
                 "check_update": "Checar por Atualização",
-                "server_port": "Escutar Porta",
+                "server_port": "Porta de Escuta",
                 "server_port_change": "A porta de escuta foi alterada. Reinicie o aplicativo para que as alterações tenham efeito",
                 "app_language": "Idioma do Aplicativo",
                 "app_theme": "Tema",
@@ -49,7 +49,7 @@
                     "dark": "Escuro",
                     "system": "Sistema"
                 },
-                "transparent": "Efeito transparente",
+                "transparent": "Efeito de Transparência",
                 "proxy": {
                     "title": "Proxy",
                     "host": "Host",
@@ -134,7 +134,8 @@
                 "test_failed": "Teste Falhou",
                 "install_plugin": "Instalar Plug-in",
                 "uninstall_success": "Plug-in desinstalado com sucesso",
-                "homepage": "Homepage"
+                "homepage": "Homepage",
+                "view_plugin_list": "Exibir Lista de Plugins"
             },
             "history": {
                 "label": "Histórico",
