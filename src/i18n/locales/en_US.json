@@ -161,7 +161,7 @@
                 "label": "About",
                 "title": "About Application",
                 "website": "Website",
-                "github": "Github",
+                "github": "GitHub",
                 "feedback": "Feedback",
                 "issue": "Issue",
                 "email": "Email",
@@ -219,9 +219,15 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
-                "openai_summary": { "title": "OpenAI Summary" },
-                "openai_polish": { "title": "OpenAI Polish" },
-                "openai_custom": { "title": "OpenAI Custom" },
+                "openai_summary": {
+                    "title": "OpenAI Summary"
+                },
+                "openai_polish": {
+                    "title": "OpenAI Polish"
+                },
+                "openai_custom": {
+                    "title": "OpenAI Custom"
+                },
                 "chatglm": {
                     "title": "ChatGLM",
                     "model": "Model",
