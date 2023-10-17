@@ -63,7 +63,8 @@
                     "it": "Informatique",
                     "news": "Actualités et information",
                     "machinery": "Production de machines",
-                    "title": "Champ Baidu"
+                    "title": "Champ Baidu",
+                    "novel": "Littérature Internet"
                 },
                 "cambridge_dict": {
                     "title": "Dictionnaire Cambridge"
@@ -112,6 +113,12 @@
                 },
                 "openai_summary": {
                     "title": "Résumé d'OpenAI"
+                },
+                "chatglm_polish": {
+                    "title": "ChatGLM Retouche"
+                },
+                "openai_polish": {
+                    "title": "OpenAI Retouche"
                 }
             },
             "recognize": {
