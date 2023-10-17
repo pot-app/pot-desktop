@@ -214,8 +214,6 @@
                     "api_key": "Api Key",
                     "model": "Модель",
                     "stream": "Режим потока",
-                    "system_prompt": "System Prompt",
-                    "user_prompt": "User Prompt",
                     "prompt_description": "Настроив Prompt, вы можете настроить поведение OpenAI. $text $from $to $detect будет заменен текстом для перевода, исходным языком, целевым языком и обнаруженным языком.",
                     "add": "Добавить Prompt"
                 },
@@ -285,9 +283,7 @@
                     "title": "ChatGLM",
                     "api_key": "Api Key",
                     "chatglm_lite": "ChatGLM Lite",
-                    "user_prompt": "User Prompt",
                     "chatglm_pro": "ChatGLM Pro",
-                    "system_prompt": "System Prompt",
                     "model": "Модель",
                     "chatglm_std": "ChatGLM Std",
                     "add": "Добавить Prompt",

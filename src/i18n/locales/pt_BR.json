@@ -214,8 +214,6 @@
                     "api_key": "Api Key",
                     "model": "Modelo",
                     "stream": "Modo de Stream",
-                    "system_prompt": "Prompt do Sistema",
-                    "user_prompt": "Prompt do Usuário",
                     "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do OpenAI. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado.",
                     "add": "Adicionar Prompt"
                 },
@@ -285,9 +283,7 @@
                     "title": "ChatGLM",
                     "api_key": "Api Key",
                     "chatglm_lite": "ChatGLM Lite",
-                    "user_prompt": "User Prompt",
                     "chatglm_pro": "ChatGLM Pro",
-                    "system_prompt": "System Prompt",
                     "model": "Modelo",
                     "chatglm_std": "ChatGLM Std",
                     "add": "Adicionar Prompt",
