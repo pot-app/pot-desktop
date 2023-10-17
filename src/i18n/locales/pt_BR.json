@@ -161,7 +161,7 @@
                 "label": "Sobre",
                 "title": "Sobre o Aplicativo",
                 "website": "Website",
-                "github": "Github",
+                "github": "GitHub",
                 "feedback": "Realimentação",
                 "issue": "Problemas",
                 "email": "Email",
@@ -183,7 +183,7 @@
             "downloading": "Baixando…",
             "installing": "Instalando…",
             "cancel": "Cancelar",
-            "installed": "Instalação Completa, reinicie o aplicativo para que as alterações tenham efeito"
+            "installed": "Instalação concluída, reinicie o aplicativo para que as alterações entrem em vigor"
         },
         "services": {
             "help": "Guia de Configuração",

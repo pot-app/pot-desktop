@@ -183,7 +183,7 @@
             "downloading": "Downloading…",
             "installing": "Installing…",
             "cancel": "Cancel",
-            "installed": "Install Complated, Restart the application for the changes to take effect"
+            "installed": "Install completed, Restart the application for the changes to take effect"
         },
         "services": {
             "help": "Configuration Guide",

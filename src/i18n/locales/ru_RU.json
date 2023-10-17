@@ -134,7 +134,8 @@
                 "test_failed": "Ошибка теста",
                 "install_plugin": "Установить плагин",
                 "uninstall_success": "Плагин успешно удалён",
-                "homepage": "Домашняя страница"
+                "homepage": "Домашняя страница",
+                "view_plugin_list": "Посмотреть список плагинов"
             },
             "history": {
                 "label": "История",
