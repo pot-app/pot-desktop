@@ -32,7 +32,9 @@
             "hi": "Hindi",
             "mn_mo": "Mongolian",
             "mn_cy": "Mongolian(Cyrillic)",
-            "km": "Khmer"
+            "km": "Khmer",
+            "nb_no": "Norwegian Bokmål",
+            "nn_no": "Norwegian Nynorsk"
         },
         "config": {
             "general": {
