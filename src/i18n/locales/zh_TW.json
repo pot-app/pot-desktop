@@ -32,7 +32,9 @@
             "hi": "印地語",
             "mn_mo": "蒙古語",
             "mn_cy": "蒙古語(西里尔)",
-            "km": "高棉語"
+            "km": "高棉語",
+            "nb_no": "书面挪威语",
+            "nn_no": "新挪威语"
         },
         "config": {
             "general": {
@@ -134,7 +136,8 @@
                 "test_failed": "测试失败",
                 "install_plugin": "安装外部插件",
                 "uninstall_success": "插件卸载成功",
-                "homepage": "插件主页"
+                "homepage": "插件主页",
+                "view_plugin_list": "查看插件列表"
             },
             "history": {
                 "label": "历史记录",
