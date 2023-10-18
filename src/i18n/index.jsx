@@ -13,6 +13,8 @@ import ja_JP from './locales/ja_JP.json';
 import ko_KR from './locales/ko_KR.json';
 import pt_PT from './locales/pt_PT.json';
 import tr_TR from './locales/tr_TR.json';
+import nb_NO from './locales/nb_NO.json';
+import nn_NO from './locales/nn_NO.json';
 
 i18n.use(initReactI18next).init({
     fallbackLng: 'en',
@@ -34,6 +36,8 @@ i18n.use(initReactI18next).init({
         tr: tr_TR,
         pt_pt: pt_PT,
         pt_br: pt_BR,
+        nb_no: nb_NO,
+        nn_no: nn_NO,
     },
 });
 

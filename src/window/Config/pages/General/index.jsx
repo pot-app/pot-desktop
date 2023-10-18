@@ -54,6 +54,8 @@ export default function General() {
         tr: 'Türkçe',
         pt_pt: 'Português',
         pt_br: 'Português (Brasil)',
+        nb_no: 'Norsk bokmål',
+        nn_no: 'Norsk nynorsk',
     };
 
     useEffect(() => {
@@ -230,6 +232,18 @@ export default function General() {
                                         startContent={<span className={`fi fi-${LanguageFlag.pt_br}`} />}
                                     >
                                         Português (Brasil)
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='nb_no'
+                                        startContent={<span className={`fi fi-${LanguageFlag.nb_no}`} />}
+                                    >
+                                        Norsk bokmål
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='nb_nn'
+                                        startContent={<span className={`fi fi-${LanguageFlag.nn_no}`} />}
+                                    >
+                                        Norsk nynorsk
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
