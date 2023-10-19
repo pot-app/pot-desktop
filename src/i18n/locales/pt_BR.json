@@ -32,7 +32,9 @@
             "hi": "Hindu",
             "mn_mo": "Mongolês",
             "mn_cy": "Mongolês (Cirílico)",
-            "km": "Khmer"
+            "km": "Khmer",
+            "nb_no": "Bokmål Norueguês",
+            "nn_no": "Norueguês Nynorsk"
         },
         "config": {
             "general": {
