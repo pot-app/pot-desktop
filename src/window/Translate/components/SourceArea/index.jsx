@@ -71,11 +71,11 @@ export default function SourceArea(props) {
                         needs: pluginConfig,
                     }).then(
                         (v) => {
-                            let newText = v;
+                            let newText = v.trim();
                             if (deleteNewline) {
                                 newText = v.replace(/\s+/g, ' ');
                             } else {
-                                newText = v;
+                                newText = v.trim();
                             }
                             if (incrementalTranslate) {
                                 setSourceText((old) => {
@@ -101,11 +101,11 @@ export default function SourceArea(props) {
                         .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
                         .then(
                             (v) => {
-                                let newText = v;
+                                let newText = v.trim();
                                 if (deleteNewline) {
                                     newText = v.replace(/\s+/g, ' ');
                                 } else {
-                                    newText = v;
+                                    newText = v.trim();
                                 }
                                 if (incrementalTranslate) {
                                     setSourceText((old) => {
@@ -127,11 +127,11 @@ export default function SourceArea(props) {
                 }
             }
         } else {
-            let newText = text;
+            let newText = text.trim();
             if (deleteNewline) {
                 newText = text.replace(/\s+/g, ' ');
             } else {
-                newText = text;
+                newText = text.trim();
             }
             if (incrementalTranslate) {
                 setSourceText((old) => {

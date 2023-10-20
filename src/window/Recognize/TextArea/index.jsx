@@ -52,6 +52,7 @@ export default function TextArea() {
                         }).then(
                             (v) => {
                                 if (recognizeId !== id) return;
+                                v = v.trim();
                                 if (deleteNewline) {
                                     v = v.replace(/\s+/g, ' ');
                                 }
@@ -85,6 +86,7 @@ export default function TextArea() {
                         .then(
                             (v) => {
                                 if (recognizeId !== id) return;
+                                v = v.trim();
                                 if (deleteNewline) {
                                     v = v.replace(/\s+/g, ' ');
                                 }

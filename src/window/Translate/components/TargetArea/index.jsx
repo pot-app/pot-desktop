@@ -66,7 +66,7 @@ export default function TargetArea(props) {
         setResult('');
         setError('');
         if (
-            sourceText !== '' &&
+            sourceText.trim() !== '' &&
             sourceLanguage &&
             targetLanguage &&
             autoCopy !== null &&
@@ -123,7 +123,7 @@ export default function TargetArea(props) {
                 invoke('invoke_plugin', {
                     name: translateServiceName,
                     pluginType: 'translate',
-                    source: sourceText,
+                    source: sourceText.trim(),
                     from: pluginInfo.language[sourceLanguage],
                     to: pluginInfo.language[newTargetLanguage],
                     lang: detectLanguage,
@@ -131,24 +131,31 @@ export default function TargetArea(props) {
                 }).then(
                     (v) => {
                         if (translateID[index] !== id) return;
-                        setResult(v);
+                        setResult(typeof v === 'string' ? v.trim() : v);
                         setIsLoading(false);
-                        addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
+                        addToHistory(
+                            sourceText.trim(),
+                            detectLanguage,
+                            newTargetLanguage,
+                            translateServiceName,
+                            typeof v === 'string' ? v.trim() : v
+                        );
                         if (index === 0 && !clipboardMonitor) {
                             switch (autoCopy) {
                                 case 'target':
                                     writeText(v).then(() => {
                                         if (hideWindow) {
+                                            0;
                                             sendNotification({ title: t('common.write_clipboard'), body: v });
                                         }
                                     });
                                     break;
                                 case 'source_target':
-                                    writeText(sourceText + '\n\n' + v).then(() => {
+                                    writeText(sourceText.trim() + '\n\n' + v).then(() => {
                                         if (hideWindow) {
                                             sendNotification({
                                                 title: t('common.write_clipboard'),
-                                                body: sourceText + '\n\n' + v,
+                                                body: sourceText.trim() + '\n\n' + v,
                                             });
                                         }
                                     });
@@ -176,7 +183,7 @@ export default function TargetArea(props) {
                 }
                 setIsLoading(true);
                 builtinServices[translateServiceName]
-                    .translate(sourceText, LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
+                    .translate(sourceText.trim(), LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
                         detect: detectLanguage,
                         setResult: (v) => {
                             if (translateID[index] !== id) return;
@@ -187,9 +194,15 @@ export default function TargetArea(props) {
                     .then(
                         (v) => {
                             if (translateID[index] !== id) return;
-                            setResult(v);
+                            setResult(typeof v === 'string' ? v.trim() : v);
                             setIsLoading(false);
-                            addToHistory(sourceText, detectLanguage, newTargetLanguage, translateServiceName, v);
+                            addToHistory(
+                                sourceText.trim(),
+                                detectLanguage,
+                                newTargetLanguage,
+                                translateServiceName,
+                                typeof v === 'string' ? v.trim() : v
+                            );
                             if (index === 0 && !clipboardMonitor) {
                                 switch (autoCopy) {
                                     case 'target':
@@ -200,11 +213,11 @@ export default function TargetArea(props) {
                                         });
                                         break;
                                     case 'source_target':
-                                        writeText(sourceText + '\n\n' + v).then(() => {
+                                        writeText(sourceText.trim() + '\n\n' + v).then(() => {
                                             if (hideWindow) {
                                                 sendNotification({
                                                     title: t('common.write_clipboard'),
-                                                    body: sourceText + '\n\n' + v,
+                                                    body: sourceText.trim() + '\n\n' + v,
                                                 });
                                             }
                                         });
@@ -559,7 +572,7 @@ export default function TargetArea(props) {
                                         invoke('invoke_plugin', {
                                             name: translateServiceName,
                                             pluginType: 'translate',
-                                            source: result,
+                                            source: result.trim(),
                                             from: pluginInfo.language[newSourceLanguage],
                                             to: pluginInfo.language[newTargetLanguage],
                                             lang: newSourceLanguage,
@@ -569,7 +582,7 @@ export default function TargetArea(props) {
                                                 if (v === result) {
                                                     setResult(v + ' ');
                                                 } else {
-                                                    setResult(v);
+                                                    setResult(v.trim());
                                                 }
                                                 setIsLoading(false);
                                             },
@@ -587,7 +600,7 @@ export default function TargetArea(props) {
                                         setIsLoading(true);
                                         builtinServices[translateServiceName]
                                             .translate(
-                                                result,
+                                                result.trim(),
                                                 LanguageEnum[newSourceLanguage],
                                                 LanguageEnum[newTargetLanguage],
                                                 {
@@ -603,7 +616,7 @@ export default function TargetArea(props) {
                                                     if (v === result) {
                                                         setResult(v + ' ');
                                                     } else {
-                                                        setResult(v);
+                                                        setResult(v.trim());
                                                     }
                                                     setIsLoading(false);
                                                 },
@@ -650,7 +663,7 @@ export default function TargetArea(props) {
                                             invoke('invoke_plugin', {
                                                 name: serviceName,
                                                 pluginType: 'collection',
-                                                source: sourceText,
+                                                source: sourceText.trim(),
                                                 target: result.toString(),
                                                 from: detectLanguage,
                                                 to: targetLanguage,
