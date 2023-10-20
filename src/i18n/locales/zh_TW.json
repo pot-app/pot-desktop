@@ -4,8 +4,8 @@
             "ok": "確定",
             "cancel": "取消",
             "save": "保存",
-            "write_clipboard": "寫入剪貼板",
-            "plugin": "插件",
+            "write_clipboard": "寫入剪貼簿",
+            "plugin": "外掛程式",
             "coming": "敬請期待…",
             "clear": "清空"
         },
@@ -20,21 +20,21 @@
             "es": "西班牙語",
             "ru": "俄語",
             "de": "德語",
-            "it": "意大利語",
+            "it": "義大利語",
             "tr": "土耳其語",
             "pt_pt": "葡萄牙語",
             "pt_br": "葡萄牙語 (巴西)",
             "vi": "越南語",
             "id": "印尼語",
             "th": "泰語",
-            "ms": "马来語",
+            "ms": "馬來語",
             "ar": "阿拉伯語",
             "hi": "印地語",
             "mn_mo": "蒙古語",
             "mn_cy": "蒙古語(西里尔)",
             "km": "高棉語",
-            "nb_no": "书面挪威语",
-            "nn_no": "新挪威语"
+            "nb_no": "書面挪威語",
+            "nn_no": "新挪威語"
         },
         "config": {
             "general": {
@@ -42,8 +42,8 @@
                 "title": "常規設定",
                 "auto_start": "開機時啟動應用程式",
                 "check_update": "啟動時檢查更新",
-                "server_port": "監聽端口",
-                "server_port_change": "監聽端口已更改，重啟應用程式生效",
+                "server_port": "監聽埠號",
+                "server_port_change": "監聽埠號已更改，重啟應用程式生效",
                 "app_language": "應用語言",
                 "app_theme": "應用主題",
                 "theme": {
@@ -55,36 +55,36 @@
                 "proxy": {
                     "title": "網路代理",
                     "host": "代理地址",
-                    "port": "代理端口",
+                    "port": "代理埠號",
                     "username": "用户名",
                     "password": "密码"
                 },
-                "proxy_change": "代理已经改变，重启应用生效",
-                "proxy_error": "请填写代理地址和端口",
-                "tray_click_event": "托盘点击事件",
+                "proxy_change": "代理已更改，重啟應用程式生效",
+                "proxy_error": "請填寫代理地址和埠號",
+                "tray_click_event": "托盤點擊事件",
                 "event": {
-                    "config": "打开设置",
-                    "translate": "打开翻译窗口",
+                    "config": "打開設定",
+                    "translate": "打開翻譯窗口",
                     "disable": "禁用",
-                    "ocr_recognize": "文字识别",
-                    "ocr_translate": "截图翻译"
+                    "ocr_recognize": "文字識別",
+                    "ocr_translate": "截圖翻譯"
                 }
             },
             "translate": {
-                "label": "翻译设置",
-                "title": "翻译设置",
-                "source_language": "源语言",
-                "target_language": "目标语言",
-                "second_language": "第二目标语言",
-                "auto_copy": "自动复制",
+                "label": "翻譯設定",
+                "title": "翻譯設定",
+                "source_language": "原始語言",
+                "target_language": "目標語言",
+                "second_language": "第二目標語言",
+                "auto_copy": "自動複製",
                 "source": "原文",
-                "target": "译文",
-                "source_target": "原文+译文",
+                "target": "譯文",
+                "source_target": "原文+譯文",
                 "disable": "禁用",
-                "incremental_translate": "增量翻译",
-                "dynamic_translate": "动态翻译",
-                "delete_newline": "自动删除换行",
-                "remember_language": "记住目标语言",
+                "incremental_translate": "增量翻譯",
+                "dynamic_translate": "動態翻譯",
+                "delete_newline": "自动刪除換行",
+                "remember_language": "記住目標語言",
                 "window_position": "窗口位置",
                 "mouse": "跟随鼠标",
                 "pre_state": "记住位置",
@@ -392,7 +392,7 @@
             "collection": {
                 "anki": {
                     "title": "Anki",
-                    "port": "端口号"
+                    "port": "埠號"
                 },
                 "eudic": {
                     "title": "欧路词典",
@@ -413,10 +413,10 @@
         },
         "recognize": {
             "recognize": "重新识别",
-            "translate": "翻译",
-            "copy_img": "复制图片",
-            "copy_text": "复制",
-            "delete_newline": "删除换行"
+            "translate": "翻譯",
+            "copy_img": "複製圖片",
+            "copy_text": "複製",
+            "delete_newline": "刪除換行"
         }
     }
 }
