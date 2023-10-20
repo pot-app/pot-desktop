@@ -11,6 +11,7 @@
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
 ![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpot-app%2Fpot-desktop.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpot-app%2Fpot-desktop?ref=badge_shield)
 
 <br/>
 <hr/>
@@ -434,3 +435,7 @@ Rust >= 1.70.0
 -   [Tauri](https://github.com/tauri-apps/tauri) 好用的 GUI 框架
 
 <div align="center">
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpot-app%2Fpot-desktop.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpot-app%2Fpot-desktop?ref=badge_large)
