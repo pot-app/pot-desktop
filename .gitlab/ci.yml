@@ -1,0 +1,76 @@
+stages:
+    - download
+    - upload
+    - release
+
+download:
+    stage: download
+    image: curlimages/curl:latest
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        - curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | sed 's|^|https://ghproxy.com/|' | xargs -n 1 curl -O
+    artifacts:
+        paths:
+            - '*.deb'
+            - '*.AppImage'
+            - '*.exe'
+            - '*.dmg'
+            - '*.zip'
+            - '*.sig'
+            - '*.tar.gz'
+            - '*.pbar'
+            - '*.popclipextz'
+upload:
+    stage: upload
+    image: curlimages/curl:latest
+    variables:
+        PACKAGE_VERSION: '${CI_COMMIT_TAG}'
+        PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/pot-desktop/${PACKAGE_VERSION}'
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        # 上传所有下载的文件到 GitLab Package Registry
+        - |
+            for file in *.deb *.AppImage *.exe *.dmg *.zip *.sig *.tar.gz *.pbar *.popclipextz; do
+                curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file $file "${PACKAGE_REGISTRY_URL}/$file"
+            done
+            echo "BODY=$(curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "body" | cut -d '"' -f 4)" >> build.env
+    artifacts:
+        reports:
+            dotenv: build.env
+
+release:
+    stage: release
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    variables:
+        PACKAGE_VERSION: '${CI_COMMIT_TAG}'
+        PACKAGE_REGISTRY_URL: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/pot-desktop/${PACKAGE_VERSION}'
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        - |
+            DESCRIPTION=$(echo $BODY | sed 's/\\n/\n/g' | sed 's/\\r//g')
+            release-cli create --name "Release $PACKAGE_VERSION" --tag-name $PACKAGE_VERSION \
+              --description "${DESCRIPTION}" \
+              --assets-link "{\"name\":\"pot.pbar\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot.pbar\"}" \
+              --assets-link "{\"name\":\"Pot.popclipextz\",\"url\":\"${PACKAGE_REGISTRY_URL}/Pot.popclipextz\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.app.tar.gz.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_aarch64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_aarch64.dmg\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.app.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.app.tar.gz\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.app.tar.gz.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64.dmg\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64.dmg\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_amd64.AppImage\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_amd64.AppImage\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_amd64.AppImage.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_amd64.AppImage.tar.gz\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_amd64.AppImage.tar.gz.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_amd64.AppImage.tar.gz.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_amd64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_amd64.deb\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_arm64.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_arm64.deb\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_armhf.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_armhf.deb\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_i386.deb\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_i386.deb\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64-setup.exe\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64-setup.nsis.zip\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.exe\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\"}"

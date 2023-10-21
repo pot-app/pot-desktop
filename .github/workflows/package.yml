@@ -278,59 +278,43 @@ jobs:
           files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
 
   sync-to-jihulab:
-    needs: [change-version, build-for-macos, build-for-windows, build-for-linux]
+    needs: [build-for-macos, build-for-windows, build-for-linux]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
-    - name: Download Release
-      run: |
-        sudo apt-get install wget -y
-        wget https://gitlab.com/gitlab-org/release-cli/-/releases/v0.16.0/downloads/bin/release-cli-linux-amd64
-        sudo chmod +x ./release-cli-linux-amd64
-
-        curl -H "Authorization: Bearer ${{ secrets.TOKEN }}" -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | xargs -n 1 wget
-
-        for file in *.deb *.AppImage *.exe *.dmg *.zip *.sig *.tar.gz *.pbar *.popclipextz; do
-            curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file $file "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{ needs.change-version.outputs.version }}/$file"
-        done
-
-        BODY=$(curl -H "Authorization: Bearer ${{ secrets.TOKEN }}" -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "body" | cut -d '"' -f 4 | sed 's/\\n/\n/g' | sed 's/\\r//g')
-
-        ./release-cli-linux-amd64 --server-url "https://jihulab.com" --project-id 153845 \
-          --private-token ${{ secrets.JIHULAB_TOKEN }} \
-          create --name "Release ${{needs.change-version.outputs.version}}" \
-          --tag-name ${{needs.change-version.outputs.version}} --description "${BODY}" \
-          --assets-link "{\"name\":\"pot.pbar\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot.pbar\"}" \
-          --assets-link "{\"name\":\"Pot.popclipextz\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/Pot.popclipextz\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz.sig\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz.sig\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_aarch64.dmg\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_aarch64.dmg\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz.sig\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz.sig\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64.dmg\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64.dmg\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_amd64.AppImage\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_amd64.AppImage\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_amd64.AppImage.tar.gz\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_amd64.AppImage.tar.gz\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_amd64.AppImage.tar.gz.sig\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_amd64.AppImage.tar.gz.sig\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_amd64.deb\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_amd64.deb\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_arm64.deb\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_arm64.deb\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_armhf.deb\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_armhf.deb\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_i386.deb\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_i386.deb\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64-setup.exe\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64-setup.exe\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64-setup.nsis.zip\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64-setup.nsis.zip\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x64-setup.nsis.zip.sig\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x64-setup.nsis.zip.sig\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x86-setup.exe\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x86-setup.exe\",\"link_type\":\"package\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x86-setup.nsis.zip\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x86-setup.nsis.zip\"}" \
-          --assets-link "{\"name\":\"pot_${{needs.change-version.outputs.version}}_x86-setup.nsis.zip.sig\",\"url\":\"https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/${{needs.change-version.outputs.version}}/pot_${{needs.change-version.outputs.version}}_x86-setup.nsis.zip.sig\"}"
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Mirror
+      uses: SvanBoxel/gitlab-mirror-and-ci-action@master
+      with:
+        args: "https://jihulab.com/pot-app/pot-desktop"
+      env:
+        FOLLOW_TAGS: "true"
+        FORCE_PUSH: "false"
+        GITLAB_HOSTNAME: "jihulab.com"
+        GITLAB_USERNAME: "pylogmon"
+        GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
+        GITLAB_PROJECT_ID: "153845"
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
   release-update:
-    needs: [change-version, sync-to-jihulab]
+    needs: [sync-to-jihulab]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -344,7 +328,7 @@ jobs:
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ needs.change-version.outputs.version }}
+          body: ${{env.VERSION}}
           tag_name: updater
           token: ${{ secrets.TOKEN }}
           files: update.json
@@ -354,10 +338,18 @@ jobs:
 
   homebrew:
     name: Update Homebrew cask
-    needs: [change-version, build-for-macos]
+    needs: build-for-macos
     runs-on: macos-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
       - name: Set up Git
@@ -371,20 +363,32 @@ jobs:
         run: |
           brew tap pot-app/homebrew-tap
           brew update
-          brew bump-cask-pr pot --version ${{ needs.change-version.outputs.version }} --no-browse
+          brew bump-cask-pr pot --version ${{ env.VERSION }} --no-browse
 
   winget:
     name: Update WinGet Package
-    needs: [change-version, build-for-windows]
+    needs: build-for-windows
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install git
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+      - name: Get Tag Name
+        run: |
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
       - name: Upload WinGet
         if: startsWith(github.ref, 'refs/tags')
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: Pylogmon.pot
-          version: ${{ needs.change-version.outputs.version }}
+          version: ${{env.VERSION}}
           installers-regex: '\.exe$'
           token: ${{ secrets.TOKEN }}
           fork-user: Pylogmon
