@@ -73,4 +73,7 @@ release:
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x64-setup.nsis.zip.sig\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.exe\",\"link_type\":\"package\"}" \
               --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip\"}" \
-              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\"}"
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_x86-setup.nsis.zip.sig\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_arm64-setup.exe\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_arm64-setup.exe\",\"link_type\":\"package\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_arm64-setup.nsis.zip\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_arm64-setup.nsis.zip\"}" \
+              --assets-link "{\"name\":\"pot_${PACKAGE_VERSION}_arm64-setup.nsis.zip.sig\",\"url\":\"${PACKAGE_REGISTRY_URL}/pot_${PACKAGE_VERSION}_arm64-setup.nsis.zip.sig\"}"
