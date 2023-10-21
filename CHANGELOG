@@ -1,10 +1,13 @@
-## 2.6.4 (2023-10-15)
+## 2.6.5 (2023-10-21)
 
 ### New feature:
 
--   Support Select Component for Plugin([`37eb8d9`](https://github.com/pot-app/pot-desktop/commit/37eb8d93c44f9cd42abf92eb92ac774187f7f78b)) (by @Pylogmon)
--   Support More App Language([`b2acd35`](https://github.com/pot-app/pot-desktop/commit/b2acd35b98c8416d32fdcebd7540623c9b03779c)) (by @Pylogmon)
+-   Add PluginList Button([`0d7b449`](https://github.com/pot-app/pot-desktop/commit/0d7b44918a996e5c7e8300831fda6fb68761d3c4)) (by @Pylogmon)
+-   Support Windows aarch64([`4bd009e`](https://github.com/pot-app/pot-desktop/commit/4bd009e6a81caad5d4861d81d5c4af623a84e3bc)) (by @Pylogmon)
+-   Support nb_NO and nn_NO([`d9c7bfe`](https://github.com/pot-app/pot-desktop/commit/d9c7bfe6a888b124a7204c5d4db4ebcccaa2d344)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Fix Styles([`e5789cd`](https://github.com/pot-app/pot-desktop/commit/e5789cd9abfdd798178f4a4a420327ff3c69a0c7)) (by @Pylogmon)
+-   Remove prefix and suffix spaces([`ef2bfaf`](https://github.com/pot-app/pot-desktop/commit/ef2bfaf3e76da38cb4917f76e2bb4c3924cf67e4)) (by @Pylogmon)
+-   Auto Close Window on Gnome([`0a24e85`](https://github.com/pot-app/pot-desktop/commit/0a24e85e134b573c160cb025fb66763863d2daff)) (by @Pylogmon)
+-   Remove Space of System OCR([`5c1bf0b`](https://github.com/pot-app/pot-desktop/commit/5c1bf0b29e5fcac86c46f25975cb9119af9a2672)) (by @Pylogmon)
