@@ -156,18 +156,15 @@ async function niutrans_detect(text) {
         mo: 'mn_mo',
         km: 'km',
     };
-    let res = await fetch(
-        'https://test.niutrans.com/NiuTransServer/language',
-        {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' },
-            query: {
-                src_text: text,
-                source: 'text',
-                time: new String(new Date().getTime()),
-            },
-        }
-    );
+    let res = await fetch('https://test.niutrans.com/NiuTransServer/language', {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+        query: {
+            src_text: text,
+            source: 'text',
+            time: new String(new Date().getTime()),
+        },
+    });
     if (res.ok) {
         const result = res.data;
         if (result['language'] && result['language'] in lang_map) {
@@ -198,17 +195,14 @@ async function yandex_detect(text) {
         hi: 'hi',
     };
 
-    let res = await fetch(
-        'https://translate.yandex.net/api/v1/tr.json/detect',
-        {
-            method: 'GET',
-            query: {
-                id: uuidv4().replaceAll('-', '') + '-0-0',
-                srv: 'android',
-                text: text
-            },
-        }
-    );
+    let res = await fetch('https://translate.yandex.net/api/v1/tr.json/detect', {
+        method: 'GET',
+        query: {
+            id: uuidv4().replaceAll('-', '') + '-0-0',
+            srv: 'android',
+            text: text,
+        },
+    });
     if (res.ok) {
         const result = res.data;
         if (result['lang'] && result['lang'] in lang_map) {
@@ -277,7 +271,7 @@ async function bing_detect(text) {
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42',
             },
             query: {
-                'api-version': '3.0'
+                'api-version': '3.0',
             },
             body: { type: 'Json', payload: [{ Text: text }] },
         });
@@ -297,7 +291,7 @@ async function local_detect(text) {
 }
 
 export default async function detect(text) {
-    let langDetectEngine = await store.get('translate_detect_engine') ?? 'baidu';
+    let langDetectEngine = (await store.get('translate_detect_engine')) ?? 'baidu';
 
     switch (langDetectEngine) {
         case 'baidu':

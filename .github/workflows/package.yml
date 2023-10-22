@@ -1,395 +1,401 @@
 name: Package
 on:
-  push:
-    branches: [ master ]
-    tags-ignore: [ updater ]
+    push:
+        branches: [master]
+        tags-ignore: [updater]
 
 jobs:
-  change-version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.outputstep.outputs.VERSION }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    change-version:
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.outputstep.outputs.VERSION }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
 
-      - name: Install git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-      - id: outputstep
-        run: |
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> "$GITHUB_OUTPUT"
-      - name: Change Version for Windows
-        run: |
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\",/g" package.json
+            - name: Install git
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y git
+            - id: outputstep
+              run: |
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> "$GITHUB_OUTPUT"
+            - name: Change Version for Windows
+              run: |
+                  sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\",/g" package.json
 
-          sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/tauri.conf.json
+                  sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/tauri.conf.json
 
-          sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/Cargo.toml
+                  sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/Cargo.toml
 
-          echo $(git describe --tags | sed 's/-[0-9]*-.*//g')
+                  echo $(git describe --tags | sed 's/-[0-9]*-.*//g')
 
-      - name: Upload Artifacts for Windows
-        uses: actions/upload-artifact@v3
-        with:
-          name: source
-          path: ./*
-          if-no-files-found: error
+            - name: Upload Artifacts for Windows
+              uses: actions/upload-artifact@v3
+              with:
+                  name: source
+                  path: ./*
+                  if-no-files-found: error
 
-  build-extension:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Build Popclipext
-        run: |
-          cd .scripts/popclip
-          bash ./build.sh
-          cd ../..
-      - name: Build SnipDo
-        run: |
-          cd .scripts/snipdo
-          bash ./build.sh
-          cd ../..
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Pot.popclipextz
-          path: .scripts/popclip/Pot.popclipextz
-          if-no-files-found: error
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pot.pbar
-          path: .scripts/snipdo/pot.pbar
-          if-no-files-found: error
-      - name: Upload Release
+    build-extension:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Build Popclipext
+              run: |
+                  cd .scripts/popclip
+                  bash ./build.sh
+                  cd ../..
+            - name: Build SnipDo
+              run: |
+                  cd .scripts/snipdo
+                  bash ./build.sh
+                  cd ../..
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: Pot.popclipextz
+                  path: .scripts/popclip/Pot.popclipextz
+                  if-no-files-found: error
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: pot.pbar
+                  path: .scripts/snipdo/pot.pbar
+                  if-no-files-found: error
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: .scripts/popclip/Pot.popclipextz
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: .scripts/snipdo/pot.pbar
+
+    build-for-macos:
+        needs: change-version
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [macos-latest]
+                target: [aarch64-apple-darwin, x86_64-apple-darwin]
+
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - uses: actions/download-artifact@v3
+              with:
+                  name: source
+            - name: Setup Nodejs
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 19
+            - name: Install Rust Stable
+              uses: dtolnay/rust-toolchain@stable
+            - name: install dependencies
+              run: |
+                  rustup target add ${{ matrix.target }}
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Install Dependencies
+              run: pnpm install
+            - name: Code Format
+              run: pnpm prettier --write .
+            - name: Build and Package
+              run: |
+                  export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+                  export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
+                  pnpm tauri build --target ${{ matrix.target }}
+                  sudo chmod +x src-tauri/resources/*
+                  chmod +x src-tauri/resources/*
+            - name: Change File Name
+              if: matrix.target == 'aarch64-apple-darwin'
+              run: |
+                  sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz
+                  sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz.sig
+            - name: Change File Name
+              if: matrix.target == 'x86_64-apple-darwin'
+              run: |
+                  sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz
+                  sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz.sig
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: macos_${{ matrix.target }}_dmg
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+                  if-no-files-found: error
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: macos_${{ matrix.target }}_updater
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
+                  if-no-files-found: error
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
+
+    build-for-windows:
+        needs: change-version
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [windows-latest]
+                target: [x86_64-pc-windows-msvc, i686-pc-windows-msvc, aarch64-pc-windows-msvc]
+                include:
+                    - os: windows-latest
+                      target: x86_64-pc-windows-msvc
+                      toolchain: stable-x86_64-pc-windows-msvc
+                    - os: windows-latest
+                      target: i686-pc-windows-msvc
+                      toolchain: stable-i686-pc-windows-msvc
+                    - os: windows-latest
+                      target: aarch64-pc-windows-msvc
+                      toolchain: stable-aarch64-pc-windows-msvc
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - uses: actions/download-artifact@v3
+              with:
+                  name: source
+            - name: Setup Nodejs
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 19
+            - name: Install Rust Stable
+              uses: dtolnay/rust-toolchain@stable
+            - name: install dependencies
+              run: |
+                  rustup target add ${{ matrix.target }}
+                  rustup toolchain install --force-non-host ${{ matrix.toolchain }}
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Install Dependencies
+              run: pnpm install
+            - name: Code Format
+              run: pnpm prettier --write .
+            - name: Build and Package
+              run: |
+                  $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+                  $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
+                  pnpm tauri build -b nsis,updater --target ${{ matrix.target }}
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: windows_${{ matrix.target }}
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+                  if-no-files-found: error
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+
+    build-for-linux:
+        needs: change-version
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [ubuntu-latest]
+                target:
+                    [
+                        x86_64-unknown-linux-gnu,
+                        i686-unknown-linux-gnu,
+                        aarch64-unknown-linux-gnu,
+                        armv7-unknown-linux-gnueabihf,
+                    ]
+                include:
+                    - os: ubuntu-latest
+                      target: x86_64-unknown-linux-gnu
+                      toolchain: stable-x86_64-unknown-linux-gnu
+                    - os: ubuntu-latest
+                      target: i686-unknown-linux-gnu
+                      toolchain: stable-i686-unknown-linux-gnu
+                    - os: ubuntu-latest
+                      target: aarch64-unknown-linux-gnu
+                      toolchain: stable-aarch64-unknown-linux-gnu
+                    - os: ubuntu-latest
+                      target: armv7-unknown-linux-gnueabihf
+                      toolchain: stable-armv7-unknown-linux-gnueabihf
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - uses: actions/download-artifact@v3
+              with:
+                  name: source
+            - name: Build for Linux
+              uses: ./.github/actions/build-for-linux
+              env:
+                  TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+                  TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+              with:
+                  target: ${{ matrix.target }}
+                  toolchain: ${{ matrix.toolchain }}
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: linux_${{ matrix.target }}_deb
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+                  if-no-files-found: error
+            - name: Upload Artifacts
+              if: matrix.target == 'x86_64-unknown-linux-gnu'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: linux_${{ matrix.target }}_appimage
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
+                  if-no-files-found: error
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags') && matrix.target == 'x86_64-unknown-linux-gnu'
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
+
+    sync-to-jihulab:
+        needs: [build-for-macos, build-for-windows, build-for-linux]
+        runs-on: ubuntu-latest
         if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: .scripts/popclip/Pot.popclipextz
-      - name: Upload Release
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Mirror
+              uses: SvanBoxel/gitlab-mirror-and-ci-action@master
+              with:
+                  args: 'https://jihulab.com/pot-app/pot-desktop'
+              env:
+                  FOLLOW_TAGS: 'true'
+                  FORCE_PUSH: 'false'
+                  GITLAB_HOSTNAME: 'jihulab.com'
+                  GITLAB_USERNAME: 'pylogmon'
+                  GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
+                  GITLAB_PROJECT_ID: '153845'
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+    release-update:
+        needs: [sync-to-jihulab]
+        runs-on: ubuntu-latest
         if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: .scripts/snipdo/pot.pbar
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Install git
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y git curl
+            - name: Get Tag Name
+              run: |
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: pnpm install
+              run: pnpm install
+            - name: Release updater file
+              run: pnpm run updater
+              env:
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+            - name: Upload Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  body: ${{env.VERSION}}
+                  tag_name: updater
+                  token: ${{ secrets.TOKEN }}
+                  files: update.json
+            - name: Upload Jihulab Release
+              run: |
+                  curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update.json"
 
-  build-for-macos:
-    needs: change-version
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-latest]
-        target: [aarch64-apple-darwin, x86_64-apple-darwin]
-
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: source
-      - name: Setup Nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 19
-      - name: Install Rust Stable
-        uses: dtolnay/rust-toolchain@stable
-      - name: install dependencies
-        run: |
-          rustup target add ${{ matrix.target }}
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Code Format
-        run: pnpm prettier --write .
-      - name: Build and Package
-        run: |
-          export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
-          export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
-          pnpm tauri build --target ${{ matrix.target }}
-          sudo chmod +x src-tauri/resources/*
-          chmod +x src-tauri/resources/*
-      - name: Change File Name
-        if: matrix.target == 'aarch64-apple-darwin'
-        run: |
-          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz
-          sudo mv src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/aarch64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_aarch64.app.tar.gz.sig
-      - name: Change File Name
-        if: matrix.target == 'x86_64-apple-darwin'
-        run: |
-          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz
-          sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz.sig
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: macos_${{ matrix.target }}_dmg
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
-          if-no-files-found: error
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: macos_${{ matrix.target }}_updater
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
-          if-no-files-found: error
-      - name: Upload Release
+    homebrew:
+        name: Update Homebrew cask
+        needs: build-for-macos
+        runs-on: macos-latest
         if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
-      - name: Upload Release
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Get Tag Name
+              run: |
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
+            - name: Set up Homebrew
+              uses: Homebrew/actions/setup-homebrew@master
+            - name: Set up Git
+              run: |
+                  # sudo apt-get install git -y
+                  git config --global user.email support@pot-app.com
+                  git config --global user.name pot-app
+            - name: Update Homebrew cask
+              env:
+                  HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
+              run: |
+                  brew tap pot-app/homebrew-tap
+                  brew update
+                  brew bump-cask-pr pot --version ${{ env.VERSION }} --no-browse
+
+    winget:
+        name: Update WinGet Package
+        needs: build-for-windows
+        runs-on: ubuntu-latest
         if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
-
-  build-for-windows:
-    needs: change-version
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [windows-latest]
-        target: [x86_64-pc-windows-msvc, i686-pc-windows-msvc, aarch64-pc-windows-msvc]
-        include:
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            toolchain: stable-x86_64-pc-windows-msvc
-          - os: windows-latest
-            target: i686-pc-windows-msvc
-            toolchain: stable-i686-pc-windows-msvc
-          - os: windows-latest
-            target: aarch64-pc-windows-msvc
-            toolchain: stable-aarch64-pc-windows-msvc
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: source
-      - name: Setup Nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 19
-      - name: Install Rust Stable
-        uses: dtolnay/rust-toolchain@stable
-      - name: install dependencies
-        run: |
-          rustup target add ${{ matrix.target }}
-          rustup toolchain install --force-non-host ${{ matrix.toolchain }}
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Code Format
-        run: pnpm prettier --write .
-      - name: Build and Package
-        run: |
-          $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
-          $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
-          pnpm tauri build -b nsis,updater --target ${{ matrix.target }}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows_${{ matrix.target }}
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
-          if-no-files-found: error
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
-
-  build-for-linux:
-    needs: change-version
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [ubuntu-latest]
-        target: [x86_64-unknown-linux-gnu, i686-unknown-linux-gnu,aarch64-unknown-linux-gnu, armv7-unknown-linux-gnueabihf]
-        include:
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            toolchain: stable-x86_64-unknown-linux-gnu
-          - os: ubuntu-latest
-            target: i686-unknown-linux-gnu
-            toolchain: stable-i686-unknown-linux-gnu
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            toolchain: stable-aarch64-unknown-linux-gnu
-          - os: ubuntu-latest
-            target: armv7-unknown-linux-gnueabihf
-            toolchain: stable-armv7-unknown-linux-gnueabihf
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: source
-      - name: Build for Linux
-        uses: ./.github/actions/build-for-linux
-        env:
-          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
-        with:
-          target: ${{ matrix.target }}
-          toolchain: ${{ matrix.toolchain }}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux_${{ matrix.target }}_deb
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
-          if-no-files-found: error
-      - name: Upload Artifacts
-        if: matrix.target == 'x86_64-unknown-linux-gnu'
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux_${{ matrix.target }}_appimage
-          path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
-          if-no-files-found: error
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags') && matrix.target == 'x86_64-unknown-linux-gnu'
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
-      - name: Upload Release
-        if: startsWith(github.ref, 'refs/tags')
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: CHANGELOG
-          token: ${{ secrets.TOKEN }}
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
-
-  sync-to-jihulab:
-    needs: [build-for-macos, build-for-windows, build-for-linux]
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags')
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Mirror
-      uses: SvanBoxel/gitlab-mirror-and-ci-action@master
-      with:
-        args: "https://jihulab.com/pot-app/pot-desktop"
-      env:
-        FOLLOW_TAGS: "true"
-        FORCE_PUSH: "false"
-        GITLAB_HOSTNAME: "jihulab.com"
-        GITLAB_USERNAME: "pylogmon"
-        GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
-        GITLAB_PROJECT_ID: "153845"
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-  release-update:
-    needs: [sync-to-jihulab]
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags')
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git curl
-      - name: Get Tag Name
-        run: |
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: pnpm install
-        run: pnpm install
-      - name: Release updater file
-        run: pnpm run updater
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body: ${{env.VERSION}}
-          tag_name: updater
-          token: ${{ secrets.TOKEN }}
-          files: update.json
-      - name: Upload Jihulab Release
-        run: |
-          curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update.json"
-
-  homebrew:
-    name: Update Homebrew cask
-    needs: build-for-macos
-    runs-on: macos-latest
-    if: startsWith(github.ref, 'refs/tags')
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Get Tag Name
-        run: |
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-      - name: Set up Git
-        run: |
-          # sudo apt-get install git -y
-          git config --global user.email support@pot-app.com
-          git config --global user.name pot-app
-      - name: Update Homebrew cask
-        env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          brew tap pot-app/homebrew-tap
-          brew update
-          brew bump-cask-pr pot --version ${{ env.VERSION }} --no-browse
-
-  winget:
-    name: Update WinGet Package
-    needs: build-for-windows
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags')
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-      - name: Get Tag Name
-        run: |
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
-          echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
-      - name: Upload WinGet
-        if: startsWith(github.ref, 'refs/tags')
-        uses: vedantmgoyal2009/winget-releaser@v2
-        with:
-          identifier: Pylogmon.pot
-          version: ${{env.VERSION}}
-          installers-regex: '\.exe$'
-          token: ${{ secrets.TOKEN }}
-          fork-user: Pylogmon
-        continue-on-error: true
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Install git
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y git
+            - name: Get Tag Name
+              run: |
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
+            - name: Upload WinGet
+              if: startsWith(github.ref, 'refs/tags')
+              uses: vedantmgoyal2009/winget-releaser@v2
+              with:
+                  identifier: Pylogmon.pot
+                  version: ${{env.VERSION}}
+                  installers-regex: '\.exe$'
+                  token: ${{ secrets.TOKEN }}
+                  fork-user: Pylogmon
+              continue-on-error: true

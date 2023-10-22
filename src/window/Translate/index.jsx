@@ -26,13 +26,13 @@ const listenBlur = () => {
             if (blurTimeout) {
                 clearTimeout(blurTimeout);
             }
-            info("Blur");
+            info('Blur');
             // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
             // 如果直接关闭将导致窗口无法拖动
             blurTimeout = setTimeout(async () => {
-                info("Confirm Blur");
+                info('Confirm Blur');
                 await appWindow.close();
-            }, 500);
+            }, 50);
         }
     });
 };
@@ -47,17 +47,17 @@ const unlistenBlur = () => {
 
 // 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
 void listen('tauri://focus', () => {
-    info("Focus");
+    info('Focus');
     if (blurTimeout) {
-        info("Cancel Close");
+        info('Cancel Close');
         clearTimeout(blurTimeout);
     }
 });
 // 监听 move 事件取消 blurTimeout 时间之内的关闭窗口
 void listen('tauri://move', () => {
-    info("Move");
+    info('Move');
     if (blurTimeout) {
-        info("Cancel Close");
+        info('Cancel Close');
         clearTimeout(blurTimeout);
     }
 });

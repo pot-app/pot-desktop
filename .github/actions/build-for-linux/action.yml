@@ -1,17 +1,17 @@
 name: 'Build for Linux'
 branding:
-  icon: user-check
-  color: gray-dark
+    icon: user-check
+    color: gray-dark
 inputs:
-  target:
-    required: true
-    description: 'Rust Target'
-  toolchain:
-    required: true
-    description: 'Rust Toolchain'
+    target:
+        required: true
+        description: 'Rust Target'
+    toolchain:
+        required: true
+        description: 'Rust Toolchain'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.target }}
-    - ${{ inputs.toolchain }}
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.target }}
+        - ${{ inputs.toolchain }}

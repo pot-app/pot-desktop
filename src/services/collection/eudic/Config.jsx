@@ -45,7 +45,7 @@ export function Config(props) {
                             classNames={{
                                 base: 'justify-between',
                                 label: 'text-[length:--nextui-font-size-medium]',
-                                mainWrapper: 'max-w-[50%]'
+                                mainWrapper: 'max-w-[50%]',
                             }}
                             onValueChange={(value) => {
                                 setConfig({
@@ -64,7 +64,7 @@ export function Config(props) {
                             classNames={{
                                 base: 'justify-between',
                                 label: 'text-[length:--nextui-font-size-medium]',
-                                mainWrapper: 'max-w-[50%]'
+                                mainWrapper: 'max-w-[50%]',
                             }}
                             onValueChange={(value) => {
                                 setConfig({

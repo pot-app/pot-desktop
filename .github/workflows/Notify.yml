@@ -1,266 +1,266 @@
 name: Notify
 on:
-  issues:
-    types: opened
-  issue_comment:
-    types: created
-  pull_request_target:
-    types: opened
-  discussion:
-    types: created
-  discussion_comment:
-    types: created
+    issues:
+        types: opened
+    issue_comment:
+        types: created
+    pull_request_target:
+        types: opened
+    discussion:
+        types: created
+    discussion_comment:
+        types: created
 
 jobs:
-  tg-notify:
-    name: Notify
-    runs-on: ubuntu-latest
-    steps:
-      # issue_comment
-      - uses: colutius/Telegram-Msg@main
-        if: github.event_name == 'issue_comment'
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chatid: ${{ secrets.TELEGRAM_CHATID }}
-          button: true
-          message: |
-            📣 New ${{github.event_name}} in pot-desktop
+    tg-notify:
+        name: Notify
+        runs-on: ubuntu-latest
+        steps:
+            # issue_comment
+            - uses: colutius/Telegram-Msg@main
+              if: github.event_name == 'issue_comment'
+              with:
+                  token: ${{ secrets.TELEGRAM_TOKEN }}
+                  chatid: ${{ secrets.TELEGRAM_CHATID }}
+                  button: true
+                  message: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.issue.title }}
+                      💡Title: ${{ github.event.issue.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.comment.body }}
-          button_name: 👀前往查看👀
-          button_url: ${{ github.event.comment.html_url }}
-      # discussion_comment
-      - uses: colutius/Telegram-Msg@main
-        if: github.event_name == 'discussion_comment'
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chatid: ${{ secrets.TELEGRAM_CHATID }}
-          button: true
-          message: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ github.event.comment.body }}
+                  button_name: 👀前往查看👀
+                  button_url: ${{ github.event.comment.html_url }}
+            # discussion_comment
+            - uses: colutius/Telegram-Msg@main
+              if: github.event_name == 'discussion_comment'
+              with:
+                  token: ${{ secrets.TELEGRAM_TOKEN }}
+                  chatid: ${{ secrets.TELEGRAM_CHATID }}
+                  button: true
+                  message: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.discussion.title }}
+                      💡Title: ${{ github.event.discussion.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.comment.body }}
-          button_name: 👀前往查看👀
-          button_url: ${{ github.event.comment.html_url }}
-      # issues
-      - uses: colutius/Telegram-Msg@main
-        if: github.event_name == 'issues'
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chatid: ${{ secrets.TELEGRAM_CHATID }}
-          button: true
-          message: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ github.event.comment.body }}
+                  button_name: 👀前往查看👀
+                  button_url: ${{ github.event.comment.html_url }}
+            # issues
+            - uses: colutius/Telegram-Msg@main
+              if: github.event_name == 'issues'
+              with:
+                  token: ${{ secrets.TELEGRAM_TOKEN }}
+                  chatid: ${{ secrets.TELEGRAM_CHATID }}
+                  button: true
+                  message: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.issue.title }}
+                      💡Title: ${{ github.event.issue.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.issue.body }}
-          button_name: 👀前往查看👀
-          button_url: ${{ github.event.issue.html_url }}
-      # discussion
-      - uses: colutius/Telegram-Msg@main
-        if: github.event_name == 'discussion'
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chatid: ${{ secrets.TELEGRAM_CHATID }}
-          button: true
-          message: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ github.event.issue.body }}
+                  button_name: 👀前往查看👀
+                  button_url: ${{ github.event.issue.html_url }}
+            # discussion
+            - uses: colutius/Telegram-Msg@main
+              if: github.event_name == 'discussion'
+              with:
+                  token: ${{ secrets.TELEGRAM_TOKEN }}
+                  chatid: ${{ secrets.TELEGRAM_CHATID }}
+                  button: true
+                  message: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.discussion.title }}
+                      💡Title: ${{ github.event.discussion.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.discussion.body }}
-          button_name: 👀前往查看👀
-          button_url: ${{ github.event.discussion.html_url }}
-      # pull_request
-      - uses: colutius/Telegram-Msg@main
-        if: github.event_name == 'pull_request_target'
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chatid: ${{ secrets.TELEGRAM_CHATID }}
-          button: true
-          message: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ github.event.discussion.body }}
+                  button_name: 👀前往查看👀
+                  button_url: ${{ github.event.discussion.html_url }}
+            # pull_request
+            - uses: colutius/Telegram-Msg@main
+              if: github.event_name == 'pull_request_target'
+              with:
+                  token: ${{ secrets.TELEGRAM_TOKEN }}
+                  chatid: ${{ secrets.TELEGRAM_CHATID }}
+                  button: true
+                  message: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.pull_request.title }}
+                      💡Title: ${{ github.event.pull_request.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ github.event.pull_request.body }}
-          button_name: 👀前往查看👀
-          button_url: ${{ github.event.pull_request.html_url }}
-  qq-notify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - run: pip install qq-botpy
-      - name: Get Body
-        if: endsWith(github.event_name,'comment')
-        run: |
-          input_string="${{ github.event.comment.body }}"
-          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
-          modified_input_string="$input_string"
+                      ${{ github.event.pull_request.body }}
+                  button_name: 👀前往查看👀
+                  button_url: ${{ github.event.pull_request.html_url }}
+    qq-notify:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.11'
+            - run: pip install qq-botpy
+            - name: Get Body
+              if: endsWith(github.event_name,'comment')
+              run: |
+                  input_string="${{ github.event.comment.body }}"
+                  url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+                  modified_input_string="$input_string"
 
-          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
-            url_without_https=${url#https:} # Remove https:
-            url_without_http=${url_without_https#http:} # Remove http:
-            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+                  for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+                    url_without_https=${url#https:} # Remove https:
+                    url_without_http=${url_without_https#http:} # Remove http:
+                    url_with_dots_replaced=${url_without_https//./_} # Replace . with _
 
-            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
-          done
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $modified_input_string >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Get Body
-        if: github.event_name == 'issues'
-        run: |
-          input_string="${{ github.event.issue.body }}"
-          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
-          modified_input_string="$input_string"
+                    modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+                  done
+                  echo "BODY<<EOF" >> $GITHUB_ENV
+                  echo $modified_input_string >> $GITHUB_ENV
+                  echo "EOF" >> $GITHUB_ENV
+            - name: Get Body
+              if: github.event_name == 'issues'
+              run: |
+                  input_string="${{ github.event.issue.body }}"
+                  url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+                  modified_input_string="$input_string"
 
-          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
-            url_without_https=${url#https:} # Remove https:
-            url_without_http=${url_without_https#http:} # Remove http:
-            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+                  for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+                    url_without_https=${url#https:} # Remove https:
+                    url_without_http=${url_without_https#http:} # Remove http:
+                    url_with_dots_replaced=${url_without_https//./_} # Replace . with _
 
-            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
-          done
+                    modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+                  done
 
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $modified_input_string >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Get Body
-        if: github.event_name == 'discussion'
-        run: |
-          input_string="${{ github.event.discussion.body }}"
-          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
-          modified_input_string="$input_string"
+                  echo "BODY<<EOF" >> $GITHUB_ENV
+                  echo $modified_input_string >> $GITHUB_ENV
+                  echo "EOF" >> $GITHUB_ENV
+            - name: Get Body
+              if: github.event_name == 'discussion'
+              run: |
+                  input_string="${{ github.event.discussion.body }}"
+                  url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+                  modified_input_string="$input_string"
 
-          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
-            url_without_https=${url#https:} # Remove https:
-            url_without_http=${url_without_https#http:} # Remove http:
-            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+                  for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+                    url_without_https=${url#https:} # Remove https:
+                    url_without_http=${url_without_https#http:} # Remove http:
+                    url_with_dots_replaced=${url_without_https//./_} # Replace . with _
 
-            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
-          done
+                    modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+                  done
 
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $modified_input_string >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Get Body
-        if: github.event_name == 'pull_request_target'
-        run: |
-          input_string="${{ github.event.pull_request.body }}"
-          url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
-          modified_input_string="$input_string"
+                  echo "BODY<<EOF" >> $GITHUB_ENV
+                  echo $modified_input_string >> $GITHUB_ENV
+                  echo "EOF" >> $GITHUB_ENV
+            - name: Get Body
+              if: github.event_name == 'pull_request_target'
+              run: |
+                  input_string="${{ github.event.pull_request.body }}"
+                  url_pattern="https?://[^\s]*|[^\s]*\.[^\s]*"
+                  modified_input_string="$input_string"
 
-          for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
-            url_without_https=${url#https:} # Remove https:
-            url_without_http=${url_without_https#http:} # Remove http:
-            url_with_dots_replaced=${url_without_https//./_} # Replace . with _
+                  for url in $(echo "$input_string" | grep -oE "$url_pattern"); do
+                    url_without_https=${url#https:} # Remove https:
+                    url_without_http=${url_without_https#http:} # Remove http:
+                    url_with_dots_replaced=${url_without_https//./_} # Replace . with _
 
-            modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
-          done
+                    modified_input_string=${modified_input_string//$url/$url_with_dots_replaced}
+                  done
 
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          echo $modified_input_string >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      # issue_comment
-      - name: send issue_comment message
-        if: github.event_name == 'issue_comment'
-        run: python3 .github/actions/qq_notify/qq_notify.py
-        env:
-          APPID: ${{ secrets.QQ_BOT_APPID }}
-          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            📣 New ${{github.event_name}} in pot-desktop
+                  echo "BODY<<EOF" >> $GITHUB_ENV
+                  echo $modified_input_string >> $GITHUB_ENV
+                  echo "EOF" >> $GITHUB_ENV
+            # issue_comment
+            - name: send issue_comment message
+              if: github.event_name == 'issue_comment'
+              run: python3 .github/actions/qq_notify/qq_notify.py
+              env:
+                  APPID: ${{ secrets.QQ_BOT_APPID }}
+                  TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+                  CHANNELID: ${{ secrets.QQ_CHANNELID }}
+                  MESSAGE: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.issue.title }}
+                      💡Title: ${{ github.event.issue.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ env.BODY }}
-      # discussion_comment
-      - name: send discussion_comment message
-        if: github.event_name == 'discussion_comment'
-        run: python3 .github/actions/qq_notify/qq_notify.py
-        env:
-          APPID: ${{ secrets.QQ_BOT_APPID }}
-          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ env.BODY }}
+            # discussion_comment
+            - name: send discussion_comment message
+              if: github.event_name == 'discussion_comment'
+              run: python3 .github/actions/qq_notify/qq_notify.py
+              env:
+                  APPID: ${{ secrets.QQ_BOT_APPID }}
+                  TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+                  CHANNELID: ${{ secrets.QQ_CHANNELID }}
+                  MESSAGE: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.discussion.title }}
+                      💡Title: ${{ github.event.discussion.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ env.BODY }}
-      # issues
-      - name: send issue message
-        if: github.event_name == 'issues'
-        run: python3 .github/actions/qq_notify/qq_notify.py
-        env:
-          APPID: ${{ secrets.QQ_BOT_APPID }}
-          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ env.BODY }}
+            # issues
+            - name: send issue message
+              if: github.event_name == 'issues'
+              run: python3 .github/actions/qq_notify/qq_notify.py
+              env:
+                  APPID: ${{ secrets.QQ_BOT_APPID }}
+                  TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+                  CHANNELID: ${{ secrets.QQ_CHANNELID }}
+                  MESSAGE: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.issue.title }}
+                      💡Title: ${{ github.event.issue.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ env.BODY }}
-      # discussion
-      - name: send discussion message
-        if: github.event_name == 'discussion'
-        run: python3 .github/actions/qq_notify/qq_notify.py
-        env:
-          APPID: ${{ secrets.QQ_BOT_APPID }}
-          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ env.BODY }}
+            # discussion
+            - name: send discussion message
+              if: github.event_name == 'discussion'
+              run: python3 .github/actions/qq_notify/qq_notify.py
+              env:
+                  APPID: ${{ secrets.QQ_BOT_APPID }}
+                  TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+                  CHANNELID: ${{ secrets.QQ_CHANNELID }}
+                  MESSAGE: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.discussion.title }}
+                      💡Title: ${{ github.event.discussion.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ env.BODY }}
-      # pull_request
-      - name: send pull_request_target message
-        if: github.event_name == 'pull_request_target'
-        run: python3 .github/actions/qq_notify/qq_notify.py
-        env:
-          APPID: ${{ secrets.QQ_BOT_APPID }}
-          TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
-          CHANNELID: ${{ secrets.QQ_CHANNELID }}
-          MESSAGE: |
-            📣 New ${{github.event_name}} in pot-desktop
+                      ${{ env.BODY }}
+            # pull_request
+            - name: send pull_request_target message
+              if: github.event_name == 'pull_request_target'
+              run: python3 .github/actions/qq_notify/qq_notify.py
+              env:
+                  APPID: ${{ secrets.QQ_BOT_APPID }}
+                  TOKEN: ${{ secrets.QQ_BOT_TOKEN }}
+                  CHANNELID: ${{ secrets.QQ_CHANNELID }}
+                  MESSAGE: |
+                      📣 New ${{github.event_name}} in pot-desktop
 
-            💡Title: ${{ github.event.pull_request.title }}
+                      💡Title: ${{ github.event.pull_request.title }}
 
-            👤User: ${{ github.event.sender.login }}
+                      👤User: ${{ github.event.sender.login }}
 
-            ${{ env.BODY }}
+                      ${{ env.BODY }}

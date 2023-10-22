@@ -18,18 +18,18 @@ export async function collection(source, target, options = {}) {
         return res.data;
     }
 
-    function ankiText(target){
-        let result = "";
-        if (typeof target === "object") {
+    function ankiText(target) {
+        let result = '';
+        if (typeof target === 'object') {
             for (let explanation of target.explanations) {
-                result += explanation.trait + ". ";
-                let index=0;
+                result += explanation.trait + '. ';
+                let index = 0;
                 for (let explain of explanation.explains) {
                     index++;
                     if (index !== explanation.explains.length) {
-                        result += explain + "; "
+                        result += explain + '; ';
                     } else {
-                        result += explain + "<br>"
+                        result += explain + '<br>';
                     }
                 }
             }

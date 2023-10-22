@@ -1,26 +1,26 @@
 name: Code Review
 
 permissions:
-  contents: read
-  pull-requests: write
+    contents: read
+    pull-requests: write
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+    pull_request:
+        types: [opened, reopened, synchronize]
 
 jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: anc95/ChatGPT-CodeReview@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # Optional
-          LANGUAGE: Chinese
-          OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
-          MODEL: gpt-3.5-turbo-16k
-          top_p: 1
-          temperature: 1
-          max_tokens: 10000
-          MAX_PATCH_LENGTH: 10000
+    review:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: anc95/ChatGPT-CodeReview@main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+                  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+                  # Optional
+                  LANGUAGE: Chinese
+                  OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
+                  MODEL: gpt-3.5-turbo-16k
+                  top_p: 1
+                  temperature: 1
+                  max_tokens: 10000
+                  MAX_PATCH_LENGTH: 10000

@@ -1,59 +1,59 @@
 name: 🐞 Bug Report
 description: Report a bug
-title: "[BUG]: title"
-labels: ["type: bug"]
+title: '[BUG]: title'
+labels: ['type: bug']
 body:
-- type: markdown
-  attributes:
-    value: |
-      # ⬆️ Please give a concise and clear title ⬆️
-      ## Thank you for your feedback, pot has become better because of it!
-      ### Please confirm the following before submitting a new issue.
-      - I have carefully reviewed the official website's usage documentation.
-      - I have searched through the historical issues but could not find an answer.
-- type: textarea
-  attributes:
-    label: Description
-    description: Simply describe the problem.
-  validations:
-    required: true
-- type: textarea
-  attributes:
-    label: Reproduction
-    description: Steps to reproduce the behaviour.
-  validations:
-    required: true
-- type: dropdown
-  attributes:
-    label: Platform
-    options:
-      - Windows
-      - Linux
-      - MacOS
-  validations:
-    required: true
-- type: input
-  attributes:
-    label: System Version
-    placeholder: 'Eg: Windows 11 Home Edition 22621.1702'
-  validations:
-    required: true
-- type: dropdown
-  attributes:
-    label: Window System (Linux Only)
-    options:
-      - X11
-      - Wayland
-- type: input
-  attributes:
-    label: Software Version
-    placeholder: 'Eg: 2.0.0'
-  validations:
-    required: true
-- type: textarea
-  attributes:
-    label: Log File
-    description: 'pot.log file content'
-- type: textarea
-  attributes:
-    label: Additional Information
+    - type: markdown
+      attributes:
+          value: |
+              # ⬆️ Please give a concise and clear title ⬆️
+              ## Thank you for your feedback, pot has become better because of it!
+              ### Please confirm the following before submitting a new issue.
+              - I have carefully reviewed the official website's usage documentation.
+              - I have searched through the historical issues but could not find an answer.
+    - type: textarea
+      attributes:
+          label: Description
+          description: Simply describe the problem.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Reproduction
+          description: Steps to reproduce the behaviour.
+      validations:
+          required: true
+    - type: dropdown
+      attributes:
+          label: Platform
+          options:
+              - Windows
+              - Linux
+              - MacOS
+      validations:
+          required: true
+    - type: input
+      attributes:
+          label: System Version
+          placeholder: 'Eg: Windows 11 Home Edition 22621.1702'
+      validations:
+          required: true
+    - type: dropdown
+      attributes:
+          label: Window System (Linux Only)
+          options:
+              - X11
+              - Wayland
+    - type: input
+      attributes:
+          label: Software Version
+          placeholder: 'Eg: 2.0.0'
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Log File
+          description: 'pot.log file content'
+    - type: textarea
+      attributes:
+          label: Additional Information
