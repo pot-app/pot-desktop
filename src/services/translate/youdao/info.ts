@@ -2,7 +2,7 @@ export const info = {
     name: 'youdao',
     icon: 'logo/youdao.svg',
 };
-
+// https://ai.youdao.com/DOCSIRMA/html/trans/api/wbfy/index.html
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh-CHS',
@@ -27,4 +27,7 @@ export enum Language {
     hi = 'hi',
     mn_mo = 'mn',
     km = 'km',
+    nb_no = 'no',
+    nn_no = 'no',
+    fa = 'fa',
 }

@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api';
 import { store } from './store';
 import { v4 as uuidv4 } from 'uuid';
 
+// https://fanyi-api.baidu.com/product/113
 async function baidu_detect(text) {
     const lang_map = {
         zh: 'zh_cn',
@@ -23,6 +24,9 @@ async function baidu_detect(text) {
         may: 'ms',
         ar: 'ar',
         hi: 'hi',
+        nob: 'nb_no',
+        nno: 'nn_no',
+        per: 'fa',
     };
     let res = await fetch('https://fanyi.baidu.com/langdetect', {
         method: 'POST',
@@ -41,8 +45,10 @@ async function baidu_detect(text) {
     }
     return 'en';
 }
-
+// 腾讯只支持这么多语言
+// https://cloud.tencent.com/document/product/551/15619
 async function tencent_detect(text) {
+
     const lang_map = {
         zh: 'zh_cn',
         en: 'en',
@@ -79,7 +85,7 @@ async function tencent_detect(text) {
     }
     return 'en';
 }
-
+// https://cloud.google.com/translate/docs/languages?hl=zh-cn
 async function google_detect(text) {
     const lang_map = {
         'zh-CN': 'zh_cn',
@@ -102,6 +108,8 @@ async function google_detect(text) {
         hi: 'hi',
         mn: 'mn_cy',
         km: 'km',
+        fa: 'fa',
+        no: 'nb_no',
     };
     let res = await fetch(
         `https://translate.google.com/translate_a/single?dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t`,
@@ -131,7 +139,7 @@ async function google_detect(text) {
     }
     return 'en';
 }
-
+// https://niutrans.com/documents/contents/trans_text#languageList
 async function niutrans_detect(text) {
     const lang_map = {
         zh: 'zh_cn',
@@ -155,6 +163,9 @@ async function niutrans_detect(text) {
         mn: 'mn_cy',
         mo: 'mn_mo',
         km: 'km',
+        nb: 'nb_no',
+        nn: 'nn_no',
+        fa: 'fa',
     };
     let res = await fetch('https://test.niutrans.com/NiuTransServer/language', {
         method: 'GET',
@@ -173,7 +184,7 @@ async function niutrans_detect(text) {
     }
     return 'en';
 }
-
+// https://yandex.com/dev/translate/doc/en/concepts/api-overview
 async function yandex_detect(text) {
     const lang_map = {
         zh: 'zh_cn',
@@ -193,6 +204,8 @@ async function yandex_detect(text) {
         ms: 'ms',
         ar: 'ar',
         hi: 'hi',
+        no: 'nb_no',
+        fa: 'fa',
     };
 
     let res = await fetch('https://translate.yandex.net/api/v1/tr.json/detect', {
@@ -211,7 +224,7 @@ async function yandex_detect(text) {
     }
     return 'en';
 }
-
+// https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support
 async function bing_detect(text) {
     const lang_map = {
         'zh-Hans': 'zh_cn',
@@ -236,6 +249,8 @@ async function bing_detect(text) {
         'mn-Cyrl': 'mn_cy',
         'mn-Mong': 'mn_mo',
         km: 'km',
+        nb: 'nb_no',
+        fa: 'fa',
     };
     const token_url = 'https://edge.microsoft.com/translate/auth';
 

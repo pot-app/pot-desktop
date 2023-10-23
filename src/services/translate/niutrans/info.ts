@@ -2,7 +2,7 @@ export const info = {
     name: 'niutrans',
     icon: 'logo/niutrans.svg',
 };
-
+// https://niutrans.com/documents/contents/trans_text#languageList
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh',
@@ -28,4 +28,7 @@ export enum Language {
     mn_cy = 'mn',
     mn_mo = 'mo',
     km = 'km',
+    nb_no = 'nb',
+    nn_no = 'nn',
+    fa = 'fa',
 }

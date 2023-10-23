@@ -2,7 +2,7 @@ export const info = {
     name: 'baidu_field',
     icon: 'logo/baidu.svg',
 };
-
+// https://fanyi-api.baidu.com/product/113
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh',
@@ -26,4 +26,7 @@ export enum Language {
     ar = 'ar',
     hi = 'hi',
     km = 'hkm',
+    nb_no = 'nob',
+    nn_no = 'nno',
+    fa = 'per',
 }

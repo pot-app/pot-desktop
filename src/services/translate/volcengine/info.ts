@@ -2,7 +2,7 @@ export const info = {
     name: 'volcengine',
     icon: 'logo/volcengine.svg',
 };
-
+// https://www.volcengine.com/docs/4640/35107
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh',
@@ -25,4 +25,7 @@ export enum Language {
     ar = 'ar',
     hi = 'hi',
     mn_cy = 'mn',
+    nb_no = 'nb',
+    nn_no = 'no',
+    fa = 'fa',
 }

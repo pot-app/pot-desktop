@@ -2,7 +2,7 @@ export const info = {
     name: 'alibaba',
     icon: 'logo/alibaba.svg',
 };
-
+// https://help.aliyun.com/document_detail/215387.html?spm=a2c4g.158269.0.0.ddfc4f62vEpa38
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh',
@@ -27,4 +27,7 @@ export enum Language {
     hi = 'hi',
     mn_mo = 'mn',
     km = 'km',
+    nb_no = 'no',
+    nn_no = 'no',
+    fa = 'fa',
 }

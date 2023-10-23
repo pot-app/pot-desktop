@@ -2595,6 +2595,7 @@ dependencies = [
  "include_dir",
  "itertools 0.10.5",
  "lingua-arabic-language-model",
+ "lingua-bokmal-language-model",
  "lingua-chinese-language-model",
  "lingua-english-language-model",
  "lingua-french-language-model",
@@ -2606,6 +2607,8 @@ dependencies = [
  "lingua-korean-language-model",
  "lingua-malay-language-model",
  "lingua-mongolian-language-model",
+ "lingua-nynorsk-language-model",
+ "lingua-persian-language-model",
  "lingua-portuguese-language-model",
  "lingua-russian-language-model",
  "lingua-spanish-language-model",
@@ -2629,6 +2632,15 @@ name = "lingua-arabic-language-model"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6ada75100728990b05bacaec7693efebf0c8b911599ac0c082cb4ed576bf494d"
+dependencies = [
+ "include_dir",
+]
+
+[[package]]
+name = "lingua-bokmal-language-model"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2a9215ee6bbe6d37222dc5dbd9d1577389810011cb8afbef6155e71a11fa5cb9"
 dependencies = [
  "include_dir",
 ]
@@ -2728,6 +2740,24 @@ name = "lingua-mongolian-language-model"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f53de502920af44b5d8ec7787895c0a81b0f5f43e3f3c2b80a240f2b605122c1"
+dependencies = [
+ "include_dir",
+]
+
+[[package]]
+name = "lingua-nynorsk-language-model"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "db00b13561df244acb76927677200ff399b02d8c9b160d25a38320ef3361cfa9"
+dependencies = [
+ "include_dir",
+]
+
+[[package]]
+name = "lingua-persian-language-model"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "043ba9b4ac7df99acaa1cd9f5925d6fc9b0fe850d3891bbeb91b27ed94f266c4"
 dependencies = [
  "include_dir",
 ]

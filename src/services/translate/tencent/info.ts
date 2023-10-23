@@ -2,7 +2,8 @@ export const info = {
     name: 'tencent',
     icon: 'logo/tencent.svg',
 };
-
+// 腾讯只支持这么多语言
+// https://cloud.tencent.com/document/product/551/15619
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh',

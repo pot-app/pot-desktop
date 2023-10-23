@@ -2,7 +2,7 @@ export const info = {
     name: 'google',
     icon: 'logo/google.svg',
 };
-
+// https://cloud.google.com/translate/docs/languages?hl=zh-cn
 export enum Language {
     auto = 'auto',
     zh_cn = 'zh-CN',
@@ -26,4 +26,7 @@ export enum Language {
     hi = 'hi',
     mn_cy = 'mn',
     km = 'km',
+    nb_no = 'no',
+    nn_no = 'no',
+    fa = 'fa',
 }

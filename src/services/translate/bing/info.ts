@@ -2,7 +2,7 @@ export const info = {
     name: 'bing',
     icon: 'logo/bing.svg',
 };
-
+// https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support
 export enum Language {
     auto = '',
     zh_cn = 'zh-Hans',
@@ -28,4 +28,6 @@ export enum Language {
     mn_cy = 'mn-Cyrl',
     mn_mo = 'mn-Mong',
     km = 'km',
+    nb_no = 'nb',
+    fa = 'fa',
 }

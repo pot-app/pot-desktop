@@ -15,6 +15,9 @@ import pt_PT from './locales/pt_PT.json';
 import tr_TR from './locales/tr_TR.json';
 import nb_NO from './locales/nb_NO.json';
 import nn_NO from './locales/nn_NO.json';
+import fa_IR from './locales/fa_IR.json';
+
+// http://www.lingoes.net/zh/translator/langcode.htm
 
 i18n.use(initReactI18next).init({
     fallbackLng: 'en',
@@ -38,6 +41,7 @@ i18n.use(initReactI18next).init({
         pt_br: pt_BR,
         nb_no: nb_NO,
         nn_no: nn_NO,
+        fa: fa_IR,
     },
 });
 

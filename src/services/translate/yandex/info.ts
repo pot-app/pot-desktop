@@ -2,7 +2,7 @@ export const info = {
     name: 'yandex',
     icon: 'logo/yandex.svg',
 };
-
+// https://yandex.com/dev/translate/doc/en/concepts/api-overview
 export enum Language {
     auto = '',
     zh_cn = 'zh',
@@ -24,4 +24,7 @@ export enum Language {
     ms = 'ms',
     ar = 'ar',
     hi = 'hi',
+    nb_no = 'no',
+    nn_no = 'no',
+    fa = 'fa',
 }
