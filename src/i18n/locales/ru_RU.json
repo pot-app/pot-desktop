@@ -32,7 +32,10 @@
             "hi": "Хинди",
             "mn_mo": "Монгольский",
             "mn_cy": "Монгольский (кириллица)",
-            "km": "Кхмерский"
+            "km": "Кхмерский",
+            "nb_no": "Букмол (Норвежский)",
+            "fa": "Персидский",
+            "nn_no": "Новонорвежский"
         },
         "config": {
             "general": {
@@ -81,7 +84,7 @@
                 "disable": "Отключить",
                 "incremental_translate": "Инкрементный перевод",
                 "dynamic_translate": "Динамический перевод",
-                "delete_newline": "Удалить Newline",
+                "delete_newline": "Удаление новой строки",
                 "remember_language": "Запомнить целевой язык",
                 "window_position": "Положение окна",
                 "mouse": "Следовать за курсором",
@@ -96,19 +99,19 @@
                 "google": "Google",
                 "local": "Локально",
                 "bing": "Bing",
-                "yandex": "Yandex",
+                "yandex": "Яндекс",
                 "niutrans": "NiuTrans",
-                "always_on_top": "Стандартно всегда сверху",
-                "close_on_blur": "Закрыть при потере фокуса"
+                "always_on_top": "Закрепить поверх других окон",
+                "close_on_blur": "Закрыть окно при потере фокуса"
             },
             "recognize": {
-                "label": "Распознавания",
+                "label": "Распознавание",
                 "title": "Настройки распознавания",
                 "language": "Язык распознавания",
                 "delete_newline": "Автоудаление новой строки",
                 "auto_copy": "Автокопирование",
                 "hide_window": "Скрыть окно распознавания",
-                "close_on_blur": "Закрыть при потере фокуса"
+                "close_on_blur": "Закрыть окно при потере фокуса"
             },
             "hotkey": {
                 "label": "Горячие клавиши",
@@ -166,9 +169,9 @@
                 "issue": "Проблема",
                 "email": "Эл. почта",
                 "community": "Сообщество",
-                "check_update": "Проверить обновление",
-                "view_log": "Посмотреть журнал",
-                "view_config": "Посмотреть конфигурацию",
+                "check_update": "Обновление",
+                "view_log": "Журнал",
+                "view_config": "Конфигурация",
                 "qq_channel": "QQ канал",
                 "qq_group": "QQ группа",
                 "telegram": "Telegram",
