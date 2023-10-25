@@ -34,7 +34,8 @@
             "mn_cy": "Mongolês (Cirílico)",
             "km": "Khmer",
             "nb_no": "Bokmål Norueguês",
-            "nn_no": "Norueguês Nynorsk"
+            "nn_no": "Norueguês Nynorsk",
+            "fa": "Persa"
         },
         "config": {
             "general": {
@@ -229,7 +230,7 @@
                 },
                 "baidu": {
                     "title": "Baidu",
-                    "appid": "App ID",
+                    "appid": "ID do App",
                     "secret": "Segredo"
                 },
                 "baidu_field": {
@@ -283,7 +284,7 @@
                 },
                 "chatglm": {
                     "title": "ChatGLM",
-                    "api_key": "Api Key",
+                    "api_key": "Chave Api",
                     "chatglm_lite": "ChatGLM Lite",
                     "chatglm_pro": "ChatGLM Pro",
                     "model": "Modelo",
