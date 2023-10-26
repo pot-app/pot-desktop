@@ -4,11 +4,8 @@ import { NextUIProvider } from '@nextui-org/react';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 
-import { initAppVersion } from './utils/env';
-import { initOsVersion } from './utils/env';
+import { initAppVersion, initOsVersion, initOsType, initArch } from './utils/env';
 import { initStore } from './utils/store';
-import { initOsType } from './utils/env';
-import { initArch } from './utils/env';
 import App from './App';
 
 if (import.meta.env.PROD) {
