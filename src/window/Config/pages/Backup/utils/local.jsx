@@ -15,6 +15,8 @@ export async function backup() {
             operate: 'put',
             path: selected,
         });
+    } else {
+        throw 'Invalid File';
     }
 }
 
