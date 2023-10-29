@@ -28,6 +28,7 @@ let timer = null;
 
 export default function SourceArea(props) {
     const { pluginList } = props;
+    const [translateFontSize] = useConfig('translate_font_size', 16);
     const [sourceText, setSourceText, syncSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [incrementalTranslate] = useConfig('incremental_translate', false);
@@ -242,7 +243,7 @@ export default function SourceArea(props) {
                 <textarea
                     autoFocus
                     ref={textAreaRef}
-                    className='bg-content1 h-full resize-none outline-none'
+                    className={`text-[${translateFontSize}px] bg-content1 h-full resize-none outline-none`}
                     value={sourceText}
                     onKeyDown={keyDown}
                     onChange={(e) => {

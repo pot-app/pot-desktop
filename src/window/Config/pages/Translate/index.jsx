@@ -23,6 +23,7 @@ export default function Translate() {
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
     const [deleteNewline, setDeleteNewline] = useConfig('translate_delete_newline', false);
     const [rememberLanguage, setRememberLanguage] = useConfig('translate_remember_language', false);
+    const [translateFontSize, setTranslateFontSize] = useConfig('translate_font_size', 16);
     const [windowPosition, setWindowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize, setRememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [hideSource, setHideSource] = useConfig('hide_source', false);
@@ -202,6 +203,33 @@ export default function Translate() {
             </Card>
             <Card>
                 <CardBody>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.translate.font_size.title')}</h3>
+                        {translateFontSize !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>
+                                        {t(`config.translate.font_size.${translateFontSize}`)}
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='window position'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        setTranslateFontSize(key);
+                                    }}
+                                >
+                                    <DropdownItem key={10}>{t(`config.translate.font_size.10`)}</DropdownItem>
+                                    <DropdownItem key={12}>{t(`config.translate.font_size.12`)}</DropdownItem>
+                                    <DropdownItem key={14}>{t(`config.translate.font_size.14`)}</DropdownItem>
+                                    <DropdownItem key={16}>{t(`config.translate.font_size.16`)}</DropdownItem>
+                                    <DropdownItem key={18}>{t(`config.translate.font_size.18`)}</DropdownItem>
+                                    <DropdownItem key={20}>{t(`config.translate.font_size.20`)}</DropdownItem>
+                                    <DropdownItem key={24}>{t(`config.translate.font_size.24`)}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
                     <div className='config-item'>
                         <h3 className='my-auto mx-0'>{t('config.translate.window_position')}</h3>
                         {windowPosition !== null && (

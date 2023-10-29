@@ -42,6 +42,7 @@ import { store } from '../../../../utils/store';
 let translateID = [];
 
 export default function TargetArea(props) {
+    const [translateFontSize] = useConfig('translate_font_size', 16);
     const [collectionServiceList] = useConfig('collection_service_list', []);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
@@ -413,7 +414,7 @@ export default function TargetArea(props) {
                 {typeof result === 'string' ? (
                     <textarea
                         ref={textAreaRef}
-                        className='h-0 resize-none bg-transparent select-text outline-none'
+                        className={`text-[${translateFontSize}px] h-0 resize-none bg-transparent select-text outline-none`}
                         readOnly
                         value={result}
                     />
@@ -424,18 +425,22 @@ export default function TargetArea(props) {
                                 return (
                                     <div key={nanoid()}>
                                         {pronunciation['region'] && (
-                                            <span className='mr-[12px] text-default-500'>
+                                            <span
+                                                className={`text-[${translateFontSize}px] mr-[12px] text-default-500`}
+                                            >
                                                 {pronunciation['region']}
                                             </span>
                                         )}
                                         {pronunciation['symbol'] && (
-                                            <span className='mr-[12px] text-default-500'>
+                                            <span
+                                                className={`text-[${translateFontSize}px] mr-[12px] text-default-500`}
+                                            >
                                                 {pronunciation['symbol']}
                                             </span>
                                         )}
                                         {pronunciation['voice'] && pronunciation['voice'] !== '' && (
                                             <HiOutlineVolumeUp
-                                                className='inline-block my-auto mr-[12px] cursor-pointer'
+                                                className={`text-[${translateFontSize}px] inline-block my-auto cursor-pointer`}
                                                 onClick={() => {
                                                     speak(pronunciation['voice']);
                                                 }}
@@ -454,17 +459,25 @@ export default function TargetArea(props) {
                                                     <span key={nanoid()}>
                                                         {index === 0 ? (
                                                             <>
-                                                                <span className='text-[12px] text-default-500 mr-[12px]'>
+                                                                <span
+                                                                    className={`text-[${
+                                                                        translateFontSize - 2
+                                                                    }px] text-default-500 mr-[12px]`}
+                                                                >
                                                                     {explanations['trait']}
                                                                 </span>
-                                                                <span className='font-bold text-[16px] select-text'>
+                                                                <span
+                                                                    className={`font-bold text-[${translateFontSize}px] select-text`}
+                                                                >
                                                                     {explain}
                                                                 </span>
                                                                 <br />
                                                             </>
                                                         ) : (
                                                             <span
-                                                                className='text-[14px] text-default-500 mr-[8px] select-text'
+                                                                className={`text-[${
+                                                                    translateFontSize - 2
+                                                                }px] text-default-500 select-text`}
                                                                 key={nanoid()}
                                                             >
                                                                 {explain}
@@ -481,7 +494,9 @@ export default function TargetArea(props) {
                             result['associations'].map((association) => {
                                 return (
                                     <div key={nanoid()}>
-                                        <span className='mr-[12px] text-default-500'>{association}</span>
+                                        <span className={`text-[${translateFontSize}px] text-default-500`}>
+                                            {association}
+                                        </span>
                                     </div>
                                 );
                             })}
@@ -489,11 +504,13 @@ export default function TargetArea(props) {
                             result['sentence'].map((sentence, index) => {
                                 return (
                                     <div key={nanoid()}>
-                                        <span className='mr-[12px]'>{index + 1}.</span>
+                                        <span className={`text-[${translateFontSize - 2}px] mr-[12px]`}>
+                                            {index + 1}.
+                                        </span>
                                         <>
                                             {sentence['source'] && (
                                                 <span
-                                                    className='select-text'
+                                                    className={`text-[${translateFontSize}px] select-text`}
                                                     dangerouslySetInnerHTML={{
                                                         __html: sentence['source'],
                                                     }}
@@ -503,7 +520,7 @@ export default function TargetArea(props) {
                                         <>
                                             {sentence['target'] && (
                                                 <div
-                                                    className='select-text text-default-500'
+                                                    className={`text-[${translateFontSize}px] select-text text-default-500`}
                                                     dangerouslySetInnerHTML={{
                                                         __html: sentence['target'],
                                                     }}
@@ -520,7 +537,7 @@ export default function TargetArea(props) {
                         return (
                             <p
                                 key={v}
-                                className='text-red-500'
+                                className={`text-[${translateFontSize}px] text-red-500`}
                             >
                                 {v}
                             </p>

@@ -86,6 +86,16 @@
                 "dynamic_translate": "Dynamic Translate",
                 "delete_newline": "Delete Newline",
                 "remember_language": "Remember Target Language",
+                "font_size": {
+                    "title": "Font Size",
+                    "10": "Very Very Small (10px)",
+                    "12": "Very Small (12px)",
+                    "14": "Small (14px)",
+                    "16": "Standard (16px)",
+                    "18": "Large (18px)",
+                    "20": "Very Large (20px)",
+                    "24": "Very Very Large (24px)"
+                },
                 "window_position": "Window Position",
                 "mouse": "Follow the Mouse",
                 "pre_state": "Remember Position",

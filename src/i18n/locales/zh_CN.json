@@ -86,6 +86,16 @@
                 "dynamic_translate": "动态翻译",
                 "delete_newline": "自动删除换行",
                 "remember_language": "记住目标语言",
+                "font_size": {
+                    "title": "字体大小",
+                    "10": "极小 (10px)",
+                    "12": "特小 (12px)",
+                    "14": "小 (14px)",
+                    "16": "标准 (16px)",
+                    "18": "大 (18px)",
+                    "20": "特大 (20px)",
+                    "24": "超大 (24px)"
+                },
                 "window_position": "窗口位置",
                 "mouse": "跟随鼠标",
                 "pre_state": "记住位置",
