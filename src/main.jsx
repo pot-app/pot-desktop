@@ -4,8 +4,8 @@ import { NextUIProvider } from '@nextui-org/react';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 
-import { initAppVersion, initOsVersion, initOsType, initArch } from './utils/env';
 import { initStore } from './utils/store';
+import { initEnv } from './utils/env';
 import App from './App';
 
 if (import.meta.env.PROD) {
@@ -28,10 +28,7 @@ document.addEventListener('keydown', async (e) => {
 });
 
 initStore().then(async () => {
-    await initOsType();
-    await initArch();
-    await initOsVersion();
-    await initAppVersion();
+    await initEnv();
     const rootElement = document.getElementById('root');
     const root = ReactDOM.createRoot(rootElement);
     root.render(

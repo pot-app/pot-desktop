@@ -6,15 +6,9 @@ export let arch = '';
 export let osVersion = '';
 export let appVersion = '';
 
-export async function initOsType() {
+export async function initEnv() {
     osType = await type();
-}
-export async function initArch() {
     arch = await archFn();
-}
-export async function initOsVersion() {
     osVersion = await version();
-}
-export async function initAppVersion() {
     appVersion = await getVersion();
 }
