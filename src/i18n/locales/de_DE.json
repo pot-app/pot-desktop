@@ -1,1 +1,79 @@
-{}
+{
+    "translation": {
+        "languages": {
+            "ar": "Arabisch",
+            "it": "Italienisch",
+            "vi": "Vietnamesisch",
+            "zh_cn": "Vereinfachtes Chinesisch",
+            "id": "Indonesisch",
+            "zh_tw": "Traditionelles Chinesisch",
+            "ru": "Russisch",
+            "mn_mo": "Mongolisch",
+            "en": "Englisch",
+            "ja": "Japanisch",
+            "fr": "Französisch",
+            "de": "Deutsch",
+            "fa": "Persisch",
+            "es": "Spanisch",
+            "pt_pt": "Portugiesisch",
+            "ko": "Koreanisch",
+            "tr": "Türkisch",
+            "auto": "Automatisch erkennen",
+            "pt_br": "Portugiesisch (Brasilien)"
+        },
+        "config": {
+            "translate": {
+                "target": "Ziel",
+                "title": "Übersetzungseinstellungen",
+                "tencent": "Tencent",
+                "disable": "Deaktivieren",
+                "remember_window_size": "Fenstergröße merken",
+                "delete_newline": "Neue Zeile löschen",
+                "remember_language": "Zielsprache merken",
+                "window_position": "Fensterposition",
+                "second_language": "Zweite Zielsprache",
+                "source": "Quelle",
+                "label": "Übersetzen",
+                "auto_copy": "Automatisch kopieren",
+                "dynamic_translate": "Dynamisch übersetzen",
+                "mouse": "Der Maus folgen",
+                "source_target": "Quelle+Ziel",
+                "source_language": "Quellsprache",
+                "pre_state": "Position merken",
+                "baidu": "Baidu",
+                "incremental_translate": "Inkrementell übersetzen",
+                "target_language": "Zielsprache"
+            },
+            "general": {
+                "proxy": {
+                    "title": "Proxy",
+                    "port": "Port",
+                    "host": "Host",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "app_theme": "Thema",
+                "event": {
+                    "disable": "Deaktivieren",
+                    "translate": "Übersetzen",
+                    "ocr_recognize": "Texterkennung"
+                },
+                "label": "Allgemein",
+                "theme": {
+                    "light": "Hell",
+                    "system": "System",
+                    "dark": "Dunkel"
+                },
+                "app_language": "Anwendungssprache",
+                "transparent": "Transparenzeffekt",
+                "title": "Allgemeine Einstellungen"
+            }
+        },
+        "common": {
+            "cancel": "Abbrechen",
+            "write_clipboard": "In die Zwischenablage schreiben",
+            "ok": "Ok",
+            "save": "Speichern"
+        }
+    }
+}
