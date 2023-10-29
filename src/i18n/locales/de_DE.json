@@ -72,7 +72,8 @@
                 "niutrans": "",
                 "always_on_top": "",
                 "close_on_blur": "",
-                "hide_source": ""
+                "hide_source": "",
+                "google": ""
             },
             "general": {
                 "proxy": {
