@@ -5,7 +5,6 @@ import {
     CardFooter,
     Button,
     ButtonGroup,
-    Skeleton,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -17,14 +16,17 @@ import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
+import PulseLoader from 'react-spinners/PulseLoader';
 import { TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
+import { semanticColors } from '@nextui-org/theme';
 import toast, { Toaster } from 'react-hot-toast';
 import { MdContentCopy } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import Database from 'tauri-plugin-sql-api';
 import { invoke } from '@tauri-apps/api';
 import { GiCycle } from 'react-icons/gi';
+import { useTheme } from 'next-themes';
 import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 
@@ -51,7 +53,7 @@ export default function TargetArea(props) {
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [hide, setHide] = useState(false);
+    const [hide, setHide] = useState(true);
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
@@ -61,6 +63,7 @@ export default function TargetArea(props) {
     const textAreaRef = useRef();
     const toastStyle = useToastStyle();
     const speak = useVoice();
+    const theme = useTheme();
 
     useEffect(() => {
         setResult('');
@@ -107,6 +110,19 @@ export default function TargetArea(props) {
             );
     };
 
+    function invokeOnce(fn) {
+        let isInvoke = false;
+
+        return (...args) => {
+            if (isInvoke) {
+                return;
+            } else {
+                fn(...args);
+                isInvoke = true;
+            }
+        };
+    }
+
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
@@ -118,6 +134,7 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
+                setHide(true);
                 const pluginConfig = (await store.get(translateServiceName)) ?? {};
                 pluginConfig['enable'] = 'true';
                 invoke('invoke_plugin', {
@@ -133,6 +150,7 @@ export default function TargetArea(props) {
                         if (translateID[index] !== id) return;
                         setResult(typeof v === 'string' ? v.trim() : v);
                         setIsLoading(false);
+                        setHide(false);
                         addToHistory(
                             sourceText.trim(),
                             detectLanguage,
@@ -182,13 +200,15 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
+                setHide(true);
+                const setHideOnce = invokeOnce(setHide);
                 builtinServices[translateServiceName]
                     .translate(sourceText.trim(), LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
                         detect: detectLanguage,
                         setResult: (v) => {
                             if (translateID[index] !== id) return;
                             setResult(v);
-                            setIsLoading(false);
+                            setHideOnce(false);
                         },
                     })
                     .then(
@@ -196,6 +216,7 @@ export default function TargetArea(props) {
                             if (translateID[index] !== id) return;
                             setResult(typeof v === 'string' ? v.trim() : v);
                             setIsLoading(false);
+                            setHideOnce(false);
                             addToHistory(
                                 sourceText.trim(),
                                 detectLanguage,
@@ -361,6 +382,16 @@ export default function TargetArea(props) {
                             })}
                         </DropdownMenu>
                     </Dropdown>
+                    <PulseLoader
+                        loading={isLoading}
+                        color={theme === 'dark' ? semanticColors.dark.default[500] : semanticColors.light.default[500]}
+                        size={8}
+                        cssOverride={{
+                            display: 'inline-block',
+                            margin: 'auto',
+                            marginLeft: '20px',
+                        }}
+                    />
                 </div>
                 <div className='flex'>
                     <Button
@@ -378,21 +409,8 @@ export default function TargetArea(props) {
                     </Button>
                 </div>
             </CardHeader>
-            <CardBody
-                className={`p-[12px] pb-0 ${hide && 'hidden'} ${
-                    result === '' && error === '' && !isLoading && 'hidden'
-                }`}
-            >
-                {isLoading ? (
-                    <div className='space-y-3'>
-                        <Skeleton className='w-4/5 rounded-lg'>
-                            <div className='h-3 w-4/5 rounded-lg bg-default-200'></div>
-                        </Skeleton>
-                        <Skeleton className='w-3/5 rounded-lg'>
-                            <div className='h-3 w-3/5 rounded-lg bg-default-200'></div>
-                        </Skeleton>
-                    </div>
-                ) : typeof result === 'string' ? (
+            <CardBody className={`p-[12px] pb-0 ${hide && 'h-0 p-0'}`}>
+                {typeof result === 'string' ? (
                     <textarea
                         ref={textAreaRef}
                         className='h-0 resize-none bg-transparent select-text outline-none'
@@ -567,6 +585,7 @@ export default function TargetArea(props) {
                                         newTargetLanguage in pluginInfo.language
                                     ) {
                                         setIsLoading(true);
+                                        setHide(true);
                                         const pluginConfig = (await store.get(translateServiceName)) ?? {};
                                         pluginConfig['enable'] = 'true';
                                         invoke('invoke_plugin', {
@@ -585,6 +604,7 @@ export default function TargetArea(props) {
                                                     setResult(v.trim());
                                                 }
                                                 setIsLoading(false);
+                                                setHide(false);
                                             },
                                             (e) => {
                                                 setError(e.toString());
@@ -598,6 +618,8 @@ export default function TargetArea(props) {
                                     const LanguageEnum = builtinServices[translateServiceName].Language;
                                     if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
                                         setIsLoading(true);
+                                        setHide(true);
+                                        const setHideOnce = invokeOnce(setHide);
                                         builtinServices[translateServiceName]
                                             .translate(
                                                 result.trim(),
@@ -607,7 +629,7 @@ export default function TargetArea(props) {
                                                     detect: newSourceLanguage,
                                                     setResult: (v) => {
                                                         setResult(v);
-                                                        setIsLoading(false);
+                                                        setHideOnce(false);
                                                     },
                                                 }
                                             )
@@ -619,6 +641,7 @@ export default function TargetArea(props) {
                                                         setResult(v.trim());
                                                     }
                                                     setIsLoading(false);
+                                                    setHideOnce(false);
                                                 },
                                                 (e) => {
                                                     setError(e.toString());
