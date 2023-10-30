@@ -102,7 +102,17 @@
                 "local": "Local",
                 "bing": "Bing",
                 "yandex": "Yandex",
-                "niutrans": "NiuTrans"
+                "niutrans": "NiuTrans",
+                "font_size": {
+                    "14": "Pequena (14px)",
+                    "title": "Tamanho da Fonte",
+                    "24": "Muito, Muito Grande (24px)",
+                    "20": "Muito Grande (20px)",
+                    "12": "Muito Pequena (12px)",
+                    "16": "Padrão (16px)",
+                    "10": "Muito, Muito Pequena (10px)",
+                    "18": "Grande (18px)"
+                }
             },
             "recognize": {
                 "label": "Reconhecimento",
@@ -259,7 +269,7 @@
                 },
                 "volcengine": {
                     "title": "VolcEngine",
-                    "appid": "App ID",
+                    "appid": "ID do App",
                     "secret": "Segredo"
                 },
                 "niutrans": {
@@ -325,7 +335,7 @@
                 },
                 "baidu_accurate_ocr": {
                     "title": "Baidu OCR (Preciso)",
-                    "client_id": "API Key",
+                    "client_id": "Chave API",
                     "client_secret": "Chave Secreta"
                 },
                 "baidu_img_ocr": {
@@ -337,19 +347,19 @@
                     "title": "OCR da iFlyTek",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "API Key"
+                    "apikey": "Chave API"
                 },
                 "iflytek_intsig_ocr": {
                     "title": "OCR da iFlyTek (Intsig)",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "API Key"
+                    "apikey": "Chave API"
                 },
                 "iflytek_latex_ocr": {
                     "title": "iFlyTek LaTeX",
                     "appid": "ID do App",
                     "apisecret": "Segredo da API",
-                    "apikey": "API Key"
+                    "apikey": "Chave API"
                 },
                 "simple_latex_ocr": {
                     "title": "LaTeX Simples",
