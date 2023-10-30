@@ -1,5 +1,12 @@
-## 2.6.6 (2023-10-22)
+## 2.6.7 (2023-10-30)
+
+### New feature:
+
+-   I18n for Tray Menu([`5798932`](https://github.com/pot-app/pot-desktop/commit/5798932bd12c0c38d21694b105daa2a3968a7a0f)) (by @Pylogmon)
+-   Add Font Size Option([`20772b9`](https://github.com/pot-app/pot-desktop/commit/20772b9d494204ab31e003729b364e06a0ef9464)) (by @Pylogmon)
+-   Add Persian Support([`9a2dbcd`](https://github.com/pot-app/pot-desktop/commit/9a2dbcd179fe072bcd6f54be264b5f6b6ab80b2b)) (by @Pylogmon)
+-   Collapse translation area([`6bb6741`](https://github.com/pot-app/pot-desktop/commit/6bb6741255f7aa01838d33c2aad4060f150f17c1)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Auto close delayed too long([`c2f1e05`](https://github.com/pot-app/pot-desktop/commit/c2f1e05753f0e1b9883a2f6258b19b8f170e770a)) (by @Pylogmon)
+-   Optimize local backup error messages([`f6acaf7`](https://github.com/pot-app/pot-desktop/commit/f6acaf72c8170b4e1c0783ef9023f1a0f74c1c07)) (by @Pylogmon)

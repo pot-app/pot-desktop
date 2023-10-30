@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BsInfoSquareFill } from 'react-icons/bs';
+import { BsInfoSquareFill, BsFillChatRightDotsFill } from 'react-icons/bs';
 import { PiTranslateFill } from 'react-icons/pi';
 import { AiFillAppstore } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ export default function SideBar() {
             >
                 <div className='w-full'>{t('config.general.label')}</div>
             </Button>
-            <Button
+            {/* <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/translate')}
@@ -117,6 +117,18 @@ export default function SideBar() {
                 startContent={<BsInfoSquareFill className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.about.label')}</div>
+            </Button> */}
+            <Button
+                fullWidth
+                size='lg'
+                variant={setStyle('/search')}
+                className='mb-[5px]'
+                onPress={() => {
+                    navigate('/search');
+                }}
+                startContent={<BsFillChatRightDotsFill className='text-[24px]' />}
+            >
+                <div className='w-full'>{t('config.search.label')}</div>
             </Button>
         </div>
     );

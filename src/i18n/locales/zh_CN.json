@@ -186,6 +186,10 @@
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
                 "discussion": "Github 讨论"
+            },
+            "search": {
+                "label": "搜索",
+                "title": "搜索"
             }
         },
         "updater": {

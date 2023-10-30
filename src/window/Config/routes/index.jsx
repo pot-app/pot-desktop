@@ -8,6 +8,7 @@ import History from '../pages/History';
 import Hotkey from '../pages/Hotkey';
 import Backup from '../pages/Backup';
 import About from '../pages/About';
+import Search from '../pages/Search';
 
 const routes = [
     {
@@ -43,8 +44,12 @@ const routes = [
         element: <About />,
     },
     {
+        path: '/search',
+        element: <Search />,
+    },
+    {
         path: '/',
-        element: <Navigate to='/general' />,
+        element: <Navigate to='/search' />,
     },
 ];
 
