@@ -151,7 +151,9 @@ export default function TargetArea(props) {
                         if (translateID[index] !== id) return;
                         setResult(typeof v === 'string' ? v.trim() : v);
                         setIsLoading(false);
-                        setHide(false);
+                        if (v !== '') {
+                            setHide(false);
+                        }
                         addToHistory(
                             sourceText.trim(),
                             detectLanguage,
@@ -217,7 +219,9 @@ export default function TargetArea(props) {
                             if (translateID[index] !== id) return;
                             setResult(typeof v === 'string' ? v.trim() : v);
                             setIsLoading(false);
-                            setHideOnce(false);
+                            if (v !== '') {
+                                setHideOnce(false);
+                            }
                             addToHistory(
                                 sourceText.trim(),
                                 detectLanguage,
@@ -621,7 +625,9 @@ export default function TargetArea(props) {
                                                     setResult(v.trim());
                                                 }
                                                 setIsLoading(false);
-                                                setHide(false);
+                                                if (v !== '') {
+                                                    setHide(false);
+                                                }
                                             },
                                             (e) => {
                                                 setError(e.toString());
@@ -658,7 +664,9 @@ export default function TargetArea(props) {
                                                         setResult(v.trim());
                                                     }
                                                     setIsLoading(false);
-                                                    setHideOnce(false);
+                                                    if (v !== '') {
+                                                        setHideOnce(false);
+                                                    }
                                                 },
                                                 (e) => {
                                                     setError(e.toString());
