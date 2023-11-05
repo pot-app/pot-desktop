@@ -188,8 +188,12 @@
                 "discussion": "Github 讨论"
             },
             "search": {
-                "label": "搜索",
-                "title": "搜索"
+                "label": "默认查询",
+                "title": "默认查询"
+            },
+            "qsearch": {
+                "label": "快捷查询",
+                "title": "快捷查询"
             }
         },
         "updater": {

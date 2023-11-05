@@ -1,14 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { Card } from '@nextui-org/react';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SendBar from './SendBar';
 import MessageItem from './MessageItem';
+import Preinput from '../Preinput';
 import { languageList } from '../../../../utils/language';
 import { useConfig } from '../../../../hooks';
 import { useChatGPT } from './useChatGPT';
-import './index.less';
+import './index1.css';
+import 'highlight.js/styles/atom-one-dark.css';
+
 export default function Chat(props) {
-    const { loading, disabled, messages, currentMessage, onSend, onClear, onStop } = useChatGPT(props);
+    const showQSearch = props.QSearch;
+    const { loading, disabled, messages, currentMessage, onSend, onClear, onStop } = useChatGPT();
     const messageRef = useRef();
     const [recognizeLanguage, setRecognizeLanguage] = useConfig('recognize_language', 'auto');
     const [deleteNewline, setDeleteNewline] = useConfig('recognize_delete_newline', false);
@@ -16,7 +20,15 @@ export default function Chat(props) {
     const [hideWindow, setHideWindow] = useConfig('recognize_hide_window', false);
     const [closeOnBlur, setCloseOnBlur] = useConfig('recognize_close_on_blur', false);
     const { t } = useTranslation();
-    const [value, setValue] = React.useState('');
+    const [update, forceUpdate] = useState();
+    const addPrompt = (prompt) => {
+        messages.push({
+            role: 'system',
+            content: prompt,
+        });
+        forceUpdate({});
+    };
+
     const mainStyle = {
         margin: 0,
         padding: 0,
@@ -47,9 +59,9 @@ export default function Chat(props) {
     };
     const scrollToBottom = () => {
         const content = messageRef.current;
-        console.log(content);
+        // console.log(content);
         content.scrollTop = content.scrollHeight;
-        console.log(content.scrollHeight, content.scrollTop);
+        // console.log(content.scrollHeight, content.scrollTop);
     };
     useEffect(() => {
         scrollToBottom();
@@ -60,8 +72,15 @@ export default function Chat(props) {
             <div
                 style={mainStyle}
                 id='chatBody'
+                className='chat-wrapper'
             >
                 <div style={bodyStyle}>
+                    {showQSearch && (
+                        <Preinput
+                            messages={messages}
+                            addPrompt={addPrompt}
+                        />
+                    )}
                     <Card style={bodyCardStyle}>
                         <div
                             ref={messageRef}

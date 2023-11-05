@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BsInfoSquareFill, BsFillChatRightDotsFill } from 'react-icons/bs';
+import { BsInfoSquareFill, BsFillChatRightDotsFill, BsSearchHeart } from 'react-icons/bs';
 import { PiTranslateFill } from 'react-icons/pi';
 import { AiFillAppstore } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
@@ -129,6 +129,18 @@ export default function SideBar() {
                 startContent={<BsFillChatRightDotsFill className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.search.label')}</div>
+            </Button>
+            <Button
+                fullWidth
+                size='lg'
+                variant={setStyle('/qsearch')}
+                className='mb-[5px]'
+                onPress={() => {
+                    navigate('/qsearch');
+                }}
+                startContent={<BsSearchHeart className='text-[24px]' />}
+            >
+                <div className='w-full'>{t('config.qsearch.label')}</div>
             </Button>
         </div>
     );

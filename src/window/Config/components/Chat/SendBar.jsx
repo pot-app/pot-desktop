@@ -3,7 +3,6 @@ import React, { KeyboardEventHandler, useRef } from 'react';
 import { AiOutlineClear, AiOutlineSend } from 'react-icons/ai';
 
 import Show from './Show';
-import './index.css';
 
 const SendBar = (props) => {
     const { loading, disabled, onSend, onClear, onStop } = props;

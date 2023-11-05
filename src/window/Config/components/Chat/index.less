@@ -33,6 +33,30 @@
             }
         }
         .message {
+            flex: 1;
+            overflow: hidden;
+            font-size: 14px;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+                'Segoe UI Symbol', 'Noto Color Emoji';
+            code:not(.hljs) {
+                font-weight: 600;
+                font-size: 0.875em;
+                font-family: system-ui, sans-serif;
+            }
+            p {
+                margin: 1em 0;
+                line-height: 1.75;
+            }
+            pre {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+                background-color: #282c34;
+                border-radius: @border-radius;
+            }
+            [relative] {
+                position: relative;
+            }
             .copy-btn {
                 position: absolute;
                 top: 12px;

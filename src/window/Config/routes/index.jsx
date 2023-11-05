@@ -9,6 +9,7 @@ import Hotkey from '../pages/Hotkey';
 import Backup from '../pages/Backup';
 import About from '../pages/About';
 import Search from '../pages/Search';
+import QSearch from '../pages/QSearch';
 
 const routes = [
     {
@@ -46,6 +47,10 @@ const routes = [
     {
         path: '/search',
         element: <Search />,
+    },
+    {
+        path: '/qsearch',
+        element: <QSearch />,
     },
     {
         path: '/',

@@ -5,7 +5,7 @@ import mdHighlight from 'markdown-it-highlightjs';
 import mdKatex from 'markdown-it-katex';
 
 const md = MarkdownIt({ html: true }).use(mdKatex).use(mdHighlight);
-const fence = md.renderer.rules.fence!;
+const fence = md.renderer.rules.fence;
 md.renderer.rules.fence = (...args) => {
     const [tokens, idx] = args;
     const token = tokens[idx];
