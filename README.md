@@ -1,4 +1,4 @@
-<img width="200px" src="public/icon.png" align="left"/>
+<img width="200px" src="public/icon.svg" align="left"/>
 
 # Pot (派了个萌的翻译器)
 

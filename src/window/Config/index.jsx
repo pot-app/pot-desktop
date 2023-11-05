@@ -43,8 +43,8 @@ export default function Config() {
                     <div data-tauri-drag-region='true'>
                         <img
                             alt='pot logo'
-                            src='icon.png'
-                            className='h-[50px] w-[50px] m-auto mb-[35px]'
+                            src='icon.svg'
+                            className='h-[60px] w-[60px] m-auto mb-[30px]'
                             draggable={false}
                         />
                     </div>
