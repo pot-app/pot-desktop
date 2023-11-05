@@ -82,7 +82,7 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button
                         onPress={() => {
-                            open('https://pot-app.com/docs/tutorial/api/translate/openai');
+                            open('https://pot-app.com/docs/api/translate/openai.html');
                         }}
                     >
                         {t('services.help')}
