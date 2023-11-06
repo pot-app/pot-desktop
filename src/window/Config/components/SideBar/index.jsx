@@ -22,7 +22,7 @@ export default function SideBar() {
 
     return (
         <div className='mx-[12px] overflow-y-auto'>
-            <Button
+            {/* <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/general')}
@@ -33,7 +33,7 @@ export default function SideBar() {
                 startContent={<AiFillAppstore className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.general.label')}</div>
-            </Button>
+            </Button> */}
             {/* <Button
                 fullWidth
                 size='lg'

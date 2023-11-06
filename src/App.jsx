@@ -25,7 +25,7 @@ const windowMap = {
 
 export default function App() {
     const [appTheme] = useConfig('app_theme', 'system');
-    const [appLanguage] = useConfig('app_language', 'en');
+    const [appLanguage] = useConfig('app_language', 'zh_cn');
     const { setTheme } = useTheme();
     const { i18n } = useTranslation();
 
