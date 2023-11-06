@@ -236,6 +236,8 @@ export default function Preinput(props) {
             <div
                 style={addStyle}
                 onClick={handleAdd}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
                 <div style={addIconStyle}>
                     <AiOutlinePlus />
