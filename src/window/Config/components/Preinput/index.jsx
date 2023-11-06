@@ -117,7 +117,7 @@ export default function Preinput(props) {
     };
 
     const handleEdit = (key) => {
-        console.log(key);
+        // console.log(key);
         setKey(key);
         setIsEdit(true);
         onOpen();
@@ -137,11 +137,12 @@ export default function Preinput(props) {
 
     const handleDelete = (key) => {
         delete userPreInputsData[key];
+        // console.log(userPreInputsData);
         setUserPreInputs(JSON.stringify(userPreInputsData));
     };
 
     const editMethod = (key, name, prompt) => {
-        console.log(key, name, prompt);
+        // console.log(key, name, prompt);
         userPreInputsData[key].name = name;
         userPreInputsData[key].prompt = prompt;
         setUserPreInputs(JSON.stringify(userPreInputsData));
@@ -149,12 +150,12 @@ export default function Preinput(props) {
     const addMethod = (name, prompt) => {
         const timestamp = new Date().getTime();
         console.log(timestamp);
-        userPreInputsData[key] = {
+        userPreInputsData[timestamp] = {
             name: name,
             prompt: prompt,
         };
         setUserPreInputs(JSON.stringify(userPreInputsData));
-        console.log(userPreInputs);
+        // console.log(userPreInputs);
     };
 
     const boxStyle = {
@@ -220,7 +221,7 @@ export default function Preinput(props) {
     const editButton = (key) => (
         <AiOutlineEdit
             onClick={() => {
-                console.log(key);
+                handleEdit(key);
             }}
         ></AiOutlineEdit>
     );
@@ -259,7 +260,7 @@ export default function Preinput(props) {
                         const icon = isSystem ? systemPreInputs[key].icon : <AiOutlineUserAdd />;
                         const name = item.name;
                         const prompt = item.prompt;
-                        console.log(prompt);
+                        // console.log(prompt);
                         return (
                             <div
                                 style={preInputStyle}
@@ -287,7 +288,6 @@ export default function Preinput(props) {
                                                 <div
                                                     onMouseEnter={handleMouseEnter}
                                                     onMouseLeave={handleMouseLeave}
-                                                    onClick={() => handleEdit(key)}
                                                 >
                                                     {editButton(key)}
                                                 </div>

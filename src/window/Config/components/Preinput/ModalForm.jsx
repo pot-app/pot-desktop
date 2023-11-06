@@ -22,8 +22,8 @@ export default function ModalForm(props) {
     const key = props.key_ || '';
     const userPreInputsData = props.userPreInputsData;
     // console.log(props);
-    const name = userPreInputsData && (isEdit ? userPreInputsData[key].name : '');
-    const prompt = userPreInputsData && (isEdit ? userPreInputsData[key].prompt : '');
+    const name = userPreInputsData && (isEdit && userPreInputsData[key] ? userPreInputsData[key].name : '');
+    const prompt = userPreInputsData && (isEdit && userPreInputsData[key] ? userPreInputsData[key].prompt : '');
     const editMethod = props.editMethod;
     const addMethod = props.addMethod;
     const [newName, setNewName] = useState(name);
