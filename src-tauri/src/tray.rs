@@ -156,7 +156,9 @@ fn on_clipboard_monitor_click(app: &AppHandle) {
         .lock()
         .unwrap()
         .replace_range(.., &current.to_string());
-    start_clipboard_monitor(app.app_handle());
+    if current {
+        start_clipboard_monitor(app.app_handle());
+    }
     // Update Tray Menu Status
     app.tray_handle()
         .get_item("clipboard_monitor")

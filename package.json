@@ -1,11 +1,11 @@
 {
     "name": "pot",
     "private": true,
-    "version": "2.6.7",
+    "version": "2.6.8",
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
+        "build": "vite build",
         "preview": "vite preview",
         "tauri": "tauri",
         "updater": "node updater/updater.mjs"
