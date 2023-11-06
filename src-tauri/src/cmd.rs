@@ -229,12 +229,16 @@ pub fn set_proxy() -> Result<bool, ()> {
         Some(v) => v.as_i64().unwrap(),
         None => return Err(()),
     };
+    let no_proxy = match get("no_proxy") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => return Err(()),
+    };
     let proxy = format!("http://{}:{}", host, port);
 
     std::env::set_var("http_proxy", &proxy);
     std::env::set_var("https_proxy", &proxy);
     std::env::set_var("all_proxy", &proxy);
-    std::env::set_var("no_proxy", "127.0.0.1,localhost,aliyuncs.com");
+    std::env::set_var("no_proxy", &no_proxy);
     Ok(true)
 }
 

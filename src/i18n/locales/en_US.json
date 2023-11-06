@@ -58,7 +58,8 @@
                     "host": "Host",
                     "port": "Port",
                     "username": "User Name",
-                    "password": "Password"
+                    "password": "Password",
+                    "no_proxy": "No Proxy"
                 },
                 "proxy_change": "The proxy has been changed, Restart the application for the changes to take effect",
                 "proxy_error": "Please fill in the host and port",

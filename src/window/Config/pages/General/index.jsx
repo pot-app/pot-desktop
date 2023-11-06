@@ -35,7 +35,8 @@ export default function General() {
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
     const [proxyPort, setProxyPort] = useConfig('proxy_port', 0);
     const [proxyUsername, setProxyUsername] = useConfig('proxy_username', '');
-    const [proxyPassword, setProxy] = useConfig('proxy_password', '');
+    const [proxyPassword, setProxyPassword] = useConfig('proxy_password', '');
+    const [noProxy, setNoProxy] = useConfig('no_proxy', 'localhost,127.0.0.1');
     const { t, i18n } = useTranslation();
     const { setTheme } = useTheme();
     const toastStyle = useToastStyle();
@@ -122,7 +123,7 @@ export default function General() {
                                     }
                                     timer = setTimeout(() => {
                                         toast.success(t('config.general.server_port_change'), {
-                                            duration: 1000,
+                                            duration: 3000,
                                             style: toastStyle,
                                         });
                                     }, 1000);
@@ -343,7 +344,7 @@ export default function General() {
                                         if (proxyHost === '' || proxyPort === 0) {
                                             setProxyEnable(false);
                                             toast.error(t('config.general.proxy_error'), {
-                                                duration: 1000,
+                                                duration: 3000,
                                                 style: toastStyle,
                                             });
                                             return;
@@ -420,9 +421,21 @@ export default function General() {
                                 placeholder={t('config.general.proxy.password')}
                                 value={proxyPassword}
                                 onValueChange={(v) => {
-                                    setProxy(v);
+                                    setProxyPassword(v);
                                 }}
                                 className='ml-2'
+                            />
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        {noProxy !== null && (
+                            <Input
+                                variant='bordered'
+                                placeholder={t('config.general.proxy.no_proxy')}
+                                value={noProxy}
+                                onValueChange={(v) => {
+                                    setNoProxy(v);
+                                }}
                             />
                         )}
                     </div>

@@ -58,7 +58,8 @@
                     "host": "代理地址",
                     "port": "代理端口",
                     "username": "用户名",
-                    "password": "密码"
+                    "password": "密码",
+                    "no_proxy": "不使用代理的地址或IP"
                 },
                 "proxy_change": "代理已经改变，重启应用生效",
                 "proxy_error": "请填写代理地址和端口",
