@@ -1,3 +1,4 @@
+use crate::clipboard::*;
 use crate::config::{get, set};
 use crate::window::config_window;
 use crate::window::input_translate;
@@ -145,10 +146,21 @@ fn on_clipboard_monitor_click(app: &AppHandle) {
             false
         }
     };
-    set("clipboard_monitor", !enable_clipboard_monitor);
+    let current = !enable_clipboard_monitor;
+    // Update Config File
+    set("clipboard_monitor", current);
+    // Update State and Start Monitor
+    let state = app.state::<ClipboardMonitorEnableWrapper>();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., &current.to_string());
+    start_clipboard_monitor(app.app_handle());
+    // Update Tray Menu Status
     app.tray_handle()
         .get_item("clipboard_monitor")
-        .set_selected(!enable_clipboard_monitor)
+        .set_selected(current)
         .unwrap();
 }
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {
