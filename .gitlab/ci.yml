@@ -9,7 +9,7 @@ download:
     rules:
         - if: $CI_COMMIT_TAG
     script:
-        - curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | sed 's|https://|https://521github.com/extdomains/|' | xargs -n 1 curl -O
+        - curl -s https://api.github.com/repos/pot-app/pot-desktop/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | sed 's|^|https://gh.pylogmon.com/|' | xargs -n 1 curl -O
     artifacts:
         paths:
             - '*.deb'
