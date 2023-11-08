@@ -62,7 +62,12 @@ export default function Config() {
                 />
                 <div className='h-[35px] flex justify-between'>
                     <div className='flex'>
-                        <h2 className='m-auto ml-[10px]'>{t(`config.${location.pathname.slice(1)}.title`)}</h2>
+                        <h2 className='m-auto ml-[10px]'>
+                            {t(`config.${location.pathname.slice(1).split('/')[0]}.title`) +
+                                (location.pathname.slice(1).split('/').length > 2
+                                    ? ' - ' + decodeURIComponent(location.pathname.slice(1).split('/')[2])
+                                    : '')}
+                        </h2>
                     </div>
 
                     <div className='flex'>{osType !== 'Darwin' && <WindowControl />}</div>

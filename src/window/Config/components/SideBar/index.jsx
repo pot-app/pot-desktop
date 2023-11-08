@@ -10,15 +10,44 @@ import { AiFillCloud } from 'react-icons/ai';
 import { FaHistory } from 'react-icons/fa';
 import { Button } from '@nextui-org/react';
 import React from 'react';
-
+import { useConfig } from '../../../../hooks';
+import { uSysPre } from '../Preinput/SysPreInputs';
 export default function SideBar() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [userPreInputs, setUserPreInputs] = useConfig('user_pre_inputs', JSON.stringify(uSysPre));
+    let userPreInputsData = userPreInputs && JSON.parse(userPreInputs);
+    const userPreInputsKeys = userPreInputsData && Object.keys(userPreInputsData);
+
     function setStyle(pathname) {
         return location.pathname.includes(pathname) ? 'flat' : 'light';
     }
+
+    const subPromptsButton = () => {
+        // console.log(userPreInputsKeys);
+        return (
+            userPreInputsKeys &&
+            userPreInputsKeys.map((key_, index) => {
+                const name = userPreInputsData[key_].name;
+                return (
+                    <Button
+                        // fullWidth
+                        size='md'
+                        variant={setStyle(`/qsearch/${key_}`)}
+                        className='mb-[5px]'
+                        onPress={() => {
+                            navigate(`/qsearch/${key_}/${name}`);
+                        }}
+                        key={key_}
+                    >
+                        <div className='w-full'>{userPreInputsData[key_].name}</div>
+                    </Button>
+                );
+            })
+        );
+    };
 
     return (
         <div className='mx-[12px] overflow-y-auto'>
@@ -121,10 +150,10 @@ export default function SideBar() {
             <Button
                 fullWidth
                 size='lg'
-                variant={setStyle('/search')}
+                variant={setStyle('/search/')}
                 className='mb-[5px]'
                 onPress={() => {
-                    navigate('/search');
+                    navigate('/search/');
                 }}
                 startContent={<BsFillChatRightDotsFill className='text-[24px]' />}
             >
@@ -142,6 +171,7 @@ export default function SideBar() {
             >
                 <div className='w-full'>{t('config.qsearch.label')}</div>
             </Button>
+            {subPromptsButton()}
         </div>
     );
 }

@@ -1,118 +1,39 @@
-.chat-wrapper {
-    width: 100%;
-    margin: 0 auto;
-}
-.chat-wrapper .message-item {
+.message-item {
     padding: 0.5rem 0.5rem;
     border-radius: 0.2rem;
 }
-.chat-wrapper .message-item:hover {
-    background-color: #000000;
+.message-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
-.chat-wrapper .message-item .meta {
+.meta {
     display: flex;
     grid-gap: 0.75rem;
     gap: 0.75rem;
 }
-.chat-wrapper .message-item .avatar span {
+.avatar > span {
     display: inline-block;
     width: 24px;
     height: 24px;
     margin-top: 1em;
-    border-radius: 50%;
-}
-.chat-wrapper .message-item .avatar .assistant {
-    background-image: linear-gradient(to right, #000000, #000000, #000000);
-}
-.chat-wrapper .message-item .avatar .user {
-    background-image: linear-gradient(to right, #000000, #000000);
-}
-.chat-wrapper .message-item .avatar .system {
-    background-image: linear-gradient(to right, #000000, #000000, #000000);
-}
-.chat-wrapper .message-item .message {
-    flex: 1;
-    overflow: hidden;
-    font-size: 14px;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-        Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-.chat-wrapper .message-item .message code:not(.hljs) {
-    font-weight: 600;
-    font-size: 0.875em;
-    font-family: system-ui, sans-serif;
-}
-.chat-wrapper .message-item .message p {
-    margin: 1em 0;
-    line-height: 1.75;
-}
-.chat-wrapper .message-item .message pre {
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    background-color: #282c34;
     border-radius: 0.2rem;
 }
-.chat-wrapper .message-item .message [relative] {
-    position: relative;
+.assistant {
+    background-image: linear-gradient(to right, rgb(232 243 173), rgb(139 248 38), rgb(2 168 209));
 }
-.chat-wrapper .message-item .message .copy-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    color: #000000;
-    background-color: #000000;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transition-property: all;
+.user {
+    background-image: linear-gradient(to right, rgb(192 132 252), rgb(250 204 21));
 }
-.chat-wrapper .message-item .message .copy-btn div {
-    position: absolute;
-    top: -24px;
-    display: none;
-    padding: 0.2rem 0.4rem;
-    color: white;
-    font-size: 12px;
-    background-color: #000;
-    border-radius: 0.2rem;
+.system {
+    background-image: linear-gradient(to right, rgb(164 194 238), rgb(181 128 241), rgb(167 92 238));
 }
-.chat-wrapper .message-item .message .copy-btn svg {
-    display: block;
-}
-.chat-wrapper .message-item .message .copy-btn:hover > div {
-    display: block;
-}
-.chat-wrapper .thinking {
-    display: flex;
-    gap: 0.5rem;
-    align-items: baseline;
-    justify-content: center;
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    font-size: 16px;
-    background-color: #e5e7eb;
-    border-radius: 0.2rem;
-}
-.chat-wrapper .thinking .stop {
-    padding: 0 0.75rem;
-    font-size: 14px;
-    border: 1px solid #282c34;
-    border-radius: 0.2rem;
-    cursor: pointer;
-}
-.chat-wrapper .send-bar {
+
+.send-bar {
     display: flex;
     grid-gap: 0.5rem;
     gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem;
 }
-.chat-wrapper .send-bar .input {
+.send-bar > .input {
     flex: 1;
     padding: 0.75rem;
     font-size: 16px;
@@ -120,11 +41,11 @@
     border-radius: 0.2rem;
     resize: none;
 }
-.chat-wrapper .send-bar .input:focus {
+.send-bar > .input:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
-.chat-wrapper .send-bar .button {
+.send-bar > .button {
     min-width: 3rem;
     height: 3rem;
     padding: 0 0.75rem;
@@ -134,11 +55,97 @@
     border-radius: 0.2rem;
     cursor: pointer;
 }
-.chat-wrapper .send-bar .button:active {
+
+.send-bar > .button:active {
     background-color: #ddd;
 }
-@media (min-width: 720px) {
-    .chat-wrapper {
-        width: 700px;
-    }
+.message {
+    flex: 1;
+    overflow: hidden;
+    font-size: 14px;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+        Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.message code:not(.hljs) {
+    font-weight: 600;
+    font-size: 0.875em;
+    font-family: system-ui, sans-serif;
+}
+
+.message p {
+    margin: 1em 0;
+    line-height: 1.75;
+}
+
+.message pre {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    background-color: #282c34;
+    border-radius: 0.2rem;
+}
+
+[relative] {
+    position: relative;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: rgb(148 163 184);
+    background-color: rgb(0 0 0 / 20%);
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-property: all;
+}
+
+.copy-btn > div {
+    position: absolute;
+    top: -24px;
+    display: none;
+    padding: 0.2rem 0.4rem;
+    color: white;
+    font-size: 12px;
+    background-color: #000;
+    border-radius: 0.2rem;
+}
+
+.copy-btn > svg {
+    display: block;
+}
+
+.copy-btn:hover > div {
+    display: block;
+}
+.thinking {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    font-size: 16px;
+    background-color: #e5e7eb;
+    /* 请手动定义 border-radius 值，替代 @border-radius */
+    border-radius: 0.2rem;
+}
+
+.stop {
+    padding: 0 0.75rem;
+    font-size: 14px;
+    border: 1px solid #282c34;
+    /* 请手动定义 border-radius 值，替代 @border-radius */
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

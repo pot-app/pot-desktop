@@ -3,16 +3,16 @@ import { Card } from '@nextui-org/react';
 import React, { useEffect, useRef, useState } from 'react';
 import SendBar from './SendBar';
 import MessageItem from './MessageItem';
-import Preinput from '../Preinput';
 import { languageList } from '../../../../utils/language';
 import { useConfig } from '../../../../hooks';
 import { useChatGPT } from './useChatGPT';
-import './index1.css';
+import { systemPreInputs, uSysPre } from '../Preinput/SysPreInputs';
+import './index.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
 export default function Chat(props) {
-    const showQSearch = props.QSearch;
-    const { loading, disabled, messages, currentMessage, onSend, onClear, onStop } = useChatGPT();
+    const key = props.key_ || null;
+    const { loading, disabled, messages, currentMessage, onSend, onClear, onStop, setMessages } = useChatGPT();
     const messageRef = useRef();
     const [recognizeLanguage, setRecognizeLanguage] = useConfig('recognize_language', 'auto');
     const [deleteNewline, setDeleteNewline] = useConfig('recognize_delete_newline', false);
@@ -20,14 +20,63 @@ export default function Chat(props) {
     const [hideWindow, setHideWindow] = useConfig('recognize_hide_window', false);
     const [closeOnBlur, setCloseOnBlur] = useConfig('recognize_close_on_blur', false);
     const { t } = useTranslation();
-    const [update, forceUpdate] = useState();
+    // const [update, forceUpdate] = useState();
+    const [initState, setInitState] = useState(false);
+    let init = initState;
+    const [myMessages, setMyMessages] = useState({});
+    const [userPreInputs, setUserPreInputs] = useConfig('user_pre_inputs', JSON.stringify(uSysPre));
+    let userPreInputsData = userPreInputs && JSON.parse(userPreInputs);
+
     const addPrompt = (prompt) => {
-        messages.push({
-            role: 'system',
-            content: prompt,
-        });
-        forceUpdate({});
+        console.log('aaaaa', init, messages);
+        // 完成清空聊天记录功能
+        if (init && messages.length == 0) {
+            setMessages([
+                {
+                    role: 'system',
+                    content: prompt,
+                },
+            ]);
+            return;
+        }
+        // 防止输入不显示
+        if (messages.length > 0 && messages[0].content == prompt) {
+            console.log('same');
+            init = true;
+            return;
+        }
+        // 初始化
+        if (!(key in myMessages)) {
+            setMessages([
+                {
+                    role: 'system',
+                    content: prompt,
+                },
+            ]);
+        } else {
+            setMessages(myMessages[key]);
+        }
+        init = true;
+        setInitState(true);
+        // if (out) forceUpdate({});
     };
+    useEffect(() => {
+        console.log('init', init, messages);
+        if (init) {
+            if (messages.length > 0) {
+                setMyMessages({
+                    ...myMessages,
+                    [key]: messages,
+                });
+            } else {
+                let msg = myMessages;
+                delete msg[key];
+                setMessages(msg);
+            }
+
+            console.log(myMessages);
+        }
+    }, [messages]);
 
     const mainStyle = {
         margin: 0,
@@ -66,6 +115,12 @@ export default function Chat(props) {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+    // console.log(key);
+    if (key) {
+        const prompt = userPreInputsData && userPreInputsData[key].prompt;
+        // console.log(prompt);
+        prompt && addPrompt(prompt);
+    }
 
     return (
         <>
@@ -75,23 +130,18 @@ export default function Chat(props) {
                 className='chat-wrapper'
             >
                 <div style={bodyStyle}>
-                    {showQSearch && (
-                        <Preinput
-                            messages={messages}
-                            addPrompt={addPrompt}
-                        />
-                    )}
                     <Card style={bodyCardStyle}>
                         <div
                             ref={messageRef}
                             style={messageStyle}
                         >
-                            {messages.map((message, index) => (
-                                <MessageItem
-                                    key={index}
-                                    message={message}
-                                />
-                            ))}
+                            {messages &&
+                                messages.map((message, index) => (
+                                    <MessageItem
+                                        key={index}
+                                        message={message}
+                                    />
+                                ))}
                             {currentMessage.current && (
                                 <MessageItem message={{ content: currentMessage.current, role: 'assistant' }} />
                             )}

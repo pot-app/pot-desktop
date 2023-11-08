@@ -49,12 +49,12 @@ const routes = [
         element: <Search />,
     },
     {
-        path: '/qsearch',
+        path: '/qsearch/:key?/:name?',
         element: <QSearch />,
     },
     {
         path: '/',
-        element: <Navigate to='/search' />,
+        element: <Navigate to='/search/' />,
     },
 ];
 

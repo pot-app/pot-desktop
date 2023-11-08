@@ -1,23 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import {
-    AiOutlineLayout,
-    AiOutlineTranslation,
-    AiOutlineHighlight,
-    AiOutlineExpandAlt,
-    AiOutlineTags,
-    AiOutlineFontColors,
-    AiOutlineQuestionCircle,
-    AiOutlineCode,
-    AiOutlineRollback,
-    AiOutlineEdit,
-    AiOutlineDelete,
-    AiOutlineUserAdd,
-    AiOutlinePlus,
-} from 'react-icons/ai';
+import { AiOutlineRollback, AiOutlineEdit, AiOutlineDelete, AiOutlineUserAdd, AiOutlinePlus } from 'react-icons/ai';
 import { Card } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
 import { useDisclosure } from '@nextui-org/react';
-
+import { systemPreInputs, uSysPre } from './SysPreInputs';
 import { useConfig } from '../../../../hooks';
 
 import { useTranslation } from 'react-i18next';
@@ -27,82 +13,30 @@ export default function Preinput(props) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    const messages = props.messages;
-    const addPrompt = props.addPrompt;
+    // const messages = props.messages;
+    // const addPrompt = props.addPrompt;
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    // console.log(useConfig);
 
-    const systemPreInputs = {
-        Summarize: {
-            name: 'Summarize',
-            icon: <AiOutlineLayout />,
-            prompt: 'Condense the text in its original language.',
-        },
-        Translate: {
-            name: 'Translate',
-            icon: <AiOutlineTranslation />,
-            prompt: 'Translate this text to $[lang]',
-        },
-        Rewrite: {
-            name: 'Rewrite',
-            icon: <AiOutlineHighlight />,
-            prompt: 'Rephrase this text.',
-        },
-        Expand: {
-            name: 'Expand',
-            icon: <AiOutlineExpandAlt />,
-            prompt: 'Expands the text and view detailed...',
-        },
-        Explain: {
-            name: 'Explain',
-            icon: <AiOutlineTags />,
-            prompt: 'Clarify this text and define any technical...',
-        },
-        Grammar: {
-            name: 'Grammar',
-            icon: <AiOutlineFontColors />,
-            prompt: 'Proofread and correct this text.',
-        },
-        'Q&A': {
-            name: 'Q&A',
-            icon: <AiOutlineQuestionCircle />,
-            prompt: 'Answer this question.',
-        },
-        'Explain Codes': {
-            name: 'Explain Codes',
-            icon: <AiOutlineCode />,
-            prompt: 'Explain the following codes: ```$[text]```',
-        },
-    };
-    let uSysPre = {};
-    const systemPreInputsKeys = Object.keys(systemPreInputs);
-
-    for (let key of systemPreInputsKeys) {
-        uSysPre[key] = {
-            name: systemPreInputs[key].name,
-            prompt: systemPreInputs[key].prompt,
-        };
-    }
     // console.log(uSysPre);
     const [userPreInputs, setUserPreInputs] = useConfig('user_pre_inputs', JSON.stringify(uSysPre));
     let userPreInputsData = userPreInputs && JSON.parse(userPreInputs);
     const userPreInputsKeys = userPreInputsData && Object.keys(userPreInputsData);
     const [reset, setReset] = useState(true);
-    useEffect(() => {
-        if (messages.length === 0) {
-            setReset(true);
-        } else {
-            setReset(false);
-        }
-    }, [messages]);
+    // useEffect(() => {
+    //     if (messages.length === 0) {
+    //         setReset(true);
+    //     } else {
+    //         setReset(false);
+    //     }
+    // }, [messages]);
 
-    const select = (prompt) => {
-        setReset(false);
-        addPrompt(prompt);
-    };
-    useEffect(() => {
-        setReset(true);
-    }, [props.reset]);
+    // const select = (prompt) => {
+    //     setReset(false);
+    //     addPrompt(prompt);
+    // };
+    // useEffect(() => {
+    //     setReset(true);
+    // }, [props.reset]);
 
     const [isHovered, setIsHovered] = useState(false);
     const [key, setKey] = useState('');
@@ -271,9 +205,9 @@ export default function Preinput(props) {
                                         <div style={headStyle}>
                                             <div
                                                 style={itemHeadStyle}
-                                                onClick={() => select(prompt)}
-                                                onMouseEnter={handleMouseEnter}
-                                                onMouseLeave={handleMouseLeave}
+                                                // onClick={() => select(prompt)}
+                                                // onMouseEnter={handleMouseEnter}
+                                                // onMouseLeave={handleMouseLeave}
                                             >
                                                 <div>{icon}</div>
                                                 <div style={nameStyle}>{name}</div>
@@ -296,9 +230,9 @@ export default function Preinput(props) {
 
                                         <div
                                             style={promptStyle}
-                                            onClick={() => select(prompt)}
-                                            onMouseEnter={handleMouseEnter}
-                                            onMouseLeave={handleMouseLeave}
+                                            // onClick={() => select(prompt)}
+                                            // onMouseEnter={handleMouseEnter}
+                                            // onMouseLeave={handleMouseLeave}
                                         >
                                             {prompt}
                                         </div>

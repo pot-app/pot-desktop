@@ -5,7 +5,7 @@ import { createParser } from 'eventsource-parser';
 import OpenAI from 'openai';
 
 const OPENAI_API_BASE_URL = '';
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 const AZURE_OPENAI_API_BASE_URL = '';
 const AZURE_OPENAI_DEPLOYMENT = '';
 const AZURE_OPENAI_API_KEY = '';
@@ -135,6 +135,7 @@ export const useChatGPT = () => {
         onSend,
         onClear,
         onStop,
+        setMessages,
     };
 };
 
