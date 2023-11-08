@@ -428,7 +428,8 @@
             "translate": "翻译",
             "copy_img": "复制图片",
             "copy_text": "复制",
-            "delete_newline": "删除换行"
+            "delete_newline": "删除换行",
+            "delete_space": "删除空格"
         }
     }
 }

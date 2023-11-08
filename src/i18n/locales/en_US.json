@@ -428,7 +428,8 @@
             "translate": "Translate",
             "copy_img": "Copy Image",
             "copy_text": "Copy",
-            "delete_newline": "Delete Newline"
+            "delete_newline": "Delete Newline",
+            "delete_space": "Delete Space"
         }
     }
 }
