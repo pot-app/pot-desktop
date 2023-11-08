@@ -20,4 +20,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-key
+src/window/Config/components/Chat/key.js

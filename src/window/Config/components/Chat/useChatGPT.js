@@ -3,9 +3,9 @@ import ClipboardJS from 'clipboard';
 import { throttle } from 'lodash-es';
 import { createParser } from 'eventsource-parser';
 import OpenAI from 'openai';
+import { OPENAI_API_KEY } from './key';
 
 const OPENAI_API_BASE_URL = '';
-const OPENAI_API_KEY = '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';
 const AZURE_OPENAI_API_BASE_URL = '';
 const AZURE_OPENAI_DEPLOYMENT = '';
 const AZURE_OPENAI_API_KEY = '';
