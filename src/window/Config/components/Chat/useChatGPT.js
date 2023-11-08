@@ -5,7 +5,7 @@ import { createParser } from 'eventsource-parser';
 import OpenAI from 'openai';
 
 const OPENAI_API_BASE_URL = '';
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 const AZURE_OPENAI_API_BASE_URL = '';
 const AZURE_OPENAI_DEPLOYMENT = '';
 const AZURE_OPENAI_API_KEY = '';
