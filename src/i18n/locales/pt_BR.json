@@ -301,7 +301,8 @@
                     "model": "Modelo",
                     "chatglm_std": "ChatGLM Std",
                     "add": "Adicionar Prompt",
-                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento da IA. $text $from $to $detect será substituído pelo texto a ser traduzido, o idioma de origem, o idioma de destino e o idioma detectado."
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento da IA. $text $from $to $detect será substituído pelo texto a ser traduzido, o idioma de origem, o idioma de destino e o idioma detectado.",
+                    "chatglm_turbo": "ChatGLM Turbo"
                 },
                 "chatglm_custom": {
                     "title": "ChatGLM Costume"
