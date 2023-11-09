@@ -243,6 +243,7 @@
                 "chatglm": {
                     "title": "ChatGLM",
                     "model": "Model",
+                    "chatglm_turbo": "ChatGLM Turbo",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",

@@ -234,6 +234,7 @@
                 "chatglm": {
                     "title": "智谱 AI",
                     "model": "模型",
+                    "chatglm_turbo": "ChatGLM Turbo",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",

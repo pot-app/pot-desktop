@@ -19,7 +19,7 @@ export function Config(props) {
     const [serviceConfig, setServiceConfig] = useConfig(
         'chatglm',
         {
-            model: 'chatglm_lite',
+            model: 'chatglm_turbo',
             apiKey: '',
             promptList: [
                 {
@@ -87,6 +87,9 @@ export function Config(props) {
                                 });
                             }}
                         >
+                            <DropdownItem key='chatglm_turbo'>
+                                {t(`services.translate.chatglm.chatglm_turbo`)}
+                            </DropdownItem>
                             <DropdownItem key='chatglm_pro'>{t(`services.translate.chatglm.chatglm_pro`)}</DropdownItem>
                             <DropdownItem key='chatglm_std'>{t(`services.translate.chatglm.chatglm_std`)}</DropdownItem>
                             <DropdownItem key='chatglm_lite'>
