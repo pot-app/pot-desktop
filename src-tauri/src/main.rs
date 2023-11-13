@@ -16,7 +16,7 @@ mod updater;
 mod window;
 
 use backup::*;
-use clipboard::start_clipboard_monitor;
+use clipboard::*;
 use cmd::*;
 use config::*;
 use hotkey::*;
@@ -114,8 +114,17 @@ fn main() {
                     init_lang_detect();
                 }
             }
+            let clipboard_monitor = match get("clipboard_monitor") {
+                Some(v) => v.as_bool().unwrap(),
+                None => {
+                    set("clipboard_monitor", false);
+                    false
+                }
+            };
+            app.manage(ClipboardMonitorEnableWrapper(Mutex::new(
+                clipboard_monitor.to_string(),
+            )));
             start_clipboard_monitor(app.handle());
-
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

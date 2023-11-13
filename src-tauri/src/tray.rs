@@ -1,3 +1,4 @@
+use crate::clipboard::*;
 use crate::config::{get, set};
 use crate::window::config_window;
 use crate::window::input_translate;
@@ -21,8 +22,8 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
         language = match get("app_language") {
             Some(v) => v.as_str().unwrap().to_string(),
             None => {
-                set("app_language", "zh_cn");
-                "zh_cn".to_string()
+                set("app_language", "en");
+                "en".to_string()
             }
         };
     }
@@ -145,10 +146,23 @@ fn on_clipboard_monitor_click(app: &AppHandle) {
             false
         }
     };
-    set("clipboard_monitor", !enable_clipboard_monitor);
+    let current = !enable_clipboard_monitor;
+    // Update Config File
+    set("clipboard_monitor", current);
+    // Update State and Start Monitor
+    let state = app.state::<ClipboardMonitorEnableWrapper>();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., &current.to_string());
+    if current {
+        start_clipboard_monitor(app.app_handle());
+    }
+    // Update Tray Menu Status
     app.tray_handle()
         .get_item("clipboard_monitor")
-        .set_selected(!enable_clipboard_monitor)
+        .set_selected(current)
         .unwrap();
 }
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {

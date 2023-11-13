@@ -37,6 +37,7 @@ fn http_handle(request: Request) {
         "/" => handle_translate(request),
         "/config" => handle_config(request),
         "/translate" => handle_translate(request),
+        "/selection_navbar" => handle_selection_navbar(request),
         "/selection_translate" => handle_selection_translate(request),
         "/input_translate" => handle_input_translate(request),
         "/ocr_recognize" => handle_ocr_recognize(request),
@@ -60,6 +61,13 @@ fn handle_translate(mut request: Request) {
     text_translate(content);
     response_ok(request);
 }
+
+
+fn handle_selection_navbar(request: Request) {
+    selection_navbar();
+    response_ok(request);
+}
+
 
 fn handle_selection_translate(request: Request) {
     selection_translate();

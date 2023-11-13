@@ -3,6 +3,7 @@ import { sendNotification } from '@tauri-apps/api/notification';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import React, { useEffect, useState } from 'react';
+import { CgSpaceBetween } from 'react-icons/cg';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
@@ -180,10 +181,22 @@ export default function TextArea() {
                             variant='light'
                             size='sm'
                             onPress={() => {
-                                setText(text.replace(/\s+/g, ' '));
+                                setText(text.replaceAll(/\s+/g, ' '));
                             }}
                         >
                             <MdSmartButton className='text-[16px]' />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content={t('recognize.delete_space')}>
+                        <Button
+                            isIconOnly
+                            variant='light'
+                            size='sm'
+                            onPress={() => {
+                                setText(text.replaceAll(' ', ''));
+                            }}
+                        >
+                            <CgSpaceBetween className='text-[16px]' />
                         </Button>
                     </Tooltip>
                 </ButtonGroup>

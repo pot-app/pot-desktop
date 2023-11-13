@@ -5,6 +5,7 @@ import { warn } from 'tauri-plugin-log-api';
 import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
+import Navbar from './window/Navbar'
 import Screenshot from './window/Screenshot';
 import Translate from './window/Translate';
 import Recognize from './window/Recognize';
@@ -16,6 +17,7 @@ import './style.css';
 import './i18n';
 
 const windowMap = {
+    navbar: <Navbar />,
     translate: <Translate />,
     screenshot: <Screenshot />,
     recognize: <Recognize />,
@@ -25,7 +27,7 @@ const windowMap = {
 
 export default function App() {
     const [appTheme] = useConfig('app_theme', 'system');
-    const [appLanguage] = useConfig('app_language', 'zh_cn');
+    const [appLanguage] = useConfig('app_language', 'en');
     const { setTheme } = useTheme();
     const { i18n } = useTranslation();
 

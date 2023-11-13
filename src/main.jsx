@@ -8,6 +8,24 @@ import { initStore } from './utils/store';
 import { initEnv } from './utils/env';
 import App from './App';
 
+
+console.log('0000000', appWindow)
+
+// const { clipboardReadText } = window.tauri.promisified;
+
+// function getSelectedText() {
+//   const selection = window.getSelection();
+//   const selectedText = selection.toString();
+//   console.log(selectedText);
+// }
+//
+// async function readClipboard() {
+//   const content = await clipboardReadText();
+//   console.log(content);
+//   getSelectedText();
+// }
+
+
 if (import.meta.env.PROD) {
     document.addEventListener('contextmenu', (e) => {
         e.preventDefault();
@@ -29,7 +47,9 @@ document.addEventListener('keydown', async (e) => {
 
 initStore().then(async () => {
     await initEnv();
+//     await getSelectedText();
     const rootElement = document.getElementById('root');
+    console.log('rootElement', rootElement)
     const root = ReactDOM.createRoot(rootElement);
     root.render(
         <NextUIProvider>

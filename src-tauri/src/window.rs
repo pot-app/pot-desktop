@@ -119,6 +119,109 @@ pub fn config_window() {
     window.center().unwrap();
 }
 
+
+fn navbar_window() -> Window {
+    use mouse_position::mouse_position::{Mouse, Position};
+    // Mouse physical position
+    let mut mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
+        }
+    };
+    let (window, exists) = build_window("navbar", "Navbar");
+    if exists {
+        return window;
+    }
+    window.set_skip_taskbar(true).unwrap();
+    // Get Translate Window Size
+    let width = match get("translate_window_width") {
+        Some(v) => v.as_i64().unwrap(),
+        None => {
+            set("translate_window_width", 350);
+            350
+        }
+    };
+    let height = match get("translate_window_height") {
+        Some(v) => v.as_i64().unwrap(),
+        None => {
+            set("translate_window_height", 420);
+            420
+        }
+    };
+
+    let monitor = window.current_monitor().unwrap().unwrap();
+    let dpi = monitor.scale_factor();
+
+    window
+        .set_size(tauri::PhysicalSize::new(
+            (width as f64) * dpi,
+            (height as f64) * dpi,
+        ))
+        .unwrap();
+
+    let position_type = match get("translate_window_position") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => "mouse".to_string(),
+    };
+
+    match position_type.as_str() {
+        "mouse" => {
+            // Adjust window position
+            let monitor_size = monitor.size();
+            let monitor_size_width = monitor_size.width as f64;
+            let monitor_size_height = monitor_size.height as f64;
+            let monitor_position = monitor.position();
+            let monitor_position_x = monitor_position.x as f64;
+            let monitor_position_y = monitor_position.y as f64;
+
+            if mouse_position.x as f64 + width as f64 * dpi
+                > monitor_position_x + monitor_size_width
+            {
+                mouse_position.x -= (width as f64 * dpi) as i32;
+                if (mouse_position.x as f64) < monitor_position_x {
+                    mouse_position.x = monitor_position_x as i32;
+                }
+            }
+            if mouse_position.y as f64 + height as f64 * dpi
+                > monitor_position_y + monitor_size_height
+            {
+                mouse_position.y -= (height as f64 * dpi) as i32;
+                if (mouse_position.y as f64) < monitor_position_y {
+                    mouse_position.y = monitor_position_y as i32;
+                }
+            }
+
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    mouse_position.x,
+                    mouse_position.y,
+                ))
+                .unwrap();
+        }
+        _ => {
+            let position_x = match get("translate_window_position_x") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            let position_y = match get("translate_window_position_y") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    (position_x as f64) * dpi,
+                    (position_y as f64) * dpi,
+                ))
+                .unwrap();
+        }
+    }
+
+    window
+}
+
+
 fn translate_window() -> Window {
     use mouse_position::mouse_position::{Mouse, Position};
     // Mouse physical position
@@ -219,6 +322,22 @@ fn translate_window() -> Window {
 
     window
 }
+
+pub fn selection_navbar() {
+    use selection::get_text;
+    // Get Selected Text
+    let text = get_text();
+    if !text.trim().is_empty() {
+        let app_handle = APP.get().unwrap();
+        // Write into State
+        let state: tauri::State<StringWrapper> = app_handle.state();
+        state.0.lock().unwrap().replace_range(.., &text);
+    }
+
+    let window = navbar_window();
+    window.emit("new_text", text).unwrap();
+}
+
 
 pub fn selection_translate() {
     use selection::get_text;

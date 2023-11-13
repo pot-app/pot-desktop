@@ -1,11 +1,18 @@
 {
     "tauri": {
         "systemTray": {
-            "iconPath": "icons/icon_mac.ico",
+            "iconPath": "icons_mac/tray.ico",
             "iconAsTemplate": true
         },
         "bundle": {
-            "resources": ["resources/*"]
+            "resources": ["resources/*"],
+            "icon": [
+                "icons_mac/32x32.png",
+                "icons_mac/128x128.png",
+                "icons_mac/128x128@2x.png",
+                "icons_mac/icon.icns",
+                "icons_mac/icon.ico"
+            ]
         }
     }
 }

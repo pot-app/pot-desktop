@@ -1,4 +1,4 @@
-<img width="200px" src="public/icon.png" align="left"/>
+<img width="200px" src="public/icon.svg" align="left"/>
 
 # Pot (A cute translator)
 
@@ -150,6 +150,16 @@ The built-in services are limited. But you can expand the app's functionality th
 You can find plugins you need in the [pot-app-plugin-list](https://github.com/pot-app/pot-app-plugin-list) repo, and then go to the plugin repo to download it.
 
 The file extension of pot plugin is `.potext`. After downloading the `.potext` file, go to Preferences - Service Settings - Add External Plugin - Install External Plugin to select the corresponding `.potext` to install it. It will then be added to the service list and can be used like a built-in service.
+
+### Troubleshooting
+
+-   The specified module could not be found (Windows)
+
+    Errors like this occur because the system lacks C++ libraries，Go to [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) download and install it.
+
+-   Not a valid Win32 application (Windows)
+
+    An error like this indicates that you did not download the plugin for the corresponding system or architecture. Go to the plugin repository and download the correct plugin to solve the problem.
 
 ## Develop Plugin
 

@@ -58,7 +58,8 @@
                     "host": "代理地址",
                     "port": "代理端口",
                     "username": "用户名",
-                    "password": "密码"
+                    "password": "密码",
+                    "no_proxy": "不使用代理的地址或IP"
                 },
                 "proxy_change": "代理已经改变，重启应用生效",
                 "proxy_error": "请填写代理地址和端口",
@@ -186,22 +187,6 @@
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
                 "discussion": "Github 讨论"
-            },
-            "search": {
-                "label": "默认查询",
-                "title": "默认查询"
-            },
-            "qsearch": {
-                "label": "快捷查询",
-                "title": "快捷查询",
-                "reset": "恢复默认",
-                "edit": "编辑",
-                "delete": "删除",
-                "add": "新增",
-                "save": "保存",
-                "cancel": "取消",
-                "action": "请输入动作名",
-                "prompt": "请输入你的提示词"
             }
         },
         "updater": {
@@ -249,6 +234,7 @@
                 "chatglm": {
                     "title": "智谱 AI",
                     "model": "模型",
+                    "chatglm_turbo": "ChatGLM Turbo",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",
@@ -443,7 +429,8 @@
             "translate": "翻译",
             "copy_img": "复制图片",
             "copy_text": "复制",
-            "delete_newline": "删除换行"
+            "delete_newline": "删除换行",
+            "delete_space": "删除空格"
         }
     }
 }

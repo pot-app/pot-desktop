@@ -81,7 +81,7 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button
                         onPress={() => {
-                            open('https://pot-app.com/docs/tutorial/api/translate/openai');
+                            open('https://pot-app.com/docs/api/translate/openai.html');
                         }}
                     >
                         {t('services.help')}
@@ -172,6 +172,7 @@ export function Config(props) {
                         <DropdownMenu
                             autoFocus='first'
                             aria-label='service'
+                            className='max-h-[50vh] overflow-y-auto'
                             onAction={(key) => {
                                 setOpenaiConfig({
                                     ...openaiConfig,
@@ -180,8 +181,15 @@ export function Config(props) {
                             }}
                         >
                             <DropdownItem key='gpt-3.5-turbo'>gpt-3.5-turbo</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-16k'>gpt-3.5-turbo-16k</DropdownItem>
+                            <DropdownItem key='gpt-3.5-turbo-instruct'>gpt-3.5-turbo-instruct</DropdownItem>
+                            <DropdownItem key='gpt-3.5-turbo-0301'>gpt-3.5-turbo-0301</DropdownItem>
+                            <DropdownItem key='gpt-3.5-turbo-0613'>gpt-3.5-turbo-0613</DropdownItem>
+                            <DropdownItem key='gpt-3.5-turbo-1106'>gpt-3.5-turbo-1106</DropdownItem>
+                            <DropdownItem key='gpt-3.5-turbo-16k-0613'>gpt-3.5-turbo-16k-0613</DropdownItem>
                             <DropdownItem key='gpt-4'>gpt-4</DropdownItem>
+                            <DropdownItem key='gpt-4-0314'>gpt-4-0314</DropdownItem>
+                            <DropdownItem key='gpt-4-0613'>gpt-4-0613</DropdownItem>
+                            <DropdownItem key='gpt-4-1106-preview'>gpt-4-1106-preview</DropdownItem>
                             <DropdownItem key='gpt-4-32k'>gpt-4-32k</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>

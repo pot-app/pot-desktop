@@ -58,7 +58,8 @@
                     "host": "Host",
                     "port": "Port",
                     "username": "User Name",
-                    "password": "Password"
+                    "password": "Password",
+                    "no_proxy": "No Proxy"
                 },
                 "proxy_change": "The proxy has been changed, Restart the application for the changes to take effect",
                 "proxy_error": "Please fill in the host and port",
@@ -186,22 +187,6 @@
                 "qq_group": "QQ Group",
                 "telegram": "Telegram",
                 "discussion": "Github Discussion"
-            },
-            "search": {
-                "label": "Default Search",
-                "title": "Default Search"
-            },
-            "qsearch": {
-                "label": "Quick Search",
-                "title": "Quick Search",
-                "reset": "Reset",
-                "edit": "Edit",
-                "delete": "Delete",
-                "add": "Add",
-                "save": "Save",
-                "cancel": "Cancel",
-                "action": "Please enter your action name",
-                "prompt": "Please enter your prompt"
             }
         },
         "updater": {
@@ -258,6 +243,7 @@
                 "chatglm": {
                     "title": "ChatGLM",
                     "model": "Model",
+                    "chatglm_turbo": "ChatGLM Turbo",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",
@@ -443,7 +429,8 @@
             "translate": "Translate",
             "copy_img": "Copy Image",
             "copy_text": "Copy",
-            "delete_newline": "Delete Newline"
+            "delete_newline": "Delete Newline",
+            "delete_space": "Delete Space"
         }
     }
 }

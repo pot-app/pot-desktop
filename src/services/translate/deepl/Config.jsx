@@ -56,7 +56,7 @@ export function Config(props) {
                         onPress={() => {
                             const url =
                                 deeplConfig.type === 'api'
-                                    ? 'https://pot-app.com/docs/tutorial/api/translate/deepl'
+                                    ? 'https://pot-app.com/docs/api/translate/deepl.html'
                                     : 'https://github.com/OwO-Network/DeepLX';
                             open(url);
                         }}
