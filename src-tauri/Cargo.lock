@@ -4361,12 +4361,13 @@ dependencies = [
 
 [[package]]
 name = "selection"
-version = "1.0.0"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09de39c8f10d37a7b9c2a9cb224dbe4535525cbe17ccf37c21419123ab54a197"
+checksum = "ae9d5f752403a8ef95d55c47c297541c3c12e90bf8bdaf82287527ff9f373cb6"
 dependencies = [
  "arboard",
  "enigo",
+ "log",
  "windows 0.44.0",
  "wl-clipboard-rs",
  "x11-clipboard",
