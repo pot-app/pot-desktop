@@ -1,7 +1,37 @@
 {
     "translation": {
         "common": {
-            "ok": "Ok"
+            "ok": "Ok",
+            "plugin": "Complemento",
+            "cancel": "Cancelar",
+            "write_clipboard": "Escribir en el portapapeles",
+            "save": "Guardar",
+            "clear": "Limpiar",
+            "coming": "Próximamente…"
+        },
+        "languages": {
+            "mn_cy": "Mongol moderno",
+            "ar": "Árabe",
+            "it": "Italiano",
+            "vi": "Vietnamita",
+            "zh_cn": "Chino simplificado",
+            "id": "Indonesio",
+            "zh_tw": "Chino tradicional",
+            "ru": "Ruso",
+            "mn_mo": "Mongol",
+            "en": "Inglés",
+            "th": "Tailandés",
+            "ja": "Japonés",
+            "ms": "Malayo",
+            "fr": "Francés",
+            "de": "Alemán",
+            "es": "Español",
+            "pt_pt": "Portugués",
+            "ko": "Coreano",
+            "tr": "Turco",
+            "auto": "Detección automática",
+            "pt_br": "Portugués de Brasil",
+            "hi": "Hindú"
         }
     }
 }
