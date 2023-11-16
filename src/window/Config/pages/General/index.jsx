@@ -25,10 +25,12 @@ let timer = null;
 
 export default function General() {
     const [autoStart, setAutoStart] = useState(false);
+    const [fontList, setFontList] = useState(null);
     const [checkUpdate, setCheckUpdate] = useConfig('check_update', false);
     const [serverPort, setServerPort] = useConfig('server_port', 60828);
     const [appLanguage, setAppLanguage] = useConfig('app_language', 'en');
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
+    const [appFont, setAppFont] = useConfig('app_font', 'default');
     const [transparent, setTransparent] = useConfig('transparent', true);
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
@@ -63,6 +65,9 @@ export default function General() {
     useEffect(() => {
         isEnabled().then((v) => {
             setAutoStart(v);
+        });
+        invoke('font_list').then((v) => {
+            setFontList(v);
         });
     }, []);
 
@@ -291,6 +296,47 @@ export default function General() {
                                     <DropdownItem key='system'>{t('config.general.theme.system')}</DropdownItem>
                                     <DropdownItem key='light'>{t('config.general.theme.light')}</DropdownItem>
                                     <DropdownItem key='dark'>{t('config.general.theme.dark')}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto'>{t('config.general.app_font')}</h3>
+                        {appFont !== null && fontList !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>
+                                        {appFont === 'default' ? t('config.general.default_font') : appFont}
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='app font'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        if (key === 'default') {
+                                            document.documentElement.style.fontFamily = 'sans-serif';
+                                        } else {
+                                            document.documentElement.style.fontFamily = key;
+                                        }
+                                        setAppFont(key);
+                                    }}
+                                >
+                                    <DropdownItem
+                                        style={{ fontFamily: 'sans-serif' }}
+                                        key='default'
+                                    >
+                                        {t('config.general.default_font')}
+                                    </DropdownItem>
+                                    {fontList.map((x) => {
+                                        return (
+                                            <DropdownItem
+                                                style={{ fontFamily: x }}
+                                                key={x}
+                                            >
+                                                {x}
+                                            </DropdownItem>
+                                        );
+                                    })}
                                 </DropdownMenu>
                             </Dropdown>
                         )}

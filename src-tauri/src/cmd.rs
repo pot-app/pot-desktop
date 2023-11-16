@@ -302,3 +302,11 @@ pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, 
     }
     Ok(success_count)
 }
+
+#[tauri::command]
+pub fn font_list() -> Result<Vec<String>, Error> {
+    use font_kit::source::SystemSource;
+    let source = SystemSource::new();
+
+    Ok(source.all_families()?)
+}

@@ -47,6 +47,8 @@
                 "server_port_change": "The listening port has been changed, Please restart the application for the changes to take effect",
                 "app_language": "Application Language",
                 "app_theme": "Theme",
+                "app_font": "Font",
+                "default_font": "Default",
                 "theme": {
                     "light": "Light",
                     "dark": "Dark",

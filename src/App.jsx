@@ -26,6 +26,7 @@ const windowMap = {
 export default function App() {
     const [appTheme] = useConfig('app_theme', 'system');
     const [appLanguage] = useConfig('app_language', 'en');
+    const [appFont] = useConfig('app_font', 'default');
     const { setTheme } = useTheme();
     const { i18n } = useTranslation();
 
@@ -56,7 +57,12 @@ export default function App() {
         if (appLanguage !== null) {
             i18n.changeLanguage(appLanguage);
         }
-    }, [appTheme, appLanguage]);
+        if (appFont !== null) {
+            if (appFont !== 'default') {
+                document.documentElement.style.fontFamily = appFont;
+            }
+        }
+    }, [appTheme, appLanguage, appFont]);
 
     return <BrowserRouter>{windowMap[appWindow.label]}</BrowserRouter>;
 }

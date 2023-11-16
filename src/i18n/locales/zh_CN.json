@@ -47,6 +47,8 @@
                 "server_port_change": "监听端口已更改，重启应用生效",
                 "app_language": "应用语言",
                 "app_theme": "应用主题",
+                "app_font": "显示字体",
+                "default_font": "默认",
                 "theme": {
                     "light": "浅色",
                     "dark": "深色",

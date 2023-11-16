@@ -40,6 +40,7 @@ reqwest_dav = "0.1.4"
 zip = "0.6.6"
 walkdir = "2.3.3"
 thiserror = "1.0.47"
+font-kit = "0.11.0"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 macos-accessibility-client = "0.0.1"
