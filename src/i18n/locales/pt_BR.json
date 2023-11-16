@@ -80,7 +80,10 @@
                     "disable": "Desabilitar",
                     "ocr_recognize": "Reconhecimento de Texto",
                     "ocr_translate": "Tradução de Imagem"
-                }
+                },
+                "default_font": "Padrão",
+                "app_font": "Fonte",
+                "app_fallback_font": "Fonte Reserva"
             },
             "translate": {
                 "label": "Traduzir",
