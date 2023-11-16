@@ -31,6 +31,7 @@ export default function General() {
     const [appLanguage, setAppLanguage] = useConfig('app_language', 'en');
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
     const [appFont, setAppFont] = useConfig('app_font', 'default');
+    const [appFallbackFont, setAppFallbackFont] = useConfig('app_fallback_font', 'default');
     const [transparent, setTransparent] = useConfig('transparent', true);
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
@@ -305,7 +306,12 @@ export default function General() {
                         {appFont !== null && fontList !== null && (
                             <Dropdown>
                                 <DropdownTrigger>
-                                    <Button variant='bordered'>
+                                    <Button
+                                        variant='bordered'
+                                        style={{
+                                            fontFamily: appFont === 'default' ? 'sans-serif' : appFont,
+                                        }}
+                                    >
                                         {appFont === 'default' ? t('config.general.default_font') : appFont}
                                     </Button>
                                 </DropdownTrigger>
@@ -313,12 +319,56 @@ export default function General() {
                                     aria-label='app font'
                                     className='max-h-[50vh] overflow-y-auto'
                                     onAction={(key) => {
-                                        if (key === 'default') {
-                                            document.documentElement.style.fontFamily = 'sans-serif';
-                                        } else {
-                                            document.documentElement.style.fontFamily = key;
-                                        }
+                                        document.documentElement.style.fontFamily = `"${
+                                            key === 'default' ? 'sans-serif' : key
+                                        }","${appFallbackFont === 'default' ? 'sans-serif' : appFallbackFont}"`;
                                         setAppFont(key);
+                                    }}
+                                >
+                                    <DropdownItem
+                                        style={{ fontFamily: 'sans-serif' }}
+                                        key='default'
+                                    >
+                                        {t('config.general.default_font')}
+                                    </DropdownItem>
+                                    {fontList.map((x) => {
+                                        return (
+                                            <DropdownItem
+                                                style={{ fontFamily: x }}
+                                                key={x}
+                                            >
+                                                {x}
+                                            </DropdownItem>
+                                        );
+                                    })}
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto'>{t('config.general.app_fallback_font')}</h3>
+                        {appFallbackFont !== null && fontList !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button
+                                        variant='bordered'
+                                        style={{
+                                            fontFamily: appFallbackFont === 'default' ? 'sans-serif' : appFallbackFont,
+                                        }}
+                                    >
+                                        {appFallbackFont === 'default'
+                                            ? t('config.general.default_font')
+                                            : appFallbackFont}
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='app font'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        document.documentElement.style.fontFamily = `"${
+                                            appFont === 'default' ? 'sans-serif' : appFont
+                                        }","${key === 'default' ? 'sans-serif' : key}"`;
+                                        setAppFallbackFont(key);
                                     }}
                                 >
                                     <DropdownItem
