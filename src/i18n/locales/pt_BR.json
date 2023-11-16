@@ -47,6 +47,16 @@
                 "server_port_change": "A porta de escuta foi alterada. Reinicie o aplicativo para que as alterações tenham efeito",
                 "app_language": "Idioma do Aplicativo",
                 "app_theme": "Tema",
+                "font_size": {
+                    "14": "Pequena (14px)",
+                    "title": "Tamanho da Fonte",
+                    "24": "Muito, Muito Grande (24px)",
+                    "20": "Muito Grande (20px)",
+                    "12": "Muito Pequena (12px)",
+                    "16": "Padrão (16px)",
+                    "10": "Muito, Muito Pequena (10px)",
+                    "18": "Grande (18px)"
+                },
                 "theme": {
                     "light": "Luz",
                     "dark": "Escuro",

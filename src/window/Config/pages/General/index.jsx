@@ -32,6 +32,7 @@ export default function General() {
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
     const [appFont, setAppFont] = useConfig('app_font', 'default');
     const [appFallbackFont, setAppFallbackFont] = useConfig('app_fallback_font', 'default');
+    const [appFontSize, setAppFontSize] = useConfig('app_font_size', 16);
     const [transparent, setTransparent] = useConfig('transparent', true);
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
@@ -387,6 +388,32 @@ export default function General() {
                                             </DropdownItem>
                                         );
                                     })}
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto mx-0'>{t('config.general.font_size.title')}</h3>
+                        {appFontSize !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.general.font_size.${appFontSize}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='window position'
+                                    className='max-h-[50vh] overflow-y-auto'
+                                    onAction={(key) => {
+                                        document.documentElement.style.fontSize = `${key}px`;
+                                        setAppFontSize(key);
+                                    }}
+                                >
+                                    <DropdownItem key={10}>{t(`config.general.font_size.10`)}</DropdownItem>
+                                    <DropdownItem key={12}>{t(`config.general.font_size.12`)}</DropdownItem>
+                                    <DropdownItem key={14}>{t(`config.general.font_size.14`)}</DropdownItem>
+                                    <DropdownItem key={16}>{t(`config.general.font_size.16`)}</DropdownItem>
+                                    <DropdownItem key={18}>{t(`config.general.font_size.18`)}</DropdownItem>
+                                    <DropdownItem key={20}>{t(`config.general.font_size.20`)}</DropdownItem>
+                                    <DropdownItem key={24}>{t(`config.general.font_size.24`)}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

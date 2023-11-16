@@ -28,6 +28,7 @@ export default function App() {
     const [appLanguage] = useConfig('app_language', 'en');
     const [appFont] = useConfig('app_font', 'default');
     const [appFallbackFont] = useConfig('app_fallback_font', 'default');
+    const [appFontSize] = useConfig('app_font_size', 16);
     const { setTheme } = useTheme();
     const { i18n } = useTranslation();
 
@@ -63,7 +64,10 @@ export default function App() {
                 appFallbackFont === 'default' ? 'sans-serif' : appFallbackFont
             }"`;
         }
-    }, [appTheme, appLanguage, appFont, appFallbackFont]);
+        if (appFontSize !== null) {
+            document.documentElement.style.fontSize = `${appFontSize}px`;
+        }
+    }, [appTheme, appLanguage, appFont, appFallbackFont, appFontSize]);
 
     return <BrowserRouter>{windowMap[appWindow.label]}</BrowserRouter>;
 }

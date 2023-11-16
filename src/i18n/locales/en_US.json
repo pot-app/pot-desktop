@@ -49,6 +49,16 @@
                 "app_theme": "Theme",
                 "app_font": "Font",
                 "app_fallback_font": "Fallback Font",
+                "font_size": {
+                    "title": "Font Size",
+                    "10": "Very Very Small (10px)",
+                    "12": "Very Small (12px)",
+                    "14": "Small (14px)",
+                    "16": "Standard (16px)",
+                    "18": "Large (18px)",
+                    "20": "Very Large (20px)",
+                    "24": "Very Very Large (24px)"
+                },
                 "default_font": "Default",
                 "theme": {
                     "light": "Light",
