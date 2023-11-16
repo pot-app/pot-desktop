@@ -1,12 +1,14 @@
-## 2.6.8 (2023-11-07)
+## 2.7.0 (2023-11-16)
 
 ### New feature:
 
--   Add `no_proxy` Option([`dc83e6a`](https://github.com/pot-app/pot-desktop/commit/dc83e6a7fb9134ca5be8070a78a702346d2e3e96)) (by @Pylogmon)
--   Update Document URL([`f233db7`](https://github.com/pot-app/pot-desktop/commit/f233db787ec4feb2051712386e66e02939d45213)) (by @Pylogmon)
--   Optimized the Clipboard Monitor([`0b73013`](https://github.com/pot-app/pot-desktop/commit/0b730137809159c24a308b2268dc673121de3447)) (by @Pylogmon)
--   Change App Icon For MacOS([`b2478ac`](https://github.com/pot-app/pot-desktop/commit/b2478ac9b5988fb076afbf3466ad514fc0dbbe69)) (by @Pylogmon)
+-   Add App Font Config Option([`83fb07f`](https://github.com/pot-app/pot-desktop/commit/83fb07f095c17dc6fa57650db90b2fea11c5be5b)) (by @Pylogmon)
+-   Add Fallback Font Config Option([`bf62846`](https://github.com/pot-app/pot-desktop/commit/bf628469b5a210978e4fd838f9e469efb677b660)) (by @Pylogmon)
+-   Add App Font Size Config Option([`7d4b3d4`](https://github.com/pot-app/pot-desktop/commit/7d4b3d4558a92cf95a76ec267a1cc9b3a19880de)) (by @Pylogmon)
+-   Support more Model for OpenAI([`2a12796`](https://github.com/pot-app/pot-desktop/commit/2a12796644fe79ca14943d3438381473f17b9224)) (by @Pylogmon)
+-   Update Model for ChatGLM([`e9667b1`](https://github.com/pot-app/pot-desktop/commit/e9667b17954f14e541412957acd5cf2bf7fa6adb)) (by @Pylogmon)
+-   Add Delete Space Button on OCR Window([`fae19cd`](https://github.com/pot-app/pot-desktop/commit/fae19cde4186bdda5ac57a85f1c33d68c985b5df)) (by @Pylogmon)
 
 ### Bugs fixed:
 
--   Collapse when empty([`349ca56`](https://github.com/pot-app/pot-desktop/commit/349ca56d8dc9e851e4ec0f3cb3db2cf890b76409)) (by @Pylogmon)
+-   Fix some crash issue([`3d51fa2`](https://github.com/pot-app/pot-desktop/commit/3d51fa2ef9c1b0a70afcac56a3884e0e86b0c7f3)) (by @Pylogmon)
