@@ -187,6 +187,22 @@
                 "qq_group": "QQ 群",
                 "telegram": "Telegram",
                 "discussion": "Github 讨论"
+            },
+            "search": {
+                "label": "默认查询",
+                "title": "默认查询"
+            },
+            "qsearch": {
+                "label": "快捷查询",
+                "title": "快捷查询",
+                "reset": "恢复默认",
+                "edit": "编辑",
+                "delete": "删除",
+                "add": "新增",
+                "save": "保存",
+                "cancel": "取消",
+                "action": "请输入动作名",
+                "prompt": "请输入你的提示词"
             }
         },
         "updater": {

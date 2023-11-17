@@ -23,12 +23,15 @@ import {Body, fetch} from "@tauri-apps/api/http"
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
+import SelectPrompt from '../SelectPrompt';
+import ChatArea from '../ChatArea';
+
 
 let unlisten = null;
 let timer = null;
 
 export default function SourceArea(props) {
-    const { pluginList } = props;
+    const { pluginList} = props;
     const [sourceText, setSourceText, syncSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [incrementalTranslate] = useConfig('incremental_translate', false);
@@ -46,6 +49,16 @@ export default function SourceArea(props) {
     const speak = useVoice();
     const [showCard, setShowCard] = useState(false)
 
+
+    const [sKey, setSKey] = useState('');
+    const setSelectKey = (key_) => {
+        setSKey(key_)
+    };
+    const [userInput, setUserInput] = useState('');
+
+
+
+
     const handleNewText = async (text) => {
         text = text.trim();
         if (hideWindow) {
@@ -54,101 +67,8 @@ export default function SourceArea(props) {
             appWindow.show();
             appWindow.setFocus();
         }
-        setDetectLanguage('');
-        if (text === '') {
-            text = (await readText()) ?? '';
-        }
-        if (text === '[INPUT_TRANSLATE]') {
-            appWindow.show();
-            appWindow.setFocus();
-            setSourceText('', true);
-        } else if (text === '[IMAGE_TRANSLATE]') {
-            const base64 = await invoke('get_base64');
-            const serviceName = recognizeServiceList[0];
-            if (serviceName.startsWith('[plugin]')) {
-                if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
-                    const pluginConfig = (await store.get(serviceName)) ?? {};
-                    invoke('invoke_plugin', {
-                        name: serviceName,
-                        pluginType: 'recognize',
-                        source: base64,
-                        lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
-                        needs: pluginConfig,
-                    }).then(
-                        (v) => {
-                            let newText = v;
-                            if (deleteNewline) {
-                                newText = v.replace(/\s+/g, ' ');
-                            } else {
-                                newText = v;
-                            }
-                            if (incrementalTranslate) {
-                                setSourceText((old) => {
-                                    return old + ' ' + newText;
-                                });
-                            } else {
-                                setSourceText(newText);
-                            }
-                            detect_language(newText).then(() => {
-                                syncSourceText();
-                            });
-                        },
-                        (e) => {
-                            setSourceText(e.toString());
-                        }
-                    );
-                } else {
-                    setSourceText('Language not supported');
-                }
-            } else {
-                if (recognizeLanguage in recognizeServices[serviceName].Language) {
-                    recognizeServices[serviceName]
-                        .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
-                        .then(
-                            (v) => {
-                                let newText = v;
-                                if (deleteNewline) {
-                                    newText = v.replace(/\s+/g, ' ');
-                                } else {
-                                    newText = v;
-                                }
-                                if (incrementalTranslate) {
-                                    setSourceText((old) => {
-                                        return old + ' ' + newText;
-                                    });
-                                } else {
-                                    setSourceText(newText);
-                                }
-                                detect_language(newText).then(() => {
-                                    syncSourceText();
-                                });
-                            },
-                            (e) => {
-                                setSourceText(e.toString());
-                            }
-                        );
-                } else {
-                    setSourceText('Language not supported');
-                }
-            }
-        } else {
-            let newText = text;
-            if (deleteNewline) {
-                newText = text.replace(/\s+/g, ' ');
-            } else {
-                newText = text;
-            }
-            if (incrementalTranslate) {
-                setSourceText((old) => {
-                    return old + ' ' + newText;
-                });
-            } else {
-                setSourceText(newText);
-            }
-            detect_language(newText).then(() => {
-                syncSourceText();
-            });
-        }
+        setUserInput(text)
+        
     };
 
     const keyDown = (event) => {
@@ -189,7 +109,7 @@ export default function SourceArea(props) {
             speak(data);
         }
     };
-
+const [a, setA] = useState('')
     useEffect(() => {
         if (hideWindow !== null) {
             if (unlisten) {
@@ -244,14 +164,25 @@ export default function SourceArea(props) {
         shadow='none'
         className='bg-content1 rounded-[10px] mt-[1px] pb-0'
         // style={{height:"40px"}}
-        style={{position:"relative",height:"300px",backgroundColor:"transparent"}}
+        style={{position:"relative",height:"400px",backgroundColor:"transparent"}}
     >
         <Toaster />
+        {/* 这里是A: {a}
+        slect:{sKey == '' ? '空' : '有'} {sKey}<br/> */}
+                {/* userInput:{userInput} */}
+                {sKey == '' ? (
+                    <SelectPrompt setSKey={setSelectKey} />
+                ) : (
+                    <ChatArea
+                        key_={sKey}
+                        userInput={userInput}
+                    />
+                )}
 {/* 编辑：点击之后可以重命名div中的文字内容
 置顶：点击后改变status
  */}
  {/* 当数据status=1的时候渲染到cardfooter中，反之渲染到下面定位列表中 */}
-        <CardFooter className='bg-content1 rounded-[10px] flex justify-between px-[12px] p-[5px]' >
+        {/* <CardFooter className='bg-content1 rounded-[10px] flex justify-between px-[12px] p-[5px]' >
             <div className='flex justify-start' style={{background:"orange",height:"40px"}}>
                 <ButtonGroup style={{display:"flex"}} className='mr-[5px]'>
                     <Tooltip content={t('translate.explain')} offset={15}>
@@ -298,7 +229,7 @@ export default function SourceArea(props) {
                         >
                             <MdSmartButton className='text-[20px]' />
                         </Button>
-                    </Tooltip>
+                    </Tooltip> */}
                     {/* <Tooltip content={t('translate.translate')} offset={15}>
                         <Button
                             style={{width:"40px"}}
@@ -356,10 +287,10 @@ export default function SourceArea(props) {
                             <LuDelete className='text-[20px]' />
                         </Button>
                     </Tooltip> */}
-                </ButtonGroup>
+                {/* </ButtonGroup>
             </div>
-        </CardFooter>
-        <div style={{position:"absolute",top:"50px",right:"140px",display:"flex",flexDirection:"column",background:"#f2f2f2",height:"160px",width:"120px",opacity:showList?"0":"1",transition:"all .3s ease-in-out"}}>
+        </CardFooter> */}
+        {/* <div style={{position:"absolute",top:"50px",right:"140px",display:"flex",flexDirection:"column",background:"#f2f2f2",height:"160px",width:"120px",opacity:showList?"0":"1",transition:"all .3s ease-in-out"}}>
             <Tooltip content={t('translate.rewrite')} offset={15}>
                         <Button
                             style={{width:"120px",display:"flex",alignItems:"center"}}
@@ -375,11 +306,11 @@ export default function SourceArea(props) {
                             }}
                         >
                             <MdSmartButton className='text-[20px]' />
-                            <div style={{marginLeft:"4px",textAlign:"center"}}>Summarize</div>
+                            <div style={{marginLeft:"4px",textAlign:"center"}}>Summarize</div> */}
                             {/* <div>文字内容</div> */}
                             {/* <MdSmartButton className='text-[20px]' /> */}
                             {/* <MdSmartButton className='text-[20px]' /> */}
-                        </Button>
+                        {/* </Button>
                     </Tooltip>
                     <Tooltip content={t('translate.translate')} offset={15}>
                         <Button
@@ -442,7 +373,7 @@ export default function SourceArea(props) {
                             <div style={{marginLeft:"4px",textAlign:"center"}}>Summarize</div>
                         </Button>
                     </Tooltip>
-                </div>
+                </div> */}
     </Card>
   );
 }

@@ -187,6 +187,22 @@
                 "qq_group": "QQ Group",
                 "telegram": "Telegram",
                 "discussion": "Github Discussion"
+            },
+            "search": {
+                "label": "Default Search",
+                "title": "Default Search"
+            },
+            "qsearch": {
+                "label": "Quick Search",
+                "title": "Quick Search",
+                "reset": "Reset",
+                "edit": "Edit",
+                "delete": "Delete",
+                "add": "Add",
+                "save": "Save",
+                "cancel": "Cancel",
+                "action": "Please enter your action name",
+                "prompt": "Please enter your prompt"
             }
         },
         "updater": {

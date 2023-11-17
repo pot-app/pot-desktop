@@ -12,6 +12,7 @@ import 'highlight.js/styles/atom-one-dark.css';
 
 export default function Chat(props) {
     const key = props.key_ || null;
+    const userInput = props.userInput || null;
     const { loading, disabled, messages, currentMessage, onSend, onClear, onStop, setMessages } = useChatGPT();
     const messageRef = useRef();
     const [recognizeLanguage, setRecognizeLanguage] = useConfig('recognize_language', 'auto');
@@ -40,21 +41,37 @@ export default function Chat(props) {
             return;
         }
         // 防止输入不显示
-        if (messages.length > 0 && messages[0].content == prompt) {
+        if (messages.length > 0 && messages[0].content == prompt && !userInput) {
             console.log('same');
             init = true;
             return;
         }
         // 初始化
-        if (!(key in myMessages)) {
+        if (userInput) {
+            if (messages.length > 1) return;
+            console.log("useruseruser", messages)
             setMessages([
                 {
                     role: 'system',
                     content: prompt,
                 },
             ]);
+            messages.length == 1 && onSend({
+                role: 'user',
+                content: userInput,
+            });
+           
         } else {
-            setMessages(myMessages[key]);
+            if (!(key in myMessages)) {
+                setMessages([
+                    {
+                        role: 'system',
+                        content: prompt,
+                    },
+                ]);
+            } else {
+                setMessages(myMessages[key]);
+            }
         }
         init = true;
         setInitState(true);
@@ -123,7 +140,7 @@ export default function Chat(props) {
     }
 
     return (
-        <>
+        <>{console.log('111111111111',messages)}
             <div
                 style={mainStyle}
                 id='chatBody'

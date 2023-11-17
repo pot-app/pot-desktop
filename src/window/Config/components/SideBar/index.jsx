@@ -51,7 +51,7 @@ export default function SideBar() {
 
     return (
         <div className='mx-[12px] overflow-y-auto'>
-            {/* <Button
+            <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/general')}
@@ -62,7 +62,7 @@ export default function SideBar() {
                 startContent={<AiFillAppstore className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.general.label')}</div>
-            </Button> */}
+            </Button>
             {/* <Button
                 fullWidth
                 size='lg'
@@ -86,7 +86,7 @@ export default function SideBar() {
                 startContent={<PiTextboxFill className='text-[24px]' />}
             >
                 <div className='w-full'>{t('config.recognize.label')}</div>
-            </Button>
+            </Button> */}
             <Button
                 fullWidth
                 size='lg'
@@ -99,7 +99,7 @@ export default function SideBar() {
             >
                 <div className='w-full'>{t('config.hotkey.label')}</div>
             </Button>
-            <Button
+            {/* <Button
                 fullWidth
                 size='lg'
                 variant={setStyle('/service')}

@@ -327,6 +327,7 @@ pub fn selection_navbar() {
     use selection::get_text;
     // Get Selected Text
     let text = get_text();
+    info!("{}", text);
     if !text.trim().is_empty() {
         let app_handle = APP.get().unwrap();
         // Write into State

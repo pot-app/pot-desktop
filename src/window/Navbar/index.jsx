@@ -175,20 +175,64 @@ export default function Navbar() {
         }
     }, [translateServiceList]);
 
+
+    // console.log(selectKey);
+
     return (
         pluginList && (
             <div
-                id = "target1"
+                id='target1'
                 className={`bg-background h-screen w-screen ${
                     osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
                 }`}
-                style={{ backgroundColor:"(255,255,255,0)",height:"300px"}}
+                style={{
+                    // backgroundColor: '(255,255,255,0)',
+                    // height: '800px',
+                }}
             >
+                <div
+                    className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
+                    data-tauri-drag-region='true'
+                />
+                {/* <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
+                    <Button
+                        isIconOnly
+                        size='sm'
+                        variant='flat'
+                        disableAnimation
+                        className='my-auto bg-transparent'
+                        onPress={() => {
+                            if (pined) {
+                                if (closeOnBlur) {
+                                    unlisten = listenBlur();
+                                }
+                                appWindow.setAlwaysOnTop(false);
+                            } else {
+                                unlistenBlur();
+                                appWindow.setAlwaysOnTop(true);
+                            }
+                            setPined(!pined);
+                        }}
+                    >
+                        <BsPinFill className={`text-[20px] ${pined ? 'text-primary' : 'text-default-400'}`} />
+                    </Button>
+                    <Button
+                        isIconOnly
+                        size='sm'
+                        variant='flat'
+                        disableAnimation
+                        className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
+                        onPress={() => {
+                            void appWindow.close();
+                        }}
+                    >
+                        <AiFillCloseCircle className='text-[20px] text-default-400' />
+                    </Button>
+                </div> */}
 
-                            <SourceArea pluginList={pluginList} />
-
+                
+                <SourceArea pluginList={pluginList}/>
             </div>
-            
         )
     );
 }
