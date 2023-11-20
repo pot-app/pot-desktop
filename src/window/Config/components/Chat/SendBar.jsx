@@ -45,7 +45,8 @@ const SendBar = (props) => {
     };
 
     return (
-        <Show
+        <div style={{height:"10%"}}>
+                    <Show
             fallback={
                 <div className='thinking'>
                     <span>Please wait ...</span>
@@ -88,6 +89,7 @@ const SendBar = (props) => {
                 </button>
             </div>
         </Show>
+        </div>
     );
 };
 

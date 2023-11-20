@@ -10,6 +10,7 @@ import Backup from '../pages/Backup';
 import About from '../pages/About';
 import Search from '../pages/Search';
 import QSearch from '../pages/QSearch';
+// import NewChat from '../pages/NewChat'
 
 const routes = [
     {
@@ -52,10 +53,15 @@ const routes = [
         path: '/qsearch/:key?/:name?',
         element: <QSearch />,
     },
+    // {
+    //     path:'/newchat',
+    //     element:<NewChat/>
+    // },
     {
         path: '/',
         element: <Navigate to='/search/' />,
     },
+
 ];
 
 export default routes;

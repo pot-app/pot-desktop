@@ -25,7 +25,7 @@ const MessageItem = (props) => {
     // console.log(message);
 
     return (
-        <div className='message-item'>
+        <div className='message-item' style={{height:'80%',overflowY:'auto'}}>
             <div className='meta'>
                 <div className='avatar'>
                     <span className={message.role}></span>
@@ -33,6 +33,7 @@ const MessageItem = (props) => {
                 <div
                     className='message'
                     dangerouslySetInnerHTML={{ __html: md.render(message.content) }}
+                    
                 />
             </div>
         </div>

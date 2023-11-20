@@ -33,13 +33,13 @@ export default function Config() {
                     osType === 'Linux' && 'rounded-l-[10px] border-1'
                 } border-r-1 border-default-100 select-none cursor-default`}
             >
-                <div className='h-[35px] p-[5px]'>
+                {/* <div className='h-[35px] p-[5px]'>
                     <div
                         className='w-full h-full'
                         data-tauri-drag-region='true'
                     />
-                </div>
-                <div className='p-[5px]'>
+                </div> */}
+                {/* <div className='p-[5px]'>
                     <div data-tauri-drag-region='true'>
                         <img
                             alt='pot logo'
@@ -48,7 +48,7 @@ export default function Config() {
                             draggable={false}
                         />
                     </div>
-                </div>
+                </div> */}
                 <SideBar />
             </Card>
             <div

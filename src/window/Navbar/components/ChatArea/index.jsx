@@ -46,7 +46,9 @@ export default function ChatArea(props) {
         <div>
             {/* 这里是chat部分
             userInput: {userInput} */}
+            {/* <div style={{marginTop:'10px'}}> */}
             <Chat key_={key} userInput={userInput} />
+            {/* </div> */}
         </div>
         
     );

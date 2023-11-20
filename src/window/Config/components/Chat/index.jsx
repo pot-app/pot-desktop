@@ -10,6 +10,11 @@ import { systemPreInputs, uSysPre } from '../Preinput/SysPreInputs';
 import './index.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
+// import { CgMaximizeAlt } from "react-icons/cg";
+// import { FaThumbtack } from "react-icons/fa";
+// import { VscError } from "react-icons/vsc";
+
+
 export default function Chat(props) {
     const key = props.key_ || null;
     const userInput = props.userInput || null;
@@ -107,8 +112,10 @@ export default function Chat(props) {
 
     const bodyStyle = {
         // flex: 1,
-        height: '100vh',
+        height: '70vh',
         overflow: 'auto',
+        marginBottom:'40px',
+        padding:'10px'
         // backgroundColor: 'green',
     };
     const bodyCardStyle = {
@@ -121,7 +128,7 @@ export default function Chat(props) {
     const senderStyle = {
         position: 'sticky',
         bottom: 0,
-        padding: '20px',
+        // padding: '20px',
     };
     const scrollToBottom = () => {
         const content = messageRef.current;
@@ -141,6 +148,16 @@ export default function Chat(props) {
 
     return (
         <>{console.log('111111111111',messages)}
+        {/* <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <div style={{display:'flex',width:'10%',justifyContent:'space-between'}}>
+                <CgMaximizeAlt />
+                <VscError />
+            </div>
+        <div style={{width:'10%'}}>
+            
+            <FaThumbtack />
+        </div>
+        </div> */}
             <div
                 style={mainStyle}
                 id='chatBody'
