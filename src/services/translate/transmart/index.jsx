@@ -12,9 +12,9 @@ export async function translate(text, from, to, options = {}) {
     const token = translateConfig['token'];
 
     let header = {};
-    if (user !== '' || token !== '') {
-        header['token'] = token;
+    if (user !== '' && token !== '') {
         header['user'] = user;
+        header['token'] = token;
     }
 
     const url = 'https://transmart.qq.com/api/imt';
