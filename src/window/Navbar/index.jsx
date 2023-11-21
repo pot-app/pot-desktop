@@ -9,9 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
 
-import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
-import TargetArea from './components/TargetArea';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
@@ -128,39 +126,39 @@ export default function Navbar() {
         }
     }, [rememberWindowSize]);
 
-    const loadPluginList = async () => {
-        const serviceTypeList = ['translate', 'tts', 'recognize', 'collection'];
-        let temp = {};
-        for (const serviceType of serviceTypeList) {
-            temp[serviceType] = {};
-            if (await exists(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig })) {
-                const plugins = await readDir(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig });
-                for (const plugin of plugins) {
-                    const infoStr = await readTextFile(`plugins/${serviceType}/${plugin.name}/info.json`, {
-                        dir: BaseDirectory.AppConfig,
-                    });
-                    let pluginInfo = JSON.parse(infoStr);
-                    if ('icon' in pluginInfo) {
-                        const appConfigDirPath = await appConfigDir();
-                        const iconPath = await join(
-                            appConfigDirPath,
-                            `/plugins/${serviceType}/${plugin.name}/${pluginInfo.icon}`
-                        );
-                        pluginInfo.icon = convertFileSrc(iconPath);
-                    }
-                    temp[serviceType][plugin.name] = pluginInfo;
-                }
-            }
-        }
-        setPluginList({ ...temp });
-    };
+    // const loadPluginList = async () => {
+    //     const serviceTypeList = ['translate', 'tts', 'recognize', 'collection'];
+    //     let temp = {};
+    //     for (const serviceType of serviceTypeList) {
+    //         temp[serviceType] = {};
+    //         if (await exists(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig })) {
+    //             const plugins = await readDir(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig });
+    //             for (const plugin of plugins) {
+    //                 const infoStr = await readTextFile(`plugins/${serviceType}/${plugin.name}/info.json`, {
+    //                     dir: BaseDirectory.AppConfig,
+    //                 });
+    //                 let pluginInfo = JSON.parse(infoStr);
+    //                 if ('icon' in pluginInfo) {
+    //                     const appConfigDirPath = await appConfigDir();
+    //                     const iconPath = await join(
+    //                         appConfigDirPath,
+    //                         `/plugins/${serviceType}/${plugin.name}/${pluginInfo.icon}`
+    //                     );
+    //                     pluginInfo.icon = convertFileSrc(iconPath);
+    //                 }
+    //                 temp[serviceType][plugin.name] = pluginInfo;
+    //             }
+    //         }
+    //     }
+    //     setPluginList({ ...temp });
+    // };
 
-    useEffect(() => {
-        loadPluginList();
-        if (!unlisten) {
-            unlisten = listen('reload_plugin_list', loadPluginList);
-        }
-    }, []);
+    // useEffect(() => {
+    //     loadPluginList();
+    //     if (!unlisten) {
+    //         unlisten = listen('reload_plugin_list', loadPluginList);
+    //     }
+    // }, []);
 
     const getServiceConfig = async () => {
         let config = {};
@@ -179,22 +177,18 @@ export default function Navbar() {
     // console.log(selectKey);
 
     return (
-        pluginList && (
+        
             <div
                 id='target1'
                 className={`bg-background h-screen w-screen ${
                     osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
                 }`}
-                style={{
-                    // backgroundColor: '(255,255,255,0)',
-                    // height: '800px',
-                }}
             >
                 <div
                     className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                     data-tauri-drag-region='true'
                 />
-                {/* <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
+                <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
                     <Button
                         isIconOnly
                         size='sm'
@@ -228,11 +222,11 @@ export default function Navbar() {
                     >
                         <AiFillCloseCircle className='text-[20px] text-default-400' />
                     </Button>
-                </div> */}
+                </div>
 
                 
                 <SourceArea pluginList={pluginList}/>
             </div>
-        )
+        
     );
 }

@@ -9,7 +9,7 @@ import { initEnv } from './utils/env';
 import App from './App';
 
 
-console.log('0000000', appWindow)
+// console.log('0000000', appWindow)
 
 // const { clipboardReadText } = window.tauri.promisified;
 

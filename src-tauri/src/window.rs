@@ -119,8 +119,7 @@ pub fn config_window() {
     window.center().unwrap();
 }
 
-
-fn navbar_window() -> Window {
+pub fn navbar_window() -> Window {
     use mouse_position::mouse_position::{Mouse, Position};
     // Mouse physical position
     let mut mouse_position = match Mouse::get_mouse_position() {
@@ -220,7 +219,6 @@ fn navbar_window() -> Window {
 
     window
 }
-
 
 fn translate_window() -> Window {
     use mouse_position::mouse_position::{Mouse, Position};
@@ -339,6 +337,21 @@ pub fn selection_navbar() {
     window.emit("new_text", text).unwrap();
 }
 
+pub fn selection_navbar1() {
+    use selection::get_text;
+    // Get Selected Texts
+    let text = get_text();
+    info!("{}", text);
+    if !text.trim().is_empty() {
+        print!("调用了:{}", text);
+        let app_handle = APP.get().unwrap();
+        // Write into State
+        let state: tauri::State<StringWrapper> = app_handle.state();
+        state.0.lock().unwrap().replace_range(.., &text);
+        let window = navbar_window();
+        window.emit("new_text", text).unwrap();
+    }
+}
 
 pub fn selection_translate() {
     use selection::get_text;

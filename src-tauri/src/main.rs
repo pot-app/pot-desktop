@@ -19,13 +19,17 @@ use backup::*;
 use clipboard::*;
 use cmd::*;
 use config::*;
+use device_query::DeviceQuery;
 use hotkey::*;
 use lang_detect::*;
 use log::info;
 use once_cell::sync::OnceCell;
 use screenshot::screenshot;
 use server::*;
-use std::sync::Mutex;
+// use std::sync::Mutex;
+use std::sync::mpsc;
+use std::sync::{Arc, Mutex};
+use std::thread;
 use system_ocr::*;
 use tauri::api::notification::Notification;
 use tauri::Manager;
@@ -33,7 +37,10 @@ use tauri_plugin_log::LogTarget;
 use tray::*;
 use updater::check_update;
 use window::config_window;
+use window::selection_navbar1;
 use window::updater_window;
+
+use device_query::{DeviceEvents, DeviceState, MouseState};
 
 // Global AppHandle
 pub static APP: OnceCell<tauri::AppHandle> = OnceCell::new();
@@ -125,6 +132,36 @@ fn main() {
                 clipboard_monitor.to_string(),
             )));
             start_clipboard_monitor(app.handle());
+            thread::spawn(|| {
+                let device_state = DeviceState::new();
+                let (sender, receiver) = mpsc::channel();
+                let receiver = Arc::new(Mutex::new(receiver));
+                let _guard = device_state.on_mouse_down(move |_button| {
+                    let device_state1 = DeviceState::new();
+                    let mouse: MouseState = device_state1.get_mouse();
+                    let point1 = mouse.coords;
+                    sender.send(point1).unwrap();
+                });
+                let mut _guard = device_state.on_mouse_up(move |_button| {
+                    let device_state1 = DeviceState::new();
+                    let mouse: MouseState = device_state1.get_mouse();
+                    let point2 = mouse.coords;
+
+                    let receiver = receiver.lock().unwrap();
+                    let point1 = receiver.recv().unwrap();
+
+                    let x_diff = (point2.0 - point1.0) as f64;
+                    let y_diff = (point2.1 - point1.1) as f64;
+
+                    let distance = ((x_diff * x_diff) + (y_diff * y_diff)).sqrt();
+                    // println!("Received: {:?}", received_message);
+                    if distance > 3.0 {
+                        selection_navbar1();
+                    }
+                    // println!("Mouse button up: {:#?}", button);
+                });
+                loop {}
+            });
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
