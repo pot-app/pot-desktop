@@ -64,7 +64,8 @@
         "common": {
             "plugin": "プラグイン",
             "cancel": "キャンセル",
-            "ok": "Ok"
+            "ok": "Ok",
+            "save": "設定保存"
         }
     }
 }
