@@ -1,0 +1,38 @@
+From ef74289f660bcb9d407056a42a045804f6b8ecbf Mon Sep 17 00:00:00 2001
+From: Pylogmon <pylogmon@outlook.com>
+Date: Wed, 22 Nov 2023 10:31:59 +0800
+Subject: [PATCH] fix: Patch for Hyprland
+
+#596
+---
+ src/window/Translate/index.jsx | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/window/Translate/index.jsx b/src/window/Translate/index.jsx
+index ddbf885..04579a7 100644
+--- a/src/window/Translate/index.jsx
++++ b/src/window/Translate/index.jsx
+@@ -54,13 +54,13 @@ void listen('tauri://focus', () => {
+     }
+ });
+ // 监听 move 事件取消 blurTimeout 时间之内的关闭窗口
+-void listen('tauri://move', () => {
+-    info('Move');
+-    if (blurTimeout) {
+-        info('Cancel Close');
+-        clearTimeout(blurTimeout);
+-    }
+-});
++// void listen('tauri://move', () => {
++//     info('Move');
++//     if (blurTimeout) {
++//         info('Cancel Close');
++//         clearTimeout(blurTimeout);
++//     }
++// });
+ 
+ export default function Translate() {
+     const [closeOnBlur] = useConfig('translate_close_on_blur', true);
+-- 
+2.43.0
+

@@ -27,12 +27,12 @@ const listenBlur = () => {
                 clearTimeout(blurTimeout);
             }
             info('Blur');
-            // 50ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
+            // 100ms后关闭窗口，因为在 windows 下拖动窗口时会先切换成 blur 再立即切换成 focus
             // 如果直接关闭将导致窗口无法拖动
             blurTimeout = setTimeout(async () => {
                 info('Confirm Blur');
                 await appWindow.close();
-            }, 50);
+            }, 100);
         }
     });
 };
