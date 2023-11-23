@@ -43,7 +43,9 @@ export default function ChatArea(props) {
     const location = useLocation();
 
     return (
-        <div>
+        <div style={{
+            backgroundColor: 'white'
+        }}>
             {/* 这里是chat部分
             userInput: {userInput} */}
             {/* <div style={{marginTop:'10px'}}> */}

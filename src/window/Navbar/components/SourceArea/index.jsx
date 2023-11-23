@@ -19,19 +19,18 @@ import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
 import detect from '../../../../utils/lang_detect';
 import { store } from '../../../../utils/store';
-import {Body, fetch} from "@tauri-apps/api/http"
+import { Body, fetch } from '@tauri-apps/api/http';
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
 import SelectPrompt from '../SelectPrompt';
 import ChatArea from '../ChatArea';
 
-
 let unlisten = null;
 let timer = null;
 
 export default function SourceArea(props) {
-    const { pluginList} = props;
+    const { pluginList } = props;
     const [sourceText, setSourceText, syncSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
     const [incrementalTranslate] = useConfig('incremental_translate', false);
@@ -47,17 +46,12 @@ export default function SourceArea(props) {
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const speak = useVoice();
-    const [showCard, setShowCard] = useState(false)
-
 
     const [sKey, setSKey] = useState('');
     const setSelectKey = (key_) => {
-        setSKey(key_)
+        setSKey(key_);
     };
     const [userInput, setUserInput] = useState('');
-
-
-
 
     const handleNewText = async (text) => {
         text = text.trim();
@@ -67,8 +61,7 @@ export default function SourceArea(props) {
             appWindow.show();
             appWindow.setFocus();
         }
-        setUserInput(text)
-        
+        setUserInput(text);
     };
 
     const keyDown = (event) => {
@@ -109,7 +102,7 @@ export default function SourceArea(props) {
             speak(data);
         }
     };
-const [a, setA] = useState('')
+    const [a, setA] = useState('');
     useEffect(() => {
         if (hideWindow !== null) {
             if (unlisten) {
@@ -148,34 +141,34 @@ const [a, setA] = useState('')
         }
     }, [deleteNewline, incrementalTranslate, recognizeLanguage, recognizeServiceList, hideWindow]);
 
-//     useEffect(() => {
-//         textAreaRef.current.style.height = '50px';
-//         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
-//     }, [sourceText]);
+    //     useEffect(() => {
+    //         textAreaRef.current.style.height = '50px';
+    //         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
+    //     }, [sourceText]);
 
     const detect_language = async (text) => {
         setDetectLanguage(await detect(text));
     };
     const showList = false;
 
-  return (
-    
-    <Card
-        shadow='none'
-        className='bg-content1 rounded-[10px] mt-[1px] pb-0'
-        style={{position:"relative",height:"400px",backgroundColor:"transparent"}}
-    >
-        <Toaster />
+    return (
+        // <Card
+        //     shadow='none'
+        //     className='bg-content1 rounded-[10px] mt-[1px] pb-0'
+        //     style={{position:"relative",height:"400px",backgroundColor:"transparent"}}
+        // >
+        //     <Toaster />
+        <div>
+            {sKey == '' ? (
+                <SelectPrompt setSKey={setSelectKey} />
+            ) : (
+                <ChatArea
+                    key_={sKey}
+                    userInput={userInput}
+                />
+            )}
+        </div>
 
-                {sKey == '' ? (
-                    <SelectPrompt setSKey={setSelectKey} />
-                ) : (
-                    <ChatArea
-                        key_={sKey}
-                        userInput={userInput}
-                    />
-                )}
-
-    </Card>
-  );
+        // </Card>
+    );
 }

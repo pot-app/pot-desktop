@@ -14,6 +14,7 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
+import "./index.css";
 
 let blurTimeout = null;
 let resizeTimeout = null;
@@ -50,6 +51,9 @@ void listen('tauri://focus', () => {
 });
 
 export default function Navbar() {
+    console.log(appWindow)
+    appWindow.setDecorations(false);
+    const [closeOnBlur] = useConfig('translate_close_on_blur', true);
     const [windowPosition] = useConfig('translate_window_position', 'mouse');
     const [rememberWindowSize] = useConfig('translate_remember_window_size', false);
     const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
@@ -173,60 +177,59 @@ export default function Navbar() {
         }
     }, [translateServiceList]);
 
-
     // console.log(selectKey);
 
     return (
-        
+        <div
+        // id='target1'
+        // className={`bg-background h-screen w-screen ${
+        //     osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
+        // }`}
+        >
             <div
-                id='target1'
-                className={`bg-background h-screen w-screen ${
-                    osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
-                }`}
+                className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
+                data-tauri-drag-region='true'
+            />
+            <div
+                className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}
+                style={{ backgroundColor: 'white' }}
             >
-                <div
-                    className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
-                    data-tauri-drag-region='true'
-                />
-                <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
-                    <Button
-                        isIconOnly
-                        size='sm'
-                        variant='flat'
-                        disableAnimation
-                        className='my-auto bg-transparent'
-                        onPress={() => {
-                            if (pined) {
-                                if (closeOnBlur) {
-                                    unlisten = listenBlur();
-                                }
-                                appWindow.setAlwaysOnTop(false);
-                            } else {
-                                unlistenBlur();
-                                appWindow.setAlwaysOnTop(true);
+                <Button
+                    isIconOnly
+                    size='sm'
+                    variant='flat'
+                    disableAnimation
+                    className='my-auto bg-transparent'
+                    onPress={() => {
+                        if (pined) {
+                            if (closeOnBlur) {
+                                unlisten = listenBlur();
                             }
-                            setPined(!pined);
-                        }}
-                    >
-                        <BsPinFill className={`text-[20px] ${pined ? 'text-primary' : 'text-default-400'}`} />
-                    </Button>
-                    <Button
-                        isIconOnly
-                        size='sm'
-                        variant='flat'
-                        disableAnimation
-                        className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
-                        onPress={() => {
-                            void appWindow.close();
-                        }}
-                    >
-                        <AiFillCloseCircle className='text-[20px] text-default-400' />
-                    </Button>
-                </div>
-
-                
-                <SourceArea pluginList={pluginList}/>
+                            appWindow.setAlwaysOnTop(false);
+                        } else {
+                            unlistenBlur();
+                            appWindow.setAlwaysOnTop(true);
+                        }
+                        setPined(!pined);
+                    }}
+                >
+                    <BsPinFill className={`text-[20px] ${pined ? 'text-primary' : 'text-default-400'}`} />
+                </Button>
+                <Button
+                    isIconOnly
+                    size='sm'
+                    variant='flat'
+                    disableAnimation
+                    className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
+                    onPress={() => {
+                        void appWindow.close();
+                    }}
+                >
+                    <AiFillCloseCircle className='text-[20px] text-default-400' />
+                </Button>
             </div>
-        
+
+            <SourceArea pluginList={pluginList} />
+        </div>
     );
 }

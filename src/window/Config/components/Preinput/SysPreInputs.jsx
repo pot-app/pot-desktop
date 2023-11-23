@@ -63,4 +63,14 @@ for (let key of systemPreInputsKeys) {
     };
 }
 
+export let uBarDataPre = [];
+let i = 0;
+for (let key of systemPreInputsKeys) {
+    uBarDataPre.push({
+        key: key,
+        selected: i < 4
+    })
+    i++;
+}
+
 export default function SysPreInputs() {}

@@ -1,0 +1,6 @@
+.quickItem{
+    background-color: transparent;
+}
+.quickItem:hover{
+    background-color: lightgray;
+}

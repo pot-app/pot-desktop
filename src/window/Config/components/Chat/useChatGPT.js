@@ -3,13 +3,12 @@ import ClipboardJS from 'clipboard';
 import { throttle } from 'lodash-es';
 import { createParser } from 'eventsource-parser';
 import OpenAI from 'openai';
-//import { OPENAI_API_KEY } from './key';
+import { OPENAI_API_KEY } from './key';
 
 const OPENAI_API_BASE_URL = '';
 const AZURE_OPENAI_API_BASE_URL = '';
 const AZURE_OPENAI_DEPLOYMENT = '';
 const AZURE_OPENAI_API_KEY = '';
-const OPENAI_API_KEY = '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';
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY, dangerouslyAllowBrowser: true });
 const scrollDown = throttle(

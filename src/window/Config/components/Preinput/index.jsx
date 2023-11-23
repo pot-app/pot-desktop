@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import { systemPreInputs, uSysPre } from './SysPreInputs';
 import { useConfig } from '../../../../hooks';
-
+import { uBarDataPre } from './SysPreInputs';
 import { useTranslation } from 'react-i18next';
 import ModalForm from './ModalForm';
 
@@ -21,6 +21,23 @@ export default function Preinput(props) {
     const [userPreInputs, setUserPreInputs] = useConfig('user_pre_inputs', JSON.stringify(uSysPre));
     let userPreInputsData = userPreInputs && JSON.parse(userPreInputs);
     const userPreInputsKeys = userPreInputsData && Object.keys(userPreInputsData);
+
+    const [uBarData, setUBarData] = useConfig('user_bar_data', JSON.stringify(uBarDataPre));
+    const userBarData = uBarData && JSON.parse(uBarData);
+    const [uSelectBarData, setUSelectBarData] = useState(userBarData);
+    useEffect(() => {
+        if (userBarData && uSelectBarData == null) {
+            setUSelectBarData(userBarData);
+        }
+    }, [userBarData]);
+    useEffect(() => {
+        if (uSelectBarData) {
+            setUBarData(JSON.stringify(uSelectBarData))
+        }
+    }, [uSelectBarData])
+
+
+
     const [reset, setReset] = useState(true);
     // useEffect(() => {
     //     if (messages.length === 0) {
@@ -72,6 +89,17 @@ export default function Preinput(props) {
     const handleDelete = (key) => {
         delete userPreInputsData[key];
         // console.log(userPreInputsData);
+        let i = 0;
+        for (; i < uSelectBarData.length; i++) {
+            if (uSelectBarData[i].key == key) break;
+        }
+        console.log(key)
+        console.log(i)
+        if (i >= 0 && i < uSelectBarData.length) {
+            let updatedArray = [...uSelectBarData];
+            updatedArray.splice(i, 1); // 删除指定索引的元素
+            setUSelectBarData(updatedArray);
+          }
         setUserPreInputs(JSON.stringify(userPreInputsData));
     };
 
@@ -83,12 +111,19 @@ export default function Preinput(props) {
     };
     const addMethod = (name, prompt) => {
         const timestamp = new Date().getTime();
-        console.log(timestamp);
-        userPreInputsData[timestamp] = {
+        // console.log(timestamp);
+        const key_ = 'User' + timestamp
+        userPreInputsData[key_] = {
             name: name,
             prompt: prompt,
         };
         setUserPreInputs(JSON.stringify(userPreInputsData));
+        const newItem = {
+            key: key_,
+            selected: false
+        };
+        const updatedArray = [...uSelectBarData, newItem];
+        setUSelectBarData(updatedArray);
         // console.log(userPreInputs);
     };
 
