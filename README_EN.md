@@ -415,7 +415,7 @@ Rust >= 1.70.0
 3. Install dependencies(Only Linux)
 
     ```bash
-    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
+    sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
     ```
 
 4. Development (Optional)
