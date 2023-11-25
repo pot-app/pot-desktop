@@ -99,7 +99,7 @@ jobs:
             - name: Setup Nodejs
               uses: actions/setup-node@v3
               with:
-                  node-version: 19
+                  node-version: 21
             - name: Install Rust Stable
               uses: dtolnay/rust-toolchain@stable
             - name: install dependencies
@@ -182,7 +182,7 @@ jobs:
             - name: Setup Nodejs
               uses: actions/setup-node@v3
               with:
-                  node-version: 19
+                  node-version: 21
             - name: Install Rust Stable
               uses: dtolnay/rust-toolchain@stable
             - name: install dependencies
@@ -216,7 +216,7 @@ jobs:
                   token: ${{ secrets.TOKEN }}
                   files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
 
-    build-for-windows-fix-webview2-runtime:
+    build-for-windows-fix-runtime:
         needs: change-version
         strategy:
             fail-fast: false
@@ -244,7 +244,7 @@ jobs:
             - name: Setup Nodejs
               uses: actions/setup-node@v3
               with:
-                  node-version: 19
+                  node-version: 21
             - name: Install Rust Stable
               uses: dtolnay/rust-toolchain@stable
             - name: install dependencies
@@ -412,6 +412,41 @@ jobs:
             - name: Upload Jihulab Release
               run: |
                   curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update.json"
+
+    release-update-for-fix-runtime:
+        needs: [build-for-windows-fix-runtime]
+        runs-on: ubuntu-latest
+        if: startsWith(github.ref, 'refs/tags')
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Install git
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y git curl
+            - name: Get Tag Name
+              run: |
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
+                  echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: pnpm install
+              run: pnpm install
+            - name: Release updater file
+              run: pnpm run updater:fixRuntime
+              env:
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+            - name: Upload Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  body: ${{env.VERSION}}
+                  tag_name: updater
+                  token: ${{ secrets.TOKEN }}
+                  files: update-fix-runtime.json
 
     homebrew:
         name: Update Homebrew cask
