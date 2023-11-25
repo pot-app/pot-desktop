@@ -216,6 +216,74 @@ jobs:
                   token: ${{ secrets.TOKEN }}
                   files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
 
+    build-for-windows-fix-webview2-runtime:
+        needs: change-version
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [windows-latest]
+                target: [x86_64-pc-windows-msvc, i686-pc-windows-msvc, aarch64-pc-windows-msvc]
+                include:
+                    - os: windows-latest
+                      arch: x64
+                      target: x86_64-pc-windows-msvc
+                      toolchain: stable-x86_64-pc-windows-msvc
+                    - os: windows-latest
+                      arch: x86
+                      target: i686-pc-windows-msvc
+                      toolchain: stable-i686-pc-windows-msvc
+                    - os: windows-latest
+                      arch: arm64
+                      target: aarch64-pc-windows-msvc
+                      toolchain: stable-aarch64-pc-windows-msvc
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - uses: actions/download-artifact@v3
+              with:
+                  name: source
+            - name: Setup Nodejs
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 19
+            - name: Install Rust Stable
+              uses: dtolnay/rust-toolchain@stable
+            - name: install dependencies
+              run: |
+                  rustup target add ${{ matrix.target }}
+                  rustup toolchain install --force-non-host ${{ matrix.toolchain }}
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Install Dependencies
+              run: pnpm install
+            - name: Code Format
+              run: pnpm prettier --write .
+            - name: Download WebView2 Runtime
+              run: |
+                  invoke-webrequest -uri https://github.com/westinyang/WebView2RuntimeArchive/releases/download/109.0.1518.78/Microsoft.WebView2.FixedVersionRuntime.109.0.1518.78.${{ matrix.arch }}.cab -outfile Microsoft.WebView2.FixedVersionRuntime.109.0.1518.78.${{ matrix.arch }}.cab
+                  Expand .\Microsoft.WebView2.FixedVersionRuntime.109.0.1518.78.${{ matrix.arch }}.cab -F:* ./src-tauri
+                  Remove-Item .\src-tauri\tauri.windows.conf.json
+                  Rename-Item .\src-tauri\webview.${{ matrix.arch }}.json .\src-tauri\tauri.windows.conf.json
+            - name: Build and Package
+              run: |
+                  $env:TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
+                  $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
+                  pnpm tauri build -b nsis,updater --target ${{ matrix.target }}
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: windows_${{ matrix.target }}
+                  path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+                  if-no-files-found: error
+            - name: Upload Release
+              if: startsWith(github.ref, 'refs/tags')
+              uses: softprops/action-gh-release@v1
+              with:
+                  body_path: CHANGELOG
+                  token: ${{ secrets.TOKEN }}
+                  files: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
+
     build-for-linux:
         needs: change-version
         strategy:

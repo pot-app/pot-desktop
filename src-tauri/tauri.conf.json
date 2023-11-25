@@ -73,22 +73,6 @@
             "deb": {
                 "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr"]
             },
-            "windows": {
-                "certificateThumbprint": null,
-                "digestAlgorithm": "sha256",
-                "timestampUrl": "",
-                "webviewInstallMode": {
-                    "silent": true,
-                    "type": "embedBootstrapper"
-                },
-                "nsis": {
-                    "displayLanguageSelector": true,
-                    "installerIcon": "icons/icon.ico",
-                    "license": "../LICENSE",
-                    "installMode": "perMachine",
-                    "languages": ["SimpChinese", "TradChinese", "English"]
-                }
-            },
             "macOS": {
                 "entitlements": null,
                 "exceptionDomain": "",
