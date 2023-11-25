@@ -2,7 +2,7 @@
 
 curl -fsSL https://fnm.vercel.app/install | bash
 export PATH="/github/home/.local/share/fnm:$PATH"
-fnm env && fnm install 21 && fnm use 21
+fnm install && fnm use
 npm install pnpm -g
 
 rustup target add "$INPUT_TARGET"
