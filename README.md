@@ -182,7 +182,22 @@ winget install Pylogmon.pot
 ### 手动安装
 
 1. 在 [Release](https://github.com/pot-app/pot-desktop/releases/latest) 页面下载最新 `exe` 安装包。
+
+    - 64 位机器下载 `pot_{version}_x64-setup.exe`
+    - 32 位机器下载 `pot_{version}_x86-setup.exe`
+    - arm64 机器下载 `pot_{version}_arm64-setup.exe`
+
 2. 双击安装包进行安装。
+
+### 故障排除
+
+-   启动后没有界面，点击托盘图标没有反应
+
+    检查是否卸载/禁用了 WebView2，如果卸载/禁用了 WebView2，请手动安装 WebView2 或将其恢复。
+
+    如果是企业版系统不方便安装或无法安装 WebView2，请尝试在 [Release](https://github.com/pot-app/pot-desktop/releases/latest) 下载内置 WebView2 的版本 `pot_{version}_{arch}_fix_webview2_runtime-setup.exe`
+
+    若问题仍然存在请尝试使用 Windows7 兼容模式启动。
 
 ## MacOS
 
