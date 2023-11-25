@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curl -fsSL https://fnm.vercel.app/install | bash
-source /github/home/.bashrc
+export PATH="/github/home/.local/share/fnm:$PATH"
 eval "$(fnm env --use-on-cd)"
 fnm install 21
 npm install pnpm -g
