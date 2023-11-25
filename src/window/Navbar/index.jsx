@@ -14,7 +14,7 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
-import "./index.css";
+import './index.css';
 
 let blurTimeout = null;
 let resizeTimeout = null;
@@ -51,7 +51,7 @@ void listen('tauri://focus', () => {
 });
 
 export default function Navbar() {
-    console.log(appWindow)
+    console.log(appWindow);
     appWindow.setDecorations(false);
     const [closeOnBlur] = useConfig('translate_close_on_blur', true);
     const [windowPosition] = useConfig('translate_window_position', 'mouse');
@@ -178,22 +178,28 @@ export default function Navbar() {
     }, [translateServiceList]);
 
     // console.log(selectKey);
+    
 
     return (
         <div
-        // id='target1'
-        // className={`bg-background h-screen w-screen ${
-        //     osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
-        // }`}
+        id='target1'
+        className={`bg-background ${
+            osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'
+        }`}
+        style={{
+            // height: '300px',
+            height: 'auto',
+            width: 'auto',
+            display: 'inline-block',
+            verticalAlign: 'top',
+            overflow: 'hidden',
+        }}
         >
-            <div
+            {/* <div
                 className='fixed top-[5px] left-[5px] right-[5px] h-[30px]'
                 data-tauri-drag-region='true'
             />
-            <div
-                className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}
-                style={{ backgroundColor: 'white' }}
-            >
+            <div className={`h-[35px] w-full flex ${osType === 'Darwin' ? 'justify-end' : 'justify-between'}`}>
                 <Button
                     isIconOnly
                     size='sm'
@@ -227,7 +233,7 @@ export default function Navbar() {
                 >
                     <AiFillCloseCircle className='text-[20px] text-default-400' />
                 </Button>
-            </div>
+            </div> */}
 
             <SourceArea pluginList={pluginList} />
         </div>

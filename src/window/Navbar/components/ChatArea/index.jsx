@@ -44,7 +44,10 @@ export default function ChatArea(props) {
 
     return (
         <div style={{
-            backgroundColor: 'white'
+            minHeight: '400px',
+            minWidth: '400px',
+            width: 'auto',
+            height: 'auto'
         }}>
             {/* 这里是chat部分
             userInput: {userInput} */}

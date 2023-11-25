@@ -1,7 +1,7 @@
 import React, { KeyboardEventHandler, useRef } from 'react';
 
 import { AiOutlineClear, AiOutlineSend } from 'react-icons/ai';
-
+import { TbCut } from "react-icons/tb";
 import Show from './Show';
 
 const SendBar = (props) => {
@@ -33,6 +33,10 @@ const SendBar = (props) => {
             });
         }
     };
+
+    const handleOcr = () => {
+        inputRef.current.value += 1;
+    }
 
     const onKeydown = (e) => {
         if (e.shiftKey) {
@@ -71,6 +75,14 @@ const SendBar = (props) => {
                     onKeyDown={onKeydown}
                     onInput={onInputAutoSize}
                 />
+                <button
+                    className='button'
+                    title='Ocr'
+                    disabled={disabled}
+                    onClick={handleOcr}
+                >
+                    <TbCut />
+                </button>
                 <button
                     className='button'
                     title='Send'

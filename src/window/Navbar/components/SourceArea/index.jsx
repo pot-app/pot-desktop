@@ -3,7 +3,7 @@ import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
 import React, { useEffect, useRef, useState } from 'react';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
-import { appWindow } from '@tauri-apps/api/window';
+import { appWindow, LogicalSize } from '@tauri-apps/api/window';
 import toast, { Toaster } from 'react-hot-toast';
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
@@ -46,6 +46,7 @@ export default function SourceArea(props) {
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const speak = useVoice();
+    const ref = useRef(null);
 
     const [sKey, setSKey] = useState('');
     const setSelectKey = (key_) => {
@@ -102,7 +103,6 @@ export default function SourceArea(props) {
             speak(data);
         }
     };
-    const [a, setA] = useState('');
     useEffect(() => {
         if (hideWindow !== null) {
             if (unlisten) {
@@ -141,6 +141,13 @@ export default function SourceArea(props) {
         }
     }, [deleteNewline, incrementalTranslate, recognizeLanguage, recognizeServiceList, hideWindow]);
 
+    const rezise = () => {
+        appWindow.setSize(new LogicalSize(ref.current.clientWidth, ref.current.clientHeight));
+    }
+    useEffect(() => {
+        rezise()
+    });
+
     //     useEffect(() => {
     //         textAreaRef.current.style.height = '50px';
     //         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
@@ -158,7 +165,15 @@ export default function SourceArea(props) {
         //     style={{position:"relative",height:"400px",backgroundColor:"transparent"}}
         // >
         //     <Toaster />
-        <div>
+        <div
+            ref={ref}
+            style={{
+                width: 'auto',
+                height: 'auto',
+                minWidth: '300px',
+                overflow: 'hidden',
+            }}
+        >
             {sKey == '' ? (
                 <SelectPrompt setSKey={setSelectKey} />
             ) : (

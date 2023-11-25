@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, Spacer, Chip, ButtonGroup, Tooltip } from '@nextui-org/react';
+import { appWindow, LogicalSize } from '@tauri-apps/api/window';
 import { BsInfoSquareFill, BsFillChatRightDotsFill, BsSearchHeart } from 'react-icons/bs';
 import { PiTranslateFill } from 'react-icons/pi';
 import { AiFillAppstore } from 'react-icons/ai';
@@ -13,7 +14,7 @@ import { FaHistory } from 'react-icons/fa';
 import { BsPinFill } from 'react-icons/bs';
 
 import { MdMoreVert } from 'react-icons/md';
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useConfig } from '../../../../hooks';
 import { uSysPre, uBarDataPre } from '../../../Config/components/Preinput/SysPreInputs';
@@ -25,6 +26,8 @@ export default function SelectPrompt(props) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
+
+    const ref = useRef(null);
 
     const [userPreInputs, setUserPreInputs] = useConfig('user_pre_inputs', JSON.stringify(uSysPre));
     // console.log(userPreInputs)
@@ -80,8 +83,10 @@ export default function SelectPrompt(props) {
     const selectStyle = {
         // height: '30px',
         // fontSize: 0,
-        padding: '0px 10px',
-        backgroundColor: 'white',
+        padding: '10px',
+        // backgroundColor: 'white',
+        width: 'auto',
+        // minWidth: '700px'
     };
 
     const selectItemStyle = {
@@ -221,6 +226,15 @@ export default function SelectPrompt(props) {
     // let hoverIndex = -1;
     // const getHoverIndex = () => hoverIndex;
 
+    const rezise = () => {
+        appWindow.setSize(new LogicalSize(ref.current.clientWidth, ref.current.clientHeight));
+
+    }
+    useEffect(() => {
+        rezise()
+    }, [isHovered, uSelectBarData]);
+
+
     const QuickActions = () => {
         return (
             <div
@@ -273,6 +287,9 @@ export default function SelectPrompt(props) {
                                                                 style={{
                                                                     display: 'flex',
                                                                 }}
+                                                                onClick={() => {
+                                                                    setSKey(key_);
+                                                                                }}
                                                             >
                                                                 <div>
                                                                     {key_ in systemPreInputs ? (
@@ -323,6 +340,7 @@ export default function SelectPrompt(props) {
     return (
         <>
             <div
+                ref={ref}
                 onMouseLeave={() => {
                     // console.log('update', getUpdate())
                     if (getUpdate()) {
@@ -346,6 +364,7 @@ export default function SelectPrompt(props) {
                     backgroundColor: 'transparent',
                     overflow: 'hidden',
                     // height: '100%'
+                    width:'auto'
                 }}
             >
                 <SelectBar />
