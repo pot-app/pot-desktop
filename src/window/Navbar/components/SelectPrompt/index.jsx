@@ -17,8 +17,7 @@ import { MdMoreVert } from 'react-icons/md';
 import { React, useEffect, useState, useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useConfig } from '../../../../hooks';
-import { uSysPre, uBarDataPre } from '../../../Config/components/Preinput/SysPreInputs';
-import { systemPreInputs } from '../../../Config/components/Preinput/SysPreInputs';
+import { uSysPre, uBarDataPre, systemPreInputs } from '../../../Config/components/Preinput/SysPreInputs';
 import "./index.css";
 
 export default function SelectPrompt(props) {

@@ -479,6 +479,33 @@ pub fn ocr_translate() {
 }
 
 #[tauri::command(async)]
+pub fn ocr_chat() -> i32{
+    let (window, _exists) = build_window("screenshot", "Screenshot");
+
+    window.set_skip_taskbar(true).unwrap();
+    #[cfg(target_os = "macos")]
+    {
+        let monitor = window.current_monitor().unwrap().unwrap();
+        let size = monitor.size();
+        window.set_decorations(false).unwrap();
+        window.set_size(*size).unwrap();
+    }
+
+    #[cfg(not(target_os = "macos"))]
+    window.set_fullscreen(true).unwrap();
+
+    window.set_always_on_top(true).unwrap();
+
+    // let window = screenshot_window();
+    let window_ = window.clone();
+    window.listen("success", move |event| {
+        window_.unlisten(event.id());
+        window_.emit("ocr_chat", "ok").unwrap();
+    });
+    1
+}
+
+#[tauri::command(async)]
 pub fn updater_window() {
     let (window, _exists) = build_window("updater", "Updater");
     window

@@ -39,6 +39,7 @@ use updater::check_update;
 use window::config_window;
 use window::selection_navbar1;
 use window::updater_window;
+use window::ocr_chat;
 
 use device_query::{DeviceEvents, DeviceState, MouseState};
 
@@ -178,6 +179,7 @@ fn main() {
             update_tray,
             updater_window,
             screenshot,
+            ocr_chat,
             lang_detect,
             webdav,
             local,
