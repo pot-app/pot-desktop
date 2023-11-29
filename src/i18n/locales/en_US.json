@@ -145,7 +145,8 @@
                 "ocr_recognize": "Text Recognition",
                 "ocr_translate": "Screenshot Translation",
                 "is_register": "The hotkey is already registered",
-                "success": "Hotkey register success"
+                "success": "Hotkey register success",
+                "set_hotkey": "Press to Set Hotkey"
             },
             "service": {
                 "label": "Service",

@@ -114,6 +114,7 @@ export default function Backup() {
                             <Input
                                 variant='bordered'
                                 value={davUrl}
+                                label={t('config.backup.webdav_url')}
                                 onValueChange={(v) => {
                                     setDavUrl(v);
                                 }}
@@ -127,6 +128,7 @@ export default function Backup() {
                             <Input
                                 variant='bordered'
                                 value={davUserName}
+                                label={t('config.backup.username')}
                                 onValueChange={(v) => {
                                     setDavUserName(v);
                                 }}
@@ -141,6 +143,7 @@ export default function Backup() {
                                 type='password'
                                 variant='bordered'
                                 value={davPassword}
+                                label={t('config.backup.password')}
                                 onValueChange={(v) => {
                                     setDavPassword(v);
                                 }}

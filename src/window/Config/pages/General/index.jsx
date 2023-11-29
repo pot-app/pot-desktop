@@ -114,6 +114,7 @@ export default function General() {
                                 type='number'
                                 variant='bordered'
                                 value={serverPort}
+                                labelPlacement='outside-left'
                                 onValueChange={(v) => {
                                     if (v === '') {
                                         setServerPort(0);
@@ -491,7 +492,7 @@ export default function General() {
                                 type='url'
                                 variant='bordered'
                                 isRequired
-                                placeholder={t('config.general.proxy.host')}
+                                label={t('config.general.proxy.host')}
                                 startContent={<span>http://</span>}
                                 value={proxyHost}
                                 onValueChange={(v) => {
@@ -505,7 +506,7 @@ export default function General() {
                                 type='number'
                                 variant='bordered'
                                 isRequired
-                                placeholder={t('config.general.proxy.port')}
+                                label={t('config.general.proxy.port')}
                                 value={proxyPort}
                                 onValueChange={(v) => {
                                     if (v === '') {
@@ -528,7 +529,7 @@ export default function General() {
                                 type='text'
                                 variant='bordered'
                                 isDisabled
-                                placeholder={t('config.general.proxy.username')}
+                                label={t('config.general.proxy.username')}
                                 value={proxyUsername}
                                 onValueChange={(v) => {
                                     setProxyUsername(v);
@@ -541,7 +542,7 @@ export default function General() {
                                 type='password'
                                 variant='bordered'
                                 isDisabled
-                                placeholder={t('config.general.proxy.password')}
+                                label={t('config.general.proxy.password')}
                                 value={proxyPassword}
                                 onValueChange={(v) => {
                                     setProxyPassword(v);
@@ -554,7 +555,7 @@ export default function General() {
                         {noProxy !== null && (
                             <Input
                                 variant='bordered'
-                                placeholder={t('config.general.proxy.no_proxy')}
+                                label={t('config.general.proxy.no_proxy')}
                                 value={noProxy}
                                 onValueChange={(v) => {
                                     setNoProxy(v);

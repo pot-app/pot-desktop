@@ -124,6 +124,7 @@ export default function Hotkey() {
                             type='hotkey'
                             variant='bordered'
                             value={selectionTranslate}
+                            label={t('config.hotkey.set_hotkey')}
                             className='max-w-[50%]'
                             onKeyDown={(e) => {
                                 keyDown(e, setSelectionTranslate);
@@ -154,6 +155,7 @@ export default function Hotkey() {
                             type='hotkey'
                             variant='bordered'
                             value={inputTranslate}
+                            label={t('config.hotkey.set_hotkey')}
                             className='max-w-[50%]'
                             onKeyDown={(e) => {
                                 keyDown(e, setInputTranslate);
@@ -184,6 +186,7 @@ export default function Hotkey() {
                             type='hotkey'
                             variant='bordered'
                             value={ocrRecognize}
+                            label={t('config.hotkey.set_hotkey')}
                             className='max-w-[50%]'
                             onKeyDown={(e) => {
                                 keyDown(e, setOcrRecognize);
@@ -214,6 +217,7 @@ export default function Hotkey() {
                             type='hotkey'
                             variant='bordered'
                             value={ocrTranslate}
+                            label={t('config.hotkey.set_hotkey')}
                             className='max-w-[50%]'
                             onKeyDown={(e) => {
                                 keyDown(e, setOcrTranslate);
