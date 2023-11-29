@@ -145,7 +145,8 @@
                 "ocr_recognize": "Reconhecimento de Texto",
                 "ocr_translate": "Tradução de Imagem",
                 "is_register": "O atalho já está registrado",
-                "success": "Atalho registrado com sucesso"
+                "success": "Atalho registrado com sucesso",
+                "set_hotkey": "Pressione para Definir a Tecla de Atalho"
             },
             "service": {
                 "label": "Serviço",
