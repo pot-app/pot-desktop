@@ -20,4 +20,4 @@ jobs:
                   GITLAB_USERNAME: 'pylogmon'
                   GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
                   GITLAB_PROJECT_ID: '153845'
-                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
