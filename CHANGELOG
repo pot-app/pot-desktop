@@ -1,14 +1,11 @@
-## 2.7.0 (2023-11-16)
+## 2.7.1 (2023-11-30)
 
 ### New feature:
 
--   Add App Font Config Option([`83fb07f`](https://github.com/pot-app/pot-desktop/commit/83fb07f095c17dc6fa57650db90b2fea11c5be5b)) (by @Pylogmon)
--   Add Fallback Font Config Option([`bf62846`](https://github.com/pot-app/pot-desktop/commit/bf628469b5a210978e4fd838f9e469efb677b660)) (by @Pylogmon)
--   Add App Font Size Config Option([`7d4b3d4`](https://github.com/pot-app/pot-desktop/commit/7d4b3d4558a92cf95a76ec267a1cc9b3a19880de)) (by @Pylogmon)
--   Support more Model for OpenAI([`2a12796`](https://github.com/pot-app/pot-desktop/commit/2a12796644fe79ca14943d3438381473f17b9224)) (by @Pylogmon)
--   Update Model for ChatGLM([`e9667b1`](https://github.com/pot-app/pot-desktop/commit/e9667b17954f14e541412957acd5cf2bf7fa6adb)) (by @Pylogmon)
--   Add Delete Space Button on OCR Window([`fae19cd`](https://github.com/pot-app/pot-desktop/commit/fae19cde4186bdda5ac57a85f1c33d68c985b5df)) (by @Pylogmon)
+-   Add Fix WebView Runtime Bundle([`0eb1c61`](https://github.com/pot-app/pot-desktop/commit/0eb1c614d733ba79466909eb90a794eb9b9014b3)) (by @Pylogmon)
+-   Add Pronunciation Symbol and Voice to Anki Card([`35b02ae`](https://github.com/pot-app/pot-desktop/commit/35b02ae88f654729f11cf3f5767befa57dfa1755)) (by @@lihz1990)
 
 ### Bugs fixed:
 
--   Fix some crash issue([`3d51fa2`](https://github.com/pot-app/pot-desktop/commit/3d51fa2ef9c1b0a70afcac56a3884e0e86b0c7f3)) (by @Pylogmon)
+-   TranSmart Word Segmentation Errors([`007b09d`](https://github.com/pot-app/pot-desktop/commit/007b09dca97c796004669f6ef0ae39eb33066e5e)) (by @Pylogmon)
+-   Improve WebDav Backup Error Message([niuhuan/reqwest_dav/#6](https://github.com/niuhuan/reqwest_dav/pull/6)) (by @Pylogmon)
