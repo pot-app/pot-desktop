@@ -1,7 +1,444 @@
 {
     "translation": {
         "common": {
-            "ok": "Ok"
+            "ok": "Ok",
+            "plugin": "Plugin",
+            "cancel": "Annulla",
+            "write_clipboard": "Scrivi negli appunti",
+            "save": "Salva",
+            "clear": "Pulisci",
+            "coming": "Prossimamente…"
+        },
+        "services": {
+            "translate": {
+                "youdao": {
+                    "appkey": "ID app",
+                    "key": "Chiave",
+                    "title": "Youdao"
+                },
+                "deepl": {
+                    "free": "Gratuito",
+                    "deeplx": "DeepLX",
+                    "type": "Tipo di servizio",
+                    "title": "DeepL",
+                    "api": "Chiave d'autenticazione",
+                    "auth_key": "Chiave d'autenticazione",
+                    "custom_url": "URL DeepLX"
+                },
+                "openai": {
+                    "openai": "OpenAI",
+                    "request_path": "Percorso richiesto",
+                    "stream": "Modalità di streaming",
+                    "service": "Service Provider",
+                    "model": "Modello",
+                    "add": "Aggiungi Prompt",
+                    "prompt_description": "Personalizzando il prompt, puoi personalizzare il comportamento di OpenAI. $text $from $to $detect verrà sostituito con il testo da tradurre, la lingua di origine, la lingua di destinazione e la lingua rilevata.",
+                    "title": "OpenAI",
+                    "azure": "Azure",
+                    "api_key": "Chiave API"
+                },
+                "alibaba": {
+                    "accesskey_id": "ID chiave di accesso",
+                    "accesskey_secret": "Accesso alla chiave segreta",
+                    "title": "Alibaba"
+                },
+                "chatglm": {
+                    "title": "ChatGLM",
+                    "api_key": "Chiave Api",
+                    "chatglm_lite": "ChatGLM Lite",
+                    "chatglm_pro": "ChatGLM Pro",
+                    "model": "Modello",
+                    "chatglm_turbo": "ChatGLM Turbo",
+                    "chatglm_std": "ChatGLM Std",
+                    "add": "Aggiungi Prompt",
+                    "prompt_description": "Personalizzando il prompt, è possibile personalizzare il comportamento dell'AI. $text $from $to $detect verrà sostituito con il testo da tradurre, la lingua di origine, la lingua di destinazione e la lingua rilevata."
+                },
+                "transmart": {
+                    "username": "Nome Utente",
+                    "title": "TranSmart",
+                    "token": "Token"
+                },
+                "caiyun": {
+                    "token": "Token",
+                    "title": "Caiyun"
+                },
+                "baidu_field": {
+                    "academic": "Carta accademica",
+                    "law": "Diritto e regolamenti",
+                    "aerospace": "Aerospaziale",
+                    "novel": "Letteratura in rete",
+                    "senimed": "Biomedicina",
+                    "contract": "Contratto",
+                    "finance": "Finanza ed Economia",
+                    "wiki": "Scienze umane e sociali",
+                    "it": "Tecnologia dell'informazione",
+                    "news": "Notizie e informazioni",
+                    "machinery": "Produzione di macchinari",
+                    "title": "Campo Baidu"
+                },
+                "cambridge_dict": {
+                    "title": "Dizionario di Cambridge"
+                },
+                "openai_custom": {
+                    "title": "OpenAI personalizzato"
+                },
+                "baidu": {
+                    "appid": "ID app",
+                    "title": "Baidu",
+                    "secret": "Segreto"
+                },
+                "niutrans": {
+                    "https": "Usa Https",
+                    "title": "NiuTrans",
+                    "apikey": "Chiave API"
+                },
+                "tencent": {
+                    "secret_key": "Chiave segreta",
+                    "title": "Tencent",
+                    "secret_id": "ID segreto"
+                },
+                "google": {
+                    "title": "Google",
+                    "custom_url": "URL personalizzato"
+                },
+                "yandex": {
+                    "title": "Yandex"
+                },
+                "bing_dict": {
+                    "title": "Dizionario Bing"
+                },
+                "volcengine": {
+                    "appid": "ID app",
+                    "secret": "Segreto"
+                },
+                "chatglm_custom": {
+                    "title": "ChatGLM personalizzato"
+                },
+                "chatglm_polish": {
+                    "title": "ChatGLM Polacco"
+                },
+                "chatglm_summary": {
+                    "title": "Riepilogo di ChatGLM"
+                },
+                "openai_polish": {
+                    "title": "OpenAI Polacco"
+                },
+                "bing": {
+                    "title": "Bing"
+                },
+                "openai_summary": {
+                    "title": "Riepilogo di OpenAI"
+                }
+            },
+            "recognize": {
+                "iflytek_latex_ocr": {
+                    "apikey": "Chiave API",
+                    "title": "iFlyTek LaTeX",
+                    "apisecret": "API segreta",
+                    "appid": "ID app"
+                },
+                "baidu_ocr": {
+                    "client_id": "Chiave API",
+                    "title": "Baidu OCR",
+                    "client_secret": "Chiave segreta"
+                },
+                "simple_latex_ocr": {
+                    "title": "Semplice LaTeX",
+                    "token": "Token"
+                },
+                "volcengine_ocr": {
+                    "secret": "Segreto",
+                    "appid": "ID app"
+                },
+                "iflytek_intsig_ocr": {
+                    "appid": "ID app",
+                    "title": "iFlyTek OCR (Intsig)",
+                    "apisecret": "API segreta",
+                    "apikey": "Chiave API"
+                },
+                "baidu_accurate_ocr": {
+                    "client_secret": "Chiave segreta",
+                    "client_id": "Chiave API",
+                    "title": "Baidu OCR (Accurato)"
+                },
+                "baidu_img_ocr": {
+                    "secret": "Segreto",
+                    "appid": "ID app",
+                    "title": "Traduzione di immagini Baidu"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "title": "VolcEngine OCR (multilingue)",
+                    "secret": "Segreto",
+                    "appid": "ID app"
+                },
+                "tencent_ocr": {
+                    "secret_key": "Chiave segreta",
+                    "secret_id": "ID segreto",
+                    "title": "Tencent OCR"
+                },
+                "tencent_accurate_ocr": {
+                    "title": "Tencent OCR (Accurato)",
+                    "secret_key": "Chiave segreta",
+                    "secret_id": "ID segreto"
+                },
+                "iflytek_ocr": {
+                    "title": "iFlyTek OCR",
+                    "apikey": "Chiave API",
+                    "appid": "ID app",
+                    "apisecret": "API segreta"
+                },
+                "qrcode": {
+                    "title": "Codice QR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "tencent_img_ocr": {
+                    "secret_id": "ID segreto",
+                    "title": "Traduttore di immagini Tencent",
+                    "secret_key": "Chiave segreta"
+                },
+                "system": {
+                    "title": "Sistema OCR"
+                }
+            },
+            "collection": {
+                "anki": {
+                    "port": "Porta",
+                    "title": "Anki"
+                },
+                "eudic": {
+                    "token": "Token",
+                    "name": "Nome della raccolta"
+                }
+            },
+            "help": "Guida alla configurazione",
+            "no_need": "Nessuna configurazione richiesta",
+            "tts": {
+                "lingva_tts": {
+                    "title": "Lingva",
+                    "request_path": "Percorso richiesto"
+                }
+            }
+        },
+        "languages": {
+            "mn_cy": "Mongolo (Cirillico)",
+            "ar": "Arabo",
+            "it": "Italiano",
+            "vi": "Vietnamita",
+            "zh_cn": "Cinese semplificato",
+            "id": "Indonesiana",
+            "zh_tw": "Cinese tradizionale",
+            "km": "Khmer",
+            "ru": "Russo",
+            "mn_mo": "Mongola",
+            "en": "Inglese",
+            "th": "Tailandese",
+            "ja": "Giapponese",
+            "ms": "Malese",
+            "fr": "Francese",
+            "de": "Tedesco",
+            "nb_no": "Bokmål norvegese",
+            "fa": "Persiano",
+            "es": "Spagnolo",
+            "pt_pt": "Portoghese",
+            "nn_no": "Nynorsk norvegese",
+            "ko": "Koreano",
+            "tr": "Turco",
+            "auto": "Rilevamento automatico",
+            "pt_br": "Portoghese (Brasiliano)",
+            "hi": "Hindi"
+        },
+        "config": {
+            "translate": {
+                "bing": "Bing",
+                "hide_language": "Nascondi area lingua",
+                "target": "Obbiettivo",
+                "title": "Impostazioni di traduzione",
+                "font_size": {
+                    "14": "Piccolo (14px)",
+                    "title": "Dimensione del font",
+                    "24": "Molto molto grande (24px)",
+                    "20": "Molto grande (20px)",
+                    "12": "Molto piccolo (12px)",
+                    "16": "Standard (16px)",
+                    "10": "Molto molto piccolo (10px)",
+                    "18": "Grande (18px)"
+                },
+                "google": "Google",
+                "detect_engine": "Motore di rilevamento della lingua",
+                "tencent": "Tencent",
+                "yandex": "Yandex",
+                "local": "Locale",
+                "disable": "Disabilita",
+                "hide_window": "Nascondi la finestra di traduzione",
+                "remember_window_size": "Ricorda la dimensione della finestra",
+                "delete_newline": "Elimina nuova riga",
+                "remember_language": "Ricorda la lingua di destinazione",
+                "window_position": "Posizione della finestra",
+                "second_language": "Seconda lingua di destinazione",
+                "source": "Sorgente",
+                "niutrans": "NiuTrans",
+                "label": "Traduci",
+                "auto_copy": "Copia automaticamente",
+                "dynamic_translate": "Traduzione dinamica",
+                "mouse": "Segui il mouse",
+                "source_language": "Lingua di partenza",
+                "pre_state": "Ricorda la posizione",
+                "always_on_top": "Predefinito sempre in primo piano",
+                "close_on_blur": "Chiudi su sfocatura",
+                "hide_source": "Nascondi area di origine",
+                "baidu": "Baidu",
+                "incremental_translate": "Traduzione incrementale",
+                "target_language": "Lingua di destinazione"
+            },
+            "backup": {
+                "local": "Locale",
+                "empty": "Non hai ancora eseguito il backup",
+                "restore": "Ripristina",
+                "title": "Impostazione di backup",
+                "webdav": "WebDav",
+                "load_success": "Caricamento backup riuscito",
+                "list": "Elenco di backup",
+                "backup": "Backup",
+                "password": "Password",
+                "webdav_url": "Url WebDav",
+                "username": "Nome Utente",
+                "backup_success": "Backup riuscito",
+                "label": "Backup",
+                "type": "Tipo di servizio"
+            },
+            "general": {
+                "auto_start": "Avvio automatico",
+                "proxy": {
+                    "title": "Proxy",
+                    "port": "Porta",
+                    "host": "Host",
+                    "password": "Password",
+                    "username": "Nome Utente",
+                    "no_proxy": "Nessun Proxy"
+                },
+                "proxy_change": "Il proxy è stato modificato, riavviare l'applicazione affinché le modifiche abbiano effetto",
+                "default_font": "Predefinito",
+                "app_theme": "Tema",
+                "event": {
+                    "disable": "Disabilita",
+                    "translate": "Traduci",
+                    "ocr_translate": "Traduzione di schermate",
+                    "config": "Configurazione",
+                    "ocr_recognize": "Riconoscimento del testo"
+                },
+                "label": "Generale",
+                "theme": {
+                    "light": "Chiaro",
+                    "system": "Sistema",
+                    "dark": "Scuro"
+                },
+                "server_port_change": "La porta di ascolto è stata modificata. Riavviare l'applicazione affinché le modifiche abbiano effetto",
+                "font_size": {
+                    "20": "Molto grande (20px)",
+                    "18": "Grande (18px)",
+                    "14": "Piccolo (14px)",
+                    "16": "Standard (16px)",
+                    "12": "Molto piccolo (12px)",
+                    "24": "Molto molto grande (24px)",
+                    "10": "Molto molto piccolo (10px)",
+                    "title": "Dimensione del font"
+                },
+                "app_font": "Font",
+                "server_port": "Porta in ascolto",
+                "proxy_error": "Inserisci l'host e la porta",
+                "check_update": "Controlla aggiornamento",
+                "app_language": "Lingua dell'applicazione",
+                "transparent": "Effetto trasparente",
+                "title": "Impostazioni Generali",
+                "app_fallback_font": "Font di riserva"
+            },
+            "recognize": {
+                "delete_newline": "Elimina automaticamente la nuova riga",
+                "language": "Riconosci la lingua",
+                "close_on_blur": "Chiudi su sfocatura",
+                "title": "Impostazioni di riconoscimento",
+                "label": "Riconosci",
+                "hide_window": "Nascondi la finestra di riconoscimento",
+                "auto_copy": "Copia automaticamente"
+            },
+            "hotkey": {
+                "ocr_translate": "Traduzione di schermate",
+                "success": "Registrazione dei tasti di scelta rapida riuscita",
+                "is_register": "Il tasto di scelta rapida è già registrato",
+                "label": "Tasto di scelta rapida",
+                "input_translate": "Input di traduzione",
+                "title": "Impostazioni dei tasti di scelta rapida",
+                "set_hotkey": "Premere per impostare il tasto di scelta rapida",
+                "selection_translate": "Selezione traduzione",
+                "ocr_recognize": "Riconoscimento del testo"
+            },
+            "service": {
+                "add_service": "Aggiungi servizio",
+                "uninstall_success": "Disinstallazione del plugin riuscita",
+                "least": "Si prega di conservarne almeno una",
+                "tts": "TTS",
+                "homepage": "Homepage",
+                "translate": "Traduci",
+                "recognize": "Riconosci",
+                "collection": "Raccolta",
+                "view_plugin_list": "Visualizza l'elenco dei plugin",
+                "install_plugin": "Installa plugin",
+                "add_external_service": "Aggiungi estensione",
+                "title": "Impostazioni del servizio",
+                "add_builtin_service": "Aggiungi servizio integrato",
+                "label": "Servizio",
+                "test_failed": "Test non riuscito"
+            },
+            "about": {
+                "title": "Informazioni sull'applicazione",
+                "qq_group": "Gruppo QQ",
+                "website": "Sito web",
+                "check_update": "Controlla aggiornamento",
+                "telegram": "Telegram",
+                "feedback": "Feedback",
+                "label": "Informazioni",
+                "view_config": "Vedi configurazione",
+                "issue": "Problemi",
+                "community": "Comunità",
+                "email": "Email",
+                "github": "GitHub",
+                "discussion": "Discussione su Github",
+                "qq_channel": "Canale QQ",
+                "view_log": "Vedi log"
+            },
+            "history": {
+                "label": "Cronologia",
+                "title": "Cronologia"
+            }
+        },
+        "translate": {
+            "delete_newline": "Elimina nuova riga",
+            "add_collection_success": "Aggiunta alla raccolta con successo",
+            "retry": "Riprova",
+            "recognizing": "Riconoscimento in corso…",
+            "translate_back": "Traduzione riportata all'originale",
+            "translate": "Traduci",
+            "copy": "Copia",
+            "speak": "Parla"
+        },
+        "updater": {
+            "installed": "Installazione completata, riavviare l'applicazione affinché le modifiche abbiano effetto",
+            "downloading": "Scaricamento in corso…",
+            "update": "Aggiorna",
+            "latest": "# L'ultima versione è installata",
+            "cancel": "Annulla",
+            "title": "Controlla aggiornamento",
+            "installing": "Installazione in corso…"
+        },
+        "recognize": {
+            "translate": "Traduci",
+            "delete_newline": "Elimina nuova riga",
+            "recognize": "Riconoscere",
+            "copy_text": "Copia",
+            "delete_space": "Elimina spazio",
+            "copy_img": "Copia immagine"
         }
     }
 }
