@@ -35,7 +35,10 @@
             "km": "Khmer",
             "nb_no": "Bokmål Norueguês",
             "nn_no": "Norueguês Nynorsk",
-            "fa": "Persa"
+            "fa": "Persa",
+            "nl": "Holandês",
+            "sv": "Sueco",
+            "pl": "Polonês"
         },
         "config": {
             "general": {
