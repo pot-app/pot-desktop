@@ -31,4 +31,7 @@ export enum Language {
     nb_no = 'Norwegian Bokmål',
     nn_no = 'Norwegian Nynorsk',
     fa = 'Persian',
+    sv = 'Swedish',
+    pl = 'Polish',
+    nl = 'Dutch',
 }

@@ -31,4 +31,7 @@ export enum Language {
     nb_no = 'nb',
     nn_no = 'nn',
     fa = 'fa',
+    sv = 'sv',
+    pl = 'pl',
+    nl = 'nl',
 }

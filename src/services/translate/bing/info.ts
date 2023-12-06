@@ -30,4 +30,7 @@ export enum Language {
     km = 'km',
     nb_no = 'nb',
     fa = 'fa',
+    sv = 'sv',
+    pl = 'pl',
+    nl = 'nl',
 }

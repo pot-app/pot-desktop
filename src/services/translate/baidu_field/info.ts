@@ -29,4 +29,7 @@ export enum Language {
     nb_no = 'nob',
     nn_no = 'nno',
     fa = 'per',
+    sv = 'swe',
+    pl = 'pl',
+    nl = 'nl',
 }

@@ -19,4 +19,7 @@ export enum Language {
     pt_pt = 'PT-PT',
     pt_br = 'PT-BR',
     id = 'ID',
+    sv = 'SV',
+    pl = 'PL',
+    nl = 'NL',
 }

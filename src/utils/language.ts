@@ -26,6 +26,9 @@ export const languageList = [
     'nb_no',
     'nn_no',
     'fa',
+    'sv',
+    'pl',
+    'nl',
 ];
 
 // https://flagicons.lipis.dev/
@@ -55,4 +58,7 @@ export enum LanguageFlag {
     nb_no = 'no',
     nn_no = 'no',
     fa = 'ir',
+    sv = 'se',
+    pl = 'pl',
+    nl = 'nl',
 }
