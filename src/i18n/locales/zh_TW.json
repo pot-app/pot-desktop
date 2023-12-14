@@ -11,7 +11,7 @@
         },
         "languages": {
             "auto": "自動檢測",
-            "zh_cn": "简体中文",
+            "zh_cn": "簡體中文",
             "zh_tw": "繁體中文",
             "ja": "日語",
             "en": "英語",
@@ -31,7 +31,7 @@
             "ar": "阿拉伯語",
             "hi": "印地語",
             "mn_mo": "蒙古語",
-            "mn_cy": "蒙古語(西里尔)",
+            "mn_cy": "蒙古語(西里爾)",
             "km": "高棉語",
             "nb_no": "書面挪威語",
             "nn_no": "新挪威語"
@@ -61,12 +61,12 @@
                 },
                 "proxy_change": "代理已更改，重啟應用程式生效",
                 "proxy_error": "請填寫代理地址和埠號",
-                "tray_click_event": "托盤點擊事件",
+                "tray_click_event": "系統列小圖示點擊事件",
                 "event": {
                     "config": "打開設定",
-                    "translate": "打開翻譯窗口",
+                    "translate": "打開翻譯視窗",
                     "disable": "禁用",
-                    "ocr_recognize": "文字識別",
+                    "ocr_recognize": "文字辨識",
                     "ocr_translate": "截圖翻譯"
                 }
             },
@@ -85,15 +85,15 @@
                 "dynamic_translate": "動態翻譯",
                 "delete_newline": "自動刪除換行",
                 "remember_language": "記住目標語言",
-                "window_position": "窗口位置",
+                "window_position": "視窗位置",
                 "mouse": "跟隨滑鼠",
                 "pre_state": "記住位置",
-                "remember_window_size": "記住窗口大小",
-                "close_on_blur": "失去焦點時關閉窗口",
-                "always_on_top": "窗口始終置頂",
+                "remember_window_size": "記住視窗大小",
+                "close_on_blur": "失去焦點時關閉視窗",
+                "always_on_top": "視窗始終置頂",
                 "hide_source": "隱藏原文",
                 "hide_language": "隱藏語言欄",
-                "hide_window": "隱藏翻譯窗口",
+                "hide_window": "隱藏翻譯視窗",
                 "detect_engine": "語言檢測引擎",
                 "baidu": "百度",
                 "tencent": "騰訊",
@@ -104,20 +104,20 @@
                 "local": "本地"
             },
             "recognize": {
-                "label": "文字識別",
-                "title": "文字識別",
-                "language": "識別語言",
+                "label": "文字辨識",
+                "title": "文字辨識",
+                "language": "辨識語言",
                 "delete_newline": "自動刪除換行",
                 "auto_copy": "自動複製",
-                "close_on_blur": "失去焦點時關閉窗口",
-                "hide_window": "隱藏識別窗口"
+                "close_on_blur": "失去焦點時關閉視窗",
+                "hide_window": "隱藏辨識視窗"
             },
             "hotkey": {
                 "label": "熱鍵設定",
                 "title": "熱鍵設定",
-                "selection_translate": "劃詞翻譯",
+                "selection_translate": "選取翻譯",
                 "input_translate": "輸入翻譯",
-                "ocr_recognize": "文字識別",
+                "ocr_recognize": "文字辨識",
                 "ocr_translate": "截圖翻譯",
                 "is_register": "快速鍵已被註冊",
                 "success": "快速鍵註冊成功"
@@ -127,7 +127,7 @@
                 "title": "服務設定",
                 "translate": "翻譯",
                 "tts": "語音合成",
-                "recognize": "文字識別",
+                "recognize": "文字辨識",
                 "collection": "生詞本",
                 "least": "請至少保留一個",
                 "add_builtin_service": "新增內建服務",
@@ -135,7 +135,7 @@
                 "add_service": "新增服務",
                 "test_failed": "測試失敗",
                 "install_plugin": "安裝外掛程式",
-                "uninstall_success": "外掛程式卸载成功",
+                "uninstall_success": "外掛程式移除成功",
                 "homepage": "外掛程式主頁",
                 "view_plugin_list": "查看外掛程式列表"
             },
@@ -226,7 +226,7 @@
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",
                     "api_key": "Api Key",
-                    "prompt_description": "通过自定义Prompt自定义AI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
+                    "prompt_description": "通過自定義Prompt自定義AI行為, $text $from $to $detect 將會被替換為 待翻譯文本，源語言，目標語言和檢測到的語言。",
                     "add": "添加 Prompt"
                 },
                 "chatglm_summary": {
@@ -263,7 +263,7 @@
                     "wiki": "人文社科",
                     "news": "新聞資訊",
                     "law": "法律法規",
-                    "contract": "合同"
+                    "contract": "合約"
                 },
                 "alibaba": {
                     "title": "阿里翻譯",
@@ -345,7 +345,7 @@
                     "apikey": "API Key"
                 },
                 "iflytek_latex_ocr": {
-                    "title": "訊飛公式識別",
+                    "title": "訊飛公式辨識",
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
@@ -380,7 +380,7 @@
                     "secret": "Secret"
                 },
                 "qrcode": {
-                    "title": "QRCODE識別"
+                    "title": "QRCODE辨識"
                 }
             },
             "tts": {
@@ -404,7 +404,7 @@
         "translate": {
             "translate": "翻譯",
             "add_collection_success": "添加成功",
-            "recognizing": "識別中…",
+            "recognizing": "辨識中…",
             "speak": "朗讀",
             "copy": "複製",
             "retry": "重試",
@@ -412,7 +412,7 @@
             "translate_back": "翻譯回原文"
         },
         "recognize": {
-            "recognize": "重新識別",
+            "recognize": "重新辨識",
             "translate": "翻譯",
             "copy_img": "複製圖片",
             "copy_text": "複製",
