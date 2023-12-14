@@ -26,7 +26,8 @@
             "active": true,
             "dialog": false,
             "endpoints": [
-                "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update-fix-runtime.json"
+                "https://gh.pylogmon.com/https://github.com/pot-app/pot-desktop/releases/download/updater/update-fix-runtime.json",
+                "https://github.com/pot-app/pot-desktop/releases/download/updater/update-fix-runtime.json"
             ],
             "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVBRTQxQTNDQjM5QzQzM0EKUldRNlE1eXpQQnJrV21mM1Bram5LRlF6UDA3K0Jab2FYL2lZSWhXTE5McWs2NUdJS0dtYkd5VGMK"
         }
