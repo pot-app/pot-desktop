@@ -3,6 +3,7 @@ on:
     push:
         branches: [master]
         tags-ignore: [updater]
+permissions: write-all
 
 jobs:
     change-version:
