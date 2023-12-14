@@ -355,29 +355,8 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
 
-    sync-to-jihulab:
-        needs: [build-for-macos, build-for-windows, build-for-linux, build-for-windows-fix-runtime]
-        runs-on: ubuntu-latest
-        if: startsWith(github.ref, 'refs/tags')
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - name: Mirror
-              uses: SvanBoxel/gitlab-mirror-and-ci-action@master
-              with:
-                  args: 'https://jihulab.com/pot-app/pot-desktop'
-              env:
-                  FOLLOW_TAGS: 'true'
-                  FORCE_PUSH: 'false'
-                  GITLAB_HOSTNAME: 'jihulab.com'
-                  GITLAB_USERNAME: 'pylogmon'
-                  GITLAB_PASSWORD: ${{ secrets.JIHULAB_TOKEN }}
-                  GITLAB_PROJECT_ID: '153845'
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     release-update:
-        needs: [sync-to-jihulab]
+        needs: [build-for-macos, build-for-windows, build-for-linux, build-for-windows-fix-runtime]
         runs-on: ubuntu-latest
         if: startsWith(github.ref, 'refs/tags')
         steps:
@@ -411,18 +390,9 @@ jobs:
                   body: ${{env.VERSION}}
                   tag_name: updater
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  files: update.json
-            - name: Upload Release
-              uses: softprops/action-gh-release@v1
-              with:
-                  body: ${{env.VERSION}}
-                  tag_name: updater
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  files: update-fix-runtime.json
-            - name: Upload Jihulab Release
-              run: |
-                  curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update.json"
-                  curl --header "PRIVATE-TOKEN: ${{ secrets.JIHULAB_TOKEN }}" --upload-file ./update-fix-runtime.json "https://jihulab.com/api/v4/projects/153845/packages/generic/pot-desktop/updater/update-fix-runtime.json"
+                  files: |
+                      update.json
+                      update-fix-runtime.json
 
     homebrew:
         name: Update Homebrew cask
@@ -447,7 +417,7 @@ jobs:
                   git config --global user.name pot-app
             - name: Update Homebrew cask
               env:
-                  HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
               run: |
                   brew tap pot-app/homebrew-tap
                   brew update
@@ -478,6 +448,6 @@ jobs:
                   identifier: Pylogmon.pot
                   version: ${{env.VERSION}}
                   installers-regex: '\.exe$'
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.TOKEN }}
                   fork-user: Pylogmon
               continue-on-error: true
