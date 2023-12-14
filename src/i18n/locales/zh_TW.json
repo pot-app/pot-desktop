@@ -15,7 +15,7 @@
             "zh_tw": "繁體中文",
             "ja": "日語",
             "en": "英語",
-            "ko": "韩語",
+            "ko": "韓語",
             "fr": "法語",
             "es": "西班牙語",
             "ru": "俄語",
@@ -57,7 +57,7 @@
                     "host": "代理地址",
                     "port": "代理埠號",
                     "username": "用户名",
-                    "password": "密码"
+                    "password": "密碼"
                 },
                 "proxy_change": "代理已更改，重啟應用程式生效",
                 "proxy_error": "請填寫代理地址和埠號",
@@ -83,7 +83,7 @@
                 "disable": "禁用",
                 "incremental_translate": "增量翻譯",
                 "dynamic_translate": "動態翻譯",
-                "delete_newline": "自动刪除換行",
+                "delete_newline": "自動刪除換行",
                 "remember_language": "記住目標語言",
                 "window_position": "窗口位置",
                 "mouse": "跟隨滑鼠",
@@ -98,7 +98,7 @@
                 "baidu": "百度",
                 "tencent": "騰訊",
                 "niutrans": "小牛",
-                "google": "谷歌",
+                "google": "Google",
                 "bing": "Bing",
                 "yandex": "Yandex",
                 "local": "本地"
@@ -189,7 +189,7 @@
         },
         "services": {
             "help": "配置指南",
-            "no_need": "无需配置",
+            "no_need": "無需配置",
             "translate": {
                 "deepl": {
                     "title": "DeepL",
@@ -201,7 +201,7 @@
                     "deeplx": "DeepLX"
                 },
                 "google": {
-                    "title": "谷歌翻譯",
+                    "title": "Google翻譯",
                     "custom_url": "自訂 URL"
                 },
                 "bing": {
@@ -216,11 +216,11 @@
                     "api_key": "Api Key",
                     "model": "模型",
                     "stream": "串流輸出",
-                    "prompt_description": "通过自定义Prompt自定义OpenAI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
+                    "prompt_description": "通過自定義Prompt自定義OpenAI行為, $text $from $to $detect 將會被替換為 待翻譯文本，源語言，目標語言和檢測到的語言。",
                     "add": "添加 Prompt"
                 },
                 "chatglm": {
-                    "title": "智谱 AI",
+                    "title": "智譜 AI",
                     "model": "模型",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
@@ -230,89 +230,89 @@
                     "add": "添加 Prompt"
                 },
                 "chatglm_summary": {
-                    "title": "智谱 AI 总结"
+                    "title": "智譜 AI 總結"
                 },
                 "chatglm_polish": {
-                    "title": "智谱 AI 润色"
+                    "title": "智譜 AI 潤色"
                 },
                 "chatglm_custom": {
-                    "title": "智谱 AI 自定义"
+                    "title": "智譜 AI 自定義"
                 },
                 "yandex": {
                     "title": "Yandex"
                 },
                 "transmart": {
-                    "title": "腾讯交互翻译",
+                    "title": "騰訊互動翻譯",
                     "username": "用户名",
                     "token": "Token"
                 },
                 "baidu": {
-                    "title": "百度翻译",
+                    "title": "百度翻譯",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
                 "baidu_field": {
-                    "title": "百度领域翻译",
-                    "it": "信息技术",
-                    "finance": "金融财经",
-                    "machinery": "机械制造",
-                    "senimed": "生物医药",
-                    "novel": "网络文学",
-                    "academic": "学术论文",
+                    "title": "百度領域翻譯",
+                    "it": "信息技術",
+                    "finance": "金融財經",
+                    "machinery": "機械製造",
+                    "senimed": "生物醫藥",
+                    "novel": "網路文學",
+                    "academic": "學術論文",
                     "aerospace": "航空航天",
                     "wiki": "人文社科",
-                    "news": "新闻资讯",
-                    "law": "法律法规",
+                    "news": "新聞資訊",
+                    "law": "法律法規",
                     "contract": "合同"
                 },
                 "alibaba": {
-                    "title": "阿里翻译",
+                    "title": "阿里翻譯",
                     "accesskey_id": "AccessKey ID",
                     "accesskey_secret": "AccessKey Secret"
                 },
                 "tencent": {
-                    "title": "腾讯翻译",
+                    "title": "騰訊翻譯",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
                 "volcengine": {
-                    "title": "火山翻译",
+                    "title": "火山翻譯",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
                 "niutrans": {
-                    "title": "小牛翻译",
+                    "title": "小牛翻譯",
                     "https": "使用 Https",
                     "apikey": "API Key"
                 },
                 "youdao": {
-                    "title": "有道翻译",
+                    "title": "有道翻譯",
                     "appkey": "App ID",
                     "key": "Key"
                 },
                 "bing_dict": {
-                    "title": "必应词典"
+                    "title": "必應詞典"
                 },
                 "cambridge_dict": {
-                    "title": "剑桥词典"
+                    "title": "劍橋詞典"
                 },
                 "caiyun": {
-                    "title": "彩云小译",
+                    "title": "彩雲小譯",
                     "token": "Token"
                 },
                 "openai_custom": {
-                    "title": "OpenAI 自定义"
+                    "title": "OpenAI 自定義"
                 },
                 "openai_polish": {
-                    "title": "OpenAI 润色"
+                    "title": "OpenAI 潤色"
                 },
                 "openai_summary": {
-                    "title": "OpenAI 总结"
+                    "title": "OpenAI 總結"
                 }
             },
             "recognize": {
                 "system": {
-                    "title": "系统 OCR"
+                    "title": "系統 OCR"
                 },
                 "tesseract": {
                     "title": "Tesseract.js"
@@ -328,24 +328,24 @@
                     "client_secret": "Secret Key"
                 },
                 "baidu_img_ocr": {
-                    "title": "百度图片翻译",
+                    "title": "百度圖片翻譯",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
                 "iflytek_ocr": {
-                    "title": "讯飞 OCR",
+                    "title": "訊飛 OCR",
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
                 "iflytek_intsig_ocr": {
-                    "title": "讯飞 OCR (Intsig)",
+                    "title": "訊飛 OCR (Intsig)",
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
                 "iflytek_latex_ocr": {
-                    "title": "讯飞公式识别",
+                    "title": "訊飛公式識別",
                     "appid": "App ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
@@ -355,17 +355,17 @@
                     "token": "Token"
                 },
                 "tencent_ocr": {
-                    "title": "腾讯 OCR",
+                    "title": "騰訊 OCR",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
                 "tencent_accurate_ocr": {
-                    "title": "腾讯 OCR (高精度)",
+                    "title": "騰訊 OCR (高精度)",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
                 "tencent_img_ocr": {
-                    "title": "腾讯图片翻译",
+                    "title": "騰訊圖片翻譯",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
@@ -375,18 +375,18 @@
                     "secret": "Secret"
                 },
                 "volcengine_multi_lang_ocr": {
-                    "title": "火山 OCR (多语言)",
+                    "title": "火山 OCR (多語言)",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
                 "qrcode": {
-                    "title": "二维码识别"
+                    "title": "QRCODE識別"
                 }
             },
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva",
-                    "request_path": "请求地址"
+                    "request_path": "請求地址"
                 }
             },
             "collection": {
@@ -395,28 +395,29 @@
                     "port": "埠號"
                 },
                 "eudic": {
-                    "title": "欧路词典",
-                    "name": "生词本名称",
+                    "title": "歐路詞典",
+                    "name": "生詞本名稱",
                     "token": "Token"
                 }
             }
         },
         "translate": {
-            "translate": "翻译",
+            "translate": "翻譯",
             "add_collection_success": "添加成功",
-            "recognizing": "识别中…",
-            "speak": "朗读",
-            "copy": "复制",
-            "retry": "重试",
-            "delete_newline": "删除换行",
-            "translate_back": "翻译回原文"
+            "recognizing": "識別中…",
+            "speak": "朗讀",
+            "copy": "複製",
+            "retry": "重試",
+            "delete_newline": "刪除換行",
+            "translate_back": "翻譯回原文"
         },
         "recognize": {
-            "recognize": "重新识别",
+            "recognize": "重新識別",
             "translate": "翻譯",
             "copy_img": "複製圖片",
             "copy_text": "複製",
-            "delete_newline": "刪除換行"
+            "delete_newline": "刪除換行",
+            "delete_space": "删除空格"
         }
     }
 }
