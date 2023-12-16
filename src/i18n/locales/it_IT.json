@@ -247,7 +247,10 @@
             "tr": "Turco",
             "auto": "Rilevamento automatico",
             "pt_br": "Portoghese (Brasiliano)",
-            "hi": "Hindi"
+            "hi": "Hindi",
+            "nl": "Olandese",
+            "sv": "Svedese",
+            "pl": "Polacco"
         },
         "config": {
             "translate": {
