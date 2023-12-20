@@ -340,20 +340,20 @@
                     "title": "OpenAI Resumo"
                 },
                 "geminipro_polish": {
-                    "title": ""
+                    "title": "Gemini Pro Polônes"
                 },
                 "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
-                    "prompt_description": "",
-                    "title": ""
+                    "add": "Adicionar Prompt",
+                    "api_key": "Chave Api",
+                    "stream": "Modo Stream",
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do Gemini Pro. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado.",
+                    "title": "Gemini Pro"
                 },
                 "geminipro_custom": {
-                    "title": ""
+                    "title": "Gemini Pro Personalizado"
                 },
                 "geminipro_summary": {
-                    "title": ""
+                    "title": "Resumo do Gemini Pro"
                 }
             },
             "recognize": {
