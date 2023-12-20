@@ -34,7 +34,11 @@
             "mn_cy": "蒙古語(西里爾)",
             "km": "高棉語",
             "nb_no": "書面挪威語",
-            "nn_no": "新挪威語"
+            "nn_no": "新挪威語",
+            "nl": "",
+            "sv": "",
+            "fa": "",
+            "pl": ""
         },
         "config": {
             "general": {
@@ -57,7 +61,8 @@
                     "host": "代理地址",
                     "port": "代理埠號",
                     "username": "用户名",
-                    "password": "密碼"
+                    "password": "密碼",
+                    "no_proxy": ""
                 },
                 "proxy_change": "代理已更改，重啟應用程式生效",
                 "proxy_error": "請填寫代理地址和埠號",
@@ -68,7 +73,20 @@
                     "disable": "禁用",
                     "ocr_recognize": "文字辨識",
                     "ocr_translate": "截圖翻譯"
-                }
+                },
+                "default_font": "",
+                "font_size": {
+                    "20": "",
+                    "18": "",
+                    "14": "",
+                    "16": "",
+                    "12": "",
+                    "24": "",
+                    "10": "",
+                    "title": ""
+                },
+                "app_font": "",
+                "app_fallback_font": ""
             },
             "translate": {
                 "label": "翻譯設定",
@@ -101,7 +119,17 @@
                 "google": "Google",
                 "bing": "Bing",
                 "yandex": "Yandex",
-                "local": "本地"
+                "local": "本地",
+                "font_size": {
+                    "14": "",
+                    "title": "",
+                    "24": "",
+                    "20": "",
+                    "12": "",
+                    "16": "",
+                    "10": "",
+                    "18": ""
+                }
             },
             "recognize": {
                 "label": "文字辨識",
@@ -120,7 +148,8 @@
                 "ocr_recognize": "文字辨識",
                 "ocr_translate": "截圖翻譯",
                 "is_register": "快速鍵已被註冊",
-                "success": "快速鍵註冊成功"
+                "success": "快速鍵註冊成功",
+                "set_hotkey": ""
             },
             "service": {
                 "label": "服務設定",
@@ -227,7 +256,8 @@
                     "chatglm_lite": "ChatGLM Lite",
                     "api_key": "Api Key",
                     "prompt_description": "通過自定義Prompt自定義AI行為, $text $from $to $detect 將會被替換為 待翻譯文本，源語言，目標語言和檢測到的語言。",
-                    "add": "添加 Prompt"
+                    "add": "添加 Prompt",
+                    "chatglm_turbo": ""
                 },
                 "chatglm_summary": {
                     "title": "智譜 AI 總結"
@@ -308,6 +338,22 @@
                 },
                 "openai_summary": {
                     "title": "OpenAI 總結"
+                },
+                "geminipro_polish": {
+                    "title": ""
+                },
+                "geminipro": {
+                    "add": "",
+                    "api_key": "",
+                    "stream": "",
+                    "prompt_description": "",
+                    "title": ""
+                },
+                "geminipro_custom": {
+                    "title": ""
+                },
+                "geminipro_summary": {
+                    "title": ""
                 }
             },
             "recognize": {
