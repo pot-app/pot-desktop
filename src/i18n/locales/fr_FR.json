@@ -41,7 +41,8 @@
                     "model": "Modèle",
                     "chatglm_std": "ChatGLM Std",
                     "add": "Ajouter une invite",
-                    "prompt_description": "En personnalisant l'invite, vous pouvez personnaliser le comportement de l'IA. Le texte $from $to $detect sera remplacé par le texte à traduire, la langue d'origine, la langue de destination et la langue détectée."
+                    "prompt_description": "En personnalisant l'invite, vous pouvez personnaliser le comportement de l'IA. Le texte $from $to $detect sera remplacé par le texte à traduire, la langue d'origine, la langue de destination et la langue détectée.",
+                    "chatglm_turbo": ""
                 },
                 "transmart": {
                     "username": "Nom d'utilisateur",
@@ -119,6 +120,22 @@
                 },
                 "openai_polish": {
                     "title": "OpenAI Retouche"
+                },
+                "geminipro_polish": {
+                    "title": ""
+                },
+                "geminipro": {
+                    "add": "",
+                    "api_key": "",
+                    "stream": "",
+                    "prompt_description": "",
+                    "title": ""
+                },
+                "geminipro_custom": {
+                    "title": ""
+                },
+                "geminipro_summary": {
+                    "title": ""
                 }
             },
             "recognize": {
@@ -237,7 +254,13 @@
             "tr": "Turc",
             "auto": "Détection automatique",
             "pt_br": "Portugais (Brésil)",
-            "hi": "Hindi"
+            "hi": "Hindi",
+            "nl": "",
+            "sv": "",
+            "nb_no": "",
+            "fa": "",
+            "pl": "",
+            "nn_no": ""
         },
         "common": {
             "plugin": "Extension",
@@ -257,7 +280,8 @@
                     "port": "Port",
                     "host": "Hôte",
                     "password": "Mot de passe",
-                    "username": "Nom d'utilisateur"
+                    "username": "Nom d'utilisateur",
+                    "no_proxy": ""
                 },
                 "proxy_change": "Le proxy a été modifié. Relancez l'application pour que les modifications prennent effet",
                 "app_theme": "Thème",
@@ -280,7 +304,20 @@
                 "check_update": "Vérifier les mises à jour",
                 "app_language": "Langue de l'application",
                 "transparent": "Effet de transparence",
-                "title": "Paramètres généraux"
+                "title": "Paramètres généraux",
+                "default_font": "",
+                "font_size": {
+                    "20": "",
+                    "18": "",
+                    "14": "",
+                    "16": "",
+                    "12": "",
+                    "24": "",
+                    "10": "",
+                    "title": ""
+                },
+                "app_font": "",
+                "app_fallback_font": ""
             },
             "translate": {
                 "bing": "Bing",
@@ -313,7 +350,17 @@
                 "hide_source": "Masquer la zone de la langue d'origine",
                 "baidu": "Baidu",
                 "incremental_translate": "Traduction incrémentale",
-                "target_language": "Langue de destination"
+                "target_language": "Langue de destination",
+                "font_size": {
+                    "14": "",
+                    "title": "",
+                    "24": "",
+                    "20": "",
+                    "12": "",
+                    "16": "",
+                    "10": "",
+                    "18": ""
+                }
             },
             "backup": {
                 "local": "Local",
@@ -348,7 +395,8 @@
                 "input_translate": "Traduire la saisie",
                 "title": "Paramètres des raccourcis",
                 "selection_translate": "Traduire la sélection",
-                "ocr_recognize": "Reconnaissance de texte"
+                "ocr_recognize": "Reconnaissance de texte",
+                "set_hotkey": ""
             },
             "service": {
                 "add_service": "Ajouter un service",
@@ -414,7 +462,8 @@
             "delete_newline": "Supprimer le retour à la ligne",
             "recognize": "Reconnaissance",
             "copy_text": "Copier",
-            "copy_img": "Copier l'image"
+            "copy_img": "Copier l'image",
+            "delete_space": ""
         }
     }
 }
