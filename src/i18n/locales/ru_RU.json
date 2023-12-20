@@ -338,6 +338,22 @@
                 },
                 "openai_summary": {
                     "title": "OpenAI Резюме"
+                },
+                "geminipro_polish": {
+                    "title": ""
+                },
+                "geminipro": {
+                    "add": "",
+                    "api_key": "",
+                    "stream": "",
+                    "prompt_description": "",
+                    "title": ""
+                },
+                "geminipro_custom": {
+                    "title": ""
+                },
+                "geminipro_summary": {
+                    "title": ""
                 }
             },
             "recognize": {
