@@ -3,35 +3,163 @@
         "config": {
             "translate": {
                 "title": "トランスレートせっち",
-                "label": "トランスレート"
+                "label": "トランスレート",
+                "bing": "",
+                "hide_language": "",
+                "target": "",
+                "font_size": {
+                    "14": "",
+                    "title": "",
+                    "24": "",
+                    "20": "",
+                    "12": "",
+                    "16": "",
+                    "10": "",
+                    "18": ""
+                },
+                "google": "",
+                "detect_engine": "",
+                "tencent": "",
+                "yandex": "",
+                "local": "",
+                "disable": "",
+                "hide_window": "",
+                "remember_window_size": "",
+                "delete_newline": "",
+                "remember_language": "",
+                "window_position": "",
+                "second_language": "",
+                "source": "",
+                "niutrans": "",
+                "auto_copy": "",
+                "dynamic_translate": "",
+                "mouse": "",
+                "source_target": "",
+                "source_language": "",
+                "pre_state": "",
+                "always_on_top": "",
+                "close_on_blur": "",
+                "hide_source": "",
+                "baidu": "",
+                "incremental_translate": "",
+                "target_language": ""
             },
             "backup": {
                 "title": "ばっくあっぷせっち",
-                "label": "ばっくあっぷ"
+                "label": "ばっくあっぷ",
+                "local": "",
+                "empty": "",
+                "restore": "",
+                "webdav": "",
+                "load_success": "",
+                "list": "",
+                "backup": "",
+                "password": "",
+                "webdav_url": "",
+                "username": "",
+                "backup_success": "",
+                "type": ""
             },
             "about": {
                 "title": "に関するアプリケーション",
-                "label": "に関する"
+                "label": "に関する",
+                "qq_group": "",
+                "website": "",
+                "check_update": "",
+                "telegram": "",
+                "feedback": "",
+                "view_config": "",
+                "issue": "",
+                "community": "",
+                "email": "",
+                "github": "",
+                "discussion": "",
+                "qq_channel": "",
+                "view_log": ""
             },
             "general": {
                 "label": "ジェネラル",
                 "event": {
                     "translate": "トランスレート",
-                    "config": "コンフィグ"
+                    "config": "コンフィグ",
+                    "disable": "",
+                    "ocr_translate": "",
+                    "ocr_recognize": ""
                 },
-                "title": "ジェネラルせっち"
+                "title": "ジェネラルせっち",
+                "tray_click_event": "",
+                "auto_start": "",
+                "proxy": {
+                    "title": "",
+                    "port": "",
+                    "host": "",
+                    "password": "",
+                    "username": "",
+                    "no_proxy": ""
+                },
+                "proxy_change": "",
+                "default_font": "",
+                "app_theme": "",
+                "theme": {
+                    "light": "",
+                    "system": "",
+                    "dark": ""
+                },
+                "server_port_change": "",
+                "font_size": {
+                    "20": "",
+                    "18": "",
+                    "14": "",
+                    "16": "",
+                    "12": "",
+                    "24": "",
+                    "10": "",
+                    "title": ""
+                },
+                "app_font": "",
+                "server_port": "",
+                "proxy_error": "",
+                "check_update": "",
+                "app_language": "",
+                "transparent": "",
+                "app_fallback_font": ""
             },
             "hotkey": {
                 "label": "ホットキー",
-                "title": "ホットキーせっち"
+                "title": "ホットキーせっち",
+                "ocr_translate": "",
+                "success": "",
+                "is_register": "",
+                "input_translate": "",
+                "set_hotkey": "",
+                "selection_translate": "",
+                "ocr_recognize": ""
             },
             "recognize": {
                 "title": "しきべつせっち",
-                "label": "しきべつ"
+                "label": "しきべつ",
+                "delete_newline": "",
+                "language": "",
+                "close_on_blur": "",
+                "hide_window": "",
+                "auto_copy": ""
             },
             "service": {
                 "title": "サービスせっち",
-                "label": "サービス"
+                "label": "サービス",
+                "add_service": "",
+                "uninstall_success": "",
+                "least": "",
+                "tts": "",
+                "homepage": "",
+                "translate": "",
+                "recognize": "",
+                "collection": "",
+                "view_plugin_list": "",
+                "install_plugin": "",
+                "add_external_service": "",
+                "add_builtin_service": "",
+                "test_failed": ""
             },
             "history": {
                 "label": "ひすとりー",
@@ -59,13 +187,283 @@
             "tr": "トルコ語",
             "auto": "自動検出",
             "pt_br": "ポルトガル語（ブラジル）",
-            "hi": "ヒンディー語"
+            "hi": "ヒンディー語",
+            "zh_cn": "",
+            "nl": "",
+            "zh_tw": "",
+            "sv": "",
+            "nb_no": "",
+            "fa": "",
+            "pl": "",
+            "nn_no": ""
         },
         "common": {
             "plugin": "プラグイン",
             "cancel": "キャンセル",
             "ok": "Ok",
-            "save": "設定保存"
+            "save": "設定保存",
+            "write_clipboard": "",
+            "clear": "",
+            "coming": ""
+        },
+        "services": {
+            "translate": {
+                "youdao": {
+                    "appkey": "",
+                    "key": "",
+                    "title": ""
+                },
+                "deepl": {
+                    "free": "",
+                    "deeplx": "",
+                    "type": "",
+                    "title": "",
+                    "api": "",
+                    "auth_key": "",
+                    "custom_url": ""
+                },
+                "openai": {
+                    "openai": "",
+                    "request_path": "",
+                    "stream": "",
+                    "service": "",
+                    "model": "",
+                    "add": "",
+                    "prompt_description": "",
+                    "title": "",
+                    "azure": "",
+                    "api_key": ""
+                },
+                "alibaba": {
+                    "accesskey_id": "",
+                    "accesskey_secret": "",
+                    "title": ""
+                },
+                "chatglm": {
+                    "title": "",
+                    "api_key": "",
+                    "chatglm_lite": "",
+                    "chatglm_pro": "",
+                    "model": "",
+                    "chatglm_turbo": "",
+                    "chatglm_std": "",
+                    "add": "",
+                    "prompt_description": ""
+                },
+                "geminipro_polish": {
+                    "title": ""
+                },
+                "transmart": {
+                    "username": "",
+                    "title": "",
+                    "token": ""
+                },
+                "caiyun": {
+                    "token": "",
+                    "title": ""
+                },
+                "baidu_field": {
+                    "academic": "",
+                    "law": "",
+                    "aerospace": "",
+                    "novel": "",
+                    "senimed": "",
+                    "contract": "",
+                    "finance": "",
+                    "wiki": "",
+                    "it": "",
+                    "news": "",
+                    "machinery": "",
+                    "title": ""
+                },
+                "cambridge_dict": {
+                    "title": ""
+                },
+                "geminipro": {
+                    "add": "",
+                    "api_key": "",
+                    "stream": "",
+                    "prompt_description": "",
+                    "title": ""
+                },
+                "openai_custom": {
+                    "title": ""
+                },
+                "baidu": {
+                    "appid": "",
+                    "title": "",
+                    "secret": ""
+                },
+                "niutrans": {
+                    "https": "",
+                    "title": "",
+                    "apikey": ""
+                },
+                "tencent": {
+                    "secret_key": "",
+                    "title": "",
+                    "secret_id": ""
+                },
+                "geminipro_custom": {
+                    "title": ""
+                },
+                "volcengine": {
+                    "title": "",
+                    "appid": "",
+                    "secret": ""
+                },
+                "google": {
+                    "title": "",
+                    "custom_url": ""
+                },
+                "yandex": {
+                    "title": ""
+                },
+                "bing_dict": {
+                    "title": ""
+                },
+                "chatglm_custom": {
+                    "title": ""
+                },
+                "chatglm_polish": {
+                    "title": ""
+                },
+                "chatglm_summary": {
+                    "title": ""
+                },
+                "openai_polish": {
+                    "title": ""
+                },
+                "geminipro_summary": {
+                    "title": ""
+                },
+                "bing": {
+                    "title": ""
+                },
+                "openai_summary": {
+                    "title": ""
+                }
+            },
+            "recognize": {
+                "iflytek_latex_ocr": {
+                    "apikey": "",
+                    "title": "",
+                    "apisecret": "",
+                    "appid": ""
+                },
+                "baidu_ocr": {
+                    "client_id": "",
+                    "title": "",
+                    "client_secret": ""
+                },
+                "simple_latex_ocr": {
+                    "title": "",
+                    "token": ""
+                },
+                "volcengine_ocr": {
+                    "secret": "",
+                    "appid": "",
+                    "title": ""
+                },
+                "iflytek_intsig_ocr": {
+                    "appid": "",
+                    "title": "",
+                    "apisecret": "",
+                    "apikey": ""
+                },
+                "baidu_accurate_ocr": {
+                    "client_secret": "",
+                    "client_id": "",
+                    "title": ""
+                },
+                "baidu_img_ocr": {
+                    "secret": "",
+                    "appid": "",
+                    "title": ""
+                },
+                "volcengine_multi_lang_ocr": {
+                    "title": "",
+                    "secret": "",
+                    "appid": ""
+                },
+                "tencent_ocr": {
+                    "secret_key": "",
+                    "secret_id": "",
+                    "title": ""
+                },
+                "tencent_accurate_ocr": {
+                    "title": "",
+                    "secret_key": "",
+                    "secret_id": ""
+                },
+                "iflytek_ocr": {
+                    "title": "",
+                    "apikey": "",
+                    "appid": "",
+                    "apisecret": ""
+                },
+                "qrcode": {
+                    "title": ""
+                },
+                "tesseract": {
+                    "title": ""
+                },
+                "tencent_img_ocr": {
+                    "secret_id": "",
+                    "title": "",
+                    "secret_key": ""
+                },
+                "system": {
+                    "title": ""
+                }
+            },
+            "collection": {
+                "anki": {
+                    "port": "",
+                    "title": ""
+                },
+                "eudic": {
+                    "token": "",
+                    "name": "",
+                    "title": ""
+                }
+            },
+            "help": "",
+            "no_need": "",
+            "tts": {
+                "lingva_tts": {
+                    "title": "",
+                    "request_path": ""
+                }
+            }
+        },
+        "translate": {
+            "delete_newline": "",
+            "add_collection_success": "",
+            "retry": "",
+            "recognizing": "",
+            "translate_back": "",
+            "translate": "",
+            "copy": "",
+            "speak": ""
+        },
+        "updater": {
+            "installed": "",
+            "downloading": "",
+            "update": "",
+            "progress": "",
+            "latest": "",
+            "cancel": "",
+            "title": "",
+            "installing": ""
+        },
+        "recognize": {
+            "translate": "",
+            "delete_newline": "",
+            "recognize": "",
+            "copy_text": "",
+            "delete_space": "",
+            "copy_img": ""
         }
     }
 }
