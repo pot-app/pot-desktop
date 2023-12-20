@@ -21,6 +21,10 @@ import * as _chatglm from './chatglm';
 import * as _chatglm_summary from './chatglm_summary';
 import * as _chatglm_polish from './chatglm_polish';
 import * as _chatglm_custom from './chatglm_custom';
+import * as _geminipro from './geminipro';
+import * as _geminipro_summary from './geminipro_summary';
+import * as _geminipro_polish from './geminipro_polish';
+import * as _geminipro_custom from './geminipro_custom';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -45,3 +49,7 @@ export const chatglm = _chatglm;
 export const chatglm_summary = _chatglm_summary;
 export const chatglm_polish = _chatglm_polish;
 export const chatglm_custom = _chatglm_custom;
+export const geminipro = _geminipro;
+export const geminipro_summary = _geminipro_summary;
+export const geminipro_polish = _geminipro_polish;
+export const geminipro_custom = _geminipro_custom;

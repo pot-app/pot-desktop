@@ -248,6 +248,22 @@
                     "prompt_description": "通过自定义Prompt自定义OpenAI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
                 },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "api_key": "Api Key",
+                    "stream": "流式输出",
+                    "prompt_description": "通过自定义Prompt自定义Gemini Pro的行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
+                    "add": "添加 Prompt"
+                },
+                "geminipro_summary": {
+                    "title": "Gemini Pro 总结"
+                },
+                "geminipro_polish": {
+                    "title": "Gemini Pro 润色"
+                },
+                "geminipro_custom": {
+                    "title": "Gemini Pro 自定义"
+                },
                 "chatglm": {
                     "title": "智谱 AI",
                     "model": "模型",

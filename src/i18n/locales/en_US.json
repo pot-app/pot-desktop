@@ -257,6 +257,22 @@
                 "openai_custom": {
                     "title": "OpenAI Custom"
                 },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "api_key": "Api Key",
+                    "stream": "Stream Mode",
+                    "prompt_description": "By customizing the Prompt, you can customize the behavior of Gemini Pro. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
+                    "add": "Add Prompt"
+                },
+                "geminipro_summary": {
+                    "title": "Gemini Pro Summary"
+                },
+                "geminipro_polish": {
+                    "title": "Gemini Pro Polish"
+                },
+                "geminipro_custom": {
+                    "title": "Gemini Pro Custom"
+                },
                 "chatglm": {
                     "title": "ChatGLM",
                     "model": "Model",
