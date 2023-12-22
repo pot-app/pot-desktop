@@ -161,8 +161,13 @@ export default function SourceArea(props) {
 
     const handleSpeak = async () => {
         const serviceName = ttsServiceList[0];
+        let detected = detectLanguage;
+        if (detected === '') {
+            detected = await detect(sourceText);
+            setDetectLanguage(detected);
+        }
         if (serviceName.startsWith('[plugin]')) {
-            if (!(detectLanguage in ttsPluginInfo.language)) {
+            if (!(detected in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
             }
             const config = (await store.get(serviceName)) ?? {};
@@ -170,17 +175,17 @@ export default function SourceArea(props) {
                 name: serviceName,
                 pluginType: 'tts',
                 source: sourceText,
-                lang: ttsPluginInfo.language[detectLanguage],
+                lang: ttsPluginInfo.language[detected],
                 needs: config,
             });
             speak(data);
         } else {
-            if (!(detectLanguage in builtinTtsServices[serviceName].Language)) {
+            if (!(detected in builtinTtsServices[serviceName].Language)) {
                 throw new Error('Language not supported');
             }
             let data = await builtinTtsServices[serviceName].tts(
                 sourceText,
-                builtinTtsServices[serviceName].Language[detectLanguage]
+                builtinTtsServices[serviceName].Language[detected]
             );
             speak(data);
         }
@@ -334,20 +339,21 @@ export default function SourceArea(props) {
                         </Chip>
                     )}
                 </div>
-                <Button
-                    size='sm'
-                    color='primary'
-                    variant='solid'
-                    className='text-[14px] font-bold'
-                    startContent={<HiTranslate className='text-[16px]' />}
-                    onPress={() => {
-                        detect_language(sourceText).then(() => {
-                            syncSourceText();
-                        });
-                    }}
-                >
-                    {t('translate.translate')}
-                </Button>
+                <Tooltip content={t('translate.translate')}>
+                    <Button
+                        size='sm'
+                        color='primary'
+                        variant='light'
+                        isIconOnly
+                        className='text-[14px] font-bold'
+                        startContent={<HiTranslate className='text-[16px]' />}
+                        onPress={() => {
+                            detect_language(sourceText).then(() => {
+                                syncSourceText();
+                            });
+                        }}
+                    />
+                </Tooltip>
             </CardFooter>
         </Card>
     );
