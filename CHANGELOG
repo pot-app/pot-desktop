@@ -1,5 +1,10 @@
-## 2.7.2 (2023-12-14)
+## 2.7.3 (2023-12-22)
 
 ### New feature:
 
--   Support More Languages([`faf3794`](https://github.com/pot-app/pot-desktop/commit/faf3794c9aa5ccd84e8f6f91825d14b2d54ce31e)) (by Pylogmon)
+-   Support Gemini Pro([`4a0d254`](https://github.com/pot-app/pot-desktop/commit/4a0d2549907888f59cd4f9f2de270b150ef1847e)) (by @Pylogmon)
+
+### Bugs fixed:
+
+-   Detect Language before Speak([`4b0d692`](https://github.com/pot-app/pot-desktop/commit/4b0d692e37726d514c4c19f12ae45e95828c18a7)) (by @Pylogmon)
+-   Remove Safety Block([`bda4d8a`](https://github.com/pot-app/pot-desktop/commit/bda4d8af59082d2851c02987d899b172cee7afec)) (by @Pylogmon)
