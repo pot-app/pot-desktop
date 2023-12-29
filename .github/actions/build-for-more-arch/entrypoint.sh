@@ -47,9 +47,9 @@ elif [ "$INPUT_TARGET" = "riscv64gc-unknown-linux-gnu" ]; then
     apt-get update
     apt-get install -y libncurses6:riscv64 libtinfo6:riscv64 linux-libc-dev:riscv64 libncursesw6:riscv64 libcups2:riscv64
     apt-get install -y --no-install-recommends g++-riscv64-linux-gnu libc6-dev-riscv64-cross libssl-dev:riscv64 libwebkit2gtk-4.0-dev:riscv64 libgtk-3-dev:riscv64 patchelf:riscv64 librsvg2-dev:riscv64 libxdo-dev:riscv64 libxcb1:riscv64 libxrandr2:riscv64 libdbus-1-3:riscv64 libayatana-appindicator3-dev:riscv64
-    export CARGO_TARGET_RISCV64_UNKNOWN_LINUX_GNU_LINKER=riscv64-linux-gnu-gcc
-    export CC_riscv64_unknown_linux_gnu=riscv64-linux-gnu-gcc
-    export CXX_riscv64_unknown_linux_gnu=riscv64-linux-gnu-g++
+    export CARGO_TARGET_RISCV64GC_UNKNOWN_LINUX_GNU_LINKER=riscv64-linux-gnu-gcc
+    export CC_riscv64gc_unknown_linux_gnu=riscv64-linux-gnu-gcc
+    export CXX_riscv64gc_unknown_linux_gnu=riscv64-linux-gnu-g++
     export PKG_CONFIG_PATH=/usr/lib/riscv64-linux-gnu/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS=1
 else
