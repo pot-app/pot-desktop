@@ -41,6 +41,18 @@ elif [ "$INPUT_TARGET" = "armv7-unknown-linux-gnueabihf" ]; then
     export CXX_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-g++
     export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS=1
+elif [ "$INPUT_TARGET" = "riscv64gc-unknown-linux-gnu" ]; then
+    sed 's/http:\/\/\(.*\).ubuntu.com\/ubuntu\//[arch-=amd64,i386] http:\/\/ports.ubuntu.com\/ubuntu-ports\//g' /etc/apt/sources.list | tee /etc/apt/sources.list.d/ports.list
+    sed -i 's/http:\/\/\(.*\).ubuntu.com\/ubuntu\//[arch=amd64,i386] http:\/\/\1.archive.ubuntu.com\/ubuntu\//g' /etc/apt/sources.list
+    dpkg --add-architecture riscv64
+    apt-get update
+    apt-get install -y libncurses6:riscv64 libtinfo6:riscv64 linux-libc-dev:riscv64 libncursesw6:riscv64 libssl3:riscv64 libcups2:riscv64
+    apt-get install -y --no-install-recommends g++-riscv64-linux-gnu libc6-dev-riscv64-cross libssl-dev:riscv64 libwebkit2gtk-4.0-dev:riscv64 libgtk-3-dev:riscv64 patchelf:riscv64 librsvg2-dev:riscv64 libxdo-dev:riscv64 libxcb1:riscv64 libxrandr2:riscv64 libdbus-1-3:riscv64 libayatana-appindicator3-dev:riscv64
+    export CARGO_TARGET_RISCV64_UNKNOWN_LINUX_GNU_LINKER=riscv64-linux-gnu-gcc
+    export CC_riscv64_unknown_linux_gnu=riscv64-linux-gnu-gcc
+    export CXX_riscv64_unknown_linux_gnu=riscv64-linux-gnu-g++
+    export PKG_CONFIG_PATH=/usr/lib/riscv64-linux-gnu/pkgconfig
+    export PKG_CONFIG_ALLOW_CROSS=1
 else
     echo "Unknown target: $INPUT_TARGET" && exit 1
 fi

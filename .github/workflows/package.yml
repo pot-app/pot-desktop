@@ -1,7 +1,7 @@
 name: Package
 on:
     push:
-        branches: [master]
+        branches: [riscv]
         tags-ignore: [updater]
 permissions: write-all
 
@@ -300,6 +300,7 @@ jobs:
                         i686-unknown-linux-gnu,
                         aarch64-unknown-linux-gnu,
                         armv7-unknown-linux-gnueabihf,
+                        riscv64gc-unknown-linux-gnu,
                     ]
                 include:
                     - os: ubuntu-latest
@@ -314,6 +315,9 @@ jobs:
                     - os: ubuntu-latest
                       target: armv7-unknown-linux-gnueabihf
                       toolchain: stable-armv7-unknown-linux-gnueabihf
+                    - os: ubuntu-latest
+                      target: riscv64gc-unknown-linux-gnu
+                      toolchain: stable-riscv64gc-unknown-linux-gnu
         runs-on: ${{ matrix.platform }}
         steps:
             - uses: actions/download-artifact@v3
