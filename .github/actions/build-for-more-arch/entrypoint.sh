@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt-get update
-apt-get install -y curl wget xz
+apt-get install -y curl wget xz-utils
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init
 chmod +x rustup-init
