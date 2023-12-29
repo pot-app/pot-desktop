@@ -1,11 +1,11 @@
 #!/bin/bash
 
 apt-get update
-apt-get install -y curl wget
+apt-get install -y curl wget xz
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init
 chmod +x rustup-init
-./rustup-init -y --default-toolchain stable --target $INPUT_TOOLCHAIN
+./rustup-init -y --default-toolchain stable --target $INPUT_TARGET
 rm rustup-init
 source $HOME/.cargo/env
 
@@ -15,7 +15,6 @@ export PATH=$(pwd)/node-v19.8.1-linux-x64/bin:$PATH
 npm install pnpm -g
 
 rustup target add "$INPUT_TARGET"
-rustup toolchain install --force-non-host "$INPUT_TOOLCHAIN"
 
 if [ "$INPUT_TARGET" = "aarch64-unknown-linux-gnu" ]; then
     sed 's/http:\/\/\(.*\).ubuntu.com\/ubuntu\//[arch-=amd64,i386] http:\/\/ports.ubuntu.com\/ubuntu-ports\//g' /etc/apt/sources.list | tee /etc/apt/sources.list.d/ports.list
