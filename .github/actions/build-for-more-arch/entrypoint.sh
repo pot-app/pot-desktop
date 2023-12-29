@@ -1,4 +1,6 @@
 #!/bin/bash
+
+apt-get update
 apt-get install -y curl wget
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init
