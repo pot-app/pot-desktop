@@ -42,7 +42,7 @@
                     "chatglm_std": "ChatGLM Std",
                     "add": "Ajouter une invite",
                     "prompt_description": "En personnalisant l'invite, vous pouvez personnaliser le comportement de l'IA. Le texte $from $to $detect sera remplacé par le texte à traduire, la langue d'origine, la langue de destination et la langue détectée.",
-                    "chatglm_turbo": ""
+                    "chatglm_turbo": "ChatGLM Turbo"
                 },
                 "transmart": {
                     "username": "Nom d'utilisateur",
@@ -125,17 +125,17 @@
                     "title": ""
                 },
                 "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
+                    "add": "Ajouter un prompt",
+                    "api_key": "Clé API",
+                    "stream": "Mode streaming",
                     "prompt_description": "",
-                    "title": ""
+                    "title": "Gemini Pro"
                 },
                 "geminipro_custom": {
                     "title": ""
                 },
                 "geminipro_summary": {
-                    "title": ""
+                    "title": "Résumé Gemini Pro"
                 }
             },
             "recognize": {
@@ -255,12 +255,12 @@
             "auto": "Détection automatique",
             "pt_br": "Portugais (Brésil)",
             "hi": "Hindi",
-            "nl": "",
-            "sv": "",
-            "nb_no": "",
-            "fa": "",
-            "pl": "",
-            "nn_no": ""
+            "nl": "Néerlandais",
+            "sv": "Suédois",
+            "nb_no": "Norvégien Bokmål",
+            "fa": "Persan",
+            "pl": "Polonais",
+            "nn_no": "Norvégien Nynorsk"
         },
         "common": {
             "plugin": "Extension",
@@ -281,7 +281,7 @@
                     "host": "Hôte",
                     "password": "Mot de passe",
                     "username": "Nom d'utilisateur",
-                    "no_proxy": ""
+                    "no_proxy": "Pas de proxy"
                 },
                 "proxy_change": "Le proxy a été modifié. Relancez l'application pour que les modifications prennent effet",
                 "app_theme": "Thème",
@@ -305,19 +305,19 @@
                 "app_language": "Langue de l'application",
                 "transparent": "Effet de transparence",
                 "title": "Paramètres généraux",
-                "default_font": "",
+                "default_font": "Défaut",
                 "font_size": {
-                    "20": "",
-                    "18": "",
-                    "14": "",
-                    "16": "",
-                    "12": "",
-                    "24": "",
-                    "10": "",
-                    "title": ""
+                    "20": "Très large (20px)",
+                    "18": "Large (18px)",
+                    "14": "Petit (14px)",
+                    "16": "Standard (16px)",
+                    "12": "Très petit (12px)",
+                    "24": "Très très large (24px)",
+                    "10": "Très très petit (10px)",
+                    "title": "Taille de la police"
                 },
-                "app_font": "",
-                "app_fallback_font": ""
+                "app_font": "Police de caractères",
+                "app_fallback_font": "Police de caractères secondaire"
             },
             "translate": {
                 "bing": "Bing",
@@ -352,14 +352,14 @@
                 "incremental_translate": "Traduction incrémentale",
                 "target_language": "Langue de destination",
                 "font_size": {
-                    "14": "",
-                    "title": "",
-                    "24": "",
-                    "20": "",
-                    "12": "",
-                    "16": "",
-                    "10": "",
-                    "18": ""
+                    "14": "Petit (14px)",
+                    "title": "Taille de la police",
+                    "24": "Très très grand (24px)",
+                    "20": "Très grand (20px)",
+                    "12": "Très petit (12px)",
+                    "16": "Normal (16px)",
+                    "10": "Très très petit (10px)",
+                    "18": "Grand (18px)"
                 }
             },
             "backup": {
@@ -396,7 +396,7 @@
                 "title": "Paramètres des raccourcis",
                 "selection_translate": "Traduire la sélection",
                 "ocr_recognize": "Reconnaissance de texte",
-                "set_hotkey": ""
+                "set_hotkey": "Appuyer pour définir"
             },
             "service": {
                 "add_service": "Ajouter un service",
