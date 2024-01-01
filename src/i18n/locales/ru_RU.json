@@ -340,20 +340,20 @@
                     "title": "OpenAI Резюме"
                 },
                 "geminipro_polish": {
-                    "title": ""
+                    "title": "Gemini Pro польский"
                 },
                 "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
-                    "prompt_description": "",
-                    "title": ""
+                    "add": "Добавить Промт",
+                    "api_key": "Api Key",
+                    "stream": "Потоковый режим",
+                    "prompt_description": "Указав Промт, вы можете настроить поведение Gemini Pro. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
+                    "title": "Gemini Pro"
                 },
                 "geminipro_custom": {
-                    "title": ""
+                    "title": "Gemini Pro пользовательский"
                 },
                 "geminipro_summary": {
-                    "title": ""
+                    "title": "Gemini Pro содержание"
                 }
             },
             "recognize": {
