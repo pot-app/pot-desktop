@@ -14,6 +14,7 @@
     "dependencies": {
         "@nextui-org/react": "^2.2.9",
         "@nextui-org/theme": "^2.1.17",
+        "@react-spring/web": "^9.7.3",
         "@tauri-apps/api": "^1.5.1",
         "crypto-js": "^4.2.0",
         "flag-icons": "^7.0.2",
