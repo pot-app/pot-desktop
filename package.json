@@ -35,6 +35,7 @@
         "react-markdown": "^8.0.7",
         "react-router-dom": "^6.20.0",
         "react-spinners": "^0.13.8",
+        "react-use-measure": "^2.1.1",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
         "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log#v1",
