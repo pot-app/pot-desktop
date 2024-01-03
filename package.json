@@ -14,6 +14,7 @@
     "dependencies": {
         "@nextui-org/react": "^2.2.9",
         "@nextui-org/theme": "^2.1.17",
+        "@react-spring/web": "^9.7.3",
         "@tauri-apps/api": "^1.5.1",
         "crypto-js": "^4.2.0",
         "flag-icons": "^7.0.2",
@@ -34,6 +35,7 @@
         "react-markdown": "^8.0.7",
         "react-router-dom": "^6.20.0",
         "react-spinners": "^0.13.8",
+        "react-use-measure": "^2.1.1",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
         "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log#v1",
