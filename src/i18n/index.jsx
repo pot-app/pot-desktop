@@ -20,7 +20,15 @@ import fa_IR from './locales/fa_IR.json';
 // http://www.lingoes.net/zh/translator/langcode.htm
 
 i18n.use(initReactI18next).init({
-    fallbackLng: 'en',
+    fallbackLng: {
+        zh_tw: ['zh_cn'],
+        zh_cn: ['zh_tw'],
+        pt_pt: ['pt_br'],
+        pt_br: ['pt_pt'],
+        nb_no: ['nn_no'],
+        nn_no: ['nb_no'],
+        default: ['en'],
+    },
     debug: false,
     interpolation: {
         escapeValue: false,

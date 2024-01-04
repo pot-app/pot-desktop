@@ -13,8 +13,7 @@
             "translate": {
                 "youdao": {
                     "appkey": "ID do App",
-                    "key": "Chave",
-                    "title": ""
+                    "key": "Chave"
                 },
                 "deepl": {
                     "free": "Gratuito",
@@ -54,8 +53,7 @@
                     "token": "Token"
                 },
                 "caiyun": {
-                    "token": "Token",
-                    "title": ""
+                    "token": "Token"
                 },
                 "baidu_field": {
                     "academic": "Papéis Acadêmicos",
@@ -84,8 +82,7 @@
                 },
                 "niutrans": {
                     "https": "Usar Https",
-                    "title": "NiuTrans",
-                    "apikey": ""
+                    "title": "NiuTrans"
                 },
                 "tencent": {
                     "secret_key": "Chave Secreta",
@@ -126,33 +123,18 @@
                     "title": "OpenAI Resumo"
                 },
                 "alibaba": {
-                    "title": "Alibaba",
-                    "accesskey_id": "",
-                    "accesskey_secret": ""
+                    "title": "Alibaba"
                 },
-                "geminipro_polish": {
-                    "title": ""
-                },
-                "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
-                    "prompt_description": "",
-                    "title": ""
-                },
-                "geminipro_custom": {
-                    "title": ""
-                },
-                "geminipro_summary": {
-                    "title": ""
-                }
+                "geminipro_polish": {},
+                "geminipro": {},
+                "geminipro_custom": {},
+                "geminipro_summary": {}
             },
             "recognize": {
                 "iflytek_latex_ocr": {
                     "apikey": "Chave API",
                     "apisecret": "Segredo da API",
-                    "appid": "ID do App",
-                    "title": ""
+                    "appid": "ID do App"
                 },
                 "simple_latex_ocr": {
                     "title": "LaTeX Simples",
@@ -191,8 +173,7 @@
                 },
                 "baidu_ocr": {
                     "title": "OCR da Baidu",
-                    "client_secret": "Chave Secreta",
-                    "client_id": ""
+                    "client_secret": "Chave Secreta"
                 },
                 "tencent_accurate_ocr": {
                     "title": "OCR da Tencent (Preciso)",

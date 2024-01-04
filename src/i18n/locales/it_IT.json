@@ -109,8 +109,7 @@
                 },
                 "volcengine": {
                     "appid": "ID app",
-                    "secret": "Segreto",
-                    "title": ""
+                    "secret": "Segreto"
                 },
                 "chatglm_custom": {
                     "title": "ChatGLM personalizzato"
@@ -130,22 +129,10 @@
                 "openai_summary": {
                     "title": "Riepilogo di OpenAI"
                 },
-                "geminipro_polish": {
-                    "title": ""
-                },
-                "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
-                    "prompt_description": "",
-                    "title": ""
-                },
-                "geminipro_custom": {
-                    "title": ""
-                },
-                "geminipro_summary": {
-                    "title": ""
-                }
+                "geminipro_polish": {},
+                "geminipro": {},
+                "geminipro_custom": {},
+                "geminipro_summary": {}
             },
             "recognize": {
                 "iflytek_latex_ocr": {
@@ -165,8 +152,7 @@
                 },
                 "volcengine_ocr": {
                     "secret": "Segreto",
-                    "appid": "ID app",
-                    "title": ""
+                    "appid": "ID app"
                 },
                 "iflytek_intsig_ocr": {
                     "appid": "ID app",
@@ -227,8 +213,7 @@
                 },
                 "eudic": {
                     "token": "Token",
-                    "name": "Nome della raccolta",
-                    "title": ""
+                    "name": "Nome della raccolta"
                 }
             },
             "help": "Guida alla configurazione",
@@ -312,8 +297,7 @@
                 "hide_source": "Nascondi area di origine",
                 "baidu": "Baidu",
                 "incremental_translate": "Traduzione incrementale",
-                "target_language": "Lingua di destinazione",
-                "source_target": ""
+                "target_language": "Lingua di destinazione"
             },
             "backup": {
                 "local": "Locale",
@@ -375,8 +359,7 @@
                 "app_language": "Lingua dell'applicazione",
                 "transparent": "Effetto trasparente",
                 "title": "Impostazioni Generali",
-                "app_fallback_font": "Font di riserva",
-                "tray_click_event": ""
+                "app_fallback_font": "Font di riserva"
             },
             "recognize": {
                 "delete_newline": "Elimina automaticamente la nuova riga",
@@ -454,8 +437,7 @@
             "latest": "# L'ultima versione è installata",
             "cancel": "Annulla",
             "title": "Controlla aggiornamento",
-            "installing": "Installazione in corso…",
-            "progress": ""
+            "installing": "Installazione in corso…"
         },
         "recognize": {
             "translate": "Traduci",

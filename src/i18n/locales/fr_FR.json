@@ -121,19 +121,15 @@
                 "openai_polish": {
                     "title": "OpenAI Retouche"
                 },
-                "geminipro_polish": {
-                    "title": ""
-                },
+                "geminipro_polish": {},
                 "geminipro": {
                     "add": "Ajouter un prompt",
                     "api_key": "Clé API",
                     "stream": "Mode streaming",
-                    "prompt_description": "",
+
                     "title": "Gemini Pro"
                 },
-                "geminipro_custom": {
-                    "title": ""
-                },
+                "geminipro_custom": {},
                 "geminipro_summary": {
                     "title": "Résumé Gemini Pro"
                 }
@@ -462,8 +458,7 @@
             "delete_newline": "Supprimer le retour à la ligne",
             "recognize": "Reconnaissance",
             "copy_text": "Copier",
-            "copy_img": "Copier l'image",
-            "delete_space": ""
+            "copy_img": "Copier l'image"
         }
     }
 }

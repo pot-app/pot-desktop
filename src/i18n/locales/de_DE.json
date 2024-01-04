@@ -19,17 +19,7 @@
             "ko": "Koreanisch",
             "tr": "Türkisch",
             "auto": "Automatisch erkennen",
-            "pt_br": "Portugiesisch (Brasilien)",
-            "mn_cy": "",
-            "nl": "",
-            "km": "",
-            "sv": "",
-            "th": "",
-            "ms": "",
-            "nb_no": "",
-            "pl": "",
-            "nn_no": "",
-            "hi": ""
+            "pt_br": "Portugiesisch (Brasilien)"
         },
         "config": {
             "translate": {
@@ -56,24 +46,8 @@
                 "bing": "Bing",
                 "yandex": "Yandex",
                 "local": "Lokal",
-                "hide_language": "",
-                "font_size": {
-                    "14": "",
-                    "title": "",
-                    "24": "",
-                    "20": "",
-                    "12": "",
-                    "16": "",
-                    "10": "",
-                    "18": ""
-                },
-                "detect_engine": "",
-                "hide_window": "",
-                "niutrans": "",
-                "always_on_top": "",
-                "close_on_blur": "",
-                "hide_source": "",
-                "google": ""
+
+                "font_size": {}
             },
             "general": {
                 "proxy": {
@@ -81,16 +55,13 @@
                     "port": "Port",
                     "host": "Host",
                     "password": "Passwort",
-                    "username": "Benutzername",
-                    "no_proxy": ""
+                    "username": "Benutzername"
                 },
                 "app_theme": "Thema",
                 "event": {
                     "disable": "Deaktivieren",
                     "translate": "Übersetzen",
-                    "ocr_recognize": "Texterkennung",
-                    "ocr_translate": "",
-                    "config": ""
+                    "ocr_recognize": "Texterkennung"
                 },
                 "label": "Allgemein",
                 "theme": {
@@ -101,26 +72,8 @@
                 "app_language": "Anwendungssprache",
                 "transparent": "Transparenzeffekt",
                 "title": "Allgemeine Einstellungen",
-                "tray_click_event": "",
-                "auto_start": "",
-                "proxy_change": "",
-                "default_font": "",
-                "server_port_change": "",
-                "font_size": {
-                    "20": "",
-                    "18": "",
-                    "14": "",
-                    "16": "",
-                    "12": "",
-                    "24": "",
-                    "10": "",
-                    "title": ""
-                },
-                "app_font": "",
-                "server_port": "",
-                "proxy_error": "",
-                "check_update": "",
-                "app_fallback_font": ""
+
+                "font_size": {}
             },
             "backup": {
                 "local": "Lokal",
@@ -131,32 +84,18 @@
                 "password": "Passwort",
                 "username": "Benutzername",
                 "label": "Sicherung",
-                "type": "Diensttyp",
-                "empty": "",
-                "webdav": "",
-                "load_success": "",
-                "webdav_url": "",
-                "backup_success": ""
+                "type": "Diensttyp"
             },
             "recognize": {
                 "delete_newline": "Neue Zeile automatisch löschen",
                 "language": "Sprache erkennen",
                 "title": "Erkennungseinstellungen",
                 "label": "Erkennen",
-                "auto_copy": "Automatisch kopieren",
-                "close_on_blur": "",
-                "hide_window": ""
+                "auto_copy": "Automatisch kopieren"
             },
             "hotkey": {
                 "ocr_translate": "Bildschirmfotoübersetzung",
-                "ocr_recognize": "Texterkennung",
-                "success": "",
-                "is_register": "",
-                "label": "",
-                "input_translate": "",
-                "title": "",
-                "set_hotkey": "",
-                "selection_translate": ""
+                "ocr_recognize": "Texterkennung"
             },
             "service": {
                 "add_service": "Dienst hinzufügen",
@@ -166,14 +105,7 @@
                 "add_external_service": "Erweiterung hinzufügen",
                 "title": "Diensteinstellungen",
                 "label": "Dienst",
-                "test_failed": "Test fehlgeschlagen",
-                "uninstall_success": "",
-                "least": "",
-                "tts": "",
-                "homepage": "",
-                "view_plugin_list": "",
-                "install_plugin": "",
-                "add_builtin_service": ""
+                "test_failed": "Test fehlgeschlagen"
             },
             "about": {
                 "website": "Webseite",
@@ -184,13 +116,7 @@
                 "email": "E-Mail",
                 "github": "GitHub",
                 "discussion": "Github-Diskussion",
-                "view_log": "Protokoll ansehen",
-                "title": "",
-                "qq_group": "",
-                "check_update": "",
-                "telegram": "",
-                "view_config": "",
-                "qq_channel": ""
+                "view_log": "Protokoll ansehen"
             },
             "history": {
                 "label": "Verlauf",
@@ -201,23 +127,17 @@
             "cancel": "Abbrechen",
             "write_clipboard": "In die Zwischenablage schreiben",
             "ok": "Ok",
-            "save": "Speichern",
-            "plugin": "",
-            "clear": "",
-            "coming": ""
+            "save": "Speichern"
         },
         "services": {
             "recognize": {
                 "iflytek_latex_ocr": {
                     "apikey": "API-Schlüssel",
-                    "apisecret": "API-Geheimnis",
-                    "title": "",
-                    "appid": ""
+                    "apisecret": "API-Geheimnis"
                 },
                 "baidu_ocr": {
                     "client_id": "API-Schlüssel",
-                    "client_secret": "Geheimer Schlüssel",
-                    "title": ""
+                    "client_secret": "Geheimer Schlüssel"
                 },
                 "simple_latex_ocr": {
                     "title": "Einfaches LaTeX",
@@ -230,13 +150,11 @@
                 },
                 "tencent_ocr": {
                     "secret_key": "Geheimer Schlüssel",
-                    "title": "Tencent OCR",
-                    "secret_id": ""
+                    "title": "Tencent OCR"
                 },
                 "tencent_accurate_ocr": {
                     "title": "Tencent OCR (akkurat)",
-                    "secret_key": "Geheimer Schlüssel",
-                    "secret_id": ""
+                    "secret_key": "Geheimer Schlüssel"
                 },
                 "qrcode": {
                     "title": "QR-Code"
@@ -246,49 +164,26 @@
                 },
                 "iflytek_ocr": {
                     "apikey": "API-Schlüssel",
-                    "apisecret": "API-Geheimnis",
-                    "title": "",
-                    "appid": ""
+                    "apisecret": "API-Geheimnis"
                 },
                 "iflytek_intsig_ocr": {
                     "apisecret": "API-Geheimnis",
-                    "apikey": "API-Schlüssel",
-                    "appid": "",
-                    "title": ""
+                    "apikey": "API-Schlüssel"
                 },
                 "tencent_img_ocr": {
-                    "secret_key": "Geheimer Schlüssel",
-                    "secret_id": "",
-                    "title": ""
+                    "secret_key": "Geheimer Schlüssel"
                 },
-                "volcengine_ocr": {
-                    "secret": "",
-                    "appid": "",
-                    "title": ""
-                },
-                "baidu_img_ocr": {
-                    "secret": "",
-                    "appid": "",
-                    "title": ""
-                },
-                "volcengine_multi_lang_ocr": {
-                    "title": "",
-                    "secret": "",
-                    "appid": ""
-                },
-                "system": {
-                    "title": ""
-                }
+                "volcengine_ocr": {},
+                "baidu_img_ocr": {},
+                "volcengine_multi_lang_ocr": {},
+                "system": {}
             },
             "translate": {
                 "deepl": {
                     "deeplx": "DeepLX",
                     "type": "Diensttyp",
                     "title": "DeepL",
-                    "custom_url": "DeepLX URL",
-                    "free": "",
-                    "api": "",
-                    "auth_key": ""
+                    "custom_url": "DeepLX URL"
                 },
                 "openai": {
                     "openai": "OpenAI",
@@ -296,11 +191,7 @@
                     "model": "Modell",
                     "title": "OpenAI",
                     "azure": "Azure",
-                    "api_key": "API-Schlüssel",
-                    "request_path": "",
-                    "stream": "",
-                    "add": "",
-                    "prompt_description": ""
+                    "api_key": "API-Schlüssel"
                 },
                 "chatglm": {
                     "title": "ChatGLM",
@@ -308,19 +199,14 @@
                     "chatglm_lite": "ChatGLM Lite",
                     "chatglm_pro": "ChatGLM Pro",
                     "model": "Modell",
-                    "chatglm_std": "ChatGLM Std",
-                    "chatglm_turbo": "",
-                    "add": "",
-                    "prompt_description": ""
+                    "chatglm_std": "ChatGLM Std"
                 },
                 "transmart": {
                     "username": "Benutzername",
-                    "token": "Token",
-                    "title": ""
+                    "token": "Token"
                 },
                 "caiyun": {
-                    "token": "Token",
-                    "title": ""
+                    "token": "Token"
                 },
                 "baidu_field": {
                     "academic": "Akademische Arbeit",
@@ -333,35 +219,28 @@
                     "it": "Informationstechnologie",
                     "news": "Nachrichten und Informationen",
                     "machinery": "Herstellung von Maschinen",
-                    "title": "Baidu-Feld",
-                    "novel": ""
+                    "title": "Baidu-Feld"
                 },
                 "youdao": {
                     "key": "Schlüssel",
-                    "title": "Youdao",
-                    "appkey": ""
+                    "title": "Youdao"
                 },
                 "niutrans": {
                     "https": "HTTPS verwenden",
-                    "apikey": "API-Schlüssel",
-                    "title": ""
+                    "apikey": "API-Schlüssel"
                 },
                 "tencent": {
                     "secret_key": "Geheimer Schlüssel",
-                    "title": "Tencent",
-                    "secret_id": ""
+                    "title": "Tencent"
                 },
                 "google": {
-                    "title": "Google",
-                    "custom_url": ""
+                    "title": "Google"
                 },
                 "yandex": {
                     "title": "Yandex"
                 },
                 "baidu": {
-                    "title": "Baidu",
-                    "appid": "",
-                    "secret": ""
+                    "title": "Baidu"
                 },
                 "bing_dict": {
                     "title": "Bing-Wörterbuch"
@@ -376,65 +255,32 @@
                     "title": "OpenAI-Zusammenfassung"
                 },
                 "alibaba": {
-                    "title": "Alibaba",
-                    "accesskey_id": "",
-                    "accesskey_secret": ""
+                    "title": "Alibaba"
                 },
-                "geminipro_polish": {
-                    "title": ""
-                },
-                "cambridge_dict": {
-                    "title": ""
-                },
-                "geminipro": {
-                    "add": "",
-                    "api_key": "",
-                    "stream": "",
-                    "prompt_description": "",
-                    "title": ""
-                },
-                "openai_custom": {
-                    "title": ""
-                },
-                "geminipro_custom": {
-                    "title": ""
-                },
-                "volcengine": {
-                    "title": "",
-                    "appid": "",
-                    "secret": ""
-                },
-                "chatglm_custom": {
-                    "title": ""
-                },
-                "chatglm_polish": {
-                    "title": ""
-                },
-                "openai_polish": {
-                    "title": ""
-                },
-                "geminipro_summary": {
-                    "title": ""
-                }
+                "geminipro_polish": {},
+                "cambridge_dict": {},
+                "geminipro": {},
+                "openai_custom": {},
+                "geminipro_custom": {},
+                "volcengine": {},
+                "chatglm_custom": {},
+                "chatglm_polish": {},
+                "openai_polish": {},
+                "geminipro_summary": {}
             },
             "collection": {
                 "anki": {
-                    "port": "Port",
-                    "title": ""
+                    "port": "Port"
                 },
                 "eudic": {
                     "token": "Token",
-                    "name": "Sammlungsname",
-                    "title": ""
+                    "name": "Sammlungsname"
                 }
             },
             "no_need": "Keine Konfiguration erforderlich",
-            "help": "",
+
             "tts": {
-                "lingva_tts": {
-                    "title": "",
-                    "request_path": ""
-                }
+                "lingva_tts": {}
             }
         },
         "translate": {
@@ -442,28 +288,19 @@
             "retry": "Erneut versuchen",
             "recognizing": "Wird erkannt…",
             "translate": "Übersetzen",
-            "copy": "Kopieren",
-            "add_collection_success": "",
-            "translate_back": "",
-            "speak": ""
+            "copy": "Kopieren"
         },
         "updater": {
             "downloading": "Wird heruntergeladen…",
             "cancel": "Abbrechen",
-            "installing": "Wird installiert…",
-            "installed": "",
-            "update": "",
-            "progress": "",
-            "latest": "",
-            "title": ""
+            "installing": "Wird installiert…"
         },
         "recognize": {
             "translate": "Übersetzen",
             "delete_newline": "Neue Zeile löschen",
             "recognize": "Erkennen",
             "copy_text": "Kopieren",
-            "copy_img": "Bild kopieren",
-            "delete_space": ""
+            "copy_img": "Bild kopieren"
         }
     }
 }
