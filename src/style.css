@@ -10,6 +10,7 @@
 html {
     border-radius: 10px !important;
     background: transparent !important;
+    overflow: hidden;
 }
 
 *::-webkit-scrollbar {
