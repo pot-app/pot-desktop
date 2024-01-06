@@ -82,8 +82,8 @@
             }
         },
         "security": {
-            "csp": "default-src * data: ; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
-            "devCsp": "default-src * data: ; img-src 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
+            "csp": "default-src * data: ; img-src * 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';",
+            "devCsp": "default-src * data: ; img-src * 'self' asset: https://asset.localhost data: ; style-src * 'unsafe-inline'; worker-src 'self' blob: ; script-src * 'unsafe-eval';"
         },
         "windows": [
             {
