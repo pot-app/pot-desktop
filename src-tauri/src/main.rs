@@ -145,7 +145,8 @@ fn main() {
             webdav,
             local,
             install_plugin,
-            font_list
+            font_list,
+            aliyun
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

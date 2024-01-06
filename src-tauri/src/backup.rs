@@ -172,3 +172,36 @@ pub async fn local(operate: &str, path: String) -> Result<String, Error> {
         }
     }
 }
+
+#[tauri::command(async)]
+pub async fn aliyun(operate: &str, path: String, url: String) -> Result<String, Error> {
+    match operate {
+        "put" => {
+            let _ = reqwest::Client::new()
+                .put(&url)
+                .body(std::fs::read(&path)?)
+                .send()
+                .await?;
+            Ok("".to_string())
+        }
+        "get" => {
+            let res = reqwest::Client::new().get(&url).send().await?;
+            let data = res.bytes().await?;
+            let mut config_dir_path = config_dir().unwrap();
+            config_dir_path = config_dir_path.join("com.pot-app.desktop");
+            let zip_path = config_dir_path.join("archive.zip");
+
+            let mut zip_file = std::fs::File::create(&zip_path)?;
+            zip_file.write_all(&data)?;
+            let mut zip_file = std::fs::File::open(&zip_path)?;
+            let mut zip = ZipArchive::new(&mut zip_file)?;
+            zip.extract(config_dir_path)?;
+            Ok("".to_string())
+        }
+        _ => {
+            return Err(Error::Error(
+                format!("Local Operate Error: {}", operate).into(),
+            ));
+        }
+    }
+}

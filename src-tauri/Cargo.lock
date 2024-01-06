@@ -4073,6 +4073,7 @@ dependencies = [
  "macos-accessibility-client",
  "mouse_position",
  "once_cell",
+ "reqwest",
  "reqwest_dav",
  "screenshots",
  "selection",
