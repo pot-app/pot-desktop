@@ -13,7 +13,8 @@
             "translate": {
                 "youdao": {
                     "appkey": "ID do App",
-                    "key": "Chave"
+                    "key": "Chave",
+                    "title": "Youdao"
                 },
                 "deepl": {
                     "free": "Gratuito",
@@ -82,7 +83,8 @@
                 },
                 "niutrans": {
                     "https": "Usar Https",
-                    "title": "NiuTrans"
+                    "title": "NiuTrans",
+                    "apikey": "Chave de API"
                 },
                 "tencent": {
                     "secret_key": "Chave Secreta",
@@ -125,16 +127,20 @@
                 "alibaba": {
                     "title": "Alibaba"
                 },
-                "geminipro_polish": {},
-                "geminipro": {},
-                "geminipro_custom": {},
-                "geminipro_summary": {}
+                "geminipro_summary": {
+                    "title": "Resumo do Gemini Pro"
+                },
+                "geminipro": {
+                    "api_key": "Chave de Api",
+                    "stream": "Modo de Stream"
+                }
             },
             "recognize": {
                 "iflytek_latex_ocr": {
                     "apikey": "Chave API",
                     "apisecret": "Segredo da API",
-                    "appid": "ID do App"
+                    "appid": "ID do App",
+                    "title": "iFlyTek LaTeX"
                 },
                 "simple_latex_ocr": {
                     "title": "LaTeX Simples",
@@ -173,7 +179,8 @@
                 },
                 "baidu_ocr": {
                     "title": "OCR da Baidu",
-                    "client_secret": "Chave Secreta"
+                    "client_secret": "Chave Secreta",
+                    "client_id": "Chave de API"
                 },
                 "tencent_accurate_ocr": {
                     "title": "OCR da Tencent (Preciso)",
@@ -357,7 +364,9 @@
                 "username": "Nome de Utilizador",
                 "backup_success": "Backup com Sucesso",
                 "label": "Backup",
-                "type": "Tipo de Serviço"
+                "type": "Tipo de Serviço",
+                "logout": "Sair",
+                "login_success": "Sucesso de Login"
             },
             "recognize": {
                 "delete_newline": "Apagar Nova Linha Automaticamente",
