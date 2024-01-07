@@ -186,7 +186,11 @@
                 "list": "Lista de Backup",
                 "load_success": "Carregar Backup com Sucesso",
                 "backup_success": "Backup com Sucesso",
-                "empty": "Você não fez backup ainda"
+                "empty": "Você não fez backup ainda",
+                "logout": "Sair",
+                "login_success": "Entrou com sucesso",
+                "aliyun_login_first": "Por favor, leia o código para fazer login primeiro.",
+                "aliyun": "Aliyun Drive"
             },
             "about": {
                 "label": "Sobre",
