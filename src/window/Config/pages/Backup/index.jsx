@@ -131,6 +131,13 @@ export default function Backup() {
                 sid = '';
                 toast.error(JSON.stringify(result), { style: toastStyle });
             }
+        } else {
+            const result = res.data;
+            if (result['message']) {
+                toast.error(result['message'], { style: toastStyle });
+            } else {
+                toast.error(JSON.stringify(result), { style: toastStyle });
+            }
         }
         if (refreshTimer) {
             clearInterval(refreshTimer);
@@ -164,12 +171,22 @@ export default function Backup() {
                         // }
                         await refreshUserInfo(result['access_token']);
                     } else {
-                        toast.error(JSON.stringify(res), { style: toastStyle });
+                        const result = res.data;
+                        if (result['message']) {
+                            toast.error(result['message'], { style: toastStyle });
+                        } else {
+                            toast.error(JSON.stringify(result), { style: toastStyle });
+                        }
                         refreshQrCode();
                     }
                 }
             } else {
-                toast.error(JSON.stringify(res), { style: toastStyle });
+                const result = res.data;
+                if (result['message']) {
+                    toast.error(result['message'], { style: toastStyle });
+                } else {
+                    toast.error(JSON.stringify(result), { style: toastStyle });
+                }
                 refreshQrCode();
             }
         }, 2000);
@@ -181,7 +198,13 @@ export default function Backup() {
             setAliyunQrCodeUrl('');
             setAliyunUserInfo(res.data);
         } else {
-            toast.error(JSON.stringify(res), { style: toastStyle });
+            const result = res.data;
+            if (result['message']) {
+                toast.error(result['message'], { style: toastStyle });
+            } else {
+                toast.error(JSON.stringify(result), { style: toastStyle });
+            }
+            setAliyunAccessToken('');
             refreshQrCode();
         }
     };
