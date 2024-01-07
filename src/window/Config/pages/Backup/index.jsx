@@ -114,96 +114,52 @@ export default function Backup() {
         }
     };
 
-    const refreshQrCode = async () => {
-        const res = await aliyun.qrcode();
-        let sid = '';
-        if (res.ok) {
-            const result = res.data;
-            if (result['qrCodeUrl']) {
-                setAliyunQrCodeUrl(result['qrCodeUrl']);
-            } else {
-                setAliyunQrCodeUrl('');
-                toast.error(JSON.stringify(result), { style: toastStyle });
-            }
-            if (result['sid']) {
-                sid = result['sid'];
-            } else {
-                sid = '';
-                toast.error(JSON.stringify(result), { style: toastStyle });
-            }
-        } else {
-            const result = res.data;
-            if (result['message']) {
-                toast.error(result['message'], { style: toastStyle });
-            } else {
-                toast.error(JSON.stringify(result), { style: toastStyle });
-            }
-        }
-        if (refreshTimer) {
-            clearInterval(refreshTimer);
-        }
-        if (sid === '') return;
+    const pollingStatus = async (sid) => {
         refreshTimer = setInterval(async () => {
-            const res = await aliyun.status(sid);
-            if (res.ok) {
-                const result = res.data;
-                if (result['status'] === 'QRCodeExpired') {
-                    clearInterval(refreshTimer);
-                    refreshQrCode();
-                }
-                if (result['status'] === 'LoginSuccess') {
-                    clearInterval(refreshTimer);
-                    toast.success(t('config.backup.login_success'), { style: toastStyle });
-                    const res = await aliyun.accessToken(result['authCode']);
-                    if (res.ok) {
-                        const result = res.data;
-                        if (result['access_token']) {
-                            setAliyunAccessToken(result['access_token']);
-                        } else {
-                            toast.error(JSON.stringify(res), { style: toastStyle });
-                            refreshQrCode();
-                        }
-                        // if (result['refresh_token']) {
-                        //     setAliyunRefreshToken(result['refresh_token']);
-                        // } else {
-                        //     toast.error(JSON.stringify(res), { style: toastStyle });
-                        //     refreshQrCode();
-                        // }
-                        await refreshUserInfo(result['access_token']);
-                    } else {
-                        const result = res.data;
-                        if (result['message']) {
-                            toast.error(result['message'], { style: toastStyle });
-                        } else {
-                            toast.error(JSON.stringify(result), { style: toastStyle });
-                        }
+            try {
+                const { status, code } = await aliyun.status(sid);
+                switch (status) {
+                    case 'QRCodeExpired': {
                         refreshQrCode();
+                        break;
+                    }
+                    case 'LoginSuccess': {
+                        clearInterval(refreshTimer);
+                        toast.success(t('config.backup.login_success'), { style: toastStyle });
+                        const token = await aliyun.accessToken(code);
+                        setAliyunAccessToken(token);
+                        await refreshUserInfo(token);
+                        break;
                     }
                 }
-            } else {
-                const result = res.data;
-                if (result['message']) {
-                    toast.error(result['message'], { style: toastStyle });
-                } else {
-                    toast.error(JSON.stringify(result), { style: toastStyle });
-                }
+            } catch (e) {
+                toast.error(e.toString(), { style: toastStyle });
                 refreshQrCode();
             }
         }, 2000);
     };
 
-    const refreshUserInfo = async (token) => {
-        const res = await aliyun.userInfo(token);
-        if (res.ok) {
-            setAliyunQrCodeUrl('');
-            setAliyunUserInfo(res.data);
-        } else {
-            const result = res.data;
-            if (result['message']) {
-                toast.error(result['message'], { style: toastStyle });
-            } else {
-                toast.error(JSON.stringify(result), { style: toastStyle });
+    const refreshQrCode = async () => {
+        try {
+            const { url, sid } = await aliyun.qrcode();
+            setAliyunQrCodeUrl(url);
+            if (refreshTimer) {
+                clearInterval(refreshTimer);
             }
+            pollingStatus(sid);
+        } catch (e) {
+            setAliyunQrCodeUrl('');
+            toast.error(e.toString(), { style: toastStyle });
+        }
+    };
+
+    const refreshUserInfo = async (token) => {
+        try {
+            const info = await aliyun.userInfo(token);
+            setAliyunQrCodeUrl('');
+            setAliyunUserInfo(info);
+        } catch (e) {
+            toast.error(e.toString(), { style: toastStyle });
             setAliyunAccessToken('');
             refreshQrCode();
         }
