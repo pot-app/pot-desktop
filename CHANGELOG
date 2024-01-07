@@ -1,10 +1,13 @@
-## 2.7.3 (2023-12-22)
+## 2.7.4 (2024-01-07)
 
 ### New feature:
 
--   Support Gemini Pro([`4a0d254`](https://github.com/pot-app/pot-desktop/commit/4a0d2549907888f59cd4f9f2de270b150ef1847e)) (by @Pylogmon)
+-   Support Backup with Aliyun Drive([`f509dc1`](https://github.com/pot-app/pot-desktop/commit/f509dc16f67233f88e8f685b33012963e8773f79)) (by @Pylogmon)
+-   Add animations for translation card([`c9af0e1`](https://github.com/pot-app/pot-desktop/commit/c9af0e1d16e0298b0cdcec89b4e0c968e9ba0d5a)) (by @spyeic)
 
 ### Bugs fixed:
 
--   Detect Language before Speak([`4b0d692`](https://github.com/pot-app/pot-desktop/commit/4b0d692e37726d514c4c19f12ae45e95828c18a7)) (by @Pylogmon)
--   Remove Safety Block([`bda4d8a`](https://github.com/pot-app/pot-desktop/commit/bda4d8af59082d2851c02987d899b172cee7afec)) (by @Pylogmon)
+-   Blank window edge (#653)([`2350eb3`](https://github.com/pot-app/pot-desktop/commit/2350eb37e6d7c09765b04a0587c14ba673945e62)) (by @950288)
+-   Improve Error Message([`47ef579`](https://github.com/pot-app/pot-desktop/commit/47ef5794f72c43f4302951f366a4b5a2b531f555)) (by @Pylogmon)
+-   CSP Error([`6daea9e`](https://github.com/pot-app/pot-desktop/commit/6daea9ee4f615277e0651f7b53a844c664823066)) (by @Pylogmon)
+-   I18n Fallback Language([`d9ecebb`](https://github.com/pot-app/pot-desktop/commit/d9ecebbfab12b305ba6b2231338be32e17886a8c)) (by @Pylogmon)
