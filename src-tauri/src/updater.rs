@@ -6,8 +6,8 @@ pub fn check_update(app_handle: tauri::AppHandle) {
     let enable = match get("check_update") {
         Some(v) => v.as_bool().unwrap(),
         None => {
-            set("check_update", false);
-            false
+            set("check_update", true);
+            true
         }
     };
     if enable {
