@@ -6,7 +6,7 @@
             "save": "Speichern",
             "write_clipboard": "In die Zwischenablage schreiben",
             "plugin": "Plugin",
-            "coming": "Bald verfügbar...",
+            "coming": "Bald verfügbar…",
             "clear": "Leeren"
         },
         "languages": {
@@ -289,7 +289,7 @@
                     "title": "ChatGLM Benutzerdefiniert"
                 },
                 "yandex": {
-                "title": "Yandex"
+                    "title": "Yandex"
                 },
                 "transmart": {
                     "title": "TranSmart",
