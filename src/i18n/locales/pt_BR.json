@@ -297,7 +297,7 @@
                 "niutrans": {
                     "title": "NiuTrans",
                     "https": "Usando Https",
-                    "apikey": "API Key"
+                    "apikey": "Chave API"
                 },
                 "youdao": {
                     "title": "Youdao",
@@ -369,7 +369,7 @@
                 },
                 "baidu_ocr": {
                     "title": "OCR da Baidu",
-                    "client_id": "API Key",
+                    "client_id": "Chave API",
                     "client_secret": "Chave Secreta"
                 },
                 "baidu_accurate_ocr": {
