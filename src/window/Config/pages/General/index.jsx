@@ -264,7 +264,7 @@ export default function General() {
                                     </DropdownItem>
                                     <DropdownItem
                                         key='uk'
-                                        startContent={<span className={`fi fi-${LanguageFlag.nn_no}`} />}
+                                        startContent={<span className={`fi fi-${LanguageFlag.uk}`} />}
                                     >
                                         Українська
                                     </DropdownItem>
