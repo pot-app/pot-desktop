@@ -74,7 +74,7 @@ export default function SourceArea(props) {
                         (v) => {
                             let newText = v.trim();
                             if (deleteNewline) {
-                                newText = v.replace(/\s+/g, ' ');
+                                newText = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                             } else {
                                 newText = v.trim();
                             }
@@ -104,7 +104,7 @@ export default function SourceArea(props) {
                             (v) => {
                                 let newText = v.trim();
                                 if (deleteNewline) {
-                                    newText = v.replace(/\s+/g, ' ');
+                                    newText = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                 } else {
                                     newText = v.trim();
                                 }
@@ -130,7 +130,7 @@ export default function SourceArea(props) {
         } else {
             let newText = text.trim();
             if (deleteNewline) {
-                newText = text.replace(/\s+/g, ' ');
+                newText = text.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
             } else {
                 newText = text.trim();
             }
@@ -304,7 +304,7 @@ export default function SourceArea(props) {
                                 variant='light'
                                 size='sm'
                                 onPress={() => {
-                                    const newText = sourceText.replace(/\s+/g, ' ');
+                                    const newText = sourceText.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                     setSourceText(newText);
                                     detect_language(newText).then(() => {
                                         syncSourceText();

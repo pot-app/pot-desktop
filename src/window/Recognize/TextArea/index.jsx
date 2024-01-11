@@ -55,7 +55,7 @@ export default function TextArea() {
                                 if (recognizeId !== id) return;
                                 v = v.trim();
                                 if (deleteNewline) {
-                                    v = v.replace(/\s+/g, ' ');
+                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                 }
                                 setText(v);
                                 setLoading(false);
@@ -89,7 +89,7 @@ export default function TextArea() {
                                 if (recognizeId !== id) return;
                                 v = v.trim();
                                 if (deleteNewline) {
-                                    v = v.replace(/\s+/g, ' ');
+                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                 }
                                 setText(v);
                                 setLoading(false);
@@ -181,7 +181,7 @@ export default function TextArea() {
                             variant='light'
                             size='sm'
                             onPress={() => {
-                                setText(text.replaceAll(/\s+/g, ' '));
+                                setText(text.replace(/\-\s+/g, '').replace(/\s+/g, ' '));
                             }}
                         >
                             <MdSmartButton className='text-[16px]' />
