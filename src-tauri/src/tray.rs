@@ -53,6 +53,7 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
             "ru" => tray_menu_ru(),
             "pt_br" => tray_menu_pt_br(),
             "fa" => tray_menu_fa(),
+            "uk" => tray_menu_uk(),
             _ => tray_menu_en(),
         })
         .unwrap();
@@ -571,6 +572,45 @@ fn tray_menu_pt_br() -> tauri::SystemTrayMenu {
         .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "Copiar Automaticamente",
+            SystemTrayMenu::new()
+                .add_item(copy_source)
+                .add_item(copy_target)
+                .add_item(copy_source_target)
+                .add_native_item(SystemTrayMenuItem::Separator)
+                .add_item(copy_disable),
+        ))
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(ocr_recognize)
+        .add_item(ocr_translate)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(config)
+        .add_item(check_update)
+        .add_item(view_log)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(restart)
+        .add_item(quit)
+}
+
+fn tray_menu_uk() -> tauri::SystemTrayMenu {
+    let input_translate = CustomMenuItem::new("input_translate", "Введення перекладу");
+    let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "Стежити за буфером обміну");
+    let copy_source = CustomMenuItem::new("copy_source", "Джерело");
+    let copy_target = CustomMenuItem::new("copy_target", "Мета");
+
+    let copy_source_target = CustomMenuItem::new("copy_source_target", "Джерело+Мета");
+    let copy_disable = CustomMenuItem::new("copy_disable", "Відключивши");
+    let ocr_recognize = CustomMenuItem::new("ocr_recognize", "Розпізнавання тексту");
+    let ocr_translate = CustomMenuItem::new("ocr_translate", "Переклад зображення");
+    let config = CustomMenuItem::new("config", "Настройка");
+    let check_update = CustomMenuItem::new("check_update", "Перевірити оновлення");
+    let restart = CustomMenuItem::new("restart", "Перезапустити додаток");
+    let view_log = CustomMenuItem::new("view_log", "Перегляд журналу");
+    let quit = CustomMenuItem::new("quit", "Вихід");
+    SystemTrayMenu::new()
+        .add_item(input_translate)
+        .add_item(clipboard_monitor)
+        .add_submenu(SystemTraySubmenu::new(
+            "Автоматичне копіювання",
             SystemTrayMenu::new()
                 .add_item(copy_source)
                 .add_item(copy_target)

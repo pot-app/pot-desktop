@@ -29,6 +29,7 @@ export const languageList = [
     'sv',
     'pl',
     'nl',
+    'uk',
 ];
 
 // https://flagicons.lipis.dev/
@@ -61,4 +62,5 @@ export enum LanguageFlag {
     sv = 'se',
     pl = 'pl',
     nl = 'nl',
+    uk = 'ua',
 }

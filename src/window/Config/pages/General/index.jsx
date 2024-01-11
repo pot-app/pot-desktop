@@ -62,6 +62,7 @@ export default function General() {
         nb_no: 'Norsk Bokmål',
         nn_no: 'Norsk Nynorsk',
         fa: 'فارسی',
+        uk: 'Українська',
     };
 
     useEffect(() => {
@@ -260,6 +261,12 @@ export default function General() {
                                         startContent={<span className={`fi fi-${LanguageFlag.fa}`} />}
                                     >
                                         فارسی
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='uk'
+                                        startContent={<span className={`fi fi-${LanguageFlag.nn_no}`} />}
+                                    >
+                                        Українська
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
