@@ -121,17 +121,21 @@
                 "openai_polish": {
                     "title": "OpenAI Retouche"
                 },
-                "geminipro_polish": {},
                 "geminipro": {
                     "add": "Ajouter un prompt",
                     "api_key": "Clé API",
                     "stream": "Mode streaming",
-
-                    "title": "Gemini Pro"
+                    "title": "Gemini Pro",
+                    "prompt_description": "En personnalisant le prompt, vous pouvez personnaliser le comportement de Gemini Pro. $text $from $to $detect sera remplacé par le texte à traduire, la langue source, la langue cible et la langue détectée."
                 },
-                "geminipro_custom": {},
                 "geminipro_summary": {
                     "title": "Résumé Gemini Pro"
+                },
+                "geminipro_polish": {
+                    "title": "Gemini Pro Polish"
+                },
+                "geminipro_custom": {
+                    "title": "Gemini Pro personnalisé"
                 }
             },
             "recognize": {
@@ -372,7 +376,11 @@
                 "username": "Nom d'utilisateur",
                 "backup_success": "Sauvegarde réussie",
                 "label": "Sauvegarde",
-                "type": "Type de service"
+                "type": "Type de service",
+                "logout": "Déconnexion",
+                "aliyun_login_first": "Veuillez d'abord scanner le code pour vous connecter.",
+                "login_success": "Connexion réussie",
+                "aliyun": "Aliyun Drive"
             },
             "recognize": {
                 "delete_newline": "Suppression automatique des retours à la ligne",
@@ -458,7 +466,8 @@
             "delete_newline": "Supprimer le retour à la ligne",
             "recognize": "Reconnaissance",
             "copy_text": "Copier",
-            "copy_img": "Copier l'image"
+            "copy_img": "Copier l'image",
+            "delete_space": "Supprimer l'espace"
         }
     }
 }
