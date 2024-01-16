@@ -37,7 +37,7 @@ export default function General() {
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
-    const [proxyPort, setProxyPort] = useConfig('proxy_port', 0);
+    const [proxyPort, setProxyPort] = useConfig('proxy_port', '');
     const [proxyUsername, setProxyUsername] = useConfig('proxy_username', '');
     const [proxyPassword, setProxyPassword] = useConfig('proxy_password', '');
     const [noProxy, setNoProxy] = useConfig('no_proxy', 'localhost,127.0.0.1');
@@ -472,7 +472,7 @@ export default function General() {
                                 isSelected={proxyEnable}
                                 onValueChange={async (v) => {
                                     if (v) {
-                                        if (proxyHost === '' || proxyPort === 0) {
+                                        if (proxyHost === '' || proxyPort === '') {
                                             setProxyEnable(false);
                                             toast.error(t('config.general.proxy_error'), {
                                                 duration: 3000,
@@ -516,12 +516,10 @@ export default function General() {
                                 label={t('config.general.proxy.port')}
                                 value={proxyPort}
                                 onValueChange={(v) => {
-                                    if (v === '') {
-                                        setProxyPort(0);
-                                    } else if (parseInt(v) > 65535) {
+                                    if (parseInt(v) > 65535) {
                                         setProxyPort(65535);
                                     } else if (parseInt(v) < 0) {
-                                        setProxyPort(0);
+                                        setProxyPort('');
                                     } else {
                                         setProxyPort(parseInt(v));
                                     }
