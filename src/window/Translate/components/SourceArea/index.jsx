@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip, Tooltip } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, ButtonGroup, Chip, Tooltip, Spacer } from '@nextui-org/react';
 import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
 import React, { useEffect, useRef, useState } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
@@ -38,7 +38,9 @@ export default function SourceArea(props) {
     const [recognizeServiceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [hideWindow] = useConfig('translate_hide_window', false);
+    const [hideSource] = useConfig('hide_source', false);
     const [ttsPluginInfo, setTtsPluginInfo] = useState();
+    const [windowType, setWindowType] = useState('[SELECTION_TRANSLATE]');
     const toastStyle = useToastStyle();
     const { t } = useTranslation();
     const textAreaRef = useRef();
@@ -55,10 +57,12 @@ export default function SourceArea(props) {
         // 清空检测语言
         setDetectLanguage('');
         if (text === '[INPUT_TRANSLATE]') {
+            setWindowType('[INPUT_TRANSLATE]');
             appWindow.show();
             appWindow.setFocus();
             setSourceText('', true);
         } else if (text === '[IMAGE_TRANSLATE]') {
+            setWindowType('[IMAGE_TRANSLATE]');
             const base64 = await invoke('get_base64');
             const serviceName = recognizeServiceList[0];
             if (serviceName.startsWith('[plugin]')) {
@@ -128,6 +132,7 @@ export default function SourceArea(props) {
                 }
             }
         } else {
+            setWindowType('[SELECTION_TRANSLATE]');
             let newText = text.trim();
             if (deleteNewline) {
                 newText = text.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
@@ -239,122 +244,125 @@ export default function SourceArea(props) {
     };
 
     return (
-        <Card
-            shadow='none'
-            className='bg-content1 rounded-[10px] mt-[1px] pb-0'
-        >
-            <Toaster />
-            <CardBody className='bg-content1 p-[12px] pb-0 max-h-[40vh] overflow-y-auto'>
-                <textarea
-                    autoFocus
-                    ref={textAreaRef}
-                    className={`text-[${appFontSize}px] bg-content1 h-full resize-none outline-none`}
-                    value={sourceText}
-                    onKeyDown={keyDown}
-                    onChange={(e) => {
-                        const v = e.target.value;
-                        setDetectLanguage('');
-                        setSourceText(v);
-                        if (dynamicTranslate) {
-                            if (timer) {
-                                clearTimeout(timer);
-                            }
-                            timer = setTimeout(() => {
-                                detect_language(v).then(() => {
-                                    syncSourceText();
-                                });
-                            }, 1000);
-                        }
-                    }}
-                />
-            </CardBody>
-
-            <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
-                <div className='flex justify-start'>
-                    <ButtonGroup className='mr-[5px]'>
-                        <Tooltip content={t('translate.speak')}>
-                            <Button
-                                isIconOnly
-                                variant='light'
-                                size='sm'
-                                onPress={() => {
-                                    handleSpeak().catch((e) => {
-                                        toast.error(e.toString(), { style: toastStyle });
-                                    });
-                                }}
-                            >
-                                <HiOutlineVolumeUp className='text-[16px]' />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip content={t('translate.copy')}>
-                            <Button
-                                isIconOnly
-                                variant='light'
-                                size='sm'
-                                onPress={() => {
-                                    writeText(sourceText);
-                                }}
-                            >
-                                <MdContentCopy className='text-[16px]' />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip content={t('translate.delete_newline')}>
-                            <Button
-                                isIconOnly
-                                variant='light'
-                                size='sm'
-                                onPress={() => {
-                                    const newText = sourceText.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
-                                    setSourceText(newText);
-                                    detect_language(newText).then(() => {
+        <div className={hideSource && windowType !== '[INPUT_TRANSLATE]' && 'hidden'}>
+            <Card
+                shadow='none'
+                className='bg-content1 rounded-[10px] mt-[1px] pb-0'
+            >
+                <Toaster />
+                <CardBody className='bg-content1 p-[12px] pb-0 max-h-[40vh] overflow-y-auto'>
+                    <textarea
+                        autoFocus
+                        ref={textAreaRef}
+                        className={`text-[${appFontSize}px] bg-content1 h-full resize-none outline-none`}
+                        value={sourceText}
+                        onKeyDown={keyDown}
+                        onChange={(e) => {
+                            const v = e.target.value;
+                            setDetectLanguage('');
+                            setSourceText(v);
+                            if (dynamicTranslate) {
+                                if (timer) {
+                                    clearTimeout(timer);
+                                }
+                                timer = setTimeout(() => {
+                                    detect_language(v).then(() => {
                                         syncSourceText();
                                     });
-                                }}
-                            >
-                                <MdSmartButton className='text-[16px]' />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip content={t('common.clear')}>
-                            <Button
-                                variant='light'
-                                size='sm'
-                                isIconOnly
-                                isDisabled={sourceText === ''}
-                                onPress={() => {
-                                    setSourceText('');
-                                }}
-                            >
-                                <LuDelete className='text-[16px]' />
-                            </Button>
-                        </Tooltip>
-                    </ButtonGroup>
-                    {detectLanguage !== '' && (
-                        <Chip
-                            size='sm'
-                            color='secondary'
-                            variant='dot'
-                            className='my-auto'
-                        >
-                            {t(`languages.${detectLanguage}`)}
-                        </Chip>
-                    )}
-                </div>
-                <Tooltip content={t('translate.translate')}>
-                    <Button
-                        size='sm'
-                        color='primary'
-                        variant='light'
-                        isIconOnly
-                        className='text-[14px] font-bold'
-                        startContent={<HiTranslate className='text-[16px]' />}
-                        onPress={() => {
-                            detect_language(sourceText).then(() => {
-                                syncSourceText();
-                            });
+                                }, 1000);
+                            }
                         }}
                     />
-                </Tooltip>
-            </CardFooter>
-        </Card>
+                </CardBody>
+
+                <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
+                    <div className='flex justify-start'>
+                        <ButtonGroup className='mr-[5px]'>
+                            <Tooltip content={t('translate.speak')}>
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    onPress={() => {
+                                        handleSpeak().catch((e) => {
+                                            toast.error(e.toString(), { style: toastStyle });
+                                        });
+                                    }}
+                                >
+                                    <HiOutlineVolumeUp className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip content={t('translate.copy')}>
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    onPress={() => {
+                                        writeText(sourceText);
+                                    }}
+                                >
+                                    <MdContentCopy className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip content={t('translate.delete_newline')}>
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    onPress={() => {
+                                        const newText = sourceText.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                                        setSourceText(newText);
+                                        detect_language(newText).then(() => {
+                                            syncSourceText();
+                                        });
+                                    }}
+                                >
+                                    <MdSmartButton className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                            <Tooltip content={t('common.clear')}>
+                                <Button
+                                    variant='light'
+                                    size='sm'
+                                    isIconOnly
+                                    isDisabled={sourceText === ''}
+                                    onPress={() => {
+                                        setSourceText('');
+                                    }}
+                                >
+                                    <LuDelete className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                        </ButtonGroup>
+                        {detectLanguage !== '' && (
+                            <Chip
+                                size='sm'
+                                color='secondary'
+                                variant='dot'
+                                className='my-auto'
+                            >
+                                {t(`languages.${detectLanguage}`)}
+                            </Chip>
+                        )}
+                    </div>
+                    <Tooltip content={t('translate.translate')}>
+                        <Button
+                            size='sm'
+                            color='primary'
+                            variant='light'
+                            isIconOnly
+                            className='text-[14px] font-bold'
+                            startContent={<HiTranslate className='text-[16px]' />}
+                            onPress={() => {
+                                detect_language(sourceText).then(() => {
+                                    syncSourceText();
+                                });
+                            }}
+                        />
+                    </Tooltip>
+                </CardFooter>
+            </Card>
+            <Spacer y={2} />
+        </div>
     );
 }

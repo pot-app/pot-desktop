@@ -73,7 +73,6 @@ export default function Translate() {
         'yandex',
         'google',
     ]);
-    const [hideSource] = useConfig('hide_source', false);
     const [hideLanguage] = useConfig('hide_language', false);
     const [pined, setPined] = useState(false);
     const [pluginList, setPluginList] = useState(null);
@@ -252,9 +251,8 @@ export default function Translate() {
                 </div>
                 <div className={`${osType === 'Linux' ? 'h-[calc(100vh-37px)]' : 'h-[calc(100vh-35px)]'} px-[8px]`}>
                     <div className='h-full overflow-y-auto'>
-                        <div className={`${hideSource && 'hidden'}`}>
+                        <div>
                             <SourceArea pluginList={pluginList} />
-                            <Spacer y={2} />
                         </div>
                         <div className={`${hideLanguage && 'hidden'}`}>
                             <LanguageArea />
