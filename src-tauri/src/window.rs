@@ -40,10 +40,13 @@ fn get_current_monitor(x: i32, y: i32) -> Monitor {
         let size = m.size();
         let position = m.position();
         let scale_factor = m.scale_factor() as i32;
-        if x >= position.x/scale_factor 
-            && x <= ((position.x + size.width as i32)/scale_factor)
-            && y >= position.y/scale_factor 
-            && y <= ((position.y + size.height as i32)/scale_factor)
+        let scaled_x = x * scale_factor;
+        let scaled_y = y * scale_factor;
+
+        if scaled_x >= position.x/scale_factor 
+            && scaled_x <= (position.x + size.width as i32)
+            && scaled_y >= position.y/scale_factor 
+            && scaled_y <= (position.y + size.height as i32)
         {
             info!("Current Monitor: {:?}", m);
             return m;
