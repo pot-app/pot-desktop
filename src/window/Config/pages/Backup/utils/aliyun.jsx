@@ -145,7 +145,7 @@ export async function userInfo(token) {
     });
     if (res.ok) {
         const result = res.data;
-        if (result['avatar'] && result['name']) {
+        if (result.hasOwnProperty('avatar') && resultresult.hasOwnProperty('name')) {
             return { avatar: result['avatar'], name: result['name'] };
         } else {
             throw new Error(`Can not find avatar or name: ${JSON.stringify(result)}`);

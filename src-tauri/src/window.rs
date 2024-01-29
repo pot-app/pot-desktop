@@ -65,9 +65,7 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
         }
     };
     let current_monitor = get_current_monitor(mouse_position.x, mouse_position.y);
-    let dpi = current_monitor.scale_factor();
-    let physical_position = current_monitor.position();
-    let position: tauri::LogicalPosition<f64> = physical_position.to_logical(dpi);
+    let position = current_monitor.position();
 
     let app_handle = APP.get().unwrap();
     match app_handle.get_window(label) {
@@ -83,7 +81,7 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
                 label,
                 tauri::WindowUrl::App("index.html".into()),
             )
-            .position(position.x, position.y)
+            .position(position.x.into(), position.y.into())
             .focused(true)
             .title(title)
             .visible(false);
