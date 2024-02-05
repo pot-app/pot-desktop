@@ -77,7 +77,7 @@ export default function General() {
     return (
         <>
             <Toaster />
-            <Card className='mb-[10px]'>
+            <Card shadow="none" className='mb-[10px]'>
                 <CardBody>
                     <div className='config-item'>
                         <h3>{t('config.general.auto_start')}</h3>
@@ -143,7 +143,7 @@ export default function General() {
                     </div>
                 </CardBody>
             </Card>
-            <Card className='mb-[10px]'>
+            <Card shadow="none" className='mb-[10px]'>
                 <CardBody>
                     <div className='config-item'>
                         <h3 className='my-auto'>{t('config.general.app_language')}</h3>
@@ -463,7 +463,7 @@ export default function General() {
                     </div>
                 </CardBody>
             </Card>
-            <Card>
+            <Card shadow='none' >
                 <CardBody>
                     <div className='config-item'>
                         <h3>{t('config.general.proxy.title')}</h3>

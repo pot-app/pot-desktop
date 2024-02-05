@@ -4056,6 +4056,7 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-autostart",
+ "tauri-plugin-context-menu",
  "tauri-plugin-fs-watch",
  "tauri-plugin-log",
  "tauri-plugin-single-instance",
@@ -5541,6 +5542,27 @@ dependencies = [
  "serde_json",
  "tauri",
  "thiserror",
+]
+
+[[package]]
+name = "tauri-plugin-context-menu"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "408c121f5a61ef57b6246f87ef6205a9602efffd1c2db8fd5d696f61b055fac2"
+dependencies = [
+ "cocoa 0.24.1",
+ "dispatch",
+ "gdk",
+ "glib",
+ "gtk",
+ "image",
+ "lazy_static",
+ "libc",
+ "objc",
+ "serde",
+ "tauri",
+ "time",
+ "winapi",
 ]
 
 [[package]]

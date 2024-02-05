@@ -179,7 +179,7 @@ export default function Backup() {
     }, [backupType]);
 
     return (
-        <Card className='mb-[10px]'>
+        <Card className='mb-[10px]' shadow='none'>
             <Toaster />
             <CardBody>
                 <div className='config-item'>

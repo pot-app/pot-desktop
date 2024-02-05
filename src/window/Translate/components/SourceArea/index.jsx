@@ -4,12 +4,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { appWindow } from '@tauri-apps/api/window';
+import { emit } from '@tauri-apps/api/event';
 import toast, { Toaster } from 'react-hot-toast';
 import { listen } from '@tauri-apps/api/event';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { HiTranslate } from 'react-icons/hi';
+import { PiTranslate } from 'react-icons/pi'
 import { LuDelete } from 'react-icons/lu';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
@@ -65,6 +67,24 @@ export default function SourceArea(props) {
             setWindowType('[IMAGE_TRANSLATE]');
             const base64 = await invoke('get_base64');
             const serviceName = recognizeServiceList[0];
+            function handleResult(v) {
+                let newText = v.trim();
+                if (deleteNewline) {
+                    newText = v.replace(/-\s+/g, '').replace(/\s+/g, ' ');
+                } else {
+                    newText = v.trim();
+                }
+                if (incrementalTranslate) {
+                    setSourceText((old) => {
+                        return old + ' ' + newText;
+                    });
+                } else {
+                    setSourceText(newText);
+                }
+                detect_language(newText).then(() => {
+                    syncSourceText();
+                });
+            }
             if (serviceName.startsWith('[plugin]')) {
                 if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
                     const pluginConfig = (await store.get(serviceName)) ?? {};
@@ -74,29 +94,7 @@ export default function SourceArea(props) {
                         source: base64,
                         lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
                         needs: pluginConfig,
-                    }).then(
-                        (v) => {
-                            let newText = v.trim();
-                            if (deleteNewline) {
-                                newText = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
-                            } else {
-                                newText = v.trim();
-                            }
-                            if (incrementalTranslate) {
-                                setSourceText((old) => {
-                                    return old + ' ' + newText;
-                                });
-                            } else {
-                                setSourceText(newText);
-                            }
-                            detect_language(newText).then(() => {
-                                syncSourceText();
-                            });
-                        },
-                        (e) => {
-                            setSourceText(e.toString());
-                        }
-                    );
+                    }).then((v) => handleResult(v), (e) => setSourceText(e.toString()));
                 } else {
                     setSourceText('Language not supported');
                 }
@@ -104,29 +102,7 @@ export default function SourceArea(props) {
                 if (recognizeLanguage in recognizeServices[serviceName].Language) {
                     recognizeServices[serviceName]
                         .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
-                        .then(
-                            (v) => {
-                                let newText = v.trim();
-                                if (deleteNewline) {
-                                    newText = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
-                                } else {
-                                    newText = v.trim();
-                                }
-                                if (incrementalTranslate) {
-                                    setSourceText((old) => {
-                                        return old + ' ' + newText;
-                                    });
-                                } else {
-                                    setSourceText(newText);
-                                }
-                                detect_language(newText).then(() => {
-                                    syncSourceText();
-                                });
-                            },
-                            (e) => {
-                                setSourceText(e.toString());
-                            }
-                        );
+                        .then((v) => handleResult(v), (e) => setSourceText(e.toString()));
                 } else {
                     setSourceText('Language not supported');
                 }
@@ -244,23 +220,18 @@ export default function SourceArea(props) {
     };
 
     return (
-        <div className={hideSource && windowType !== '[INPUT_TRANSLATE]' && 'hidden'}>
-            <Card
-                shadow='none'
-                className='bg-content1 rounded-[10px] mt-[1px] pb-0'
-            >
-                <Toaster />
-                <CardBody className='bg-content1 p-[12px] pb-0 max-h-[40vh] overflow-y-auto'>
-                    <textarea
-                        autoFocus
-                        ref={textAreaRef}
-                        className={`text-[${appFontSize}px] bg-content1 h-full resize-none outline-none`}
-                        value={sourceText}
+        <div className={hideSource && windowType !== '[INPUT_TRANSLATE]' ? 'hidden' : ''}>
+            <Card shadow='none' className='bg-content1 rounded-[10px] mt-[1px] pb-0'>
+                
+                <CardBody className='bg-content1 p-[12px] pb-0 pr-0 max-h-[40vh] overflow-y-auto'>
+                    <textarea autoFocus ref={textAreaRef} value={sourceText}
+                        className={`text-[${appFontSize}px] bg-content1 resize-none outline-none`}
                         onKeyDown={keyDown}
                         onChange={(e) => {
                             const v = e.target.value;
                             setDetectLanguage('');
                             setSourceText(v);
+                            emit('trans:window:resize').catch(() => {});
                             if (dynamicTranslate) {
                                 if (timer) {
                                     clearTimeout(timer);
@@ -275,14 +246,15 @@ export default function SourceArea(props) {
                     />
                 </CardBody>
 
-                <CardFooter className='bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
+                <CardFooter className='fonter bg-content1 rounded-none rounded-b-[10px] flex justify-between px-[12px] p-[5px]'>
                     <div className='flex justify-start'>
                         <ButtonGroup className='mr-[5px]'>
-                            <Tooltip content={t('translate.speak')}>
+                            <Tooltip content={t('translate.speak')} delay={0} closeDelay={0}>
                                 <Button
                                     isIconOnly
                                     variant='light'
                                     size='sm'
+                                    className="text-btn"
                                     onPress={() => {
                                         handleSpeak().catch((e) => {
                                             toast.error(e.toString(), { style: toastStyle });
@@ -292,11 +264,12 @@ export default function SourceArea(props) {
                                     <HiOutlineVolumeUp className='text-[16px]' />
                                 </Button>
                             </Tooltip>
-                            <Tooltip content={t('translate.copy')}>
+                            <Tooltip content={t('translate.copy')} delay={0} closeDelay={0}>
                                 <Button
                                     isIconOnly
                                     variant='light'
                                     size='sm'
+                                    className="text-btn"
                                     onPress={() => {
                                         writeText(sourceText);
                                     }}
@@ -304,11 +277,12 @@ export default function SourceArea(props) {
                                     <MdContentCopy className='text-[16px]' />
                                 </Button>
                             </Tooltip>
-                            <Tooltip content={t('translate.delete_newline')}>
+                            <Tooltip content={t('translate.delete_newline')} delay={0} closeDelay={0}>
                                 <Button
                                     isIconOnly
                                     variant='light'
                                     size='sm'
+                                    className="text-btn"
                                     onPress={() => {
                                         const newText = sourceText.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                         setSourceText(newText);
@@ -320,10 +294,11 @@ export default function SourceArea(props) {
                                     <MdSmartButton className='text-[16px]' />
                                 </Button>
                             </Tooltip>
-                            <Tooltip content={t('common.clear')}>
+                            <Tooltip content={t('common.clear')} delay={0} closeDelay={0}>
                                 <Button
                                     variant='light'
                                     size='sm'
+                                    className="text-btn"
                                     isIconOnly
                                     isDisabled={sourceText === ''}
                                     onPress={() => {
@@ -339,20 +314,19 @@ export default function SourceArea(props) {
                                 size='sm'
                                 color='secondary'
                                 variant='dot'
-                                className='my-auto'
+                                className='my-auto border'
                             >
                                 {t(`languages.${detectLanguage}`)}
                             </Chip>
                         )}
                     </div>
-                    <Tooltip content={t('translate.translate')}>
+                    <Tooltip content={t('translate.translate')} delay={0} closeDelay={0}>
                         <Button
                             size='sm'
-                            color='primary'
                             variant='light'
                             isIconOnly
-                            className='text-[14px] font-bold'
-                            startContent={<HiTranslate className='text-[16px]' />}
+                            className='text-[14px] text-btn'
+                            startContent={<PiTranslate className='text-[16px]' />}
                             onPress={() => {
                                 detect_language(sourceText).then(() => {
                                     syncSourceText();

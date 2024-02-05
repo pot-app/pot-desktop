@@ -63,6 +63,7 @@ fn main() {
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_fs_watch::init())
+	    .plugin(tauri_plugin_context_menu::init())
         .system_tray(tauri::SystemTray::new())
         .setup(|app| {
             info!("============== Start App ==============");

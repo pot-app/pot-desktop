@@ -21,6 +21,7 @@ tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-sql = { git= "https://github.com/tauri-apps/plugins-workspace", branch = "v1",features = ["sqlite"] }
+tauri-plugin-context-menu = "0.7.0"
 serde = { version = "1.0", features = ["derive"] }
 selection = "1.1.1"
 serde_json = "1.0"

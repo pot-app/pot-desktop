@@ -47,10 +47,12 @@ module.exports = {
                     colors: {
                         background: '#ffffff',
                         foreground: '#181818',
-                        content1: '#eeeeee',
-                        content2: '#dddddd',
+                        content1: '#F6F6F6',
+                        content2: '#F6F6F6',
                         content3: '#cccccc',
                         content4: '#bbbbbb',
+                        btn: '#555555',
+                        header: '#F1F1F1',
                         default: {
                             DEFAULT: '#999999',
                             50: '#eeeeee',

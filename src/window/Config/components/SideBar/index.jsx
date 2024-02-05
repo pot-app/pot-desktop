@@ -32,7 +32,7 @@ export default function SideBar() {
                 }}
                 startContent={<AiFillAppstore className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.general.label')}</div>
+                <div className='w-full text-left'>{t('config.general.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -44,7 +44,7 @@ export default function SideBar() {
                 }}
                 startContent={<PiTranslateFill className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.translate.label')}</div>
+                <div className='w-full text-left'>{t('config.translate.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -56,7 +56,7 @@ export default function SideBar() {
                 }}
                 startContent={<PiTextboxFill className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.recognize.label')}</div>
+                <div className='w-full text-left'>{t('config.recognize.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -68,7 +68,7 @@ export default function SideBar() {
                 }}
                 startContent={<MdKeyboardAlt className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.hotkey.label')}</div>
+                <div className='w-full text-left'>{t('config.hotkey.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -80,7 +80,7 @@ export default function SideBar() {
                 }}
                 startContent={<MdExtension className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.service.label')}</div>
+                <div className='w-full text-left'>{t('config.service.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -92,7 +92,7 @@ export default function SideBar() {
                 }}
                 startContent={<FaHistory className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.history.label')}</div>
+                <div className='w-full text-left'>{t('config.history.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -104,7 +104,7 @@ export default function SideBar() {
                 }}
                 startContent={<AiFillCloud className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.backup.label')}</div>
+                <div className='w-full text-left'>{t('config.backup.label')}</div>
             </Button>
             <Button
                 fullWidth
@@ -116,7 +116,7 @@ export default function SideBar() {
                 }}
                 startContent={<BsInfoSquareFill className='text-[24px]' />}
             >
-                <div className='w-full'>{t('config.about.label')}</div>
+                <div className='w-full text-left'>{t('config.about.label')}</div>
             </Button>
         </div>
     );

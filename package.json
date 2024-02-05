@@ -12,6 +12,7 @@
         "updater:fixRuntime": "node updater/updater-for-fix-runtime.mjs"
     },
     "dependencies": {
+	    "tauri-plugin-context-menu": "0.7.0",
         "@nextui-org/react": "^2.2.9",
         "@nextui-org/theme": "^2.1.17",
         "@react-spring/web": "^9.7.3",
@@ -24,6 +25,7 @@
         "jotai": "^2.6.0",
         "jsqr": "^1.4.0",
         "md5": "^2.3.0",
+	    "color": "4.2.3",
         "nanoid": "^4.0.2",
         "next-themes": "^0.2.1",
         "react": "^18.2.0",

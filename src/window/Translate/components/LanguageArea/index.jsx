@@ -1,8 +1,10 @@
 import { Card, Button, CardFooter, Dropdown, DropdownMenu, DropdownTrigger, DropdownItem } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import { BiTransferAlt } from 'react-icons/bi';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { atom, useAtom, useAtomValue } from 'jotai';
+import { listen } from '@tauri-apps/api/event';
+import { invoke } from '@tauri-apps/api';
 
 import { languageList } from '../../../../utils/language';
 import { detectLanguageAtom } from '../SourceArea';
@@ -21,6 +23,7 @@ export default function LanguageArea() {
     const [targetLanguage, setTargetLanguage] = useAtom(targetLanguageAtom);
     const detectLanguage = useAtomValue(detectLanguageAtom);
     const { t } = useTranslation();
+    const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
         if (translateSourceLanguage) {
@@ -37,44 +40,58 @@ export default function LanguageArea() {
             setTranslateTargetLanguage(targetLanguage);
         }
     }, [sourceLanguage, targetLanguage, rememberLanguage]);
-
+    
+    function bindLangEvent(lang) {
+        listen('select_lang_' + lang.name, (e) => {
+            const payload = e.payload
+            if (payload === 'src') {
+                setSourceLanguage(lang.name)
+            } else {
+                setTargetLanguage(lang.name)
+            }
+        }).catch(() => {})
+    }
+    useEffect(() => {
+        if (initialized) return;
+        for (const lang of languageList) {
+            bindLangEvent({ name: lang, label: t(`languages.${ lang }`) })
+        }
+        setInitialized(true);
+    })
+    
+    
+    function onSelectLang(e, target) {
+        const lang = target === 'src' ? sourceLanguage : targetLanguage
+        invoke('plugin:context_menu|show_context_menu', {
+            pos: { x: e.clientX, y: e.clientY },
+            items: ['auto',...languageList].map(x => ({
+                label: t(`languages.${ x }`),
+                event: 'select_lang_' + x,
+                checked: x === lang,
+                payload: target
+            }))
+        }).catch(() => {})
+    }
+    
     return (
         <Card
             shadow='none'
             className='bg-content2 h-[35px] rounded-[10px]'
         >
-            <CardFooter className='bg-content2 flex justify-between p-0 rounded-[10px]'>
-                <div className='flex'>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button
-                                radius='sm'
-                                variant='light'
-                            >
-                                {t(`languages.${sourceLanguage}`)}
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label='Source Language'
-                            className='max-h-[50vh] overflow-y-auto'
-                            onAction={(key) => {
-                                setSourceLanguage(key);
-                            }}
-                        >
-                            <DropdownItem key='auto'>{t('languages.auto')}</DropdownItem>
-                            {languageList.map((x) => {
-                                return <DropdownItem key={x}>{t(`languages.${x}`)}</DropdownItem>;
-                            })}
-                        </DropdownMenu>
-                    </Dropdown>
+            <CardFooter className='bg-content2 flex w-full p-0 rounded-[10px]'>
+                <div className="w-[40%] grow text-center">
+                    <a className="hover:underline text-sm" style={ { lineHeight: '35px' } } href="#"
+                        onClick={ (e) => onSelectLang(e, 'src') }>
+                        { t(`languages.${ sourceLanguage || 'auto' }`) }
+                    </a>
                 </div>
-                <div className='flex'>
+                <div className="flex">
                     <Button
                         isIconOnly
-                        size='sm'
-                        variant='light'
-                        className='text-[20px]'
-                        onPress={async () => {
+                        size="sm"
+                        variant="light"
+                        className="text-[20px] text-btn"
+                        onPress={ async () => {
                             if (sourceLanguage !== 'auto') {
                                 const oldSourceLanguage = sourceLanguage;
                                 setSourceLanguage(targetLanguage);
@@ -94,33 +111,16 @@ export default function LanguageArea() {
                                     }
                                 }
                             }
-                        }}
+                        } }
                     >
                         <BiTransferAlt />
                     </Button>
                 </div>
-                <div className='flex'>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button
-                                radius='sm'
-                                variant='light'
-                            >
-                                {t(`languages.${targetLanguage}`)}
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label='Target Language'
-                            className='max-h-[50vh] overflow-y-auto'
-                            onAction={(key) => {
-                                setTargetLanguage(key);
-                            }}
-                        >
-                            {languageList.map((x) => {
-                                return <DropdownItem key={x}>{t(`languages.${x}`)}</DropdownItem>;
-                            })}
-                        </DropdownMenu>
-                    </Dropdown>
+                <div className='w-[40%] grow text-center'>
+                    <a className="hover:underline text-sm" style={ { lineHeight: '35px' } } href="#"
+                        onClick={ (e) => onSelectLang(e, 'target') }>
+                        { t(`languages.${ targetLanguage || 'auto' }`) }
+                    </a>
                 </div>
             </CardFooter>
         </Card>

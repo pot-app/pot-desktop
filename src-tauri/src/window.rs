@@ -76,10 +76,14 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
         }
         None => {
             info!("Window not existence, Creating new window: {}", label);
-            let mut builder = tauri::WindowBuilder::new(
+	        let mut page = "index.html".into();
+	        if label == "screenshot" {
+		        page = "capture.html".into();
+	        }
+            let mut builder = WindowBuilder::new(
                 app_handle,
                 label,
-                tauri::WindowUrl::App("index.html".into()),
+                tauri::WindowUrl::App(page),
             )
             .position(position.x.into(), position.y.into())
             .focused(true)

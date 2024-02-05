@@ -17,25 +17,25 @@ export default function Translate() {
     const [sourceLanguage, setSourceLanguage] = useConfig('translate_source_language', 'auto');
     const [targetLanguage, setTargetLanguage] = useConfig('translate_target_language', 'zh_cn');
     const [secondLanguage, setSecondLanguage] = useConfig('translate_second_language', 'en');
-    const [detectEngine, setDetectEngine] = useConfig('translate_detect_engine', 'baidu');
+    const [detectEngine, setDetectEngine] = useConfig('translate_detect_engine', 'local');
     const [autoCopy, setAutoCopy] = useConfig('translate_auto_copy', 'disable');
     const [incrementalTranslate, setIncrementalTranslate] = useConfig('incremental_translate', false);
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
     const [deleteNewline, setDeleteNewline] = useConfig('translate_delete_newline', false);
     const [rememberLanguage, setRememberLanguage] = useConfig('translate_remember_language', false);
     // const [translateFontSize, setTranslateFontSize] = useConfig('translate_font_size', 16);
-    const [windowPosition, setWindowPosition] = useConfig('translate_window_position', 'mouse');
-    const [rememberWindowSize, setRememberWindowSize] = useConfig('translate_remember_window_size', false);
+    const [windowPosition, setWindowPosition] = useConfig('translate_window_position', 'pre_state');
+    const [rememberWindowSize, setRememberWindowSize] = useConfig('translate_remember_window_size', true);
     const [hideSource, setHideSource] = useConfig('hide_source', false);
     const [hideLanguage, setHideLanguage] = useConfig('hide_language', false);
     const [hideWindow, setHideWindow] = useConfig('translate_hide_window', false);
     const [closeOnBlur, setCloseOnBlur] = useConfig('translate_close_on_blur', true);
-    const [alwaysOnTop, setAlwaysOnTop] = useConfig('translate_always_on_top', false);
+    const [alwaysOnTop, setAlwaysOnTop] = useConfig('translate_always_on_top', true);
     const { t } = useTranslation();
 
     return (
         <>
-            <Card className='mb-[10px]'>
+            <Card className='mb-[10px]' shadow='none'>
                 <CardBody>
                     <div className='config-item'>
                         <h3 className='my-auto mx-0'>{t('config.translate.source_language')}</h3>
@@ -128,7 +128,7 @@ export default function Translate() {
                     </div>
                 </CardBody>
             </Card>
-            <Card className='mb-[10px]'>
+            <Card className='mb-[10px]' shadow='none'>
                 <CardBody>
                     <div className='config-item'>
                         <h3 className='my-auto mx-0'>{t('config.translate.auto_copy')}</h3>
@@ -201,7 +201,7 @@ export default function Translate() {
                     </div>
                 </CardBody>
             </Card>
-            <Card>
+            <Card shadow='none'>
                 <CardBody>
                     {/* <div className='config-item'>
                         <h3 className='my-auto mx-0'>{t('config.translate.font_size.title')}</h3>
