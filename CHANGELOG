@@ -1,3 +1,17 @@
+## 2.7.5 (2024-02-13)
+
+### New feature:
+
+-   Support Ukrainian([`651a2f6`](https://github.com/pot-app/pot-desktop/commit/651a2f671338e3c3c0e861ff510e1b80dff879b8)) (by @Pylogmon)
+-   Optimized the logic for removing newlines([`c84821c`](https://github.com/pot-app/pot-desktop/commit/c84821cad7749ea51ac8c4c0fd958ffad4f33a9b)) (by @Pylogmon)
+
+### Bugs fixed:
+
+-   fix scale_factor([`fdcbec1`](https://github.com/pot-app/pot-desktop/commit/fdcbec1c68c542e91fcaa95022c68015e76405bc)) (by @Pylogmon)
+-   Do not hide source area when input translate([`b2ab2a9`](https://github.com/pot-app/pot-desktop/commit/b2ab2a9955b5f73607950b51352a3522f81b335a)) (by @Pylogmon)
+-   proxy port display error([`6ad67d2`](https://github.com/pot-app/pot-desktop/commit/6ad67d2dc24a5e16ce76e8b935ae0634f819393f)) (by @Pylogmon)
+-   fix language code([`ae92729`](https://github.com/pot-app/pot-desktop/commit/ae927290af977b70556697f3ae55b061431ba7a6)) (by @Pylogmon)
+
 ## 2.7.4 (2024-01-07)
 
 ### New feature:
