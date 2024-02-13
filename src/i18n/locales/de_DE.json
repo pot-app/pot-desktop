@@ -42,7 +42,7 @@
         },
         "config": {
             "general": {
-                "label": "Allgemeine Einstellungen",
+                "label": "Allgemein",
                 "title": "Allgemeine Einstellungen",
                 "auto_start": "Beim Start des Computers starten",
                 "check_update": "Beim Start Updates überprüfen",
@@ -66,7 +66,7 @@
                 "theme": {
                     "light": "Hell",
                     "dark": "Dunkel",
-                    "system": "Systemeinstellung"
+                    "system": "System"
                 },
                 "transparent": "Transparenzeffekt",
                 "proxy": {
@@ -89,7 +89,7 @@
                 }
             },
             "translate": {
-                "label": "Übersetzungseinstellungen",
+                "label": "Übersetzung",
                 "title": "Übersetzungseinstellungen",
                 "source_language": "Quellsprache",
                 "target_language": "Zielsprache",
@@ -141,7 +141,7 @@
                 "hide_window": "Erkennungsfenster ausblenden"
             },
             "hotkey": {
-                "label": "Tastenkombinationen",
+                "label": "Hotkey",
                 "title": "Tastenkombinationen",
                 "selection_translate": "Auswahl übersetzen",
                 "input_translate": "Eingabe übersetzen",
@@ -149,10 +149,10 @@
                 "ocr_translate": "Bildschirmfoto-Übersetzung",
                 "is_register": "Die Tastenkombination ist bereits registriert",
                 "success": "Tastenkombination erfolgreich registriert",
-                "set_hotkey": "Drücken Sie Taste, um die Tastenkombination einzustellen"
+                "set_hotkey": "Drücken Sie zum Festlegen des Hotkeys"
             },
             "service": {
-                "label": "Diensteinstellungen",
+                "label": "Dienst",
                 "title": "Diensteinstellungen",
                 "translate": "Übersetzung",
                 "tts": "TTS",
@@ -173,7 +173,7 @@
                 "title": "Verlauf"
             },
             "backup": {
-                "label": "Backup-Einstellungen",
+                "label": "Backup",
                 "title": "Backup-Einstellungen",
                 "type": "Diensttyp",
                 "webdav": "WebDav",
