@@ -1,4 +1,8 @@
-## 2.7.5 (2024-02-13)
+## 2.7.6 (2024-02-14)
+
+### BreakChange:
+
+与旧版插件不兼容，更新后需要手动更新所有插件到最新版本，否则会导致软件闪退
 
 ### New feature:
 
@@ -11,3 +15,4 @@
 -   Do not hide source area when input translate([`b2ab2a9`](https://github.com/pot-app/pot-desktop/commit/b2ab2a9955b5f73607950b51352a3522f81b335a)) (by @Pylogmon)
 -   proxy port display error([`6ad67d2`](https://github.com/pot-app/pot-desktop/commit/6ad67d2dc24a5e16ce76e8b935ae0634f819393f)) (by @Pylogmon)
 -   fix language code([`ae92729`](https://github.com/pot-app/pot-desktop/commit/ae927290af977b70556697f3ae55b061431ba7a6)) (by @Pylogmon)
+-   Aliyun login failed([`15d2643`](https://github.com/pot-app/pot-desktop/commit/15d26431dbbbc30ce5a39ab0fe9d94e2d7105c25)) (by @Pylogmon)
