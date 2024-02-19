@@ -68,9 +68,7 @@
                     "disable": "禁用",
                     "ocr_recognize": "文字辨識",
                     "ocr_translate": "截圖翻譯"
-                },
-
-                "font_size": {}
+                }
             },
             "translate": {
                 "label": "翻譯設定",
@@ -103,8 +101,7 @@
                 "google": "Google",
                 "bing": "Bing",
                 "yandex": "Yandex",
-                "local": "本地",
-                "font_size": {}
+                "local": "本地"
             },
             "recognize": {
                 "label": "文字辨識",
@@ -311,11 +308,7 @@
                 },
                 "openai_summary": {
                     "title": "OpenAI 總結"
-                },
-                "geminipro_polish": {},
-                "geminipro": {},
-                "geminipro_custom": {},
-                "geminipro_summary": {}
+                }
             },
             "recognize": {
                 "system": {
