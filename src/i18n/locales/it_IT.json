@@ -128,11 +128,7 @@
                 },
                 "openai_summary": {
                     "title": "Riepilogo di OpenAI"
-                },
-                "geminipro_polish": {},
-                "geminipro": {},
-                "geminipro_custom": {},
-                "geminipro_summary": {}
+                }
             },
             "recognize": {
                 "iflytek_latex_ocr": {
