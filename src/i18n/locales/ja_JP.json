@@ -3,9 +3,7 @@
         "config": {
             "translate": {
                 "title": "トランスレートせっち",
-                "label": "トランスレート",
-
-                "font_size": {}
+                "label": "トランスレート"
             },
             "backup": {
                 "title": "ばっくあっぷせっち",
@@ -21,13 +19,7 @@
                     "translate": "トランスレート",
                     "config": "コンフィグ"
                 },
-                "title": "ジェネラルせっち",
-
-                "proxy": {},
-
-                "theme": {},
-
-                "font_size": {}
+                "title": "ジェネラルせっち"
             },
             "hotkey": {
                 "label": "ホットキー",
@@ -74,65 +66,6 @@
             "cancel": "キャンセル",
             "ok": "Ok",
             "save": "設定保存"
-        },
-        "services": {
-            "translate": {
-                "youdao": {},
-                "deepl": {},
-                "openai": {},
-                "alibaba": {},
-                "chatglm": {},
-                "geminipro_polish": {},
-                "transmart": {},
-                "caiyun": {},
-                "baidu_field": {},
-                "cambridge_dict": {},
-                "geminipro": {},
-                "openai_custom": {},
-                "baidu": {},
-                "niutrans": {},
-                "tencent": {},
-                "geminipro_custom": {},
-                "volcengine": {},
-                "google": {},
-                "yandex": {},
-                "bing_dict": {},
-                "chatglm_custom": {},
-                "chatglm_polish": {},
-                "chatglm_summary": {},
-                "openai_polish": {},
-                "geminipro_summary": {},
-                "bing": {},
-                "openai_summary": {}
-            },
-            "recognize": {
-                "iflytek_latex_ocr": {},
-                "baidu_ocr": {},
-                "simple_latex_ocr": {},
-                "volcengine_ocr": {},
-                "iflytek_intsig_ocr": {},
-                "baidu_accurate_ocr": {},
-                "baidu_img_ocr": {},
-                "volcengine_multi_lang_ocr": {},
-                "tencent_ocr": {},
-                "tencent_accurate_ocr": {},
-                "iflytek_ocr": {},
-                "qrcode": {},
-                "tesseract": {},
-                "tencent_img_ocr": {},
-                "system": {}
-            },
-            "collection": {
-                "anki": {},
-                "eudic": {}
-            },
-
-            "tts": {
-                "lingva_tts": {}
-            }
-        },
-        "translate": {},
-        "updater": {},
-        "recognize": {}
+        }
     }
 }
