@@ -46,7 +46,7 @@
                 "title": "General Settings",
                 "auto_start": "Auto Startup",
                 "check_update": "Check Update",
-                "server_port": "Listen Port",
+                "server_port": "Listening Port",
                 "server_port_change": "The listening port has been changed, Please restart the application for the changes to take effect",
                 "app_language": "Application Language",
                 "app_theme": "Theme",
@@ -54,13 +54,13 @@
                 "app_fallback_font": "Fallback Font",
                 "font_size": {
                     "title": "Font Size",
-                    "10": "Very Very Small (10px)",
+                    "10": "Extra Small (10px)",
                     "12": "Very Small (12px)",
                     "14": "Small (14px)",
                     "16": "Standard (16px)",
                     "18": "Large (18px)",
                     "20": "Very Large (20px)",
-                    "24": "Very Very Large (24px)"
+                    "24": "Extra Large (24px)"
                 },
                 "default_font": "Default",
                 "theme": {
@@ -81,7 +81,7 @@
                 "proxy_error": "Please fill in the host and port",
                 "tray_click_event": "Tray Click Event",
                 "event": {
-                    "config": "Config",
+                    "config": "Preference",
                     "translate": "Translate",
                     "disable": "Disable",
                     "ocr_recognize": "Text Recognition",
@@ -93,14 +93,14 @@
                 "title": "Translation Settings",
                 "source_language": "Source Language",
                 "target_language": "Target Language",
-                "second_language": "Second Target Language",
+                "second_language": "Secondary Target Language",
                 "auto_copy": "Auto Copy",
                 "source": "Source",
                 "target": "Target",
                 "source_target": "Source+Target",
                 "disable": "Disable",
-                "incremental_translate": "Incremental Translate",
-                "dynamic_translate": "Dynamic Translate",
+                "incremental_translate": "Incremental Translation",
+                "dynamic_translate": "Dynamic Translation",
                 "delete_newline": "Delete Newline",
                 "remember_language": "Remember Target Language",
                 "font_size": {
@@ -118,11 +118,11 @@
                 "pre_state": "Remember Position",
                 "remember_window_size": "Remember Window Size",
                 "close_on_blur": "Close on Blur",
-                "always_on_top": "Default Always on Top",
+                "always_on_top": "Always on Top",
                 "hide_source": "Hide Source Area",
                 "hide_language": "Hide Language Area",
-                "hide_window": "Hide Translate Window",
-                "detect_engine": "Language Detect Engine",
+                "hide_window": "Hide Translation Window",
+                "detect_engine": "Language Detection Engine",
                 "baidu": "Baidu",
                 "tencent": "Tencent",
                 "niutrans": "NiuTrans",
@@ -134,17 +134,17 @@
             "recognize": {
                 "label": "Recognize",
                 "title": "Recognition Settings",
-                "language": "Recognize Language",
+                "language": "Recognition Language",
                 "delete_newline": "Auto Delete Newline",
                 "auto_copy": "Auto Copy",
                 "close_on_blur": "Close on Blur",
-                "hide_window": "Hide Recognize Window"
+                "hide_window": "Hide Recognition Window"
             },
             "hotkey": {
                 "label": "Hotkey",
                 "title": "Hotkey Settings",
-                "selection_translate": "Selection Translate",
-                "input_translate": "Input Translate",
+                "selection_translate": "Selection Translation",
+                "input_translate": "Input Translation",
                 "ocr_recognize": "Text Recognition",
                 "ocr_translate": "Screenshot Translation",
                 "is_register": "The hotkey is already registered",
@@ -174,7 +174,7 @@
             },
             "backup": {
                 "label": "Backup",
-                "title": "Backup Setting",
+                "title": "Backup Settings",
                 "type": "Service Type",
                 "webdav": "WebDav",
                 "aliyun": "Aliyun Drive",
@@ -378,7 +378,7 @@
                     "client_secret": "Secret Key"
                 },
                 "baidu_img_ocr": {
-                    "title": "Baidu Image Translate",
+                    "title": "Baidu Image Translation",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
@@ -415,7 +415,7 @@
                     "secret_key": "Secret Key"
                 },
                 "tencent_img_ocr": {
-                    "title": "Tencent Image Translate",
+                    "title": "Tencent Image Translation",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
