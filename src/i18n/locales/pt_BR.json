@@ -53,11 +53,11 @@
                 "font_size": {
                     "14": "Pequena (14px)",
                     "title": "Tamanho da Fonte",
-                    "24": "Muito, Muito Grande (24px)",
+                    "24": "Extragrande (24px)",
                     "20": "Muito Grande (20px)",
                     "12": "Muito Pequena (12px)",
                     "16": "Padrão (16px)",
-                    "10": "Muito, Muito Pequena (10px)",
+                    "10": "Extra pequeno (10px)",
                     "18": "Grande (18px)"
                 },
                 "theme": {
@@ -78,7 +78,7 @@
                 "proxy_error": "Por favor preencha o host e a porta",
                 "tray_click_event": "Evento de Clique na Bandeja",
                 "event": {
-                    "config": "Configuração",
+                    "config": "Preferência",
                     "translate": "Traduzir",
                     "disable": "Desabilitar",
                     "ocr_recognize": "Reconhecimento de Texto",
@@ -99,8 +99,8 @@
                 "target": "Destino",
                 "source_target": "Origem+Destino",
                 "disable": "Desabilitar",
-                "incremental_translate": "Traduzir Incrementalmente",
-                "dynamic_translate": "Traduzir Dinamicamente",
+                "incremental_translate": "Tradução Incremental",
+                "dynamic_translate": "Tradução Dinâmica",
                 "delete_newline": "Excluir Nova Linha",
                 "remember_language": "Lembrar do Idioma de Destino",
                 "window_position": "Posição da Janela",
@@ -108,7 +108,7 @@
                 "pre_state": "Lembrar posição",
                 "remember_window_size": "Lembrar do Tamanho da Janela",
                 "close_on_blur": "Fechar no Desfoque",
-                "always_on_top": "Sempre no Topo como Padrão",
+                "always_on_top": "Sempre na Frente",
                 "hide_source": "Ocultar Área de Origem",
                 "hide_language": "Ocultar Área do Idioma",
                 "hide_window": "Ocultar Janela de Tradução",
@@ -143,8 +143,8 @@
             "hotkey": {
                 "label": "Atalho",
                 "title": "Configurações de Atalhos",
-                "selection_translate": "Traduzir Seleção",
-                "input_translate": "Traduzir Entrada",
+                "selection_translate": "Traduzir Selecionado",
+                "input_translate": "Tradução de Entrada",
                 "ocr_recognize": "Reconhecimento de Texto",
                 "ocr_translate": "Tradução de Imagem",
                 "is_register": "O atalho já está registrado",
