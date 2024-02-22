@@ -1,4 +1,4 @@
-import { Input, Button, Switch, Textarea } from '@nextui-org/react';
+import { Input, Button, Switch, Textarea, Card, CardBody, Link } from '@nextui-org/react';
 import { DropdownTrigger } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { DropdownMenu } from '@nextui-org/react';
@@ -46,7 +46,7 @@ export function Config(props) {
                         content:
                             'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
                     },
-                    { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
+                    { role: 'user', content: `Translate in0to $to:\n"""\n$text\n"""` },
                 ],
             });
         }
@@ -164,6 +164,32 @@ export function Config(props) {
                         }}
                     />
                 </div>
+                <Card
+                    isBlurred
+                    className='border-none bg-success/20 dark:bg-success/10'
+                    shadow='sm'
+                >
+                    <CardBody>
+                        <div>
+                            推荐
+                            <Link
+                                isExternal
+                                href='https://aihubmix.com/register?aff=trJY'
+                                color='primary'
+                            >
+                                AiHubMix
+                            </Link>
+                            的OpenAI API 密钥，速度飞快，经济实惠，1美元的OpenAI API 额度只需人民币3.5元
+                            <Link
+                                isExternal
+                                href='https://pot-app.com/docs/api/translate/openai.html#aihubmix'
+                                color='primary'
+                            >
+                                配置文档
+                            </Link>
+                        </div>
+                    </CardBody>
+                </Card>
                 <div className={`config-item ${openaiConfig.service === 'azure' && 'hidden'}`}>
                     <h3 className='my-auto'>{t('services.translate.openai.model')}</h3>
                     <Dropdown>
