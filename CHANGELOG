@@ -2,17 +2,8 @@
 
 ### BreakChange:
 
-与旧版插件不兼容，更新后需要手动更新所有插件到最新版本，否则会导致软件闪退
+如果更新后遇到闪退问题请重新安装所有插件的最新版本
 
 ### New feature:
 
--   Support Ukrainian([`651a2f6`](https://github.com/pot-app/pot-desktop/commit/651a2f671338e3c3c0e861ff510e1b80dff879b8)) (by @Pylogmon)
--   Optimized the logic for removing newlines([`c84821c`](https://github.com/pot-app/pot-desktop/commit/c84821cad7749ea51ac8c4c0fd958ffad4f33a9b)) (by @Pylogmon)
-
-### Bugs fixed:
-
--   fix scale_factor([`fdcbec1`](https://github.com/pot-app/pot-desktop/commit/fdcbec1c68c542e91fcaa95022c68015e76405bc)) (by @Pylogmon)
--   Do not hide source area when input translate([`b2ab2a9`](https://github.com/pot-app/pot-desktop/commit/b2ab2a9955b5f73607950b51352a3522f81b335a)) (by @Pylogmon)
--   proxy port display error([`6ad67d2`](https://github.com/pot-app/pot-desktop/commit/6ad67d2dc24a5e16ce76e8b935ae0634f819393f)) (by @Pylogmon)
--   fix language code([`ae92729`](https://github.com/pot-app/pot-desktop/commit/ae927290af977b70556697f3ae55b061431ba7a6)) (by @Pylogmon)
--   Aliyun login failed([`15d2643`](https://github.com/pot-app/pot-desktop/commit/15d26431dbbbc30ce5a39ab0fe9d94e2d7105c25)) (by @Pylogmon)
+-   Support Custom OpenAI Model([`c526524`](https://github.com/pot-app/pot-desktop/commit/c5265241163f5c7dbba0031d842d0636d370bbb1)) (by @Pylogmon)
