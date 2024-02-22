@@ -190,35 +190,23 @@ export function Config(props) {
                     </CardBody>
                 </Card>
                 <div className={`config-item ${openaiConfig.service === 'azure' && 'hidden'}`}>
-                    <h3 className='my-auto'>{t('services.translate.openai.model')}</h3>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button variant='bordered'>{openaiConfig.model}</Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            autoFocus='first'
-                            aria-label='service'
-                            className='max-h-[50vh] overflow-y-auto'
-                            onAction={(key) => {
-                                setOpenaiConfig({
-                                    ...openaiConfig,
-                                    model: key,
-                                });
-                            }}
-                        >
-                            <DropdownItem key='gpt-3.5-turbo'>gpt-3.5-turbo</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-instruct'>gpt-3.5-turbo-instruct</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-0301'>gpt-3.5-turbo-0301</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-0613'>gpt-3.5-turbo-0613</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-1106'>gpt-3.5-turbo-1106</DropdownItem>
-                            <DropdownItem key='gpt-3.5-turbo-16k-0613'>gpt-3.5-turbo-16k-0613</DropdownItem>
-                            <DropdownItem key='gpt-4'>gpt-4</DropdownItem>
-                            <DropdownItem key='gpt-4-0314'>gpt-4-0314</DropdownItem>
-                            <DropdownItem key='gpt-4-0613'>gpt-4-0613</DropdownItem>
-                            <DropdownItem key='gpt-4-1106-preview'>gpt-4-1106-preview</DropdownItem>
-                            <DropdownItem key='gpt-4-32k'>gpt-4-32k</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
+                    <Input
+                        label={t('services.translate.openai.model')}
+                        labelPlacement='outside-left'
+                        value={openaiConfig['model']}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setOpenaiConfig({
+                                ...openaiConfig,
+                                model: value,
+                            });
+                        }}
+                    />
                 </div>
                 <h3 className='my-auto'>Prompt List</h3>
                 <p className='text-[10px] text-default-700'>{t('services.translate.openai.prompt_description')}</p>
