@@ -34,4 +34,5 @@ export enum Language {
     sv = 'Swedish',
     pl = 'Polish',
     nl = 'Dutch',
+    uk = 'Ukrainian',
 }
