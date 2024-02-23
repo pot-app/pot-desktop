@@ -17,6 +17,7 @@ export function Config(props) {
         {
             stream: true,
             apiKey: '',
+            requestPath: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro',
             promptList: [
                 {
                     role: 'user',
@@ -81,6 +82,25 @@ export function Config(props) {
                     >
                         {t('services.translate.geminipro.stream')}
                     </Switch>
+                </div>
+                <div className='config-item'>
+                    <Input
+                        label={t('services.translate.geminipro.request_path')}
+                        labelPlacement='outside-left'
+                        value={serviceConfig['requestPath']}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setServiceConfig({
+                                ...serviceConfig,
+                                requestPath: value,
+                            });
+                        }}
+                    />
                 </div>
                 <div className='config-item'>
                     <Input

@@ -9,11 +9,19 @@ export async function translate(text, from, to, options = {}) {
     if (config !== undefined) {
         translateConfig = config;
     }
-    let { apiKey, stream, promptList } = translateConfig;
-
-    const requestPath = stream
-        ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:streamGenerateContent?key=${apiKey}`
-        : `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    let { apiKey, stream, promptList, requestPath } = translateConfig;
+    if (!requestPath) {
+        requestPath = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro';
+    }
+    if (!/https?:\/\/.+/.test(requestPath)) {
+        requestPath = `https://${requestPath}`;
+    }
+    if (requestPath.endsWith('/')) {
+        requestPath = requestPath.slice(0, -1);
+    }
+    requestPath = stream
+        ? `${requestPath}:streamGenerateContent?key=${apiKey}`
+        : `${requestPath}:generateContent?key=${apiKey}`;
 
     promptList = promptList.map((item) => {
         return {
