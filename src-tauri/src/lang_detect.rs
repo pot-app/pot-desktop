@@ -23,6 +23,7 @@ pub fn init_lang_detect() {
         Language::Bokmal,
         Language::Nynorsk,
         Language::Persian,
+        Language::Ukrainian,
     ];
     let detector = LanguageDetectorBuilder::from_languages(&languages).build();
     let _ = detector.detect_language_of("Hello Language");
@@ -77,6 +78,7 @@ pub fn lang_detect(text: &str) -> Result<&str, ()> {
             Language::Bokmal => Ok("nb_no"),
             Language::Nynorsk => Ok("nn_no"),
             Language::Persian => Ok("fa"),
+            Language::Ukrainian => Ok("uk"),
         }
     } else {
         return Ok("en");

@@ -35,7 +35,7 @@ base64 = "0.21.2"
 arboard = "3.2.0"
 libloader = "0.1.4"
 libloading = "0.8.0"
-lingua = { version = "1.5.0", default-features = false, features = ["chinese", "japanese", "english", "korean", "french", "spanish", "german", "russian", "italian", "portuguese", "turkish", "arabic", "vietnamese", "thai", "indonesian", "malay", "hindi", "mongolian", "persian", "nynorsk", "bokmal"] }
+lingua = { version = "1.6.2", default-features = false, features = ["chinese", "japanese", "english", "korean", "french", "spanish", "german", "russian", "italian", "portuguese", "turkish", "arabic", "vietnamese", "thai", "indonesian", "malay", "hindi", "mongolian", "persian", "nynorsk", "bokmal", "ukrainian"] }
 reqwest = { version = "0.11", features = ["json"] }
 reqwest_dav = "0.1.5"
 zip = "0.6.6"
