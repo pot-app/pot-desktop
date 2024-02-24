@@ -315,7 +315,7 @@ export default function TargetArea(props) {
     const [boundRef, bounds] = useMeasure({ scroll: true });
     const springs = useSpring({
         from: { height: 0 },
-        to: { height: hide ? 0 : bounds.height }
+        to: { height: hide ? 0 : bounds.height },
     });
 
     return (
@@ -352,8 +352,7 @@ export default function TargetArea(props) {
                                 }
                             >
                                 {translateServiceName.startsWith('[plugin]') ? (
-                                    <div
-                                        className='my-auto'>{`${pluginList['translate'][translateServiceName].display} `}</div>
+                                    <div className='my-auto'>{`${pluginList['translate'][translateServiceName].display} `}</div>
                                 ) : (
                                     <div className='my-auto'>
                                         {t(`services.translate.${translateServiceName}.title`)}
@@ -441,15 +440,17 @@ export default function TargetArea(props) {
                                             <div key={nanoid()}>
                                                 {pronunciation['region'] && (
                                                     <span
-                                                        className={`text-[${appFontSize}px] mr-[12px] text-default-500`}>
-                                                {pronunciation['region']}
-                                            </span>
+                                                        className={`text-[${appFontSize}px] mr-[12px] text-default-500`}
+                                                    >
+                                                        {pronunciation['region']}
+                                                    </span>
                                                 )}
                                                 {pronunciation['symbol'] && (
                                                     <span
-                                                        className={`text-[${appFontSize}px] mr-[12px] text-default-500`}>
-                                                {pronunciation['symbol']}
-                                            </span>
+                                                        className={`text-[${appFontSize}px] mr-[12px] text-default-500`}
+                                                    >
+                                                        {pronunciation['symbol']}
+                                                    </span>
                                                 )}
                                                 {pronunciation['voice'] && pronunciation['voice'] !== '' && (
                                                     <HiOutlineVolumeUp
@@ -470,33 +471,33 @@ export default function TargetArea(props) {
                                                     explanations['explains'].map((explain, index) => {
                                                         return (
                                                             <span key={nanoid()}>
-                                                        {index === 0 ? (
-                                                            <>
-                                                                <span
-                                                                    className={`text-[${
-                                                                        appFontSize - 2
-                                                                    }px] text-default-500 mr-[12px]`}
-                                                                >
-                                                                    {explanations['trait']}
-                                                                </span>
-                                                                <span
-                                                                    className={`font-bold text-[${appFontSize}px] select-text`}
-                                                                >
-                                                                    {explain}
-                                                                </span>
-                                                                <br />
-                                                            </>
-                                                        ) : (
-                                                            <span
-                                                                className={`text-[${
-                                                                    appFontSize - 2
-                                                                }px] text-default-500 select-text`}
-                                                                key={nanoid()}
-                                                            >
-                                                                {explain}
+                                                                {index === 0 ? (
+                                                                    <>
+                                                                        <span
+                                                                            className={`text-[${
+                                                                                appFontSize - 2
+                                                                            }px] text-default-500 mr-[12px]`}
+                                                                        >
+                                                                            {explanations['trait']}
+                                                                        </span>
+                                                                        <span
+                                                                            className={`font-bold text-[${appFontSize}px] select-text`}
+                                                                        >
+                                                                            {explain}
+                                                                        </span>
+                                                                        <br />
+                                                                    </>
+                                                                ) : (
+                                                                    <span
+                                                                        className={`text-[${
+                                                                            appFontSize - 2
+                                                                        }px] text-default-500 select-text mr-1`}
+                                                                        key={nanoid()}
+                                                                    >
+                                                                        {explain}
+                                                                    </span>
+                                                                )}
                                                             </span>
-                                                        )}
-                                                    </span>
                                                         );
                                                     })}
                                             </div>
@@ -507,9 +508,9 @@ export default function TargetArea(props) {
                                     result['associations'].map((association) => {
                                         return (
                                             <div key={nanoid()}>
-                                        <span className={`text-[${appFontSize}px] text-default-500`}>
-                                            {association}
-                                        </span>
+                                                <span className={`text-[${appFontSize}px] text-default-500`}>
+                                                    {association}
+                                                </span>
                                             </div>
                                         );
                                     })}
@@ -517,8 +518,9 @@ export default function TargetArea(props) {
                                     result['sentence'].map((sentence, index) => {
                                         return (
                                             <div key={nanoid()}>
-                                                <span
-                                                    className={`text-[${appFontSize - 2}px] mr-[12px]`}>{index + 1}.</span>
+                                                <span className={`text-[${appFontSize - 2}px] mr-[12px]`}>
+                                                    {index + 1}.
+                                                </span>
                                                 <>
                                                     {sentence['source'] && (
                                                         <span
@@ -560,7 +562,9 @@ export default function TargetArea(props) {
                         )}
                     </CardBody>
                     <CardFooter
-                        className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'}`}
+                        className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${
+                            hide && 'hidden'
+                        }`}
                     >
                         <ButtonGroup>
                             <Tooltip content={t('translate.speak')}>
@@ -647,7 +651,10 @@ export default function TargetArea(props) {
                                             }
                                         } else {
                                             const LanguageEnum = builtinServices[translateServiceName].Language;
-                                            if (newSourceLanguage in LanguageEnum && newTargetLanguage in LanguageEnum) {
+                                            if (
+                                                newSourceLanguage in LanguageEnum &&
+                                                newTargetLanguage in LanguageEnum
+                                            ) {
                                                 setIsLoading(true);
                                                 setHide(true);
                                                 const setHideOnce = invokeOnce(setHide);
@@ -735,16 +742,18 @@ export default function TargetArea(props) {
                                                         }
                                                     );
                                                 } else {
-                                                    builtinCollectionServices[serviceName].collection(sourceText, result).then(
-                                                        (_) => {
-                                                            toast.success(t('translate.add_collection_success'), {
-                                                                style: toastStyle,
-                                                            });
-                                                        },
-                                                        (e) => {
-                                                            toast.error(e.toString(), { style: toastStyle });
-                                                        }
-                                                    );
+                                                    builtinCollectionServices[serviceName]
+                                                        .collection(sourceText, result)
+                                                        .then(
+                                                            (_) => {
+                                                                toast.success(t('translate.add_collection_success'), {
+                                                                    style: toastStyle,
+                                                                });
+                                                            },
+                                                            (e) => {
+                                                                toast.error(e.toString(), { style: toastStyle });
+                                                            }
+                                                        );
                                                 }
                                             }}
                                         >
@@ -764,5 +773,5 @@ export default function TargetArea(props) {
                 </div>
             </animated.div>
         </Card>
-);
+    );
 }
