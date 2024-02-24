@@ -38,7 +38,8 @@
             "fa": "Persa",
             "nl": "Holandês",
             "sv": "Sueco",
-            "pl": "Polonês"
+            "pl": "Polonês",
+            "uk": "Ucraniano"
         },
         "config": {
             "general": {
@@ -351,7 +352,8 @@
                     "api_key": "Chave Api",
                     "stream": "Modo Stream",
                     "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do Gemini Pro. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado.",
-                    "title": "Gemini Pro"
+                    "title": "Gemini Pro",
+                    "request_path": "Caminho de Solicitação"
                 },
                 "geminipro_custom": {
                     "title": "Gemini Pro Personalizado"
