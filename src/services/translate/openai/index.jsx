@@ -17,7 +17,7 @@ export async function translate(text, from, to, options = {}) {
     if (requestPath.endsWith('/')) {
         requestPath = requestPath.slice(0, -1);
     }
-    if (service === 'openai' && !requestPath.endsWith('/v1/chat/completions')) {
+    if (service === 'openai' && !requestPath.includes('/v1/chat/completions')) {
         requestPath += '/v1/chat/completions';
     }
 
