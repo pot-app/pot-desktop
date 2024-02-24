@@ -13,9 +13,9 @@ export async function translate(text, from, to) {
         return text;
     }
     // only supports word translation
-    if (text.split(/[\s,，]/).length > 1) {
-        return '';
-    }
+    // if (text.split(/[\s,，]/).length > 1) {
+    //     return '';
+    // }
 
     const res = await fetch(
         `https://www.bing.com/api/v6/dictionarywords/search?q=${text}&appid=371E7B2AF0F9B84EC491D731DF90A55719C7D209&mkt=zh-cn&pname=bingdict`
