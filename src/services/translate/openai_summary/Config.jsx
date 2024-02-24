@@ -176,7 +176,7 @@ export function Config(props) {
                             >
                                 AiHubMix
                             </Link>
-                            的OpenAI API 密钥，速度飞快，经济实惠，1美元的OpenAI API 额度只需人民币3.5元
+                            的OpenAI API 密钥，速度飞快，经济实惠，1美元的OpenAI API 额度只需人民币4.2元
                             <Link
                                 isExternal
                                 href='https://pot-app.com/docs/api/translate/openai.html#aihubmix'
