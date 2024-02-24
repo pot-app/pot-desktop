@@ -98,7 +98,7 @@
 -   [x] [Yandex](https://translate.yandex.com/)
 -   [x] [Lingva](https://github.com/TheDavidDelta/lingva-translate) ([插件](https://github.com/pot-app/pot-app-translate-plugin-template))
 -   [x] [Tatoeba](https://tatoeba.org/) ([插件](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
--   [x] [ECDICT](https://github.com/skywind3000/ECDICT) (离线词典 [插件](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
+-   [x] [ECDICT](https://github.com/skywind3000/ECDICT) (离线词典 [插件](https://github.com/pot-app/pot-app-translate-plugin-ecdict))
 
 更多接口支持见 [插件系统](#插件系统)
 
