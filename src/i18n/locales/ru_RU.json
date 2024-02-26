@@ -38,7 +38,8 @@
             "nn_no": "Новонорвежский",
             "nl": "Нидерландский",
             "sv": "Шведский",
-            "pl": "Польский"
+            "pl": "Польский",
+            "uk": "Украинский"
         },
         "config": {
             "general": {
@@ -118,7 +119,7 @@
                 "bing": "Bing",
                 "yandex": "Яндекс",
                 "niutrans": "NiuTrans",
-                "always_on_top": "Закрепить поверх других окон",
+                "always_on_top": "Поверх других окон",
                 "close_on_blur": "Закрыть окно при потере фокуса",
                 "font_size": {
                     "14": "Мелкий (14 пикс.)",
@@ -351,7 +352,8 @@
                     "api_key": "Api Key",
                     "stream": "Потоковый режим",
                     "prompt_description": "Указав Промт, вы можете настроить поведение Gemini Pro. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
-                    "title": "Gemini Pro"
+                    "title": "Gemini Pro",
+                    "request_path": "Путь запроса"
                 },
                 "geminipro_custom": {
                     "title": "Gemini Pro пользовательский"
@@ -378,7 +380,7 @@
                     "client_secret": "Secret Key"
                 },
                 "baidu_img_ocr": {
-                    "title": "Перевод изображения Baidu",
+                    "title": "Перевод изображений Baidu",
                     "appid": "App ID",
                     "secret": "Secret"
                 },
