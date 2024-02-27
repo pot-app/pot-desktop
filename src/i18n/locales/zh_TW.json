@@ -42,6 +42,7 @@
                 "title": "常規設定",
                 "auto_start": "開機時啟動應用程式",
                 "check_update": "啟動時檢查更新",
+                "history_disable": "禁用歷史記錄",
                 "server_port": "監聽埠號",
                 "server_port_change": "監聽埠號已更改，重啟應用程式生效",
                 "app_language": "應用語言",

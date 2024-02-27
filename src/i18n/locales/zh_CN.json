@@ -47,6 +47,7 @@
                 "title": "常规设置",
                 "auto_start": "开机时启动应用",
                 "check_update": "启动时检查更新",
+                "history_disable": "禁用历史记录",
                 "server_port": "监听端口",
                 "server_port_change": "监听端口已更改，重启应用生效",
                 "app_language": "应用语言",

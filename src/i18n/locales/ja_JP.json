@@ -19,7 +19,8 @@
                     "translate": "トランスレート",
                     "config": "コンフィグ"
                 },
-                "title": "ジェネラルせっち"
+                "title": "ジェネラルせっち",
+                "history_disable": "ひすとりーせっち"
             },
             "hotkey": {
                 "label": "ホットキー",

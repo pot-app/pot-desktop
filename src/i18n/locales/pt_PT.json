@@ -302,6 +302,7 @@
                 "server_port": "Porta de Escuta",
                 "proxy_error": "Por favor preencha o host e a porta",
                 "check_update": "Procurar Atualização",
+                "history_disable": "Desativar Histórico",
                 "app_language": "Idioma da Aplicação",
                 "transparent": "Efeito de Transparência",
                 "title": "Configurações Gerais",

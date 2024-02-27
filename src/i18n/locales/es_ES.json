@@ -72,6 +72,7 @@
                 "server_port": "Puerto de escucha",
                 "proxy_error": "Por favor introduzca el host y el puerto",
                 "check_update": "Comprobar la actualización",
+                "history_disable": "Deshabilitar el historial",
                 "app_language": "Idioma de la aplicación",
                 "transparent": "Efecto de transparencia",
                 "title": "Ajustes generales",
