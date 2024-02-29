@@ -126,7 +126,8 @@
                     "api_key": "Clé API",
                     "stream": "Mode streaming",
                     "title": "Gemini Pro",
-                    "prompt_description": "En personnalisant le prompt, vous pouvez personnaliser le comportement de Gemini Pro. $text $from $to $detect sera remplacé par le texte à traduire, la langue source, la langue cible et la langue détectée."
+                    "prompt_description": "En personnalisant le prompt, vous pouvez personnaliser le comportement de Gemini Pro. $text $from $to $detect sera remplacé par le texte à traduire, la langue source, la langue cible et la langue détectée.",
+                    "request_path": "Chemin de la demande"
                 },
                 "geminipro_summary": {
                     "title": "Résumé Gemini Pro"
@@ -173,7 +174,7 @@
                 "baidu_img_ocr": {
                     "secret": "Clé secrète",
                     "appid": "ID d'application",
-                    "title": "Traduction d'image de Baidu"
+                    "title": "Traduction d’images Baidu"
                 },
                 "volcengine_multi_lang_ocr": {
                     "title": "Reconnaissance d'image de VolcEngine (Multilingue)",
@@ -204,7 +205,7 @@
                 },
                 "tencent_img_ocr": {
                     "secret_id": "ID de clé secrète",
-                    "title": "Traduction d'image de Tencent",
+                    "title": "Traduction d’images Tencent",
                     "secret_key": "Clé secrète"
                 },
                 "system": {
@@ -260,7 +261,8 @@
             "nb_no": "Norvégien Bokmål",
             "fa": "Persan",
             "pl": "Polonais",
-            "nn_no": "Norvégien Nynorsk"
+            "nn_no": "Norvégien Nynorsk",
+            "uk": "Ukrainien"
         },
         "common": {
             "plugin": "Extension",
@@ -289,7 +291,7 @@
                     "disable": "Désactiver",
                     "translate": "Traduire",
                     "ocr_translate": "Traduction de capture d'écran",
-                    "config": "Configuration",
+                    "config": "Préférence",
                     "ocr_recognize": "Reconnaissance de texte"
                 },
                 "label": "Général",
@@ -312,8 +314,8 @@
                     "14": "Petit (14px)",
                     "16": "Standard (16px)",
                     "12": "Très petit (12px)",
-                    "24": "Très très large (24px)",
-                    "10": "Très très petit (10px)",
+                    "24": "Extra large (24px)",
+                    "10": "Extra petit (10px)",
                     "title": "Taille de la police"
                 },
                 "app_font": "Police de caractères",
@@ -333,9 +335,9 @@
                 "hide_window": "Masquer la fenêtre de traduction",
                 "remember_window_size": "Mémoriser la taille de la fenêtre",
                 "delete_newline": "Supprimer le retour à la ligne",
-                "remember_language": "Mémoriser la langue de destination",
+                "remember_language": "Mémoriser la langue cible",
                 "window_position": "Position de la fenêtre",
-                "second_language": "Seconde langue de destination",
+                "second_language": "Langue cible secondaire",
                 "source": "Origine",
                 "niutrans": "NiuTrans",
                 "label": "Traduire",
@@ -345,12 +347,12 @@
                 "source_target": "Origine+Destination",
                 "source_language": "Langue d'origine",
                 "pre_state": "Mémoriser la position",
-                "always_on_top": "Toujours au premier plan par défaut",
+                "always_on_top": "Toujours au premier plan",
                 "close_on_blur": "Fermer si plus au premier plan",
                 "hide_source": "Masquer la zone de la langue d'origine",
                 "baidu": "Baidu",
                 "incremental_translate": "Traduction incrémentale",
-                "target_language": "Langue de destination",
+                "target_language": "Langue cible",
                 "font_size": {
                     "14": "Petit (14px)",
                     "title": "Taille de la police",
@@ -384,7 +386,7 @@
             },
             "recognize": {
                 "delete_newline": "Suppression automatique des retours à la ligne",
-                "language": "Reconnaître la langue",
+                "language": "Langue de reconnaissance",
                 "close_on_blur": "Fermer si plus au premier plan",
                 "title": "Paramètres de reconnaissance",
                 "label": "Reconnaissance",
@@ -396,9 +398,9 @@
                 "success": "Le raccourci a bien été enregistré",
                 "is_register": "Le raccourci existe déjà",
                 "label": "Raccourcis",
-                "input_translate": "Traduire la saisie",
+                "input_translate": "Traduction de la saisie",
                 "title": "Paramètres des raccourcis",
-                "selection_translate": "Traduire la sélection",
+                "selection_translate": "Traduction de la sélection",
                 "ocr_recognize": "Reconnaissance de texte",
                 "set_hotkey": "Appuyer pour définir"
             },
