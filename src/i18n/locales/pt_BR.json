@@ -282,8 +282,8 @@
                 },
                 "alibaba": {
                     "title": "Alibaba",
-                    "accesskey_id": "AccessKey ID",
-                    "accesskey_secret": "AccessKey Secret"
+                    "accesskey_id": "ID da Chave de Acesso",
+                    "accesskey_secret": "Segredo da Chave de Acesso"
                 },
                 "tencent": {
                     "title": "Tencent",
