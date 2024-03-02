@@ -304,6 +304,7 @@
                 "server_port": "Port d'écoute",
                 "proxy_error": "Veuillez compléter l'hôte et le port",
                 "check_update": "Vérifier les mises à jour",
+                "history_disable": "Désactiver l'historique",
                 "app_language": "Langue de l'application",
                 "transparent": "Effet de transparence",
                 "title": "Paramètres généraux",

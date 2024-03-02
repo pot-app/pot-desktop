@@ -29,6 +29,7 @@
         "config": {
             "general": {
                 "check_update": "Перевірити оновлення",
+                "history_disable": "Вимкнути історію",
                 "auto_start": "Автозапуск",
                 "label": "Загальні",
                 "title": "Загальні налаштування",
