@@ -27,7 +27,6 @@ export default function General() {
     const [autoStart, setAutoStart] = useState(false);
     const [fontList, setFontList] = useState(null);
     const [checkUpdate, setCheckUpdate] = useConfig('check_update', true);
-    const [historyDisable, setHistoryDisable] = useConfig('history_disable', false);
     const [serverPort, setServerPort] = useConfig('server_port', 60828);
     const [appLanguage, setAppLanguage] = useConfig('app_language', 'en');
     const [appTheme, setAppTheme] = useConfig('app_theme', 'system');
@@ -105,17 +104,6 @@ export default function General() {
                                 isSelected={checkUpdate}
                                 onValueChange={(v) => {
                                     setCheckUpdate(v);
-                                }}
-                            />
-                        )}
-                    </div>
-                    <div className='config-item'>
-                        <h3>{t('config.general.history_disable')}</h3>
-                        {historyDisable !== null && (
-                            <Switch
-                                isSelected={historyDisable}
-                                onValueChange={(v) => {
-                                    setHistoryDisable(v);
                                 }}
                             />
                         )}
@@ -340,8 +328,9 @@ export default function General() {
                                     aria-label='app font'
                                     className='max-h-[50vh] overflow-y-auto'
                                     onAction={(key) => {
-                                        document.documentElement.style.fontFamily = `"${key === 'default' ? 'sans-serif' : key
-                                            }","${appFallbackFont === 'default' ? 'sans-serif' : appFallbackFont}"`;
+                                        document.documentElement.style.fontFamily = `"${
+                                            key === 'default' ? 'sans-serif' : key
+                                        }","${appFallbackFont === 'default' ? 'sans-serif' : appFallbackFont}"`;
                                         setAppFont(key);
                                     }}
                                 >
@@ -385,8 +374,9 @@ export default function General() {
                                     aria-label='app font'
                                     className='max-h-[50vh] overflow-y-auto'
                                     onAction={(key) => {
-                                        document.documentElement.style.fontFamily = `"${appFont === 'default' ? 'sans-serif' : appFont
-                                            }","${key === 'default' ? 'sans-serif' : key}"`;
+                                        document.documentElement.style.fontFamily = `"${
+                                            appFont === 'default' ? 'sans-serif' : appFont
+                                        }","${key === 'default' ? 'sans-serif' : key}"`;
                                         setAppFallbackFont(key);
                                     }}
                                 >

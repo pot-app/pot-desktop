@@ -1,12 +1,10 @@
-## 2.7.8 (2024-02-24)
+## 2.7.9 (2024-03-02)
+
+### Break Change:
+
+-   如果更新后遇到闪退问题请重新安装所有插件的最新版本
 
 ### New feature:
 
-- Support Custom RequestPath for Gemini-pro([`1d8fc6c`](https://github.com/pot-app/pot-desktop/commit/1d8fc6c73bbfc2a4efa01612fb60346fbbe1010e)) (by @Pylogmon)
-- Support Ukrainian([`66ff73e`](https://github.com/pot-app/pot-desktop/commit/66ff73e1e553519ba30378d22bc6ca938499e9e1)) (by @Pylogmon)
-
-### Bugs fixed:
-
-- Word explains display error([`b95a367`](https://github.com/pot-app/pot-desktop/commit/b95a36706b13403aa810efbcbaea64edcf667058)) (by @Pylogmon)
-- Allow search phrases([`a22a548`](https://github.com/pot-app/pot-desktop/commit/a22a5484b4564b5d6ea373b2fba3115a477d1df8)) (by @Pylogmon)
-- Fix OpenAI Path Error([`cc4ba78`](https://github.com/pot-app/pot-desktop/commit/cc4ba78af9b0213b2dbffdda788a7d76a6c843e8)) (by @Pylogmon)
+-   Support Ollama Local Large Language Models([`77fd005`](https://github.com/pot-app/pot-desktop/commit/77fd005187cdf3847e729bbd45c22db4873dfd98)) (by @Pylogmon)
+-   Support Disable History (#719)([`b4e0a5a`](https://github.com/pot-app/pot-desktop/commit/b4e0a5a2cf94f9522ec43f2ad07438e3c1d25122)) (by @tommy )

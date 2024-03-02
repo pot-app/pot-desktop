@@ -20,6 +20,7 @@ export default function Translate() {
     const [detectEngine, setDetectEngine] = useConfig('translate_detect_engine', 'baidu');
     const [autoCopy, setAutoCopy] = useConfig('translate_auto_copy', 'disable');
     const [incrementalTranslate, setIncrementalTranslate] = useConfig('incremental_translate', false);
+    const [historyDisable, setHistoryDisable] = useConfig('history_disable', false);
     const [dynamicTranslate, setDynamicTranslate] = useConfig('dynamic_translate', false);
     const [deleteNewline, setDeleteNewline] = useConfig('translate_delete_newline', false);
     const [rememberLanguage, setRememberLanguage] = useConfig('translate_remember_language', false);
@@ -153,6 +154,17 @@ export default function Translate() {
                                     <DropdownItem key='disable'>{t('config.translate.disable')}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3>{t('config.translate.history_disable')}</h3>
+                        {historyDisable !== null && (
+                            <Switch
+                                isSelected={historyDisable}
+                                onValueChange={(v) => {
+                                    setHistoryDisable(v);
+                                }}
+                            />
                         )}
                     </div>
                     <div className='config-item'>

@@ -330,8 +330,9 @@ export default function TargetArea(props) {
         >
             <Toaster />
             <CardHeader
-                className={`flex justify-between py-1 px-0 bg-content2 h-[30px] ${hide ? 'rounded-[10px]' : 'rounded-t-[10px]'
-                    }`}
+                className={`flex justify-between py-1 px-0 bg-content2 h-[30px] ${
+                    hide ? 'rounded-[10px]' : 'rounded-t-[10px]'
+                }`}
                 {...drag}
             >
                 <div className='flex'>
@@ -478,8 +479,9 @@ export default function TargetArea(props) {
                                                                 {index === 0 ? (
                                                                     <>
                                                                         <span
-                                                                            className={`text-[${appFontSize - 2
-                                                                                }px] text-default-500 mr-[12px]`}
+                                                                            className={`text-[${
+                                                                                appFontSize - 2
+                                                                            }px] text-default-500 mr-[12px]`}
                                                                         >
                                                                             {explanations['trait']}
                                                                         </span>
@@ -492,8 +494,9 @@ export default function TargetArea(props) {
                                                                     </>
                                                                 ) : (
                                                                     <span
-                                                                        className={`text-[${appFontSize - 2
-                                                                            }px] text-default-500 select-text mr-1`}
+                                                                        className={`text-[${
+                                                                            appFontSize - 2
+                                                                        }px] text-default-500 select-text mr-1`}
                                                                         key={nanoid()}
                                                                     >
                                                                         {explain}
@@ -564,8 +567,9 @@ export default function TargetArea(props) {
                         )}
                     </CardBody>
                     <CardFooter
-                        className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'
-                            }`}
+                        className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${
+                            hide && 'hidden'
+                        }`}
                     >
                         <ButtonGroup>
                             <Tooltip content={t('translate.speak')}>
