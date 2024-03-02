@@ -52,7 +52,6 @@ export function Config(props) {
         const ollama = new Ollama({ host: serviceConfig.requestPath });
         const stream = await ollama.pull({ model: serviceConfig.model, stream: true });
         for await (const part of stream) {
-            console.log(part);
             if (part.digest) {
                 let percent = 0;
                 if (part.completed && part.total) {

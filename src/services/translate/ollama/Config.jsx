@@ -37,8 +37,6 @@ export function Config(props) {
     const [installedModels, setInstalledModels] = useState(null);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
-    console.log(serviceConfig);
-    console.log(installedModels);
 
     async function getModles() {
         try {
@@ -55,7 +53,6 @@ export function Config(props) {
         const ollama = new Ollama({ host: serviceConfig.requestPath });
         const stream = await ollama.pull({ model: serviceConfig.model, stream: true });
         for await (const part of stream) {
-            console.log(part);
             if (part.digest) {
                 let percent = 0;
                 if (part.completed && part.total) {
