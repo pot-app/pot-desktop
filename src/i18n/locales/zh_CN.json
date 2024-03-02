@@ -255,6 +255,15 @@
                     "prompt_description": "通过自定义Prompt自定义AI的行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
                 },
+                "ollama_polish": {
+                    "title": "Ollama 润色"
+                },
+                "ollama_summary": {
+                    "title": "Ollama 总结"
+                },
+                "ollama_custom": {
+                    "title": "Ollama 自定义"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "服务提供商",

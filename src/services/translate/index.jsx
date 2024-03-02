@@ -26,6 +26,9 @@ import * as _geminipro_summary from './geminipro_summary';
 import * as _geminipro_polish from './geminipro_polish';
 import * as _geminipro_custom from './geminipro_custom';
 import * as _ollama from './ollama';
+import * as _ollama_summary from './ollama_summary';
+import * as _ollama_polish from './ollama_polish';
+import * as _ollama_custom from './ollama_custom';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -55,3 +58,6 @@ export const geminipro_summary = _geminipro_summary;
 export const geminipro_polish = _geminipro_polish;
 export const geminipro_custom = _geminipro_custom;
 export const ollama = _ollama;
+export const ollama_summary = _ollama_summary;
+export const ollama_polish = _ollama_polish;
+export const ollama_custom = _ollama_custom;

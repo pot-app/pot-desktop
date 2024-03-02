@@ -14,7 +14,7 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [serviceConfig, setServiceConfig] = useConfig(
-        'ollama',
+        'ollama_custom',
         {
             stream: true,
             model: 'gemma:2b',
@@ -22,10 +22,9 @@ export function Config(props) {
             promptList: [
                 {
                     role: 'system',
-                    content:
-                        'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                    content: 'You are a helpful assistant.',
                 },
-                { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
+                { role: 'user', content: '$text' },
             ],
         },
         { sync: false }
@@ -37,8 +36,6 @@ export function Config(props) {
     const [installedModels, setInstalledModels] = useState(null);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
-    console.log(serviceConfig);
-    console.log(installedModels);
 
     async function getModles() {
         try {
@@ -90,7 +87,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setServiceConfig(serviceConfig, true);
-                            updateServiceList('ollama');
+                            updateServiceList('ollama_custom');
                             onClose();
                         },
                         (e) => {

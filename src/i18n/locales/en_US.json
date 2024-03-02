@@ -255,6 +255,15 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of AI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
+                "ollama_polish": {
+                    "title": "Ollama Polish"
+                },
+                "ollama_summary": {
+                    "title": "Ollama Summary"
+                },
+                "ollama_custom": {
+                    "title": "Ollama Custom"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "Service Provider",

@@ -14,7 +14,7 @@ import { Language } from './index';
 export function Config(props) {
     const { updateServiceList, onClose } = props;
     const [serviceConfig, setServiceConfig] = useConfig(
-        'ollama',
+        'ollama_polish',
         {
             stream: true,
             model: 'gemma:2b',
@@ -22,10 +22,9 @@ export function Config(props) {
             promptList: [
                 {
                     role: 'system',
-                    content:
-                        'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                    content: 'You are a text embellisher, you can only embellish the text, never interpret it.',
                 },
-                { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
+                { role: 'user', content: `Embellish in $detect:\n"""\n$text\n"""` },
             ],
         },
         { sync: false }
@@ -90,7 +89,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setServiceConfig(serviceConfig, true);
-                            updateServiceList('ollama');
+                            updateServiceList('ollama_polish');
                             onClose();
                         },
                         (e) => {

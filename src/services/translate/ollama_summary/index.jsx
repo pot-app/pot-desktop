@@ -5,7 +5,7 @@ import { Ollama } from 'ollama/browser';
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('ollama');
+    let translateConfig = await store.get('ollama_summary');
     if (config !== undefined) {
         translateConfig = config;
     }
