@@ -137,6 +137,29 @@
                 },
                 "geminipro_custom": {
                     "title": "Gemini Pro personnalisé"
+                },
+                "ollama": {
+                    "request_path": "Chemin de la demande",
+                    "title": "Ollama",
+                    "prompt_description": "En personnalisant le prompt, vous pouvez personnaliser le comportement de l'IA. $text $from $to $detect sera remplacé par le texte à traduire, la langue source, la langue cible et la langue détectée.",
+                    "add": "Ajouter un prompt",
+                    "stream": "Mode flux",
+                    "ready": "Prêt",
+                    "not_installed": "Ce modèle n'a pas encore été installé, cliquez pour le télécharger et l'installer maintenant",
+                    "supported_models": "Cliquez pour voir la liste des modèles Ollama disponibles",
+                    "install_ollama_link": "Télécharger Ollama",
+                    "model": "Modèle",
+                    "install_model": "Installer",
+                    "install_ollama": "Impossible de se connecter à ollama en local, veuillez d'abord télécharger, installer et démarrer ollama. Si vous utilisez une instance ollama qui n'est pas sur cette machine, veuillez changer l'adresse de demande."
+                },
+                "ollama_summary": {
+                    "title": "Ollama Résumé"
+                },
+                "ollama_custom": {
+                    "title": "Ollama personnalisé"
+                },
+                "ollama_polish": {
+                    "title": "Ollama poli"
                 }
             },
             "recognize": {
@@ -362,7 +385,8 @@
                     "16": "Normal (16px)",
                     "10": "Très très petit (10px)",
                     "18": "Grand (18px)"
-                }
+                },
+                "history_disable": "Désactiver l'historique"
             },
             "backup": {
                 "local": "Local",
