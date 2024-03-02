@@ -241,6 +241,20 @@
                 "bing": {
                     "title": "必应翻译"
                 },
+                "ollama": {
+                    "title": "Ollama",
+                    "install_ollama": "无法连接到本地ollama，请先下载安装并启动ollama，如果您使用不在本机上的ollama，请更改请求地址",
+                    "install_ollama_link": "Ollama 下载地址",
+                    "request_path": "请求地址",
+                    "stream": "流式输出",
+                    "model": "模型",
+                    "install_model": "安装",
+                    "ready": "就绪",
+                    "not_installed": "该模型还未安装，点击立即下载安装",
+                    "supported_models": "点击查看 Ollama 可用模型列表",
+                    "prompt_description": "通过自定义Prompt自定义AI的行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
+                    "add": "添加 Prompt"
+                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "服务提供商",

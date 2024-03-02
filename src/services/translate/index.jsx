@@ -25,6 +25,7 @@ import * as _geminipro from './geminipro';
 import * as _geminipro_summary from './geminipro_summary';
 import * as _geminipro_polish from './geminipro_polish';
 import * as _geminipro_custom from './geminipro_custom';
+import * as _ollama from './ollama';
 
 export const deepl = _deepl;
 export const bing = _bing;
@@ -53,3 +54,4 @@ export const geminipro = _geminipro;
 export const geminipro_summary = _geminipro_summary;
 export const geminipro_polish = _geminipro_polish;
 export const geminipro_custom = _geminipro_custom;
+export const ollama = _ollama;

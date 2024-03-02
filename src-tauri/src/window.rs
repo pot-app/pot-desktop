@@ -23,6 +23,7 @@ fn get_daemon_window() -> Window {
                 tauri::WindowUrl::App("daemon.html".into()),
             )
             .title("Daemon")
+            .additional_browser_args("--disable-web-security")
             .visible(false)
             .build()
             .unwrap()
@@ -82,6 +83,7 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
                 tauri::WindowUrl::App("index.html".into()),
             )
             .position(position.x.into(), position.y.into())
+            .additional_browser_args("--disable-web-security")
             .focused(true)
             .title(title)
             .visible(false);

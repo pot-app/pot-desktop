@@ -90,7 +90,8 @@
                 "title": "Daemon",
                 "label": "daemon",
                 "visible": false,
-                "url": "daemon.html"
+                "url": "daemon.html",
+                "additionalBrowserArgs": "--disable-web-security"
             }
         ],
         "systemTray": {
