@@ -361,6 +361,29 @@
                 },
                 "geminipro_summary": {
                     "title": "Resumo do Gemini Pro"
+                },
+                "ollama": {
+                    "install_ollama": "Não foi possível conectar-se ao ollama local. Baixe, instale e inicie o ollama primeiro. Se você usar ollama que não está nesta máquina, altere o endereço da solicitação.",
+                    "install_ollama_link": "Baixar Ollama",
+                    "title": "Ollama",
+                    "request_path": "Caminho da Solicitação",
+                    "add": "Adicionar Prompt",
+                    "model": "Modelo",
+                    "supported_models": "Clique para ver uma lista de modelos disponíveis da Ollama",
+                    "install_model": "Instalar",
+                    "stream": "Modo Stream",
+                    "ready": "Pronto",
+                    "not_installed": "Este modelo ainda não foi instalado, clique para baixar e instalar agora",
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento da IA. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado."
+                },
+                "ollama_polish": {
+                    "title": "Ollama Polonês"
+                },
+                "ollama_custom": {
+                    "title": "Ollama Personalizado"
+                },
+                "ollama_summary": {
+                    "title": "Resumo do Ollama"
                 }
             },
             "recognize": {
