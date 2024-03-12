@@ -52,12 +52,14 @@ export default function TargetArea(props) {
     const [clipboardMonitor] = useConfig('clipboard_monitor', false);
     const [hideWindow] = useConfig('translate_hide_window', false);
     const [historyDisable] = useConfig('history_disable', false);
-    const { name, index, translateServiceList, pluginList, ...drag } = props;
+    const { name, index, translateServiceList, pluginList, defaultCollapse, ...drag } = props;
     const [translateServiceName, setTranslateServiceName] = useState(name);
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(true);
+    const [collapse, setCollapse] = useState(defaultCollapse);
+    const [translateTask, setTranslateTask] = useState(null);
     const sourceText = useAtomValue(sourceTextAtom);
     const sourceLanguage = useAtomValue(sourceLanguageAtom);
     const targetLanguage = useAtomValue(targetLanguageAtom);
@@ -87,7 +89,12 @@ export default function TargetArea(props) {
                     }
                 });
             }
-            translate();
+            if (!collapse) {
+                translate(sourceText)();
+                setTranslateTask(null);
+            } else {
+                setTranslateTask(() => translate(sourceText));
+            }
         }
     }, [sourceText, targetLanguage, sourceLanguage, autoCopy, hideWindow, translateServiceName, clipboardMonitor]);
 
@@ -127,7 +134,7 @@ export default function TargetArea(props) {
         };
     }
 
-    const translate = async () => {
+    const translate = (sourceText) => async () => {
         let id = nanoid();
         translateID[index] = id;
         if (translateServiceName.startsWith('[plugin]')) {
@@ -417,7 +424,16 @@ export default function TargetArea(props) {
                         isIconOnly
                         variant='light'
                         className='h-[20px] w-[20px]'
-                        onPress={() => setHide(!hide)}
+                        onPress={() =>
+                            setHide((hide) => {
+                                setCollapse(!hide);
+                                if (hide && translateTask !== null) {
+                                    translateTask();
+                                    setTranslateTask(null);
+                                }
+                                return !hide;
+                            })
+                        }
                     >
                         {hide ? (
                             <BiExpandVertical className='text-[16px]' />
@@ -711,7 +727,11 @@ export default function TargetArea(props) {
                                     onPress={() => {
                                         setError('');
                                         setResult('');
-                                        translate();
+                                        if (translateTask !== null) {
+                                            translateTask();
+                                        } else {
+                                            translate(sourceText)();
+                                        }
                                     }}
                                 >
                                     <GiCycle className='text-[16px]' />

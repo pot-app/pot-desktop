@@ -2,7 +2,7 @@ import { RxDragHandleHorizontal } from 'react-icons/rx';
 import { Spacer, Button, Switch } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { BiSolidEdit } from 'react-icons/bi';
+import { BiSolidEdit, BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import React from 'react';
 
 import * as builtinServices from '../../../../../../services/translate';
@@ -59,6 +59,23 @@ export default function ServiceItem(props) {
                             setServiceConfig({ ...serviceConfig, enable: v });
                         }}
                     />
+                    <Spacer x={2} />
+                    <Button
+                        isIconOnly
+                        size='sm'
+                        variant='light'
+                        onPress={() => {
+                            const collapse = serviceConfig['collapse'] ?? false;
+                            setServiceConfig({ ...serviceConfig, collapse: !collapse });
+                        }}
+                    >
+                        {serviceConfig['collapse'] ? (
+                            <BiExpandVertical className='text-2xl' />
+                        ) : (
+                            <BiCollapseVertical className='text-2xl' />
+                        )}
+                    </Button>
+                    <Spacer x={2} />
                     <Button
                         isIconOnly
                         size='sm'

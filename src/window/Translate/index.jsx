@@ -273,6 +273,7 @@ export default function Translate() {
                                             translateServiceList.map((service, index) => {
                                                 const config = serviceConfig[service] ?? {};
                                                 const enable = config['enable'] ?? true;
+                                                const collapse = config['collapse'];
 
                                                 return enable ? (
                                                     <Draggable
@@ -291,6 +292,7 @@ export default function Translate() {
                                                                     name={service}
                                                                     index={index}
                                                                     translateServiceList={translateServiceList}
+                                                                    defaultCollapse={collapse}
                                                                 />
                                                                 <Spacer y={2} />
                                                             </div>
