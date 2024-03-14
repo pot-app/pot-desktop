@@ -176,7 +176,7 @@
             },
             "backup": {
                 "label": "Бэкап",
-                "title": "Настройка бэкапа",
+                "title": "Настройки бэкапа",
                 "type": "Тип сервиса",
                 "webdav": "WebDav",
                 "local": "Локально",
@@ -361,6 +361,29 @@
                 },
                 "geminipro_summary": {
                     "title": "Gemini Pro содержание"
+                },
+                "ollama": {
+                    "title": "Ollama",
+                    "add": "Добавить Prompt",
+                    "supported_models": "Нажмите, чтобы просмотреть список моделей Ollama",
+                    "prompt_description": "Указав Prompt, вы можете настроить поведение ИИ. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
+                    "install_ollama": "Не удаётся подключиться к локальному Ollama. Пожалуйста, загрузите и установите Ollama. Если вы используете Ollama, которая не установлена на этом компьютере, пожалуйста, измените адрес запроса.",
+                    "request_path": "Путь запроса",
+                    "model": "Модель",
+                    "install_model": "Установить",
+                    "ready": "Готово",
+                    "not_installed": "Эта модель ещё не установлена, нажмите, чтобы загрузить и установить",
+                    "stream": "Потоковый режим",
+                    "install_ollama_link": "Загрузить Ollama"
+                },
+                "ollama_polish": {
+                    "title": "Ollama Polish"
+                },
+                "ollama_custom": {
+                    "title": "Ollama Custom"
+                },
+                "ollama_summary": {
+                    "title": "Ollama Summary"
                 }
             },
             "recognize": {
