@@ -162,13 +162,13 @@
                 "collection": "Коллекция",
                 "least": "Пожалуйста, сохраните хотя бы один",
                 "add_builtin_service": "Добавить встроенный сервис",
-                "add_external_service": "Добавить расширение",
+                "add_external_service": "Добавить плагин",
                 "add_service": "Добавить сервис",
                 "test_failed": "Ошибка теста",
                 "install_plugin": "Установить плагин",
                 "uninstall_success": "Плагин успешно удалён",
                 "homepage": "Домашняя страница",
-                "view_plugin_list": "Посмотреть список плагинов"
+                "view_plugin_list": "Список плагинов"
             },
             "history": {
                 "label": "История",
@@ -192,7 +192,7 @@
                 "aliyun": "Aliyun Drive",
                 "logout": "Выйти",
                 "login_success": "Вход выполнен",
-                "aliyun_login_first": "Для входа отсканируйте код."
+                "aliyun_login_first": "Для входа отсканируйте код"
             },
             "about": {
                 "label": "О программе",
@@ -251,8 +251,8 @@
                     "api_key": "Api Key",
                     "model": "Модель",
                     "stream": "Режим потока",
-                    "prompt_description": "Настроив Prompt, вы можете настроить поведение OpenAI. $text $from $to $detect будет заменен текстом для перевода, исходным языком, целевым языком и обнаруженным языком.",
-                    "add": "Добавить Prompt"
+                    "prompt_description": "Указав Промт, вы можете настроить поведение OpenAI. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
+                    "add": "Добавить Промт"
                 },
                 "yandex": {
                     "title": "Яндекс"
@@ -323,30 +323,30 @@
                     "chatglm_pro": "ChatGLM Pro",
                     "model": "Модель",
                     "chatglm_std": "ChatGLM Std",
-                    "add": "Добавить Prompt",
-                    "prompt_description": "Путем настройки приглашения вы можете настроить поведение искусственного интеллекта. $text Auto Russian English будет заменено текстом для перевода, языком источника, языком назначения и обнаруженным языком.",
+                    "add": "Добавить Промт",
+                    "prompt_description": "Указав Промт, вы можете настроить поведение ИИ. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
                     "chatglm_turbo": "ChatGLM Turbo"
                 },
                 "chatglm_custom": {
-                    "title": "ChatGLM Обычай"
+                    "title": "ChatGLM Custom"
                 },
                 "chatglm_polish": {
-                    "title": "ChatGLM Редактирование"
+                    "title": "ChatGLM Polish"
                 },
                 "chatglm_summary": {
-                    "title": "ChatGLM Сводка"
+                    "title": "ChatGLM Summary"
                 },
                 "openai_custom": {
-                    "title": "OpenAI Обычай"
+                    "title": "OpenAI Custom"
                 },
                 "openai_polish": {
-                    "title": "OpenAI подправить"
+                    "title": "OpenAI Polish"
                 },
                 "openai_summary": {
-                    "title": "OpenAI Резюме"
+                    "title": "OpenAI Summary"
                 },
                 "geminipro_polish": {
-                    "title": "Gemini Pro польский"
+                    "title": "Gemini Pro Polish"
                 },
                 "geminipro": {
                     "add": "Добавить Промт",
@@ -357,16 +357,16 @@
                     "request_path": "Путь запроса"
                 },
                 "geminipro_custom": {
-                    "title": "Gemini Pro пользовательский"
+                    "title": "Gemini Pro Custom"
                 },
                 "geminipro_summary": {
-                    "title": "Gemini Pro содержание"
+                    "title": "Gemini Pro Summary"
                 },
                 "ollama": {
                     "title": "Ollama",
-                    "add": "Добавить Prompt",
+                    "add": "Добавить Промт",
                     "supported_models": "Нажмите, чтобы просмотреть список моделей Ollama",
-                    "prompt_description": "Указав Prompt, вы можете настроить поведение ИИ. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
+                    "prompt_description": "Указав Промт, вы можете настроить поведение ИИ. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
                     "install_ollama": "Не удаётся подключиться к локальному Ollama. Пожалуйста, загрузите и установите Ollama. Если вы используете Ollama, которая не установлена на этом компьютере, пожалуйста, измените адрес запроса.",
                     "request_path": "Путь запроса",
                     "model": "Модель",
