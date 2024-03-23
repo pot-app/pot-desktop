@@ -1,12 +1,10 @@
-use crate::config::get;
-use crate::config::set;
-use crate::StringWrapper;
-use crate::APP;
+use crate::{
+    config::{get, set},
+    screenshot, StringWrapper, APP,
+};
 use log::{info, warn};
-use tauri::Manager;
-use tauri::Monitor;
-use tauri::Window;
-use tauri::WindowBuilder;
+use mouse_position::mouse_position::{Mouse, Position};
+use tauri::{Manager, Monitor, Window, WindowBuilder};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
 
@@ -56,8 +54,6 @@ fn get_current_monitor(x: i32, y: i32) -> Monitor {
 
 // Creating a window on the mouse monitor
 fn build_window(label: &str, title: &str) -> (Window, bool) {
-    use mouse_position::mouse_position::{Mouse, Position};
-
     let mouse_position = match Mouse::get_mouse_position() {
         Mouse::Position { x, y } => Position { x, y },
         Mouse::Error => {
@@ -120,7 +116,6 @@ pub fn config_window() {
 }
 
 fn translate_window() -> Window {
-    use mouse_position::mouse_position::{Mouse, Position};
     // Mouse physical position
     let mut mouse_position = match Mouse::get_mouse_position() {
         Mouse::Position { x, y } => Position { x, y },
@@ -337,6 +332,17 @@ pub fn ocr_recognize() {
     });
 }
 pub fn ocr_translate() {
+    let mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
+        }
+    };
+    let current_monitor = get_current_monitor(mouse_position.x, mouse_position.y);
+    let position = current_monitor.position();
+    screenshot(position.x, position.y);
+
     let window = screenshot_window();
     let window_ = window.clone();
     window.listen("success", move |event| {
