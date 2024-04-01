@@ -272,6 +272,15 @@ paru -S pot-translation # or pot-translation-bin or pot-translation-git
 sudo pacman -S pot-translation
 ```
 
+### Flatpak
+
+> [!WARNING]
+> The tray icon is missing in Flatpak version.
+
+<a href='https://flathub.org/apps/com.pot_app.pot'>
+    <img width='240' alt='Download on Flathub' src='https://flathub.org/api/badge?locale=en'/>
+</a>
+
 <div align="center">
 
 # External Calls
