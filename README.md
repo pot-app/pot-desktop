@@ -276,6 +276,15 @@ yay -S pot-translation # 或 pot-translation-bin
 sudo pacman -S pot-translation
 ```
 
+### Flatpak
+
+> [!WARNING]
+> Flatpak 版本缺失托盘图标。
+
+<a href='https://flathub.org/apps/com.pot_app.pot'>
+    <img width='240' alt='Download on Flathub' src='https://flathub.org/api/badge?locale=zh-Hans'/>
+</a>
+
 <div align="center">
 
 # 外部调用
