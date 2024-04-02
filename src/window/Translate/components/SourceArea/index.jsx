@@ -141,7 +141,8 @@ export default function SourceArea(props) {
             }
             if (incrementalTranslate) {
                 setSourceText((old) => {
-                    return old + ' ' + newText;
+                    //增量翻译的时候 如果原来没有内容 则直接设置内容 避免文章开头出现空格
+                    return old == '' ? newText : old + ' ' + newText;
                 });
             } else {
                 setSourceText(newText);
