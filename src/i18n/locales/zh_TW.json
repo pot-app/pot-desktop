@@ -3,14 +3,14 @@
         "common": {
             "ok": "確定",
             "cancel": "取消",
-            "save": "保存",
+            "save": "儲存",
             "write_clipboard": "寫入剪貼簿",
             "plugin": "外掛程式",
-            "coming": "敬請期待…",
-            "clear": "清空"
+            "coming": "即將推出…",
+            "clear": "清除"
         },
         "languages": {
-            "auto": "自動檢測",
+            "auto": "自動偵測",
             "zh_cn": "簡體中文",
             "zh_tw": "繁體中文",
             "ja": "日語",
@@ -23,7 +23,7 @@
             "it": "義大利語",
             "tr": "土耳其語",
             "pt_pt": "葡萄牙語",
-            "pt_br": "葡萄牙語 (巴西)",
+            "pt_br": "葡萄牙語（巴西）",
             "vi": "越南語",
             "id": "印尼語",
             "th": "泰語",
@@ -31,57 +31,76 @@
             "ar": "阿拉伯語",
             "hi": "印地語",
             "mn_mo": "蒙古語",
-            "mn_cy": "蒙古語(西里爾)",
+            "mn_cy": "蒙古語（西里爾字母）",
             "km": "高棉語",
-            "nb_no": "書面挪威語",
-            "nn_no": "新挪威語"
+            "nb_no": "挪威語（書面語）",
+            "nn_no": "挪威語（新諾斯克）",
+            "sv": "瑞典語",
+            "pl": "波蘭語",
+            "nl": "荷蘭語",
+            "fa": "波斯語",
+            "uk": "烏克蘭語"
         },
         "config": {
             "general": {
-                "label": "常規設定",
-                "title": "常規設定",
-                "auto_start": "開機時啟動應用程式",
+                "label": "一般設定",
+                "title": "一般設定",
+                "auto_start": "開機自動啟動",
                 "check_update": "啟動時檢查更新",
-                "server_port": "監聽埠號",
-                "server_port_change": "監聽埠號已更改，重啟應用程式生效",
-                "app_language": "應用語言",
-                "app_theme": "應用主題",
+                "server_port": "監聽連接埠",
+                "server_port_change": "監聽連接埠已變更，請重新啟動應用程式以使變更生效",
+                "app_language": "應用程式語言",
+                "app_theme": "主題",
                 "theme": {
-                    "light": "淺色",
-                    "dark": "深色",
-                    "system": "跟隨系統"
+                    "light": "淺色主題",
+                    "dark": "深色主題",
+                    "system": "系統主題"
                 },
                 "transparent": "透明效果",
                 "proxy": {
-                    "title": "網路代理",
-                    "host": "代理地址",
-                    "port": "代理埠號",
-                    "username": "用户名",
-                    "password": "密碼"
+                    "title": "代理伺服器",
+                    "host": "主機",
+                    "port": "連接埠",
+                    "username": "使用者名稱",
+                    "password": "密碼",
+                    "no_proxy": "不使用代理伺服器"
                 },
-                "proxy_change": "代理已更改，重啟應用程式生效",
-                "proxy_error": "請填寫代理地址和埠號",
-                "tray_click_event": "系統列小圖示點擊事件",
+                "proxy_change": "代理伺服器已變更，請重新啟動應用程式以使變更生效",
+                "proxy_error": "請填寫主機和連接埠",
+                "tray_click_event": "系統列圖示點選事件",
                 "event": {
-                    "config": "打開設定",
-                    "translate": "打開翻譯視窗",
-                    "disable": "禁用",
+                    "config": "偏好設定",
+                    "translate": "翻譯",
+                    "disable": "停用",
                     "ocr_recognize": "文字辨識",
                     "ocr_translate": "截圖翻譯"
-                }
+                },
+                "app_font": "字型",
+                "app_fallback_font": "備用字型",
+                "font_size": {
+                    "title": "字型大小",
+                    "10": "特小（10px）",
+                    "12": "非常小（12px）",
+                    "14": "小（14px）",
+                    "18": "大（18px）",
+                    "20": "非常大（20px）",
+                    "24": "特大（24px）",
+                    "16": "標準（16px）"
+                },
+                "default_font": "預設"
             },
             "translate": {
                 "label": "翻譯設定",
                 "title": "翻譯設定",
-                "source_language": "原始語言",
-                "target_language": "目標語言",
-                "second_language": "第二目標語言",
+                "source_language": "原文語言",
+                "target_language": "譯文語言",
+                "second_language": "次要目標語言",
                 "auto_copy": "自動複製",
                 "source": "原文",
                 "target": "譯文",
                 "source_target": "原文+譯文",
-                "disable": "禁用",
-                "history_disable": "禁用歷史記錄",
+                "disable": "停用",
+                "history_disable": "停用歷史記錄",
                 "incremental_translate": "增量翻譯",
                 "dynamic_translate": "動態翻譯",
                 "delete_newline": "自動刪除換行",
@@ -93,20 +112,30 @@
                 "close_on_blur": "失去焦點時關閉視窗",
                 "always_on_top": "視窗始終置頂",
                 "hide_source": "隱藏原文",
-                "hide_language": "隱藏語言欄",
+                "hide_language": "隱藏語言區域",
                 "hide_window": "隱藏翻譯視窗",
-                "detect_engine": "語言檢測引擎",
+                "detect_engine": "語言偵測引擎",
                 "baidu": "百度",
                 "tencent": "騰訊",
-                "niutrans": "小牛",
+                "niutrans": "小牛翻譯",
                 "google": "Google",
                 "bing": "Bing",
                 "yandex": "Yandex",
-                "local": "本地"
+                "local": "本地",
+                "font_size": {
+                    "18": "大（18px）",
+                    "20": "很大（20px）",
+                    "24": "非常大（24px）",
+                    "16": "標準（16px）",
+                    "10": "非常小（10px）",
+                    "title": "字型大小",
+                    "12": "很小（12px）",
+                    "14": "小（14px）"
+                }
             },
             "recognize": {
                 "label": "文字辨識",
-                "title": "文字辨識",
+                "title": "文字辨識設定",
                 "language": "辨識語言",
                 "delete_newline": "自動刪除換行",
                 "auto_copy": "自動複製",
@@ -114,14 +143,15 @@
                 "hide_window": "隱藏辨識視窗"
             },
             "hotkey": {
-                "label": "熱鍵設定",
-                "title": "熱鍵設定",
+                "label": "快速鍵設定",
+                "title": "快速鍵設定",
                 "selection_translate": "選取翻譯",
                 "input_translate": "輸入翻譯",
                 "ocr_recognize": "文字辨識",
                 "ocr_translate": "截圖翻譯",
-                "is_register": "快速鍵已被註冊",
-                "success": "快速鍵註冊成功"
+                "is_register": "該快速鍵已被註冊",
+                "success": "快速鍵註冊成功",
+                "set_hotkey": "按下設定快速鍵"
             },
             "service": {
                 "label": "服務設定",
@@ -129,7 +159,7 @@
                 "translate": "翻譯",
                 "tts": "語音合成",
                 "recognize": "文字辨識",
-                "collection": "生詞本",
+                "collection": "收藏",
                 "least": "請至少保留一個",
                 "add_builtin_service": "新增內建服務",
                 "add_external_service": "新增擴充套件",
@@ -137,8 +167,8 @@
                 "test_failed": "測試失敗",
                 "install_plugin": "安裝外掛程式",
                 "uninstall_success": "外掛程式移除成功",
-                "homepage": "外掛程式主頁",
-                "view_plugin_list": "查看外掛程式列表"
+                "homepage": "外掛程式首頁",
+                "view_plugin_list": "檢視外掛程式列表"
             },
             "history": {
                 "label": "歷史記錄",
@@ -150,60 +180,64 @@
                 "type": "服務類型",
                 "webdav": "WebDav",
                 "local": "本地",
-                "webdav_url": "WebDav地址",
-                "username": "用户名",
+                "webdav_url": "WebDav 網址",
+                "username": "使用者名稱",
                 "password": "密碼",
                 "backup": "備份",
-                "restore": "恢復備份",
+                "restore": "還原",
                 "list": "備份列表",
                 "load_success": "載入備份成功",
                 "backup_success": "備份成功",
-                "empty": "您還沒有備份"
+                "empty": "您尚未進行備份",
+                "aliyun_login_first": "請先掃描 QR Code 登入。",
+                "login_success": "登入成功",
+                "aliyun": "阿里雲網盤",
+                "logout": "登出"
             },
             "about": {
-                "label": "關於應用",
-                "title": "關於應用",
-                "website": "官網",
+                "label": "關於",
+                "title": "關於應用程式",
+                "website": "官方網站",
                 "github": "GitHub",
                 "feedback": "問題回饋",
-                "issue": "議題",
-                "email": "電郵",
-                "community": "社區交流",
+                "issue": "問題回報",
+                "email": "電子郵件",
+                "community": "社群交流",
                 "check_update": "檢查更新",
                 "view_log": "檢視記錄檔",
-                "view_config": "檢視設定檔",
+                "view_config": "檢視設定",
                 "qq_channel": "QQ 頻道",
-                "qq_group": "QQ 群",
+                "qq_group": "QQ 群組",
                 "telegram": "Telegram",
-                "discussion": "Github 討論"
+                "discussion": "Github 討論區"
             }
         },
         "updater": {
             "title": "檢查更新",
-            "latest": "## 已經是最新版本",
+            "latest": "## 已安裝最新版本",
             "progress": "下載進度",
             "update": "更新",
             "downloading": "下載中…",
             "installing": "安裝中…",
             "cancel": "取消",
-            "installed": "安裝完成，重啟應用生效"
+            "installed": "安裝完成，請重新啟動應用程式以使變更生效"
         },
         "services": {
-            "help": "配置指南",
-            "no_need": "無需配置",
+            "help": "設定指南",
+            "no_need": "無需設定",
             "translate": {
                 "deepl": {
                     "title": "DeepL",
-                    "custom_url": "DeepLX 地址",
-                    "auth_key": "API 密鑰",
+                    "custom_url": "DeepLX 網址",
+                    "auth_key": "授權金鑰",
                     "type": "服務類型",
-                    "free": "內建免費",
-                    "api": "Auth Key",
+                    "free": "免費版",
+                    "api": "授權金鑰",
                     "deeplx": "DeepLX"
                 },
                 "google": {
-                    "title": "Google翻譯",
-                    "custom_url": "自訂 URL"
+                    "title": "Google 翻譯",
+                    "custom_url": "自訂網址"
                 },
                 "bing": {
                     "title": "Bing 翻譯"
@@ -213,48 +247,49 @@
                     "service": "服務提供商",
                     "openai": "OpenAI",
                     "azure": "Azure",
-                    "request_path": "請求地址",
-                    "api_key": "Api Key",
+                    "request_path": "請求路徑",
+                    "api_key": "API Key",
                     "model": "模型",
                     "stream": "串流輸出",
-                    "prompt_description": "通過自定義Prompt自定義OpenAI行為, $text $from $to $detect 將會被替換為 待翻譯文本，源語言，目標語言和檢測到的語言。",
-                    "add": "添加 Prompt"
+                    "prompt_description": "透過自定義 Prompt，您可以自定義 OpenAI 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。",
+                    "add": "新增 Prompt"
                 },
                 "chatglm": {
-                    "title": "智譜 AI",
+                    "title": "ChatGLM",
                     "model": "模型",
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",
                     "chatglm_lite": "ChatGLM Lite",
-                    "api_key": "Api Key",
-                    "prompt_description": "通過自定義Prompt自定義AI行為, $text $from $to $detect 將會被替換為 待翻譯文本，源語言，目標語言和檢測到的語言。",
-                    "add": "添加 Prompt"
+                    "api_key": "API Key",
+                    "prompt_description": "透過自定義 Prompt，您可以自定義 AI 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。",
+                    "add": "新增 Prompt",
+                    "chatglm_turbo": "ChatGLM Turbo"
                 },
                 "chatglm_summary": {
-                    "title": "智譜 AI 總結"
+                    "title": "ChatGLM 總結"
                 },
                 "chatglm_polish": {
-                    "title": "智譜 AI 潤色"
+                    "title": "ChatGLM 潤飾"
                 },
                 "chatglm_custom": {
-                    "title": "智譜 AI 自定義"
+                    "title": "ChatGLM 自定義"
                 },
                 "yandex": {
                     "title": "Yandex"
                 },
                 "transmart": {
-                    "title": "騰訊互動翻譯",
-                    "username": "用户名",
+                    "title": "TranSmart",
+                    "username": "使用者名稱",
                     "token": "Token"
                 },
                 "baidu": {
                     "title": "百度翻譯",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "secret": "Secret"
                 },
                 "baidu_field": {
                     "title": "百度領域翻譯",
-                    "it": "信息技術",
+                    "it": "資訊科技",
                     "finance": "金融財經",
                     "machinery": "機械製造",
                     "senimed": "生物醫藥",
@@ -278,7 +313,7 @@
                 },
                 "volcengine": {
                     "title": "火山翻譯",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "secret": "Secret"
                 },
                 "niutrans": {
@@ -288,7 +323,7 @@
                 },
                 "youdao": {
                     "title": "有道翻譯",
-                    "appkey": "App ID",
+                    "appkey": "應用程式 ID",
                     "key": "Key"
                 },
                 "bing_dict": {
@@ -305,10 +340,50 @@
                     "title": "OpenAI 自定義"
                 },
                 "openai_polish": {
-                    "title": "OpenAI 潤色"
+                    "title": "OpenAI 潤飾"
                 },
                 "openai_summary": {
                     "title": "OpenAI 總結"
+                },
+                "ollama": {
+                    "add": "新增 Prompt",
+                    "title": "Ollama",
+                    "install_ollama": "無法連線到本機的 Ollama，請先下載、安裝並啟動 Ollama。如果您使用的 Ollama 不在這臺主機上，請更改對應的網址。",
+                    "install_ollama_link": "下載 Ollama",
+                    "request_path": "請求路徑",
+                    "supported_models": "點選檢視 Ollama 可用模型列表",
+                    "stream": "串流輸出",
+                    "model": "模型",
+                    "install_model": "安裝",
+                    "ready": "準備就緒",
+                    "not_installed": "此模型尚未安裝，點選立即下載並安裝",
+                    "prompt_description": "透過自定義 Prompt，您可以自定義 AI 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。"
+                },
+                "ollama_polish": {
+                    "title": "Ollama 潤飾"
+                },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "請求路徑",
+                    "api_key": "API Key",
+                    "prompt_description": "透過自定義 Prompt，您可以自定義 Gemini Pro 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。",
+                    "stream": "串流輸出",
+                    "add": "新增 Prompt"
+                },
+                "geminipro_summary": {
+                    "title": "Gemini Pro 總結"
+                },
+                "ollama_summary": {
+                    "title": "Ollama 總結"
+                },
+                "ollama_custom": {
+                    "title": "Ollama 自定義"
+                },
+                "geminipro_polish": {
+                    "title": "Gemini Pro 潤飾"
+                },
+                "geminipro_custom": {
+                    "title": "Gemini Pro 自定義"
                 }
             },
             "recognize": {
@@ -324,30 +399,30 @@
                     "client_secret": "Secret Key"
                 },
                 "baidu_accurate_ocr": {
-                    "title": "百度 OCR (高精度)",
+                    "title": "百度 OCR（高精度）",
                     "client_id": "API Key",
                     "client_secret": "Secret Key"
                 },
                 "baidu_img_ocr": {
                     "title": "百度圖片翻譯",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "secret": "Secret"
                 },
                 "iflytek_ocr": {
                     "title": "訊飛 OCR",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
                 "iflytek_intsig_ocr": {
                     "title": "訊飛 OCR (Intsig)",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
                 "iflytek_latex_ocr": {
                     "title": "訊飛公式辨識",
-                    "appid": "App ID",
+                    "appid": "應用程式 ID",
                     "apisecret": "API Secret",
                     "apikey": "API Key"
                 },
@@ -361,7 +436,7 @@
                     "secret_key": "Secret Key"
                 },
                 "tencent_accurate_ocr": {
-                    "title": "騰訊 OCR (高精度)",
+                    "title": "騰訊 OCR（高精度）",
                     "secret_id": "Secret ID",
                     "secret_key": "Secret Key"
                 },
@@ -372,39 +447,39 @@
                 },
                 "volcengine_ocr": {
                     "title": "火山 OCR",
-                    "appid": "App ID",
-                    "secret": "Secret"
+                    "appid": "應用程式 ID",
+                    "secret": "Secret Key"
                 },
                 "volcengine_multi_lang_ocr": {
-                    "title": "火山 OCR (多語言)",
-                    "appid": "App ID",
+                    "title": "火山 OCR（多語言）",
+                    "appid": "應用程式 ID",
                     "secret": "Secret"
                 },
                 "qrcode": {
-                    "title": "QRCODE辨識"
+                    "title": "QR Code"
                 }
             },
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva",
-                    "request_path": "請求地址"
+                    "request_path": "請求路徑"
                 }
             },
             "collection": {
                 "anki": {
                     "title": "Anki",
-                    "port": "埠號"
+                    "port": "連接埠"
                 },
                 "eudic": {
                     "title": "歐路詞典",
-                    "name": "生詞本名稱",
+                    "name": "收藏名稱",
                     "token": "Token"
                 }
             }
         },
         "translate": {
             "translate": "翻譯",
-            "add_collection_success": "添加成功",
+            "add_collection_success": "成功加入收藏",
             "recognizing": "辨識中…",
             "speak": "朗讀",
             "copy": "複製",
@@ -413,12 +488,12 @@
             "translate_back": "翻譯回原文"
         },
         "recognize": {
-            "recognize": "重新辨識",
+            "recognize": "辨識",
             "translate": "翻譯",
             "copy_img": "複製圖片",
             "copy_text": "複製",
             "delete_newline": "刪除換行",
-            "delete_space": "删除空格"
+            "delete_space": "刪除空格"
         }
     }
 }
