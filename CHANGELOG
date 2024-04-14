@@ -1,10 +1,10 @@
-## 2.7.9 (2024-03-02)
+## 2.7.10 (2024-04-14)
 
 ### Break Change:
 
 -   如果更新后遇到闪退问题请重新安装所有插件的最新版本
 
-### New feature:
+### Bugs fixed:
 
--   Support Ollama Local Large Language Models([`77fd005`](https://github.com/pot-app/pot-desktop/commit/77fd005187cdf3847e729bbd45c22db4873dfd98)) (by @Pylogmon)
--   Support Disable History (#719)([`b4e0a5a`](https://github.com/pot-app/pot-desktop/commit/b4e0a5a2cf94f9522ec43f2ad07438e3c1d25122)) (by @tommy )
+-   Check whether the directory is not empty before uninstall([`e88f2db`](https://github.com/pot-app/pot-desktop/commit/e88f2dbe0846ea61e4a48c290faa7dbc0dd2d549)) (by @Pylogmon)
+-   repair openai translation prompt description (#731)([`780c499`](https://github.com/pot-app/pot-desktop/commit/780c499d494002ef2e76175ae5fa27c883b6ec3c)) (by @zggsong)
