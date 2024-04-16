@@ -20,17 +20,31 @@
   <launchable type="desktop-id">com.pot_app.pot.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.9/asset/1.png</image>
+      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/1.png</image>
     </screenshot>
     <screenshot>
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.9/asset/2.png</image>
+      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/2.png</image>
     </screenshot>
     <screenshot>
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.9/asset/3.png</image>
+      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/3.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="2.7.10" date="2024-04-14"/>
+    <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/2.7.10</url>
+        <description>
+            <p>Break Change:</p>
+                <ul>
+                    <li>If you encountered crashes after upgrade, please reinstall the latest releases of all plugins</li>
+                    <li xml:lang="zh_CN">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
+                </ul>
+            <p>Bugs fixed:</p>
+                <ul>
+                    <li>Check whether the directory is not empty before uninstall</li>
+                    <li>Fix OpenAI translation prompt description</li>
+                </ul>
+        </description>
     <release version="2.7.9" date="2024-03-02"/>
   </releases>
   <content_rating type="oars-1.1"/>
