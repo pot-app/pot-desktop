@@ -3,7 +3,7 @@
   <id>com.pot_app.pot</id>
   
   <name>Pot</name>
-  <summary>Cross-platform translation software</summary>
+  <summary>A cross-platform translation software</summary>
   <developer_name>Pylogmon</developer_name>
 
   <url type="homepage">https://pot-app.com/</url>
@@ -13,7 +13,7 @@
   <project_license>GPL-3.0-only</project_license>
   
   <description>
-    <p>A cross-platform software for text translation and recognize.</p>
+    <p>A cross-platform software for text translation and recognition.</p>
     <p xml:lang="zh_CN">一个跨平台的划词翻译和 OCR 软件</p>
   </description>
   
