@@ -4,7 +4,7 @@
   
   <name>Pot</name>
   <summary>A cross-platform software for text translation and recognition</summary>
-  <summary xml:lang="zh_CN">一款跨平台的划词翻译和文字识别软件</summary>
+  <summary xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</summary>
   <developer id="com.pot_app">
       <name>Pylogmon</name>
   </developer>
@@ -17,9 +17,9 @@
   
   <description>
     <p>A cross-platform software for text translation and recognition.</p>
-    <p xml:lang="zh_CN">一款跨平台的划词翻译和文字识别软件</p>
+    <p xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</p>
     <p>Features</p>
-    <p xml:lang="zh_CN">特色功能</p>
+    <p xml:lang="zh-Hans">特色功能</p>
         <ul>
             <li>Parallel translations with multiple services</li>
             <li>OCR with multiple services</li>
@@ -31,7 +31,7 @@
             <li>Wayland support</li>
             <li>Multi-language support</li>
         </ul>
-        <ul xml:lang="zh_CN">
+        <ul xml:lang="zh-Hans">
             <li>多接口并行翻译</li>
             <li>多接口文字识别</li>
             <li>多接口语音合成</li>
@@ -64,7 +64,7 @@
             <p>Break Change:</p>
                 <ul>
                     <li>If you encountered crashes after upgrade, please reinstall the latest releases of all plugins</li>
-                    <li xml:lang="zh_CN">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
+                    <li xml:lang="zh-Hans">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
                 </ul>
             <p>Bugs fixed:</p>
                 <ul>
@@ -79,7 +79,7 @@
             <p>Break Change:</p>
                 <ul>
                     <li>If you encountered crashes after upgrade, please reinstall the latest releases of all plugins</li>
-                    <li xml:lang="zh_CN">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
+                    <li xml:lang="zh-Hans">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
                 </ul>
             <p>Bugs fixed:</p>
                 <ul>
