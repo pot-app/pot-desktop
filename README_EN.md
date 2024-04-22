@@ -294,7 +294,7 @@ Pot provides a complete HTTP interface for integration with other software. You 
 ```bash
 POST "/" => Translate given text (body is text to translate)
 GET "/config" => Open settings
-GET "/translate" => Translate given text (same as "/")
+POST "/translate" => Translate given text (same as "/")
 GET "/selection_translate" => Translate selected text
 GET "/input_translate" => Open input translation
 GET "/ocr_recognize" => Perform OCR on screenshot
