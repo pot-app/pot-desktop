@@ -3,7 +3,7 @@
   <id>com.pot_app.pot</id>
   
   <name>Pot</name>
-  <summary>A cross-platform software for text translation and recognition</summary>
+  <summary>A text translation and OCR app</summary>
   <summary xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</summary>
   <developer id="com.pot_app">
       <name>Pylogmon</name>
@@ -48,12 +48,15 @@
   <screenshots>
     <screenshot type="default">
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/1.png</image>
+      <caption>Dark Mode</caption>
     </screenshot>
     <screenshot>
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/2.png</image>
+      <caption>Dark/Light Mode</caption>
     </screenshot>
     <screenshot>
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/3.png</image>
+      <caption>Light Mode</caption>
     </screenshot>
   </screenshots>
 
