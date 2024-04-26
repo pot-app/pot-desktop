@@ -3,7 +3,7 @@
   <id>com.pot_app.pot</id>
   
   <name>Pot</name>
-  <summary>A cross-platform software for text translation and recognition</summary>
+  <summary>A text translation and OCR app</summary>
   <summary xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</summary>
   <developer id="com.pot_app">
       <name>Pylogmon</name>
@@ -22,25 +22,23 @@
     <p xml:lang="zh-Hans">特色功能</p>
         <ul>
             <li>Parallel translations with multiple services</li>
+            <li xml:lang="zh-Hans">多接口并行翻译</li>
             <li>OCR with multiple services</li>
+            <li xml:lang="zh-Hans">多接口文字识别</li>
             <li>Text-to-speech with multiple services</li>
+            <li xml:lang="zh-Hans">多接口语音合成</li>
             <li>Export to vocabulary apps</li>
+            <li xml:lang="zh-Hans">导出到生词本</li>
             <li>External calls</li>
+            <li xml:lang="zh-Hans">外部调用</li>
             <li>Plugin system</li>
+            <li xml:lang="zh-Hans">支持插件系统</li>
             <li>Cross-platform support (Windows, macOS and Linux)</li>
+            <li xml:lang="zh-Hans">支持所有 PC 平台 (Windows, macOS, Linux)</li>
             <li>Wayland support</li>
+            <li xml:lang="zh-Hans">支持 Wayland (在 KDE、Gnome 以及 Hyprland 上测试)</li>
             <li>Multi-language support</li>
-        </ul>
-        <ul xml:lang="zh-Hans">
-            <li>多接口并行翻译</li>
-            <li>多接口文字识别</li>
-            <li>多接口语音合成</li>
-            <li>导出到生词本</li>
-            <li>外部调用</li>
-            <li>支持插件系统</li>
-            <li>支持所有 PC 平台 (Windows, macOS, Linux)</li>
-            <li>支持 Wayland (在 KDE、Gnome 以及 Hyprland 上测试)</li>
-            <li>多语言支持</li>
+            <li xml:lang="zh-Hans">多语言支持</li>
         </ul>
   </description>
   
@@ -48,12 +46,15 @@
   <screenshots>
     <screenshot type="default">
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/1.png</image>
+      <caption>Dark Mode</caption>
     </screenshot>
     <screenshot>
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/2.png</image>
+      <caption>Dark/Light Mode</caption>
     </screenshot>
     <screenshot>
       <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/3.png</image>
+      <caption>Light Mode</caption>
     </screenshot>
   </screenshots>
 
