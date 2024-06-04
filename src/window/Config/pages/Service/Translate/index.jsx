@@ -170,7 +170,7 @@ export default function Translate(props) {
                 isOpen={isConfigOpen}
                 pluginList={pluginList}
                 onOpenChange={onConfigOpenChange}
-                updateServiceList={updateServiceInstanceList}
+                updateServiceInstanceList={updateServiceInstanceList}
             />
         </>
     );

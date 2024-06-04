@@ -15,9 +15,9 @@ import { translate } from './index';
 import { Language } from './index';
 
 export function Config(props) {
-    const { updateServiceList, onClose } = props;
+    const { instanceKey, updateServiceList, onClose } = props;
     const [openaiConfig, setOpenaiConfig] = useConfig(
-        'openai',
+        instanceKey,
         {
             service: 'openai',
             requestPath: 'https://api.openai.com/v1/chat/completions',
@@ -67,7 +67,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setOpenaiConfig(openaiConfig, true);
-                            updateServiceList('openai');
+                            updateServiceList(instanceKey);
                             onClose();
                         },
                         (e) => {

@@ -6,7 +6,7 @@ import * as builtinServices from '../../../../../../services/translate';
 import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
-    const { isOpen, onOpenChange, serviceInstanceKey, serviceSourceType, serviceName, updateServiceList, pluginList } = props;
+    const { isOpen, onOpenChange, serviceInstanceKey, serviceSourceType, serviceName, updateServiceInstanceList, pluginList } = props;
 
     const { t } = useTranslation();
     const ConfigComponent = serviceSourceType === 'plugin' ? PluginConfig : builtinServices[serviceName].Config;
@@ -53,7 +53,7 @@ export default function ConfigModal(props) {
                                 instanceKey={serviceInstanceKey}
                                 pluginType='translate'
                                 pluginList={pluginList}
-                                updateServiceList={updateServiceList}
+                                updateServiceList={updateServiceInstanceList}
                                 onClose={onClose}
                             />
                         </ModalBody>
