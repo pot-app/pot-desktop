@@ -6,12 +6,12 @@ import * as builtinServices from '../../../../../../services/translate';
 import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
-    const { isOpen, onOpenChange, name, updateServiceList, pluginList } = props;
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'builtin';
-    const { t } = useTranslation();
-    const ConfigComponent = name.startsWith('[plugin]') ? PluginConfig : builtinServices[name].Config;
+    const { isOpen, onOpenChange, serviceInstanceKey, serviceSourceType, serviceName, updateServiceList, pluginList } = props;
 
-    return serviceType === 'plugin' && !(name in pluginList) ? (
+    const { t } = useTranslation();
+    const ConfigComponent = serviceSourceType === 'plugin' ? PluginConfig : builtinServices[serviceName].Config;
+
+    return serviceSourceType === 'plugin' && !(serviceName in pluginList) ? (
         <></>
     ) : (
         <Modal
@@ -23,33 +23,34 @@ export default function ConfigModal(props) {
                 {(onClose) => (
                     <>
                         <ModalHeader>
-                            {serviceType === 'builtin' && (
+                            {serviceSourceType === 'builtin' && (
                                 <>
                                     <img
-                                        src={builtinServices[name].info.icon}
+                                        src={builtinServices[serviceName].info.icon}
                                         className='h-[24px] w-[24px] my-auto'
                                         draggable={false}
                                     />
                                     <Spacer x={2} />
-                                    {t(`services.translate.${name}.title`)}
+                                    {t(`services.translate.${serviceName}.title`)}
                                 </>
                             )}
-                            {serviceType === 'plugin' && (
+                            {serviceSourceType === 'plugin' && (
                                 <>
                                     <img
-                                        src={pluginList[name].icon}
+                                        src={pluginList[serviceName].icon}
                                         className='h-[24px] w-[24px] my-auto'
                                         draggable={false}
                                     />
 
                                     <Spacer x={2} />
-                                    {`${pluginList[name].display} [${t('common.plugin')}]`}
+                                    {`${pluginList[serviceName].display} [${t('common.plugin')}]`}
                                 </>
                             )}
                         </ModalHeader>
                         <ModalBody>
                             <ConfigComponent
-                                name={name}
+                                name={serviceName}
+                                instanceKey={serviceInstanceKey}
                                 pluginType='translate'
                                 pluginList={pluginList}
                                 updateServiceList={updateServiceList}

@@ -5,7 +5,7 @@ import React from 'react';
 import * as builtinServices from '../../../../../../services/translate';
 
 export default function SelectModal(props) {
-    const { isOpen, onOpenChange, setConfigName, onConfigOpen } = props;
+    const { isOpen, onOpenChange, createInstanceKey, setCurrentConfigKey, onConfigOpen } = props;
     const { t } = useTranslation();
 
     return (
@@ -25,7 +25,7 @@ export default function SelectModal(props) {
                                         <Button
                                             fullWidth
                                             onPress={() => {
-                                                setConfigName(x);
+                                                setCurrentConfigKey(createInstanceKey(x));
                                                 onConfigOpen();
                                             }}
                                             startContent={
