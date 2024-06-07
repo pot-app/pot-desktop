@@ -10,6 +10,9 @@
             "coming": "Prossimamente…"
         },
         "services": {
+            "help": "Guida alla configurazione",
+            "no_need": "Nessuna configurazione richiesta",
+            "instance_name": "Nome della configurazione",
             "translate": {
                 "youdao": {
                     "appkey": "ID app",
@@ -212,8 +215,6 @@
                     "name": "Nome della raccolta"
                 }
             },
-            "help": "Guida alla configurazione",
-            "no_need": "Nessuna configurazione richiesta",
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva",

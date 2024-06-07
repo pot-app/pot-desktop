@@ -371,7 +371,7 @@ export default function TargetArea(props) {
                                 )
                                 }
                             >
-                                {currentTranslateServiceInstanceKey.startsWith('[plugin]') ? (
+                                {whetherPluginService(currentTranslateServiceInstanceKey) ? (
                                     <div className='my-auto'>{`${pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display} `}</div>
                                 ) : (
                                     <div className='my-auto'>

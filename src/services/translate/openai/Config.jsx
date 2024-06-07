@@ -13,12 +13,14 @@ import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
 import { Language } from './index';
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
     const [openaiConfig, setOpenaiConfig] = useConfig(
         instanceKey,
         {
+            [INSTANCE_NAME_CONFIG_KEY]: 'OpenAI',
             service: 'openai',
             requestPath: 'https://api.openai.com/v1/chat/completions',
             model: 'gpt-3.5-turbo',
@@ -78,6 +80,25 @@ export function Config(props) {
                 }}
             >
                 <Toaster />
+                <div className='config-item'>
+                    <Input
+                        label={t('services.instance_name')}
+                        labelPlacement='outside-left'
+                        value={openaiConfig[INSTANCE_NAME_CONFIG_KEY]}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setOpenaiConfig({
+                                ...openaiConfig,
+                                [INSTANCE_NAME_CONFIG_KEY]: value,
+                            });
+                        }}
+                    />
+                </div>
                 <div className='config-item'>
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button

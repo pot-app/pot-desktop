@@ -10,6 +10,9 @@
             "coming": "Em breve…"
         },
         "services": {
+            "help": "Guia de Configuração",
+            "no_need": "Nenhuma Configuração Requerida",
+            "instance_name": "Nome da configuração",
             "translate": {
                 "youdao": {
                     "appkey": "ID do App",
@@ -219,8 +222,6 @@
                     "title": "Eudic"
                 }
             },
-            "help": "Guia de Configuração",
-            "no_need": "Nenhuma Configuração Requerida",
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva",

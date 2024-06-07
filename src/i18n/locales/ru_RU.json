@@ -225,6 +225,7 @@
         "services": {
             "help": "Руководство по настройке",
             "no_need": "Настройка не требуется",
+            "instance_name": "Имя конфигурации",
             "translate": {
                 "deepl": {
                     "title": "DeepL",

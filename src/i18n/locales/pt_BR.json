@@ -225,6 +225,7 @@
         "services": {
             "help": "Guia de Configuração",
             "no_need": "Nenhuma Configuração Requerida",
+            "instance_name": "Nome da configuração",
             "translate": {
                 "deepl": {
                     "title": "DeepL",

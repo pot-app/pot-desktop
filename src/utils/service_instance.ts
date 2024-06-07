@@ -28,3 +28,5 @@ export function createServiceInstanceKey(serviceName: string): string {
 export function getServiceName(serviceInstanceKey: string): string {
     return serviceInstanceKey.split('@')[0]
 }
+
+export const INSTANCE_NAME_CONFIG_KEY = 'instanceName'
