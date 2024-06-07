@@ -61,20 +61,6 @@ export default function Translate(props) {
             setTranslateServiceInstanceList(newList);
         }
     };
-    const getServiceSourceType = (serviceInstanceKey) => {
-        return serviceInstanceKey.startsWith('[plugin]') ? 'plugin' : 'builtin';
-    }
-
-    // The serviceInstanceKey consists of the service name and it's id, separated by @
-    // In earlier versions, the @ separator and id were optional, so they all have only one instance.
-    const createInstanceKey = (serviceName) => {
-        const randomId = Math.random().toString(36).substring(2)
-        return `${serviceName}@${randomId}`
-    }
-    // if serviceInstanceKey is from a plugin, serviceName is it's pluginId
-    const getServiceName = (serviceInstanceKey) => {
-        return serviceInstanceKey.split('@')[0]
-    }
 
     return (
         <>
@@ -112,8 +98,6 @@ export default function Translate(props) {
                                                                 {...provided.dragHandleProps}
                                                                 key={x}
                                                                 serviceInstanceKey={x}
-                                                                serviceSourceType={getServiceSourceType(x)}
-                                                                serviceName={getServiceName(x)}
                                                                 pluginList={pluginList}
                                                                 deleteServiceInstance={deleteServiceInstance}
                                                                 setCurrentConfigKey={setCurrentConfigKey}
@@ -159,16 +143,13 @@ export default function Translate(props) {
             <SelectModal
                 isOpen={isSelectOpen}
                 onOpenChange={onSelectOpenChange}
-                createInstanceKey={createInstanceKey}
                 setCurrentConfigKey={setCurrentConfigKey}
                 onConfigOpen={onConfigOpen}
             />
             <ConfigModal
                 serviceInstanceKey={currentConfigKey}
-                serviceSourceType={getServiceSourceType(currentConfigKey)}
-                serviceName={getServiceName(currentConfigKey)}
-                isOpen={isConfigOpen}
                 pluginList={pluginList}
+                isOpen={isConfigOpen}
                 onOpenChange={onConfigOpenChange}
                 updateServiceInstanceList={updateServiceInstanceList}
             />

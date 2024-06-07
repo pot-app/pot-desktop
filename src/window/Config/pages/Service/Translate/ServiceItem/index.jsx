@@ -7,13 +7,17 @@ import React from 'react';
 
 import * as builtinServices from '../../../../../../services/translate';
 import { useConfig } from '../../../../../../hooks';
+import { ServiceSourceType, getServiceName, getServiceSouceType } from '../../../../../../utils/service_instance';
 
 export default function ServiceItem(props) {
-    const { serviceInstanceKey, serviceSourceType, serviceName, deleteServiceInstance, setCurrentConfigKey, onConfigOpen, pluginList, ...drag } = props;
+    const { serviceInstanceKey, pluginList, deleteServiceInstance, setCurrentConfigKey, onConfigOpen, ...drag } = props;
     const { t } = useTranslation();
     const [serviceInstanceConfig, setServiceInstanceConfig] = useConfig(serviceInstanceKey, {});
 
-    return serviceSourceType === 'plugin' && !(serviceName in pluginList) ? (
+    const serviceSourceType = getServiceSouceType(serviceInstanceKey)
+    const serviceName = getServiceName(serviceInstanceKey)
+
+    return serviceSourceType === ServiceSourceType.PLUGIN && !(serviceName in pluginList) ? (
         <></>
     ) : (
         serviceInstanceConfig !== null && (
@@ -27,7 +31,7 @@ export default function ServiceItem(props) {
                     </div>
 
                     <Spacer x={2} />
-                    {serviceSourceType === 'builtin' && (
+                    {serviceSourceType === ServiceSourceType.BUILDIN && (
                         <>
                             <img
                                 src={`${builtinServices[serviceName].info.icon}`}
@@ -38,7 +42,7 @@ export default function ServiceItem(props) {
                             <h2 className='my-auto'>{t(`services.translate.${serviceName}.title`)}</h2>
                         </>
                     )}
-                    {serviceSourceType === 'plugin' && (
+                    {serviceSourceType === ServiceSourceType.PLUGIN && (
                         <>
                             <img
                                 src={pluginList[serviceName].icon}

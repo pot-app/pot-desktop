@@ -4,14 +4,19 @@ import React from 'react';
 
 import * as builtinServices from '../../../../../../services/translate';
 import { PluginConfig } from '../../PluginConfig';
+import { ServiceSourceType, getServiceName, getServiceSouceType, whetherPluginService } from '../../../../../../utils/service_instance';
 
 export default function ConfigModal(props) {
-    const { isOpen, onOpenChange, serviceInstanceKey, serviceSourceType, serviceName, updateServiceInstanceList, pluginList } = props;
+    const { serviceInstanceKey, pluginList, isOpen, onOpenChange, updateServiceInstanceList } = props;
+
+    const serviceSourceType = getServiceSouceType(serviceInstanceKey)
+    const pluginServiceFlag = whetherPluginService(serviceInstanceKey)
+    const serviceName = getServiceName(serviceInstanceKey)
 
     const { t } = useTranslation();
-    const ConfigComponent = serviceSourceType === 'plugin' ? PluginConfig : builtinServices[serviceName].Config;
+    const ConfigComponent = pluginServiceFlag ? PluginConfig : builtinServices[serviceName].Config;
 
-    return serviceSourceType === 'plugin' && !(serviceName in pluginList) ? (
+    return pluginServiceFlag && !(serviceName in pluginList) ? (
         <></>
     ) : (
         <Modal
@@ -23,7 +28,7 @@ export default function ConfigModal(props) {
                 {(onClose) => (
                     <>
                         <ModalHeader>
-                            {serviceSourceType === 'builtin' && (
+                            {serviceSourceType === ServiceSourceType.BUILDIN && (
                                 <>
                                     <img
                                         src={builtinServices[serviceName].info.icon}
@@ -34,7 +39,7 @@ export default function ConfigModal(props) {
                                     {t(`services.translate.${serviceName}.title`)}
                                 </>
                             )}
-                            {serviceSourceType === 'plugin' && (
+                            {pluginServiceFlag && (
                                 <>
                                     <img
                                         src={pluginList[serviceName].icon}
