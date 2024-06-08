@@ -285,10 +285,11 @@ export default function Translate() {
                                                             >
                                                                 <TargetArea
                                                                     {...provided.dragHandleProps}
-                                                                    pluginList={pluginList}
-                                                                    name={serviceInstanceKey}
                                                                     index={index}
+                                                                    name={serviceInstanceKey}
                                                                     translateServiceInstanceList={translateServiceInstanceList}
+                                                                    pluginList={pluginList}
+                                                                    serviceInstanceConfigMap={serviceInstanceConfigMap}
                                                                 />
                                                                 <Spacer y={2} />
                                                             </div>

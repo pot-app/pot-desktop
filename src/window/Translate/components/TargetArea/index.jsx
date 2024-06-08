@@ -40,12 +40,18 @@ import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
 
 import { store } from '../../../../utils/store';
-import { getServiceName, whetherPluginService } from '../../../../utils/service_instance';
+import { INSTANCE_NAME_CONFIG_KEY, getServiceName, whetherPluginService } from '../../../../utils/service_instance';
 
 let translateID = [];
 
 export default function TargetArea(props) {
-    const { name, index, translateServiceInstanceList, pluginList, ...drag } = props;
+    const { index, name, translateServiceInstanceList, pluginList, serviceInstanceConfigMap, ...drag } = props;
+
+    const [currentTranslateServiceInstanceKey, setCurrentTranslateServiceInstanceKey] = useState(name);
+    function getInstanceName(instanceKey, serviceNameSupplier) {
+        const instanceConfig = serviceInstanceConfigMap[instanceKey] ?? {}
+        return instanceConfig[INSTANCE_NAME_CONFIG_KEY] ?? serviceNameSupplier()
+    }
 
     const [appFontSize] = useConfig('app_font_size', 16);
     const [collectionServiceList] = useConfig('collection_service_list', []);
@@ -63,7 +69,6 @@ export default function TargetArea(props) {
     const targetLanguage = useAtomValue(targetLanguageAtom);
     const [autoCopy] = useConfig('translate_auto_copy', 'disable');
     const [hideWindow] = useConfig('translate_hide_window', false);
-    const [currentTranslateServiceInstanceKey, setCurrentTranslateServiceInstanceKey] = useState(name);
     const [clipboardMonitor] = useConfig('clipboard_monitor', false);
 
     const detectLanguage = useAtomValue(detectLanguageAtom);
@@ -139,6 +144,7 @@ export default function TargetArea(props) {
         translateID[index] = id;
 
         const translateServiceName = getServiceName(currentTranslateServiceInstanceKey)
+
         if (whetherPluginService(currentTranslateServiceInstanceKey)) {
             const pluginInfo = pluginList['translate'][translateServiceName];
             if (sourceLanguage in pluginInfo.language && targetLanguage in pluginInfo.language) {
@@ -148,7 +154,7 @@ export default function TargetArea(props) {
                 }
                 setIsLoading(true);
                 setHide(true);
-                const instanceConfig = (await store.get(currentTranslateServiceInstanceKey)) ?? {};
+                const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
                 instanceConfig['enable'] = 'true';
                 invoke('invoke_plugin', {
                     name: translateServiceName,
@@ -218,7 +224,7 @@ export default function TargetArea(props) {
                 }
                 setIsLoading(true);
                 setHide(true);
-                const instanceConfig = (await store.get(currentTranslateServiceInstanceKey)) ?? {};
+                const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey]
                 const setHideOnce = invokeOnce(setHide);
                 builtinServices[translateServiceName]
                     .translate(sourceText.trim(), LanguageEnum[sourceLanguage], LanguageEnum[newTargetLanguage], {
@@ -306,14 +312,14 @@ export default function TargetArea(props) {
 
     // handle tts speak
     const handleSpeak = async () => {
-        const serviceName = ttsServiceList[0];
-        if (serviceName.startsWith('[plugin]')) {
-            const config = (await store.get(serviceName)) ?? {};
+        const ttsServiceName = ttsServiceList[0];
+        if (ttsServiceName.startsWith('[plugin]')) {
+            const config = (await store.get(ttsServiceName)) ?? {};
             if (!(targetLanguage in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
             }
             let data = await invoke('invoke_plugin', {
-                name: serviceName,
+                name: ttsServiceName,
                 pluginType: 'tts',
                 source: result,
                 lang: ttsPluginInfo.language[targetLanguage],
@@ -321,12 +327,12 @@ export default function TargetArea(props) {
             });
             speak(data);
         } else {
-            if (!(targetLanguage in builtinTtsServices[serviceName].Language)) {
+            if (!(targetLanguage in builtinTtsServices[ttsServiceName].Language)) {
                 throw new Error('Language not supported');
             }
-            let data = await builtinTtsServices[serviceName].tts(
+            let data = await builtinTtsServices[ttsServiceName].tts(
                 result,
-                builtinTtsServices[serviceName].Language[targetLanguage]
+                builtinTtsServices[ttsServiceName].Language[targetLanguage]
             );
             speak(data);
         }
@@ -372,10 +378,10 @@ export default function TargetArea(props) {
                                 }
                             >
                                 {whetherPluginService(currentTranslateServiceInstanceKey) ? (
-                                    <div className='my-auto'>{`${pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display} `}</div>
+                                    <div className='my-auto'>{`${getInstanceName(currentTranslateServiceInstanceKey, () => pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display)} `}</div>
                                 ) : (
                                     <div className='my-auto'>
-                                        {t(`services.translate.${getServiceName(currentTranslateServiceInstanceKey)}.title`)}
+                                        {getInstanceName(currentTranslateServiceInstanceKey, () => t(`services.translate.${getServiceName(currentTranslateServiceInstanceKey)}.title`))}
                                     </div>
                                 )}
                             </Button>
@@ -405,9 +411,9 @@ export default function TargetArea(props) {
                                         }
                                     >
                                         {whetherPluginService(instanceKey) ? (
-                                            <div className='my-auto'>{`${pluginList['translate'][getServiceName(instanceKey)].display} `}</div>
+                                            <div className='my-auto'>{`${getInstanceName(instanceKey, () => pluginList['translate'][getServiceName(instanceKey)].display)} `}</div>
                                         ) : (
-                                            <div className='my-auto'>{t(`services.translate.${getServiceName(instanceKey)}.title`)}</div>
+                                            <div className='my-auto'>{getInstanceName(instanceKey, () => t(`services.translate.${getServiceName(instanceKey)}.title`))}</div>
                                         )}
                                     </DropdownItem>
                                 );
@@ -637,7 +643,7 @@ export default function TargetArea(props) {
                                             ) {
                                                 setIsLoading(true);
                                                 setHide(true);
-                                                const instanceConfig = (await store.get(currentTranslateServiceInstanceKey)) ?? {};
+                                                const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey]
                                                 instanceConfig['enable'] = 'true';
                                                 invoke('invoke_plugin', {
                                                     name: getServiceName(currentTranslateServiceInstanceKey),
@@ -675,7 +681,7 @@ export default function TargetArea(props) {
                                             ) {
                                                 setIsLoading(true);
                                                 setHide(true);
-                                                const instanceConfig = (await store.get(currentTranslateServiceInstanceKey)) ?? {};
+                                                const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey]
                                                 const setHideOnce = invokeOnce(setHide);
                                                 builtinServices[getServiceName(currentTranslateServiceInstanceKey)]
                                                     .translate(
@@ -735,18 +741,18 @@ export default function TargetArea(props) {
                             </Tooltip>
                             {/* available collection service instance */}
                             {collectionServiceList &&
-                                collectionServiceList.map((serviceName) => {
+                                collectionServiceList.map((collectionServiceName) => {
                                     return (
                                         <Button
-                                            key={serviceName}
+                                            key={collectionServiceName}
                                             isIconOnly
                                             variant='light'
                                             size='sm'
                                             onPress={async () => {
-                                                if (serviceName.startsWith('[plugin]')) {
-                                                    const pluginConfig = (await store.get(serviceName)) ?? {};
+                                                if (collectionServiceName.startsWith('[plugin]')) {
+                                                    const pluginConfig = (await store.get(collectionServiceName)) ?? {};
                                                     invoke('invoke_plugin', {
-                                                        name: serviceName,
+                                                        name: collectionServiceName,
                                                         pluginType: 'collection',
                                                         source: sourceText.trim(),
                                                         target: result.toString(),
@@ -764,7 +770,7 @@ export default function TargetArea(props) {
                                                         }
                                                     );
                                                 } else {
-                                                    builtinCollectionServices[serviceName]
+                                                    builtinCollectionServices[collectionServiceName]
                                                         .collection(sourceText, result)
                                                         .then(
                                                             (_) => {
@@ -781,9 +787,9 @@ export default function TargetArea(props) {
                                         >
                                             <img
                                                 src={
-                                                    serviceName.startsWith('[plugin]')
-                                                        ? pluginList['collection'][serviceName].icon
-                                                        : builtinCollectionServices[serviceName].info.icon
+                                                    collectionServiceName.startsWith('[plugin]')
+                                                        ? pluginList['collection'][collectionServiceName].icon
+                                                        : builtinCollectionServices[collectionServiceName].info.icon
                                                 }
                                                 className='h-[16px] w-[16px]'
                                             />
