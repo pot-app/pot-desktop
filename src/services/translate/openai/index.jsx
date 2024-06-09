@@ -1,15 +1,10 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import { Language } from './info';
 
-export async function translate(text, from, to, options = {}) {
+export async function translate(text, from, to, options) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('openai');
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    let { service, requestPath, model, apiKey, stream, promptList } = translateConfig;
+    let { service, requestPath, model, apiKey, stream, promptList } = config;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
