@@ -7,17 +7,20 @@ import React from 'react';
 
 import * as builtinServices from '../../../../../../services/translate';
 import { useConfig } from '../../../../../../hooks';
+import { INSTANCE_NAME_CONFIG_KEY, ServiceSourceType, getServiceName, getServiceSouceType } from '../../../../../../utils/service_instance';
 
 export default function ServiceItem(props) {
-    const { name, deleteService, setConfigName, onConfigOpen, pluginList, ...drag } = props;
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'builtin';
+    const { serviceInstanceKey, pluginList, deleteServiceInstance, setCurrentConfigKey, onConfigOpen, ...drag } = props;
     const { t } = useTranslation();
-    const [serviceConfig, setServiceConfig] = useConfig(name, {});
+    const [serviceInstanceConfig, setServiceInstanceConfig] = useConfig(serviceInstanceKey, {});
 
-    return serviceType === 'plugin' && !(name in pluginList) ? (
+    const serviceSourceType = getServiceSouceType(serviceInstanceKey)
+    const serviceName = getServiceName(serviceInstanceKey)
+
+    return serviceSourceType === ServiceSourceType.PLUGIN && !(serviceName in pluginList) ? (
         <></>
     ) : (
-        serviceConfig !== null && (
+        serviceInstanceConfig !== null && (
             <div className='bg-content2 rounded-md px-[10px] py-[20px] flex justify-between'>
                 <div className='flex'>
                     <div
@@ -28,35 +31,35 @@ export default function ServiceItem(props) {
                     </div>
 
                     <Spacer x={2} />
-                    {serviceType === 'builtin' && (
+                    {serviceSourceType === ServiceSourceType.BUILDIN && (
                         <>
                             <img
-                                src={`${builtinServices[name].info.icon}`}
+                                src={`${builtinServices[serviceName].info.icon}`}
                                 className='h-[24px] w-[24px] my-auto'
                                 draggable={false}
                             />
                             <Spacer x={2} />
-                            <h2 className='my-auto'>{t(`services.translate.${name}.title`)}</h2>
+                            <h2 className='my-auto'>{serviceInstanceConfig[INSTANCE_NAME_CONFIG_KEY] || t(`services.translate.${serviceName}.title`)}</h2>
                         </>
                     )}
-                    {serviceType === 'plugin' && (
+                    {serviceSourceType === ServiceSourceType.PLUGIN && (
                         <>
                             <img
-                                src={pluginList[name].icon}
+                                src={pluginList[serviceName].icon}
                                 className='h-[24px] w-[24px] my-auto'
                                 draggable={false}
                             />
                             <Spacer x={2} />
-                            <h2 className='my-auto'>{`${pluginList[name].display} [${t('common.plugin')}]`}</h2>
+                            <h2 className='my-auto'>{`${serviceInstanceConfig[INSTANCE_NAME_CONFIG_KEY] || pluginList[serviceName].display} [${t('common.plugin')}]`}</h2>
                         </>
                     )}
                 </div>
                 <div className='flex'>
                     <Switch
                         size='sm'
-                        isSelected={serviceConfig['enable'] ?? true}
+                        isSelected={serviceInstanceConfig['enable'] ?? true}
                         onValueChange={(v) => {
-                            setServiceConfig({ ...serviceConfig, enable: v });
+                            setServiceInstanceConfig({ ...serviceInstanceConfig, enable: v });
                         }}
                     />
                     <Button
@@ -64,7 +67,7 @@ export default function ServiceItem(props) {
                         size='sm'
                         variant='light'
                         onPress={() => {
-                            setConfigName(name);
+                            setCurrentConfigKey(serviceInstanceKey);
                             onConfigOpen();
                         }}
                     >
@@ -77,7 +80,7 @@ export default function ServiceItem(props) {
                         variant='light'
                         color='danger'
                         onPress={() => {
-                            deleteService(name);
+                            deleteServiceInstance(serviceInstanceKey);
                         }}
                     >
                         <MdDeleteOutline className='text-2xl' />

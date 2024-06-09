@@ -21,8 +21,9 @@ export default function Translate(props) {
     } = useDisclosure();
     const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();
     const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
-    const [openConfigName, setOpenConfigName] = useState('deepl');
-    const [translateServiceList, setTranslateServiceList] = useConfig('translate_service_list', [
+    const [currentConfigKey, setCurrentConfigKey] = useState('deepl');
+    // now it's service instance list
+    const [translateServiceInstanceList, setTranslateServiceInstanceList] = useConfig('translate_service_list', [
         'deepl',
         'bing',
         'yandex',
@@ -40,24 +41,24 @@ export default function Translate(props) {
     };
     const onDragEnd = async (result) => {
         if (!result.destination) return;
-        const items = reorder(translateServiceList, result.source.index, result.destination.index);
-        setTranslateServiceList(items);
+        const items = reorder(translateServiceInstanceList, result.source.index, result.destination.index);
+        setTranslateServiceInstanceList(items);
     };
 
-    const deleteService = (name) => {
-        if (translateServiceList.length === 1) {
+    const deleteServiceInstance = (instanceKey) => {
+        if (translateServiceInstanceList.length === 1) {
             toast.error(t('config.service.least'), { style: toastStyle });
             return;
         } else {
-            setTranslateServiceList(translateServiceList.filter((x) => x !== name));
+            setTranslateServiceInstanceList(translateServiceInstanceList.filter((x) => x !== instanceKey));
         }
     };
-    const updateServiceList = (name) => {
-        if (translateServiceList.includes(name)) {
+    const updateServiceInstanceList = (instanceKey) => {
+        if (translateServiceInstanceList.includes(instanceKey)) {
             return;
         } else {
-            const newList = [...translateServiceList, name];
-            setTranslateServiceList(newList);
+            const newList = [...translateServiceInstanceList, instanceKey];
+            setTranslateServiceInstanceList(newList);
         }
     };
 
@@ -65,9 +66,8 @@ export default function Translate(props) {
         <>
             <Toaster />
             <Card
-                className={`${
-                    osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
-                } overflow-y-auto p-5 flex justify-between`}
+                className={`${osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
+                    } overflow-y-auto p-5 flex justify-between`}
             >
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable
@@ -80,8 +80,8 @@ export default function Translate(props) {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {translateServiceList !== null &&
-                                    translateServiceList.map((x, i) => {
+                                {translateServiceInstanceList !== null &&
+                                    translateServiceInstanceList.map((x, i) => {
                                         return (
                                             <Draggable
                                                 key={x}
@@ -96,11 +96,11 @@ export default function Translate(props) {
                                                         >
                                                             <ServiceItem
                                                                 {...provided.dragHandleProps}
-                                                                name={x}
                                                                 key={x}
+                                                                serviceInstanceKey={x}
                                                                 pluginList={pluginList}
-                                                                deleteService={deleteService}
-                                                                setConfigName={setOpenConfigName}
+                                                                deleteServiceInstance={deleteServiceInstance}
+                                                                setCurrentConfigKey={setCurrentConfigKey}
                                                                 onConfigOpen={onConfigOpen}
                                                             />
                                                             <Spacer y={2} />
@@ -134,24 +134,24 @@ export default function Translate(props) {
             <SelectPluginModal
                 isOpen={isSelectPluginOpen}
                 onOpenChange={onSelectPluginOpenChange}
-                setConfigName={setOpenConfigName}
+                setConfigName={setCurrentConfigKey}
                 onConfigOpen={onConfigOpen}
                 pluginType='translate'
                 pluginList={pluginList}
-                deleteService={deleteService}
+                deleteService={deleteServiceInstance}
             />
             <SelectModal
                 isOpen={isSelectOpen}
                 onOpenChange={onSelectOpenChange}
-                setConfigName={setOpenConfigName}
+                setCurrentConfigKey={setCurrentConfigKey}
                 onConfigOpen={onConfigOpen}
             />
             <ConfigModal
-                name={openConfigName}
-                isOpen={isConfigOpen}
+                serviceInstanceKey={currentConfigKey}
                 pluginList={pluginList}
+                isOpen={isConfigOpen}
                 onOpenChange={onConfigOpenChange}
-                updateServiceList={updateServiceList}
+                updateServiceInstanceList={updateServiceInstanceList}
             />
         </>
     );

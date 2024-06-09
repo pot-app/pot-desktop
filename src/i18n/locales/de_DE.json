@@ -224,6 +224,7 @@
         "services": {
             "help": "Konfigurationsanleitung",
             "no_need": "Keine Konfiguration erforderlich",
+            "instance_name": "Konfigurationsname",
             "translate": {
                 "deepl": {
                     "title": "DeepL",

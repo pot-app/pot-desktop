@@ -1,6 +1,9 @@
 {
     "translation": {
         "services": {
+            "help": "Guide de configuration",
+            "no_need": "Aucune configuration requise",
+            "instance_name": "Nom de la configuration",
             "translate": {
                 "youdao": {
                     "appkey": "ID d'application",
@@ -246,8 +249,6 @@
                     "title": "Eudic"
                 }
             },
-            "help": "Guide de configuration",
-            "no_need": "Aucune configuration requise",
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva",

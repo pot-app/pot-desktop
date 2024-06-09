@@ -225,6 +225,7 @@
         "services": {
             "help": "設定指南",
             "no_need": "無需設定",
+            "instance_name": "配置名稱",
             "translate": {
                 "deepl": {
                     "title": "DeepL",
