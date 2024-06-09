@@ -1,15 +1,11 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import { Language } from './info';
+import { defaultRequestArguments } from './Config';
 
-export async function translate(text, from, to, options = {}) {
+export async function translate(text, from, to, options) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('openai');
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    let { service, requestPath, model, apiKey, stream, promptList } = translateConfig;
+    let { service, requestPath, model, apiKey, stream, promptList, requestArguments } = config;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
@@ -17,7 +13,9 @@ export async function translate(text, from, to, options = {}) {
     if (requestPath.endsWith('/')) {
         requestPath = requestPath.slice(0, -1);
     }
-    if (service === 'openai' && !requestPath.includes('/v1/chat/completions')) {
+
+    // /v1 is not required
+    if (service === 'openai' && !requestPath.endsWith('/chat/completions')) {
         requestPath += '/v1/chat/completions';
     }
 
@@ -54,12 +52,9 @@ export async function translate(text, from, to, options = {}) {
                   'Content-Type': 'application/json',
                   'api-key': apiKey,
               };
-    let body = {
-        temperature: 0,
+    const body = {
+        ...JSON.parse(requestArguments ?? defaultRequestArguments),
         stream: stream,
-        top_p: 1,
-        frequency_penalty: 1,
-        presence_penalty: 1,
         messages: promptList,
     };
     if (service === 'openai') {
