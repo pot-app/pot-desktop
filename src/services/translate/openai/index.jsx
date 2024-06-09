@@ -1,10 +1,11 @@
 import { fetch, Body } from '@tauri-apps/api/http';
 import { Language } from './info';
+import { defaultRequestArguments } from './Config';
 
 export async function translate(text, from, to, options) {
     const { config, setResult, detect } = options;
 
-    let { service, requestPath, model, apiKey, stream, promptList } = config;
+    let { service, requestPath, model, apiKey, stream, promptList, requestArguments } = config;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
@@ -51,12 +52,9 @@ export async function translate(text, from, to, options) {
                   'Content-Type': 'application/json',
                   'api-key': apiKey,
               };
-    let body = {
-        temperature: 0,
+    const body = {
+        ...JSON.parse(requestArguments ?? defaultRequestArguments),
         stream: stream,
-        top_p: 1,
-        frequency_penalty: 1,
-        presence_penalty: 1,
         messages: promptList,
     };
     if (service === 'openai') {

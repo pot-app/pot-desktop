@@ -15,6 +15,13 @@ import { translate } from './index';
 import { Language } from './index';
 import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 
+export const defaultRequestArguments = JSON.stringify({
+    temperature: 0,
+    top_p: 1,
+    frequency_penalty: 1,
+    presence_penalty: 1,
+})
+
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
     const [openaiConfig, setOpenaiConfig] = useConfig(
@@ -34,6 +41,7 @@ export function Config(props) {
                 },
                 { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
             ],
+            requestArguments: defaultRequestArguments
         },
         { sync: false }
     );
@@ -51,6 +59,12 @@ export function Config(props) {
                     { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
                 ],
             });
+        }
+        if(openaiConfig.requestArguments === undefined) {
+            setOpenaiConfig({
+                ...openaiConfig,
+                requestArguments: defaultRequestArguments
+            })
         }
     }
 
@@ -296,8 +310,8 @@ export function Config(props) {
                                             openaiConfig.promptList.length === 0
                                                 ? 'system'
                                                 : openaiConfig.promptList.length % 2 === 0
-                                                ? 'assistant'
-                                                : 'user',
+                                                    ? 'assistant'
+                                                    : 'user',
                                         content: '',
                                     },
                                 ],
@@ -306,6 +320,24 @@ export function Config(props) {
                     >
                         {t('services.translate.openai.add')}
                     </Button>
+                </div>
+                <br />
+
+                <h3 className='my-auto'>Request Arguments</h3>
+                    <div className='config-item'>
+                        <Textarea
+                            label=''
+                            labelPlacement='outside'
+                            variant='faded'
+                            value={openaiConfig['requestArguments']}
+                            placeholder={`Input API Request Arguments`}
+                            onValueChange={(value) => {
+                                setOpenaiConfig({
+                                    ...openaiConfig,
+                                    requestArguments: value,
+                                });
+                            }}
+                        />
                 </div>
                 <br />
                 <Button
