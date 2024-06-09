@@ -12,8 +12,10 @@ export async function translate(text, from, to, options) {
     if (requestPath.endsWith('/')) {
         requestPath = requestPath.slice(0, -1);
     }
-    if (service === 'openai' && !requestPath.includes('/v1/chat/completions')) {
-        requestPath += '/v1/chat/completions';
+
+    // /v1 is not required
+    if (service === 'openai' && !requestPath.endsWith('/chat/completions')) {
+        requestPath += '/chat/completions';
     }
 
     // 兼容旧版
