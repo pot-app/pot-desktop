@@ -16,6 +16,10 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
+
+import * as builtinTranslateServices from '../../../../services/translate';
+import { ServiceSourceType, whetherAvailableService } from '../../utils/service_instance';
+
 let blurTimeout = null;
 let resizeTimeout = null;
 let moveTimeout = null;
@@ -268,7 +272,15 @@ export default function Translate() {
                                         {...provided.droppableProps}
                                     >
                                         {translateServiceInstanceList !== null && serviceInstanceConfigMap !== null &&
-                                            translateServiceInstanceList.map((serviceInstanceKey, index) => {
+                                            translateServiceInstanceList.filter(serviceInstanceKey => {
+                                                return whetherAvailableService(
+                                                    serviceInstanceKey,
+                                                    {
+                                                        [ServiceSourceType.PLUGIN]: pluginList,
+                                                        [ServiceSourceType.BUILDIN]: builtinTranslateServices
+                                                    }
+                                                )
+                                            }).map((serviceInstanceKey, index) => {
                                                 const config = serviceInstanceConfigMap[serviceInstanceKey] ?? {};
                                                 const enable = config['enable'] ?? true;
 

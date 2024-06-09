@@ -12,6 +12,9 @@ import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
 
+import * as builtinTranslateServices from '../../../../services/translate';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
+
 export default function Translate(props) {
     const { pluginList } = props;
     const {
@@ -81,7 +84,12 @@ export default function Translate(props) {
                                 {...provided.droppableProps}
                             >
                                 {translateServiceInstanceList !== null &&
-                                    translateServiceInstanceList.map((x, i) => {
+                                    translateServiceInstanceList.filter(instanceKey => {
+                                        return whetherAvailableService(instanceKey, {
+                                            [ServiceSourceType.BUILDIN]: builtinTranslateServices,
+                                            [ServiceSourceType.PLUGIN]: pluginList
+                                        })
+                                    }).map((x, i) => {
                                         return (
                                             <Draggable
                                                 key={x}

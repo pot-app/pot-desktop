@@ -9,6 +9,8 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
+import * as builtinCollectionServices from '../../../../../../services/collection';
+import { whetherAvailableService } from '../../../../../utils/service_instance';
 
 export default function Collection(props) {
     const { pluginList } = props;
@@ -67,7 +69,12 @@ export default function Collection(props) {
                                 {...provided.droppableProps}
                             >
                                 {collectionServiceList !== null &&
-                                    collectionServiceList.map((x, i) => {
+                                    collectionServiceList.filter(instanceKey => {
+                                        return whetherAvailableService(instanceKey, {
+                                            [ServiceSourceType.BUILDIN]: builtinCollectionServices,
+                                            [ServiceSourceType.PLUGIN]: pluginList
+                                        })
+                                    }).map((x, i) => {
                                         return (
                                             <Draggable
                                                 key={x}
