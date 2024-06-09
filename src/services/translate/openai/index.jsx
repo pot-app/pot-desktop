@@ -16,7 +16,7 @@ export async function translate(text, from, to, options) {
 
     // /v1 is not required
     if (service === 'openai' && !requestPath.endsWith('/chat/completions')) {
-        requestPath += '/chat/completions';
+        requestPath += '/v1/chat/completions';
     }
 
     // 兼容旧版
