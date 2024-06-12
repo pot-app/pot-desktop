@@ -40,7 +40,7 @@ import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
 
 import { store } from '../../../../utils/store';
-import { INSTANCE_NAME_CONFIG_KEY, getServiceName, whetherPluginService } from '../../../../utils/service_instance';
+import { INSTANCE_NAME_CONFIG_KEY, getDisplayInstanceName, getServiceName, whetherPluginService } from '../../../../utils/service_instance';
 
 let translateID = [];
 
@@ -50,7 +50,7 @@ export default function TargetArea(props) {
     const [currentTranslateServiceInstanceKey, setCurrentTranslateServiceInstanceKey] = useState(name);
     function getInstanceName(instanceKey, serviceNameSupplier) {
         const instanceConfig = serviceInstanceConfigMap[instanceKey] ?? {}
-        return instanceConfig[INSTANCE_NAME_CONFIG_KEY] ?? serviceNameSupplier()
+        return getDisplayInstanceName(instanceConfig[INSTANCE_NAME_CONFIG_KEY], serviceNameSupplier)
     }
 
     const [appFontSize] = useConfig('app_font_size', 16);
