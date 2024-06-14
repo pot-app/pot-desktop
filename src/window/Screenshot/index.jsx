@@ -19,14 +19,9 @@ export default function Screenshot() {
     const imgRef = useRef();
 
     useEffect(() => {
-        currentMonitor().then((monitor) => {
-            const position = monitor.position;
-            invoke('screenshot', { x: position.x, y: position.y }).then(() => {
-                appCacheDir().then((appCacheDirPath) => {
-                    join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
-                        setImgurl(convertFileSrc(filePath));
-                    });
-                });
+        appCacheDir().then((appCacheDirPath) => {
+            join(appCacheDirPath, 'pot_screenshot.png').then((filePath) => {
+                setImgurl(convertFileSrc(filePath));
             });
         });
     }, []);
