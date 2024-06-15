@@ -16,7 +16,7 @@
 <hr/>
 <div align="center">
 
-<h3><a href='./README.md'>中文</a> | English</h3>
+<h3><a href='./README.md'>中文</a> | English | <a href='./README_KR.md'> 한글 </a></h3>
 
 <table>
 <tr>
