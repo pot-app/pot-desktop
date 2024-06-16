@@ -18,8 +18,7 @@
                     "installerIcon": "icons/icon.ico",
                     "license": "../LICENSE",
                     "installMode": "perMachine",
-                    "languages": ["SimpChinese", "TradChinese", "English"],
-                    "template": "./template/installer.nsi"
+                    "languages": ["SimpChinese", "TradChinese", "English"]
                 }
             }
         }

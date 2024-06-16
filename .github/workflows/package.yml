@@ -12,7 +12,7 @@ jobs:
             version: ${{ steps.outputstep.outputs.VERSION }}
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
@@ -34,7 +34,7 @@ jobs:
                   echo $(git describe --tags | sed 's/-[0-9]*-.*//g')
 
             - name: Upload Artifacts for Windows
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: source
                   path: ./*
@@ -44,7 +44,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
             - name: Build Popclipext
@@ -58,13 +58,13 @@ jobs:
                   bash ./build.sh
                   cd ../..
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: Pot.popclipextz
                   path: .scripts/popclip/Pot.popclipextz
                   if-no-files-found: error
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: pot.pbar
                   path: .scripts/snipdo/pot.pbar
@@ -94,11 +94,11 @@ jobs:
 
         runs-on: ${{ matrix.platform }}
         steps:
-            - uses: actions/download-artifact@v3
+            - uses: actions/download-artifact@v4
               with:
                   name: source
             - name: Setup Nodejs
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 21
             - name: Install Rust Stable
@@ -107,9 +107,9 @@ jobs:
               run: |
                   rustup target add ${{ matrix.target }}
             - name: Setup pnpm
-              uses: pnpm/action-setup@v2
+              uses: pnpm/action-setup@v4
               with:
-                  version: 8
+                  version: 9
             - name: Install Dependencies
               run: pnpm install
             - name: Code Format
@@ -132,13 +132,13 @@ jobs:
                   sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz
                   sudo mv src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot.app.tar.gz.sig src-tauri/target/x86_64-apple-darwin/release/bundle/macos/pot_${{needs.change-version.outputs.version}}_x64.app.tar.gz.sig
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: macos_${{ matrix.target }}_dmg
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
                   if-no-files-found: error
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: macos_${{ matrix.target }}_updater
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app*
@@ -177,11 +177,11 @@ jobs:
                       toolchain: stable-aarch64-pc-windows-msvc
         runs-on: ${{ matrix.platform }}
         steps:
-            - uses: actions/download-artifact@v3
+            - uses: actions/download-artifact@v4
               with:
                   name: source
             - name: Setup Nodejs
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 21
             - name: Install Rust Stable
@@ -191,9 +191,9 @@ jobs:
                   rustup target add ${{ matrix.target }}
                   rustup toolchain install --force-non-host ${{ matrix.toolchain }}
             - name: Setup pnpm
-              uses: pnpm/action-setup@v2
+              uses: pnpm/action-setup@v4
               with:
-                  version: 8
+                  version: 9
             - name: Install Dependencies
               run: pnpm install
             - name: Code Format
@@ -204,7 +204,7 @@ jobs:
                   $env:TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
                   pnpm tauri build -b nsis,updater --target ${{ matrix.target }}
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: windows_${{ matrix.target }}
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
@@ -239,11 +239,11 @@ jobs:
                       toolchain: stable-aarch64-pc-windows-msvc
         runs-on: ${{ matrix.platform }}
         steps:
-            - uses: actions/download-artifact@v3
+            - uses: actions/download-artifact@v4
               with:
                   name: source
             - name: Setup Nodejs
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 21
             - name: Install Rust Stable
@@ -253,9 +253,9 @@ jobs:
                   rustup target add ${{ matrix.target }}
                   rustup toolchain install --force-non-host ${{ matrix.toolchain }}
             - name: Setup pnpm
-              uses: pnpm/action-setup@v2
+              uses: pnpm/action-setup@v4
               with:
-                  version: 8
+                  version: 9
             - name: Install Dependencies
               run: pnpm install
             - name: Code Format
@@ -275,7 +275,7 @@ jobs:
                   Rename-Item .\src-tauri\target\${{ matrix.target }}\release\bundle\nsis\pot_${{needs.change-version.outputs.version}}_${{ matrix.arch }}-setup.nsis.zip pot_${{needs.change-version.outputs.version}}_${{ matrix.arch }}_fix_webview2_runtime-setup.nsis.zip
                   Rename-Item .\src-tauri\target\${{ matrix.target }}\release\bundle\nsis\pot_${{needs.change-version.outputs.version}}_${{ matrix.arch }}-setup.nsis.zip.sig pot_${{needs.change-version.outputs.version}}_${{ matrix.arch }}_fix_webview2_runtime-setup.nsis.zip.sig
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: windows_fix_webview_runtime_${{ matrix.target }}
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*setup*
@@ -316,7 +316,7 @@ jobs:
                       toolchain: stable-armv7-unknown-linux-gnueabihf
         runs-on: ${{ matrix.platform }}
         steps:
-            - uses: actions/download-artifact@v3
+            - uses: actions/download-artifact@v4
               with:
                   name: source
             - name: Build for Linux
@@ -328,14 +328,14 @@ jobs:
                   target: ${{ matrix.target }}
                   toolchain: ${{ matrix.toolchain }}
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: linux_${{ matrix.target }}_deb
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
                   if-no-files-found: error
             - name: Upload Artifacts
               if: matrix.target == 'x86_64-unknown-linux-gnu'
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: linux_${{ matrix.target }}_appimage
                   path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage*
@@ -361,7 +361,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags')
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
             - name: Install git
@@ -373,9 +373,9 @@ jobs:
                   echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')" >> $GITHUB_ENV
                   echo "VERSION=$(git describe --tags | sed 's/-[0-9]*-.*//g')"
             - name: Setup pnpm
-              uses: pnpm/action-setup@v2
+              uses: pnpm/action-setup@v4
               with:
-                  version: 8
+                  version: 9
             - name: pnpm install
               run: pnpm install
             - name: Release updater file
@@ -401,7 +401,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags')
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
             - name: Get Tag Name
@@ -430,7 +430,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags')
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
             - name: Install git
