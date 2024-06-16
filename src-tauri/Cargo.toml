@@ -14,7 +14,7 @@ tauri-build = { version = "1.5", features = [] }
 
 [dependencies]
 
-tauri = { version = "1.5", features = [ "dialog-save", "dialog-open", "fs-all", "protocol-asset", "shell-all", "clipboard-all", "os-all", "http-all", "http-multipart", "updater", "notification-all", "global-shortcut-all", "window-all", "path-all", "system-tray"] }
+tauri = { version = "1.6", features = [ "dialog-save", "dialog-open", "fs-all", "protocol-asset", "shell-all", "clipboard-all", "os-all", "http-all", "http-multipart", "updater", "notification-all", "global-shortcut-all", "window-all", "path-all", "system-tray"] }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
@@ -48,7 +48,7 @@ macos-accessibility-client = "0.0.1"
 window-shadows = "0.2"
 
 [target.'cfg(windows)'.dependencies]
-windows = {version="0.44.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Foundation", "Graphics_Imaging", "Media_Ocr", "Foundation", "Globalization", "Storage", "Storage_Streams"] }
+windows = {version="0.57.0",features= ["Win32_UI_WindowsAndMessaging", "Win32_Foundation", "Graphics_Imaging", "Media_Ocr", "Foundation", "Globalization", "Storage", "Storage_Streams"] }
 window-shadows = "0.2"
 
 [target.'cfg(target_os = "linux")'.dependencies]
