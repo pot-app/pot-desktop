@@ -27,6 +27,8 @@ pub enum Error {
     Libloading(#[from] libloading::Error),
     #[error(transparent)]
     Selection(#[from] font_kit::error::SelectionError),
+    #[error(transparent)]
+    Reqwest(#[from] reqwest::Error),
 }
 
 // we must manually implement serde::Serialize

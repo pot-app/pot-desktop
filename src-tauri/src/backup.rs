@@ -5,7 +5,7 @@ use reqwest_dav::{Auth, ClientBuilder, Depth};
 use std::io::Write;
 use walkdir::WalkDir;
 use zip::read::ZipArchive;
-use zip::write::FileOptions;
+use zip::write::SimpleFileOptions;
 
 #[tauri::command(async)]
 pub async fn webdav(
@@ -60,7 +60,8 @@ pub async fn webdav(
 
             let zip_file = std::fs::File::create(&zip_path)?;
             let mut zip = zip::ZipWriter::new(zip_file);
-            let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
+            let options =
+                SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
             zip.start_file("config.json", options)?;
             zip.write(&std::fs::read(&config_path)?)?;
             if database_path.exists() {
@@ -128,7 +129,8 @@ pub async fn local(operate: &str, path: String) -> Result<String, Error> {
 
             let zip_file = std::fs::File::create(&path)?;
             let mut zip = zip::ZipWriter::new(zip_file);
-            let options = FileOptions::default().compression_method(zip::CompressionMethod::Stored);
+            let options =
+                SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
             zip.start_file("config.json", options)?;
             zip.write(&std::fs::read(&config_path)?)?;
             if database_path.exists() {

@@ -5,7 +5,7 @@
 > A cross-platform translator application ([Telegram Group](https://t.me/pot_app))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
-![Tauri](https://img.shields.io/badge/Tauri-1.5.0-blue?logo=tauri)
+![Tauri](https://img.shields.io/badge/Tauri-1.6.8-blue?logo=tauri)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
@@ -421,7 +421,7 @@ Node.js >= 18.0.0
 
 pnpm >= 8.5.0
 
-Rust >= 1.70.0
+Rust >= 1.79.0
 
 ### Start compilation
 

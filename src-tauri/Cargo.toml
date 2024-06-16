@@ -30,18 +30,18 @@ mouse_position = "0.1.3"
 log = "^0.4"
 tiny_http = "0.12.0"
 screenshots = "0.7.2"
-image = "0.24.6"
-base64 = "0.21.2"
+base64 = "0.22.1"
 arboard = "3.2.0"
 libloader = "0.1.4"
 libloading = "0.8.0"
 lingua = { version = "1.6.2", default-features = false, features = ["chinese", "japanese", "english", "korean", "french", "spanish", "german", "russian", "italian", "portuguese", "turkish", "arabic", "vietnamese", "thai", "indonesian", "malay", "hindi", "mongolian", "persian", "nynorsk", "bokmal", "ukrainian"] }
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.12.4", features = ["json"] }
 reqwest_dav = "0.1.5"
-zip = "0.6.6"
+zip = "2.1.3"
 walkdir = "2.3.3"
 thiserror = "1.0.47"
-font-kit = "0.12.0"
+font-kit = "0.13.2"
+image = "0.25.1"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 macos-accessibility-client = "0.0.1"

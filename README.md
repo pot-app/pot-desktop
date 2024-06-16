@@ -5,7 +5,7 @@
 > 🌈 一个跨平台的划词翻译软件 ([QQ 频道](https://pd.qq.com/s/akns94e1r))
 
 ![License](https://img.shields.io/github/license/pot-app/pot-desktop.svg)
-![Tauri](https://img.shields.io/badge/Tauri-1.5.0-blue?logo=tauri)
+![Tauri](https://img.shields.io/badge/Tauri-1.6.8-blue?logo=tauri)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
@@ -423,7 +423,7 @@ Node.js >= 18.0.0
 
 pnpm >= 8.5.0
 
-Rust >= 1.70.0
+Rust >= 1.79.0
 
 ### 开始编译
 
