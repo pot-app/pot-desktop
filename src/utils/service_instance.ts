@@ -42,8 +42,9 @@ export function getDisplayInstanceName(instanceName: string, serviceNameSupplier
 
 export const INSTANCE_NAME_CONFIG_KEY = 'instanceName'
 
-export function whetherAvailableService(serviceInstanceKey: string, availableServiceNames: Record<ServiceSourceType, string[]>) {
+export function whetherAvailableService(serviceInstanceKey: string, availableServices: Record<ServiceSourceType, Record<string, any>>) {
     const serviceSourceType = getServiceSouceType(serviceInstanceKey)
     const serviceName = getServiceName(serviceInstanceKey)
-    return availableServiceNames[serviceSourceType].findIndex((it: string) => it === serviceName) != -1
+    return availableServices[serviceSourceType]?.[serviceName] !== undefined
+
 }

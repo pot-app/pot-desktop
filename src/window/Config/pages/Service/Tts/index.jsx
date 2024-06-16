@@ -11,8 +11,8 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
-import * as builtinTtsServices from '../../../../../../services/tts';
-import { whetherAvailableService } from '../../../../../utils/service_instance';
+import * as builtinTtsServices from '../../../../../services/tts';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
 
 export default function Tts(props) {
     const { pluginList } = props;

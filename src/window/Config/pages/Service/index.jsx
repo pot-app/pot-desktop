@@ -9,6 +9,7 @@ import Translate from './Translate';
 import Recognize from './Recognize';
 import Collection from './Collection';
 import Tts from './Tts';
+import { ServiceType } from '../../../../utils/service_instance';
 
 let unlisten = null;
 
@@ -66,25 +67,25 @@ export default function Service() {
                     key='translate'
                     title={t(`config.service.translate`)}
                 >
-                    <Translate pluginList={pluginList['translate']} />
+                    <Translate pluginList={pluginList[ServiceType.TRANSLATE]} />
                 </Tab>
                 <Tab
                     key='recognize'
                     title={t(`config.service.recognize`)}
                 >
-                    <Recognize pluginList={pluginList['recognize']} />
+                    <Recognize pluginList={pluginList[ServiceType.RECOGNIZE]} />
                 </Tab>
                 <Tab
                     key='tts'
                     title={t(`config.service.tts`)}
                 >
-                    <Tts pluginList={pluginList['tts']} />
+                    <Tts pluginList={pluginList[ServiceType.TTS]} />
                 </Tab>
                 <Tab
                     key='collection'
                     title={t(`config.service.collection`)}
                 >
-                    <Collection pluginList={pluginList['collection']} />
+                    <Collection pluginList={pluginList[ServiceType.COLLECTION]} />
                 </Tab>
             </Tabs>
         )

@@ -9,8 +9,8 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
-import * as builtinCollectionServices from '../../../../../../services/collection';
-import { whetherAvailableService } from '../../../../../utils/service_instance';
+import * as builtinCollectionServices from '../../../../../services/collection';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
 
 export default function Collection(props) {
     const { pluginList } = props;

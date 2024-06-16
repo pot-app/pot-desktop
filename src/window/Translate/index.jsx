@@ -17,8 +17,8 @@ import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
 
-import * as builtinTranslateServices from '../../../../services/translate';
-import { ServiceSourceType, whetherAvailableService } from '../../utils/service_instance';
+import * as builtinTranslateServices from '../../services/translate';
+import { ServiceSourceType, ServiceType, whetherAvailableService } from '../../utils/service_instance';
 
 let blurTimeout = null;
 let resizeTimeout = null;
@@ -276,7 +276,7 @@ export default function Translate() {
                                                 return whetherAvailableService(
                                                     serviceInstanceKey,
                                                     {
-                                                        [ServiceSourceType.PLUGIN]: pluginList,
+                                                        [ServiceSourceType.PLUGIN]: pluginList[ServiceType.TRANSLATE],
                                                         [ServiceSourceType.BUILDIN]: builtinTranslateServices
                                                     }
                                                 )

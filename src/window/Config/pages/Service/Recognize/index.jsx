@@ -11,8 +11,9 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
-import * as builtinRecognizeServices from '../../../../../../services/recognize';
-import { whetherAvailableService } from '../../../../../utils/service_instance';
+import * as builtinRecognizeServices from '../../../../../services/recognize';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
+
 
 export default function Recognize(props) {
     const { pluginList } = props;

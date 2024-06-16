@@ -12,7 +12,7 @@ import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
 
-import * as builtinTranslateServices from '../../../../services/translate';
+import * as builtinTranslateServices from '../../../../../services/translate';
 import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
 
 export default function Translate(props) {

@@ -17,7 +17,7 @@ import { useConfig, useToastStyle } from '../../../../hooks';
 import { LanguageFlag } from '../../../../utils/language';
 import { store } from '../../../../utils/store';
 import { osType } from '../../../../utils/env';
-import { ServiceSourceType, whetherAvailableService } from '../../../../utils/service_instance';
+import { ServiceSourceType, ServiceType, whetherAvailableService } from '../../../../utils/service_instance';
 
 export default function History() {
     const [collectionServiceList] = useConfig('collection_service_list', []);
@@ -148,7 +148,7 @@ export default function History() {
                     >
                         {(item) => whetherAvailableService(item.service, {
                             [ServiceSourceType.BUILDIN]: builtinServices,
-                            [ServiceSourceType.PLUGIN]: pluginList
+                            [ServiceSourceType.PLUGIN]: pluginList[ServiceType.TRANSLATE]
                         }) && (
                             <TableRow key={item.id}>
                                 <TableCell>
