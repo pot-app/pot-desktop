@@ -1,3 +1,10 @@
+export enum ServiceType {
+    TRANSLATE = 'translate',
+    RECOGNIZE = 'recognize',
+    TTS = 'tts',
+    COLLECTION = 'Collection'
+}
+
 export enum ServiceSourceType {
     BUILDIN = 'buildin',
     PLUGIN = 'plugin',
@@ -29,9 +36,15 @@ export function getServiceName(serviceInstanceKey: string): string {
     return serviceInstanceKey.split('@')[0]
 }
 
-
 export function getDisplayInstanceName(instanceName: string, serviceNameSupplier: () => string): string {
     return instanceName || serviceNameSupplier()
 }
 
 export const INSTANCE_NAME_CONFIG_KEY = 'instanceName'
+
+export function whetherAvailableService(serviceInstanceKey: string, availableServices: Record<ServiceSourceType, Record<string, any>>) {
+    const serviceSourceType = getServiceSouceType(serviceInstanceKey)
+    const serviceName = getServiceName(serviceInstanceKey)
+    return availableServices[serviceSourceType]?.[serviceName] !== undefined
+
+}

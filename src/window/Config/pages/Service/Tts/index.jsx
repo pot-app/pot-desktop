@@ -11,6 +11,8 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
+import * as builtinTtsServices from '../../../../../services/tts';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
 
 export default function Tts(props) {
     const { pluginList } = props;
@@ -76,7 +78,12 @@ export default function Tts(props) {
                                 {...provided.droppableProps}
                             >
                                 {ttsServiceList !== null &&
-                                    ttsServiceList.map((x, i) => {
+                                    ttsServiceList.filter(instanceKey => {
+                                        return whetherAvailableService(instanceKey, {
+                                            [ServiceSourceType.BUILDIN]: builtinTtsServices,
+                                            [ServiceSourceType.PLUGIN]: pluginList
+                                        })
+                                    }).map((x, i) => {
                                         return (
                                             <Draggable
                                                 key={x}

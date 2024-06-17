@@ -12,6 +12,7 @@ import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
 import { pluginListAtom } from '..';
 import { osType } from '../../../utils/env';
+import { whetherAvailableService } from '../../../utils/service_instance';
 
 export const serviceNameAtom = atom();
 export const languageAtom = atom();
@@ -53,8 +54,8 @@ export default function ControlArea() {
                                         serviceName.startsWith('[plugin]')
                                             ? pluginList[serviceName].icon
                                             : builtinService[serviceName].info.icon === 'system'
-                                            ? `logo/${osType}.svg`
-                                            : builtinService[serviceName].info.icon
+                                                ? `logo/${osType}.svg`
+                                                : builtinService[serviceName].info.icon
                                     }
                                 />
                             }
@@ -71,7 +72,12 @@ export default function ControlArea() {
                             setServiceName(key);
                         }}
                     >
-                        {serviceList.map((name) => {
+                        {serviceList.filter(instanceKey => {
+                            return whetherAvailableService(instanceKey, {
+                                [ServiceSourceType.BUILDIN]: builtinService,
+                                [ServiceSourceType.PLUGIN]: pluginList
+                            })
+                        }).map((name) => {
                             return (
                                 <DropdownItem
                                     key={name}
@@ -82,8 +88,8 @@ export default function ControlArea() {
                                                 name.startsWith('[plugin]')
                                                     ? pluginList[name].icon
                                                     : builtinService[name].info.icon === 'system'
-                                                    ? `logo/${osType}.svg`
-                                                    : builtinService[name].info.icon
+                                                        ? `logo/${osType}.svg`
+                                                        : builtinService[name].info.icon
                                             }
                                         />
                                     }

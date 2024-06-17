@@ -11,6 +11,9 @@ import { useConfig } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
+import * as builtinRecognizeServices from '../../../../../services/recognize';
+import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
+
 
 export default function Recognize(props) {
     const { pluginList } = props;
@@ -79,7 +82,12 @@ export default function Recognize(props) {
                                 {...provided.droppableProps}
                             >
                                 {recognizeServiceList !== null &&
-                                    recognizeServiceList.map((x, i) => {
+                                    recognizeServiceList.filter(instanceKey => {
+                                        return whetherAvailableService(instanceKey, {
+                                            [ServiceSourceType.BUILDIN]: builtinRecognizeServices,
+                                            [ServiceSourceType.PLUGIN]: pluginList
+                                        })
+                                    }).map((x, i) => {
                                         return (
                                             <Draggable
                                                 key={x}
