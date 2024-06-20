@@ -47,7 +47,6 @@
                 "title": "常规设置",
                 "auto_start": "开机时启动应用",
                 "check_update": "启动时检查更新",
-
                 "server_port": "监听端口",
                 "server_port_change": "监听端口已更改，重启应用生效",
                 "app_language": "应用语言",
@@ -258,15 +257,6 @@
                     "prompt_description": "通过自定义Prompt自定义AI的行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
                 },
-                "ollama_polish": {
-                    "title": "Ollama 润色"
-                },
-                "ollama_summary": {
-                    "title": "Ollama 总结"
-                },
-                "ollama_custom": {
-                    "title": "Ollama 自定义"
-                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "服务提供商",
@@ -287,15 +277,6 @@
                     "prompt_description": "通过自定义Prompt自定义Gemini Pro的行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
                 },
-                "geminipro_summary": {
-                    "title": "Gemini Pro 总结"
-                },
-                "geminipro_polish": {
-                    "title": "Gemini Pro 润色"
-                },
-                "geminipro_custom": {
-                    "title": "Gemini Pro 自定义"
-                },
                 "chatglm": {
                     "title": "智谱 AI",
                     "model": "模型",
@@ -306,15 +287,6 @@
                     "api_key": "Api Key",
                     "prompt_description": "通过自定义Prompt自定义AI行为, $text $from $to $detect 将会被替换为 待翻译文本，源语言，目标语言和检测到的语言。",
                     "add": "添加 Prompt"
-                },
-                "chatglm_summary": {
-                    "title": "智谱 AI 总结"
-                },
-                "chatglm_polish": {
-                    "title": "智谱 AI 润色"
-                },
-                "chatglm_custom": {
-                    "title": "智谱 AI 自定义"
                 },
                 "yandex": {
                     "title": "Yandex"
@@ -377,15 +349,6 @@
                 "caiyun": {
                     "title": "彩云小译",
                     "token": "Token"
-                },
-                "openai_custom": {
-                    "title": "OpenAI 自定义"
-                },
-                "openai_polish": {
-                    "title": "OpenAI 润色"
-                },
-                "openai_summary": {
-                    "title": "OpenAI 总结"
                 }
             },
             "recognize": {

@@ -76,9 +76,6 @@
                 "cambridge_dict": {
                     "title": "Cambridge Dicionário"
                 },
-                "openai_custom": {
-                    "title": "OpenAI Customização"
-                },
                 "baidu": {
                     "appid": "ID do App",
                     "title": "Baidu",
@@ -109,29 +106,11 @@
                 "bing_dict": {
                     "title": "Bing Dicionário"
                 },
-                "chatglm_custom": {
-                    "title": "ChatGLM Hábito"
-                },
-                "chatglm_polish": {
-                    "title": "ChatGLM Polonês"
-                },
-                "chatglm_summary": {
-                    "title": "ChatGLM Resumo"
-                },
-                "openai_polish": {
-                    "title": "OpenAI Retoque"
-                },
                 "bing": {
                     "title": "Bing"
                 },
-                "openai_summary": {
-                    "title": "OpenAI Resumo"
-                },
                 "alibaba": {
                     "title": "Alibaba"
-                },
-                "geminipro_summary": {
-                    "title": "Resumo do Gemini Pro"
                 },
                 "geminipro": {
                     "api_key": "Chave de Api",

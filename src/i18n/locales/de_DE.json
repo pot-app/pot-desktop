@@ -261,15 +261,6 @@
                     "prompt_description": "Passen Sie das Verhalten von Gemini Pro durch benutzerdefinierte Prompts an. $text $from $to $detect werden durch den zu übersetzenden Text, die Ausgangs- und Zielsprache sowie die erkannte Sprache ersetzt.",
                     "add": "Prompt hinzufügen"
                 },
-                "geminipro_summary": {
-                    "title": "Gemini Pro Zusammenfassung"
-                },
-                "geminipro_polish": {
-                    "title": "Gemini Pro Überarbeitung"
-                },
-                "geminipro_custom": {
-                    "title": "Gemini Pro Benutzerdefiniert"
-                },
                 "chatglm": {
                     "title": "ChatGLM",
                     "model": "Modell",
@@ -280,15 +271,6 @@
                     "api_key": "API-Schlüssel",
                     "prompt_description": "Passen Sie das Verhalten von KI durch benutzerdefinierte Prompts an. $text $from $to $detect werden durch den zu übersetzenden Text, die Ausgangs- und Zielsprache sowie die erkannte Sprache ersetzt.",
                     "add": "Prompt hinzufügen"
-                },
-                "chatglm_summary": {
-                    "title": "ChatGLM Zusammenfassung"
-                },
-                "chatglm_polish": {
-                    "title": "ChatGLM Überarbeitung"
-                },
-                "chatglm_custom": {
-                    "title": "ChatGLM Benutzerdefiniert"
                 },
                 "yandex": {
                     "title": "Yandex"
@@ -351,15 +333,6 @@
                 "caiyun": {
                     "title": "Caiyun",
                     "token": "Token"
-                },
-                "openai_custom": {
-                    "title": "OpenAI Benutzerdefiniert"
-                },
-                "openai_polish": {
-                    "title": "OpenAI Überarbeitung"
-                },
-                "openai_summary": {
-                    "title": "OpenAI Zusammenfassung"
                 }
             },
             "recognize": {

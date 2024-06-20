@@ -82,9 +82,6 @@
                 "cambridge_dict": {
                     "title": "Dizionario di Cambridge"
                 },
-                "openai_custom": {
-                    "title": "OpenAI personalizzato"
-                },
                 "baidu": {
                     "appid": "ID app",
                     "title": "Baidu",
@@ -114,23 +111,8 @@
                     "appid": "ID app",
                     "secret": "Segreto"
                 },
-                "chatglm_custom": {
-                    "title": "ChatGLM personalizzato"
-                },
-                "chatglm_polish": {
-                    "title": "ChatGLM Polacco"
-                },
-                "chatglm_summary": {
-                    "title": "Riepilogo di ChatGLM"
-                },
-                "openai_polish": {
-                    "title": "OpenAI Polacco"
-                },
                 "bing": {
                     "title": "Bing"
-                },
-                "openai_summary": {
-                    "title": "Riepilogo di OpenAI"
                 }
             },
             "recognize": {

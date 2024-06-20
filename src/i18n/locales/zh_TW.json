@@ -266,15 +266,6 @@
                     "add": "新增 Prompt",
                     "chatglm_turbo": "ChatGLM Turbo"
                 },
-                "chatglm_summary": {
-                    "title": "ChatGLM 總結"
-                },
-                "chatglm_polish": {
-                    "title": "ChatGLM 潤飾"
-                },
-                "chatglm_custom": {
-                    "title": "ChatGLM 自定義"
-                },
                 "yandex": {
                     "title": "Yandex"
                 },
@@ -337,15 +328,6 @@
                     "title": "彩雲小譯",
                     "token": "Token"
                 },
-                "openai_custom": {
-                    "title": "OpenAI 自定義"
-                },
-                "openai_polish": {
-                    "title": "OpenAI 潤飾"
-                },
-                "openai_summary": {
-                    "title": "OpenAI 總結"
-                },
                 "ollama": {
                     "add": "新增 Prompt",
                     "title": "Ollama",
@@ -360,9 +342,6 @@
                     "not_installed": "此模型尚未安裝，點選立即下載並安裝",
                     "prompt_description": "透過自定義 Prompt，您可以自定義 AI 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。"
                 },
-                "ollama_polish": {
-                    "title": "Ollama 潤飾"
-                },
                 "geminipro": {
                     "title": "Gemini Pro",
                     "request_path": "請求路徑",
@@ -370,21 +349,6 @@
                     "prompt_description": "透過自定義 Prompt，您可以自定義 Gemini Pro 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。",
                     "stream": "串流輸出",
                     "add": "新增 Prompt"
-                },
-                "geminipro_summary": {
-                    "title": "Gemini Pro 總結"
-                },
-                "ollama_summary": {
-                    "title": "Ollama 總結"
-                },
-                "ollama_custom": {
-                    "title": "Ollama 自定義"
-                },
-                "geminipro_polish": {
-                    "title": "Gemini Pro 潤飾"
-                },
-                "geminipro_custom": {
-                    "title": "Gemini Pro 自定義"
                 }
             },
             "recognize": {
