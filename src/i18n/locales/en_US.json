@@ -257,15 +257,6 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of AI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
-                "ollama_polish": {
-                    "title": "Ollama Polish"
-                },
-                "ollama_summary": {
-                    "title": "Ollama Summary"
-                },
-                "ollama_custom": {
-                    "title": "Ollama Custom"
-                },
                 "openai": {
                     "title": "OpenAI",
                     "service": "Service Provider",
@@ -278,15 +269,6 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
-                "openai_summary": {
-                    "title": "OpenAI Summary"
-                },
-                "openai_polish": {
-                    "title": "OpenAI Polish"
-                },
-                "openai_custom": {
-                    "title": "OpenAI Custom"
-                },
                 "geminipro": {
                     "title": "Gemini Pro",
                     "request_path": "Request Path",
@@ -294,15 +276,6 @@
                     "stream": "Stream Mode",
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of Gemini Pro. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
-                },
-                "geminipro_summary": {
-                    "title": "Gemini Pro Summary"
-                },
-                "geminipro_polish": {
-                    "title": "Gemini Pro Polish"
-                },
-                "geminipro_custom": {
-                    "title": "Gemini Pro Custom"
                 },
                 "chatglm": {
                     "title": "ChatGLM",
@@ -314,15 +287,6 @@
                     "api_key": "Api Key",
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of AI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
-                },
-                "chatglm_summary": {
-                    "title": "ChatGLM Summary"
-                },
-                "chatglm_polish": {
-                    "title": "ChatGLM Polish"
-                },
-                "chatglm_custom": {
-                    "title": "ChatGLM Custom"
                 },
                 "yandex": {
                     "title": "Yandex"
