@@ -7,13 +7,12 @@ import React, { useState } from 'react';
 import { useToastStyle } from '../../../../../hooks';
 import SelectPluginModal from '../SelectPluginModal';
 import { osType } from '../../../../../utils/env';
-import { useConfig } from '../../../../../hooks';
+import { useConfig, deleteKey } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
 import * as builtinRecognizeServices from '../../../../../services/recognize';
 import { ServiceSourceType, whetherAvailableService } from '../../../../../utils/service_instance';
-
 
 export default function Recognize(props) {
     const { pluginList } = props;
@@ -51,6 +50,7 @@ export default function Recognize(props) {
             return;
         } else {
             setRecognizeServiceList(recognizeServiceList.filter((x) => x !== name));
+            deleteKey(name);
         }
     };
     const updateServiceList = (name) => {
@@ -82,40 +82,42 @@ export default function Recognize(props) {
                                 {...provided.droppableProps}
                             >
                                 {recognizeServiceList !== null &&
-                                    recognizeServiceList.filter(instanceKey => {
-                                        return whetherAvailableService(instanceKey, {
-                                            [ServiceSourceType.BUILDIN]: builtinRecognizeServices,
-                                            [ServiceSourceType.PLUGIN]: pluginList
+                                    recognizeServiceList
+                                        .filter((instanceKey) => {
+                                            return whetherAvailableService(instanceKey, {
+                                                [ServiceSourceType.BUILDIN]: builtinRecognizeServices,
+                                                [ServiceSourceType.PLUGIN]: pluginList,
+                                            });
                                         })
-                                    }).map((x, i) => {
-                                        return (
-                                            <Draggable
-                                                key={x}
-                                                draggableId={x}
-                                                index={i}
-                                            >
-                                                {(provided) => {
-                                                    return (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                        >
-                                                            <ServiceItem
-                                                                {...provided.dragHandleProps}
-                                                                name={x}
-                                                                key={x}
-                                                                pluginList={pluginList}
-                                                                deleteService={deleteService}
-                                                                setConfigName={setOpenConfigName}
-                                                                onConfigOpen={onConfigOpen}
-                                                            />
-                                                            <Spacer y={2} />
-                                                        </div>
-                                                    );
-                                                }}
-                                            </Draggable>
-                                        );
-                                    })}
+                                        .map((x, i) => {
+                                            return (
+                                                <Draggable
+                                                    key={x}
+                                                    draggableId={x}
+                                                    index={i}
+                                                >
+                                                    {(provided) => {
+                                                        return (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                            >
+                                                                <ServiceItem
+                                                                    {...provided.dragHandleProps}
+                                                                    name={x}
+                                                                    key={x}
+                                                                    pluginList={pluginList}
+                                                                    deleteService={deleteService}
+                                                                    setConfigName={setOpenConfigName}
+                                                                    onConfigOpen={onConfigOpen}
+                                                                />
+                                                                <Spacer y={2} />
+                                                            </div>
+                                                        );
+                                                    }}
+                                                </Draggable>
+                                            );
+                                        })}
                             </div>
                         )}
                     </Droppable>

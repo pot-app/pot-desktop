@@ -57,3 +57,10 @@ export const useConfig = (key, defaultValue, options = {}) => {
 
     return [property, setProperty, getProperty];
 };
+
+export const deleteKey = (key) => {
+    if (store.has(key)) {
+        store.delete(key);
+        store.save();
+    }
+};

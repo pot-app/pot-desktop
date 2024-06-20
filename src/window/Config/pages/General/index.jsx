@@ -117,6 +117,18 @@ export default function General() {
                                 value={serverPort}
                                 labelPlacement='outside-left'
                                 onValueChange={(v) => {
+                                    if (parseInt(v) !== serverPort) {
+                                        if (timer) {
+                                            clearTimeout(timer);
+                                        }
+                                        timer = setTimeout(() => {
+                                            toast.success(t('config.general.server_port_change'), {
+                                                duration: 3000,
+                                                style: toastStyle,
+                                            });
+                                        }, 1000);
+                                    }
+                                    console.log(v);
                                     if (v === '') {
                                         setServerPort(0);
                                     } else if (parseInt(v) > 65535) {
@@ -126,16 +138,6 @@ export default function General() {
                                     } else {
                                         setServerPort(parseInt(v));
                                     }
-
-                                    if (timer) {
-                                        clearTimeout(timer);
-                                    }
-                                    timer = setTimeout(() => {
-                                        toast.success(t('config.general.server_port_change'), {
-                                            duration: 3000,
-                                            style: toastStyle,
-                                        });
-                                    }, 1000);
                                 }}
                                 className='max-w-[100px]'
                             />
@@ -454,12 +456,14 @@ export default function General() {
                     </div>
                     <div className={`config-item ${osType === 'Darwin' && 'hidden'}`}>
                         <h3>{t('config.general.transparent')}</h3>
-                        <Switch
-                            isSelected={transparent}
-                            onValueChange={(v) => {
-                                setTransparent(v);
-                            }}
-                        />
+                        {transparent !== null && (
+                            <Switch
+                                isSelected={transparent}
+                                onValueChange={(v) => {
+                                    setTransparent(v);
+                                }}
+                            />
+                        )}
                     </div>
                 </CardBody>
             </Card>

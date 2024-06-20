@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { useToastStyle } from '../../../../../hooks';
 import SelectPluginModal from '../SelectPluginModal';
 import { osType } from '../../../../../utils/env';
-import { useConfig } from '../../../../../hooks';
+import { useConfig, deleteKey } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
@@ -54,6 +54,7 @@ export default function Translate(props) {
             return;
         } else {
             setTranslateServiceInstanceList(translateServiceInstanceList.filter((x) => x !== instanceKey));
+            deleteKey(instanceKey);
         }
     };
     const updateServiceInstanceList = (instanceKey) => {
@@ -69,8 +70,9 @@ export default function Translate(props) {
         <>
             <Toaster />
             <Card
-                className={`${osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
-                    } overflow-y-auto p-5 flex justify-between`}
+                className={`${
+                    osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
+                } overflow-y-auto p-5 flex justify-between`}
             >
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable
@@ -84,40 +86,42 @@ export default function Translate(props) {
                                 {...provided.droppableProps}
                             >
                                 {translateServiceInstanceList !== null &&
-                                    translateServiceInstanceList.filter(instanceKey => {
-                                        return whetherAvailableService(instanceKey, {
-                                            [ServiceSourceType.BUILDIN]: builtinTranslateServices,
-                                            [ServiceSourceType.PLUGIN]: pluginList
+                                    translateServiceInstanceList
+                                        .filter((instanceKey) => {
+                                            return whetherAvailableService(instanceKey, {
+                                                [ServiceSourceType.BUILDIN]: builtinTranslateServices,
+                                                [ServiceSourceType.PLUGIN]: pluginList,
+                                            });
                                         })
-                                    }).map((x, i) => {
-                                        return (
-                                            <Draggable
-                                                key={x}
-                                                draggableId={x}
-                                                index={i}
-                                            >
-                                                {(provided) => {
-                                                    return (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                        >
-                                                            <ServiceItem
-                                                                {...provided.dragHandleProps}
-                                                                key={x}
-                                                                serviceInstanceKey={x}
-                                                                pluginList={pluginList}
-                                                                deleteServiceInstance={deleteServiceInstance}
-                                                                setCurrentConfigKey={setCurrentConfigKey}
-                                                                onConfigOpen={onConfigOpen}
-                                                            />
-                                                            <Spacer y={2} />
-                                                        </div>
-                                                    );
-                                                }}
-                                            </Draggable>
-                                        );
-                                    })}
+                                        .map((x, i) => {
+                                            return (
+                                                <Draggable
+                                                    key={x}
+                                                    draggableId={x}
+                                                    index={i}
+                                                >
+                                                    {(provided) => {
+                                                        return (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                            >
+                                                                <ServiceItem
+                                                                    {...provided.dragHandleProps}
+                                                                    key={x}
+                                                                    serviceInstanceKey={x}
+                                                                    pluginList={pluginList}
+                                                                    deleteServiceInstance={deleteServiceInstance}
+                                                                    setCurrentConfigKey={setCurrentConfigKey}
+                                                                    onConfigOpen={onConfigOpen}
+                                                                />
+                                                                <Spacer y={2} />
+                                                            </div>
+                                                        );
+                                                    }}
+                                                </Draggable>
+                                            );
+                                        })}
                             </div>
                         )}
                     </Droppable>

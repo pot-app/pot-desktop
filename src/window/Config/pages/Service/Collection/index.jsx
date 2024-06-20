@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import SelectPluginModal from '../SelectPluginModal';
 import { osType } from '../../../../../utils/env';
-import { useConfig } from '../../../../../hooks';
+import { useConfig, deleteKey } from '../../../../../hooks';
 import ServiceItem from './ServiceItem';
 import SelectModal from './SelectModal';
 import ConfigModal from './ConfigModal';
@@ -40,6 +40,7 @@ export default function Collection(props) {
 
     const deleteService = (name) => {
         setCollectionServiceList(collectionServiceList.filter((x) => x !== name));
+        deleteKey(name);
     };
     const updateServiceList = (name) => {
         if (collectionServiceList.includes(name)) {
@@ -69,40 +70,42 @@ export default function Collection(props) {
                                 {...provided.droppableProps}
                             >
                                 {collectionServiceList !== null &&
-                                    collectionServiceList.filter(instanceKey => {
-                                        return whetherAvailableService(instanceKey, {
-                                            [ServiceSourceType.BUILDIN]: builtinCollectionServices,
-                                            [ServiceSourceType.PLUGIN]: pluginList
+                                    collectionServiceList
+                                        .filter((instanceKey) => {
+                                            return whetherAvailableService(instanceKey, {
+                                                [ServiceSourceType.BUILDIN]: builtinCollectionServices,
+                                                [ServiceSourceType.PLUGIN]: pluginList,
+                                            });
                                         })
-                                    }).map((x, i) => {
-                                        return (
-                                            <Draggable
-                                                key={x}
-                                                draggableId={x}
-                                                index={i}
-                                            >
-                                                {(provided) => {
-                                                    return (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                        >
-                                                            <ServiceItem
-                                                                {...provided.dragHandleProps}
-                                                                name={x}
-                                                                key={x}
-                                                                pluginList={pluginList}
-                                                                deleteService={deleteService}
-                                                                setConfigName={setOpenConfigName}
-                                                                onConfigOpen={onConfigOpen}
-                                                            />
-                                                            <Spacer y={2} />
-                                                        </div>
-                                                    );
-                                                }}
-                                            </Draggable>
-                                        );
-                                    })}
+                                        .map((x, i) => {
+                                            return (
+                                                <Draggable
+                                                    key={x}
+                                                    draggableId={x}
+                                                    index={i}
+                                                >
+                                                    {(provided) => {
+                                                        return (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                            >
+                                                                <ServiceItem
+                                                                    {...provided.dragHandleProps}
+                                                                    name={x}
+                                                                    key={x}
+                                                                    pluginList={pluginList}
+                                                                    deleteService={deleteService}
+                                                                    setConfigName={setOpenConfigName}
+                                                                    onConfigOpen={onConfigOpen}
+                                                                />
+                                                                <Spacer y={2} />
+                                                            </div>
+                                                        );
+                                                    }}
+                                                </Draggable>
+                                            );
+                                        })}
                             </div>
                         )}
                     </Droppable>
