@@ -15,6 +15,7 @@ import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 
 import { useConfig, useSyncAtom, useVoice, useToastStyle } from '../../../../hooks';
+import { invoke_plugin } from '../../../../utils/invoke_plugin';
 import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
 import detect from '../../../../utils/lang_detect';
@@ -68,12 +69,10 @@ export default function SourceArea(props) {
             if (serviceName.startsWith('[plugin]')) {
                 if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
                     const pluginConfig = (await store.get(serviceName)) ?? {};
-                    invoke('invoke_plugin', {
-                        name: serviceName,
-                        pluginType: 'recognize',
-                        source: base64,
-                        lang: pluginList['recognize'][serviceName].language[recognizeLanguage],
-                        needs: pluginConfig,
+                    let [func, utils] = await invoke_plugin('recognize', serviceName);
+                    func(base64, pluginList['recognize'][serviceName].language[recognizeLanguage], {
+                        config: pluginConfig,
+                        utils,
                     }).then(
                         (v) => {
                             let newText = v.trim();
@@ -176,12 +175,10 @@ export default function SourceArea(props) {
                 throw new Error('Language not supported');
             }
             const config = (await store.get(serviceName)) ?? {};
-            const data = await invoke('invoke_plugin', {
-                name: serviceName,
-                pluginType: 'tts',
-                source: sourceText,
-                lang: ttsPluginInfo.language[detected],
-                needs: config,
+            let [func, utils] = await invoke_plugin('tts', serviceName);
+            let data = await func(sourceText, ttsPluginInfo.language[detected], {
+                config,
+                utils,
             });
             speak(data);
         } else {

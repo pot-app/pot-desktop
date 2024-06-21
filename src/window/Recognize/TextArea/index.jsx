@@ -7,10 +7,10 @@ import { CgSpaceBetween } from 'react-icons/cg';
 import { MdContentCopy } from 'react-icons/md';
 import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { invoke } from '@tauri-apps/api';
 import { nanoid } from 'nanoid';
 
 import { serviceNameAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
+import { invoke_plugin } from '../../../utils/invoke_plugin';
 import * as builtinServices from '../../../services/recognize';
 import { store } from '../../../utils/store';
 import { useConfig } from '../../../hooks';
@@ -44,38 +44,37 @@ export default function TextArea() {
                     let id = nanoid();
                     recognizeId = id;
                     store.get(serviceName).then((pluginConfig) => {
-                        invoke('invoke_plugin', {
-                            name: serviceName,
-                            pluginType: 'recognize',
-                            source: base64,
-                            lang: pluginList[serviceName].language[language],
-                            needs: pluginConfig,
-                        }).then(
-                            (v) => {
-                                if (recognizeId !== id) return;
-                                v = v.trim();
-                                if (deleteNewline) {
-                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                        invoke_plugin('recognize', serviceName).then(([func, utils]) => {
+                            func(base64, pluginList[serviceName].language[language], {
+                                config: pluginConfig,
+                                utils,
+                            }).then(
+                                (v) => {
+                                    if (recognizeId !== id) return;
+                                    v = v.trim();
+                                    if (deleteNewline) {
+                                        v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                                    }
+                                    setText(v);
+                                    setLoading(false);
+                                    if (autoCopy) {
+                                        writeText(v).then(() => {
+                                            if (hideWindow) {
+                                                sendNotification({
+                                                    title: t('common.write_clipboard'),
+                                                    body: v,
+                                                });
+                                            }
+                                        });
+                                    }
+                                },
+                                (e) => {
+                                    if (recognizeId !== id) return;
+                                    setError(e.toString());
+                                    setLoading(false);
                                 }
-                                setText(v);
-                                setLoading(false);
-                                if (autoCopy) {
-                                    writeText(v).then(() => {
-                                        if (hideWindow) {
-                                            sendNotification({
-                                                title: t('common.write_clipboard'),
-                                                body: v,
-                                            });
-                                        }
-                                    });
-                                }
-                            },
-                            (e) => {
-                                if (recognizeId !== id) return;
-                                setError(e.toString());
-                                setLoading(false);
-                            }
-                        );
+                            );
+                        });
                     });
                 }
             } else {

@@ -4,8 +4,8 @@ use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
 use log::{error, info};
-use serde_json::Value;
-use std::collections::HashMap;
+use serde_json::{json, Value};
+use std::io::Read;
 use tauri::Manager;
 
 #[tauri::command]
@@ -95,130 +95,6 @@ pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) -> Re
     Ok(result)
 }
 
-#[tauri::command(async)]
-pub fn invoke_plugin(
-    app_handle: tauri::AppHandle,
-    plugin_type: &str,
-    name: &str,
-    source: Option<&str>,
-    target: Option<&str>,
-    from: Option<&str>,
-    to: Option<&str>,
-    lang: Option<&str>,
-    needs: HashMap<String, String>,
-) -> Result<Value, String> {
-    use dirs::config_dir;
-    use libloading;
-    use std::env::consts::OS;
-
-    let ext_name = match OS {
-        "linux" => ".so",
-        "macos" => ".dylib",
-        "windows" => ".dll",
-        _ => return Err("Unknown OS".to_string()),
-    };
-    let config_path = config_dir().unwrap();
-    let config_path = config_path.join(app_handle.config().tauri.bundle.identifier.clone());
-    let config_path = config_path.join("plugins");
-    let config_path = config_path.join(plugin_type);
-    let config_path = config_path.join(name);
-    let plugin_path = config_path.join(format!("plugin{ext_name}"));
-    info!("Load plugin from: {:?}", plugin_path);
-    unsafe {
-        let lib = match libloading::Library::new(plugin_path) {
-            Ok(v) => v,
-            Err(e) => {
-                return Err(format!("{e:?}"));
-            }
-        };
-        match plugin_type {
-            "translate" => {
-                let func: libloading::Symbol<
-                    fn(
-                        &str,
-                        &str,
-                        &str,
-                        &str,
-                        HashMap<String, String>,
-                    ) -> Result<Value, Box<dyn std::error::Error>>,
-                > = match lib.get(b"translate") {
-                    Ok(v) => v,
-                    Err(e) => return Err(e.to_string()),
-                };
-                match func(
-                    source.unwrap(),
-                    from.unwrap(),
-                    to.unwrap(),
-                    lang.unwrap(),
-                    needs,
-                ) {
-                    Ok(v) => Ok(v),
-                    Err(e) => Err(e.to_string()),
-                }
-            }
-            "tts" => {
-                let func: libloading::Symbol<
-                    fn(
-                        &str,
-                        &str,
-                        HashMap<String, String>,
-                    ) -> Result<Value, Box<dyn std::error::Error>>,
-                > = match lib.get(b"tts") {
-                    Ok(v) => v,
-                    Err(e) => return Err(e.to_string()),
-                };
-                match func(source.unwrap(), lang.unwrap(), needs) {
-                    Ok(v) => Ok(v),
-                    Err(e) => Err(e.to_string()),
-                }
-            }
-            "recognize" => {
-                let func: libloading::Symbol<
-                    fn(
-                        &str,
-                        &str,
-                        HashMap<String, String>,
-                    ) -> Result<Value, Box<dyn std::error::Error>>,
-                > = match lib.get(b"recognize") {
-                    Ok(v) => v,
-                    Err(e) => return Err(e.to_string()),
-                };
-                match func(source.unwrap(), lang.unwrap(), needs) {
-                    Ok(v) => Ok(v),
-                    Err(e) => Err(e.to_string()),
-                }
-            }
-            "collection" => {
-                let func: libloading::Symbol<
-                    fn(
-                        &str,
-                        &str,
-                        &str,
-                        &str,
-                        HashMap<String, String>,
-                    ) -> Result<Value, Box<dyn std::error::Error>>,
-                > = match lib.get(b"collection") {
-                    Ok(v) => v,
-                    Err(e) => return Err(e.to_string()),
-                };
-                match func(
-                    source.unwrap(),
-                    target.unwrap(),
-                    from.unwrap(),
-                    to.unwrap(),
-                    needs,
-                ) {
-                    Ok(v) => Ok(v),
-                    Err(e) => Err(e.to_string()),
-                }
-            }
-            _ => {
-                return Err("Unknown Plugin Type".to_string());
-            }
-        }
-    }
-}
-
 #[tauri::command]
 pub fn set_proxy() -> Result<bool, ()> {
     let host = match get("proxy_host") {
@@ -252,16 +128,9 @@ pub fn unset_proxy() -> Result<bool, ()> {
 }
 
 #[tauri::command]
-pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, Error> {
+pub fn install_plugin(path_list: Vec<String>) -> Result<i32, Error> {
     let mut success_count = 0;
-    use std::env::consts::OS;
 
-    let ext_name = match OS {
-        "linux" => ".so",
-        "macos" => ".dylib",
-        "windows" => ".dll",
-        _ => return Err(Error::Error("Unknown OS".into())),
-    };
     for path in path_list {
         if !path.ends_with("potext") {
             continue;
@@ -274,6 +143,24 @@ pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, 
                 "Invalid Plugin: file name must start with [plugin]".into(),
             ));
         }
+
+        let mut zip = zip::ZipArchive::new(std::fs::File::open(path)?)?;
+        #[allow(unused_mut)]
+        let mut plugin_type: String;
+        if let Ok(mut info) = zip.by_name("info.json") {
+            let mut content = String::new();
+            info.read_to_string(&mut content)?;
+            let json: serde_json::Value = serde_json::from_str(&content)?;
+            plugin_type = json["plugin_type"]
+                .as_str()
+                .ok_or(Error::Error("can't find plugin type in info.json".into()))?
+                .to_string();
+        } else {
+            return Err(Error::Error("Invalid Plugin: miss info.json".into()));
+        }
+        if zip.by_name("main.js").is_err() {
+            return Err(Error::Error("Invalid Plugin: miss main.js".into()));
+        }
         let config_path = dirs::config_dir().unwrap();
         let config_path =
             config_path.join(APP.get().unwrap().config().tauri.bundle.identifier.clone());
@@ -281,26 +168,37 @@ pub fn install_plugin(path_list: Vec<String>, plugin_type: &str) -> Result<i32, 
         let config_path = config_path.join(plugin_type);
         let plugin_path = config_path.join(file_name);
         std::fs::create_dir_all(&config_path)?;
-        let mut zip = zip::ZipArchive::new(std::fs::File::open(path)?)?;
-        if zip.by_name(format!("plugin{ext_name}").as_str()).is_err() {
-            return Err(Error::Error(
-                format!("Invalid Plugin: miss plugin{ext_name}").into(),
-            ));
-        }
-        if zip.by_name("info.json").is_err() {
-            return Err(Error::Error("Invalid Plugin: miss info.json".into()));
-        }
         zip.extract(&plugin_path)?;
-        let info_file_path = plugin_path.join("info.json");
-        let info_content = std::fs::read_to_string(info_file_path)?;
-        let info: serde_json::Value = serde_json::from_str(&info_content)?;
-        if info["plugin_type"].as_str().unwrap() != plugin_type {
-            std::fs::remove_dir_all(plugin_path)?;
-            return Err(Error::Error("Invalid Plugin: plugin type not match".into()));
-        }
+
         success_count += 1;
     }
     Ok(success_count)
+}
+
+#[tauri::command]
+pub fn run_binary(
+    plugin_type: String,
+    plugin_name: String,
+    exe_name: String,
+    args: Vec<String>,
+) -> Result<Value, Error> {
+    use std::process::Command;
+
+    let config_path = dirs::config_dir().unwrap();
+    let config_path = config_path.join(APP.get().unwrap().config().tauri.bundle.identifier.clone());
+    let config_path = config_path.join("plugins");
+    let config_path = config_path.join(plugin_type);
+    let plugin_path = config_path.join(plugin_name);
+    let path = plugin_path.join(exe_name);
+    let output = Command::new(path)
+        .args(args)
+        .current_dir(plugin_path)
+        .output()?;
+    Ok(json!({
+        "stdout": String::from_utf8_lossy(&output.stdout).to_string(),
+        "stderr": String::from_utf8_lossy(&output.stderr).to_string(),
+        "status": output.status.code().unwrap_or(-1),
+    }))
 }
 
 #[tauri::command]

@@ -111,7 +111,6 @@ export default function SelectPluginModal(props) {
                                         if (selected !== null) {
                                             invoke('install_plugin', {
                                                 pathList: selected,
-                                                pluginType,
                                             }).then(
                                                 (count) => {
                                                     setInstalling(false);

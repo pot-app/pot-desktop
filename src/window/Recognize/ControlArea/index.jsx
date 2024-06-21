@@ -12,7 +12,7 @@ import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
 import { pluginListAtom } from '..';
 import { osType } from '../../../utils/env';
-import { whetherAvailableService } from '../../../utils/service_instance';
+import { whetherAvailableService, ServiceSourceType } from '../../../utils/service_instance';
 
 export const serviceNameAtom = atom();
 export const languageAtom = atom();
@@ -54,8 +54,8 @@ export default function ControlArea() {
                                         serviceName.startsWith('[plugin]')
                                             ? pluginList[serviceName].icon
                                             : builtinService[serviceName].info.icon === 'system'
-                                                ? `logo/${osType}.svg`
-                                                : builtinService[serviceName].info.icon
+                                              ? `logo/${osType}.svg`
+                                              : builtinService[serviceName].info.icon
                                     }
                                 />
                             }
@@ -72,34 +72,36 @@ export default function ControlArea() {
                             setServiceName(key);
                         }}
                     >
-                        {serviceList.filter(instanceKey => {
-                            return whetherAvailableService(instanceKey, {
-                                [ServiceSourceType.BUILDIN]: builtinService,
-                                [ServiceSourceType.PLUGIN]: pluginList
+                        {serviceList
+                            .filter((instanceKey) => {
+                                return whetherAvailableService(instanceKey, {
+                                    [ServiceSourceType.BUILDIN]: builtinService,
+                                    [ServiceSourceType.PLUGIN]: pluginList,
+                                });
                             })
-                        }).map((name) => {
-                            return (
-                                <DropdownItem
-                                    key={name}
-                                    startContent={
-                                        <img
-                                            className='h-[16px] w-[16px] my-auto'
-                                            src={
-                                                name.startsWith('[plugin]')
-                                                    ? pluginList[name].icon
-                                                    : builtinService[name].info.icon === 'system'
-                                                        ? `logo/${osType}.svg`
-                                                        : builtinService[name].info.icon
-                                            }
-                                        />
-                                    }
-                                >
-                                    {name.startsWith('[plugin]')
-                                        ? pluginList[name].display
-                                        : t(`services.recognize.${name}.title`)}
-                                </DropdownItem>
-                            );
-                        })}
+                            .map((name) => {
+                                return (
+                                    <DropdownItem
+                                        key={name}
+                                        startContent={
+                                            <img
+                                                className='h-[16px] w-[16px] my-auto'
+                                                src={
+                                                    name.startsWith('[plugin]')
+                                                        ? pluginList[name].icon
+                                                        : builtinService[name].info.icon === 'system'
+                                                          ? `logo/${osType}.svg`
+                                                          : builtinService[name].info.icon
+                                                }
+                                            />
+                                        }
+                                    >
+                                        {name.startsWith('[plugin]')
+                                            ? pluginList[name].display
+                                            : t(`services.recognize.${name}.title`)}
+                                    </DropdownItem>
+                                );
+                            })}
                     </DropdownMenu>
                 </Dropdown>
             )}
