@@ -182,6 +182,8 @@ pub fn run_binary(
     cmd_name: String,
     args: Vec<String>,
 ) -> Result<Value, Error> {
+    #[cfg(target_os = "windows")]
+    use std::os::windows::process::CommandExt;
     use std::process::Command;
 
     let config_path = dirs::config_dir().unwrap();
@@ -190,10 +192,16 @@ pub fn run_binary(
     let config_path = config_path.join(plugin_type);
     let plugin_path = config_path.join(plugin_name);
 
-    let output = Command::new(cmd_name)
-        .args(args)
-        .current_dir(plugin_path)
-        .output()?;
+    #[cfg(target_os = "windows")]
+    let mut cmd = Command::new("cmd");
+    #[cfg(target_os = "windows")]
+    let cmd = cmd.creation_flags(0x08000000);
+    #[cfg(target_os = "windows")]
+    let cmd = cmd.args(["/c", &cmd_name]);
+    #[cfg(not(target_os = "windows"))]
+    let mut cmd = Command::new(&cmd_name);
+
+    let output = cmd.args(args).current_dir(plugin_path).output()?;
     Ok(json!({
         "stdout": String::from_utf8_lossy(&output.stdout).to_string(),
         "stderr": String::from_utf8_lossy(&output.stderr).to_string(),
