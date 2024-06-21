@@ -153,7 +153,7 @@ export default function History() {
                             }) && (
                                 <TableRow key={item.id}>
                                     <TableCell>
-                                        {item.service.startsWith('[plugin]') ? (
+                                        {item.service.startsWith('plugin') ? (
                                             <img
                                                 src={pluginList['translate'][item.service].icon}
                                                 className='h-[18px] w-[18px] my-auto mr-[8px]'
@@ -233,7 +233,7 @@ export default function History() {
                                 <>
                                     <ModalHeader>
                                         <div className='flex justify-start'>
-                                            {selectedItem.service.startsWith('[plugin]') ? (
+                                            {selectedItem.service.startsWith('plugin') ? (
                                                 <img
                                                     src={pluginList['translate'][selectedItem.service].icon}
                                                     className='h-[24px] w-[24px] my-auto'
@@ -281,7 +281,7 @@ export default function History() {
                                                             isIconOnly
                                                             variant='light'
                                                             onPress={async () => {
-                                                                if (serviceName.startsWith('[plugin]')) {
+                                                                if (serviceName.startsWith('plugin')) {
                                                                     const pluginConfig =
                                                                         (await store.get(serviceName)) ?? {};
                                                                     let [func, utils] = await invoke_plugin(
@@ -334,7 +334,7 @@ export default function History() {
                                                         >
                                                             <img
                                                                 src={
-                                                                    serviceName.startsWith('[plugin]')
+                                                                    serviceName.startsWith('plugin')
                                                                         ? pluginList['collection'][serviceName].icon
                                                                         : builtinCollectionServices[serviceName].info
                                                                               .icon

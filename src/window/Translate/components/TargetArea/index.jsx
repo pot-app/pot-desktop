@@ -317,7 +317,7 @@ export default function TargetArea(props) {
 
     // refresh tts config
     useEffect(() => {
-        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
+        if (ttsServiceList && ttsServiceList[0].startsWith('plugin')) {
             readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
                 dir: BaseDirectory.AppConfig,
             }).then((infoStr) => {
@@ -329,7 +329,7 @@ export default function TargetArea(props) {
     // handle tts speak
     const handleSpeak = async () => {
         const ttsServiceName = ttsServiceList[0];
-        if (ttsServiceName.startsWith('[plugin]')) {
+        if (ttsServiceName.startsWith('plugin')) {
             const config = (await store.get(ttsServiceName)) ?? {};
             if (!(targetLanguage in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
@@ -795,7 +795,7 @@ export default function TargetArea(props) {
                                             variant='light'
                                             size='sm'
                                             onPress={async () => {
-                                                if (collectionServiceName.startsWith('[plugin]')) {
+                                                if (collectionServiceName.startsWith('plugin')) {
                                                     const pluginConfig = (await store.get(collectionServiceName)) ?? {};
                                                     let [func, utils] = await invoke_plugin(
                                                         'collection',
@@ -832,7 +832,7 @@ export default function TargetArea(props) {
                                         >
                                             <img
                                                 src={
-                                                    collectionServiceName.startsWith('[plugin]')
+                                                    collectionServiceName.startsWith('plugin')
                                                         ? pluginList['collection'][collectionServiceName].icon
                                                         : builtinCollectionServices[collectionServiceName].info.icon
                                                 }

@@ -51,7 +51,7 @@ export default function ControlArea() {
                                 <img
                                     className='h-[16px] w-[16px] my-auto'
                                     src={
-                                        serviceName.startsWith('[plugin]')
+                                        serviceName.startsWith('plugin')
                                             ? pluginList[serviceName].icon
                                             : builtinService[serviceName].info.icon === 'system'
                                               ? `logo/${osType}.svg`
@@ -60,7 +60,7 @@ export default function ControlArea() {
                                 />
                             }
                         >
-                            {serviceName.startsWith('[plugin]')
+                            {serviceName.startsWith('plugin')
                                 ? pluginList[serviceName].display
                                 : t(`services.recognize.${serviceName}.title`)}
                         </Button>
@@ -87,7 +87,7 @@ export default function ControlArea() {
                                             <img
                                                 className='h-[16px] w-[16px] my-auto'
                                                 src={
-                                                    name.startsWith('[plugin]')
+                                                    name.startsWith('plugin')
                                                         ? pluginList[name].icon
                                                         : builtinService[name].info.icon === 'system'
                                                           ? `logo/${osType}.svg`
@@ -96,7 +96,7 @@ export default function ControlArea() {
                                             />
                                         }
                                     >
-                                        {name.startsWith('[plugin]')
+                                        {name.startsWith('plugin')
                                             ? pluginList[name].display
                                             : t(`services.recognize.${name}.title`)}
                                     </DropdownItem>

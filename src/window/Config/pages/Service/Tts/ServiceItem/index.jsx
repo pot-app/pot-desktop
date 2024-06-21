@@ -9,7 +9,7 @@ import * as builtinServices from '../../../../../../services/tts';
 
 export default function ServiceItem(props) {
     const { name, deleteService, setConfigName, onConfigOpen, pluginList, ...drag } = props;
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'builtin';
+    const serviceType = name.startsWith('plugin') ? 'plugin' : 'builtin';
     const { t } = useTranslation();
 
     return serviceType === 'plugin' && !(name in pluginList) ? (

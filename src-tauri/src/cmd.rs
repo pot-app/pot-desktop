@@ -138,9 +138,9 @@ pub fn install_plugin(path_list: Vec<String>) -> Result<i32, Error> {
         let path = std::path::Path::new(&path);
         let file_name = path.file_name().unwrap().to_str().unwrap();
         let file_name = file_name.replace(".potext", "");
-        if !file_name.starts_with("[plugin]") {
+        if !file_name.starts_with("plugin") {
             return Err(Error::Error(
-                "Invalid Plugin: file name must start with [plugin]".into(),
+                "Invalid Plugin: file name must start with plugin".into(),
             ));
         }
 

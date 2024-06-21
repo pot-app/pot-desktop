@@ -39,7 +39,7 @@ export default function TextArea() {
         setError('');
         if (base64 !== '' && serviceName && autoCopy !== null && deleteNewline !== null && hideWindow !== null) {
             setLoading(true);
-            if (serviceName.startsWith('[plugin]')) {
+            if (serviceName.startsWith('plugin')) {
                 if (language in pluginList[serviceName].language) {
                     let id = nanoid();
                     recognizeId = id;

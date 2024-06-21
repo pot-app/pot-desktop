@@ -8,9 +8,9 @@ import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
     const { isOpen, onOpenChange, name, updateServiceList, pluginList } = props;
-    const serviceType = name.startsWith('[plugin]') ? 'plugin' : 'builtin';
+    const serviceType = name.startsWith('plugin') ? 'plugin' : 'builtin';
     const { t } = useTranslation();
-    const ConfigComponent = name.startsWith('[plugin]') ? PluginConfig : builtinServices[name].Config;
+    const ConfigComponent = name.startsWith('plugin') ? PluginConfig : builtinServices[name].Config;
 
     return serviceType === 'plugin' && !(name in pluginList) ? (
         <></>

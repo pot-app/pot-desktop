@@ -66,7 +66,7 @@ export default function SourceArea(props) {
             setWindowType('[IMAGE_TRANSLATE]');
             const base64 = await invoke('get_base64');
             const serviceName = recognizeServiceList[0];
-            if (serviceName.startsWith('[plugin]')) {
+            if (serviceName.startsWith('plugin')) {
                 if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
                     const pluginConfig = (await store.get(serviceName)) ?? {};
                     let [func, utils] = await invoke_plugin('recognize', serviceName);
@@ -170,7 +170,7 @@ export default function SourceArea(props) {
             detected = await detect(sourceText);
             setDetectLanguage(detected);
         }
-        if (serviceName.startsWith('[plugin]')) {
+        if (serviceName.startsWith('plugin')) {
             if (!(detected in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
             }
@@ -208,7 +208,7 @@ export default function SourceArea(props) {
     }, [hideWindow]);
 
     useEffect(() => {
-        if (ttsServiceList && ttsServiceList[0].startsWith('[plugin]')) {
+        if (ttsServiceList && ttsServiceList[0].startsWith('plugin')) {
             readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
                 dir: BaseDirectory.AppConfig,
             }).then((infoStr) => {
