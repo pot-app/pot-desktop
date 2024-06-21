@@ -179,7 +179,7 @@ pub fn install_plugin(path_list: Vec<String>) -> Result<i32, Error> {
 pub fn run_binary(
     plugin_type: String,
     plugin_name: String,
-    exe_name: String,
+    cmd_name: String,
     args: Vec<String>,
 ) -> Result<Value, Error> {
     use std::process::Command;
@@ -189,8 +189,8 @@ pub fn run_binary(
     let config_path = config_path.join("plugins");
     let config_path = config_path.join(plugin_type);
     let plugin_path = config_path.join(plugin_name);
-    let path = plugin_path.join(exe_name);
-    let output = Command::new(path)
+
+    let output = Command::new(cmd_name)
         .args(args)
         .current_dir(plugin_path)
         .output()?;
