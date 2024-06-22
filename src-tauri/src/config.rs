@@ -129,7 +129,7 @@ pub fn check_service_available() -> Result<(), Error> {
             collection_service_list,
             builtin_collection_list,
             plugin_collection_list,
-            "tts_service_list",
+            "collection_service_list",
         );
     }
     Ok(())
