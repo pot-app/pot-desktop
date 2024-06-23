@@ -8,11 +8,12 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api';
 import React, { useState } from 'react';
 
+import { createServiceInstanceKey } from '../../../../../utils/service_instance';
 import { useToastStyle } from '../../../../../hooks';
 import { emit } from '@tauri-apps/api/event';
 
 export default function SelectPluginModal(props) {
-    const { isOpen, onOpenChange, setConfigName, onConfigOpen, pluginType, pluginList, deleteService } = props;
+    const { isOpen, onOpenChange, setCurrentConfigKey, onConfigOpen, pluginType, pluginList, deleteService } = props;
     const [installing, setInstalling] = useState(false);
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
@@ -51,7 +52,7 @@ export default function SelectPluginModal(props) {
                                             fullWidth
                                             className='mr-[8px]'
                                             onPress={() => {
-                                                setConfigName(x);
+                                                setCurrentConfigKey(createServiceInstanceKey(x));
                                                 onConfigOpen();
                                             }}
                                             startContent={
