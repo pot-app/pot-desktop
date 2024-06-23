@@ -13,7 +13,6 @@ import { textAtom } from '../TextArea';
 import { pluginListAtom } from '..';
 import { osType } from '../../../utils/env';
 import {
-    whetherAvailableService,
     ServiceSourceType,
     getServiceSouceType,
     getServiceName,
@@ -89,42 +88,34 @@ export default function ControlArea(props) {
                             setCurrentServiceInstanceKey(key);
                         }}
                     >
-                        {serviceInstanceList
-                            .filter((instanceKey) => {
-                                return whetherAvailableService(instanceKey, {
-                                    [ServiceSourceType.BUILDIN]: builtinService,
-                                    [ServiceSourceType.PLUGIN]: pluginList,
-                                });
-                            })
-                            .map((instanceKey) => {
-                                return (
-                                    <DropdownItem
-                                        key={instanceKey}
-                                        startContent={
-                                            <img
-                                                className='h-[16px] w-[16px] my-auto'
-                                                src={
-                                                    getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
-                                                        ? pluginList[getServiceName(instanceKey)].icon
-                                                        : builtinService[getServiceName(instanceKey)].info.icon ===
-                                                            'system'
-                                                          ? `logo/${osType}.svg`
-                                                          : builtinService[getServiceName(instanceKey)].info.icon
-                                                }
-                                            />
-                                        }
-                                    >
-                                        {getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
-                                            ? getInstanceName(
-                                                  instanceKey,
-                                                  () => pluginList[getServiceName(instanceKey)].display
-                                              )
-                                            : getInstanceName(instanceKey, () =>
-                                                  t(`services.recognize.${instanceKey}.title`)
-                                              )}
-                                    </DropdownItem>
-                                );
-                            })}
+                        {serviceInstanceList.map((instanceKey) => {
+                            return (
+                                <DropdownItem
+                                    key={instanceKey}
+                                    startContent={
+                                        <img
+                                            className='h-[16px] w-[16px] my-auto'
+                                            src={
+                                                getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
+                                                    ? pluginList[getServiceName(instanceKey)].icon
+                                                    : builtinService[getServiceName(instanceKey)].info.icon === 'system'
+                                                      ? `logo/${osType}.svg`
+                                                      : builtinService[getServiceName(instanceKey)].info.icon
+                                            }
+                                        />
+                                    }
+                                >
+                                    {getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
+                                        ? getInstanceName(
+                                              instanceKey,
+                                              () => pluginList[getServiceName(instanceKey)].display
+                                          )
+                                        : getInstanceName(instanceKey, () =>
+                                              t(`services.recognize.${instanceKey}.title`)
+                                          )}
+                                </DropdownItem>
+                            );
+                        })}
                     </DropdownMenu>
                 </Dropdown>
             )}

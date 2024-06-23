@@ -17,9 +17,6 @@ import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
 
-import * as builtinTranslateServices from '../../services/translate';
-import { ServiceSourceType, ServiceType, whetherAvailableService } from '../../utils/service_instance';
-
 let blurTimeout = null;
 let resizeTimeout = null;
 let moveTimeout = null;
@@ -299,48 +296,39 @@ export default function Translate() {
                                     >
                                         {translateServiceInstanceList !== null &&
                                             serviceInstanceConfigMap !== null &&
-                                            translateServiceInstanceList
-                                                .filter((serviceInstanceKey) => {
-                                                    return whetherAvailableService(serviceInstanceKey, {
-                                                        [ServiceSourceType.PLUGIN]: pluginList[ServiceType.TRANSLATE],
-                                                        [ServiceSourceType.BUILDIN]: builtinTranslateServices,
-                                                    });
-                                                })
-                                                .map((serviceInstanceKey, index) => {
-                                                    const config = serviceInstanceConfigMap[serviceInstanceKey] ?? {};
-                                                    const enable = config['enable'] ?? true;
+                                            translateServiceInstanceList.map((serviceInstanceKey, index) => {
+                                                const config = serviceInstanceConfigMap[serviceInstanceKey] ?? {};
+                                                const enable = config['enable'] ?? true;
 
-                                                    return enable ? (
-                                                        <Draggable
-                                                            key={serviceInstanceKey}
-                                                            draggableId={serviceInstanceKey}
-                                                            index={index}
-                                                        >
-                                                            {(provided) => (
-                                                                <div
-                                                                    ref={provided.innerRef}
-                                                                    {...provided.draggableProps}
-                                                                >
-                                                                    <TargetArea
-                                                                        {...provided.dragHandleProps}
-                                                                        index={index}
-                                                                        name={serviceInstanceKey}
-                                                                        translateServiceInstanceList={
-                                                                            translateServiceInstanceList
-                                                                        }
-                                                                        pluginList={pluginList}
-                                                                        serviceInstanceConfigMap={
-                                                                            serviceInstanceConfigMap
-                                                                        }
-                                                                    />
-                                                                    <Spacer y={2} />
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ) : (
-                                                        <></>
-                                                    );
-                                                })}
+                                                return enable ? (
+                                                    <Draggable
+                                                        key={serviceInstanceKey}
+                                                        draggableId={serviceInstanceKey}
+                                                        index={index}
+                                                    >
+                                                        {(provided) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                            >
+                                                                <TargetArea
+                                                                    {...provided.dragHandleProps}
+                                                                    index={index}
+                                                                    name={serviceInstanceKey}
+                                                                    translateServiceInstanceList={
+                                                                        translateServiceInstanceList
+                                                                    }
+                                                                    pluginList={pluginList}
+                                                                    serviceInstanceConfigMap={serviceInstanceConfigMap}
+                                                                />
+                                                                <Spacer y={2} />
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                ) : (
+                                                    <></>
+                                                );
+                                            })}
                                     </div>
                                 )}
                             </Droppable>
