@@ -13,7 +13,7 @@ import { HiTranslate } from 'react-icons/hi';
 import { LuDelete } from 'react-icons/lu';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
-
+import { getServiceName, getServiceSouceType, ServiceSourceType } from '../../../../utils/service_instance';
 import { useConfig, useSyncAtom, useVoice, useToastStyle } from '../../../../hooks';
 import { invoke_plugin } from '../../../../utils/invoke_plugin';
 import * as recognizeServices from '../../../../services/recognize';
@@ -28,7 +28,7 @@ let unlisten = null;
 let timer = null;
 
 export default function SourceArea(props) {
-    const { pluginList } = props;
+    const { pluginList, serviceInstanceConfigMap } = props;
     const [appFontSize] = useConfig('app_font_size', 16);
     const [sourceText, setSourceText, syncSourceText] = useSyncAtom(sourceTextAtom);
     const [detectLanguage, setDetectLanguage] = useAtom(detectLanguageAtom);
@@ -65,15 +65,20 @@ export default function SourceArea(props) {
         } else if (text === '[IMAGE_TRANSLATE]') {
             setWindowType('[IMAGE_TRANSLATE]');
             const base64 = await invoke('get_base64');
-            const serviceName = recognizeServiceList[0];
-            if (serviceName.startsWith('plugin')) {
-                if (recognizeLanguage in pluginList['recognize'][serviceName].language) {
-                    const pluginConfig = (await store.get(serviceName)) ?? {};
-                    let [func, utils] = await invoke_plugin('recognize', serviceName);
-                    func(base64, pluginList['recognize'][serviceName].language[recognizeLanguage], {
-                        config: pluginConfig,
-                        utils,
-                    }).then(
+            const serviceInstanceKey = recognizeServiceList[0];
+            if (getServiceSouceType(serviceInstanceKey) === ServiceSourceType.PLUGIN) {
+                if (recognizeLanguage in pluginList['recognize'][getServiceName(serviceInstanceKey)].language) {
+                    const pluginConfig = serviceInstanceConfigMap[serviceInstanceKey];
+
+                    let [func, utils] = await invoke_plugin('recognize', getServiceName(serviceInstanceKey));
+                    func(
+                        base64,
+                        pluginList['recognize'][getServiceName(serviceInstanceKey)].language[recognizeLanguage],
+                        {
+                            config: pluginConfig,
+                            utils,
+                        }
+                    ).then(
                         (v) => {
                             let newText = v.trim();
                             if (deleteNewline) {
@@ -100,9 +105,16 @@ export default function SourceArea(props) {
                     setSourceText('Language not supported');
                 }
             } else {
-                if (recognizeLanguage in recognizeServices[serviceName].Language) {
-                    recognizeServices[serviceName]
-                        .recognize(base64, recognizeServices[serviceName].Language[recognizeLanguage])
+                if (recognizeLanguage in recognizeServices[getServiceName(serviceInstanceKey)].Language) {
+                    const instanceConfig = serviceInstanceConfigMap[serviceInstanceKey];
+                    recognizeServices[getServiceName(serviceInstanceKey)]
+                        .recognize(
+                            base64,
+                            recognizeServices[getServiceName(serviceInstanceKey)].Language[recognizeLanguage],
+                            {
+                                config: instanceConfig,
+                            }
+                        )
                         .then(
                             (v) => {
                                 let newText = v.trim();
