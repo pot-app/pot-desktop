@@ -1,10 +1,6 @@
-## 2.7.10 (2024-04-14)
+## 3.0.0 (2024-06-23)
 
-### Break Change:
+### New feature:
 
--   如果更新后遇到闪退问题请重新安装所有插件的最新版本
-
-### Bugs fixed:
-
--   Check whether the directory is not empty before uninstall([`e88f2db`](https://github.com/pot-app/pot-desktop/commit/e88f2dbe0846ea61e4a48c290faa7dbc0dd2d549)) (by @Pylogmon)
--   repair openai translation prompt description (#731)([`780c499`](https://github.com/pot-app/pot-desktop/commit/780c499d494002ef2e76175ae5fa27c883b6ec3c)) (by @zggsong)
+- support multiple instance service
+- use javascript plugin system

@@ -46,15 +46,15 @@
 
 </div>
 
-| 선택영역 자동번역                        | 입력단어 번역                                                    | 외부호출                                                                           |
-| ----------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| 문장을 선택하고 *번역단축키*를 누릅니다 | 번역창을 열고, 번역할 문장을 입력합니다 | 다른 프로그램과 연동하여 효율적으로 사용가능합니다,  [External Calls](#external-calls) 참고 |
-| <img src="asset/eg1.gif"/>                      | <img src="asset/eg2.gif"/>                                            | <img src="asset/eg3.gif"/>                                                               |
+| 선택영역 자동번역                       | 입력단어 번역                           | 외부호출                                                                                   |
+| --------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------ |
+| 문장을 선택하고 *번역단축키*를 누릅니다 | 번역창을 열고, 번역할 문장을 입력합니다 | 다른 프로그램과 연동하여 효율적으로 사용가능합니다, [External Calls](#external-calls) 참고 |
+| <img src="asset/eg1.gif"/>              | <img src="asset/eg2.gif"/>              | <img src="asset/eg3.gif"/>                                                                 |
 
-| 클립보드 자동인식                                                                                                          | 스크린샷 OCR언어인식                     | 스크린샷 자동번역                   |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------- |
-| 클립보드 모니터링 옵션을 통해, 텍스트를 복사하면 자동으로 번역합니다 | 화면캡쳐를 통해 문자를 인식합니다 | 화면을 캡쳐하면 인식한 문장을 번역합니다  |
-| <img src="asset/eg4.gif"/>                                                                                                   | <img src="asset/eg5.gif"/>         | <img src="asset/eg6.gif"/>               |
+| 클립보드 자동인식                                                    | 스크린샷 OCR언어인식              | 스크린샷 자동번역                        |
+| -------------------------------------------------------------------- | --------------------------------- | ---------------------------------------- |
+| 클립보드 모니터링 옵션을 통해, 텍스트를 복사하면 자동으로 번역합니다 | 화면캡쳐를 통해 문자를 인식합니다 | 화면을 캡쳐하면 인식한 문장을 번역합니다 |
+| <img src="asset/eg4.gif"/>                                           | <img src="asset/eg5.gif"/>        | <img src="asset/eg6.gif"/>               |
 
 <div align="center">
 
@@ -100,7 +100,7 @@
 -   [x] [Yandex](https://translate.yandex.com/)
 -   [x] [Lingva](https://github.com/TheDavidDelta/lingva-translate) ([Plugin](https://github.com/pot-app/pot-app-translate-plugin-template))
 -   [x] [Tatoeba](https://tatoeba.org/) ([Plugin](https://github.com/pot-app/pot-app-translate-plugin-tatoeba))
--   [x] [ECDICT](https://github.com/skywind3000/ECDICT) (Offline Dictionary [Plugin](https://github.com/pot-app/pot-app-translate-plugin-ecdict))
+-   [x] [ECDICT](https://github.com/skywind3000/ECDICT) ([Plugin](https://github.com/pot-app/pot-app-translate-plugin-ecdict))
 
 추가항목은 다음을 참고 [Plugin System](#plugin-system)
 
@@ -183,7 +183,7 @@ winget install Pylogmon.pot
 
 ### 수동 설치
 
-1. 최신버전 다운로드 페이지 [Release](https://github.com/pot-app/pot-desktop/releases/latest)에서  `.exe` 파일을 다운받습니다.
+1. 최신버전 다운로드 페이지 [Release](https://github.com/pot-app/pot-desktop/releases/latest)에서 `.exe` 파일을 다운받습니다.
 
     - 64-bit 버전 사용시, `pot_{version}_x64-setup.exe`
     - 32-bit 버전 사용시, `pot_{version}_x86-setup.exe`
@@ -225,7 +225,7 @@ brew upgrade --cask pot
 
 ### 수동설치
 
-1. 최신버전 다운로드 페이지 [Release](https://github.com/pot-app/pot-desktop/releases/latest)에서  `.dmg` 파일을 다운받습니다. (M1 사용자이면, 다음 파일명을 다운로드 합니다 `pot_{version}_aarch64.dmg`, 기타 사용자는 다음 파일을 다운로드 합니다. `pot_{version}_x64.dmg`)
+1. 최신버전 다운로드 페이지 [Release](https://github.com/pot-app/pot-desktop/releases/latest)에서 `.dmg` 파일을 다운받습니다. (M1 사용자이면, 다음 파일명을 다운로드 합니다 `pot_{version}_aarch64.dmg`, 기타 사용자는 다음 파일을 다운로드 합니다. `pot_{version}_x64.dmg`)
 2. 더블클릭하여 설치를 합니다.
 
 ### 문제해결
@@ -320,7 +320,7 @@ GET "/ocr_translate?screenshot=true" => Translate screenshot
 
 ## 자체스크린샷 미사용 OCR 기능
 
-OCR 및 번역을 위해서 pot은 자체 스크린샷(화면캡쳐)기능을 사용하지 않을 수 있습니다. 자체 화면캡쳐 툴을 사용하면 특정환경에서 자체 스크린샷 기능이 정상적으로 동작하지 않는 것을 해결할 수 있습니다. 
+OCR 및 번역을 위해서 pot은 자체 스크린샷(화면캡쳐)기능을 사용하지 않을 수 있습니다. 자체 화면캡쳐 툴을 사용하면 특정환경에서 자체 스크린샷 기능이 정상적으로 동작하지 않는 것을 해결할 수 있습니다.
 
 ### Workflow:
 
@@ -343,7 +343,7 @@ rm ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png && flameshot gui -s -p ~/
 ### SnipDo (Windows)
 
 1. SnipDo를 [Microsoft Store](https://apps.microsoft.com/store/detail/snipdo/9NPZ2TVKJVT7) 에서 다운받아 설치합니다.
-2. DSnipDo 확장팩을 최신버전 다운 경로에서 [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.pbar) 다운받습니다. 
+2. DSnipDo 확장팩을 최신버전 다운 경로에서 [Release](https://github.com/pot-app/pot-desktop/releases/latest) (pot.pbar) 다운받습니다.
 3. 더블클릭하여 설치합니다.
 4. 특정단어를 선택하게 되면, 선택영역의 오른쪽 윗 부분에 번역아이콘이 보이게 됩니다. 클릭하여 번역을 진행합니다.
 
