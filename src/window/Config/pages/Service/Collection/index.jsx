@@ -21,8 +21,9 @@ export default function Collection(props) {
     } = useDisclosure();
     const { isOpen: isSelectOpen, onOpen: onSelectOpen, onOpenChange: onSelectOpenChange } = useDisclosure();
     const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
-    const [openConfigName, setOpenConfigName] = useState('anki');
-    const [collectionServiceList, setCollectionServiceList] = useConfig('collection_service_list', []);
+    const [currentConfigKey, setCurrentConfigKey] = useState('anki');
+    // now it's service instance list
+    const [collectionServiceInstanceList, setCollectionServiceInstanceList] = useConfig('collection_service_list', []);
 
     const { t } = useTranslation();
 
@@ -34,20 +35,20 @@ export default function Collection(props) {
     };
     const onDragEnd = async (result) => {
         if (!result.destination) return;
-        const items = reorder(collectionServiceList, result.source.index, result.destination.index);
-        setCollectionServiceList(items);
+        const items = reorder(collectionServiceInstanceList, result.source.index, result.destination.index);
+        setCollectionServiceInstanceList(items);
     };
 
-    const deleteService = (name) => {
-        setCollectionServiceList(collectionServiceList.filter((x) => x !== name));
-        deleteKey(name);
+    const deleteService = (instanceKey) => {
+        setCollectionServiceInstanceList(collectionServiceInstanceList.filter((x) => x !== instanceKey));
+        deleteKey(instanceKey);
     };
-    const updateServiceList = (name) => {
-        if (collectionServiceList.includes(name)) {
+    const updateServiceInstanceList = (instanceKey) => {
+        if (collectionServiceInstanceList.includes(instanceKey)) {
             return;
         } else {
-            const newList = [...collectionServiceList, name];
-            setCollectionServiceList(newList);
+            const newList = [...collectionServiceInstanceList, instanceKey];
+            setCollectionServiceInstanceList(newList);
         }
     };
 
@@ -69,8 +70,8 @@ export default function Collection(props) {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {collectionServiceList !== null &&
-                                    collectionServiceList
+                                {collectionServiceInstanceList !== null &&
+                                    collectionServiceInstanceList
                                         .filter((instanceKey) => {
                                             return whetherAvailableService(instanceKey, {
                                                 [ServiceSourceType.BUILDIN]: builtinCollectionServices,
@@ -92,11 +93,11 @@ export default function Collection(props) {
                                                             >
                                                                 <ServiceItem
                                                                     {...provided.dragHandleProps}
-                                                                    name={x}
+                                                                    serviceInstanceKey={x}
                                                                     key={x}
                                                                     pluginList={pluginList}
-                                                                    deleteService={deleteService}
-                                                                    setConfigName={setOpenConfigName}
+                                                                    deleteServiceInstance={deleteServiceInstance}
+                                                                    setCurrentConfigKey={setCurrentConfigKey}
                                                                     onConfigOpen={onConfigOpen}
                                                                 />
                                                                 <Spacer y={2} />
@@ -130,24 +131,24 @@ export default function Collection(props) {
             <SelectPluginModal
                 isOpen={isSelectPluginOpen}
                 onOpenChange={onSelectPluginOpenChange}
-                setConfigName={setOpenConfigName}
+                setCurrentConfigKey={setCurrentConfigKey}
                 onConfigOpen={onConfigOpen}
                 pluginType='collection'
                 pluginList={pluginList}
-                deleteService={deleteService}
+                deleteService={deleteServiceInstance}
             />
             <SelectModal
                 isOpen={isSelectOpen}
                 onOpenChange={onSelectOpenChange}
-                setConfigName={setOpenConfigName}
+                setCurrentConfigKey={setCurrentConfigKey}
                 onConfigOpen={onConfigOpen}
             />
             <ConfigModal
-                name={openConfigName}
+                serviceInstanceKey={currentConfigKey}
                 isOpen={isConfigOpen}
                 pluginList={pluginList}
                 onOpenChange={onConfigOpenChange}
-                updateServiceList={updateServiceList}
+                updateServiceInstanceList={updateServiceInstanceList}
             />
         </>
     );

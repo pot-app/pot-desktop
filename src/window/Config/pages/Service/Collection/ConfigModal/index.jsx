@@ -2,16 +2,25 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Space
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
+import {
+    ServiceSourceType,
+    getServiceName,
+    getServiceSouceType,
+    whetherPluginService,
+} from '../../../../../../utils/service_instance';
 import * as builtinServices from '../../../../../../services/collection';
 import { PluginConfig } from '../../PluginConfig';
 
 export default function ConfigModal(props) {
-    const { isOpen, onOpenChange, name, updateServiceList, pluginList } = props;
-    const serviceType = name.startsWith('plugin') ? 'plugin' : 'builtin';
-    const { t } = useTranslation();
-    const ConfigComponent = name.startsWith('plugin') ? PluginConfig : builtinServices[name].Config;
+    const { serviceInstanceKey, pluginList, isOpen, onOpenChange, updateServiceInstanceList } = props;
 
-    return serviceType === 'plugin' && !(name in pluginList) ? (
+    const serviceSourceType = getServiceSouceType(serviceInstanceKey);
+    const pluginServiceFlag = whetherPluginService(serviceInstanceKey);
+    const serviceName = getServiceName(serviceInstanceKey);
+    const { t } = useTranslation();
+    const ConfigComponent = pluginServiceFlag ? PluginConfig : builtinServices[serviceName].Config;
+
+    return pluginServiceFlag && !(serviceName in pluginList) ? (
         <></>
     ) : (
         <Modal
@@ -23,36 +32,37 @@ export default function ConfigModal(props) {
                 {(onClose) => (
                     <>
                         <ModalHeader>
-                            {serviceType === 'builtin' && (
+                            {serviceSourceType === ServiceSourceType.BUILDIN && (
                                 <>
                                     <img
-                                        src={builtinServices[name].info.icon}
+                                        src={builtinServices[serviceName].info.icon}
                                         className='h-[24px] w-[24px] my-auto'
                                         draggable={false}
                                     />
                                     <Spacer x={2} />
-                                    {t(`services.collection.${name}.title`)}
+                                    {t(`services.collection.${serviceName}.title`)}
                                 </>
                             )}
-                            {serviceType === 'plugin' && (
+                            {pluginServiceFlag && (
                                 <>
                                     <img
-                                        src={pluginList[name].icon}
+                                        src={pluginList[serviceName].icon}
                                         className='h-[24px] w-[24px] my-auto'
                                         draggable={false}
                                     />
 
                                     <Spacer x={2} />
-                                    {`${pluginList[name].display} [${t('common.plugin')}]`}
+                                    {`${pluginList[serviceName].display} [${t('common.plugin')}]`}
                                 </>
                             )}
                         </ModalHeader>
                         <ModalBody>
                             <ConfigComponent
-                                name={name}
+                                name={serviceName}
+                                instanceKey={serviceInstanceKey}
                                 pluginType='collection'
                                 pluginList={pluginList}
-                                updateServiceList={updateServiceList}
+                                updateServiceList={updateServiceInstanceList}
                                 onClose={onClose}
                             />
                         </ModalBody>
