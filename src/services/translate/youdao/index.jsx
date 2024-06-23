@@ -1,5 +1,4 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import CryptoJS from 'crypto-js';
 import { nanoid } from 'nanoid';
 
@@ -7,12 +6,7 @@ export async function translate(text, from, to, options = {}) {
     text = text.trim();
     const { config } = options;
 
-    let translateConfig = (await store.get('youdao')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { appkey, key } = translateConfig;
+    const { appkey, key } = config;
 
     const url = 'https://openapi.youdao.com/api';
     const curtime = String(Math.round(new Date().getTime() / 1000));

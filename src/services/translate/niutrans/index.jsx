@@ -1,16 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
-import { http } from '@tauri-apps/api';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('niutrans')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { https, apikey } = translateConfig;
+    const { https, apikey } = config;
 
     const url = `${https ? 'https' : 'http'}://api.niutrans.com/NiuTransServer/translation`;
 

@@ -1,16 +1,10 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import CryptoJS from 'crypto-js';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('volcengine')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { appid, secret } = translateConfig;
+    const { appid, secret } = config;
 
     const serviceVersion = '2020-06-01';
     const schema = 'https';

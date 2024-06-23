@@ -1,3 +1,4 @@
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../../../utils/service_instance';
 import { Button, Input } from '@nextui-org/react';
 import { DropdownTrigger } from '@nextui-org/react';
 import { DropdownMenu } from '@nextui-org/react';
@@ -10,8 +11,8 @@ import React from 'react';
 import { useConfig } from '../../../../../hooks';
 
 export function PluginConfig(props) {
-    const { updateServiceList, onClose, name, pluginList } = props;
-    const [pluginConfig, setPluginConfig] = useConfig(name, {}, { sync: false });
+    const { instanceKey, updateServiceList, onClose, name, pluginList } = props;
+    const [pluginConfig, setPluginConfig] = useConfig(instanceKey, {}, { sync: false });
     const { t } = useTranslation();
 
     return (
@@ -26,6 +27,28 @@ export function PluginConfig(props) {
                     {t('config.service.homepage')}
                 </Button>
             </div>
+            {pluginConfig && (
+                <div className='config-item'>
+                    <Input
+                        label={t('services.instance_name')}
+                        labelPlacement='outside-left'
+                        value={pluginConfig[INSTANCE_NAME_CONFIG_KEY] ?? pluginList[name].display}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setPluginConfig({
+                                ...pluginConfig,
+                                [INSTANCE_NAME_CONFIG_KEY]: value,
+                            });
+                        }}
+                    />
+                </div>
+            )}
+
             {pluginList[name].needs.length === 0 ? (
                 <div>{t('services.no_need')}</div>
             ) : (
@@ -113,7 +136,7 @@ export function PluginConfig(props) {
                     color='primary'
                     onPress={() => {
                         setPluginConfig(pluginConfig, true);
-                        updateServiceList(name);
+                        updateServiceList(instanceKey);
                         onClose();
                     }}
                 >

@@ -1,4 +1,5 @@
 import { Input, Button, Switch, Textarea, Card, CardBody, Link, Tooltip, Progress } from '@nextui-org/react';
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 import { MdDeleteOutline } from 'react-icons/md';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -12,10 +13,12 @@ import { translate } from './index';
 import { Language } from './index';
 
 export function Config(props) {
-    const { updateServiceList, onClose } = props;
+    const { instanceKey, updateServiceList, onClose } = props;
+    const { t } = useTranslation();
     const [serviceConfig, setServiceConfig] = useConfig(
-        'ollama',
+        instanceKey,
         {
+            [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.ollama.title'),
             stream: true,
             model: 'gemma:2b',
             requestPath: 'http://localhost:11434',
@@ -35,7 +38,7 @@ export function Config(props) {
     const [progress, setProgress] = useState(0);
     const [pullingStatus, setPullingStatus] = useState('');
     const [installedModels, setInstalledModels] = useState(null);
-    const { t } = useTranslation();
+
     const toastStyle = useToastStyle();
 
     async function getModles() {
@@ -87,7 +90,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setServiceConfig(serviceConfig, true);
-                            updateServiceList('ollama');
+                            updateServiceList(instanceKey);
                             onClose();
                         },
                         (e) => {
@@ -98,6 +101,25 @@ export function Config(props) {
                 }}
             >
                 <Toaster />
+                <div className='config-item'>
+                    <Input
+                        label={t('services.instance_name')}
+                        labelPlacement='outside-left'
+                        value={serviceConfig[INSTANCE_NAME_CONFIG_KEY]}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setServiceConfig({
+                                ...serviceConfig,
+                                [INSTANCE_NAME_CONFIG_KEY]: value,
+                            });
+                        }}
+                    />
+                </div>
                 {installedModels === null && (
                     <Card
                         isBlurred
@@ -311,8 +333,8 @@ export function Config(props) {
                                             serviceConfig.promptList.length === 0
                                                 ? 'system'
                                                 : serviceConfig.promptList.length % 2 === 0
-                                                ? 'assistant'
-                                                : 'user',
+                                                  ? 'assistant'
+                                                  : 'user',
                                         content: '',
                                     },
                                 ],

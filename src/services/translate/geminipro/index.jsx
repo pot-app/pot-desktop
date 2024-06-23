@@ -1,15 +1,10 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import { Language } from './info';
 
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('geminipro');
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    let { apiKey, stream, promptList, requestPath } = translateConfig;
+    let { apiKey, stream, promptList, requestPath } = config;
     if (!requestPath) {
         requestPath = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro';
     }

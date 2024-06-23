@@ -1,15 +1,9 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('google')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    let { custom_url } = translateConfig;
+    let { custom_url } = config;
 
     if (custom_url === undefined || custom_url === '') {
         custom_url = 'https://translate.google.com';

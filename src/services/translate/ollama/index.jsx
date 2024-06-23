@@ -1,15 +1,10 @@
-import { store } from '../../../utils/store';
 import { Language } from './info';
 import { Ollama } from 'ollama/browser';
 
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('ollama');
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    let { stream, promptList, requestPath, model } = translateConfig;
+    let { stream, promptList, requestPath, model } = config;
 
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;

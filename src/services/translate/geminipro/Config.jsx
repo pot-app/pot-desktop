@@ -1,3 +1,4 @@
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 import { Input, Button, Switch, Textarea } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import toast, { Toaster } from 'react-hot-toast';
@@ -11,10 +12,12 @@ import { translate } from './index';
 import { Language } from './index';
 
 export function Config(props) {
-    const { updateServiceList, onClose } = props;
+    const { instanceKey, updateServiceList, onClose } = props;
+    const { t } = useTranslation();
     const [serviceConfig, setServiceConfig] = useConfig(
-        'geminipro',
+        instanceKey,
         {
+            [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.geminipro.title'),
             stream: true,
             apiKey: '',
             requestPath: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro',
@@ -65,7 +68,6 @@ export function Config(props) {
     );
     const [isLoading, setIsLoading] = useState(false);
 
-    const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
     return (
@@ -78,7 +80,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setServiceConfig(serviceConfig, true);
-                            updateServiceList('geminipro');
+                            updateServiceList(instanceKey);
                             onClose();
                         },
                         (e) => {
@@ -89,6 +91,25 @@ export function Config(props) {
                 }}
             >
                 <Toaster />
+                <div className='config-item'>
+                    <Input
+                        label={t('services.instance_name')}
+                        labelPlacement='outside-left'
+                        value={serviceConfig[INSTANCE_NAME_CONFIG_KEY]}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setServiceConfig({
+                                ...serviceConfig,
+                                [INSTANCE_NAME_CONFIG_KEY]: value,
+                            });
+                        }}
+                    />
+                </div>
                 <div className='config-item'>
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button

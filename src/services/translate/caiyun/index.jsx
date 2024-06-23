@@ -1,15 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('caiyun')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { token } = translateConfig;
+    const { token } = config;
 
     const url = 'https://api.interpreter.caiyunai.com/v1/translator';
 

@@ -1,20 +1,15 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('deepl')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    const serviceType = translateConfig['type'];
+    const serviceType = config['type'];
     if (serviceType === 'free') {
         return translate_by_free(text, from, to);
     } else if (serviceType === 'api') {
-        return translate_by_key(text, from, to, translateConfig.authKey);
+        return translate_by_key(text, from, to, config.authKey);
     } else if (serviceType === 'deeplx') {
-        return translate_by_deeplx(text, from, to, translateConfig.customUrl);
+        return translate_by_deeplx(text, from, to, config.customUrl);
     } else {
         return translate_by_free(text, from, to);
     }

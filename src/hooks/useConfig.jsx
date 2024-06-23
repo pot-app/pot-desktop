@@ -13,7 +13,8 @@ export const useConfig = (key, defaultValue, options = {}) => {
         debounce((v) => {
             store.set(key, v);
             store.save();
-            emit(`${key}_changed`, v);
+            let eventKey = key.replaceAll('.', '_').replaceAll('@', ':');
+            emit(`${eventKey}_changed`, v);
         }),
         []
     );
@@ -44,8 +45,8 @@ export const useConfig = (key, defaultValue, options = {}) => {
     // 初始化
     useEffect(() => {
         syncToState(null);
-        if (key.includes('[')) return;
-        const unlisten = listen(`${key}_changed`, (e) => {
+        const eventKey = key.replaceAll('.', '_').replaceAll('@', ':');
+        const unlisten = listen(`${eventKey}_changed`, (e) => {
             syncToState(e.payload);
         });
         return () => {

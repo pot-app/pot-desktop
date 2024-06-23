@@ -1,17 +1,11 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('baidu_field')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { appid, secret, field } = translateConfig;
+    const { appid, secret, field } = config;
 
     const url = 'https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate';
 

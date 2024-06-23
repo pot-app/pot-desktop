@@ -1,15 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('transmart')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    const user = translateConfig['username'];
-    const token = translateConfig['token'];
+    const { username: user, token } = config;
 
     let header = {};
     if (user !== '' && token !== '') {

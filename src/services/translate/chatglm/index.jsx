@@ -1,15 +1,10 @@
-import { store } from '../../../utils/store';
 import { Language } from './info';
 import * as jose from 'jose';
 
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let translateConfig = await store.get('chatglm');
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-    let { model, apiKey, promptList } = translateConfig;
+    let { model, apiKey, promptList } = config;
 
     let [id, secret] = apiKey.split('.');
     if (id === undefined || secret === undefined) {

@@ -16,18 +16,19 @@ import { Language } from './index';
 import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 
 export const defaultRequestArguments = JSON.stringify({
-    temperature: 0,
-    top_p: 1,
-    frequency_penalty: 1,
-    presence_penalty: 1,
-})
+    temperature: 0.1,
+    top_p: 0.99,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+});
 
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
+    const { t } = useTranslation();
     const [openaiConfig, setOpenaiConfig] = useConfig(
         instanceKey,
         {
-            [INSTANCE_NAME_CONFIG_KEY]: 'OpenAI',
+            [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.openai.title'),
             service: 'openai',
             requestPath: 'https://api.openai.com/v1/chat/completions',
             model: 'gpt-3.5-turbo',
@@ -41,7 +42,7 @@ export function Config(props) {
                 },
                 { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
             ],
-            requestArguments: defaultRequestArguments
+            requestArguments: defaultRequestArguments,
         },
         { sync: false }
     );
@@ -60,17 +61,16 @@ export function Config(props) {
                 ],
             });
         }
-        if(openaiConfig.requestArguments === undefined) {
+        if (openaiConfig.requestArguments === undefined) {
             setOpenaiConfig({
                 ...openaiConfig,
-                requestArguments: defaultRequestArguments
-            })
+                requestArguments: defaultRequestArguments,
+            });
         }
     }
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
     return (
@@ -310,8 +310,8 @@ export function Config(props) {
                                             openaiConfig.promptList.length === 0
                                                 ? 'system'
                                                 : openaiConfig.promptList.length % 2 === 0
-                                                    ? 'assistant'
-                                                    : 'user',
+                                                  ? 'assistant'
+                                                  : 'user',
                                         content: '',
                                     },
                                 ],
@@ -324,20 +324,20 @@ export function Config(props) {
                 <br />
 
                 <h3 className='my-auto'>Request Arguments</h3>
-                    <div className='config-item'>
-                        <Textarea
-                            label=''
-                            labelPlacement='outside'
-                            variant='faded'
-                            value={openaiConfig['requestArguments']}
-                            placeholder={`Input API Request Arguments`}
-                            onValueChange={(value) => {
-                                setOpenaiConfig({
-                                    ...openaiConfig,
-                                    requestArguments: value,
-                                });
-                            }}
-                        />
+                <div className='config-item'>
+                    <Textarea
+                        label=''
+                        labelPlacement='outside'
+                        variant='faded'
+                        value={openaiConfig['requestArguments']}
+                        placeholder={`Input API Request Arguments`}
+                        onValueChange={(value) => {
+                            setOpenaiConfig({
+                                ...openaiConfig,
+                                requestArguments: value,
+                            });
+                        }}
+                    />
                 </div>
                 <br />
                 <Button

@@ -1,17 +1,11 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import HmacSHA1 from 'crypto-js/hmac-sha1';
 import base64 from 'crypto-js/enc-base64';
 
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    let translateConfig = (await store.get('alibaba')) ?? {};
-    if (config !== undefined) {
-        translateConfig = config;
-    }
-
-    const { accesskey_id, accesskey_secret } = translateConfig;
+    const { accesskey_id, accesskey_secret } = config;
 
     function getRandomNumber() {
         const rand = Math.floor(Math.random() * 99999) + 100000;
