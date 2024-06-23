@@ -1,3 +1,4 @@
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 import { Button, Input } from '@nextui-org/react';
 import { open } from '@tauri-apps/api/shell';
 import React, { useState } from 'react';
@@ -9,10 +10,12 @@ import { useConfig } from '../../../hooks/useConfig';
 import { Language, recognize } from './index';
 
 export function Config(props) {
-    const { updateServiceList, onClose } = props;
+    const { instanceKey, updateServiceList, onClose } = props;
+    const { t } = useTranslation();
     const [config, setConfig] = useConfig(
-        'baidu_ocr',
+        instanceKey,
         {
+            [INSTANCE_NAME_CONFIG_KEY]: t('services.recognize.baidu_ocr.title'),
             client_id: '',
             client_secret: '',
         },
@@ -20,7 +23,6 @@ export function Config(props) {
     );
     const [isLoading, setIsLoading] = useState(false);
 
-    const { t } = useTranslation();
     const toastStyle = useToastStyle();
 
     return (
@@ -37,7 +39,7 @@ export function Config(props) {
                         () => {
                             setIsLoading(false);
                             setConfig(config, true);
-                            updateServiceList('baidu_ocr');
+                            updateServiceList(instanceKey);
                             onClose();
                         },
                         (e) => {
@@ -48,6 +50,25 @@ export function Config(props) {
                 }}
             >
                 <Toaster />
+                <div className='config-item'>
+                    <Input
+                        label={t('services.instance_name')}
+                        labelPlacement='outside-left'
+                        value={config[INSTANCE_NAME_CONFIG_KEY]}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setConfig({
+                                ...config,
+                                [INSTANCE_NAME_CONFIG_KEY]: value,
+                            });
+                        }}
+                    />
+                </div>
                 <div className={'config-item'}>
                     <h3 className='my-auto'>{t('services.help')}</h3>
                     <Button

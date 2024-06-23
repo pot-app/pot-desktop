@@ -1,15 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('baidu_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { client_id, client_secret } = recognizeConfig;
+    const { client_id, client_secret } = config;
 
     const url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic';
     const token_url = 'https://aip.baidubce.com/oauth/2.0/token';

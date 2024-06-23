@@ -1,16 +1,10 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import CryptoJS from 'crypto-js';
 
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('volcengine_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { appid, secret } = recognizeConfig;
+    const { appid, secret } = config;
 
     let text = await normal_ocr(base64, appid, secret);
 

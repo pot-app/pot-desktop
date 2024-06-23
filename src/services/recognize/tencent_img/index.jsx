@@ -1,6 +1,5 @@
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
 import { nanoid } from 'nanoid';
@@ -8,12 +7,7 @@ import { nanoid } from 'nanoid';
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('tencent_img_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { secret_key, secret_id } = recognizeConfig;
+    const { secret_key, secret_id } = config;
 
     function sha256(message, secret = '') {
         return hmacSHA256(message, secret);

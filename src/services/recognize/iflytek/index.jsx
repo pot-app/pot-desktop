@@ -1,16 +1,10 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import CryptoJS from 'crypto-js';
 
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('iflytek_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { appid, apisecret, apikey } = recognizeConfig;
+    const { appid, apisecret, apikey } = config;
 
     const host = 'api.xf-yun.com';
     const today = new Date();

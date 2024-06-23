@@ -1,5 +1,4 @@
 import { fetch } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
@@ -7,12 +6,7 @@ import Base64 from 'crypto-js/enc-base64';
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('iflytek_latex_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { appid, apisecret, apikey } = recognizeConfig;
+    const { appid, apisecret, apikey } = config;
 
     const url = 'https://rest-api.xfyun.cn/v2/itr';
 

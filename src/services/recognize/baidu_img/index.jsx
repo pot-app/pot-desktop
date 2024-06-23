@@ -1,18 +1,12 @@
 import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
 
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('baidu_img_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { appid, secret } = recognizeConfig;
+    const { appid, secret } = config;
 
     const url = 'https://fanyi-api.baidu.com/api/trans/sdk/picture';
 

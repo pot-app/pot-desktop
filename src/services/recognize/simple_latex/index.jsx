@@ -1,16 +1,10 @@
 import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('simple_latex_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { token } = recognizeConfig;
+    const { token } = config;
 
     const url = 'https://server.simpletex.cn/api/latex_ocr/v2';
 

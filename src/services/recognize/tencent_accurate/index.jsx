@@ -1,5 +1,4 @@
-import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
+import { fetch } from '@tauri-apps/api/http';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import hashSHA256 from 'crypto-js/sha256';
 import hex from 'crypto-js/enc-hex';
@@ -7,12 +6,7 @@ import hex from 'crypto-js/enc-hex';
 export async function recognize(base64, language, options = {}) {
     const { config } = options;
 
-    let recognizeConfig = (await store.get('tencent_accurate_ocr')) ?? {};
-    if (config !== undefined) {
-        recognizeConfig = config;
-    }
-
-    const { secret_key, secret_id } = recognizeConfig;
+    const { secret_key, secret_id } = config;
 
     function sha256(message, secret = '') {
         return hmacSHA256(message, secret);
