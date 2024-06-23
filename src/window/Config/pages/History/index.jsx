@@ -159,15 +159,15 @@ export default function History() {
                             }) && (
                                 <TableRow key={item.id}>
                                     <TableCell>
-                                        {item.service.startsWith('plugin') ? (
+                                        {getServiceSouceType(item.service) === ServiceSourceType.PLUGIN ? (
                                             <img
-                                                src={pluginList['translate'][item.service].icon}
+                                                src={pluginList['translate'][getServiceName(item.service)].icon}
                                                 className='h-[18px] w-[18px] my-auto mr-[8px]'
                                                 draggable={false}
                                             />
                                         ) : (
                                             <img
-                                                src={`${builtinServices[item.service].info.icon}`}
+                                                src={`${builtinServices[getServiceName(item.service)].info.icon}`}
                                                 className='h-[18px] w-[18px] my-auto mr-[8px]'
                                                 draggable={false}
                                             />

@@ -318,8 +318,8 @@ export default function TargetArea(props) {
 
     // refresh tts config
     useEffect(() => {
-        if (ttsServiceList && ttsServiceList[0].startsWith('plugin')) {
-            readTextFile(`plugins/tts/${ttsServiceList[0]}/info.json`, {
+        if (ttsServiceList && getServiceSouceType(ttsServiceList[0]) === ServiceSourceType.PLUGIN) {
+            readTextFile(`plugins/tts/${getServiceName(ttsServiceList[0])}/info.json`, {
                 dir: BaseDirectory.AppConfig,
             }).then((infoStr) => {
                 setTtsPluginInfo(JSON.parse(infoStr));
