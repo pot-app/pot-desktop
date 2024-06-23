@@ -39,7 +39,7 @@ export default function Collection(props) {
         setCollectionServiceInstanceList(items);
     };
 
-    const deleteService = (instanceKey) => {
+    const deleteServiceInstance = (instanceKey) => {
         setCollectionServiceInstanceList(collectionServiceInstanceList.filter((x) => x !== instanceKey));
         deleteKey(instanceKey);
     };

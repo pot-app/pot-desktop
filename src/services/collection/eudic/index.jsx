@@ -1,15 +1,9 @@
 import { fetch, Body } from '@tauri-apps/api/http';
-import { store } from '../../../utils/store';
 
 export async function collection(source, target, options = {}) {
     const { config } = options;
-
-    let eudicConfig = (await store.get('eudic')) ?? {};
-    if (config !== undefined) {
-        eudicConfig = config;
-    }
-    const name = eudicConfig['name'] ?? 'pot';
-    const token = eudicConfig['token'] ?? '';
+    const name = config['name'] ?? 'pot';
+    const token = config['token'] ?? '';
 
     let categoryId = await checkCategory(name, token);
     return await addWordToCategory(categoryId, source, token);

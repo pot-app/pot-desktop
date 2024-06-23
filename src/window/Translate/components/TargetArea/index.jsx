@@ -792,19 +792,23 @@ export default function TargetArea(props) {
                             </Tooltip>
                             {/* available collection service instance */}
                             {collectionServiceList &&
-                                collectionServiceList.map((collectionServiceName) => {
+                                collectionServiceList.map((collectionServiceInstanceName) => {
                                     return (
                                         <Button
-                                            key={collectionServiceName}
+                                            key={collectionServiceInstanceName}
                                             isIconOnly
                                             variant='light'
                                             size='sm'
                                             onPress={async () => {
-                                                if (collectionServiceName.startsWith('plugin')) {
-                                                    const pluginConfig = (await store.get(collectionServiceName)) ?? {};
+                                                if (
+                                                    getServiceSouceType(collectionServiceInstanceName) ===
+                                                    ServiceSourceType.PLUGIN
+                                                ) {
+                                                    const pluginConfig =
+                                                        serviceInstanceConfigMap[collectionServiceInstanceName];
                                                     let [func, utils] = await invoke_plugin(
                                                         'collection',
-                                                        collectionServiceName
+                                                        getServiceName(collectionServiceInstanceName)
                                                     );
                                                     func(sourceText.trim(), result.toString(), {
                                                         config: pluginConfig,
@@ -820,7 +824,9 @@ export default function TargetArea(props) {
                                                         }
                                                     );
                                                 } else {
-                                                    builtinCollectionServices[collectionServiceName]
+                                                    const instanceConfig =
+                                                        serviceInstanceConfigMap[collectionServiceInstanceName];
+                                                    builtinCollectionServices[collectionServiceInstanceName]
                                                         .collection(sourceText, result)
                                                         .then(
                                                             (_) => {
@@ -837,9 +843,14 @@ export default function TargetArea(props) {
                                         >
                                             <img
                                                 src={
-                                                    collectionServiceName.startsWith('plugin')
-                                                        ? pluginList['collection'][collectionServiceName].icon
-                                                        : builtinCollectionServices[collectionServiceName].info.icon
+                                                    getServiceSouceType(collectionServiceInstanceName) ===
+                                                    ServiceSourceType.PLUGIN
+                                                        ? pluginList['collection'][
+                                                              getServiceName(collectionServiceInstanceName)
+                                                          ].icon
+                                                        : builtinCollectionServices[
+                                                              getServiceName(collectionServiceInstanceName)
+                                                          ].info.icon
                                                 }
                                                 className='h-[16px] w-[16px]'
                                             />

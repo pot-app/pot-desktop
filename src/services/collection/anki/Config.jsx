@@ -1,3 +1,4 @@
+import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
 import { Button, Input } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +11,17 @@ import { collection } from './index';
 
 export function Config(props) {
     const [isLoading, setIsLoading] = useState(false);
-    const { updateServiceList, onClose } = props;
-    const [ankiConfig, setAnkiConfig] = useConfig('anki', { port: 8765 }, { sync: false });
     const { t } = useTranslation();
+    const { instanceKey, updateServiceList, onClose } = props;
+    const [ankiConfig, setAnkiConfig] = useConfig(
+        instanceKey,
+        {
+            [INSTANCE_NAME_CONFIG_KEY]: t('services.collection.anki.title'),
+            port: 8765,
+        },
+        { sync: false }
+    );
+
     const toastStyle = useToastStyle();
 
     return (
@@ -27,7 +36,7 @@ export function Config(props) {
                             () => {
                                 setIsLoading(false);
                                 setAnkiConfig(ankiConfig, true);
-                                updateServiceList('anki');
+                                updateServiceList(instanceKey);
                                 onClose();
                             },
                             (e) => {
@@ -37,6 +46,25 @@ export function Config(props) {
                         );
                     }}
                 >
+                    <div className='config-item'>
+                        <Input
+                            label={t('services.instance_name')}
+                            labelPlacement='outside-left'
+                            value={ankiConfig[INSTANCE_NAME_CONFIG_KEY]}
+                            variant='bordered'
+                            classNames={{
+                                base: 'justify-between',
+                                label: 'text-[length:--nextui-font-size-medium]',
+                                mainWrapper: 'max-w-[50%]',
+                            }}
+                            onValueChange={(value) => {
+                                setAnkiConfig({
+                                    ...ankiConfig,
+                                    [INSTANCE_NAME_CONFIG_KEY]: value,
+                                });
+                            }}
+                        />
+                    </div>
                     <div className={'config-item'}>
                         <h3 className='my-auto'>{t('services.help')}</h3>
                         <Button

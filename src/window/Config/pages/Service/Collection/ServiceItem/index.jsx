@@ -86,7 +86,7 @@ export default function ServiceItem(props) {
                         variant='light'
                         color='danger'
                         onPress={() => {
-                            deleteService(name);
+                            deleteServiceInstance(serviceInstanceKey);
                         }}
                     >
                         <MdDeleteOutline className='text-2xl' />

@@ -17,7 +17,13 @@ import { useConfig, useToastStyle } from '../../../../hooks';
 import { LanguageFlag } from '../../../../utils/language';
 import { store } from '../../../../utils/store';
 import { osType } from '../../../../utils/env';
-import { ServiceSourceType, ServiceType, whetherAvailableService } from '../../../../utils/service_instance';
+import {
+    ServiceSourceType,
+    ServiceType,
+    getServiceName,
+    getServiceSouceType,
+    whetherAvailableService,
+} from '../../../../utils/service_instance';
 
 export default function History() {
     const [collectionServiceList] = useConfig('collection_service_list', []);
@@ -274,19 +280,22 @@ export default function History() {
                                         </Button>
                                         <ButtonGroup>
                                             {collectionServiceList &&
-                                                collectionServiceList.map((serviceName) => {
+                                                collectionServiceList.map((instanceKey) => {
                                                     return (
                                                         <Button
-                                                            key={serviceName}
+                                                            key={instanceKey}
                                                             isIconOnly
                                                             variant='light'
                                                             onPress={async () => {
-                                                                if (serviceName.startsWith('plugin')) {
+                                                                if (
+                                                                    getServiceSouceType(instanceKey) ===
+                                                                    ServiceSourceType.PLUGIN
+                                                                ) {
                                                                     const pluginConfig =
-                                                                        (await store.get(serviceName)) ?? {};
+                                                                        (await store.get(instanceKey)) ?? {};
                                                                     let [func, utils] = await invoke_plugin(
                                                                         'collection',
-                                                                        serviceName
+                                                                        getServiceName(instanceKey)
                                                                     );
                                                                     func(selectedItem.text, selectedItem.result, {
                                                                         config: pluginConfig,
@@ -307,10 +316,17 @@ export default function History() {
                                                                         }
                                                                     );
                                                                 } else {
-                                                                    builtinCollectionServices[serviceName]
+                                                                    const instanceConfig =
+                                                                        (await store.get(instanceKey)) ?? {};
+                                                                    builtinCollectionServices[
+                                                                        getServiceName(instanceKey)
+                                                                    ]
                                                                         .collection(
                                                                             selectedItem.text,
-                                                                            selectedItem.result
+                                                                            selectedItem.result,
+                                                                            {
+                                                                                config: instanceConfig,
+                                                                            }
                                                                         )
                                                                         .then(
                                                                             (_) => {
