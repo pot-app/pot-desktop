@@ -9,6 +9,7 @@ import { BsPinFill } from 'react-icons/bs';
 import { atom, useAtom } from 'jotai';
 
 import WindowControl from '../../components/WindowControl';
+import { store } from '../../utils/store';
 import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import ControlArea from './ControlArea';
@@ -53,6 +54,8 @@ export default function Recognize() {
     const [pluginList, setPluginList] = useAtom(pluginListAtom);
     const [closeOnBlur] = useConfig('recognize_close_on_blur', false);
     const [pined, setPined] = useState(false);
+    const [serviceInstanceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
+    const [serviceInstanceConfigMap, setServiceInstanceConfigMap] = useState(null);
 
     const loadPluginList = async () => {
         let temp = {};
@@ -76,6 +79,18 @@ export default function Recognize() {
         }
         setPluginList({ ...temp });
     };
+    const loadServiceInstanceConfigMap = async () => {
+        const config = {};
+        for (const serviceInstanceKey of serviceInstanceList) {
+            config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+        }
+        setServiceInstanceConfigMap({ ...config });
+    };
+    useEffect(() => {
+        if (serviceInstanceList !== null) {
+            loadServiceInstanceConfigMap();
+        }
+    }, [serviceInstanceList]);
 
     useEffect(() => {
         loadPluginList();
@@ -128,10 +143,13 @@ export default function Recognize() {
                     } grid grid-cols-2`}
                 >
                     <ImageArea />
-                    <TextArea />
+                    <TextArea serviceInstanceConfigMap={serviceInstanceConfigMap} />
                 </div>
                 <div className='h-[50px]'>
-                    <ControlArea />
+                    <ControlArea
+                        serviceInstanceList={serviceInstanceList}
+                        serviceInstanceConfigMap={serviceInstanceConfigMap}
+                    />
                 </div>
             </div>
         )

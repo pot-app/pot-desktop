@@ -12,35 +12,46 @@ import { useConfig } from '../../../hooks';
 import { textAtom } from '../TextArea';
 import { pluginListAtom } from '..';
 import { osType } from '../../../utils/env';
-import { whetherAvailableService, ServiceSourceType } from '../../../utils/service_instance';
+import {
+    whetherAvailableService,
+    ServiceSourceType,
+    getServiceSouceType,
+    getServiceName,
+    INSTANCE_NAME_CONFIG_KEY,
+} from '../../../utils/service_instance';
 
-export const serviceNameAtom = atom();
+export const currentServiceInstanceKeyAtom = atom();
 export const languageAtom = atom();
 export const recognizeFlagAtom = atom();
 
-export default function ControlArea() {
+export default function ControlArea(props) {
+    const { serviceInstanceConfigMap, serviceInstanceList } = props;
     const pluginList = useAtomValue(pluginListAtom);
-    const [serviceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [recognizeLanguage] = useConfig('recognize_language', 'auto');
     const [serverPort] = useConfig('server_port', 60828);
     const setRecognizeFlag = useSetAtom(recognizeFlagAtom);
-    const [serviceName, setServiceName] = useAtom(serviceNameAtom);
+    const [currentServiceInstanceKey, setCurrentServiceInstanceKey] = useAtom(currentServiceInstanceKeyAtom);
     const [language, setLanguage] = useAtom(languageAtom);
     const text = useAtomValue(textAtom);
     const { t } = useTranslation();
 
+    function getInstanceName(instanceKey, serviceNameSupplier) {
+        const instanceConfig = serviceInstanceConfigMap[instanceKey] ?? {};
+        return instanceConfig[INSTANCE_NAME_CONFIG_KEY] ?? serviceNameSupplier();
+    }
+
     useEffect(() => {
-        if (serviceList) {
-            setServiceName(serviceList[0]);
+        if (serviceInstanceList) {
+            setCurrentServiceInstanceKey(serviceInstanceList[0]);
         }
         if (recognizeLanguage) {
             setLanguage(recognizeLanguage);
         }
-    }, [serviceList, recognizeLanguage]);
+    }, [serviceInstanceList, recognizeLanguage]);
 
     return (
         <div className='flex justify-between px-[12px] h-full'>
-            {serviceName && (
+            {currentServiceInstanceKey && (
                 <Dropdown>
                     <DropdownTrigger>
                         <Button
@@ -51,54 +62,66 @@ export default function ControlArea() {
                                 <img
                                     className='h-[16px] w-[16px] my-auto'
                                     src={
-                                        serviceName.startsWith('plugin')
-                                            ? pluginList[serviceName].icon
-                                            : builtinService[serviceName].info.icon === 'system'
+                                        getServiceSouceType(currentServiceInstanceKey) === ServiceSourceType.PLUGIN
+                                            ? pluginList[getServiceName(currentServiceInstanceKey)].icon
+                                            : builtinService[getServiceName(currentServiceInstanceKey)].info.icon ===
+                                                'system'
                                               ? `logo/${osType}.svg`
-                                              : builtinService[serviceName].info.icon
+                                              : builtinService[getServiceName(currentServiceInstanceKey)].info.icon
                                     }
                                 />
                             }
                         >
-                            {serviceName.startsWith('plugin')
-                                ? pluginList[serviceName].display
-                                : t(`services.recognize.${serviceName}.title`)}
+                            {getServiceSouceType(currentServiceInstanceKey) === ServiceSourceType.PLUGIN
+                                ? getInstanceName(
+                                      currentServiceInstanceKey,
+                                      () => pluginList[getServiceName(currentServiceInstanceKey)].display
+                                  )
+                                : getInstanceName(currentServiceInstanceKey, () =>
+                                      t(`services.recognize.${currentServiceInstanceKey}.title`)
+                                  )}
                         </Button>
                     </DropdownTrigger>
                     <DropdownMenu
                         aria-label='service name'
                         className='max-h-[70vh] overflow-y-auto'
                         onAction={(key) => {
-                            setServiceName(key);
+                            setCurrentServiceInstanceKey(key);
                         }}
                     >
-                        {serviceList
+                        {serviceInstanceList
                             .filter((instanceKey) => {
                                 return whetherAvailableService(instanceKey, {
                                     [ServiceSourceType.BUILDIN]: builtinService,
                                     [ServiceSourceType.PLUGIN]: pluginList,
                                 });
                             })
-                            .map((name) => {
+                            .map((instanceKey) => {
                                 return (
                                     <DropdownItem
-                                        key={name}
+                                        key={instanceKey}
                                         startContent={
                                             <img
                                                 className='h-[16px] w-[16px] my-auto'
                                                 src={
-                                                    name.startsWith('plugin')
-                                                        ? pluginList[name].icon
-                                                        : builtinService[name].info.icon === 'system'
+                                                    getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
+                                                        ? pluginList[getServiceName(instanceKey)].icon
+                                                        : builtinService[getServiceName(instanceKey)].info.icon ===
+                                                            'system'
                                                           ? `logo/${osType}.svg`
-                                                          : builtinService[name].info.icon
+                                                          : builtinService[getServiceName(instanceKey)].info.icon
                                                 }
                                             />
                                         }
                                     >
-                                        {name.startsWith('plugin')
-                                            ? pluginList[name].display
-                                            : t(`services.recognize.${name}.title`)}
+                                        {getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN
+                                            ? getInstanceName(
+                                                  instanceKey,
+                                                  () => pluginList[getServiceName(instanceKey)].display
+                                              )
+                                            : getInstanceName(instanceKey, () =>
+                                                  t(`services.recognize.${instanceKey}.title`)
+                                              )}
                                     </DropdownItem>
                                 );
                             })}

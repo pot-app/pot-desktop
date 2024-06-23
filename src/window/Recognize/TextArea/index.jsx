@@ -9,10 +9,10 @@ import { MdSmartButton } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { nanoid } from 'nanoid';
 
-import { serviceNameAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
+import { getServiceName, getServiceSouceType, ServiceSourceType } from '../../../utils/service_instance';
+import { currentServiceInstanceKeyAtom, languageAtom, recognizeFlagAtom } from '../ControlArea';
 import { invoke_plugin } from '../../../utils/invoke_plugin';
 import * as builtinServices from '../../../services/recognize';
-import { store } from '../../../utils/store';
 import { useConfig } from '../../../hooks';
 import { base64Atom } from '../ImageArea';
 import { pluginListAtom } from '..';
@@ -20,12 +20,13 @@ import { pluginListAtom } from '..';
 export const textAtom = atom();
 let recognizeId = 0;
 
-export default function TextArea() {
+export default function TextArea(props) {
+    const { serviceInstanceConfigMap } = props;
     const [autoCopy] = useConfig('recognize_auto_copy', false);
     const [deleteNewline] = useConfig('recognize_delete_newline', false);
     const [hideWindow] = useConfig('recognize_hide_window', false);
     const recognizeFlag = useAtomValue(recognizeFlagAtom);
-    const serviceName = useAtomValue(serviceNameAtom);
+    const currentServiceInstanceKey = useAtomValue(currentServiceInstanceKeyAtom);
     const language = useAtomValue(languageAtom);
     const base64 = useAtomValue(base64Atom);
     const [loading, setLoading] = useState(false);
@@ -37,52 +38,65 @@ export default function TextArea() {
     useEffect(() => {
         setText('');
         setError('');
-        if (base64 !== '' && serviceName && autoCopy !== null && deleteNewline !== null && hideWindow !== null) {
+        if (
+            base64 !== '' &&
+            currentServiceInstanceKey &&
+            autoCopy !== null &&
+            deleteNewline !== null &&
+            hideWindow !== null
+        ) {
             setLoading(true);
-            if (serviceName.startsWith('plugin')) {
-                if (language in pluginList[serviceName].language) {
+            if (getServiceSouceType(currentServiceInstanceKey) === ServiceSourceType.PLUGIN) {
+                if (language in pluginList[getServiceName(currentServiceInstanceKey)].language) {
                     let id = nanoid();
                     recognizeId = id;
-                    store.get(serviceName).then((pluginConfig) => {
-                        invoke_plugin('recognize', serviceName).then(([func, utils]) => {
-                            func(base64, pluginList[serviceName].language[language], {
-                                config: pluginConfig,
-                                utils,
-                            }).then(
-                                (v) => {
-                                    if (recognizeId !== id) return;
-                                    v = v.trim();
-                                    if (deleteNewline) {
-                                        v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
-                                    }
-                                    setText(v);
-                                    setLoading(false);
-                                    if (autoCopy) {
-                                        writeText(v).then(() => {
-                                            if (hideWindow) {
-                                                sendNotification({
-                                                    title: t('common.write_clipboard'),
-                                                    body: v,
-                                                });
-                                            }
-                                        });
-                                    }
-                                },
-                                (e) => {
-                                    if (recognizeId !== id) return;
-                                    setError(e.toString());
-                                    setLoading(false);
+                    const pluginConfig = serviceInstanceConfigMap[currentServiceInstanceKey] ?? {};
+
+                    invoke_plugin('recognize', getServiceName(currentServiceInstanceKey)).then(([func, utils]) => {
+                        func(base64, pluginList[getServiceName(currentServiceInstanceKey)].language[language], {
+                            config: pluginConfig,
+                            utils,
+                        }).then(
+                            (v) => {
+                                if (recognizeId !== id) return;
+                                v = v.trim();
+                                if (deleteNewline) {
+                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
                                 }
-                            );
-                        });
+                                setText(v);
+                                setLoading(false);
+                                if (autoCopy) {
+                                    writeText(v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({
+                                                title: t('common.write_clipboard'),
+                                                body: v,
+                                            });
+                                        }
+                                    });
+                                }
+                            },
+                            (e) => {
+                                if (recognizeId !== id) return;
+                                setError(e.toString());
+                                setLoading(false);
+                            }
+                        );
                     });
                 }
             } else {
-                if (language in builtinServices[serviceName].Language) {
+                const instanceConfig = serviceInstanceConfigMap[currentServiceInstanceKey] ?? {};
+                if (language in builtinServices[getServiceName(currentServiceInstanceKey)].Language) {
                     let id = nanoid();
                     recognizeId = id;
-                    builtinServices[serviceName]
-                        .recognize(base64, builtinServices[serviceName].Language[language])
+                    builtinServices[getServiceName(currentServiceInstanceKey)]
+                        .recognize(
+                            base64,
+                            builtinServices[getServiceName(currentServiceInstanceKey)].Language[language],
+                            {
+                                config: instanceConfig,
+                            }
+                        )
                         .then(
                             (v) => {
                                 if (recognizeId !== id) return;
@@ -115,7 +129,7 @@ export default function TextArea() {
                 }
             }
         }
-    }, [base64, serviceName, language, recognizeFlag, autoCopy, deleteNewline, hideWindow]);
+    }, [base64, currentServiceInstanceKey, language, recognizeFlag, autoCopy, deleteNewline, hideWindow]);
 
     return (
         <Card
