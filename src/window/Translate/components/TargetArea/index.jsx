@@ -42,8 +42,10 @@ import * as builtinTtsServices from '../../../../services/tts';
 import { store } from '../../../../utils/store';
 import {
     INSTANCE_NAME_CONFIG_KEY,
+    ServiceSourceType,
     getDisplayInstanceName,
     getServiceName,
+    getServiceSouceType,
     whetherPluginService,
 } from '../../../../utils/service_instance';
 
@@ -327,25 +329,29 @@ export default function TargetArea(props) {
 
     // handle tts speak
     const handleSpeak = async () => {
-        const ttsServiceName = ttsServiceList[0];
-        if (ttsServiceName.startsWith('plugin')) {
-            const config = (await store.get(ttsServiceName)) ?? {};
+        const instanceKey = ttsServiceList[0];
+        if (getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN) {
+            const pluginConfig = serviceInstanceConfigMap[instanceKey];
             if (!(targetLanguage in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
             }
-            let [func, utils] = await invoke_plugin('tts', ttsServiceName);
+            let [func, utils] = await invoke_plugin('tts', getServiceName(instanceKey));
             let data = await func(result, ttsPluginInfo.language[targetLanguage], {
-                config,
+                config: pluginConfig,
                 utils,
             });
             speak(data);
         } else {
-            if (!(targetLanguage in builtinTtsServices[ttsServiceName].Language)) {
+            if (!(targetLanguage in builtinTtsServices[getServiceName(instanceKey)].Language)) {
                 throw new Error('Language not supported');
             }
-            let data = await builtinTtsServices[ttsServiceName].tts(
+            const instanceConfig = serviceInstanceConfigMap[instanceKey];
+            let data = await builtinTtsServices[getServiceName(instanceKey)].tts(
                 result,
-                builtinTtsServices[ttsServiceName].Language[targetLanguage]
+                builtinTtsServices[getServiceName(instanceKey)].Language[targetLanguage],
+                {
+                    config: instanceConfig,
+                }
             );
             speak(data);
         }

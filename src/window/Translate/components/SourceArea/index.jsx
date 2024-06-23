@@ -176,30 +176,34 @@ export default function SourceArea(props) {
     };
 
     const handleSpeak = async () => {
-        const serviceName = ttsServiceList[0];
+        const instanceKey = ttsServiceList[0];
         let detected = detectLanguage;
         if (detected === '') {
             detected = await detect(sourceText);
             setDetectLanguage(detected);
         }
-        if (serviceName.startsWith('plugin')) {
+        if (getServiceSouceType(instanceKey) === ServiceSourceType.PLUGIN) {
             if (!(detected in ttsPluginInfo.language)) {
                 throw new Error('Language not supported');
             }
-            const config = (await store.get(serviceName)) ?? {};
-            let [func, utils] = await invoke_plugin('tts', serviceName);
+            const pluginConfig = serviceInstanceConfigMap[instanceKey];
+            let [func, utils] = await invoke_plugin('tts', getServiceName(instanceKey));
             let data = await func(sourceText, ttsPluginInfo.language[detected], {
-                config,
+                config: pluginConfig,
                 utils,
             });
             speak(data);
         } else {
-            if (!(detected in builtinTtsServices[serviceName].Language)) {
+            if (!(detected in builtinTtsServices[getServiceName(instanceKey)].Language)) {
                 throw new Error('Language not supported');
             }
-            let data = await builtinTtsServices[serviceName].tts(
+            const instanceConfig = serviceInstanceConfigMap[instanceKey];
+            let data = await builtinTtsServices[getServiceName(instanceKey)].tts(
                 sourceText,
-                builtinTtsServices[serviceName].Language[detected]
+                builtinTtsServices[getServiceName(instanceKey)].Language[detected],
+                {
+                    config: instanceConfig,
+                }
             );
             speak(data);
         }
