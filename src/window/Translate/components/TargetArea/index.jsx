@@ -826,8 +826,12 @@ export default function TargetArea(props) {
                                                 } else {
                                                     const instanceConfig =
                                                         serviceInstanceConfigMap[collectionServiceInstanceName];
-                                                    builtinCollectionServices[collectionServiceInstanceName]
-                                                        .collection(sourceText, result)
+                                                    builtinCollectionServices[
+                                                        getServiceName(collectionServiceInstanceName)
+                                                    ]
+                                                        .collection(sourceText, result, {
+                                                            config: instanceConfig,
+                                                        })
                                                         .then(
                                                             (_) => {
                                                                 toast.success(t('translate.add_collection_success'), {

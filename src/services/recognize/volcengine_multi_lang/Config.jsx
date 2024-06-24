@@ -11,7 +11,7 @@ import { recognize } from './index';
 import { Language } from './index';
 
 export function Config(props) {
-    const { instanceKeyupdateServiceList, onClose } = props;
+    const { instanceKey, updateServiceList, onClose } = props;
     const { t } = useTranslation();
     const [config, setConfig] = useConfig(
         instanceKey,

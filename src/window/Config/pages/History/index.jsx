@@ -239,15 +239,18 @@ export default function History() {
                                 <>
                                     <ModalHeader>
                                         <div className='flex justify-start'>
-                                            {selectedItem.service.startsWith('plugin') ? (
+                                            {getServiceSouceType(selectedItem.service) === ServiceSourceType.PLUGIN ? (
                                                 <img
-                                                    src={pluginList['translate'][selectedItem.service].icon}
+                                                    src={
+                                                        pluginList['translate'][getServiceName(selectedItem.service)]
+                                                            .icon
+                                                    }
                                                     className='h-[24px] w-[24px] my-auto'
                                                     draggable={false}
                                                 />
                                             ) : (
                                                 <img
-                                                    src={`${builtinServices[selectedItem.service].info.icon}`}
+                                                    src={`${builtinServices[getServiceName(selectedItem.service)].info.icon}`}
                                                     className='h-[24px] w-[24px] m-auto mr-[8px]'
                                                     draggable={false}
                                                 />
@@ -350,10 +353,14 @@ export default function History() {
                                                         >
                                                             <img
                                                                 src={
-                                                                    serviceName.startsWith('plugin')
-                                                                        ? pluginList['collection'][serviceName].icon
-                                                                        : builtinCollectionServices[serviceName].info
-                                                                              .icon
+                                                                    getServiceSouceType(instanceKey) ===
+                                                                    ServiceSourceType.PLUGIN
+                                                                        ? pluginList['collection'][
+                                                                              getServiceName(instanceKey)
+                                                                          ].icon
+                                                                        : builtinCollectionServices[
+                                                                              getServiceName(instanceKey)
+                                                                          ].info.icon
                                                                 }
                                                                 className='h-[24px] w-[24px]'
                                                             />
