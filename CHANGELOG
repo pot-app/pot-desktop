@@ -1,4 +1,4 @@
-## 3.0.1 (2024-06-24)
+## 3.0.2 (2024-06-24)
 
 ### Break Change:
 
@@ -14,3 +14,4 @@
 
 -   recognize failed
 -   tts failed
+-   collection failed

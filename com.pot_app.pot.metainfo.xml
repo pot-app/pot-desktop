@@ -53,6 +53,27 @@
         </screenshot>
     </screenshots>
     <releases>
+    <release version="3.0.2" date="2024-06-24">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.2</url>
+            <description>
+                <p>Break Change:</p>
+                <ul>
+                    <li>After version 3.x, old plugins will no longer be available. They will be automatically deleted upon upgrade. Please visit the plugin repository to download and install the new versions. If the plugin developers have not yet updated their plugins, please contact them to request an upgrade.</li>
+                    <li xml:lang="zh-Hans">3.x版本之后旧版插件不再可用，升级后会自动删除旧版插件，请前往插件仓库下载安装新版插件使用，若插件开发者还没适配新版插件，请联系插件开发者升级插件。</li>
+                </ul>
+                <p>New feature:</p>
+                <ul>
+                    <li>Support multiple instance services</li>
+                    <li>Use Javascript plugin system</li>
+                </ul>
+                <p>Bugs fixed:</p>
+                <ul>
+                    <li>Recognize failed</li>
+                    <li>TTS failed</li>
+                    <li>Collection failed</li>
+                </ul>
+            </description>
+        </release>
         <release version="3.0.1" date="2024-06-24">
             <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.1</url>
             <description>
