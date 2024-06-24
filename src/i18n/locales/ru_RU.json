@@ -192,7 +192,7 @@
                 "aliyun": "Aliyun Drive",
                 "logout": "Выйти",
                 "login_success": "Вход выполнен",
-                "aliyun_login_first": "Для входа отсканируйте код"
+                "aliyun_login_first": "Для входа отсканируйте код."
             },
             "about": {
                 "label": "О программе",
