@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.pot_app.pot</id>
-  
-  <name>Pot</name>
-  <summary>A text translation and OCR app</summary>
-  <summary xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</summary>
-  <developer id="com.pot_app">
-      <name>Pylogmon</name>
-  </developer>
-
-  <url type="homepage">https://pot-app.com/</url>
-  <url type="bugtracker">https://github.com/pot-app/pot-desktop/issues</url>
-  
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0-only</project_license>
-  
-  <description>
-    <p>A cross-platform software for text translation and recognition.</p>
-    <p xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</p>
-    <p>Features</p>
-    <p xml:lang="zh-Hans">特色功能</p>
+    <id>com.pot_app.pot</id>
+    <name>Pot</name>
+    <summary>A text translation and OCR app</summary>
+    <summary xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</summary>
+    <developer id="com.pot_app">
+        <name>Pylogmon</name>
+    </developer>
+    <url type="homepage">https://pot-app.com/</url>
+    <url type="bugtracker">https://github.com/pot-app/pot-desktop/issues</url>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0-only</project_license>
+    <description>
+        <p>A cross-platform software for text translation and recognition.</p>
+        <p xml:lang="zh-Hans">一款跨平台的划词翻译和文字识别软件</p>
+        <p>Features</p>
+        <p xml:lang="zh-Hans">特色功能</p>
         <ul>
             <li>Parallel translations with multiple services</li>
             <li xml:lang="zh-Hans">多接口并行翻译</li>
@@ -40,55 +36,63 @@
             <li>Multi-language support</li>
             <li xml:lang="zh-Hans">多语言支持</li>
         </ul>
-  </description>
-  
-  <launchable type="desktop-id">com.pot_app.pot.desktop</launchable>
-  <screenshots>
-    <screenshot type="default">
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/1.png</image>
-      <caption>Dark Mode</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/2.png</image>
-      <caption>Dark/Light Mode</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/3.png</image>
-      <caption>Light Mode</caption>
-    </screenshot>
-  </screenshots>
-
-  <releases>
-    <release version="2.7.10" date="2024-04-14">
-    <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/2.7.10</url>
-        <description>
-            <p>Break Change:</p>
+    </description>
+    <launchable type="desktop-id">com.pot_app.pot.desktop</launchable>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/1.png</image>
+            <caption>Dark Mode</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/2.png</image>
+            <caption>Dark/Light Mode</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/pot-app/pot-desktop/raw/2.7.10/asset/3.png</image>
+            <caption>Light Mode</caption>
+        </screenshot>
+    </screenshots>
+    <releases>
+        <release version="3.0.0" date="2024-06-23">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.0</url>
+            <description>
+                <p>New feature:</p>
+                <ul>
+                    <li>Support multiple instance services</li>
+                    <li>Use Javascript plugin system</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.7.10" date="2024-04-14">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/2.7.10</url>
+            <description>
+                <p>Break Change:</p>
                 <ul>
                     <li>If you encountered crashes after upgrade, please reinstall the latest releases of all plugins</li>
                     <li xml:lang="zh-Hans">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
                 </ul>
-            <p>Bugs fixed:</p>
+                <p>Bugs fixed:</p>
                 <ul>
                     <li>Check whether the directory is not empty before uninstall</li>
                     <li>Fix OpenAI translation prompt description</li>
                 </ul>
-        </description>
-    </release>
-    <release version="2.7.9" date="2024-03-02">
-    <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/2.7.9</url>
-        <description>
-            <p>Break Change:</p>
+            </description>
+        </release>
+        <release version="2.7.9" date="2024-03-02">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/2.7.9</url>
+            <description>
+                <p>Break Change:</p>
                 <ul>
                     <li>If you encountered crashes after upgrade, please reinstall the latest releases of all plugins</li>
                     <li xml:lang="zh-Hans">如果更新后遇到闪退问题，请重新安装所有插件的最新版本</li>
                 </ul>
-            <p>Bugs fixed:</p>
+                <p>Bugs fixed:</p>
                 <ul>
                     <li>Support Ollama local large language models</li>
                     <li>Support for disabling history</li>
                 </ul>
-        </description>
-    </release>
-  </releases>
-  <content_rating type="oars-1.1"/>
+            </description>
+        </release>
+    </releases>
+    <content_rating type="oars-1.1"/>
 </component>
