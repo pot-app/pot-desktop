@@ -17,6 +17,7 @@ import {
     getServiceSouceType,
     getServiceName,
     INSTANCE_NAME_CONFIG_KEY,
+    getDisplayInstanceName,
 } from '../../../utils/service_instance';
 
 export const currentServiceInstanceKeyAtom = atom();
@@ -36,7 +37,7 @@ export default function ControlArea(props) {
 
     function getInstanceName(instanceKey, serviceNameSupplier) {
         const instanceConfig = serviceInstanceConfigMap[instanceKey] ?? {};
-        return instanceConfig[INSTANCE_NAME_CONFIG_KEY] ?? serviceNameSupplier();
+        return getDisplayInstanceName(instanceConfig[INSTANCE_NAME_CONFIG_KEY], serviceNameSupplier);
     }
 
     useEffect(() => {

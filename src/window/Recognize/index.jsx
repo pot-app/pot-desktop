@@ -103,7 +103,8 @@ export default function Recognize() {
     }, [closeOnBlur]);
 
     return (
-        pluginList && (
+        pluginList &&
+        serviceInstanceConfigMap !== null && (
             <div
                 className={`bg-background h-screen ${
                     osType === 'Linux' && 'rounded-[10px] border-1 border-default-100'

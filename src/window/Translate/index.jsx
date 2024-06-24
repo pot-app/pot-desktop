@@ -275,10 +275,12 @@ export default function Translate() {
                 <div className={`${osType === 'Linux' ? 'h-[calc(100vh-37px)]' : 'h-[calc(100vh-35px)]'} px-[8px]`}>
                     <div className='h-full overflow-y-auto'>
                         <div>
-                            <SourceArea
-                                pluginList={pluginList}
-                                serviceInstanceConfigMap={serviceInstanceConfigMap}
-                            />
+                            {serviceInstanceConfigMap !== null && (
+                                <SourceArea
+                                    pluginList={pluginList}
+                                    serviceInstanceConfigMap={serviceInstanceConfigMap}
+                                />
+                            )}
                         </div>
                         <div className={`${hideLanguage && 'hidden'}`}>
                             <LanguageArea />
