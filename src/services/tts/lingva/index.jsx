@@ -3,7 +3,12 @@ import { fetch } from '@tauri-apps/api/http';
 export async function tts(text, lang, options = {}) {
     const { config } = options;
 
-    let { requestPath } = config;
+    let { requestPath = 'lingva.pot-app.com' } = config;
+
+    if (requestPath.length === 0) {
+        requestPath = 'lingva.pot-app.com';
+    }
+
     if (!requestPath.startsWith('http')) {
         requestPath = 'https://' + requestPath;
     }
