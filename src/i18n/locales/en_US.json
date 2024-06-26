@@ -70,6 +70,7 @@
                     "system": "System"
                 },
                 "transparent": "Transparent Effect",
+                "dev_mode": "Developer Mode",
                 "proxy": {
                     "title": "Proxy",
                     "host": "Host",

@@ -14,19 +14,6 @@ if (import.meta.env.PROD) {
     });
 }
 
-document.addEventListener('keydown', async (e) => {
-    let allowKeys = ['c', 'v', 'x', 'a', 'z', 'y'];
-    if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
-        e.preventDefault();
-    }
-    if (e.key.startsWith('F') && e.key.length > 1) {
-        e.preventDefault();
-    }
-    if (e.key === 'Escape') {
-        await appWindow.close();
-    }
-});
-
 initStore().then(async () => {
     await initEnv();
     const rootElement = document.getElementById('root');

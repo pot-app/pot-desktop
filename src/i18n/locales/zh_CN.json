@@ -70,6 +70,7 @@
                     "system": "跟随系统"
                 },
                 "transparent": "透明效果",
+                "dev_mode": "开发模式",
                 "proxy": {
                     "title": "网络代理",
                     "host": "代理地址",
