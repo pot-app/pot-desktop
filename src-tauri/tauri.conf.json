@@ -8,7 +8,7 @@
     },
     "package": {
         "productName": "pot",
-        "version": "3.0.3"
+        "version": "3.0.4"
     },
     "tauri": {
         "allowlist": {
@@ -35,18 +35,27 @@
             "http": {
                 "all": true,
                 "request": true,
-                "scope": ["http://**", "https://**"]
+                "scope": [
+                    "http://**",
+                    "https://**"
+                ]
             },
             "os": {
                 "all": true
             },
             "protocol": {
                 "asset": true,
-                "assetScope": ["$CACHE/**", "$CONFIG/**"]
+                "assetScope": [
+                    "$CACHE/**",
+                    "$CONFIG/**"
+                ]
             },
             "fs": {
                 "all": true,
-                "scope": ["$APPCONFIG/**", "$APPCACHE/**"]
+                "scope": [
+                    "$APPCONFIG/**",
+                    "$APPCACHE/**"
+                ]
             },
             "dialog": {
                 "open": true,
@@ -71,7 +80,12 @@
                 "icons/icon.ico"
             ],
             "deb": {
-                "depends": ["libxdo-dev", "libxcb1", "libxrandr2", "tesseract-ocr"]
+                "depends": [
+                    "libxdo-dev",
+                    "libxcb1",
+                    "libxrandr2",
+                    "tesseract-ocr"
+                ]
             },
             "macOS": {
                 "entitlements": null,

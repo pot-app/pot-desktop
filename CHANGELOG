@@ -1,4 +1,4 @@
-## 3.0.3 (2024-06-26)
+## 3.0.4 (2024-06-26)
 
 ### Break Change:
 
@@ -16,3 +16,4 @@
 -   recognize failed
 -   tts failed
 -   collection failed
+-   default lingva error
