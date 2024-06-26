@@ -87,7 +87,8 @@
                 },
                 "default_font": "По умолчанию",
                 "app_font": "Шрифт",
-                "app_fallback_font": "Резервный шрифт"
+                "app_fallback_font": "Резервный шрифт",
+                "dev_mode": "Режим разработчика"
             },
             "translate": {
                 "label": "Перевести",
