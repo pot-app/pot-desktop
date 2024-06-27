@@ -73,6 +73,7 @@ export default function Translate() {
         'bing',
         'yandex',
         'google',
+        'ecdict',
     ]);
     const [recognizeServiceInstanceList] = useConfig('recognize_service_list', ['system', 'tesseract']);
     const [ttsServiceInstanceList] = useConfig('tts_service_list', ['lingva_tts']);

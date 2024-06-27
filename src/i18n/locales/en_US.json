@@ -292,6 +292,9 @@
                 "yandex": {
                     "title": "Yandex"
                 },
+                "ecdict": {
+                    "title": "ECDict(Online)"
+                },
                 "transmart": {
                     "title": "TranSmart",
                     "username": "User Name",

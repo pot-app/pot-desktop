@@ -1,4 +1,4 @@
-## 3.0.4 (2024-06-26)
+## 3.0.5 (2024-06-27)
 
 ### Break Change:
 
@@ -10,6 +10,7 @@
 -   support multiple instance service
 -   use javascript plugin system
 -   enable dev tools
+-   add database api for plugin
 
 ### Bugs fixed:
 

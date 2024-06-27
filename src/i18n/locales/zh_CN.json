@@ -292,6 +292,9 @@
                 "yandex": {
                     "title": "Yandex"
                 },
+                "ecdict": {
+                    "title": "ECDict(在线)"
+                },
                 "transmart": {
                     "title": "腾讯交互翻译",
                     "username": "用户名",

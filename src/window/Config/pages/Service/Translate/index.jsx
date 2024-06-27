@@ -28,6 +28,7 @@ export default function Translate(props) {
         'bing',
         'yandex',
         'google',
+        'ecdict',
     ]);
 
     const { t } = useTranslation();
