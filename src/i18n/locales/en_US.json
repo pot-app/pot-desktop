@@ -49,7 +49,7 @@
                 "check_update": "Check Update",
                 "server_port": "Listening Port",
                 "server_port_change": "The listening port has been changed, Please restart the application for the changes to take effect",
-                "app_language": "Application Language",
+                "app_language": "Display Language",
                 "app_theme": "Theme",
                 "app_font": "Font",
                 "app_fallback_font": "Fallback Font",
