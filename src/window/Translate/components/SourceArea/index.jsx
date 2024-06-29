@@ -46,6 +46,8 @@ export default function SourceArea(props) {
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const speak = useVoice();
+    // 是否是首次打开页面 首次打开页面时全选内容 这样可以将'划词翻译'和'输入翻译'合并为一个功能
+    const [first, setFirst] = useState(false);
 
     const handleNewText = async (text) => {
         text = text.trim();
@@ -152,7 +154,8 @@ export default function SourceArea(props) {
             }
             if (incrementalTranslate) {
                 setSourceText((old) => {
-                    return old + ' ' + newText;
+                    //增量翻译的时候 如果原来没有内容 则直接设置内容 避免文章开头出现空格
+                    return old == '' ? newText : old + ' ' + newText;
                 });
             } else {
                 setSourceText(newText);
@@ -161,6 +164,7 @@ export default function SourceArea(props) {
                 syncSourceText();
             });
         }
+        setFirst(true);
     };
 
     const keyDown = (event) => {
@@ -251,6 +255,9 @@ export default function SourceArea(props) {
         textAreaRef.current.style.height = '50px';
         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
     }, [sourceText]);
+    useEffect(() => {
+        textAreaRef.current.select();
+    }, [first]);
 
     const detect_language = async (text) => {
         setDetectLanguage(await detect(text));
