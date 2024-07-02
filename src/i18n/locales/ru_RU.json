@@ -49,7 +49,7 @@
                 "check_update": "Проверка обновлений",
                 "server_port": "Порт прослушивания",
                 "server_port_change": "Порт прослушивания был изменён. Перезапустите приложение, чтобы изменения вступили в силу",
-                "app_language": "Язык приложения",
+                "app_language": "Язык интерфейса",
                 "app_theme": "Тема",
                 "font_size": {
                     "14": "Мелкий (14 пикс.)",
@@ -309,7 +309,7 @@
                     "key": "Key"
                 },
                 "bing_dict": {
-                    "title": "Словарь Bing"
+                    "title": "Bing Dictionary"
                 },
                 "cambridge_dict": {
                     "title": "Кембриджский словарь"
@@ -350,6 +350,9 @@
                     "not_installed": "Эта модель ещё не установлена, нажмите, чтобы загрузить и установить",
                     "stream": "Потоковый режим",
                     "install_ollama_link": "Загрузить Ollama"
+                },
+                "ecdict": {
+                    "title": "ECDict (Online)"
                 }
             },
             "recognize": {
