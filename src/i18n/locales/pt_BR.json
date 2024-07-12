@@ -49,7 +49,7 @@
                 "check_update": "Checar por Atualização",
                 "server_port": "Porta de Escuta",
                 "server_port_change": "A porta de escuta foi alterada. Reinicie o aplicativo para que as alterações tenham efeito",
-                "app_language": "Idioma do Aplicativo",
+                "app_language": "Idioma de Exibição",
                 "app_theme": "Tema",
                 "font_size": {
                     "14": "Pequena (14px)",
