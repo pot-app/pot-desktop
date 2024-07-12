@@ -10,11 +10,11 @@ async function resolveUpdater() {
     let version = await getVersion(TOKEN);
     let changelog = await getChangeLog(TOKEN);
 
-    const windows_x86_64 = `https://gh.pylogmon.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_fix_webview2_runtime-setup.nsis.zip`;
+    const windows_x86_64 = `https://dl.pot-app.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_fix_webview2_runtime-setup.nsis.zip`;
     const windows_x86_64_sig = await getSignature(`https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x64_fix_webview2_runtime-setup.nsis.zip.sig`);
-    const windows_i686 = `https://gh.pylogmon.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_fix_webview2_runtime-setup.nsis.zip`;
+    const windows_i686 = `https://dl.pot-app.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_fix_webview2_runtime-setup.nsis.zip`;
     const windows_i686_sig = await getSignature(`https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_x86_fix_webview2_runtime-setup.nsis.zip.sig`);
-    const windows_aarch64 = `https://gh.pylogmon.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64_fix_webview2_runtime-setup.nsis.zip`;
+    const windows_aarch64 = `https://dl.pot-app.com/https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64_fix_webview2_runtime-setup.nsis.zip`;
     const windows_aarch64_sig = await getSignature(`https://github.com/pot-app/pot-desktop/releases/download/${version}/pot_${version}_arm64_fix_webview2_runtime-setup.nsis.zip.sig`);
 
     let updateData = {
