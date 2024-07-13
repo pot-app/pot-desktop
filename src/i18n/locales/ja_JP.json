@@ -8,8 +8,9 @@
                 "source_language": "ソース言語"
             },
             "backup": {
-                "title": "ばっくあっぷせっち",
-                "label": "バックアップ"
+                "title": "バックアップ設定",
+                "label": "バックアップ",
+                "type": "サービスの種類"
             },
             "about": {
                 "title": "アプリケーションに関する",
@@ -119,6 +120,9 @@
                 },
                 "transmart": {
                     "token": "トークン"
+                },
+                "deepl": {
+                    "type": "サービスの種類"
                 }
             },
             "recognize": {
