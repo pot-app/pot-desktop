@@ -110,7 +110,7 @@
                 "mouse": "Seguir o mouse",
                 "pre_state": "Lembrar posição",
                 "remember_window_size": "Lembrar do Tamanho da Janela",
-                "close_on_blur": "Fechar no Desfoque",
+                "close_on_blur": "Fechar janela quando o foco for perdido",
                 "always_on_top": "Sempre na Frente",
                 "hide_source": "Ocultar Área de Origem",
                 "hide_language": "Ocultar Área do Idioma",
@@ -141,13 +141,13 @@
                 "delete_newline": "Excluir Nova Linha Automaticamente",
                 "auto_copy": "Copiar Automaticamente",
                 "hide_window": "Ocultar Janela de Reconhecimento",
-                "close_on_blur": "Fechar no Desfoque"
+                "close_on_blur": "Fechar janela quando o foco for perdido"
             },
             "hotkey": {
                 "label": "Atalho",
                 "title": "Configurações de Atalhos",
                 "selection_translate": "Traduzir Selecionado",
-                "input_translate": "Tradução de Entrada",
+                "input_translate": "Tradução do Texto",
                 "ocr_recognize": "Reconhecimento de Texto",
                 "ocr_translate": "Tradução de Imagem",
                 "is_register": "O atalho já está registrado",
@@ -182,7 +182,7 @@
                 "webdav": "WebDav",
                 "local": "Local",
                 "webdav_url": "URL do WebDav",
-                "username": "Nome de Usuário",
+                "username": "Nome de usuário",
                 "password": "Senha",
                 "backup": "Backup",
                 "restore": "Restaurar",
@@ -261,7 +261,7 @@
                 },
                 "transmart": {
                     "title": "TranSmart",
-                    "username": "Nome de Usuário",
+                    "username": "Nome de usuário",
                     "token": "Token"
                 },
                 "baidu": {
