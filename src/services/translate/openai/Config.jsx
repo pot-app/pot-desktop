@@ -209,7 +209,7 @@ export function Config(props) {
                             推荐
                             <Link
                                 isExternal
-                                href='https://aihubmix.com?aff=trJY'
+                                href='https://aihubmix.com/register?aff=trJY'
                                 color='primary'
                             >
                                 AiHubMix
