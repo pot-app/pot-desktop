@@ -209,15 +209,15 @@ export function Config(props) {
                             推荐
                             <Link
                                 isExternal
-                                href='https://aihubmix.com/register?aff=trJY'
+                                href='https://aihubmix.com?aff=trJY'
                                 color='primary'
                             >
                                 AiHubMix
                             </Link>
-                            的OpenAI API 密钥，速度飞快，经济实惠，1美元的OpenAI API 额度只需人民币5.6元
+                            的OpenAI API 密钥，速度飞快，经济实惠，1美元的OpenAI API 额度只需人民币6.3元
                             <Link
                                 isExternal
-                                href='https://pot-app.com/docs/api/translate/openai.html#aihubmix'
+                                href='https://pot-app.com/ads/aihubmix.html'
                                 color='primary'
                             >
                                 配置文档
