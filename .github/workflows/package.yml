@@ -355,6 +355,18 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   files: src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
 
+    trigger-docs-update:
+        needs: [build-for-macos, build-for-windows, build-for-linux]
+        runs-on: ubuntu-latest
+        if: startsWith(github.ref, 'refs/tags')
+        steps:
+          - name: Trigger update
+            run: |
+              curl -X POST https://api.github.com/repos/pot-app/pot-docs/dispatches \
+                -H "Accept: application/vnd.github.everest-preview+json" \
+                -H "Authorization: token ${{ secrets.TOKEN }}" \
+                -d '{"event_type": "plugins-updated"}'
+
     release-update:
         needs: [build-for-macos, build-for-windows, build-for-linux, build-for-windows-fix-runtime]
         runs-on: ubuntu-latest
