@@ -110,7 +110,42 @@
                 "always_on_top": "دائمًا في القمة",
                 "hide_source": "اخف منطقة المصدر",
                 "hide_language": "اخف منطقة اللغة",
-                "hide_window": "اخف نافذة الترجمة"
+                "hide_window": "اخف نافذة الترجمة",
+                "detect_engine": "محرك اكتشاف اللغة",
+                "baidu": "محرك Baidu",
+                "tencent": "محرك Tencent",
+                "niutrans": "محرك NiuTrans",
+                "google": "جوجل",
+                "bing": "بينج",
+                "yandex": "محرك Yandex",
+                "local": "محلي"
+            },
+            "hotkey": {
+                "title": "إعدادات مفاتيح الاختصار",
+                "label": "الاختصارات",
+                "selection_translate": "تحديد الترجمة",
+                "input_translate": "تحديد النص",
+                "ocr_recognize": "التعرف على النص",
+                "ocr_translate": "أخذ لقطة للترجمة",
+                "is_register": "هذا الاختصار مستخدم",
+                "success": "سجل الاختصار بنجاح",
+                "set_hotkey": "اضغط لاختيار مفتاح اختصار"
+            },
+            "recognize": {
+                "title": "إعدادات التعرف",
+                "language": "التعرف على اللغة",
+                "delete_newline": "احذف السطر الجديد تلقائيًا",
+                "auto_copy": "نسخ تلقائي",
+                "close_on_blur": "أغلق النافذة عند فقدان التركيز",
+                "hide_window": "اخف نافذة التعرف"
+            },
+            "service": {
+                "label": "الخدمات",
+                "title": "إعدادات الخدمات",
+                "translate": "الترجمة",
+                "tts": "النص إلى كلام",
+                "recognize": "التعرف",
+                "least": "فضلا احتفظ بواحد على الأقل"
             }
         }
     }
