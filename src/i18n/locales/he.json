@@ -1,1 +1,48 @@
-{}
+{
+    "translation": {
+        "common": {
+            "write_clipboard": "כתוב ללוח",
+            "coming": "בקרוב…",
+            "ok": "אישור",
+            "cancel": "ביטול",
+            "plugin": "תוסף",
+            "save": "שמור",
+            "clear": "נקה"
+        },
+        "languages": {
+            "auto": "זיהוי אוטומטי",
+            "th": "תאילנדית"
+        },
+        "config": {
+            "general": {
+                "auto_start": "הפעלה אוטומטית",
+                "check_update": "עדכון אוטומטי",
+                "theme": {
+                    "dark": "כהה",
+                    "system": "מערכת"
+                },
+                "proxy_change": "ה-proxy שונה, הפעל מחדש את האפליקציה כדי שהשינויים ייכנסו לתוקף"
+            },
+            "hotkey": {
+                "ocr_translate": "תרגם צילום מסך"
+            },
+            "service": {
+                "view_plugin_list": "הצג רשימת תוספים"
+            },
+            "translate": {
+                "target": "יעד",
+                "window_position": "‪מיקום החלון",
+                "local": "מקומי"
+            },
+            "backup": {
+                "password": "סיסמא"
+            },
+            "about": {
+                "email": "דוא\"ל"
+            }
+        },
+        "updater": {
+            "installed": "ההתקנה הושלמה, הפעל מחדש את האפליקציה כדי שהשינויים ייכנסו לתוקף"
+        }
+    }
+}
