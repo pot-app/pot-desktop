@@ -11,7 +11,12 @@
         },
         "languages": {
             "auto": "זיהוי אוטומטי",
-            "th": "תאילנדית"
+            "th": "תאילנדית",
+            "zh_tw": "סינית מסורתית",
+            "zh_cn": "סינית פשוטה",
+            "ms": "מלאית",
+            "ar": "ערבית",
+            "uk": "אוקראינית"
         },
         "config": {
             "general": {
@@ -19,9 +24,43 @@
                 "check_update": "עדכון אוטומטי",
                 "theme": {
                     "dark": "כהה",
-                    "system": "מערכת"
+                    "system": "מערכת",
+                    "light": "מואר"
                 },
-                "proxy_change": "ה-proxy שונה, הפעל מחדש את האפליקציה כדי שהשינויים ייכנסו לתוקף"
+                "proxy_change": "ה-proxy שונה, הפעל מחדש את האפליקציה כדי שהשינויים ייכנסו לתוקף",
+                "label": "כללי",
+                "title": "הגדרות כלליות",
+                "font_size": {
+                    "10": "קטן במיוחד (10px)",
+                    "12": "קטן מאוד (12px)",
+                    "16": "רגיל (16px)",
+                    "20": "גדול מאוד (20px)",
+                    "24": "גדול במיוחד (24px)",
+                    "title": "גודל גופן",
+                    "18": "גדול (18px)",
+                    "14": "קטן (14px)"
+                },
+                "default_font": "ברירת מחדל",
+                "transparent": "אפקט שקוף",
+                "proxy": {
+                    "title": "פרוקסי",
+                    "username": "שם-משתמש",
+                    "password": "סיסמא",
+                    "no_proxy": "ללא פרוקסי",
+                    "port": "יציאה"
+                },
+                "proxy_error": "אנא מלא את כתובת המארח והיציאה",
+                "event": {
+                    "config": "העדפה",
+                    "translate": "תרגם",
+                    "disable": "מבוטל",
+                    "ocr_translate": "תרגם צילום מסך",
+                    "ocr_recognize": "זיהוי טקסט"
+                },
+                "app_language": "שפת תצוגה",
+                "app_theme": "ערכת נושא",
+                "app_font": "גופן",
+                "dev_mode": "מצב מפתח"
             },
             "hotkey": {
                 "ocr_translate": "תרגם צילום מסך"
@@ -30,9 +69,24 @@
                 "view_plugin_list": "הצג רשימת תוספים"
             },
             "translate": {
-                "target": "יעד",
+                "target": "יעדיעד",
                 "window_position": "‪מיקום החלון",
-                "local": "מקומי"
+                "local": "מקומי",
+                "label": "תרגם",
+                "title": "הגדרות תרגום",
+                "source_language": "שפת המקור",
+                "target_language": "שפת היעד",
+                "second_language": "שפת יעד משנית",
+                "auto_copy": "העתקה אוטומטית",
+                "source": "מקור",
+                "source_target": "מקור+יעד",
+                "disable": "מבוטל",
+                "history_disable": "השבת היסטוריה",
+                "remember_language": "זכור את שפת היעד",
+                "font_size": {
+                    "title": "גודל גופן"
+                },
+                "dynamic_translate": "תרגום דינמי"
             },
             "backup": {
                 "password": "סיסמא"
