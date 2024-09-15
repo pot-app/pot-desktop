@@ -10,13 +10,13 @@ export async function translate(text, from, to, options) {
     if (!/https?:\/\/.+/.test(requestPath)) {
         requestPath = `https://${requestPath}`;
     }
-    if (requestPath.endsWith('/')) {
-        requestPath = requestPath.slice(0, -1);
-    }
+    const apiUrl = new URL(requestPath);
 
-    // /v1 is not required
-    if (service === 'openai' && !requestPath.endsWith('/chat/completions')) {
-        requestPath += '/v1/chat/completions';
+    // in openai like api, /v1 is not required
+    if (service === 'openai' && !apiUrl.pathname.endsWith('/chat/completions')) {
+        // not openai like, populate completion endpoint
+        apiUrl.pathname += apiUrl.pathname.endsWith('/') ? '' : '/';
+        apiUrl.pathname += 'v1/chat/completions';
     }
 
     // 兼容旧版
@@ -61,7 +61,7 @@ export async function translate(text, from, to, options) {
         body['model'] = model;
     }
     if (stream) {
-        const res = await window.fetch(requestPath, {
+        const res = await window.fetch(apiUrl.href, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body),
@@ -118,7 +118,7 @@ export async function translate(text, from, to, options) {
             throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
-        let res = await fetch(requestPath, {
+        let res = await fetch(apiUrl.href, {
             method: 'POST',
             headers: headers,
             body: Body.json(body),
