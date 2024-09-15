@@ -15,6 +15,9 @@ import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
 import { Language } from './index';
 
+// https://open.bigmodel.cn/dev/api/normal-model/glm-4
+const availableModels = 'glm-4-plus、glm-4-0520、glm-4 、glm-4-air、glm-4-airx、glm-4-long 、 glm-4-flash'.split('、').map(it => it.trim());
+
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
     const { t } = useTranslation();
@@ -96,7 +99,7 @@ export function Config(props) {
                     <h3 className='my-auto'>{t('services.translate.chatglm.model')}</h3>
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant='bordered'>{t(`services.translate.chatglm.${serviceConfig.model}`)}</Button>
+                            <Button variant='bordered'>{serviceConfig.model}</Button>
                         </DropdownTrigger>
                         <DropdownMenu
                             autoFocus='first'
@@ -108,14 +111,11 @@ export function Config(props) {
                                 });
                             }}
                         >
-                            <DropdownItem key='chatglm_turbo'>
-                                {t(`services.translate.chatglm.chatglm_turbo`)}
-                            </DropdownItem>
-                            <DropdownItem key='chatglm_pro'>{t(`services.translate.chatglm.chatglm_pro`)}</DropdownItem>
-                            <DropdownItem key='chatglm_std'>{t(`services.translate.chatglm.chatglm_std`)}</DropdownItem>
-                            <DropdownItem key='chatglm_lite'>
-                                {t(`services.translate.chatglm.chatglm_lite`)}
-                            </DropdownItem>
+                            {availableModels.map(it => (
+                                <DropdownItem key={it}>
+                                    {it}
+                                </DropdownItem>
+                            ))}
                         </DropdownMenu>
                     </Dropdown>
                 </div>
