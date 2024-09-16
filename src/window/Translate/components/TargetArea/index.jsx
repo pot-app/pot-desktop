@@ -39,7 +39,7 @@ import { invoke_plugin } from '../../../../utils/invoke_plugin';
 import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
 
-import { store } from '../../../../utils/store';
+import { info, error as logError } from 'tauri-plugin-log-api';
 import {
     INSTANCE_NAME_CONFIG_KEY,
     ServiceSourceType,
@@ -85,6 +85,12 @@ export default function TargetArea(props) {
     const toastStyle = useToastStyle();
     const speak = useVoice();
     const theme = useTheme();
+
+    useEffect(() => {
+        if (error) {
+            logError(`[${currentTranslateServiceInstanceKey}]happened error: ` + error);
+        }
+    }, [error]);
 
     // listen to translation
     useEffect(() => {
@@ -184,6 +190,7 @@ export default function TargetArea(props) {
                     utils,
                 }).then(
                     (v) => {
+                        info(`[${currentTranslateServiceInstanceKey}]resolve:` + v);
                         if (translateID[index] !== id) return;
                         setResult(typeof v === 'string' ? v.trim() : v);
                         setIsLoading(false);
@@ -224,6 +231,7 @@ export default function TargetArea(props) {
                         }
                     },
                     (e) => {
+                        info(`[${currentTranslateServiceInstanceKey}]reject:` + e);
                         if (translateID[index] !== id) return;
                         setError(e.toString());
                         setIsLoading(false);
@@ -255,6 +263,7 @@ export default function TargetArea(props) {
                     })
                     .then(
                         (v) => {
+                            info(`[${currentTranslateServiceInstanceKey}]resolve:` + v);
                             if (translateID[index] !== id) return;
                             setResult(typeof v === 'string' ? v.trim() : v);
                             setIsLoading(false);
@@ -295,6 +304,7 @@ export default function TargetArea(props) {
                             }
                         },
                         (e) => {
+                            info(`[${currentTranslateServiceInstanceKey}]reject:` + e);
                             if (translateID[index] !== id) return;
                             setError(e.toString());
                             setIsLoading(false);

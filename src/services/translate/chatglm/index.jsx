@@ -1,5 +1,6 @@
 import { Language } from './info';
 import * as jose from 'jose';
+import { info } from 'tauri-plugin-log-api';
 
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
@@ -8,7 +9,7 @@ export async function translate(text, from, to, options = {}) {
 
     let [id, secret] = apiKey.split('.');
     if (id === undefined || secret === undefined) {
-        throw new Error('invalid apikey');
+        return Promise.reject('invalid apikey');
     }
     promptList = promptList.map((item) => {
         return {
@@ -34,62 +35,64 @@ export async function translate(text, from, to, options = {}) {
 
     const headers = {
         'Content-Type': 'application/json',
-        accept: 'text/event-stream',
-        Authorization: token,
+        'Authorization': token,
     };
 
-    let body = {
-        prompt: promptList,
+    const body = {
+        model: model,
+        messages: promptList,
+        stream: true,
     };
 
-    const res = await window.fetch(`https://open.bigmodel.cn/api/paas/v3/model-api/${model}/sse-invoke`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body),
-    });
-    if (res.ok) {
-        let target = '';
-        let errRes = res.clone();
-        const reader = res.body.getReader();
-        try {
+    let result = '';
+    try {
+        const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body),
+        });
+        if (!response.ok) {
+            throw new Error(`Http Request Error\nHttp Status: ${response.status}\n${await response.text()}`);
+        }
+
+        let buffer = '';
+        // Function to process the stream data
+        const processChatStream = async (reader, decoder) => {
             while (true) {
                 const { done, value } = await reader.read();
-                if (done) {
-                    if (target === '') {
-                        let json = await errRes.json();
-                        if (json.msg) {
-                            throw json.msg;
-                        } else {
-                            throw JSON.stringify(json);
+                if (done) break;
+
+                // Convert binary data to string
+                buffer += decoder.decode(value, { stream: true });
+                
+                // Process complete events
+                const boundary = buffer.lastIndexOf('\n\n');
+                if (boundary !== -1) {
+                    const event = buffer.slice(0, boundary);
+                    buffer = buffer.slice(boundary + 2);
+                    const chunks = event.split('\n\n');
+                    
+                    for (const chunk of chunks) {
+                        const text = chunk.replace(/^data:/, '').trim();
+                        if (text === '[DONE]') {
+                            continue;
                         }
-                    }
-                    setResult(target.trim());
-                    return target.trim();
-                }
-                const str = new TextDecoder().decode(value);
-                let list = str.split('\n');
-                for (let line of list) {
-                    if (line.startsWith('data:')) {
-                        let data = line.replace('data:', '');
-                        if (data === '') {
-                            target += '\n';
-                        } else {
-                            target += data;
-                        }
+                        const data = JSON.parse(text);
+                        result += data.choices[0].delta.content;
                         if (setResult) {
-                            setResult(target + '_');
-                        } else {
-                            return '[STREAM]';
+                            setResult(result + '_');
                         }
                     }
                 }
             }
-        } finally {
-            reader.releaseLock();
-        }
-    } else {
-        throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
+        };
+
+        await processChatStream(response.body.getReader(), new TextDecoder());
+    } catch (error) {
+        return Promise.reject(error);
     }
+    
+    return result;
 }
 
 export * from './Config';
