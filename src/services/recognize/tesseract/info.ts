@@ -25,4 +25,6 @@ export enum Language {
     ms = 'msa',
     ar = 'ara',
     hi = 'hin',
+    uk = 'ukr',
+    he = 'heb',
 }

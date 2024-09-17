@@ -64,6 +64,8 @@ export default function General() {
         nn_no: 'Norsk Nynorsk',
         fa: 'فارسی',
         uk: 'Українська',
+        ar: 'العربية',
+        he: 'עִבְרִית',
     };
 
     useEffect(() => {
@@ -269,6 +271,18 @@ export default function General() {
                                         startContent={<span className={`fi fi-${LanguageFlag.uk}`} />}
                                     >
                                         Українська
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='ar'
+                                        startContent={<span className={`fi fi-${LanguageFlag.ar}`} />}
+                                    >
+                                        العربية
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key='he'
+                                        startContent={<span className={`fi fi-${LanguageFlag.he}`} />}
+                                    >
+                                        עִבְרִית
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

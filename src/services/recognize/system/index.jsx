@@ -26,6 +26,8 @@ export async function recognize(_, lang) {
         ms: 'msa',
         ar: 'ara',
         hi: 'hin',
+        uk: 'ukr',
+        he: 'heb',
     };
     const windowsLangMap = {
         auto: 'auto',
@@ -49,6 +51,8 @@ export async function recognize(_, lang) {
         ms: 'ms-MY',
         ar: 'ar-SA',
         hi: 'hi-IN',
+        uk: 'uk-UA',
+        he: 'he-IL',
     };
     const macOSLangMap = {
         auto: 'auto',
@@ -72,6 +76,8 @@ export async function recognize(_, lang) {
         ms: 'ms-MY',
         ar: 'ar-SA',
         hi: 'hi-IN',
+        uk: 'uk-UA',
+        he: 'he-IL',
     };
     let result = '';
     switch (osType) {

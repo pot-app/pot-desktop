@@ -35,4 +35,5 @@ export enum Language {
     pl = 'Polish',
     nl = 'Dutch',
     uk = 'Ukrainian',
+    he = 'Hebrew',
 }

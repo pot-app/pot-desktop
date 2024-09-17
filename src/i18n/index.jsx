@@ -17,6 +17,8 @@ import nb_NO from './locales/nb_NO.json';
 import nn_NO from './locales/nn_NO.json';
 import fa_IR from './locales/fa_IR.json';
 import uk_UA from './locales/uk_UA.json';
+import ar_AE from './locales/ar_AE.json';
+import he_IL from './locales/he_IL.json';
 
 // http://www.lingoes.net/zh/translator/langcode.htm
 
@@ -52,6 +54,8 @@ i18n.use(initReactI18next).init({
         nn_no: nn_NO,
         fa: fa_IR,
         uk: uk_UA,
+        ar: ar_AE,
+        he: he_IL,
     },
 });
 
