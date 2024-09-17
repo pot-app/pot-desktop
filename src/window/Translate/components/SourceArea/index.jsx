@@ -20,6 +20,8 @@ import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
 import detect from '../../../../utils/lang_detect';
 import { store } from '../../../../utils/store';
+import { info } from 'tauri-plugin-log-api';
+import { debug } from 'tauri-plugin-log-api';
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
@@ -256,6 +258,111 @@ export default function SourceArea(props) {
         setDetectLanguage(await detect(text));
     };
 
+    let sourceTextChangeTimer = null;
+    const changeSourceText = async (text) => {
+        setDetectLanguage('');
+        await setSourceText(text);
+        if (dynamicTranslate) {
+            if (sourceTextChangeTimer) {
+                clearTimeout(sourceTextChangeTimer);
+            }
+            sourceTextChangeTimer = setTimeout(() => {
+                detect_language(text).then(() => {
+                    syncSourceText();
+                });
+            }, 1000);
+        }
+    }
+
+    const transformVarName = function (str) {
+        let str2 = str;
+
+        // snake_case to SNAKE_CASE
+        if (/_[a-z]/.test(str2)) {
+            str2 = str2.split('_').map(it => it.toLocaleUpperCase()).join('_');
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // SNAKE_CASE to kebab-case
+        if (/^[A-Z]+(_[A-Z]+)*$/.test(str2)) {
+            str2 = str2.split('_').map(it => it.toLocaleLowerCase()).join('-');
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // kebab-case to dot.notation
+        if (/-/.test(str2)) {
+            str2 = str2.split('-').map(it => it.toLocaleLowerCase()).join('.');
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // dot.notation to space separated
+        if (/\.[a-z]/.test(str2)) {
+            str2 = str2.replaceAll(/(\.)([a-z])/g, (_, _2, it) => ' ' + it);
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // space separated to Title Case
+        if (/\s[a-z]/.test(str2)) {
+            str2 = str2.replaceAll(/\s([a-z])/g, (_, it) => ' ' + it.toLocaleUpperCase());
+            str2 = str2.substring(0, 1).toLocaleUpperCase() + str2.substring(1);
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // Title Case to CamelCase
+        if (/\s[A-Z]/.test(str2)) {
+            str2 = str2.replaceAll(/\s([A-Z])/g, (_, it) => it);
+            str2 = str2.substring(0, 1).toLocaleLowerCase() + str2.substring(1);
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // CamelCase to PascalCase
+        if (/^[a-z]+[A-Z]+/.test(str2)) {
+            str2 = str2.substring(0, 1).toLocaleUpperCase() + str2.substring(1);
+        }
+        if (str2 !== str) {
+            return str2;
+        }
+
+        // PascalCase to snake_case
+        if (/[^\s][A-Z]/.test(str2)) {
+            str2 = str2.replaceAll(/[A-Z]/g, (it, offset) => {
+                return (offset == 0 ? '' : '_') + it.toLocaleLowerCase();
+            });
+        }
+
+        return str2;
+    }
+    useEffect(() => {
+        textAreaRef.current.addEventListener("keydown", async (event) => {
+            if (event.altKey && event.shiftKey && event.code === 'KeyU') {
+                const originText = textAreaRef.current.value;
+                const selectionStart = textAreaRef.current.selectionStart;
+                const selectionEnd = textAreaRef.current.selectionEnd;
+                const selectionText = originText.substring(selectionStart, selectionEnd);
+
+                const convertedText = transformVarName(selectionText);
+                const targetText = originText.substring(0, selectionStart) + convertedText + originText.substring(selectionEnd);
+
+                await changeSourceText(targetText);
+                textAreaRef.current.selectionStart = selectionStart;
+                textAreaRef.current.selectionEnd = selectionStart + convertedText.length;
+            }
+        });
+    }, [textAreaRef]);
+
+
     return (
         <div className={hideSource && windowType !== '[INPUT_TRANSLATE]' && 'hidden'}>
             <Card
@@ -272,18 +379,7 @@ export default function SourceArea(props) {
                         onKeyDown={keyDown}
                         onChange={(e) => {
                             const v = e.target.value;
-                            setDetectLanguage('');
-                            setSourceText(v);
-                            if (dynamicTranslate) {
-                                if (timer) {
-                                    clearTimeout(timer);
-                                }
-                                timer = setTimeout(() => {
-                                    detect_language(v).then(() => {
-                                        syncSourceText();
-                                    });
-                                }, 1000);
-                            }
+                            changeSourceText(v);
                         }}
                     />
                 </CardBody>
