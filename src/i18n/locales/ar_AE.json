@@ -39,7 +39,8 @@
             "fa": "الفارسية",
             "pl": "البولندية",
             "nl": "الهولندية",
-            "uk": "الأوكرانية"
+            "uk": "الأوكرانية",
+            "he": "العبرية"
         },
         "config": {
             "general": {
@@ -80,7 +81,14 @@
                 },
                 "proxy_error": "فضلا املأ بيانات المضيف والمنفذ",
                 "app_fallback_font": "الخط الاحتياطي",
-                "proxy_change": "لقد تغير الوكيل، أعد تشغيل التطبيق كي تنفذ التغييرات"
+                "proxy_change": "لقد تغير الوكيل، أعد تشغيل التطبيق كي تنفذ التغييرات",
+                "event": {
+                    "translate": "ترجمة",
+                    "disable": "عطّل",
+                    "ocr_translate": "ترجم لقطة الشاشة",
+                    "config": "تفضيل",
+                    "ocr_recognize": "التعرف على النص"
+                }
             },
             "translate": {
                 "label": "الترجمة",
@@ -118,7 +126,12 @@
                 "google": "جوجل",
                 "bing": "بينج",
                 "yandex": "محرك Yandex",
-                "local": "محلي"
+                "local": "محلي",
+                "window_position": "موضع النافذة",
+                "mouse": "تتبع الفأرة",
+                "pre_state": "تذكر الموضع",
+                "incremental_translate": "ترجمة تزايدية",
+                "dynamic_translate": "ترجمة تلقائية"
             },
             "hotkey": {
                 "title": "إعدادات مفاتيح الاختصار",
@@ -137,7 +150,8 @@
                 "delete_newline": "احذف السطر الجديد تلقائيًا",
                 "auto_copy": "نسخ تلقائي",
                 "close_on_blur": "أغلق النافذة عند فقدان التركيز",
-                "hide_window": "اخف نافذة التعرف"
+                "hide_window": "اخف نافذة التعرف",
+                "label": "التعرف"
             },
             "service": {
                 "label": "الخدمات",
@@ -145,8 +159,55 @@
                 "translate": "الترجمة",
                 "tts": "النص إلى كلام",
                 "recognize": "التعرف",
-                "least": "فضلا احتفظ بواحد على الأقل"
+                "least": "فضلا احتفظ بواحد على الأقل",
+                "collection": "المجموعة",
+                "add_builtin_service": "أضف خدمة مضمنة",
+                "add_external_service": "أضف امتداد",
+                "add_service": "أضف خدمة",
+                "test_failed": "فشل الاختبار",
+                "install_plugin": "ثبت الملحق",
+                "view_plugin_list": "اعرض قائمة الملحق",
+                "uninstall_success": "أزيل الملحق بنجاح",
+                "homepage": "الصفحة الرئيسية"
+            },
+            "backup": {
+                "username": "اسم المستخدم",
+                "password": "كلمة السر",
+                "label": "نسخة احتياطية",
+                "title": "اعدادات النسخ الاحتياطي",
+                "type": "نوع الخدمة",
+                "webdav": "ويب داف",
+                "local": "محلي",
+                "webdav_url": "عنوان ويب داف",
+                "logout": "تسجيل خروج",
+                "login_success": "نجح تسجيل الدخول",
+                "backup": "نسخة احتياطية",
+                "restore": "استعد",
+                "list": "قائمة النُسخ الاحتياطية",
+                "load_success": "حمل النسخ الإحتياطي بنجاح",
+                "backup_success": "نسخ احتياطي ناجح"
+            },
+            "history": {
+                "label": "السجل",
+                "title": "السجل"
+            },
+            "about": {
+                "label": "حول",
+                "title": "عن التطبيق",
+                "website": "موقع الوب",
+                "github": "جِت‌هَب",
+                "feedback": "انطباع",
+                "email": "البريد الالكتروني",
+                "community": "المجتمع",
+                "check_update": "تحقق من التحديث",
+                "view_log": "اعرض السجل",
+                "telegram": "تيليجرام"
             }
+        },
+        "updater": {
+            "update": "حدث",
+            "title": "تحقق من التحديث",
+            "cancel": "إلغاء"
         }
     }
 }
