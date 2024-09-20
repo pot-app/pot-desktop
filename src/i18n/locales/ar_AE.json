@@ -208,6 +208,26 @@
             "update": "حدث",
             "title": "تحقق من التحديث",
             "cancel": "إلغاء"
+        },
+        "recognize": {
+            "delete_space": "احذف المسافة",
+            "copy_text": "انسخ",
+            "delete_newline": "احذف السطر الجديد",
+            "copy_img": "انسخ الصورة",
+            "translate": "ترجمة"
+        },
+        "translate": {
+            "delete_newline": "احذف السطر الجديد",
+            "retry": "حاول مرة اخرى",
+            "copy": "انسخ",
+            "translate": "ترجمة"
+        },
+        "services": {
+            "collection": {
+                "anki": {
+                    "port": "منفذ"
+                }
+            }
         }
     }
 }
