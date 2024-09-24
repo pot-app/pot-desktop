@@ -186,7 +186,10 @@
                 "github": "GitHub",
                 "label": "אודות",
                 "website": "אתר האינטרנט",
-                "feedback": "משוב"
+                "feedback": "משוב",
+                "qq_channel": "ערוץ QQ",
+                "qq_group": "קבוצת QQ",
+                "issue": "גיליון"
             },
             "recognize": {
                 "label": "זהה",
@@ -220,10 +223,13 @@
                     "type": "סוג שירות",
                     "free": "חינם",
                     "auth_key": "מפתח אוטומטי",
-                    "api": "מפתח אוטומטי"
+                    "api": "מפתח אוטומטי",
+                    "custom_url": "קישור DeepLX",
+                    "deeplx": "DeepLX"
                 },
                 "google": {
-                    "title": "Google"
+                    "title": "Google",
+                    "custom_url": "קישור מותאם אישית"
                 },
                 "ollama": {
                     "install_ollama_link": "הורד את Ollama",
@@ -274,14 +280,22 @@
                     "prompt_description": "על ידי התאמה אישית של ההנחיה, אתה יכול להתאים אישית את ההתנהגות של הבינה המלאכותית. $text $from $to $detect יוחלף בטקסט לתרגום, שפת המקור, שפת היעד ושפת הזיהוי."
                 },
                 "transmart": {
-                    "username": "שם-משתמש"
+                    "username": "שם-משתמש",
+                    "token": "טוקן",
+                    "title": "TranSmart"
                 },
                 "baidu": {
                     "secret": "סודי",
                     "title": "Baidu"
                 },
                 "baidu_field": {
-                    "finance": "פיננסים וכלכלה"
+                    "finance": "פיננסים וכלכלה",
+                    "senimed": "ביו-רפואה",
+                    "academic": "עבודה אקדמית",
+                    "aerospace": "תעופה וחלל",
+                    "wiki": "מדעי הרוח והחברה",
+                    "news": "חדשות ומידע",
+                    "law": "חוקים ותקנות"
                 },
                 "tencent": {
                     "secret_key": "מפתח סודי"
@@ -294,9 +308,44 @@
                 },
                 "yandex": {
                     "title": "Yandex"
+                },
+                "alibaba": {
+                    "title": "עליבאבא"
+                },
+                "niutrans": {
+                    "https": "השתמש בHttps",
+                    "apikey": "מפתח API"
                 }
             },
-            "no_need": "אין צורך בתצורה"
+            "no_need": "אין צורך בתצורה",
+            "recognize": {
+                "qrcode": {
+                    "title": "קוד QR"
+                },
+                "baidu_ocr": {
+                    "client_id": "מפתח API"
+                },
+                "iflytek_ocr": {
+                    "apikey": "מפתח API"
+                },
+                "iflytek_intsig_ocr": {
+                    "apikey": "מפתח API"
+                },
+                "iflytek_latex_ocr": {
+                    "apikey": "מפתח API"
+                },
+                "simple_latex_ocr": {
+                    "token": "טוקן"
+                }
+            },
+            "collection": {
+                "anki": {
+                    "port": "יציאה"
+                },
+                "eudic": {
+                    "token": "טוקן"
+                }
+            }
         },
         "translate": {
             "translate": "תרגם",
