@@ -46,7 +46,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
-        "@tauri-apps/cli": "^1.5.14",
+        "@tauri-apps/cli": "^1.6.2",
         "@vitejs/plugin-react": "^4.3.1",
         "autoprefixer": "^10.4.19",
         "node-fetch": "^3.3.2",
