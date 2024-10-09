@@ -115,7 +115,8 @@
                 "test_failed": "הבדיקה נכשלה",
                 "install_plugin": "התקן תוסף",
                 "uninstall_success": "התוסף הוסר בהצלחה",
-                "homepage": "דף הבית"
+                "homepage": "דף הבית",
+                "tts": "TTS"
             },
             "translate": {
                 "target": "יעד",
@@ -288,7 +289,8 @@
                 },
                 "baidu": {
                     "secret": "סודי",
-                    "title": "Baidu"
+                    "title": "Baidu",
+                    "appid": "מזהה אפליקציה"
                 },
                 "baidu_field": {
                     "finance": "פיננסים וכלכלה",
@@ -303,10 +305,12 @@
                     "secret_key": "מפתח סודי"
                 },
                 "volcengine": {
-                    "secret": "סודי"
+                    "secret": "סודי",
+                    "appid": "מזהה אפליקציה"
                 },
                 "youdao": {
-                    "key": "מפתח"
+                    "key": "מפתח",
+                    "appkey": "מזהה אפליקציה"
                 },
                 "yandex": {
                     "title": "Yandex"
@@ -317,6 +321,15 @@
                 "niutrans": {
                     "https": "השתמש בHttps",
                     "apikey": "מפתח API"
+                },
+                "bing_dict": {
+                    "title": "מילון Bing"
+                },
+                "cambridge_dict": {
+                    "title": "מילון קיימברידג'"
+                },
+                "caiyun": {
+                    "token": "טוקן"
                 }
             },
             "no_need": "אין צורך בתצורה",
@@ -325,19 +338,52 @@
                     "title": "קוד QR"
                 },
                 "baidu_ocr": {
-                    "client_id": "מפתח API"
+                    "client_id": "מפתח API",
+                    "client_secret": "מפתח סודי"
                 },
                 "iflytek_ocr": {
-                    "apikey": "מפתח API"
+                    "apikey": "מפתח API",
+                    "apisecret": "API סודי",
+                    "appid": "מזהה אפליקציה"
                 },
                 "iflytek_intsig_ocr": {
-                    "apikey": "מפתח API"
+                    "apikey": "מפתח API",
+                    "apisecret": "API סודי",
+                    "appid": "מזהה אפליקציה"
                 },
                 "iflytek_latex_ocr": {
-                    "apikey": "מפתח API"
+                    "apikey": "מפתח API",
+                    "appid": "מזהה אפליקציה",
+                    "apisecret": "API סודי"
                 },
                 "simple_latex_ocr": {
                     "token": "טוקן"
+                },
+                "baidu_accurate_ocr": {
+                    "client_id": "מפתח API",
+                    "client_secret": "מפתח סודי"
+                },
+                "baidu_img_ocr": {
+                    "secret": "סודי",
+                    "appid": "מזהה אפליקציה",
+                    "title": "תרגום תמונה של Baidu"
+                },
+                "tencent_ocr": {
+                    "secret_key": "מפתח סודי"
+                },
+                "tencent_accurate_ocr": {
+                    "secret_key": "מפתח סודי"
+                },
+                "tencent_img_ocr": {
+                    "secret_key": "מפתח סודי"
+                },
+                "volcengine_ocr": {
+                    "appid": "מזהה אפליקציה",
+                    "secret": "סודי"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "appid": "מזהה אפליקציה",
+                    "secret": "סודי"
                 }
             },
             "collection": {
@@ -345,7 +391,8 @@
                     "port": "יציאה"
                 },
                 "eudic": {
-                    "token": "טוקן"
+                    "token": "טוקן",
+                    "name": "שם האוסף"
                 }
             }
         },
