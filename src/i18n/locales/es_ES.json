@@ -35,7 +35,12 @@
             "km": "Jemer o Camboyano",
             "nb_no": "Noruego Bokmål",
             "fa": "Persa",
-            "nn_no": "Noruego Nynorsk"
+            "nn_no": "Noruego Nynorsk",
+            "sv": "Sueco",
+            "pl": "Polaco",
+            "nl": "Neerlandés",
+            "uk": "Ucraniano",
+            "he": "Hebreo"
         },
         "config": {
             "general": {
@@ -75,8 +80,248 @@
                 "app_language": "Idioma de la aplicación",
                 "transparent": "Efecto de transparencia",
                 "title": "Ajustes generales",
-                "app_fallback_font": "Fuente alternativa"
+                "app_fallback_font": "Fuente alternativa",
+                "dev_mode": "Modo desarrollador",
+                "event": {
+                    "ocr_recognize": "Reconocimiento de texto",
+                    "disable": "Desactivar",
+                    "translate": "Traducir",
+                    "config": "Ajuste",
+                    "ocr_translate": "Traducción de captura de pantalla"
+                }
+            },
+            "translate": {
+                "title": "Ajustes de traducción",
+                "target_language": "Idioma de destino",
+                "source": "Origen",
+                "target": "Destino",
+                "source_target": "Origen+Destino",
+                "disable": "Desactivar",
+                "remember_language": "Recordar idioma de destino",
+                "font_size": {
+                    "title": "Tamaño de fuente",
+                    "10": "Muy muy pequeño (10px)",
+                    "12": "Muy pequeño (12px)",
+                    "20": "Muy grande (18px)",
+                    "24": "Muy muy grande (24px)",
+                    "14": "Pequeño (14px)",
+                    "18": "Grande (18px)",
+                    "16": "Estándar (16px)"
+                },
+                "window_position": "Posición de ventana",
+                "close_on_blur": "Cerrar ventana al perder el foco",
+                "detect_engine": "Motor de detección de idioma",
+                "label": "Traducir",
+                "second_language": "Segundo idioma de destino",
+                "auto_copy": "Copiar automático",
+                "history_disable": "Desactivar historial",
+                "pre_state": "Recordar posición",
+                "remember_window_size": "Recordar tamaño de ventana",
+                "niutrans": "NiuTrans",
+                "mouse": "Seguir el puntero",
+                "always_on_top": "Siempre encima",
+                "tencent": "Tencent",
+                "google": "Google",
+                "bing": "Bing",
+                "yandex": "Yandex",
+                "hide_window": "Ocultar ventana de traducción",
+                "baidu": "Baidu",
+                "source_language": "Idioma de origen",
+                "dynamic_translate": "Traduccion dinámica"
+            },
+            "recognize": {
+                "language": "Idioma de reconocimiento",
+                "hide_window": "Ocultar ventana de reconocimiento",
+                "title": "Ajustes de reconocimiento",
+                "close_on_blur": "Cerra ventana al perder el foco"
+            },
+            "hotkey": {
+                "is_register": "El atajo de teclado ya está registrado",
+                "success": "Registro de atajo de teclado con éxito",
+                "set_hotkey": "Pulsar para establecer atajo de teclado",
+                "title": "Ajustes de atajo de teclado",
+                "input_translate": "Traducción de texto",
+                "label": "Atajo de teclado",
+                "selection_translate": "Traducción de selección",
+                "ocr_translate": "Traducción de captura de pantalla",
+                "ocr_recognize": "Reconocimiento de texto"
+            },
+            "service": {
+                "translate": "Traducir",
+                "tts": "texto a voz",
+                "view_plugin_list": "Ver lista de complementos",
+                "label": "Servicio",
+                "test_failed": "Prueba fallida",
+                "add_external_service": "Añadir extensión",
+                "install_plugin": "Instalar complemento",
+                "title": "Ajustes de servicio",
+                "add_service": "Añadir servicio",
+                "homepage": "Inicio",
+                "uninstall_success": "Complemento desinstalado con éxito"
+            },
+            "history": {
+                "title": "Historial",
+                "label": "Historial"
+            },
+            "backup": {
+                "label": "Copia de seguridad",
+                "username": "Nombre de usuario",
+                "logout": "Cerrar sesión",
+                "backup": "Copia de seguridad",
+                "load_success": "Cargar copia de seguridad con éxito",
+                "restore": "Restaurar",
+                "title": "Ajustes de copia de seguridad",
+                "login_success": "Inicio de sesión con éxito",
+                "list": "Hacer copia de seguridad de lista",
+                "backup_success": "Copia de seguridad hecha con éxito",
+                "password": "Contraseña"
+            },
+            "about": {
+                "label": "Acerca de",
+                "github": "GitHub",
+                "view_log": "Ver registros",
+                "view_config": "Ver configuración",
+                "discussion": "Debates de GitHub",
+                "title": "Acerca de la aplicación",
+                "website": "Sitio web",
+                "feedback": "Comentarios",
+                "community": "Comunidad",
+                "check_update": "Comprobar actualizaciones",
+                "issue": "Incidencia",
+                "email": "Correo electrónico",
+                "qq_channel": "Canal de QQ",
+                "telegram": "Telegram",
+                "qq_group": "Grupo de QQ"
             }
+        },
+        "updater": {
+            "update": "Actualizar",
+            "installing": "Instalando…",
+            "cancel": "Cancelar",
+            "latest": "## La última versión está instalada",
+            "title": "Comprobar actualizaciones",
+            "progress": "Progreso de descarga",
+            "downloading": "Descargando…"
+        },
+        "services": {
+            "no_need": "No requiere configuración",
+            "instance_name": "Nombre de configuración",
+            "translate": {
+                "ollama": {
+                    "title": "Ollama",
+                    "install_model": "Instalar",
+                    "ready": "Preparado",
+                    "model": "Modelo"
+                },
+                "openai": {
+                    "title": "OpenAI",
+                    "openai": "OpenAI",
+                    "azure": "Azure"
+                },
+                "chatglm": {
+                    "chatglm_pro": "ChatGLM Pro",
+                    "chatglm_std": "ChatGLM Std",
+                    "title": "ChatGLM",
+                    "chatglm_lite": "ChatGLM Lite",
+                    "chatglm_turbo": "ChatGLM Turbo"
+                },
+                "transmart": {
+                    "username": "Nombre de usuario",
+                    "token": "Token"
+                },
+                "baidu_field": {
+                    "senimed": "Biomedicina"
+                },
+                "alibaba": {
+                    "title": "Alibaba"
+                },
+                "volcengine": {
+                    "title": "VolcEngine"
+                },
+                "niutrans": {
+                    "title": "NiuTrans"
+                },
+                "youdao": {
+                    "title": "Youdao"
+                },
+                "bing_dict": {
+                    "title": "Diccionario Bing"
+                },
+                "deepl": {
+                    "deeplx": "DeepLX",
+                    "free": "Gratis",
+                    "title": "DeepL"
+                },
+                "google": {
+                    "title": "Google"
+                },
+                "caiyun": {
+                    "title": "Caiyun",
+                    "token": "Token"
+                },
+                "yandex": {
+                    "title": "Yandex"
+                },
+                "baidu": {
+                    "title": "Baidu"
+                },
+                "cambridge_dict": {
+                    "title": "Diccionario Cambridge"
+                },
+                "tencent": {
+                    "title": "Tencent"
+                },
+                "bing": {
+                    "title": "Bing"
+                }
+            },
+            "recognize": {
+                "baidu_ocr": {
+                    "title": "Baidu OCR"
+                },
+                "qrcode": {
+                    "title": "Código QR"
+                },
+                "tesseract": {
+                    "title": "Tesseract.js"
+                },
+                "simple_latex_ocr": {
+                    "title": "Simple LaTeX",
+                    "token": "Token"
+                },
+                "tencent_ocr": {
+                    "title": "Tencent OCR"
+                },
+                "iflytek_ocr": {
+                    "title": "iFlyTek OCR"
+                },
+                "iflytek_latex_ocr": {
+                    "title": "iFlyTek LaTeX"
+                },
+                "volcengine_ocr": {
+                    "title": "VolcEngine OCR"
+                }
+            },
+            "collection": {
+                "anki": {
+                    "title": "Anki"
+                },
+                "eudic": {
+                    "token": "Token",
+                    "title": "Eudic"
+                }
+            },
+            "help": "Guía de configuración",
+            "tts": {
+                "lingva_tts": {
+                    "title": "Lingva"
+                }
+            }
+        },
+        "translate": {
+            "speak": "Hablar",
+            "copy": "Copiar",
+            "retry": "Intentar de nuevo"
         }
     }
 }
