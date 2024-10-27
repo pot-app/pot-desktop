@@ -253,7 +253,8 @@
             "fa": "Persan",
             "pl": "Polonais",
             "nn_no": "Norvégien Nynorsk",
-            "uk": "Ukrainien"
+            "uk": "Ukrainien",
+            "he": "Hébreu"
         },
         "common": {
             "plugin": "Extension",
