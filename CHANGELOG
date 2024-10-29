@@ -1,20 +1,11 @@
-## 3.0.5 (2024-06-27)
-
-### Break Change:
-
--   3.x版本之后旧版插件不再可用，升级后会自动删除旧版插件，请前往插件仓库下载安装新版插件使用，若插件开发者还没适配新版插件，请联系插件开发者升级插件。
--   After version 3.x, old plugins will no longer be available. They will be automatically deleted upon upgrade. Please visit the plugin repository to download and install the new versions. If the plugin developers have not yet updated their plugins, please contact them to request an upgrade.
+## 3.0.6 (2024-10-29)
 
 ### New feature:
 
--   support multiple instance service
--   use javascript plugin system
--   enable dev tools
--   add database api for plugin
+-   add builtin lingva service
+-   add support for hebrew
+-   improve ui translation
 
 ### Bugs fixed:
 
--   recognize failed
--   tts failed
--   collection failed
--   default lingva error
+-   builtin ecdict can not be save

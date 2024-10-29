@@ -53,6 +53,21 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="3.0.5" date="2024-10-29">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.6</url>
+            <description>
+                <p>New feature:</p>
+                <ul>
+                    <li>Add builtin lingva service</li>
+                    <li>Add support for hebrew</li>
+                    <li>Improve ui translation</li>
+                </ul>
+                <p>Bugs fixed:</p>
+                <ul>
+                    <li>Builtin ecdict can not be save</li>
+                </ul>
+            </description>
+        </release>
         <release version="3.0.5" date="2024-06-27">
             <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.5</url>
             <description>

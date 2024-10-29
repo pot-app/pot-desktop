@@ -421,7 +421,7 @@ Node.js >= 18.0.0
 
 pnpm >= 8.5.0
 
-Rust >= 1.79.0
+Rust >= 1.80.0
 
 ### Start compilation
 
