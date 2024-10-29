@@ -78,7 +78,7 @@ pub fn get_base64(app_handle: tauri::AppHandle) -> String {
 pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) -> Result<(), Error> {
     use arboard::{Clipboard, ImageData};
     use dirs::cache_dir;
-    use image::io::Reader as ImageReader;
+    use image::ImageReader;
     use std::borrow::Cow;
 
     let mut app_cache_dir_path = cache_dir().expect("Get Cache Dir Failed");

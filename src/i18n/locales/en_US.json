@@ -242,6 +242,9 @@
                     "title": "Google",
                     "custom_url": "Custom URL"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "Bing"
                 },

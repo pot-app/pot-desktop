@@ -241,6 +241,9 @@
                     "title": "Google 翻譯",
                     "custom_url": "自訂網址"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "Bing 翻譯"
                 },

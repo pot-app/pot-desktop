@@ -242,6 +242,9 @@
                     "title": "Google",
                     "custom_url": "Пользовательский адрес"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "Bing"
                 },

@@ -239,6 +239,9 @@
                     "title": "Google Übersetzung",
                     "custom_url": "Benutzerdefinierte URL"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "Bing Übersetzung"
                 },

@@ -30,6 +30,9 @@
                 "chatglm_summary": {},
                 "openai_polish": {},
                 "geminipro_summary": {},
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {},
                 "openai_summary": {}
             },
@@ -54,7 +57,6 @@
                 "anki": {},
                 "eudic": {}
             },
-
             "tts": {
                 "lingva_tts": {}
             }
@@ -63,11 +65,8 @@
         "config": {
             "general": {
                 "proxy": {},
-
                 "event": {},
-
                 "theme": {},
-
                 "font_size": {}
             },
             "translate": {

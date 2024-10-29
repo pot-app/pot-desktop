@@ -111,6 +111,9 @@
                     "appid": "ID app",
                     "secret": "Segreto"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "Bing"
                 }

@@ -242,6 +242,9 @@
                     "title": "谷歌翻译",
                     "custom_url": "自定义 URL"
                 },
+                "lingva": {
+                    "title": "Lingva"
+                },
                 "bing": {
                     "title": "必应翻译"
                 },
