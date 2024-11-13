@@ -88,7 +88,8 @@
                     "ocr_translate": "ترجم لقطة الشاشة",
                     "config": "تفضيل",
                     "ocr_recognize": "التعرف على النص"
-                }
+                },
+                "tray_click_event": "حدث نقر دُرج النظام"
             },
             "translate": {
                 "label": "الترجمة",
@@ -131,7 +132,8 @@
                 "mouse": "تتبع الفأرة",
                 "pre_state": "تذكر الموضع",
                 "incremental_translate": "ترجمة تزايدية",
-                "dynamic_translate": "ترجمة تلقائية"
+                "dynamic_translate": "ترجمة تلقائية",
+                "close_on_blur": "إغلاق النافذة عند فقدان التركيز"
             },
             "hotkey": {
                 "title": "إعدادات مفاتيح الاختصار",
@@ -185,7 +187,8 @@
                 "restore": "استعد",
                 "list": "قائمة النُسخ الاحتياطية",
                 "load_success": "حمل النسخ الإحتياطي بنجاح",
-                "backup_success": "نسخ احتياطي ناجح"
+                "backup_success": "نسخ احتياطي ناجح",
+                "aliyun": "محرك Aliyun"
             },
             "history": {
                 "label": "السجل",
@@ -201,13 +204,22 @@
                 "community": "المجتمع",
                 "check_update": "تحقق من التحديث",
                 "view_log": "اعرض السجل",
-                "telegram": "تيليجرام"
+                "telegram": "تيليجرام",
+                "view_config": "اعرض التكوين",
+                "qq_channel": "قناة QQ",
+                "qq_group": "مجموعة QQ",
+                "discussion": "مناقشة جيتهب"
             }
         },
         "updater": {
             "update": "حدث",
             "title": "تحقق من التحديث",
-            "cancel": "إلغاء"
+            "cancel": "إلغاء",
+            "latest": "## الإصدار الأحدث مثبت",
+            "progress": "تقدم التنزيل",
+            "downloading": "تنزيل…",
+            "installing": "تثبيت…",
+            "installed": "اكتمل التثبيت، أعد تشغيل التطبيق لتصبح التغييرات سارية المفعول"
         },
         "recognize": {
             "delete_space": "احذف المسافة",
@@ -227,7 +239,9 @@
                 "anki": {
                     "port": "منفذ"
                 }
-            }
+            },
+            "help": "إرشاد التكوين",
+            "no_need": "لا يتطلب أي تكوين"
         }
     }
 }
