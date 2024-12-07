@@ -1,6 +1,11 @@
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
+'ecl-2.0': 'Version 2.0, April 2007',
+'epl-1.0': 'Eclipse Public License - v 1.0',
+'epl-2.0': 'Eclipse Public License - v 2.0',
+
+Eclipse Public License - v 1.0
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
