@@ -188,7 +188,9 @@
                 "list": "قائمة النُسخ الاحتياطية",
                 "load_success": "حمل النسخ الإحتياطي بنجاح",
                 "backup_success": "نسخ احتياطي ناجح",
-                "aliyun": "محرك Aliyun"
+                "aliyun": "محرك Aliyun",
+                "aliyun_login_first": "يرجى مسح الرمز ضوئياً لتسجيل الدخول أولاً.",
+                "empty": "لم تنسخ نسخة احتياطية بعد"
             },
             "history": {
                 "label": "السجل",
@@ -208,7 +210,8 @@
                 "view_config": "اعرض التكوين",
                 "qq_channel": "قناة QQ",
                 "qq_group": "مجموعة QQ",
-                "discussion": "مناقشة جيتهب"
+                "discussion": "مناقشة جيتهب",
+                "issue": "ابلاغ المشكلة"
             }
         },
         "updater": {
@@ -241,7 +244,34 @@
                 }
             },
             "help": "إرشاد التكوين",
-            "no_need": "لا يتطلب أي تكوين"
+            "no_need": "لا يتطلب أي تكوين",
+            "translate": {
+                "lingva": {
+                    "title": "Lingva"
+                },
+                "deepl": {
+                    "title": "DeepL",
+                    "custom_url": "عنوان DeepLX",
+                    "auth_key": "مفتاح المصادقة",
+                    "type": "نوع الخدمة",
+                    "free": "محاني",
+                    "api": "مفتاح المصادقة",
+                    "deeplx": "DeepLX"
+                },
+                "google": {
+                    "title": "Google",
+                    "custom_url": "عنوان مخصص"
+                },
+                "bing": {
+                    "title": "Bing"
+                },
+                "ollama": {
+                    "title": "Ollama",
+                    "install_ollama": "غير قادر على الاتصال بـ ollama المحلي، يرجى تنزيل ollama وتثبيته وبدء تشغيله أولاً. إذا كنت تستخدم ollama غير موجود على هذا الجهاز، يرجى تغيير عنوان الطلب.",
+                    "install_ollama_link": "حمل Ollama"
+                }
+            },
+            "instance_name": "اسم التكوين"
         }
     }
 }
