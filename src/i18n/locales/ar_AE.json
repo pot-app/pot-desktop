@@ -268,10 +268,30 @@
                 "ollama": {
                     "title": "Ollama",
                     "install_ollama": "غير قادر على الاتصال بـ ollama المحلي، يرجى تنزيل ollama وتثبيته وبدء تشغيله أولاً. إذا كنت تستخدم ollama غير موجود على هذا الجهاز، يرجى تغيير عنوان الطلب.",
-                    "install_ollama_link": "حمل Ollama"
+                    "install_ollama_link": "حمل Ollama",
+                    "request_path": "مسار الطلب",
+                    "stream": "وضع البث",
+                    "install_model": "ثبت",
+                    "model": "النموذج",
+                    "ready": "جاهز",
+                    "not_installed": "لم يتم تثبيت هذا النموذج بعد، انقر للتحميل والتثبيت الآن",
+                    "supported_models": "انقر للاطلاع على قائمة نماذج Ollama المتاحة"
+                },
+                "openai": {
+                    "request_path": "مسار الطلب",
+                    "stream": "وضع البث"
+                },
+                "geminipro": {
+                    "request_path": "مسار الطلب",
+                    "stream": "وضع البث"
                 }
             },
-            "instance_name": "اسم التكوين"
+            "instance_name": "اسم التكوين",
+            "tts": {
+                "lingva_tts": {
+                    "request_path": "مسار الطلب"
+                }
+            }
         }
     }
 }
