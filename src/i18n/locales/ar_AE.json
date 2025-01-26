@@ -74,7 +74,7 @@
                 "proxy": {
                     "host": "المضيف",
                     "port": "المنفذ",
-                    "username": "الاسم",
+                    "username": "اسم المستخدم",
                     "password": "كلمة المرور",
                     "no_proxy": "بدون وكيل",
                     "title": "وكيل"
@@ -188,7 +188,7 @@
                 "list": "قائمة النُسخ الاحتياطية",
                 "load_success": "حمل النسخ الإحتياطي بنجاح",
                 "backup_success": "نسخ احتياطي ناجح",
-                "aliyun": "محرك Aliyun",
+                "aliyun": "Aliyun drive",
                 "aliyun_login_first": "يرجى مسح الرمز ضوئياً لتسجيل الدخول أولاً.",
                 "empty": "لم تنسخ نسخة احتياطية بعد"
             },
@@ -247,7 +247,7 @@
             "no_need": "لا يتطلب أي تكوين",
             "translate": {
                 "lingva": {
-                    "title": "Lingva"
+                    "title": "lingva"
                 },
                 "deepl": {
                     "title": "DeepL",
@@ -266,7 +266,7 @@
                     "title": "Bing"
                 },
                 "ollama": {
-                    "title": "Ollama",
+                    "title": "ollama",
                     "install_ollama": "غير قادر على الاتصال بـ ollama المحلي، يرجى تنزيل ollama وتثبيته وبدء تشغيله أولاً. إذا كنت تستخدم ollama غير موجود على هذا الجهاز، يرجى تغيير عنوان الطلب.",
                     "install_ollama_link": "حمل Ollama",
                     "request_path": "مسار الطلب",
@@ -275,21 +275,113 @@
                     "model": "النموذج",
                     "ready": "جاهز",
                     "not_installed": "لم يتم تثبيت هذا النموذج بعد، انقر للتحميل والتثبيت الآن",
-                    "supported_models": "انقر للاطلاع على قائمة نماذج Ollama المتاحة"
+                    "supported_models": "انقر للاطلاع على قائمة نماذج Ollama المتاحة",
+                    "add": "اضف موجه",
+                    "prompt_description": "من خلال تخصيص الموجه يمكنك تخصيص سلوك الذكاء الاصطناعي. $text $from $to $detect سيتم استبدالها بالنص المراد ترجمته واللغة المصدر واللغة الهدف واللغة المكتشفة."
                 },
                 "openai": {
                     "request_path": "مسار الطلب",
-                    "stream": "وضع البث"
+                    "stream": "وضع البث",
+                    "prompt_description": "من خلال تخصيص الموجه يمكنك تخصيص سلوك OpenAI. $text $from $to $detect سيتم استبدالها بالنص المراد ترجمته واللغة المصدر واللغة الهدف واللغة المكتشفة.",
+                    "service": "مزود خدمة",
+                    "openai": "OpenAI",
+                    "azure": "Azure",
+                    "api_key": "مفتاح Api",
+                    "model": "النموذج",
+                    "add": "اضف موجه",
+                    "title": "OpenAI"
                 },
                 "geminipro": {
                     "request_path": "مسار الطلب",
-                    "stream": "وضع البث"
+                    "stream": "وضع البث",
+                    "add": "اضف موجه",
+                    "api_key": "مفتاح Api",
+                    "title": "Gemini الاحترافية",
+                    "prompt_description": "من خلال تخصيص الموجه يمكنك تخصيص سلوك Gemini Pro. $text $from $to $detect سيتم استبدالها بالنص المراد ترجمته واللغة المصدر واللغة الهدف واللغة المكتشفة."
+                },
+                "chatglm": {
+                    "model": "النموذج",
+                    "title": "chatGLM",
+                    "chatglm_turbo": "ChatGLM فائق",
+                    "prompt_description": "من خلال تخصيص الموجه يمكنك تخصيص سلوك الذكاء الاصطناعي. $text $from $to $detect سيتم استبدالها بالنص المراد ترجمته واللغة المصدر واللغة الهدف واللغة المكتشفة.",
+                    "chatglm_pro": "ChatGLM احترافي",
+                    "add": "اضف موجه",
+                    "api_key": "مفتاح Api",
+                    "chatglm_std": "ChatGLM قياسي"
+                },
+                "yandex": {
+                    "title": "yandex"
+                },
+                "ecdict": {
+                    "title": "ECDict (متصل)"
+                },
+                "transmart": {
+                    "username": "اسم المستخدم"
+                },
+                "alibaba": {
+                    "accesskey_secret": "مفتاح الوصول السري"
+                },
+                "niutrans": {
+                    "apikey": "مفتاح API"
+                },
+                "baidu": {
+                    "secret": "السري"
+                },
+                "volcengine": {
+                    "secret": "السري"
+                },
+                "tencent": {
+                    "secret_id": "المعرف السري",
+                    "secret_key": "المفتاح السري"
                 }
             },
             "instance_name": "اسم التكوين",
             "tts": {
                 "lingva_tts": {
                     "request_path": "مسار الطلب"
+                }
+            },
+            "recognize": {
+                "tencent_accurate_ocr": {
+                    "secret_id": "المعرف السري",
+                    "secret_key": "المفتاح السري"
+                },
+                "tencent_img_ocr": {
+                    "secret_id": "المعرف السري",
+                    "secret_key": "المفتاح السري"
+                },
+                "iflytek_latex_ocr": {
+                    "apikey": "مفتاح API",
+                    "apisecret": "مفتاح API السري"
+                },
+                "baidu_ocr": {
+                    "client_id": "مفتاح API",
+                    "client_secret": "المفتاح السري"
+                },
+                "baidu_accurate_ocr": {
+                    "client_id": "مفتاح API",
+                    "client_secret": "المفتاح السري"
+                },
+                "iflytek_intsig_ocr": {
+                    "apikey": "مفتاح API",
+                    "apisecret": "مفتاح API السري"
+                },
+                "tencent_ocr": {
+                    "secret_id": "المعرف السري",
+                    "secret_key": "المفتاح السري"
+                },
+                "volcengine_ocr": {
+                    "secret": "السري"
+                },
+                "volcengine_multi_lang_ocr": {
+                    "secret": "السري"
+                },
+                "iflytek_ocr": {
+                    "apikey": "مفتاح API",
+                    "apisecret": "مفتاح API السري"
+                },
+                "baidu_img_ocr": {
+                    "secret": "السري"
                 }
             }
         }
