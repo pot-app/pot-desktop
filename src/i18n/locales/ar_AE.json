@@ -235,7 +235,9 @@
             "delete_newline": "احذف السطر الجديد",
             "retry": "حاول مرة اخرى",
             "copy": "انسخ",
-            "translate": "ترجمة"
+            "translate": "ترجمة",
+            "speak": "تكلم",
+            "add_collection_success": "تمت الإضافة إلى المجموعة بنجاح"
         },
         "services": {
             "collection": {
@@ -307,7 +309,8 @@
                     "chatglm_pro": "ChatGLM احترافي",
                     "add": "اضف موجه",
                     "api_key": "مفتاح Api",
-                    "chatglm_std": "ChatGLM قياسي"
+                    "chatglm_std": "ChatGLM قياسي",
+                    "chatglm_lite": "ChatGLM خفيف"
                 },
                 "yandex": {
                     "title": "yandex"
@@ -319,20 +322,31 @@
                     "username": "اسم المستخدم"
                 },
                 "alibaba": {
-                    "accesskey_secret": "مفتاح الوصول السري"
+                    "accesskey_secret": "مفتاح الوصول السري",
+                    "title": "علي بابا",
+                    "accesskey_id": "معرّف مفتاح الوصول"
                 },
                 "niutrans": {
                     "apikey": "مفتاح API"
                 },
                 "baidu": {
-                    "secret": "السري"
+                    "secret": "السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "volcengine": {
-                    "secret": "السري"
+                    "secret": "السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "tencent": {
                     "secret_id": "المعرف السري",
                     "secret_key": "المفتاح السري"
+                },
+                "youdao": {
+                    "appkey": "معرّف التطبيق",
+                    "key": "مفتاح"
+                },
+                "baidu_field": {
+                    "it": "تقنية المعلومات"
                 }
             },
             "instance_name": "اسم التكوين",
@@ -352,7 +366,8 @@
                 },
                 "iflytek_latex_ocr": {
                     "apikey": "مفتاح API",
-                    "apisecret": "مفتاح API السري"
+                    "apisecret": "مفتاح API السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "baidu_ocr": {
                     "client_id": "مفتاح API",
@@ -364,24 +379,32 @@
                 },
                 "iflytek_intsig_ocr": {
                     "apikey": "مفتاح API",
-                    "apisecret": "مفتاح API السري"
+                    "apisecret": "مفتاح API السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "tencent_ocr": {
                     "secret_id": "المعرف السري",
                     "secret_key": "المفتاح السري"
                 },
                 "volcengine_ocr": {
-                    "secret": "السري"
+                    "secret": "السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "volcengine_multi_lang_ocr": {
-                    "secret": "السري"
+                    "secret": "السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "iflytek_ocr": {
                     "apikey": "مفتاح API",
-                    "apisecret": "مفتاح API السري"
+                    "apisecret": "مفتاح API السري",
+                    "appid": "معرّف التطبيق"
                 },
                 "baidu_img_ocr": {
-                    "secret": "السري"
+                    "secret": "السري",
+                    "appid": "معرّف التطبيق"
+                },
+                "qrcode": {
+                    "title": "رمز الاستجابة السريعة"
                 }
             }
         }
