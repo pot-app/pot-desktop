@@ -38,7 +38,9 @@
             "fa": "Persisch",
             "sv": "Schwedisch",
             "pl": "Polnisch",
-            "nl": "Niederländisch"
+            "nl": "Niederländisch",
+            "uk": "Ukrainisch",
+            "he": "Hebräisch"
         },
         "config": {
             "general": {
@@ -48,7 +50,7 @@
                 "check_update": "Beim Start Updates überprüfen",
                 "server_port": "Überwachungsport",
                 "server_port_change": "Überwachungsport wurde geändert, für Änderungen neu starten",
-                "app_language": "App Sprache",
+                "app_language": "Anzeigesprache",
                 "app_theme": "App Thema",
                 "app_font": "Schriftart",
                 "app_fallback_font": "Fallback-Schriftart",

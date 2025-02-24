@@ -1,0 +1,86 @@
+{
+    "translation": {
+        "config": {
+            "general": {
+                "default_font": "Bellenen",
+                "theme": {
+                    "system": "Ulgam",
+                    "dark": "Garañky",
+                    "light": "Ýagty"
+                },
+                "font_size": {
+                    "14": "Kiçi (14px)",
+                    "12": "Örän kiçi (12px)",
+                    "10": "Goşmaça kiçi (10px)",
+                    "title": "Şrift ölçegi",
+                    "16": "Standart (16px)",
+                    "18": "Uly (18px)",
+                    "20": "Örän uly (20px)",
+                    "24": "Goşmaça Uly (24px)"
+                },
+                "transparent": "Transparent Täsiri",
+                "proxy": {
+                    "password": "Parol",
+                    "title": "Proksy",
+                    "username": "Ulanyjy ady",
+                    "no_proxy": "Proksi ýok",
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "title": "Umumy Sazlamalar",
+                "label": "Umumy",
+                "auto_start": "Awto Başlangyç",
+                "check_update": "Täzelenmäni Barlaň",
+                "server_port": "Serwer porty",
+                "app_language": "Dili",
+                "app_theme": "Tema",
+                "app_font": "Şrift",
+                "app_fallback_font": "Yza gaýdýan şrift",
+                "dev_mode": "Developer mody",
+                "server_port_change": "Serwer porty üýtgedildi, üýtgeşmeleriň güýje girmegi üçin programmany täzeden açyň"
+            }
+        },
+        "languages": {
+            "ar": "Arapça",
+            "hi": "Hindi Dili",
+            "mn_mo": "Mongol",
+            "pt_br": "Portugaliýa (Braziliýa)",
+            "auto": "Awto Gözläň",
+            "zh_cn": "Ýönekeýleşdirilen Hytaý",
+            "zh_tw": "Adaty Hytaý",
+            "en": "Iñlis dili",
+            "ja": "Ýapon dili",
+            "ko": "Koreýs dili",
+            "fr": "Fransuz",
+            "es": "Ispan",
+            "ru": "Rus",
+            "de": "Nemes",
+            "it": "Italýan",
+            "tr": "Türk",
+            "pt_pt": "Portugaliýa",
+            "mn_cy": "Mongol (kiril)",
+            "km": "Khmer",
+            "nb_no": "Norwegiýaly Bokmål",
+            "nn_no": "Norwegiýaly Nynorsk",
+            "fa": "Pars",
+            "sv": "Şwesiýa",
+            "pl": "Polýak",
+            "nl": "Gollandiýa",
+            "uk": "Ukrainiýa",
+            "he": "Hebrewýçe",
+            "vi": "Wýetnam",
+            "th": "Taý Dili",
+            "id": "Indoneziýaly",
+            "ms": "Malaý"
+        },
+        "common": {
+            "ok": "Bolýa",
+            "cancel": "Ýatyr",
+            "save": "Saklaň",
+            "write_clipboard": "Ýat paneline ýazyň",
+            "plugin": "Plugin",
+            "coming": "Tiz ýakynda…",
+            "clear": "Arassala"
+        }
+    }
+}
