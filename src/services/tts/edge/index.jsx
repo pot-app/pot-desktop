@@ -9,8 +9,9 @@ export async function tts(text, lang, options = {}) {
     if (requestPath.length === 0) {
         requestPath = 'auto';
     }
+    const is_auto = requestPath.startsWith('auto');
 
-    if (requestPath.startsWith("auto")) {
+    if (is_auto) {
         if (lang == "en") {
             requestPath = "en-US-EmmaNeural";
         } else {
@@ -18,7 +19,7 @@ export async function tts(text, lang, options = {}) {
         }
     }
 
-    if (requestPath.endsWith("play")) {
+    if (is_auto) {
         return await invoke('get_edge_tts_voice_data_and_play', {
             voiceShortId: requestPath,
             text: text,
