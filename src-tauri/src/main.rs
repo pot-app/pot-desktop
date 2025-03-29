@@ -99,13 +99,17 @@ fn main() {
                     .show()
                     .unwrap(),
             }
-            match get("proxy_enable") {
-                Some(v) => {
-                    if v.as_bool().unwrap() && get("proxy_host").map_or(false, |host| !host.as_str().unwrap().is_empty()) {
-                        let _ = set_proxy();
-                    }
+            if let Some(v) = get("proxy_enable") {
+                if v.as_bool().expect("get proxy_enable value nerver fails")
+                    && get("proxy_host").map_or(false, |host| {
+                        !host
+                            .as_str()
+                            .expect("get host value nerver fails")
+                            .is_empty()
+                    })
+                {
+                    let _ = set_proxy();
                 }
-                None => {}
             }
             // Check Update
             check_update(app.handle());
@@ -147,7 +151,9 @@ fn main() {
             local,
             install_plugin,
             font_list,
-            aliyun
+            aliyun,
+            get_edge_tts_voice_data,
+            get_edge_tts_voice_data_and_play
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

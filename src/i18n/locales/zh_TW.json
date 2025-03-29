@@ -432,6 +432,10 @@
                 "lingva_tts": {
                     "title": "Lingva",
                     "request_path": "請求路徑"
+                },
+                "edge_tts": {
+                    "title": "Edge",
+                    "voice_short_name": "語音簡稱"
                 }
             },
             "collection": {

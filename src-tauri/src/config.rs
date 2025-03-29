@@ -26,32 +26,30 @@ pub fn init_config(app: &mut tauri::App) {
     let _ = check_service_available();
 }
 
-fn check_available(list: Vec<String>, builtin: Vec<&str>, plugin: Vec<String>, key: &str) {
+fn check_available(list: Vec<String>, builtin: &[&str], plugin: &[String], key: &str) {
     let origin_length = list.len();
-    let mut new_list = list.clone();
-    for service in list {
-        let name = service.split("@").collect::<Vec<&str>>()[0];
-        let mut is_available = true;
-        if name.starts_with("plugin") {
-            if !plugin.contains(&name.to_string()) {
-                is_available = false;
+    let new_list: Vec<_> = list
+        .into_iter()
+        .filter(|e| {
+            let name = e.split("@").next();
+            if name.is_none() {
+                return true;
             }
-        } else {
-            if !builtin.contains(&name) {
-                is_available = false;
-            }
-        }
-        if !is_available {
-            new_list.retain(|x| x != &service);
-        }
-    }
+            let name = name.expect("checked by `name.is_none()` before");
+            return if name.starts_with("plugin") {
+                plugin.iter().any(|e| e == name)
+            } else {
+                builtin.iter().any(|&e| e == name)
+            };
+        })
+        .collect();
     if new_list.len() != origin_length {
         set(key, new_list);
     }
 }
 
 pub fn check_service_available() -> Result<(), Error> {
-    let builtin_recognize_list: Vec<&str> = vec![
+    const BUILTIN_RECOGNIZE_LIST: [&str; 15] = [
         "baidu_ocr",
         "baidu_accurate_ocr",
         "baidu_img_ocr",
@@ -68,7 +66,7 @@ pub fn check_service_available() -> Result<(), Error> {
         "volcengine_ocr",
         "volcengine_multi_lang_ocr",
     ];
-    let builtin_translate_list: Vec<&str> = vec![
+    const BUILTIN_TRANSLATE_LIST: [&str; 21] = [
         "alibaba",
         "baidu",
         "baidu_field",
@@ -91,8 +89,8 @@ pub fn check_service_available() -> Result<(), Error> {
         "yandex",
         "youdao",
     ];
-    let builtin_tts_list: Vec<&str> = vec!["lingva_tts"];
-    let builtin_collection_list: Vec<&str> = vec!["anki", "eudic"];
+    const BUILTIN_TTS_LIST: [&str; 2] = ["lingva_tts", "edge_tts"];
+    const BUILTIN_COLLECTION_LIST: [&str; 2] = ["anki", "eudic"];
 
     let plugin_recognize_list: Vec<String> = get_plugin_list("recognize").unwrap_or_default();
     let plugin_translate_list: Vec<String> = get_plugin_list("translate").unwrap_or_default();
@@ -102,8 +100,8 @@ pub fn check_service_available() -> Result<(), Error> {
         let recognize_service_list: Vec<String> = serde_json::from_value(recognize_service_list)?;
         check_available(
             recognize_service_list,
-            builtin_recognize_list,
-            plugin_recognize_list,
+            &BUILTIN_RECOGNIZE_LIST,
+            &plugin_recognize_list,
             "recognize_service_list",
         );
     }
@@ -111,17 +109,18 @@ pub fn check_service_available() -> Result<(), Error> {
         let translate_service_list: Vec<String> = serde_json::from_value(translate_service_list)?;
         check_available(
             translate_service_list,
-            builtin_translate_list,
-            plugin_translate_list,
+            &BUILTIN_TRANSLATE_LIST,
+            &plugin_translate_list,
             "translate_service_list",
         );
     }
     if let Some(tts_service_list) = get("tts_service_list") {
         let tts_service_list: Vec<String> = serde_json::from_value(tts_service_list)?;
+        info!("tts_service_list: {:?}", tts_service_list);
         check_available(
             tts_service_list,
-            builtin_tts_list,
-            plugin_tts_list,
+            &BUILTIN_TTS_LIST,
+            &plugin_tts_list,
             "tts_service_list",
         );
     }
@@ -129,8 +128,8 @@ pub fn check_service_available() -> Result<(), Error> {
         let collection_service_list: Vec<String> = serde_json::from_value(collection_service_list)?;
         check_available(
             collection_service_list,
-            builtin_collection_list,
-            plugin_collection_list,
+            &BUILTIN_COLLECTION_LIST,
+            &plugin_collection_list,
             "collection_service_list",
         );
     }
@@ -138,7 +137,7 @@ pub fn check_service_available() -> Result<(), Error> {
 }
 
 pub fn get_plugin_list(plugin_type: &str) -> Option<Vec<String>> {
-    let app_handle = APP.get().unwrap();
+    let app_handle = APP.get().expect("get global app handle never failed");
     let config_dir = dirs::config_dir()?;
     let config_dir = config_dir.join(app_handle.config().tauri.bundle.identifier.clone());
     let plugin_dir = config_dir.join("plugins");
@@ -166,19 +165,24 @@ pub fn get_plugin_list(plugin_type: &str) -> Option<Vec<String>> {
 }
 
 pub fn get(key: &str) -> Option<Value> {
-    let state = APP.get().unwrap().state::<StoreWrapper>();
-    let store = state.0.lock().unwrap();
-    match store.get(key) {
-        Some(value) => Some(value.clone()),
-        None => None,
-    }
+    let state = APP
+        .get()
+        .expect("APP get nerver failed")
+        .state::<StoreWrapper>();
+    let store = state.0.lock().expect("Store lock never failed");
+    store.get(key).cloned()
 }
 
 pub fn set<T: serde::ser::Serialize>(key: &str, value: T) {
-    let state = APP.get().unwrap().state::<StoreWrapper>();
-    let mut store = state.0.lock().unwrap();
-    store.insert(key.to_string(), json!(value)).unwrap();
-    store.save().unwrap();
+    let state = APP
+        .get()
+        .expect("App get nerver failed")
+        .state::<StoreWrapper>();
+    let mut store = state.0.lock().expect("Store lock never failed");
+    store
+        .insert(key.to_string(), json!(value))
+        .expect("Store Insert never failed");
+    store.save().expect("Store save never failed");
 }
 
 pub fn is_first_run() -> bool {
