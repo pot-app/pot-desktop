@@ -22,6 +22,7 @@ use config::*;
 use hotkey::*;
 use lang_detect::*;
 use log::info;
+use log::LevelFilter;
 use once_cell::sync::OnceCell;
 use screenshot::screenshot;
 use server::*;
@@ -53,6 +54,7 @@ fn main() {
         }))
         .plugin(
             tauri_plugin_log::Builder::default()
+                .level(LevelFilter::Debug)
                 .targets([LogTarget::LogDir, LogTarget::Stdout])
                 .build(),
         )

@@ -13,8 +13,9 @@ export async function tts(text, lang, options = {}) {
 
     if (is_auto) {
         if (lang == "en") {
-            requestPath = "en-US-EmmaNeural";
-        } else {
+            if (!requestPath.includes("en")) "en-US-EmmaNeural";
+        } else if (lang == "zh") {
+            if (!requestPath.includes("zh")) "en-US-EmmaNeural";
             requestPath = "zh-CN-XiaoxiaoNeural";
         }
     }

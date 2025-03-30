@@ -276,7 +276,7 @@ pub async fn get_edge_tts_voice_data(
                     .await?
                     .into_iter()
                     .find(|v| match &v.short_name {
-                        Some(v) => v == &voice_short_id,
+                        Some(v) => v.contains(last),
                         None => v.name.contains(last),
                     })
                 {
@@ -298,7 +298,7 @@ pub async fn get_edge_tts_voice_data(
                 (
                     match v.short_name.clone() {
                         Some(vv) => {
-                            if vv.eq(&voice_short_id) {
+                            if vv.contains(last) {
                                 ret = Some(SpeechConfig::from(&v));
                             }
                             vv
