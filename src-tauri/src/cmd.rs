@@ -251,10 +251,7 @@ async fn get_edge_tts_voice_list() -> Result<VoiceIdList, Error> {
 }
 
 #[tauri::command(async)]
-pub async fn get_edge_tts_voice_data(
-    voice_short_id: String,
-    text: String,
-) -> Result<Vec<u8>, Error> {
+pub async fn get_edge_tts_voice_data(voice_short_id: &str, text: &str) -> Result<Vec<u8>, Error> {
     if voice_short_id.is_empty() {
         return Err(anyhow!("voice_short_id is empty").into());
     }
@@ -267,7 +264,7 @@ pub async fn get_edge_tts_voice_data(
     let config = if let Some(voice_map) = EDGE_VOICE_ID_CACHE.get() {
         let c: Option<SpeechConfig> = {
             let read_map = voice_map.read();
-            read_map.get(&voice_short_id).map(SpeechConfig::from)
+            read_map.get(voice_short_id).map(SpeechConfig::from)
         };
         match c {
             Some(c) => c,
@@ -281,7 +278,7 @@ pub async fn get_edge_tts_voice_data(
                     })
                 {
                     let cc = SpeechConfig::from(&voice);
-                    voice_map.write().insert(voice_short_id.clone(), voice);
+                    voice_map.write().insert(voice_short_id.into(), voice);
                     cc
                 } else {
                     let err = anyhow!("voice not found: {},valid voice id as you can see: https://gist.github.com/BettyJJ/17cbaa1de96235a7f5773b8690a20462",voice_short_id);
@@ -326,14 +323,14 @@ pub async fn get_edge_tts_voice_data(
     // then, we can get the `tts_connection` and update the connection cache for reuse the connection
     // TODO: It can optimize this `Mutex` when `MSEdgeTTSClientAsync` is clonable
     let mut voice_cache = VOICE_CONNECTION_CACHE.lock().await;
-    let audio_data = match voice_cache.entry(voice_short_id) {
+    let audio_data = match voice_cache.entry(voice_short_id.into()) {
         std::collections::hash_map::Entry::Occupied(mut occupied_entry) => {
             let conn = occupied_entry.get_mut();
-            match conn.synthesize(&text, &config).await {
+            match conn.synthesize(text, &config).await {
                 Err(e) => {
                     error!("synthesize failed: {e},and we will retry it later");
                     let mut new_conn = connect_async().await?;
-                    let data = new_conn.synthesize(&text, &config).await?;
+                    let data = new_conn.synthesize(text, &config).await?;
                     occupied_entry.insert(new_conn);
                     data
                 }
@@ -342,28 +339,38 @@ pub async fn get_edge_tts_voice_data(
         }
         std::collections::hash_map::Entry::Vacant(vacant_entry) => {
             let conn = connect_async().await?;
-            vacant_entry.insert(conn).synthesize(&text, &config).await?
+            vacant_entry.insert(conn).synthesize(text, &config).await?
         }
     };
 
     Ok(audio_data.audio_bytes)
 }
 
-type RodioSink = parking_lot::Mutex<Option<Arc<Sink>>>;
+type RodioSink = parking_lot::Mutex<Option<(Arc<Sink>, String)>>;
 
 static CURRENT_SINK: LazyLock<RodioSink> =
     std::sync::LazyLock::new(|| parking_lot::Mutex::new(None));
 
 #[tauri::command(async)]
 pub async fn get_edge_tts_voice_data_and_play(
-    voice_short_id: String,
-    text: String,
+    voice_short_id: &str,
+    text: &str,
 ) -> Result<(), Error> {
     // Stop the previous audio if it is playing
     {
         let mut updater = CURRENT_SINK.lock();
-        if let Some(sink) = updater.take() {
-            sink.stop();
+        if let Some((sink, prev_text)) = updater.take() {
+            if sink.is_paused() {
+                // do nothing
+            } else if text == prev_text {
+                info!("The same text is playing,And you are in the first stage,then we trust you want to stop it");
+                sink.stop();
+                sink.clear();
+                return Ok(());
+            } else {
+                sink.stop();
+                sink.clear();
+            }
         }
     }
     // Play the new audio,and update the sink
@@ -372,7 +379,17 @@ pub async fn get_edge_tts_voice_data_and_play(
     let sink = Arc::new(stream_handle.play_once(std::io::Cursor::new(data))?);
     {
         let mut updater = CURRENT_SINK.lock();
-        *updater = Some(Arc::clone(&sink));
+        if let Some((sink_, prev_text)) = updater.take() {
+            if sink_.is_paused() {
+                // do nothing
+            } else if text == prev_text {
+                info!("The same text is playing,And you are in the second stage,so we trust the network delay is too long,and stop your request");
+                sink.stop();
+                sink.clear();
+                return Ok(());
+            }
+        }
+        *updater = Some((Arc::clone(&sink), text.to_string()));
     }
     sink.sleep_until_end();
     Ok(())
