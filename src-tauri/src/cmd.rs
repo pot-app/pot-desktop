@@ -9,9 +9,11 @@ use msedge_tts::tts::client::connect_async;
 use msedge_tts::tts::client::MSEdgeTTSClientAsync;
 use msedge_tts::tts::SpeechConfig;
 use msedge_tts::voice::get_voices_list_async;
+use rodio::Sink;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::io::Read;
+use std::sync::Arc;
 use std::sync::LazyLock;
 use std::sync::OnceLock;
 use tauri::Manager;
@@ -347,14 +349,31 @@ pub async fn get_edge_tts_voice_data(
     Ok(audio_data.audio_bytes)
 }
 
+type RodioSink = parking_lot::Mutex<Option<Arc<Sink>>>;
+
+static CURRENT_SINK: LazyLock<RodioSink> =
+    std::sync::LazyLock::new(|| parking_lot::Mutex::new(None));
+
 #[tauri::command(async)]
 pub async fn get_edge_tts_voice_data_and_play(
     voice_short_id: String,
     text: String,
 ) -> Result<(), Error> {
+    // Stop the previous audio if it is playing
+    {
+        let mut updater = CURRENT_SINK.lock();
+        if let Some(sink) = updater.take() {
+            sink.stop();
+        }
+    }
+    // Play the new audio,and update the sink
     let data = get_edge_tts_voice_data(voice_short_id, text).await?;
     let (_stream, stream_handle) = rodio::OutputStream::try_default()?;
-    let sink = stream_handle.play_once(std::io::Cursor::new(data))?;
+    let sink = Arc::new(stream_handle.play_once(std::io::Cursor::new(data))?);
+    {
+        let mut updater = CURRENT_SINK.lock();
+        *updater = Some(Arc::clone(&sink));
+    }
     sink.sleep_until_end();
     Ok(())
 }
