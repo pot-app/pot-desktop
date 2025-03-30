@@ -392,5 +392,6 @@ pub async fn get_edge_tts_voice_data_and_play(
         *updater = Some((Arc::clone(&sink), text.to_string()));
     }
     sink.sleep_until_end();
+    sink.clear();
     Ok(())
 }
