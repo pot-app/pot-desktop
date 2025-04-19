@@ -118,6 +118,15 @@
                 "caiyun": {
                     "token": "トークン"
                 },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "リクエストパス",
+                    "api_key": "APIキー",
+                    "stream": "ストリームモード",
+                    "thinking_budget": "思考予算",
+                    "prompt_description": "プロンプトをカスタマイズすることで、Gemini Proの動作をカスタマイズできます。$text $from $to $detectは、翻訳するテキスト、ソース言語、ターゲット言語、検出された言語に置き換えられます。",
+                    "add": "プロンプトを追加"
+                },
                 "transmart": {
                     "token": "トークン"
                 },

@@ -15,7 +15,15 @@
                 "caiyun": {},
                 "baidu_field": {},
                 "cambridge_dict": {},
-                "geminipro": {},
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "Forespørselsbane",
+                    "api_key": "API-nøkkel",
+                    "stream": "Strømmodus",
+                    "thinking_budget": "Tenkebudsjett",
+                    "prompt_description": "Ved å tilpasse prompten kan du tilpasse oppførselen til Gemini Pro. $text $from $to $detect vil bli erstattet med teksten som skal oversettes, kildespråk, målspråk og oppdaget språk.",
+                    "add": "Legg til prompt"
+                },
                 "openai_custom": {},
                 "baidu": {},
                 "niutrans": {},

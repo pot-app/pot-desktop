@@ -109,6 +109,19 @@
                 "target_language": "زبان مقصد"
             }
         },
+        "services": {
+            "translate": {
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "مسیر درخواست",
+                    "api_key": "کلید API",
+                    "stream": "حالت جریان",
+                    "thinking_budget": "بودجه تفکر",
+                    "prompt_description": "با سفارشی‌سازی پرامپت، می‌توانید رفتار Gemini Pro را سفارشی کنید. $text $from $to $detect با متن مورد نظر برای ترجمه، زبان مبدأ، زبان مقصد و زبان شناسایی‌شده جایگزین خواهد شد.",
+                    "add": "افزودن پرامپت"
+                }
+            }
+        },
         "translate": {
             "delete_newline": "پاک کردن خط جدید",
             "retry": "تلاش مجدد"
