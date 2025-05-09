@@ -122,6 +122,11 @@ jobs:
                   export APPLE_SIGNING_IDENTITY="${{ secrets.APPLE_SIGNING_IDENTITY }}"
                   export APPLE_CERTIFICATE="${{ secrets.APPLE_CERTIFICATE }}"
                   export APPLE_CERTIFICATE_PASSWORD="${{ secrets.APPLE_CERTIFICATE_PASSWORD }}"
+                  export APPLE_TEAM_ID="${{ secrets.APPLE_TEAM_ID }}"
+                  export APPLE_API_ISSUER="${{ secrets.APPLE_API_ISSUER }}"
+                  export APPLE_API_KEY="${{ secrets.APPLE_API_KEY }}"
+                  export APPLE_ID="${{ secrets.APPLE_ID }}"
+                  export APPLE_PASSWORD="${{ secrets.APPLE_PASSWORD }}"
                   pnpm tauri build --target ${{ matrix.target }}
                   sudo chmod +x src-tauri/resources/*
                   chmod +x src-tauri/resources/*
