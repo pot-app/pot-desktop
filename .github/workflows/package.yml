@@ -119,6 +119,9 @@ jobs:
               run: |
                   export TAURI_PRIVATE_KEY="${{ secrets.TAURI_PRIVATE_KEY }}"
                   export TAURI_KEY_PASSWORD="${{ secrets.TAURI_KEY_PASSWORD }}"
+                  export APPLE_SIGNING_IDENTITY="${{ secrets.APPLE_SIGNING_IDENTITY }}"
+                  export APPLE_CERTIFICATE="${{ secrets.APPLE_CERTIFICATE }}"
+                  export APPLE_CERTIFICATE_PASSWORD="${{ secrets.APPLE_CERTIFICATE_PASSWORD }}"
                   pnpm tauri build --target ${{ matrix.target }}
                   sudo chmod +x src-tauri/resources/*
                   chmod +x src-tauri/resources/*

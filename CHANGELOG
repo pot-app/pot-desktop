@@ -1,11 +1,9 @@
-## 3.0.6 (2024-10-29)
+## 3.0.7 (2025-5-9)
 
 ### New feature:
 
--   add builtin lingva service
--   add support for hebrew
--   improve ui translation
+-   signed macOS app
 
 ### Bugs fixed:
 
--   builtin ecdict can not be save
+-   fix screenshot on macOS
