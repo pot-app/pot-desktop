@@ -263,6 +263,7 @@
                     "title": "Gemini Pro",
                     "api_key": "API-Schlüssel",
                     "stream": "Stream-Modus",
+                    "thinking_budget": "Denkbudget",
                     "prompt_description": "Passen Sie das Verhalten von Gemini Pro durch benutzerdefinierte Prompts an. $text $from $to $detect werden durch den zu übersetzenden Text, die Ausgangs- und Zielsprache sowie die erkannte Sprache ersetzt.",
                     "add": "Prompt hinzufügen"
                 },

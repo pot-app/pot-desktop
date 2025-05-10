@@ -15,7 +15,15 @@
                 "caiyun": {},
                 "baidu_field": {},
                 "cambridge_dict": {},
-                "geminipro": {},
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "İstek Yolu",
+                    "api_key": "API Anahtarı",
+                    "stream": "Akış Modu",
+                    "thinking_budget": "Düşünme Bütçesi",
+                    "prompt_description": "Komut istemini özelleştirerek Gemini Pro'nun davranışını özelleştirebilirsiniz. $text $from $to $detect, çevrilecek metin, kaynak dil, hedef dil ve algılanan dil ile değiştirilecektir.",
+                    "add": "Komut İstemi Ekle"
+                },
                 "openai_custom": {},
                 "baidu": {},
                 "niutrans": {},

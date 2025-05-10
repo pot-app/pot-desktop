@@ -279,6 +279,7 @@
                     "request_path": "Request Path",
                     "api_key": "Api Key",
                     "stream": "Stream Mode",
+                    "thinking_budget": "Thinking Budget",
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of Gemini Pro. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },

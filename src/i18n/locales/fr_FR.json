@@ -113,6 +113,7 @@
                     "add": "Ajouter un prompt",
                     "api_key": "Clé API",
                     "stream": "Mode streaming",
+                    "thinking_budget": "Budget de réflexion",
                     "title": "Gemini Pro",
                     "prompt_description": "En personnalisant le prompt, vous pouvez personnaliser le comportement de Gemini Pro. $text $from $to $detect sera remplacé par le texte à traduire, la langue source, la langue cible et la langue détectée.",
                     "request_path": "Chemin de la demande"
@@ -170,7 +171,7 @@
                 "baidu_img_ocr": {
                     "secret": "Clé secrète",
                     "appid": "ID d'application",
-                    "title": "Traduction d’images Baidu"
+                    "title": "Traduction d'images Baidu"
                 },
                 "volcengine_multi_lang_ocr": {
                     "title": "Reconnaissance d'image de VolcEngine (Multilingue)",
@@ -201,7 +202,7 @@
                 },
                 "tencent_img_ocr": {
                     "secret_id": "ID de clé secrète",
-                    "title": "Traduction d’images Tencent",
+                    "title": "Traduction d'images Tencent",
                     "secret_key": "Clé secrète"
                 },
                 "system": {

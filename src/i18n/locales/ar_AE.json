@@ -296,6 +296,7 @@
                 "geminipro": {
                     "request_path": "مسار الطلب",
                     "stream": "وضع البث",
+                    "thinking_budget": "ميزانية التفكير",
                     "add": "اضف موجه",
                     "api_key": "مفتاح Api",
                     "title": "Gemini الاحترافية",

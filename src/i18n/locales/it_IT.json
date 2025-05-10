@@ -56,6 +56,15 @@
                     "add": "Aggiungi Prompt",
                     "prompt_description": "Personalizzando il prompt, è possibile personalizzare il comportamento dell'AI. $text $from $to $detect verrà sostituito con il testo da tradurre, la lingua di origine, la lingua di destinazione e la lingua rilevata."
                 },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "Percorso richiesto",
+                    "api_key": "Chiave API",
+                    "stream": "Modalità di streaming",
+                    "thinking_budget": "Budget di riflessione",
+                    "prompt_description": "Personalizzando il prompt, è possibile personalizzare il comportamento di Gemini Pro. $text $from $to $detect verrà sostituito con il testo da tradurre, la lingua di origine, la lingua di destinazione e la lingua rilevata.",
+                    "add": "Aggiungi Prompt"
+                },
                 "transmart": {
                     "username": "Nome Utente",
                     "title": "TranSmart",

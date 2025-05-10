@@ -4,7 +4,7 @@ import { Language } from './info';
 export async function translate(text, from, to, options = {}) {
     const { config, setResult, detect } = options;
 
-    let { apiKey, stream, promptList, requestPath } = config;
+    let { apiKey, stream, promptList, requestPath, thinkingBudget } = config;
     if (!requestPath) {
         requestPath = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro';
     }
@@ -57,6 +57,17 @@ export async function translate(text, from, to, options = {}) {
             },
         ],
     };
+
+    if (thinkingBudget && thinkingBudget.trim() !== '') {
+        const thinkingBudgetValue = parseInt(thinkingBudget);
+        if (!isNaN(thinkingBudgetValue) && thinkingBudgetValue >= 0) {
+            body.generationConfig = {
+                thinkingConfig: {
+                    thinkingBudget: thinkingBudgetValue
+                }
+            };
+        }
+    }
 
     if (stream) {
         const res = await window.fetch(requestPath, {

@@ -20,6 +20,7 @@ export function Config(props) {
             [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.geminipro.title'),
             stream: true,
             apiKey: '',
+            thinkingBudget: '',
             requestPath: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro',
             promptList: [
                 {
@@ -171,6 +172,25 @@ export function Config(props) {
                             setServiceConfig({
                                 ...serviceConfig,
                                 apiKey: value,
+                            });
+                        }}
+                    />
+                </div>
+                <div className='config-item'>
+                    <Input
+                        label={t('services.translate.geminipro.thinking_budget')}
+                        labelPlacement='outside-left'
+                        value={serviceConfig['thinkingBudget']}
+                        variant='bordered'
+                        classNames={{
+                            base: 'justify-between',
+                            label: 'text-[length:--nextui-font-size-medium]',
+                            mainWrapper: 'max-w-[50%]',
+                        }}
+                        onValueChange={(value) => {
+                            setServiceConfig({
+                                ...serviceConfig,
+                                thinkingBudget: value,
                             });
                         }}
                     />

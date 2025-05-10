@@ -11,6 +11,15 @@
             "translate": {
                 "lingva": {
                     "title": "Lingva"
+                },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "요청 경로",
+                    "api_key": "API 키",
+                    "stream": "스트림 모드",
+                    "thinking_budget": "사고 예산",
+                    "prompt_description": "프롬프트를 사용자 정의하여 Gemini Pro의 동작을 사용자 정의할 수 있습니다. $text $from $to $detect는 번역할 텍스트, 원본 언어, 대상 언어 및 감지된 언어로 대체됩니다.",
+                    "add": "프롬프트 추가"
                 }
             }
         }

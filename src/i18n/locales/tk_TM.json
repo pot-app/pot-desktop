@@ -81,6 +81,19 @@
             "plugin": "Plugin",
             "coming": "Tiz ýakynda…",
             "clear": "Arassala"
+        },
+        "services": {
+            "translate": {
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "Isleg ýoly",
+                    "api_key": "API açary",
+                    "stream": "Akyş režimi",
+                    "thinking_budget": "Pikir büjeti",
+                    "prompt_description": "Prompty sazlamak arkaly Gemini Pro-nyň hereketini sazlap bilersiňiz. $text $from $to $detect terjime edilmeli tekst, çeşme dil, maksatly dil we ýüze çykarylan dil bilen çalşyrylar.",
+                    "add": "Prompt goş"
+                }
+            }
         }
     }
 }

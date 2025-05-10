@@ -117,7 +117,12 @@
                 },
                 "geminipro": {
                     "api_key": "Chave de Api",
-                    "stream": "Modo de Stream"
+                    "stream": "Modo de Stream",
+                    "thinking_budget": "Orçamento de Pensamento",
+                    "title": "Gemini Pro",
+                    "request_path": "Caminho de Solicitação",
+                    "prompt_description": "Ao personalizar o Prompt, você pode personalizar o comportamento do Gemini Pro. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detectado.",
+                    "add": "Adicionar Prompt"
                 }
             },
             "recognize": {
