@@ -53,7 +53,21 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="3.0.5" date="2024-10-29">
+        <release version="3.0.7" date="2025-5-10">
+            <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.7</url>
+            <description>
+                <p>New feature:</p>
+                <ul>
+                    <li>Signed macOS app</li>
+                </ul>
+                <p>Bugs fixed:</p>
+                <ul>
+                    <li>fix screenshot on macOS</li>
+                    <li>rm tray click event on macOS</li>
+                </ul>
+            </description>
+        </release>
+        <release version="3.0.6" date="2024-10-29">
             <url type="details">https://github.com/pot-app/pot-desktop/releases/tag/3.0.6</url>
             <description>
                 <p>New feature:</p>
