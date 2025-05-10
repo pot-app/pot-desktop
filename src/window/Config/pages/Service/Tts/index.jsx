@@ -23,7 +23,7 @@ export default function Tts(props) {
     const { isOpen: isConfigOpen, onOpen: onConfigOpen, onOpenChange: onConfigOpenChange } = useDisclosure();
     const [currentConfigKey, setCurrentConfigKey] = useState('lingva_tts');
     // now it's service instance list
-    const [ttsServiceInstanceList, setTtsServiceInstanceList] = useConfig('tts_service_list', ['lingva_tts']);
+    const [ttsServiceInstanceList, setTtsServiceInstanceList] = useConfig('tts_service_list', ['lingva_tts', 'edge_tts']);
 
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
@@ -62,9 +62,8 @@ export default function Tts(props) {
         <>
             <Toaster />
             <Card
-                className={`${
-                    osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
-                } overflow-y-auto p-5 flex justify-between`}
+                className={`${osType === 'Linux' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-120px)]'
+                    } overflow-y-auto p-5 flex justify-between`}
             >
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable
