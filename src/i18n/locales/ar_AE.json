@@ -319,7 +319,8 @@
                     "title": "ECDict (متصل)"
                 },
                 "transmart": {
-                    "username": "اسم المستخدم"
+                    "username": "اسم المستخدم",
+                    "title": "Transmart"
                 },
                 "alibaba": {
                     "accesskey_secret": "مفتاح الوصول السري",
