@@ -84,7 +84,7 @@
                 "proxy_error": "请填写代理地址和端口",
                 "tray_click_event": "托盘点击事件",
                 "event": {
-                    "config": "打开设置",
+                    "config": "偏好设置",
                     "translate": "打开翻译窗口",
                     "disable": "禁用",
                     "ocr_recognize": "文字识别",
