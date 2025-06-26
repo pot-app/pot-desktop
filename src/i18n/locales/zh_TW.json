@@ -352,6 +352,7 @@
                     "api_key": "API Key",
                     "prompt_description": "透過自定義 Prompt，您可以自定義 Gemini Pro 的行為。$text $from $to $detect 將被替換為待翻譯的文字、來源語言、目標語言和偵測到的語言。",
                     "stream": "串流輸出",
+                    "thinking_budget": "思考預算",
                     "add": "新增 Prompt"
                 }
             },

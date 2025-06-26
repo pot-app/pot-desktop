@@ -337,6 +337,7 @@
                     "add": "Добавить Промт",
                     "api_key": "Api Key",
                     "stream": "Потоковый режим",
+                    "thinking_budget": "Бюджет мышления",
                     "prompt_description": "Указав Промт, вы можете настроить поведение Gemini Pro. $text $from $to $detect будет заменён текстом для перевода, исходным языком, целевым языком и определённым языком.",
                     "title": "Gemini Pro",
                     "request_path": "Путь запроса"

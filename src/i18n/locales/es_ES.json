@@ -218,6 +218,15 @@
                     "openai": "OpenAI",
                     "azure": "Azure"
                 },
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "Ruta de Solicitud",
+                    "api_key": "Clave de API",
+                    "stream": "Modo de Transmisión",
+                    "thinking_budget": "Presupuesto de Pensamiento",
+                    "prompt_description": "Al personalizar el Prompt, puede personalizar el comportamiento de Gemini Pro. $text $from $to $detect se reemplazará con el texto a traducir, el idioma de origen, el idioma de destino y el idioma detectado.",
+                    "add": "Añadir Prompt"
+                },
                 "chatglm": {
                     "chatglm_pro": "ChatGLM Pro",
                     "chatglm_std": "ChatGLM Std",

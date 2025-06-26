@@ -71,6 +71,17 @@
             }
         },
         "services": {
+            "translate": {
+                "geminipro": {
+                    "title": "Gemini Pro",
+                    "request_path": "Шлях запиту",
+                    "api_key": "API ключ",
+                    "stream": "Потоковий режим",
+                    "thinking_budget": "Бюджет мислення",
+                    "prompt_description": "Налаштовуючи промпт, ви можете змінити поведінку Gemini Pro. $text $from $to $detect будуть замінені текстом для перекладу, вихідною мовою, цільовою мовою та виявленою мовою.",
+                    "add": "Додати промпт"
+                }
+            },
             "recognize": {
                 "baidu_accurate_ocr": {
                     "client_id": "API Ключ"
