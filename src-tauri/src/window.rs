@@ -157,9 +157,9 @@ fn translate_window() -> Window {
     let dpi = monitor.scale_factor();
 
     window
-        .set_size(tauri::PhysicalSize::new(
-            (width as f64) * dpi,
-            (height as f64) * dpi,
+        .set_size(tauri::LogicalSize::new(
+            width as f64,
+            height as f64,
         ))
         .unwrap();
 
@@ -212,9 +212,9 @@ fn translate_window() -> Window {
                 None => 0,
             };
             window
-                .set_position(tauri::PhysicalPosition::new(
-                    (position_x as f64) * dpi,
-                    (position_y as f64) * dpi,
+                .set_position(tauri::LogicalPosition::new(
+                    position_x as f64,
+                    position_y as f64,
                 ))
                 .unwrap();
         }
@@ -300,12 +300,10 @@ pub fn recognize_window() {
             400
         }
     };
-    let monitor = window.current_monitor().unwrap().unwrap();
-    let dpi = monitor.scale_factor();
     window
-        .set_size(tauri::PhysicalSize::new(
-            (width as f64) * dpi,
-            (height as f64) * dpi,
+        .set_size(tauri::LogicalSize::new(
+            width as f64,
+            height as f64,
         ))
         .unwrap();
     window.center().unwrap();
