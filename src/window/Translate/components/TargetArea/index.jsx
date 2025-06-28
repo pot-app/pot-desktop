@@ -55,7 +55,7 @@ import {
 let translateID = [];
 
 export default function TargetArea(props) {
-    const { index, name, translateServiceInstanceList, pluginList, serviceInstanceConfigMap, ...drag } = props;
+    const { index, name, translateServiceInstanceList, pluginList, serviceInstanceConfigMap, onConfigChange, ...drag } = props;
 
     const [currentTranslateServiceInstanceKey, setCurrentTranslateServiceInstanceKey] = useState(name);
     function getInstanceName(instanceKey, serviceNameSupplier) {
@@ -452,6 +452,11 @@ export default function TargetArea(props) {
                 ? pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display
                 : t(`services.translate.${getServiceName(currentTranslateServiceInstanceKey)}.title`);
             toast.success(`${serviceName} ${t('translate.mode.disabled_success')}`, { style: toastStyle });
+            
+            // 通知父组件重新加载配置
+            if (onConfigChange) {
+                onConfigChange();
+            }
             return;
         }
         

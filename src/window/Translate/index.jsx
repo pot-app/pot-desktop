@@ -212,6 +212,12 @@ export default function Translate() {
         }
         setServiceInstanceConfigMap({ ...config });
     };
+
+    // 重新加载服务配置的函数，供子组件调用
+    const reloadServiceInstanceConfigMap = () => {
+        loadServiceInstanceConfigMap();
+    };
+
     useEffect(() => {
         if (
             translateServiceInstanceList !== null &&
@@ -227,8 +233,6 @@ export default function Translate() {
         ttsServiceInstanceList,
         collectionServiceInstanceList,
     ]);
-
-
 
     return (
         pluginList && (
@@ -328,6 +332,7 @@ export default function Translate() {
                                                                     }
                                                                     pluginList={pluginList}
                                                                     serviceInstanceConfigMap={serviceInstanceConfigMap}
+                                                                    onConfigChange={reloadServiceInstanceConfigMap}
                                                                 />
                                                                 <Spacer y={2} />
                                                             </div>
