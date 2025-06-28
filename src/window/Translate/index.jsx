@@ -228,6 +228,8 @@ export default function Translate() {
         collectionServiceInstanceList,
     ]);
 
+
+
     return (
         pluginList && (
             <div
@@ -261,18 +263,20 @@ export default function Translate() {
                     >
                         <BsPinFill className={`text-[20px] ${pined ? 'text-primary' : 'text-default-400'}`} />
                     </Button>
-                    <Button
-                        isIconOnly
-                        size='sm'
-                        variant='flat'
-                        disableAnimation
-                        className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
-                        onPress={() => {
-                            void appWindow.close();
-                        }}
-                    >
-                        <AiFillCloseCircle className='text-[20px] text-default-400' />
-                    </Button>
+                    {osType !== 'Darwin' && (
+                        <Button
+                            isIconOnly
+                            size='sm'
+                            variant='flat'
+                            disableAnimation
+                            className='my-auto bg-transparent'
+                            onPress={() => {
+                                void appWindow.close();
+                            }}
+                        >
+                            <AiFillCloseCircle className='text-[20px] text-default-400' />
+                        </Button>
+                    )}
                 </div>
                 <div className={`${osType === 'Linux' ? 'h-[calc(100vh-37px)]' : 'h-[calc(100vh-35px)]'} px-[8px]`}>
                     <div className='h-full overflow-y-auto'>

@@ -458,7 +458,14 @@
             "copy": "Copy",
             "retry": "Try again",
             "delete_newline": "Delete Newline",
-            "translate_back": "Translation back to the original"
+            "translate_back": "Translation back to the original",
+            "mode": {
+                "normal": "Normal Mode (Translate each time)",
+                "remember_collapse": "Remember Collapse State",
+                "always_collapse": "Always Collapse",
+                "quit": "Disable This Service",
+                "disabled_success": "has been disabled"
+            }
         },
         "recognize": {
             "recognize": "Recognize",

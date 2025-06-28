@@ -30,8 +30,11 @@ import { useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
+import { FiSettings } from 'react-icons/fi';
+import { appWindow } from '@tauri-apps/api/window';
 
 import * as builtinCollectionServices from '../../../../services/collection';
+import { store } from '../../../../utils/store';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { useConfig, useToastStyle, useVoice } from '../../../../hooks';
 import { sourceTextAtom, detectLanguageAtom } from '../SourceArea';
@@ -65,8 +68,21 @@ export default function TargetArea(props) {
     const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [historyDisable] = useConfig('history_disable', false);
+    const [translateMode, setTranslateMode] = useConfig(`translate_mode_${name}`, 'normal');
+    const [rememberCollapseState, setRememberCollapseState] = useConfig(`translate_collapse_${name}`, false);
     const [isLoading, setIsLoading] = useState(false);
-    const [hide, setHide] = useState(true);
+    const [hide, setHide] = useState(() => {
+        switch (translateMode) {
+            case 'always_collapse':
+                return true;
+            case 'remember_collapse':
+                return rememberCollapseState;
+            case 'normal':
+                return false;
+            default:
+                return true;
+        }
+    });
 
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
@@ -111,7 +127,12 @@ export default function TargetArea(props) {
                     }
                 });
             }
-            translate();
+            
+            // 根据翻译模式决定是否自动翻译
+            const shouldAutoTranslate = translateMode === 'normal' || !hide;
+            if (shouldAutoTranslate) {
+                translate();
+            }
         }
     }, [
         sourceText,
@@ -121,6 +142,8 @@ export default function TargetArea(props) {
         hideWindow,
         currentTranslateServiceInstanceKey,
         clipboardMonitor,
+        translateMode,
+        hide,
     ]);
 
     // todo: history panel use service instance key
@@ -174,7 +197,12 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                setHide(true);
+                // 根据翻译模式决定是否设置折叠状态
+                if (translateMode === 'always_collapse') {
+                    setHide(true);
+                } else if (translateMode === 'normal') {
+                    setHide(false);
+                }
                 const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
                 instanceConfig['enable'] = 'true';
                 const setHideOnce = invokeOnce(setHide);
@@ -248,7 +276,12 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                setHide(true);
+                // 根据翻译模式决定是否设置折叠状态
+                if (translateMode === 'always_collapse') {
+                    setHide(true);
+                } else if (translateMode === 'normal') {
+                    setHide(false);
+                }
                 const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
                 const setHideOnce = invokeOnce(setHide);
                 builtinServices[translateServiceName]
@@ -373,6 +406,70 @@ export default function TargetArea(props) {
         to: { height: hide ? 0 : bounds.height },
     });
 
+    // 根据翻译模式更新折叠状态
+    useEffect(() => {
+        switch (translateMode) {
+            case 'always_collapse':
+                setHide(true);
+                break;
+            case 'remember_collapse':
+                setHide(rememberCollapseState);
+                break;
+            case 'normal':
+                setHide(false);
+                break;
+            default:
+                break;
+        }
+    }, [translateMode, rememberCollapseState]);
+
+    // 当折叠状态改变时，如果是记住折叠状态模式，则保存状态
+    const handleHideToggle = () => {
+        const newHideState = !hide;
+        setHide(newHideState);
+        
+        if (translateMode === 'remember_collapse') {
+            setRememberCollapseState(newHideState);
+        }
+        
+        // 当从折叠状态展开时，如果没有结果且有源文本，则触发翻译
+        if (hide && !newHideState && result === '' && sourceText.trim() !== '' && 
+            sourceLanguage && targetLanguage && (translateMode === 'remember_collapse' || translateMode === 'always_collapse')) {
+            translate();
+        }
+    };
+
+    const handleTranslateModeChange = async (mode) => {
+        if (mode === 'quit') {
+            // 禁用当前翻译服务实例
+            const currentConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey] || {};
+            currentConfig.enable = false;
+            await store.set(currentTranslateServiceInstanceKey, currentConfig);
+            await store.save();
+            
+            // 显示成功消息
+            const serviceName = whetherPluginService(currentTranslateServiceInstanceKey) 
+                ? pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display
+                : t(`services.translate.${getServiceName(currentTranslateServiceInstanceKey)}.title`);
+            toast.success(`${serviceName} ${t('translate.mode.disabled_success')}`, { style: toastStyle });
+            return;
+        }
+        
+        setTranslateMode(mode);
+        switch (mode) {
+            case 'always_collapse':
+                setHide(true);
+                break;
+            case 'remember_collapse':
+                setHide(rememberCollapseState);
+                break;
+            case 'normal':
+            default:
+                // 正常模式保持当前状态
+                break;
+        }
+    };
+
     return (
         <Card
             shadow='none'
@@ -477,12 +574,51 @@ export default function TargetArea(props) {
                 </div>
                 {/* content collapse */}
                 <div className='flex'>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button
+                                size='sm'
+                                isIconOnly
+                                variant='light'
+                                className='h-[20px] w-[20px] mr-1'
+                            >
+                                <FiSettings className='text-[14px]' />
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label='translate mode'
+                            selectedKeys={[translateMode]}
+                            selectionMode="single"
+                            onAction={(key) => handleTranslateModeChange(key)}
+                        >
+                            <DropdownItem key="normal">
+                                <div className="flex items-center">
+                                    <span className="text-sm">{t('translate.mode.normal')}</span>
+                                </div>
+                            </DropdownItem>
+                            <DropdownItem key="remember_collapse">
+                                <div className="flex items-center">
+                                    <span className="text-sm">{t('translate.mode.remember_collapse')}</span>
+                                </div>
+                            </DropdownItem>
+                            <DropdownItem key="always_collapse">
+                                <div className="flex items-center">
+                                    <span className="text-sm">{t('translate.mode.always_collapse')}</span>
+                                </div>
+                            </DropdownItem>
+                            <DropdownItem key="quit" className="text-danger" color="danger">
+                                <div className="flex items-center">
+                                    <span className="text-sm">{t('translate.mode.quit')}</span>
+                                </div>
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
                     <Button
                         size='sm'
                         isIconOnly
                         variant='light'
                         className='h-[20px] w-[20px]'
-                        onPress={() => setHide(!hide)}
+                        onPress={handleHideToggle}
                     >
                         {hide ? (
                             <BiExpandVertical className='text-[16px]' />
@@ -689,7 +825,12 @@ export default function TargetArea(props) {
                                                 newTargetLanguage in pluginInfo.language
                                             ) {
                                                 setIsLoading(true);
-                                                setHide(true);
+                                                // 根据翻译模式决定是否设置折叠状态
+                                                if (translateMode === 'always_collapse') {
+                                                    setHide(true);
+                                                } else if (translateMode === 'normal') {
+                                                    setHide(false);
+                                                }
                                                 const instanceConfig =
                                                     serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
                                                 instanceConfig['enable'] = 'true';
@@ -740,7 +881,12 @@ export default function TargetArea(props) {
                                                 newTargetLanguage in LanguageEnum
                                             ) {
                                                 setIsLoading(true);
-                                                setHide(true);
+                                                // 根据翻译模式决定是否设置折叠状态
+                                                if (translateMode === 'always_collapse') {
+                                                    setHide(true);
+                                                } else if (translateMode === 'normal') {
+                                                    setHide(false);
+                                                }
                                                 const instanceConfig =
                                                     serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
                                                 const setHideOnce = invokeOnce(setHide);
