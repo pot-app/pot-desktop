@@ -41,6 +41,8 @@ thiserror = "1.0"
 font-kit = "0.14.2"
 image = "0.25.4"
 
+rdev = "0.5"
+
 [target.'cfg(target_os = "macos")'.dependencies]
 macos-accessibility-client = "0.0.1"
 window-shadows = "0.2"

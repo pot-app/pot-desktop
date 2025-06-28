@@ -1,9 +1,119 @@
 use crate::window::text_translate;
+use crate::window::slide_translate;
+use crate::window::translateicon_window;
 use std::sync::Mutex;
 use tauri::{ClipboardManager, Manager};
 
 pub struct ClipboardMonitorEnableWrapper(pub Mutex<String>);
+pub struct SlideTranslateEnableWrapper(pub Mutex<String>);
 
+use rdev::{listen, Event, EventType, Button};
+use std::sync::Arc;
+
+fn get_selected_text() -> Option<String> {
+    #[cfg(target_os = "macos")]
+    {
+        // todo
+        use std::process::Command;
+        let output = Command::new("pbpaste").output().ok()?;
+        if output.status.success() {
+            let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
+            if text.is_empty() {
+                return None;
+            }
+            Some(text)
+        } else {
+            None
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        use std::process::Command;
+        let output = Command::new("xclip")
+            .args(&["-o", "-selection", "primary"])
+            .output()
+            .ok()?;
+
+        let text = String::from_utf8_lossy(&output.stdout).to_string();
+        if text.trim().is_empty() {
+            return None; // Clearly unchecked text
+        }
+        Some(text)
+    }
+
+
+    #[cfg(target_os = "windows")]
+    {
+        None // todo
+    }
+}
+
+
+pub fn start_slide_translate(app_handle: tauri::AppHandle) {
+    let last_text = Arc::new(Mutex::new(String::new()));
+    let mouse_down_pos = Arc::new(Mutex::new(None::<(f64, f64)>));
+    let mouse_up_pos = Arc::new(Mutex::new(None::<(f64, f64)>));
+    let last_mouse_pos = Arc::new(Mutex::new((0.0, 0.0)));
+
+    std::thread::spawn({
+        let last_text = last_text.clone();
+        let mouse_down_pos = mouse_down_pos.clone();
+        let mouse_up_pos = mouse_up_pos.clone();
+        let last_mouse_pos = last_mouse_pos.clone();
+
+        move || {
+            if let Err(error) = listen(move |event: Event| {
+                // Check if stroke translation is enabled
+                let state = app_handle.state::<SlideTranslateEnableWrapper>();
+                if let Ok(slide_enable) = state.0.lock() {
+                    if slide_enable.contains("false") {
+                        return;
+                    }
+                }
+                match event.event_type {
+                    EventType::MouseMove { x, y } => {
+                        // Record the current coordinates of the mouse
+                        let mut pos = last_mouse_pos.lock().unwrap();
+                        *pos = (x, y);
+                    }
+                    EventType::ButtonPress(Button::Left) => {
+                        let pos = last_mouse_pos.lock().unwrap();
+                        *mouse_down_pos.lock().unwrap() = Some(*pos);
+                    }
+                    EventType::ButtonRelease(Button::Left) => {
+                        let pos = last_mouse_pos.lock().unwrap();
+                        *mouse_up_pos.lock().unwrap() = Some(*pos);
+
+                        let down = mouse_down_pos.lock().unwrap();
+                        let up = mouse_up_pos.lock().unwrap();
+
+                        if let (Some((dx, dy)), Some((ux, uy))) = (*down, *up) {
+                            if (dx - ux).abs() > 1.0 || (dy - uy).abs() > 1.0 {
+                                if let Some(selected) = get_selected_text() {
+                                    let mut last = last_text.lock().unwrap();
+                                    if *last!=selected && !selected.trim().is_empty() {
+                                        *last = selected.clone();
+                                        slide_translate(selected);
+                                    }else if *last==selected && !selected.trim().is_empty() {
+                                        // Selected text is the same, not processed or just displayed in the window
+                                        let window = translateicon_window();
+                                        window.show().unwrap();
+                                        window.set_focus().ok();
+                                    }
+                                }
+                            } 
+                            // else click no drag, ignore.
+                        }
+                    }
+                    _ => {}
+                }
+            }) {
+                eprintln!("Error: {:?}", error);
+            }
+        }
+    });
+}
 pub fn start_clipboard_monitor(app_handle: tauri::AppHandle) {
     tauri::async_runtime::spawn(async move {
         let mut pre_text = "".to_string();
