@@ -437,7 +437,7 @@ pub fn translateicon_window() -> Window {
     };
 
     // Add offsets to avoid direct mouse triggered hovering
-    const OFFSET: i32 = 20;
+    const OFFSET: i32 = 10;
     mouse_position.x += OFFSET;
     mouse_position.y += OFFSET;
 

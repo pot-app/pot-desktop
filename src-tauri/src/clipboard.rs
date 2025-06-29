@@ -10,46 +10,6 @@ pub struct SlideTranslateEnableWrapper(pub Mutex<String>);
 use rdev::{listen, Event, EventType, Button};
 use std::sync::Arc;
 
-fn get_selected_text() -> Option<String> {
-    #[cfg(target_os = "macos")]
-    {
-        // todo
-        use std::process::Command;
-        let output = Command::new("pbpaste").output().ok()?;
-        if output.status.success() {
-            let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
-            if text.is_empty() {
-                return None;
-            }
-            Some(text)
-        } else {
-            None
-        }
-    }
-
-    #[cfg(target_os = "linux")]
-    {
-        use std::process::Command;
-        let output = Command::new("xclip")
-            .args(&["-o", "-selection", "primary"])
-            .output()
-            .ok()?;
-
-        let text = String::from_utf8_lossy(&output.stdout).to_string();
-        if text.trim().is_empty() {
-            return None; // Clearly unchecked text
-        }
-        Some(text)
-    }
-
-
-    #[cfg(target_os = "windows")]
-    {
-        None // todo
-    }
-}
-
-
 pub fn start_slide_translate(app_handle: tauri::AppHandle) {
     let last_text = Arc::new(Mutex::new(String::new()));
     let mouse_down_pos = Arc::new(Mutex::new(None::<(f64, f64)>));
@@ -90,12 +50,15 @@ pub fn start_slide_translate(app_handle: tauri::AppHandle) {
 
                         if let (Some((dx, dy)), Some((ux, uy))) = (*down, *up) {
                             if (dx - ux).abs() > 1.0 || (dy - uy).abs() > 1.0 {
-                                if let Some(selected) = get_selected_text() {
+                                use selection::get_text;
+                                // Get Selected Text
+                                let selected = get_text();
+                                if !selected.trim().is_empty() {
                                     let mut last = last_text.lock().unwrap();
-                                    if *last!=selected && !selected.trim().is_empty() {
+                                    if *last != selected {
                                         *last = selected.clone();
                                         slide_translate(selected);
-                                    }else if *last==selected && !selected.trim().is_empty() {
+                                    } else {
                                         // Selected text is the same, not processed or just displayed in the window
                                         let window = translateicon_window();
                                         window.show().unwrap();
