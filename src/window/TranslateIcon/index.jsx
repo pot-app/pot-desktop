@@ -16,7 +16,7 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
-
+import { useSpring, animated, config } from '@react-spring/web';
 let blurTimeout = null;
 let resizeTimeout = null;
 let moveTimeout = null;
@@ -224,13 +224,28 @@ export default function TranslateIcon() {
         collectionServiceInstanceList,
     ]);
 
+    const [hovered, setHovered] = useState(false);
+    const animation = useSpring({
+        loop: true,
+        to: [
+          { transform: 'rotate(-15deg) scale(1.05)' },
+          { transform: 'rotate(15deg) scale(1)' },
+        ],
+        config: { tension: 120, friction: 20 },
+      });
     // Here is the return part of the whole component, based on the iconView state switching
     return iconView ? (
         <div
             className="w-screen h-screen bg-background flex items-center justify-center"
             onMouseEnter={() => setIconView(false)}
         >
-            <BsTranslate className="text-4xl text-primary" />
+      <animated.div
+        style={animation}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <BsTranslate className="text-4xl text-primary cursor-pointer" />
+      </animated.div>
         </div>
     ) : (
         <div

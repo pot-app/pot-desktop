@@ -486,13 +486,26 @@ pub fn translateicon_window() -> Window {
             .unwrap();
         return window;
     }
+
+    let is_expanded = Arc::new(Mutex::new(false));
+    let is_expanded_for_focus = is_expanded.clone();
+
     // Register for out-of-focus events and close when out of focus
     let cloned = window.clone();
-    // window.on_window_event(move |event| {
-    //     if let tauri::WindowEvent::Focused(false) = event {
-    //         cloned.hide().unwrap(); // or close()?
-    //     }
-    // });
+    window.on_window_event(move |event| {
+        if let tauri::WindowEvent::Focused(false) = event {
+            let is_expanded = is_expanded_for_focus.lock().unwrap();
+            if !*is_expanded {
+                cloned.hide().unwrap();
+            }
+        }
+    });
+
+    window.set_skip_taskbar(true).unwrap();
+    // Set window to visible (important!)
+    window.show().unwrap_or_else(|e| {
+        eprintln!("Failed to show window: {}", e);
+    });
 
     // Get monitor info
     let monitor = window.current_monitor().unwrap().unwrap();
@@ -589,7 +602,6 @@ pub fn translateicon_window() -> Window {
     // });
     // Set up mouse hover detection thread
     let window_clone = window.clone();
-    let is_expanded = Arc::new(Mutex::new(false));
     let is_expanded_clone = is_expanded.clone();
     
     thread::spawn(move || {
