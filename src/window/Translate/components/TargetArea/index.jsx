@@ -71,6 +71,7 @@ export default function TargetArea(props) {
     const [translateMode, setTranslateMode] = useConfig(`translate_mode_${name}`, 'normal');
     const [rememberCollapseState, setRememberCollapseState] = useConfig(`translate_collapse_${name}`, false);
     const [isLoading, setIsLoading] = useState(false);
+    const [manuallyExpanded, setManuallyExpanded] = useState(false);
     const [hide, setHide] = useState(() => {
         switch (translateMode) {
             case 'always_collapse':
@@ -197,8 +198,8 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                // 根据翻译模式决定是否设置折叠状态
-                if (translateMode === 'always_collapse') {
+                // 根据翻译模式决定是否设置折叠状态，但不覆盖用户手动展开的状态
+                if (translateMode === 'always_collapse' && !manuallyExpanded) {
                     setHide(true);
                 } else if (translateMode === 'normal') {
                     setHide(false);
@@ -222,7 +223,7 @@ export default function TargetArea(props) {
                         if (translateID[index] !== id) return;
                         setResult(typeof v === 'string' ? v.trim() : v);
                         setIsLoading(false);
-                        if (v !== '') {
+                        if (v !== '' && !manuallyExpanded) {
                             setHideOnce(false);
                         }
                         if (!historyDisable) {
@@ -276,8 +277,8 @@ export default function TargetArea(props) {
                     newTargetLanguage = translateSecondLanguage;
                 }
                 setIsLoading(true);
-                // 根据翻译模式决定是否设置折叠状态
-                if (translateMode === 'always_collapse') {
+                // 根据翻译模式决定是否设置折叠状态，但不覆盖用户手动展开的状态
+                if (translateMode === 'always_collapse' && !manuallyExpanded) {
                     setHide(true);
                 } else if (translateMode === 'normal') {
                     setHide(false);
@@ -300,7 +301,7 @@ export default function TargetArea(props) {
                             if (translateID[index] !== id) return;
                             setResult(typeof v === 'string' ? v.trim() : v);
                             setIsLoading(false);
-                            if (v !== '') {
+                            if (v !== '' && !manuallyExpanded) {
                                 setHideOnce(false);
                             }
                             if (!historyDisable) {
@@ -404,19 +405,28 @@ export default function TargetArea(props) {
     const springs = useSpring({
         from: { height: 0 },
         to: { height: hide ? 0 : bounds.height },
+        config: { tension: 300, friction: 30 },
     });
 
     // 根据翻译模式更新折叠状态
     useEffect(() => {
+        // 如果用户手动展开了，不要强制折叠
+        if (manuallyExpanded && translateMode === 'always_collapse') {
+            return;
+        }
+        
         switch (translateMode) {
             case 'always_collapse':
                 setHide(true);
+                setManuallyExpanded(false);
                 break;
             case 'remember_collapse':
                 setHide(rememberCollapseState);
+                setManuallyExpanded(false);
                 break;
             case 'normal':
                 setHide(false);
+                setManuallyExpanded(false);
                 break;
             default:
                 break;
@@ -427,6 +437,13 @@ export default function TargetArea(props) {
     const handleHideToggle = () => {
         const newHideState = !hide;
         setHide(newHideState);
+        
+        // 如果是在always_collapse模式下展开，标记为手动展开
+        if (translateMode === 'always_collapse' && !newHideState) {
+            setManuallyExpanded(true);
+        } else if (translateMode === 'always_collapse' && newHideState) {
+            setManuallyExpanded(false);
+        }
         
         if (translateMode === 'remember_collapse') {
             setRememberCollapseState(newHideState);
@@ -461,6 +478,7 @@ export default function TargetArea(props) {
         }
         
         setTranslateMode(mode);
+        setManuallyExpanded(false);
         switch (mode) {
             case 'always_collapse':
                 setHide(true);
@@ -633,10 +651,10 @@ export default function TargetArea(props) {
                     </Button>
                 </div>
             </CardHeader>
-            <animated.div style={{ ...springs }}>
+            <animated.div style={{ ...springs, overflow: 'hidden' }}>
                 <div ref={boundRef}>
                     {/* result content */}
-                    <CardBody className={`p-[12px] pb-0 ${hide && 'h-0 p-0'}`}>
+                    <CardBody className='p-[12px] pb-0'>
                         {typeof result === 'string' ? (
                             <textarea
                                 ref={textAreaRef}
@@ -770,7 +788,7 @@ export default function TargetArea(props) {
                         )}
                     </CardBody>
                     <CardFooter
-                        className={`bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px] ${hide && 'hidden'}`}
+                        className='bg-content1 rounded-none rounded-b-[10px] flex px-[12px] p-[5px]'
                     >
                         <ButtonGroup>
                             {/* speak button */}
@@ -830,8 +848,8 @@ export default function TargetArea(props) {
                                                 newTargetLanguage in pluginInfo.language
                                             ) {
                                                 setIsLoading(true);
-                                                // 根据翻译模式决定是否设置折叠状态
-                                                if (translateMode === 'always_collapse') {
+                                                // 根据翻译模式决定是否设置折叠状态，但不覆盖用户手动展开的状态
+                                                if (translateMode === 'always_collapse' && !manuallyExpanded) {
                                                     setHide(true);
                                                 } else if (translateMode === 'normal') {
                                                     setHide(false);
@@ -865,7 +883,7 @@ export default function TargetArea(props) {
                                                             setResult(v.trim());
                                                         }
                                                         setIsLoading(false);
-                                                        if (v !== '') {
+                                                        if (v !== '' && !manuallyExpanded) {
                                                             setHideOnce(false);
                                                         }
                                                     },
@@ -886,8 +904,8 @@ export default function TargetArea(props) {
                                                 newTargetLanguage in LanguageEnum
                                             ) {
                                                 setIsLoading(true);
-                                                // 根据翻译模式决定是否设置折叠状态
-                                                if (translateMode === 'always_collapse') {
+                                                // 根据翻译模式决定是否设置折叠状态，但不覆盖用户手动展开的状态
+                                                if (translateMode === 'always_collapse' && !manuallyExpanded) {
                                                     setHide(true);
                                                 } else if (translateMode === 'normal') {
                                                     setHide(false);
@@ -917,7 +935,7 @@ export default function TargetArea(props) {
                                                                 setResult(v.trim());
                                                             }
                                                             setIsLoading(false);
-                                                            if (v !== '') {
+                                                            if (v !== '' && !manuallyExpanded) {
                                                                 setHideOnce(false);
                                                             }
                                                         },
