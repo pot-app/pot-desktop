@@ -22,16 +22,23 @@ export async function collection(source, target, options = {}) {
         let result = '';
         if (typeof target === 'object') {
             for (let explanation of target.explanations) {
-                result += explanation.trait + '. ';
-                let index = 0;
-                for (let explain of explanation.explains) {
-                    index++;
-                    if (index !== explanation.explains.length) {
-                        result += explain + '; ';
+                result += `<span class="explanation trait">${explanation.trait} </span>`;
+                for (let i = 0; i < explanation.explains.length; i++) {
+                    if (i === 0) {
+                        result += `<span class="explanation explain primary">${explanation.explains[i]}</span> `;
                     } else {
-                        result += explain + '<br>';
+                        result += `<span class="explanation explain secondary">${explanation.explains[i]}</span> `;
                     }
                 }
+                result += '<br>';
+            }
+
+            if (target.sentence) {
+                result += '<ul class="sentence">';
+                for (let sentence of target.sentence) {
+                    result += `<li><span class="sentence-source">${sentence.source}</span></li>`;
+                }
+                result += '</ul>';
             }
         } else {
             return target;
