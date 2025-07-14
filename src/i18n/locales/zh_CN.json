@@ -428,6 +428,13 @@
                     "appid": "App ID",
                     "secret": "Secret"
                 },
+                "openai_compatible": {
+                    "title": "OpenAI 兼容 OCR",
+                    "base_url": "API 基础地址",
+                    "api_key": "API 密钥",
+                    "model": "模型名称",
+                    "enable_stream": "启用流式输出"
+                },
                 "qrcode": {
                     "title": "二维码识别"
                 }

@@ -337,6 +337,13 @@
             },
             "no_need": "אין צורך בתצורה",
             "recognize": {
+                "openai_compatible": {
+                    "title": "OCR תואם OpenAI",
+                    "base_url": "URL בסיס",
+                    "api_key": "מפתח API",
+                    "model": "שם המודל",
+                    "enable_stream": "הפעל זרימה"
+                },
                 "qrcode": {
                     "title": "קוד QR"
                 },

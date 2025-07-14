@@ -360,6 +360,13 @@
                 }
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OCR Compatível com OpenAI",
+                    "base_url": "URL Base",
+                    "api_key": "Chave da API",
+                    "model": "Nome do Modelo",
+                    "enable_stream": "Habilitar Streaming"
+                },
                 "system": {
                     "title": "OCR do Sistema"
                 },

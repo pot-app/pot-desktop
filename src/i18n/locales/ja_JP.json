@@ -132,6 +132,13 @@
                 "volcengine_multi_lang_ocr": {
                     "appid": "アプリID"
                 },
+                "openai_compatible": {
+                    "title": "OpenAI 互換 OCR",
+                    "base_url": "ベース URL",
+                    "api_key": "API キー",
+                    "model": "モデル名",
+                    "enable_stream": "ストリーミングを有効にする"
+                },
                 "qrcode": {
                     "title": "QRコード"
                 },

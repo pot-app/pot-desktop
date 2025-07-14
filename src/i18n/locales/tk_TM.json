@@ -81,6 +81,17 @@
             "plugin": "Plugin",
             "coming": "Tiz ýakynda…",
             "clear": "Arassala"
+        },
+        "services": {
+            "recognize": {
+                "openai_compatible": {
+                    "title": "OpenAI Laýyk OCR",
+                    "base_url": "Esasy URL",
+                    "api_key": "API Açary",
+                    "model": "Model Ady",
+                    "enable_stream": "Streaming-i Açmak"
+                }
+            }
         }
     }
 }

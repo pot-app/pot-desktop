@@ -117,7 +117,14 @@
             "delete_newline": "پاک کردن خط جدید",
             "copy_text": "کپی",
             "delete_space": "پاک کردن فاصله",
-            "copy_img": "کپی عکس"
+            "copy_img": "کپی عکس",
+            "openai_compatible": {
+                "title": "OCR سازگار با OpenAI",
+                "base_url": "URL پایه",
+                "api_key": "کلید API",
+                "model": "نام مدل",
+                "enable_stream": "فعال کردن استریم"
+            }
         }
     }
 }

@@ -119,6 +119,13 @@
                 }
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OCR Compatibile OpenAI",
+                    "base_url": "URL Base",
+                    "api_key": "Chiave API",
+                    "model": "Nome Modello",
+                    "enable_stream": "Abilita Streaming"
+                },
                 "iflytek_latex_ocr": {
                     "apikey": "Chiave API",
                     "title": "iFlyTek LaTeX",

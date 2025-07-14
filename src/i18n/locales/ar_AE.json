@@ -357,6 +357,13 @@
                 }
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OCR متوافق مع OpenAI",
+                    "base_url": "الرابط الأساسي",
+                    "api_key": "مفتاح API",
+                    "model": "اسم النموذج",
+                    "enable_stream": "تفعيل البث المباشر"
+                },
                 "tencent_accurate_ocr": {
                     "secret_id": "المعرف السري",
                     "secret_key": "المفتاح السري"

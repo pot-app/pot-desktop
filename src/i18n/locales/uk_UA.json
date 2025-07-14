@@ -89,6 +89,13 @@
                 },
                 "iflytek_ocr": {
                     "apikey": "API Ключ"
+                },
+                "openai_compatible": {
+                    "title": "OpenAI Сумісний OCR",
+                    "base_url": "Базовий URL",
+                    "api_key": "API Ключ",
+                    "model": "Назва Моделі",
+                    "enable_stream": "Увімкнути Потокове Передавання"
                 }
             },
             "collection": {

@@ -428,6 +428,13 @@
                     "appid": "App ID",
                     "secret": "Secret"
                 },
+                "openai_compatible": {
+                    "title": "OpenAI Compatible OCR",
+                    "base_url": "Base URL",
+                    "api_key": "API Key",
+                    "model": "Model Name",
+                    "enable_stream": "Enable Streaming"
+                },
                 "qrcode": {
                     "title": "QR Code"
                 }

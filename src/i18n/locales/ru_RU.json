@@ -430,6 +430,13 @@
                 },
                 "qrcode": {
                     "title": "QR-код"
+                },
+                "openai_compatible": {
+                    "title": "OpenAI Совместимый OCR",
+                    "base_url": "Базовый URL",
+                    "api_key": "API Ключ",
+                    "model": "Название Модели",
+                    "enable_stream": "Включить Потоковый Режим"
                 }
             },
             "tts": {

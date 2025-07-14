@@ -37,6 +37,13 @@
                 "openai_summary": {}
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OpenAI Uyumlu OCR",
+                    "base_url": "Temel URL",
+                    "api_key": "API Anahtarı",
+                    "model": "Model Adı",
+                    "enable_stream": "Akışı Etkinleştir"
+                },
                 "iflytek_latex_ocr": {},
                 "baidu_ocr": {},
                 "simple_latex_ocr": {},

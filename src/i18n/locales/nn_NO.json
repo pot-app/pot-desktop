@@ -37,6 +37,13 @@
                 "openai_summary": {}
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OpenAI Kompatibel OCR",
+                    "base_url": "Grunn-URL",
+                    "api_key": "API-nøkkel",
+                    "model": "Modellnamn",
+                    "enable_stream": "Aktiver Strøyming"
+                },
                 "iflytek_latex_ocr": {},
                 "baidu_ocr": {},
                 "simple_latex_ocr": {},
