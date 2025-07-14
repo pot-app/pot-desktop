@@ -20,9 +20,22 @@ import { pluginListAtom } from '..';
 export const textAtom = atom();
 let recognizeId = 0;
 
+// 创建仅执行一次的函数，参考翻译模块的 invokeOnce 实现
+function invokeOnce(fn) {
+    let isInvoke = false;
+
+    return (...args) => {
+        if (isInvoke) {
+            return;
+        } else {
+            fn(...args);
+            isInvoke = true;
+        }
+    };
+}
+
 // 流式结果处理Hook
 const useStreamHandler = (setText, setLoading, deleteNewline, autoCopy, hideWindow, t) => {
-    const throttleRef = useRef(null);
     const hasReceivedDataRef = useRef(false);
 
     const handler = useCallback((result) => {
@@ -31,24 +44,18 @@ const useStreamHandler = (setText, setLoading, deleteNewline, autoCopy, hideWind
         const content = isStreaming ? result.slice(0, -1) : (typeof result === 'string' ? result.trim() : result);
 
         if (isStreaming) {
-            // 首次流式数据立即显示并隐藏loading
-            if (!hasReceivedDataRef.current) {
-                hasReceivedDataRef.current = true;
-                setLoading(false);
-                setText(content);
-                return;
-            }
+            // 创建只执行一次的 setLoading(false)，参考翻译模块的 setHideOnce
+            const setLoadingOnce = invokeOnce(setLoading);
+            setLoadingOnce(false);
 
-            // 节流更新流式内容
-            if (throttleRef.current) clearTimeout(throttleRef.current);
-            throttleRef.current = setTimeout(() => setText(content), 50);
+            // 标记已接收数据
+            hasReceivedDataRef.current = true;
+
+            // 直接更新流式内容
+            setText(content);
         } else {
             // 处理最终结果或非流式结果
             hasReceivedDataRef.current = true;
-            if (throttleRef.current) {
-                clearTimeout(throttleRef.current);
-                throttleRef.current = null;
-            }
 
             let finalText = content;
             if (deleteNewline && typeof finalText === 'string') {
@@ -130,6 +137,9 @@ export default function TextArea(props) {
                 if (language in pluginList[getServiceName(currentServiceInstanceKey)].language) {
                     let id = nanoid();
                     recognizeId = id;
+                    // 重置流式状态
+                    streamHandler.hasReceivedDataRef.current = false;
+
                     const pluginConfig = serviceInstanceConfigMap[currentServiceInstanceKey] ?? {};
 
                     invoke_plugin('recognize', getServiceName(currentServiceInstanceKey)).then(([func, utils]) => {
@@ -140,21 +150,28 @@ export default function TextArea(props) {
                         }).then(
                             (v) => {
                                 if (recognizeId !== id) return;
-                                v = v.trim();
-                                if (deleteNewline) {
-                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
-                                }
-                                setText(v);
-                                setLoading(false);
-                                if (autoCopy) {
-                                    writeText(v).then(() => {
-                                        if (hideWindow) {
-                                            sendNotification({
-                                                title: t('common.write_clipboard'),
-                                                body: v,
-                                            });
-                                        }
-                                    });
+                                // 如果流式处理器已经处理过数据，就不再处理
+                                if (streamHandler.hasReceivedDataRef?.current) return;
+
+                                if (v) {
+                                    v = v.trim();
+                                    if (deleteNewline) {
+                                        v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                                    }
+                                    setText(v);
+                                    setLoading(false);
+                                    if (autoCopy) {
+                                        writeText(v).then(() => {
+                                            if (hideWindow) {
+                                                sendNotification({
+                                                    title: t('common.write_clipboard'),
+                                                    body: v,
+                                                });
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    setLoading(false);
                                 }
                             },
                             (e) => {
@@ -182,24 +199,37 @@ export default function TextArea(props) {
                     ).then(
                         (v) => {
                             if (recognizeId !== id) return;
-                            // 如果流式处理器已经处理过数据，就不再处理
-                            if (streamHandler.hasReceivedDataRef?.current) return;
 
-                            v = v.trim();
-                            if (deleteNewline) {
-                                v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                            // 检查是否是支持流式的服务
+                            const serviceName = getServiceName(currentServiceInstanceKey);
+                            const recognizeFunc = builtinServices[serviceName].recognize;
+                            const supportsStream = recognizeFunc.length >= 3;
+
+                            if (supportsStream) {
+                                // 支持流式的服务：只有在非流式模式下才处理最终结果
+                                if (streamHandler.hasReceivedDataRef?.current) return;
                             }
-                            setText(v);
-                            setLoading(false);
-                            if (autoCopy) {
-                                writeText(v).then(() => {
-                                    if (hideWindow) {
-                                        sendNotification({
-                                            title: t('common.write_clipboard'),
-                                            body: v,
-                                        });
-                                    }
-                                });
+                            // 不支持流式的传统服务：总是处理返回值
+
+                            if (v) {
+                                v = v.trim();
+                                if (deleteNewline) {
+                                    v = v.replace(/\-\s+/g, '').replace(/\s+/g, ' ');
+                                }
+                                setText(v);
+                                setLoading(false);
+                                if (autoCopy) {
+                                    writeText(v).then(() => {
+                                        if (hideWindow) {
+                                            sendNotification({
+                                                title: t('common.write_clipboard'),
+                                                body: v,
+                                            });
+                                        }
+                                    });
+                                }
+                            } else {
+                                setLoading(false);
                             }
                         },
                         (e) => {
