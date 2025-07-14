@@ -338,6 +338,13 @@
                 }
             },
             "recognize": {
+                "openai_compatible": {
+                    "title": "OpenAI இணக்கமான OCR",
+                    "base_url": "அடிப்படை URL",
+                    "api_key": "API விசை",
+                    "model": "மாதிரி பெயர்",
+                    "enable_stream": "ஸ்ட்ரீமிங்கை இயக்கு"
+                },
                 "iflytek_ocr": {
                     "title": "iflytek ocr",
                     "appid": "பயன்பாட்டு ஐடி",

@@ -426,6 +426,13 @@
                 },
                 "qrcode": {
                     "title": "QR Code"
+                },
+                "openai_compatible": {
+                    "title": "OpenAI 相容 OCR",
+                    "base_url": "API 基礎位址",
+                    "api_key": "API 金鑰",
+                    "model": "模型名稱",
+                    "enable_stream": "啟用串流輸出"
                 }
             },
             "tts": {

@@ -303,6 +303,13 @@
                 },
                 "volcengine_ocr": {
                     "title": "VolcEngine OCR"
+                },
+                "openai_compatible": {
+                    "title": "OCR Compatible con OpenAI",
+                    "base_url": "URL Base",
+                    "api_key": "Clave API",
+                    "model": "Nombre del Modelo",
+                    "enable_stream": "Habilitar Transmisión"
                 }
             },
             "collection": {

@@ -206,6 +206,13 @@
                 },
                 "system": {
                     "title": "Reconnaissance d'image du système"
+                },
+                "openai_compatible": {
+                    "title": "OCR Compatible OpenAI",
+                    "base_url": "URL de Base",
+                    "api_key": "Clé API",
+                    "model": "Nom du Modèle",
+                    "enable_stream": "Activer le Streaming"
                 }
             },
             "collection": {
