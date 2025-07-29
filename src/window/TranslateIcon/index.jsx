@@ -228,10 +228,9 @@ export default function TranslateIcon() {
     return iconView ? (
         <div
             className="w-screen h-screen bg-background flex items-center justify-center"
-            data-tauri-drag-region="true"
             onMouseEnter={() => setIconView(false)}
         >
-            <BsTranslate className="text-4xl text-primary cursor-pointer" />
+            <BsTranslate className="text-4xl text-primary" />
         </div>
     ) : (
         <div

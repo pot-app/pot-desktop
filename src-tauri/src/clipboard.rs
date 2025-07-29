@@ -50,21 +50,30 @@ pub fn start_slide_translate(app_handle: tauri::AppHandle) {
 
                         if let (Some((dx, dy)), Some((ux, uy))) = (*down, *up) {
                             if (dx - ux).abs() > 1.0 || (dy - uy).abs() > 1.0 {
-                                use selection::get_text;
-                                // Get Selected Text
-                                let selected = get_text();
-                                if !selected.trim().is_empty() {
-                                    let mut last = last_text.lock().unwrap();
-                                    if *last != selected {
-                                        *last = selected.clone();
-                                        slide_translate(selected);
-                                    } else {
-                                        // Selected text is the same, not processed or just displayed in the window
-                                        let window = translateicon_window();
-                                        window.show().unwrap();
-                                        window.set_focus().ok();
+                                // 将整个文本获取和处理部分放在单独的线程中执行
+                                let last_text_clone = last_text.clone();
+                                use log::info;
+                                info!("drop sds");
+                                std::thread::spawn(move || {
+                                    use selection::get_text;
+                                    // Get Selected Text
+                                    let selected = get_text();
+                                    info!("drop {}", selected);
+                                    if !selected.trim().is_empty() {
+                                        let mut last = last_text_clone.lock().unwrap();
+                                        if *last != selected {
+                                            *last = selected.clone();
+                                            drop(last); // 释放锁
+                                            slide_translate(selected);
+                                        } else {
+                                            drop(last); // 释放锁
+                                            // Selected text is the same, not processed or just displayed in the window
+                                            let window = translateicon_window();
+                                            window.show().unwrap();
+                                            window.set_focus().ok();
+                                        }
                                     }
-                                }
+                                });
                             } 
                             // else click no drag, ignore.
                         }

@@ -472,6 +472,12 @@ pub fn translateicon_window() -> Window {
             }
         }
 
+         window
+        .set_size(tauri::PhysicalSize::new(
+            initial_width * dpi,
+            initial_height * dpi,
+        ))
+        .unwrap();
         window
             .set_position(tauri::PhysicalPosition::new(
                 mouse_position.x,
@@ -482,17 +488,11 @@ pub fn translateicon_window() -> Window {
     }
     // Register for out-of-focus events and close when out of focus
     let cloned = window.clone();
-    window.on_window_event(move |event| {
-        if let tauri::WindowEvent::Focused(false) = event {
-            cloned.hide().unwrap(); // or close()?
-        }
-    });
-
-    window.set_skip_taskbar(true).unwrap();
-    // Set window to visible (important!)
-    window.show().unwrap_or_else(|e| {
-        eprintln!("Failed to show window: {}", e);
-    });
+    // window.on_window_event(move |event| {
+    //     if let tauri::WindowEvent::Focused(false) = event {
+    //         cloned.hide().unwrap(); // or close()?
+    //     }
+    // });
 
     // Get monitor info
     let monitor = window.current_monitor().unwrap().unwrap();
@@ -580,6 +580,8 @@ pub fn translateicon_window() -> Window {
                 .unwrap();
         }
     }
+    window.show().unwrap();
+    window.set_focus().ok();
 
     // Ensure that the window is visible and has focus when the setup is complete
     // window.set_focus().unwrap_or_else(|e| {
@@ -659,7 +661,8 @@ pub fn translateicon_window() -> Window {
                 if new_x != current_pos.x || new_y != current_pos.y {
                     let _ = window_clone.set_position(tauri::PhysicalPosition::new(new_x, new_y));
                 }
-                
+                window_clone.show().unwrap();
+                window_clone.set_focus().ok();
             } else if !mouse_in_window && *expanded {
                 // Mouse left, shrink window
                 *expanded = false;
@@ -676,6 +679,9 @@ pub fn translateicon_window() -> Window {
                     initial_width * dpi,
                     initial_height * dpi,
                 ));
+                    // Set window to visible
+                window_clone.show().unwrap();
+                window_clone.set_focus().ok();
             }
         }
     });
