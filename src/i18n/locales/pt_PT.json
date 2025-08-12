@@ -52,12 +52,13 @@
                     "prompt_description": "Ao personalizar o Prompt, pode personalizar o comportamento da IA. $text $from $to $detet será substituído pelo texto a ser traduzido, o idioma de origem, o idioma de destino e o idioma detetado."
                 },
                 "transmart": {
-                    "username": "Nome de Utilizador",
+                    "username": "Nome de utilizador",
                     "title": "TranSmart",
                     "token": "Token"
                 },
                 "caiyun": {
-                    "token": "Token"
+                    "token": "Token",
+                    "title": "Caiyun"
                 },
                 "baidu_field": {
                     "academic": "Papéis Acadêmicos",
@@ -113,11 +114,34 @@
                     "title": "Bing"
                 },
                 "alibaba": {
-                    "title": "Alibaba"
+                    "title": "Alibaba",
+                    "accesskey_id": "ID da Chave de Acesso",
+                    "accesskey_secret": "Segredo da Chave de Acesso"
                 },
                 "geminipro": {
                     "api_key": "Chave de Api",
-                    "stream": "Modo de Stream"
+                    "stream": "Modo de Stream",
+                    "title": "Gemini Pro",
+                    "request_path": "Caminho de Solicitação",
+                    "prompt_description": "Ao personalizar o Prompt, pode personalizar o comportamento do Gemini Pro. $text $from $to $detet será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detetado.",
+                    "add": "Adicionar Prompt"
+                },
+                "ollama": {
+                    "title": "Ollama",
+                    "install_ollama": "Não foi possível conectar ao ollama local. Primeiro descarregue, instale e inicie o ollama. Se usar ollama que não está nesta máquina, altere o endereço da solicitação.",
+                    "install_ollama_link": "Descarregar Ollama",
+                    "request_path": "Caminho da Solicitação",
+                    "stream": "Modo Stream",
+                    "model": "Modelo",
+                    "install_model": "Instalar",
+                    "ready": "Pronto",
+                    "not_installed": "Este modelo ainda não foi instalado, clique para descarregar e instalar agora",
+                    "supported_models": "Clique para ver uma lista de modelos disponíveis da Ollama",
+                    "prompt_description": "Ao personalizar o Prompt, pode personalizar o comportamento da IA. $text $from $to $detect será substituído pelo texto a ser traduzido, idioma de origem, idioma de destino e idioma detetado.",
+                    "add": "Adicionar Prompt"
+                },
+                "ecdict": {
+                    "title": "ECDict(Online)"
                 }
             },
             "recognize": {
@@ -240,7 +264,9 @@
             "tr": "Turco",
             "auto": "Detetar Automaticamente",
             "pt_br": "Português (Brasil)",
-            "hi": "Hindu"
+            "hi": "Hindu",
+            "uk": "Ucraniano",
+            "he": "Hebreu"
         },
         "config": {
             "general": {
@@ -261,7 +287,7 @@
                     "disable": "Desativar",
                     "translate": "Traduzir",
                     "ocr_translate": "Tradução de Imagem",
-                    "config": "Configuração",
+                    "config": "Preferência",
                     "ocr_recognize": "Reconhecimento de Texto"
                 },
                 "label": "Geral",
@@ -277,18 +303,19 @@
                     "14": "Pequena (14px)",
                     "16": "Padrão (16px)",
                     "12": "Muito Pequena (12px)",
-                    "24": "Muito, Muito Grande (24px)",
-                    "10": "Muito, Muito Pequena (10px)",
+                    "24": "Extragrande (24px)",
+                    "10": "Extra pequeno (10px)",
                     "title": "Tamanho da Fonte"
                 },
                 "app_font": "Fonte",
                 "server_port": "Porta de Escuta",
                 "proxy_error": "Por favor preencha o host e a porta",
                 "check_update": "Procurar Atualização",
-                "app_language": "Idioma da Aplicação",
+                "app_language": "Idioma de Exibição",
                 "transparent": "Efeito de Transparência",
                 "title": "Configurações Gerais",
-                "app_fallback_font": "Fonte Reserva"
+                "app_fallback_font": "Fonte Reserva",
+                "dev_mode": "Modo de Programador"
             },
             "translate": {
                 "bing": "Bing",
@@ -322,16 +349,16 @@
                 "niutrans": "NiuTrans",
                 "label": "Traduzir",
                 "auto_copy": "Copiar Automaticamente",
-                "dynamic_translate": "Traduzir Dinamicamente",
+                "dynamic_translate": "Tradução Dinâmica",
                 "mouse": "Seguir o rato",
                 "source_target": "Origem+Destino",
                 "source_language": "Idioma de Origem",
                 "pre_state": "Lembrar posição",
-                "always_on_top": "Sempre no Topo como Padrão",
-                "close_on_blur": "Fechar no Desfoque",
+                "always_on_top": "Sempre na Frente",
+                "close_on_blur": "Fechar janela quando o foco for perdido",
                 "hide_source": "Ocultar Área de Origem",
                 "baidu": "Baidu",
-                "incremental_translate": "Traduzir Incrementalmente",
+                "incremental_translate": "Tradução Incremental",
                 "target_language": "Idioma de Destino"
             },
             "backup": {
@@ -345,17 +372,19 @@
                 "backup": "Backup",
                 "password": "Palavra-passe",
                 "webdav_url": "URL do WebDav",
-                "username": "Nome de Utilizador",
+                "username": "Nome de utilizador",
                 "backup_success": "Backup com Sucesso",
                 "label": "Backup",
                 "type": "Tipo de Serviço",
                 "logout": "Sair",
-                "login_success": "Sucesso de Login"
+                "login_success": "Sucesso de Login",
+                "aliyun": "Aliyun Drive",
+                "aliyun_login_first": "Por favor, leia o código para fazer login primeiro."
             },
             "recognize": {
                 "delete_newline": "Apagar Nova Linha Automaticamente",
                 "language": "Idioma de Reconhecimento",
-                "close_on_blur": "Fechar no Desfoque",
+                "close_on_blur": "Fechar janela quando o foco for perdido",
                 "title": "Configurações de Reconhecimento",
                 "label": "Reconhecimento",
                 "hide_window": "Ocultar Janela de Reconhecimento",
@@ -366,10 +395,10 @@
                 "success": "Atalho registado com sucesso",
                 "is_register": "O atalho já está registado",
                 "label": "Atalho",
-                "input_translate": "Traduzir Entrada",
+                "input_translate": "Tradução do Texto",
                 "title": "Configurações de Atalhos",
                 "set_hotkey": "Pressione para Definir a Tecla de Atalho",
-                "selection_translate": "Traduzir Seleção",
+                "selection_translate": "Traduzir Selecionado",
                 "ocr_recognize": "Reconhecimento de Texto"
             },
             "service": {
