@@ -458,7 +458,14 @@
             "copy": "复制",
             "retry": "重试",
             "delete_newline": "删除换行",
-            "translate_back": "翻译回原文"
+            "translate_back": "翻译回原文",
+            "mode": {
+                "normal": "正常模式（每次都翻译）",
+                "remember_collapse": "记住折叠状态",
+                "always_collapse": "总是折叠",
+                "quit": "禁用此服务",
+                "disabled_success": "已被禁用"
+            }
         },
         "recognize": {
             "recognize": "重新识别",
