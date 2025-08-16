@@ -12,6 +12,15 @@
                 "lingva": {
                     "title": "Lingva"
                 }
+            },
+            "recognize": {
+                "openai_compatible": {
+                    "title": "OpenAI 호환 OCR",
+                    "base_url": "기본 URL",
+                    "api_key": "API 키",
+                    "model": "모델 이름",
+                    "enable_stream": "스트리밍 활성화"
+                }
             }
         }
     }
