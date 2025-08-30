@@ -70,6 +70,7 @@ pub fn start_slide_translate(app_handle: tauri::AppHandle) {
                                             // Selected text is the same, not processed or just displayed in the window
                                             let window = translateicon_window();
                                             window.show().unwrap();
+                                            window.set_always_on_top(true).unwrap(); 
                                             window.set_focus().ok();
                                         }
                                     }

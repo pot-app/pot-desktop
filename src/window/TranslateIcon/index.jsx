@@ -1,6 +1,6 @@
 import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { appWindow, currentMonitor } from '@tauri-apps/api/window';
+import { appWindow, PhysicalSize, currentMonitor } from "@tauri-apps/api/window";
 import { appConfigDir, join } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { Spacer, Button } from '@nextui-org/react';
@@ -113,7 +113,7 @@ export default function TranslateIcon() {
                     clearTimeout(moveTimeout);
                 }
                 moveTimeout = setTimeout(async () => {
-                    if (appWindow.label === 'translate') {
+                    if (appWindow.label === 'translateicon') {
                         let position = await appWindow.outerPosition();
                         const monitor = await currentMonitor();
                         const factor = monitor.scaleFactor;
@@ -139,7 +139,7 @@ export default function TranslateIcon() {
                     clearTimeout(resizeTimeout);
                 }
                 resizeTimeout = setTimeout(async () => {
-                    if (appWindow.label === 'translate') {
+                    if (appWindow.label === 'translateicon') {
                         let size = await appWindow.outerSize();
                         const monitor = await currentMonitor();
                         const factor = monitor.scaleFactor;
@@ -224,7 +224,16 @@ export default function TranslateIcon() {
         collectionServiceInstanceList,
     ]);
 
-    const [hovered, setHovered] = useState(false);
+    const expandWindow = async () => {
+        const monitor = await currentMonitor();
+        const dpi = monitor?.scaleFactor ?? 1;
+     
+        const fullWidth = (await store.get("translate_window_width")) ?? 350;
+        const fullHeight = (await store.get("translate_window_height")) ?? 420;
+      
+        await appWindow.setSize(new PhysicalSize(fullWidth * dpi, fullHeight * dpi));
+      };
+
     const animation = useSpring({
         loop: true,
         to: [
@@ -237,19 +246,19 @@ export default function TranslateIcon() {
     return iconView ? (
         <div
             className="w-screen h-screen bg-background flex items-center justify-center"
-            onMouseEnter={() => setIconView(false)}
+            onMouseEnter={() => {
+                setIconView(false);
+                expandWindow();
+              }}
         >
       <animated.div
         style={animation}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
       >
         <BsTranslate className="text-4xl text-primary cursor-pointer" />
       </animated.div>
         </div>
     ) : (
         <div
-            onMouseLeave={() => setIconView(true)}
             style={{ height: '100vh', width: '100vw' }}
         >
             {pluginList && (

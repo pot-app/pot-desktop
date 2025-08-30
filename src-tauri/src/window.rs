@@ -274,7 +274,10 @@ pub fn slide_translate(text: String) {
     let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
     let window = translateicon_window();
-
+    window.show().unwrap();
+    window.set_skip_taskbar(true).unwrap();
+    window.set_always_on_top(true).unwrap(); 
+    window.set_focus().ok();
     window.emit("new_text", text).unwrap();
 }
 
@@ -420,10 +423,6 @@ pub fn updater_window() {
     window.center().unwrap();
 }
 
-use std::sync::{Arc, Mutex};
-use std::thread;
-use std::time::Duration;
-
 pub fn translateicon_window() -> Window {
     use mouse_position::mouse_position::{Mouse, Position};
     
@@ -487,26 +486,6 @@ pub fn translateicon_window() -> Window {
         return window;
     }
 
-    let is_expanded = Arc::new(Mutex::new(false));
-    let is_expanded_for_focus = is_expanded.clone();
-
-    // Register for out-of-focus events and close when out of focus
-    let cloned = window.clone();
-    window.on_window_event(move |event| {
-        if let tauri::WindowEvent::Focused(false) = event {
-            let is_expanded = is_expanded_for_focus.lock().unwrap();
-            if !*is_expanded {
-                cloned.hide().unwrap();
-            }
-        }
-    });
-
-    window.set_skip_taskbar(true).unwrap();
-    // Set window to visible (important!)
-    window.show().unwrap_or_else(|e| {
-        eprintln!("Failed to show window: {}", e);
-    });
-
     // Get monitor info
     let monitor = window.current_monitor().unwrap().unwrap();
     let dpi = monitor.scale_factor();
@@ -514,22 +493,6 @@ pub fn translateicon_window() -> Window {
     // Initial small size (35x42)
     let initial_width = 35.0;
     let initial_height = 42.0;
-    
-    // Full size when expanded
-    let full_width = match get("translate_window_width") {
-        Some(v) => v.as_i64().unwrap() as f64,
-        None => {
-            set("translate_window_width", 350);
-            350.0
-        }
-    };
-    let full_height = match get("translate_window_height") {
-        Some(v) => v.as_i64().unwrap() as f64,
-        None => {
-            set("translate_window_height", 420);
-            420.0
-        }
-    };
 
     // Set initial small size
     window
@@ -593,110 +556,6 @@ pub fn translateicon_window() -> Window {
                 .unwrap();
         }
     }
-    window.show().unwrap();
-    window.set_focus().ok();
-
-    // Ensure that the window is visible and has focus when the setup is complete
-    // window.set_focus().unwrap_or_else(|e| {
-    //     eprintln!("Failed to set focus: {}", e);
-    // });
-    // Set up mouse hover detection thread
-    let window_clone = window.clone();
-    let is_expanded_clone = is_expanded.clone();
-    
-    thread::spawn(move || {
-        loop {
-            thread::sleep(Duration::from_millis(50)); // Check every 50ms
-            
-            // Get current mouse position
-            let current_mouse_pos = match Mouse::get_mouse_position() {
-                Mouse::Position { x, y } => Position { x, y },
-                Mouse::Error => continue,
-            };
-            
-            // Get current window position and size
-            let window_pos = match window_clone.outer_position() {
-                Ok(pos) => pos,
-                Err(_) => continue,
-            };
-            
-            let window_size = match window_clone.outer_size() {
-                Ok(size) => size,
-                Err(_) => continue,
-            };
-            
-            // Check if mouse is within window bounds
-            let mouse_in_window = current_mouse_pos.x >= window_pos.x
-                && current_mouse_pos.x <= window_pos.x + window_size.width as i32
-                && current_mouse_pos.y >= window_pos.y
-                && current_mouse_pos.y <= window_pos.y + window_size.height as i32;
-            
-            let mut expanded = is_expanded_clone.lock().unwrap();
-            
-            if mouse_in_window && !*expanded {
-                // Mouse entered, expand window
-                *expanded = true;
-                drop(expanded); // Release lock before window operations
-                
-                let monitor = match window_clone.current_monitor() {
-                    Ok(Some(m)) => m,
-                    _ => continue,
-                };
-                let dpi = monitor.scale_factor();
-                
-                // Expand to full size
-                let _ = window_clone.set_size(tauri::PhysicalSize::new(
-                    full_width * dpi,
-                    full_height * dpi,
-                ));
-                
-                // Adjust position to keep window on screen
-                let current_pos = match window_clone.outer_position() {
-                    Ok(pos) => pos,
-                    Err(_) => continue,
-                };
-                
-                let monitor_size = monitor.size();
-                let monitor_pos = monitor.position();
-                
-                let mut new_x = current_pos.x;
-                let mut new_y = current_pos.y;
-                
-                // Check if expanded window goes off screen and adjust
-                if current_pos.x + (full_width * dpi) as i32 > monitor_pos.x + monitor_size.width as i32 {
-                    new_x = monitor_pos.x + monitor_size.width as i32 - (full_width * dpi) as i32;
-                }
-                if current_pos.y + (full_height * dpi) as i32 > monitor_pos.y + monitor_size.height as i32 {
-                    new_y = monitor_pos.y + monitor_size.height as i32 - (full_height * dpi) as i32;
-                }
-                
-                if new_x != current_pos.x || new_y != current_pos.y {
-                    let _ = window_clone.set_position(tauri::PhysicalPosition::new(new_x, new_y));
-                }
-                window_clone.show().unwrap();
-                window_clone.set_focus().ok();
-            } else if !mouse_in_window && *expanded {
-                // Mouse left, shrink window
-                *expanded = false;
-                drop(expanded); // Release lock before window operations
-                
-                let monitor = match window_clone.current_monitor() {
-                    Ok(Some(m)) => m,
-                    _ => continue,
-                };
-                let dpi = monitor.scale_factor();
-                
-                // Shrink back to small size
-                let _ = window_clone.set_size(tauri::PhysicalSize::new(
-                    initial_width * dpi,
-                    initial_height * dpi,
-                ));
-                    // Set window to visible
-                window_clone.show().unwrap();
-                window_clone.set_focus().ok();
-            }
-        }
-    });
 
     window
 }
