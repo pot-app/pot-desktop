@@ -277,7 +277,6 @@ pub fn slide_translate(text: String) {
     window.show().unwrap();
     window.set_skip_taskbar(true).unwrap();
     window.set_always_on_top(true).unwrap(); 
-    window.set_focus().ok();
     window.emit("new_text", text).unwrap();
 }
 
