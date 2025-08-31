@@ -230,8 +230,8 @@ export default function TranslateIcon() {
      
         const fullWidth = (await store.get("translate_window_width")) ?? 350;
         const fullHeight = (await store.get("translate_window_height")) ?? 420;
-      
-        await appWindow.setSize(new PhysicalSize(fullWidth * dpi, fullHeight * dpi));
+        // 整数 !!!
+        await appWindow.setSize(new PhysicalSize(Math.round(fullWidth * dpi), Math.round(fullHeight * dpi)));
       };
 
     const animation = useSpring({
