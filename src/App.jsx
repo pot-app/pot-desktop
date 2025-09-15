@@ -15,6 +15,7 @@ import Config from './window/Config';
 import { useConfig } from './hooks';
 import './style.css';
 import './i18n';
+import FloatingIcon from './window/FloatingIcon';
 
 const windowMap = {
     translate: <Translate />,
@@ -22,6 +23,8 @@ const windowMap = {
     recognize: <Recognize />,
     config: <Config />,
     updater: <Updater />,
+    // 新增：悬浮图标窗口
+    floating_icon: <FloatingIcon />,
 };
 
 export default function App() {

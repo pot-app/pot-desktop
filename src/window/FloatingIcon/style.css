@@ -1,0 +1,188 @@
+/* 悬浮图标容器 */
+.floating-icon-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* 透明容器，避免影响窗口背景 */
+    background: transparent !important;
+}
+
+/* 主悬浮图标 */
+.floating-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    position: relative;
+}
+
+/* 悬浮图标悬停效果 */
+.floating-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* 悬浮图标高亮状态 */
+.floating-icon.hovered {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: scale(1.05);
+}
+
+/* 图标内容 */
+.icon-content {
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 应用图标样式 */
+.icon-content img {
+    width: 28px;
+    height: 28px;
+    /* 保持原始图标颜色，在渐变背景上显示清晰 */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* 菜单栏容器：透明 + 毛玻璃（深浅模式自适应） */
+.floating-menu {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.0); /* 初始透明，避免边角发灰 */
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 160px;
+    animation: menuSlideIn 0.2s ease-out;
+}
+
+/* 深色模式下的菜单样式：使用半透明而非不透明白/黑底 */
+@media (prefers-color-scheme: dark) {
+    .floating-menu {
+        background: rgba(30, 30, 30, 0.0);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item {
+        color: #ffffff;
+    }
+    
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* 菜单项：自身使用半透明 hover 效果，避免整体面板显黑块 */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent; /* 默认透明 */
+}
+
+.menu-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(2px);
+}
+
+/* 菜单图标 */
+.menu-icon {
+    margin-right: 12px;
+    font-size: 16px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 菜单文本 */
+.menu-text {
+    flex: 1;
+    white-space: nowrap;
+}
+
+/* 菜单滑入动画 */
+@keyframes menuSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 响应式设计 - 小屏幕适配 */
+@media (max-width: 768px) {
+    .floating-icon-container {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .floating-icon {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .icon-content {
+        font-size: 20px;
+    }
+    
+    .floating-menu {
+        bottom: 60px;
+        min-width: 140px;
+    }
+    
+    .menu-item {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .floating-icon {
+        border: 2px solid #000000;
+    }
+    
+    .floating-menu {
+        border: 2px solid #000000;
+    }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+    .floating-icon,
+    .menu-item {
+        transition: none;
+    }
+    
+    .floating-menu {
+        animation: none;
+    }
+    
+    .floating-icon:hover {
+        transform: none;
+    }
+}

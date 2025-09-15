@@ -82,6 +82,11 @@
                 },
                 "proxy_change": "代理已经改变，重启应用生效",
                 "proxy_error": "请填写代理地址和端口",
+                "display_icon": "显示图标",
+                "display_icon_type": {
+                    "menubar": "菜单栏",
+                    "floating": "悬浮图标"
+                },
                 "tray_click_event": "托盘点击事件",
                 "event": {
                     "config": "偏好设置",
