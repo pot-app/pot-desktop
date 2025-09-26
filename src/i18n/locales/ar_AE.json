@@ -320,7 +320,8 @@
                 },
                 "transmart": {
                     "username": "اسم المستخدم",
-                    "title": "Transmart"
+                    "title": "Transmart",
+                    "token": "‌Ily679201@gmail.com"
                 },
                 "alibaba": {
                     "accesskey_secret": "مفتاح الوصول السري",
