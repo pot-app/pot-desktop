@@ -82,6 +82,11 @@
                 },
                 "proxy_change": "代理已经改变，重启应用生效",
                 "proxy_error": "请填写代理地址和端口",
+                "display_icon": "显示图标",
+                "display_icon_type": {
+                    "menubar": "菜单栏",
+                    "floating": "悬浮图标"
+                },
                 "tray_click_event": "托盘点击事件",
                 "event": {
                     "config": "偏好设置",
@@ -458,7 +463,14 @@
             "copy": "复制",
             "retry": "重试",
             "delete_newline": "删除换行",
-            "translate_back": "翻译回原文"
+            "translate_back": "翻译回原文",
+            "mode": {
+                "normal": "正常模式（每次都翻译）",
+                "remember_collapse": "记住折叠状态",
+                "always_collapse": "总是折叠",
+                "quit": "禁用此服务",
+                "disabled_success": "已被禁用"
+            }
         },
         "recognize": {
             "recognize": "重新识别",
