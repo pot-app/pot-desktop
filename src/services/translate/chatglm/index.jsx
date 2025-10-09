@@ -42,6 +42,9 @@ export async function translate(text, from, to, options = {}) {
         model: model,
         messages: promptList,
         stream: true,
+        thinking: {
+            type: "disabled",
+        }
     };
 
     let result = '';
