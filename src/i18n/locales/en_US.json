@@ -176,6 +176,10 @@
                 "label": "History",
                 "title": "History"
             },
+            "collection": {
+                "label": "Collection",
+                "title": "Collection"
+            },
             "backup": {
                 "label": "Backup",
                 "title": "Backup Settings",

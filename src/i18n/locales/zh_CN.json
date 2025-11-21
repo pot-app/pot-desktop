@@ -176,6 +176,10 @@
                 "label": "历史记录",
                 "title": "历史记录"
             },
+            "collection": {
+                "label": "收藏",
+                "title": "收藏"
+            },
             "backup": {
                 "label": "备份设置",
                 "title": "备份设置",
