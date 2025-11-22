@@ -48,6 +48,7 @@ import {
     getServiceSouceType,
     whetherPluginService,
 } from '../../../../utils/service_instance';
+import { appWindow } from '@tauri-apps/api/window';
 
 let translateID = [];
 
