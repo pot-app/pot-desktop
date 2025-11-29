@@ -1,9 +1,10 @@
+use crate::clipboard::{RealTimeTranslateEnableWrapper, start_realtime_translate_monitor};
 use crate::config::get;
 use crate::config::StoreWrapper;
 use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
-use log::{error, info};
+use log::{error, info, warn};
 use serde_json::{json, Value};
 use std::io::Read;
 use tauri::Manager;
@@ -224,4 +225,27 @@ pub fn open_devtools(window: tauri::Window) {
     } else {
         window.close_devtools();
     }
+}
+
+#[tauri::command]
+pub fn update_realtime_translate_state(enable: bool, app_handle: tauri::AppHandle) {
+    // 创建app_handle的克隆，用于后续传递给监控器函数
+    let app_handle_clone = app_handle.clone();
+    
+    // 1. 更新配置存储
+    crate::config::set("realtime_translate", enable);
+    
+    // 2. 更新运行中的状态
+    let state = app_handle.state::<RealTimeTranslateEnableWrapper>();
+    if let Ok(mut realtime_translate_state) = state.0.try_lock() {
+        *realtime_translate_state = enable.to_string();
+        info!("实时翻译状态已更新为: {}", enable);
+        
+        // 3. 当启用实时翻译时，启动监控器（使用克隆的app_handle）
+        if enable {
+            start_realtime_translate_monitor(app_handle_clone);
+        }
+    } else {
+        warn!("无法获取实时翻译状态锁");
+    };
 }
