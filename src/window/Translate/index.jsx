@@ -98,6 +98,7 @@ export default function Translate() {
         const items = reorder(translateServiceInstanceList, result.source.index, result.destination.index);
         setTranslateServiceInstanceList(items);
     };
+    
     // 是否自动关闭窗口
     useEffect(() => {
         if (closeOnBlur !== null && !closeOnBlur) {
@@ -114,26 +115,26 @@ export default function Translate() {
     }, [alwaysOnTop]);
     
     // 设置默认窗口最大化
-    useEffect(() => {
-        const setDefaultMaximize = async () => {
-            try {
-                const isMaximized = await appWindow.isMaximized();
-                if (!isMaximized) {
-                    await appWindow.maximize();
-                    setMaximized(true);
-                }
-            } catch (error) {
-                console.error("Failed to maximize window:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const setDefaultMaximize = async () => {
+    //         try {
+    //             const isMaximized = await appWindow.isMaximized();
+    //             if (!isMaximized) {
+    //                 await appWindow.maximize();
+    //                 setMaximized(true);
+    //             }
+    //         } catch (error) {
+    //             console.error("Failed to maximize window:", error);
+    //         }
+    //     };
         
-        // 延迟执行以确保窗口完全初始化
-        const timeoutId = setTimeout(() => {
-            setDefaultMaximize();
-        }, 100);
+    //     // 延迟执行以确保窗口完全初始化
+    //     const timeoutId = setTimeout(() => {
+    //         setDefaultMaximize();
+    //     }, 100);
         
-        return () => clearTimeout(timeoutId);
-    }, []);
+    //     return () => clearTimeout(timeoutId);
+    // }, []);
     
     // 监听窗口最大化
     useEffect(() => {
