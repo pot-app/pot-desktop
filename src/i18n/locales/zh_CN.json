@@ -7,7 +7,9 @@
             "write_clipboard": "写入剪贴板",
             "plugin": "插件",
             "coming": "敬请期待…",
-            "clear": "清空"
+            "clear": "清空",
+            "view": "查看",
+            "delete": "删除"
         },
         "languages": {
             "auto": "自动检测",
@@ -174,11 +176,20 @@
             },
             "history": {
                 "label": "历史记录",
-                "title": "历史记录"
+                "title": "历史记录",
+                "save_to_desktop": "保存为文件",
+                "save_to_desktop_success": "已成功保存文件",
+                "save_to_desktop_error": "保存文件失败："
             },
             "collection": {
-                "label": "收藏",
-                "title": "收藏"
+            "label": "收藏",
+            "title": "收藏",
+            "import": "导入收藏",
+            "select_folder": "选择包含收藏文件的文件夹",
+            "import_success": "导入成功",
+            "import_failed": "导入失败",
+            "no_collections_found": "未找到可导入的收藏记录",
+            "items": "条记录"
             },
             "backup": {
                 "label": "备份设置",

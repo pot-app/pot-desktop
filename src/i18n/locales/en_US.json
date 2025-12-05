@@ -7,7 +7,9 @@
             "write_clipboard": "Write to Clipboard",
             "plugin": "Plugin",
             "coming": "Coming soon…",
-            "clear": "Clear"
+            "clear": "Clear",
+            "view": "View",
+            "delete": "Delete"
         },
         "languages": {
             "auto": "Auto Detect",
@@ -174,11 +176,20 @@
             },
             "history": {
                 "label": "History",
-                "title": "History"
+                "title": "History",
+                "save_to_desktop": "Save as File",
+                "save_to_desktop_success": "File saved successfully",
+                "save_to_desktop_error": "Failed to save file: "
             },
             "collection": {
-                "label": "Collection",
-                "title": "Collection"
+            "label": "Collection",
+            "title": "Collection",
+            "import": "Import Collection",
+            "select_folder": "Select folder containing collection files",
+            "import_success": "Import successful",
+            "import_failed": "Import failed",
+            "no_collections_found": "No collection records found to import",
+            "items": "items"
             },
             "backup": {
                 "label": "Backup",

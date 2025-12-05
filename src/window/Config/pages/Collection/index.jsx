@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Pagination } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import Database from 'tauri-plugin-sql-api';
+import { open } from '@tauri-apps/api/dialog'; // 添加导入对话框
 
 import * as builtinCollectionServices from '../../../../services/collection';
 import { invoke_plugin } from '../../../../utils/invoke_plugin';
@@ -97,6 +98,192 @@ export default function Collection() {
         await db.execute('DELETE FROM collection WHERE id=$1', [id]);
         await getData();
         setTotal(total - 1);
+    };
+
+    // 添加导入收藏功能（移到组件内部）
+    const importFromFolder = async () => {
+        try {
+            console.log('开始导入收藏...'); // 添加调试日志
+            // 打开文件夹选择对话框
+            const selectedFolder = await open({
+                directory: true,
+                multiple: false,
+                title: t('collection.select_folder') === 'collection.select_folder' ? '选择包含收藏文件的文件夹' : t('collection.select_folder')
+            });
+
+            console.log('选择的文件夹:', selectedFolder); // 调试日志
+
+            if (!selectedFolder) {
+                console.log('用户取消选择'); // 调试日志
+                return; // 用户取消选择
+            }
+
+            // 读取文件夹中的所有文件
+            const files = await readDir(selectedFolder);
+            
+            console.log('文件夹中的文件:', files); // 调试日志
+
+            let importedCount = 0;
+            const db = await Database.load('sqlite:collection.db');
+
+            // 处理每个文件
+            for (const file of files) {
+                if (file.name.endsWith('.txt') || file.name.endsWith('.json')) {
+                    try {
+                        const filePath = await join(selectedFolder, file.name);
+                        const content = await readTextFile(filePath);
+                        
+                        console.log(`处理文件: ${file.name}`); // 调试日志
+                        
+                        // 解析文件内容
+                        const collections = parseCollectionFile(content, file.name);
+                        
+                        console.log(`解析到 ${collections.length} 条记录`); // 调试日志
+                        
+                        // 导入到数据库
+                        for (const collection of collections) {
+                            await db.execute(
+                                'INSERT INTO collection (text, source, target, service, result, timestamp) VALUES ($1, $2, $3, $4, $5, $6)',
+                                [collection.text, collection.source, collection.target, collection.service, collection.result, collection.timestamp]
+                            );
+                            importedCount++;
+                        }
+                    } catch (error) {
+                        console.warn(`Failed to import file ${file.name}:`, error);
+                    }
+                }
+            }
+
+            // 更新界面
+            await getData();
+            setTotal(total + importedCount);
+            
+            // 显示导入结果
+            if (importedCount > 0) {
+                toast.success(
+                    `${t('collection.import_success') === 'collection.import_success' ? '导入成功' : t('collection.import_success')} ${importedCount} ${t('collection.items') === 'collection.items' ? '条记录' : t('collection.items')}`, 
+                    toastStyle
+                );
+            } else {
+                toast.info(
+                    t('collection.no_collections_found') === 'collection.no_collections_found' ? '未找到可导入的收藏记录' : t('collection.no_collections_found'), 
+                    toastStyle
+                );
+            }
+            
+            console.log(`导入完成，共导入 ${importedCount} 条记录`); // 调试日志
+        } catch (error) {
+            console.error('Import failed:', error);
+            toast.error(t('collection.import_failed') === 'collection.import_failed' ? '导入失败' : t('collection.import_failed'), 
+                toastStyle
+            );
+        }
+    };
+
+    // 解析收藏文件内容（移到组件内部）
+    const parseCollectionFile = (content, fileName) => {
+        const collections = [];
+        
+        try {
+            // 首先将内容分割为行
+            const lines = content.split('\n').filter(line => line.trim());
+            
+            // 尝试解析为JSON格式
+            if (fileName.endsWith('.json')) {
+                const data = JSON.parse(content);
+                if (Array.isArray(data)) {
+                    return data.map(item => ({
+                        text: item.text || item.original || '',
+                        source: item.source || item.from || 'auto',
+                        target: item.target || item.to || 'zh_cn',
+                        service: item.service || 'unknown',
+                        result: item.result || item.translation || '',
+                        timestamp: item.timestamp || item.time || Date.now()
+                    }));
+                }
+            }
+            
+            // 检查是否为键值对格式（包含"原文："、"译文："等标识符）
+            const isKeyValueFormat = lines.some(line => 
+                line.startsWith('原文：') || line.startsWith('译文：') || 
+                line.startsWith('时间：') || line.startsWith('服务：')
+            );
+            
+            if (isKeyValueFormat) {
+                // 解析键值对格式
+                let currentRecord = {};
+                
+                for (const line of lines) {
+                    if (line.startsWith('原文：')) {
+                        currentRecord.text = line.replace('原文：', '').trim();
+                    } else if (line.startsWith('译文：')) {
+                        currentRecord.result = line.replace('译文：', '').trim();
+                    } else if (line.startsWith('时间：')) {
+                        const timeStr = line.replace('时间：', '').trim();
+                        // 解析时间格式：25/12/05 18:15:33
+                        const timeMatch = timeStr.match(/(\d{2})\/(\d{2})\/(\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
+                        if (timeMatch) {
+                            const [_, day, month, year, hour, minute, second] = timeMatch;
+                            // 将YY/MM/DD格式转换为Date对象
+                            const fullYear = 2000 + parseInt(year); // 假设是20XX年
+                            const date = new Date(fullYear, parseInt(month) - 1, parseInt(day), 
+                                                    parseInt(hour), parseInt(minute), parseInt(second));
+                            currentRecord.timestamp = date.getTime();
+                        } else {
+                            currentRecord.timestamp = Date.now();
+                        }
+                    } else if (line.startsWith('服务：')) {
+                        currentRecord.service = line.replace('服务：', '').trim();
+                    } else if (line.trim() === '') {
+                        // 空行表示一条记录结束
+                        if (currentRecord.text && currentRecord.result) {
+                            collections.push({
+                                text: currentRecord.text,
+                                source: currentRecord.source || 'auto',
+                                target: currentRecord.target || 'zh_cn',
+                                service: currentRecord.service || 'unknown',
+                                result: currentRecord.result,
+                                timestamp: currentRecord.timestamp || Date.now()
+                            });
+                            currentRecord = {};
+                        }
+                    }
+                }
+                
+                // 处理最后一条记录
+                if (currentRecord.text && currentRecord.result) {
+                    collections.push({
+                        text: currentRecord.text,
+                        source: currentRecord.source || 'auto',
+                        target: currentRecord.target || 'zh_cn',
+                        service: currentRecord.service || 'unknown',
+                        result: currentRecord.result,
+                        timestamp: currentRecord.timestamp || Date.now()
+                    });
+                }
+            } else {
+                // 解析为管道符分隔格式
+                for (const line of lines) {
+                    const parts = line.split('|').map(part => part.trim());
+                    if (parts.length >= 2) {
+                        // 基本格式：原文|译文
+                        // 扩展格式：原文|源语言|目标语言|服务|译文|时间戳
+                        collections.push({
+                            text: parts[0],
+                            source: parts.length > 2 ? parts[1] : 'auto',
+                            target: parts.length > 3 ? parts[2] : 'zh_cn',
+                            service: parts.length > 4 ? parts[3] : 'unknown',
+                            result: parts.length >= 2 ? parts[parts.length > 4 ? 4 : 1] : '',
+                            timestamp: parts.length > 5 ? parseInt(parts[5]) || Date.now() : Date.now()
+                        });
+                    }
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to parse file:', error);
+        }
+        
+        return collections;
     };
 
     const formatDate = (date) => {
@@ -197,10 +384,8 @@ export default function Collection() {
                                     <TableCell>
                                         <p
                                             className={`whitespace-nowrap ${
-                                                osType === 'Linux'
-                                                    ? 'w-[calc((100vw-287px-26px-60px-140px-30px)*0.5)]'
-                                                    : 'w-[calc((100vw-287px-26px-60px-140px)*0.5)]'
-                                            } text-ellipsis overflow-hidden`}
+                                                item.text.length > 20 ? 'truncate' : ''
+                                            }`}
                                         >
                                             {item.text}
                                         </p>
@@ -228,14 +413,26 @@ export default function Collection() {
                                         </p>
                                     </TableCell>
                                     <TableCell>
-                                        <Button
-                                            size='sm'
-                                            color='danger'
-                                            variant='light'
-                                            onPress={() => deleteData(item.id)}
-                                        >
-                                            {t('common.delete')}
-                                        </Button>
+                                        <ButtonGroup>
+                                            <Button
+                                                size='sm'
+                                                onPress={() => {
+                                                    getSelectedData(item.id);
+                                                    onOpen();
+                                                }}
+                                            >
+                                                {t('common.view') === 'common.view' ? '查看' : t('common.view')}
+                                            </Button>
+                                            <Button
+                                                size='sm'
+                                                color='danger'
+                                                onPress={() => {
+                                                    deleteData(item.id);
+                                                }}
+                                            >
+                                                {t('common.delete') === 'common.delete' ? '删除' : t('common.delete')}
+                                            </Button>
+                                        </ButtonGroup>
                                     </TableCell>
                                 </TableRow>
                             )
@@ -250,13 +447,22 @@ export default function Collection() {
                         page={page}
                         onChange={setPage}
                     />
-                    <Button
-                        size='sm'
-                        className='my-auto'
-                        onPress={clearData}
-                    >
-                        {t('common.clear')}
-                    </Button>
+                    <div className='flex gap-2'>
+                        <Button
+                            size='sm'
+                            className='my-auto'
+                            onPress={importFromFolder}
+                        >
+                            {t('collection.import') === 'collection.import' ? '导入收藏' : t('collection.import')}
+                        </Button>
+                        <Button
+                            size='sm'
+                            className='my-auto'
+                            onPress={clearData}
+                        >
+                            {t('common.clear') === 'common.clear' ? '清空' : t('common.clear')}
+                        </Button>
+                    </div>
                 </div>
 
                 <Modal
@@ -310,7 +516,7 @@ export default function Collection() {
                                                 onClose();
                                             }}
                                         >
-                                            {t('common.save')}
+                                            {t('common.save') === 'common.save' ? '保存' : t('common.save')}
                                         </Button>
                                         <Button
                                             color='danger'
@@ -319,7 +525,7 @@ export default function Collection() {
                                                 onClose();
                                             }}
                                         >
-                                            {t('common.delete')}
+                                            {t('common.delete') === 'common.delete' ? '删除' : t('common.delete')}
                                         </Button>
                                     </ModalFooter>
                                 </>
