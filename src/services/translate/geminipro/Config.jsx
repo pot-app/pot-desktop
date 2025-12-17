@@ -18,9 +18,9 @@ export function Config(props) {
         instanceKey,
         {
             [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.geminipro.title'),
-            stream: true,
+            stream: false,
             apiKey: '',
-            requestPath: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro',
+            requestPath: 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite',
             promptList: [
                 {
                     role: 'user',
