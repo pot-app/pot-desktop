@@ -50,7 +50,7 @@
                 "check_update": "啟動時檢查更新",
                 "server_port": "監聽連接埠",
                 "server_port_change": "監聽連接埠已變更，請重新啟動應用程式以使變更生效",
-                "app_language": "應用程式語言",
+                "app_language": "顯示語言",
                 "app_theme": "主題",
                 "theme": {
                     "light": "淺色主題",
@@ -88,7 +88,8 @@
                     "24": "特大（24px）",
                     "16": "標準（16px）"
                 },
-                "default_font": "預設"
+                "default_font": "預設",
+                "dev_mode": "開發者模式"
             },
             "translate": {
                 "label": "翻譯設定",
