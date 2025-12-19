@@ -97,6 +97,18 @@ export default function SideBar() {
             <Button
                 fullWidth
                 size='lg'
+                variant={setStyle('/collection')}
+                className='mb-[5px]'
+                onPress={() => {
+                    navigate('/collection');
+                }}
+                startContent={<MdExtension className='text-[24px]' />}
+            >
+                <div className='w-full'>{t('config.collection.label')}</div>
+            </Button>
+            <Button
+                fullWidth
+                size='lg'
                 variant={setStyle('/backup')}
                 className='mb-[5px]'
                 onPress={() => {
