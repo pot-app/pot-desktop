@@ -229,7 +229,8 @@
             "copy_text": "انسخ",
             "delete_newline": "احذف السطر الجديد",
             "copy_img": "انسخ الصورة",
-            "translate": "ترجمة"
+            "translate": "ترجمة",
+            "recognize": "جاري التعرف"
         },
         "translate": {
             "delete_newline": "احذف السطر الجديد",
@@ -237,12 +238,20 @@
             "copy": "انسخ",
             "translate": "ترجمة",
             "speak": "تكلم",
-            "add_collection_success": "تمت الإضافة إلى المجموعة بنجاح"
+            "add_collection_success": "تمت الإضافة إلى المجموعة بنجاح",
+            "recognizing": "جاري التعرف",
+            "translate_back": "إعادة الترجمة الى النص الاصلي"
         },
         "services": {
             "collection": {
                 "anki": {
-                    "port": "منفذ"
+                    "port": "منفذ",
+                    "title": "أنكي"
+                },
+                "eudic": {
+                    "title": "يوديك",
+                    "name": "اسم المجموعة",
+                    "token": "رمز"
                 }
             },
             "help": "إرشاد التكوين",
@@ -329,84 +338,133 @@
                     "accesskey_id": "معرّف مفتاح الوصول"
                 },
                 "niutrans": {
-                    "apikey": "مفتاح API"
+                    "apikey": "مفتاح API",
+                    "title": "نيو ترانس",
+                    "https": "استخدام بروتوكول http"
                 },
                 "baidu": {
                     "secret": "السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "مئة مرة او مرات كثيرة"
                 },
                 "volcengine": {
                     "secret": "السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "فولك انجن"
                 },
                 "tencent": {
                     "secret_id": "المعرف السري",
-                    "secret_key": "المفتاح السري"
+                    "secret_key": "المفتاح السري",
+                    "title": "تينيست"
                 },
                 "youdao": {
                     "appkey": "معرّف التطبيق",
-                    "key": "مفتاح"
+                    "key": "مفتاح",
+                    "title": "يوداو"
                 },
                 "baidu_field": {
-                    "it": "تقنية المعلومات"
+                    "it": "تقنية المعلومات",
+                    "title": "مجال او نطاق عمل بايدو",
+                    "finance": "التمويل والاقتصاد",
+                    "machinery": "صناعة الالات",
+                    "senimed": "الطب الحيوي",
+                    "novel": "الادب الرقمي",
+                    "academic": "بحث اكاديمي",
+                    "aerospace": "قطاع الطيران والفضاء",
+                    "wiki": "العلوم الانسانية والاجتماعية",
+                    "news": "اخبار ومعلومات",
+                    "law": "القوانين واللوائح",
+                    "contract": "عقد"
+                },
+                "bing_dict": {
+                    "title": "قاموس بينغ"
+                },
+                "cambridge_dict": {
+                    "title": "قاموس كامبريدج"
+                },
+                "caiyun": {
+                    "title": "سايون",
+                    "token": "رمز"
                 }
             },
             "instance_name": "اسم التكوين",
             "tts": {
                 "lingva_tts": {
-                    "request_path": "مسار الطلب"
+                    "request_path": "مسار الطلب",
+                    "title": "مترجم النصوص لينجفا"
                 }
             },
             "recognize": {
                 "tencent_accurate_ocr": {
                     "secret_id": "المعرف السري",
-                    "secret_key": "المفتاح السري"
+                    "secret_key": "المفتاح السري",
+                    "title": "نظام التعرف على الحروف الدقيق من تينسينت"
                 },
                 "tencent_img_ocr": {
                     "secret_id": "المعرف السري",
-                    "secret_key": "المفتاح السري"
+                    "secret_key": "المفتاح السري",
+                    "title": "ترجمه الصور من تينسينت"
                 },
                 "iflytek_latex_ocr": {
                     "apikey": "مفتاح API",
                     "apisecret": "مفتاح API السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "آي فلاي تيك لاتيك"
                 },
                 "baidu_ocr": {
                     "client_id": "مفتاح API",
-                    "client_secret": "المفتاح السري"
+                    "client_secret": "المفتاح السري",
+                    "title": "نظام التعرف على الحرةف من بايدو"
                 },
                 "baidu_accurate_ocr": {
                     "client_id": "مفتاح API",
-                    "client_secret": "المفتاح السري"
+                    "client_secret": "المفتاح السري",
+                    "title": "النسخه الدقيقه من نظام التعرف البصري على الحروف من بايدو"
                 },
                 "iflytek_intsig_ocr": {
                     "apikey": "مفتاح API",
                     "apisecret": "مفتاح API السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "التعرف البصري على الحروف من آي فلاي تيك"
                 },
                 "tencent_ocr": {
                     "secret_id": "المعرف السري",
-                    "secret_key": "المفتاح السري"
+                    "secret_key": "المفتاح السري",
+                    "title": "نظام التعرف البصري على الحروف من تينسيت"
                 },
                 "volcengine_ocr": {
                     "secret": "السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "نظام التعرف البصري على الحروف من فولك إنجن"
                 },
                 "volcengine_multi_lang_ocr": {
                     "secret": "السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "نظام التعرف البصري على الحروف متعدد اللغات من فولك إنجن"
                 },
                 "iflytek_ocr": {
                     "apikey": "مفتاح API",
                     "apisecret": "مفتاح API السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "التعرف البصري على الحروف من iFlyTek"
                 },
                 "baidu_img_ocr": {
                     "secret": "السري",
-                    "appid": "معرّف التطبيق"
+                    "appid": "معرّف التطبيق",
+                    "title": "ترجمة الصور من بايدو"
                 },
                 "qrcode": {
                     "title": "رمز الاستجابة السريعة"
+                },
+                "system": {
+                    "title": "نظام التعرف البصري على الحروف"
+                },
+                "tesseract": {
+                    "title": "تيسيراكت دوت جي إس"
+                },
+                "simple_latex_ocr": {
+                    "title": "لاتيك البسيط",
+                    "token": "رمز"
                 }
             }
         }
