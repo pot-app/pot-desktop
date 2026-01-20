@@ -69,15 +69,15 @@
                     "14": "Pequeño (14px)",
                     "16": "Estándar (16px)",
                     "12": "Muy pequeño (12px)",
-                    "24": "Muy muy grande (24px)",
-                    "10": "Muy muy pequeño (10px)",
+                    "24": "Súper grande (24px)",
+                    "10": "Súper pequeño (10px)",
                     "title": "Tamaño de la letra"
                 },
                 "app_font": "Fuente",
                 "server_port": "Puerto de escucha",
                 "proxy_error": "Por favor introduzca el host y el puerto",
                 "check_update": "Comprobar la actualización",
-                "app_language": "Idioma de la aplicación",
+                "app_language": "Idioma de la interfaz",
                 "transparent": "Efecto de transparencia",
                 "title": "Ajustes generales",
                 "app_fallback_font": "Fuente alternativa",
@@ -127,7 +127,8 @@
                 "hide_window": "Ocultar ventana de traducción",
                 "baidu": "Baidu",
                 "source_language": "Idioma de origen",
-                "dynamic_translate": "Traduccion dinámica"
+                "dynamic_translate": "Traduccion dinámica",
+                "incremental_translate": "Traducción incremental"
             },
             "recognize": {
                 "language": "Idioma de reconocimiento",
