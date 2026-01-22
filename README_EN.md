@@ -191,7 +191,7 @@ winget install Pylogmon.pot
 
 2. Double click the downloaded file to install it.
 
-### 故障排除
+### Troubleshooting
 
 -   There is no interface after startup, and there is no response when clicking the tray icon.
 
@@ -205,19 +205,13 @@ winget install Pylogmon.pot
 
 ### Install via Brew
 
-1. Add our tap:
-
-```bash
-brew tap pot-app/homebrew-tap
-```
-
-2. Install pot:
+1. Install pot:
 
 ```bash
 brew install --cask pot
 ```
 
-3. Upgrade pot
+2. Upgrade pot
 
 ```bash
 brew upgrade --cask pot
