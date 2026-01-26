@@ -75,6 +75,20 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
         .set_selected(enable_clipboard_monitor)
         .unwrap();
 
+
+    let enable_slide_translate = match get("slide_translate") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("slide_translate", false);
+            false
+        }
+    };
+
+    tray_handle
+        .get_item("slide_translate")
+        .set_selected(enable_slide_translate)
+        .unwrap();
+
     match copy_mode.as_str() {
         "source" => tray_handle
             .get_item("copy_source")
@@ -102,6 +116,7 @@ pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
         SystemTrayEvent::LeftClick { .. } => on_tray_click(),
         SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
             "input_translate" => on_input_translate_click(),
+            "slide_translate" => on_slide_translate_click(app),
             "copy_source" => on_auto_copy_click(app, "source"),
             "clipboard_monitor" => on_clipboard_monitor_click(app),
             "copy_target" => on_auto_copy_click(app, "target"),
@@ -168,6 +183,35 @@ fn on_clipboard_monitor_click(app: &AppHandle) {
         .set_selected(current)
         .unwrap();
 }
+
+fn on_slide_translate_click(app: &AppHandle) {
+    let enable_slide_translate = match get("slide_translate") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("slide_translate", false);
+            false
+        }
+    };
+    let current = !enable_slide_translate;
+    // Update Config File
+    set("slide_translate", current);
+    // Update State and Start Monitor
+    let state = app.state::<SlideTranslateEnableWrapper>();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., &current.to_string());
+    // if current {
+    //     start_slide_translate(app.app_handle());
+    // }
+    // Update Tray Menu Status
+    app.tray_handle()
+        .get_item("slide_translate")
+        .set_selected(current)
+        .unwrap();
+}
+
 fn on_auto_copy_click(app: &AppHandle, mode: &str) {
     info!("Set copy mode to: {}", mode);
     set("translate_auto_copy", mode);
@@ -205,6 +249,7 @@ fn on_quit_click(app: &AppHandle) {
 
 fn tray_menu_en() -> tauri::SystemTrayMenu {
     let input_translate = CustomMenuItem::new("input_translate", "Input Translate");
+    let slide_translate = CustomMenuItem::new("slide_translate", "Slide Translate");
     let copy_source = CustomMenuItem::new("copy_source", "Source");
     let copy_target = CustomMenuItem::new("copy_target", "Target");
     let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "Clipboard Monitor");
@@ -219,6 +264,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "Quit");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(slide_translate)
         .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "Auto Copy",
@@ -243,6 +289,7 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
 
 fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let input_translate = CustomMenuItem::new("input_translate", "输入翻译");
+    let slide_translate = CustomMenuItem::new("slide_translate", "划词翻译");
     let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "监听剪切板");
     let copy_source = CustomMenuItem::new("copy_source", "原文");
     let copy_target = CustomMenuItem::new("copy_target", "译文");
@@ -258,6 +305,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "退出");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(slide_translate)
         .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "自动复制",
