@@ -48,6 +48,7 @@ export default function SourceArea(props) {
     const { t } = useTranslation();
     const textAreaRef = useRef();
     const speak = useVoice();
+    const isComposingRef = useRef(false);
 
     const handleNewText = async (text) => {
         text = text.trim();
@@ -262,14 +263,17 @@ export default function SourceArea(props) {
     const changeSourceText = async (text) => {
         setDetectLanguage('');
         await setSourceText(text);
-        if (dynamicTranslate) {
+        if (dynamicTranslate && !isComposingRef.current) {
             if (sourceTextChangeTimer) {
                 clearTimeout(sourceTextChangeTimer);
             }
             sourceTextChangeTimer = setTimeout(() => {
-                detect_language(text).then(() => {
-                    syncSourceText();
-                });
+                // 再次检查是否还在组合状态
+                if (!isComposingRef.current) {
+                    detect_language(text).then(() => {
+                        syncSourceText();
+                    });
+                }
             }, 1000);
         }
     }
@@ -380,6 +384,16 @@ export default function SourceArea(props) {
                         onChange={(e) => {
                             const v = e.target.value;
                             changeSourceText(v);
+                        }}
+                        onCompositionStart={() => {
+                            isComposingRef.current = true;
+                        }}
+                        onCompositionEnd={(e) => {
+                            isComposingRef.current = false;
+                            // 组合完成后立即检测语言
+                            detect_language(e.target.value).then(() => {
+                                syncSourceText();
+                            });
                         }}
                     />
                 </CardBody>
