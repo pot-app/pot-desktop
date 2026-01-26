@@ -205,19 +205,13 @@ winget install Pylogmon.pot
 
 ### Brew를 통한 설치
 
-1. 탭에 추가:
-
-```bash
-brew tap pot-app/homebrew-tap
-```
-
-2. 설치:
+1. 설치:
 
 ```bash
 brew install --cask pot
 ```
 
-3. 업데이트:
+2. 업데이트:
 
 ```bash
 brew upgrade --cask pot
