@@ -3,9 +3,19 @@ use crate::config::StoreWrapper;
 use crate::error::Error;
 use crate::StringWrapper;
 use crate::APP;
+use anyhow::anyhow;
 use log::{error, info};
+use msedge_tts::tts::client::connect_async;
+use msedge_tts::tts::client::MSEdgeTTSClientAsync;
+use msedge_tts::tts::SpeechConfig;
+use msedge_tts::voice::get_voices_list_async;
+use rodio::Sink;
 use serde_json::{json, Value};
+use std::collections::HashMap;
 use std::io::Read;
+use std::sync::Arc;
+use std::sync::LazyLock;
+use std::sync::OnceLock;
 use tauri::Manager;
 
 #[tauri::command]
@@ -91,8 +101,8 @@ pub fn copy_img(app_handle: tauri::AppHandle, width: usize, height: usize) -> Re
         height,
         bytes: Cow::from(data.as_bytes()),
     };
-    let result = Clipboard::new()?.set_image(img)?;
-    Ok(result)
+    Clipboard::new()?.set_image(img)?;
+    Ok(())
 }
 
 #[tauri::command]
@@ -224,4 +234,164 @@ pub fn open_devtools(window: tauri::Window) {
     } else {
         window.close_devtools();
     }
+}
+
+type VoiceIdList = Vec<msedge_tts::voice::Voice>;
+type VoiceIdMap = HashMap<String, msedge_tts::voice::Voice>;
+type VoiceConnectionMap = HashMap<String, MSEdgeTTSClientAsync<async_std::net::TcpStream>>;
+
+static EDGE_VOICE_ID_CACHE: OnceLock<parking_lot::RwLock<VoiceIdMap>> = std::sync::OnceLock::new();
+static VOICE_CONNECTION_CACHE: LazyLock<async_std::sync::Mutex<VoiceConnectionMap>> =
+    LazyLock::new(|| async_std::sync::Mutex::new(VoiceConnectionMap::new()));
+
+async fn get_edge_tts_voice_list() -> Result<VoiceIdList, Error> {
+    let voice_list = get_voices_list_async().await?;
+
+    Ok(voice_list)
+}
+
+#[tauri::command(async)]
+pub async fn get_edge_tts_voice_data(voice_short_id: &str, text: &str) -> Result<Vec<u8>, Error> {
+    if voice_short_id.is_empty() {
+        return Err(anyhow!("voice_short_id is empty").into());
+    }
+    // We try to use the `short_name` last word to compare with `name` if `short_name` is None
+    let last = voice_short_id
+        .split('-')
+        .last()
+        .expect("voice_short_id nerver empty");
+    // we will to get the `voice_config` from voice_list and update the voice_cache
+    let config = if let Some(voice_map) = EDGE_VOICE_ID_CACHE.get() {
+        let c: Option<SpeechConfig> = {
+            let read_map = voice_map.read();
+            read_map.get(voice_short_id).map(SpeechConfig::from)
+        };
+        match c {
+            Some(c) => c,
+            None => {
+                if let Some(voice) = get_edge_tts_voice_list()
+                    .await?
+                    .into_iter()
+                    .find(|v| match &v.short_name {
+                        Some(v) => v.contains(last),
+                        None => v.name.contains(last),
+                    })
+                {
+                    let cc = SpeechConfig::from(&voice);
+                    voice_map.write().insert(voice_short_id.into(), voice);
+                    cc
+                } else {
+                    let err = anyhow!("voice not found: {},valid voice id as you can see: https://gist.github.com/BettyJJ/17cbaa1de96235a7f5773b8690a20462",voice_short_id);
+                    Err(err)?
+                }
+            }
+        }
+    } else {
+        let mut ret: Option<SpeechConfig> = None;
+        let new_voice_map: HashMap<_, _> = get_edge_tts_voice_list()
+            .await?
+            .into_iter()
+            .map(|v| {
+                (
+                    match v.short_name.clone() {
+                        Some(vv) => {
+                            if vv.contains(last) {
+                                ret = Some(SpeechConfig::from(&v));
+                            }
+                            vv
+                        }
+                        None => {
+                            if v.name.contains(last) {
+                                ret = Some(SpeechConfig::from(&v));
+                            }
+                            v.name.clone()
+                        }
+                    },
+                    v,
+                )
+            })
+            .collect();
+        if EDGE_VOICE_ID_CACHE
+            .set(parking_lot::RwLock::new(new_voice_map))
+            .is_err()
+        {
+            error!("set voice cache failed: key:{}", voice_short_id);
+        }
+        ret.ok_or_else(|| anyhow!("voice not found: {}", voice_short_id))?
+    };
+
+    // then, we can get the `tts_connection` and update the connection cache for reuse the connection
+    // TODO: It can optimize this `Mutex` when `MSEdgeTTSClientAsync` is clonable
+    let mut voice_cache = VOICE_CONNECTION_CACHE.lock().await;
+    let audio_data = match voice_cache.entry(voice_short_id.into()) {
+        std::collections::hash_map::Entry::Occupied(mut occupied_entry) => {
+            let conn = occupied_entry.get_mut();
+            match conn.synthesize(text, &config).await {
+                Err(e) => {
+                    error!("synthesize failed: {e},and we will retry it later");
+                    let mut new_conn = connect_async().await?;
+                    let data = new_conn.synthesize(text, &config).await?;
+                    occupied_entry.insert(new_conn);
+                    data
+                }
+                Ok(v) => v,
+            }
+        }
+        std::collections::hash_map::Entry::Vacant(vacant_entry) => {
+            let conn = connect_async().await?;
+            vacant_entry.insert(conn).synthesize(text, &config).await?
+        }
+    };
+
+    Ok(audio_data.audio_bytes)
+}
+
+type RodioSink = parking_lot::Mutex<Option<(Arc<Sink>, String)>>;
+
+static CURRENT_SINK: LazyLock<RodioSink> =
+    std::sync::LazyLock::new(|| parking_lot::Mutex::new(None));
+
+#[tauri::command(async)]
+pub async fn get_edge_tts_voice_data_and_play(
+    voice_short_id: &str,
+    text: &str,
+) -> Result<(), Error> {
+    // Stop the previous audio if it is playing
+    {
+        let mut updater = CURRENT_SINK.lock();
+        if let Some((sink, prev_text)) = updater.take() {
+            if sink.is_paused() {
+                // do nothing
+            } else if text == prev_text {
+                info!("The same text is playing,And you are in the first stage,then we trust you want to stop it");
+                sink.stop();
+                sink.clear();
+                return Ok(());
+            } else {
+                sink.stop();
+                sink.clear();
+            }
+        }
+    }
+    // Play the new audio,and update the sink
+    let data = get_edge_tts_voice_data(voice_short_id, text).await?;
+    let (_stream, stream_handle) = rodio::OutputStream::try_default()?;
+    let sink = Arc::new(stream_handle.play_once(std::io::Cursor::new(data))?);
+    {
+        let mut updater = CURRENT_SINK.lock();
+        if let Some((sink_, prev_text)) = updater.take() {
+            if sink_.is_paused() {
+                // do nothing
+            } else if text == prev_text {
+                info!("The same text is playing,And you are in the second stage,so we trust the network delay is too long,and stop your request");
+                sink.stop();
+                sink.clear();
+                return Ok(());
+            }
+        }
+        *updater = Some((Arc::clone(&sink), text.to_string()));
+    }
+    sink.sleep_until_end();
+    sink.clear();
+    Ok(())
 }

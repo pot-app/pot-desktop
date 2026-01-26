@@ -96,7 +96,7 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
     }
 }
 
-pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
+pub fn tray_event_handler(app: &AppHandle, event: SystemTrayEvent) {
     match event {
         #[cfg(target_os = "windows")]
         SystemTrayEvent::LeftClick { .. } => on_tray_click(),
