@@ -18,6 +18,9 @@ use tauri::WindowBuilder;
 use window_shadows::set_shadow;
 
 static TRANSLATE_READY: Lazy<Mutex<bool>> = Lazy::new(|| Mutex::new(false));
+static TRANSLATE_SHOW_PENDING: Lazy<Mutex<bool>> = Lazy::new(|| Mutex::new(false));
+static LAST_SELECTION_TOGGLE: Lazy<Mutex<Option<Instant>>> = Lazy::new(|| Mutex::new(None));
+static LAST_INPUT_TOGGLE: Lazy<Mutex<Option<Instant>>> = Lazy::new(|| Mutex::new(None));
 
 // Get daemon window instance
 fn get_daemon_window() -> Window {
@@ -81,7 +84,7 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
     match app_handle.get_window(label) {
         Some(v) => {
             info!("Window existence: {}", label);
-            v.set_focus().unwrap();
+            let _ = v.set_focus();
             (v, true)
         }
         None => {
@@ -133,27 +136,34 @@ fn is_translate_ready() -> bool {
     *TRANSLATE_READY.lock().unwrap()
 }
 
+fn mark_translate_show_pending() {
+    let mut pending = TRANSLATE_SHOW_PENDING.lock().unwrap();
+    *pending = true;
+}
+
+fn clear_translate_show_pending() {
+    let mut pending = TRANSLATE_SHOW_PENDING.lock().unwrap();
+    *pending = false;
+}
+
+fn is_translate_show_pending() -> bool {
+    *TRANSLATE_SHOW_PENDING.lock().unwrap()
+}
+
+fn show_translate_window_now(window: &Window) {
+    let _ = window.unminimize();
+    let _ = window.show();
+    let _ = window.set_focus();
+}
+
 fn show_translate_window(window: &Window) {
     if is_translate_ready() {
-        let _ = window.unminimize();
-        let _ = window.show();
-        let _ = window.set_focus();
+        clear_translate_show_pending();
+        show_translate_window_now(window);
         return;
     }
 
-    let window_ = window.clone();
-    thread::spawn(move || {
-        let deadline = Instant::now() + Duration::from_millis(1800);
-        loop {
-            if is_translate_ready() || Instant::now() >= deadline {
-                let _ = window_.unminimize();
-                let _ = window_.show();
-                let _ = window_.set_focus();
-                break;
-            }
-            thread::sleep(Duration::from_millis(20));
-        }
-    });
+    mark_translate_show_pending();
 }
 
 pub fn config_window() {
@@ -179,9 +189,15 @@ fn translate_window() -> Window {
     if exists {
         return window;
     }
+    clear_translate_show_pending();
     mark_translate_not_ready();
+    let window_ = window.clone();
     window.once("translate_ready", move |_event| {
         mark_translate_ready();
+        if is_translate_show_pending() {
+            clear_translate_show_pending();
+            show_translate_window_now(&window_);
+        }
     });
     window.set_skip_taskbar(true).unwrap();
     // Get Translate Window Size
@@ -286,6 +302,50 @@ pub fn selection_translate() {
     window.emit("new_text", text).unwrap();
 }
 
+// Toggle path for high-frequency hotkey usage:
+// show window first, then fetch selected text asynchronously.
+pub fn selection_translate_toggle() {
+    use selection::get_text;
+
+    {
+        let mut last = LAST_SELECTION_TOGGLE.lock().unwrap();
+        let now = Instant::now();
+        if let Some(prev) = *last {
+            if now.duration_since(prev) < Duration::from_millis(120) {
+                info!("Selection toggle ignored by debounce");
+                return;
+            }
+        }
+        *last = Some(now);
+    }
+
+    let app_handle = APP.get().unwrap();
+    if let Some(window) = app_handle.get_window("translate") {
+        let visible = window.is_visible().unwrap_or(false);
+        let focused = window.is_focused().unwrap_or(false);
+        if visible || focused || is_translate_show_pending() {
+            clear_translate_show_pending();
+            let _ = window.hide();
+            return;
+        }
+    }
+
+    let window = translate_window();
+    show_translate_window(&window);
+
+    let app_handle = app_handle.clone();
+    thread::spawn(move || {
+        let text = get_text();
+        if !text.trim().is_empty() {
+            let state: tauri::State<StringWrapper> = app_handle.state();
+            state.0.lock().unwrap().replace_range(.., &text);
+        }
+        if let Some(window) = app_handle.get_window("translate") {
+            let _ = window.emit("new_text", text);
+        }
+    });
+}
+
 pub fn input_translate() {
     let app_handle = APP.get().unwrap();
     // Clear State
@@ -306,6 +366,33 @@ pub fn input_translate() {
 
     show_translate_window(&window);
     window.emit("new_text", "[INPUT_TRANSLATE]").unwrap();
+}
+
+pub fn input_translate_toggle() {
+    {
+        let mut last = LAST_INPUT_TOGGLE.lock().unwrap();
+        let now = Instant::now();
+        if let Some(prev) = *last {
+            if now.duration_since(prev) < Duration::from_millis(120) {
+                info!("Input toggle ignored by debounce");
+                return;
+            }
+        }
+        *last = Some(now);
+    }
+
+    let app_handle = APP.get().unwrap();
+    if let Some(window) = app_handle.get_window("translate") {
+        let visible = window.is_visible().unwrap_or(false);
+        let focused = window.is_focused().unwrap_or(false);
+        if visible || focused || is_translate_show_pending() {
+            clear_translate_show_pending();
+            let _ = window.hide();
+            return;
+        }
+    }
+
+    input_translate();
 }
 
 pub fn text_translate(text: String) {
