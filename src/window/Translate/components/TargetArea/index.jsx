@@ -10,6 +10,7 @@ import {
     DropdownMenu,
     DropdownTrigger,
     Tooltip,
+    Switch,
 } from '@nextui-org/react';
 import { BiCollapseVertical, BiExpandVertical } from 'react-icons/bi';
 import { BaseDirectory, readTextFile } from '@tauri-apps/api/fs';
@@ -26,10 +27,12 @@ import { useTranslation } from 'react-i18next';
 import Database from 'tauri-plugin-sql-api';
 import { GiCycle } from 'react-icons/gi';
 import { useTheme } from 'next-themes';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { isTempDisabledAtom, toggleTempTranslateDisabledAtom, tempTranslateDisabledSetAtom } from '../../../../state/temp-switch';
 import { nanoid } from 'nanoid';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
+
 
 import * as builtinCollectionServices from '../../../../services/collection';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
@@ -55,6 +58,9 @@ export default function TargetArea(props) {
     const { index, name, translateServiceInstanceList, pluginList, serviceInstanceConfigMap, ...drag } = props;
 
     const [currentTranslateServiceInstanceKey, setCurrentTranslateServiceInstanceKey] = useState(name);
+    const isDisabled = useAtomValue(isTempDisabledAtom(currentTranslateServiceInstanceKey));
+    const [, toggleTempDisabled] = useAtom(toggleTempTranslateDisabledAtom);
+
     function getInstanceName(instanceKey, serviceNameSupplier) {
         const instanceConfig = serviceInstanceConfigMap[instanceKey] ?? {};
         return getDisplayInstanceName(instanceConfig[INSTANCE_NAME_CONFIG_KEY], serviceNameSupplier);
@@ -85,6 +91,7 @@ export default function TargetArea(props) {
     const toastStyle = useToastStyle();
     const speak = useVoice();
     const theme = useTheme();
+    const setTempDisabledSet = useSetAtom(tempTranslateDisabledSetAtom);
 
     useEffect(() => {
         if (error) {
@@ -92,10 +99,47 @@ export default function TargetArea(props) {
         }
     }, [error]);
 
+    // 复原本地禁用集合（确保关闭窗口后再次打开仍然记住）
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('tempDisabledServices');
+            if (saved) {
+                setTempDisabledSet(new Set(JSON.parse(saved)));
+            }
+        } catch (_) {
+            // 忽略解析错误/非浏览器环境
+        }
+    }, [setTempDisabledSet]);
+
+    // 跨窗口/多实例同步（如存在多个 WebView）
+    useEffect(() => {
+        const handler = (e) => {
+            if (e && e.key === 'tempDisabledServices') {
+                try {
+                    const arr = e.newValue ? JSON.parse(e.newValue) : [];
+                    setTempDisabledSet(new Set(arr));
+                } catch (_) {
+                    // 忽略
+                }
+            }
+        };
+        window.addEventListener('storage', handler);
+        return () => window.removeEventListener('storage', handler);
+    }, [setTempDisabledSet]);
+
+
     // listen to translation
     useEffect(() => {
         setResult('');
         setError('');
+
+        // ✅ 被临时关闭：不触发请求，保持折叠，不显示提示文案
+        if (isDisabled) {
+            setIsLoading(false);
+            setHide(true);
+            return;
+        }
+
         if (
             sourceText.trim() !== '' &&
             sourceLanguage &&
@@ -121,7 +165,9 @@ export default function TargetArea(props) {
         hideWindow,
         currentTranslateServiceInstanceKey,
         clipboardMonitor,
+        isDisabled, // 依赖禁用态：切换时重新评估
     ]);
+
 
     // todo: history panel use service instance key
     const addToHistory = async (text, source, target, serviceInstanceKey, result) => {
@@ -161,6 +207,8 @@ export default function TargetArea(props) {
     }
 
     const translate = async () => {
+        if (isDisabled) return; // ✅ 被禁用时直接返回
+
         let id = nanoid();
         translateID[index] = id;
 
@@ -376,7 +424,7 @@ export default function TargetArea(props) {
     return (
         <Card
             shadow='none'
-            className='rounded-[10px]'
+            className={`rounded-[10px] ${isDisabled ? 'opacity-60' : ''}`}
         >
             <Toaster />
             <CardHeader
@@ -413,12 +461,20 @@ export default function TargetArea(props) {
                                 }
                             >
                                 {whetherPluginService(currentTranslateServiceInstanceKey) ? (
-                                    <div className='my-auto'>{`${getInstanceName(currentTranslateServiceInstanceKey, () => pluginList['translate'][getServiceName(currentTranslateServiceInstanceKey)].display)} `}</div>
+                                    <div className='my-auto'>{`${getInstanceName(
+                                        currentTranslateServiceInstanceKey,
+                                        () =>
+                                            pluginList['translate'][
+                                                getServiceName(currentTranslateServiceInstanceKey)
+                                            ].display
+                                    )} `}</div>
                                 ) : (
                                     <div className='my-auto'>
                                         {getInstanceName(currentTranslateServiceInstanceKey, () =>
                                             t(
-                                                `services.translate.${getServiceName(currentTranslateServiceInstanceKey)}.title`
+                                                `services.translate.${getServiceName(
+                                                    currentTranslateServiceInstanceKey
+                                                )}.title`
                                             )
                                         )}
                                     </div>
@@ -451,7 +507,10 @@ export default function TargetArea(props) {
                                         }
                                     >
                                         {whetherPluginService(instanceKey) ? (
-                                            <div className='my-auto'>{`${getInstanceName(instanceKey, () => pluginList['translate'][getServiceName(instanceKey)].display)} `}</div>
+                                            <div className='my-auto'>{`${getInstanceName(
+                                                instanceKey,
+                                                () => pluginList['translate'][getServiceName(instanceKey)].display
+                                            )} `}</div>
                                         ) : (
                                             <div className='my-auto'>
                                                 {getInstanceName(instanceKey, () =>
@@ -466,7 +525,11 @@ export default function TargetArea(props) {
                     </Dropdown>
                     <PulseLoader
                         loading={isLoading}
-                        color={theme === 'dark' ? semanticColors.dark.default[500] : semanticColors.light.default[500]}
+                        color={
+                            theme === 'dark'
+                                ? semanticColors.dark.default[500]
+                                : semanticColors.light.default[500]
+                        }
                         size={8}
                         cssOverride={{
                             display: 'inline-block',
@@ -475,13 +538,35 @@ export default function TargetArea(props) {
                         }}
                     />
                 </div>
-                {/* content collapse */}
-                <div className='flex'>
+                {/* 右侧：新增临时开关 + 保留原折叠按钮 */}
+                <div className='flex items-center gap-2'>
+                    <Tooltip
+                        content={t('translate.temp_disable_service', {
+                            defaultValue: '临时关闭此服务',
+                        })}
+                    >
+                        <Switch
+                            size='sm'
+                            color='success'
+                            className='my-[5px]'             // 上下各 ~10% 留白（30px 高度的 3px）
+                            isSelected={!isDisabled}
+                            onValueChange={() => {
+                                toggleTempDisabled(currentTranslateServiceInstanceKey);
+                                // 关闭后：记住禁用状态 + 保持折叠 + 清空内容
+                                setHide(true);
+                                setResult('');
+                                setError('');
+                            }}
+                            aria-label='Temp service switch'
+                        />
+                    </Tooltip>
+
                     <Button
                         size='sm'
                         isIconOnly
                         variant='light'
                         className='h-[20px] w-[20px]'
+                        isDisabled={isDisabled}              // 禁用时不允许展开
                         onPress={() => setHide(!hide)}
                     >
                         {hide ? (
