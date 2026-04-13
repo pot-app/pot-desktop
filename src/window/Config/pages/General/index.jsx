@@ -35,6 +35,7 @@ export default function General() {
     const [appFontSize, setAppFontSize] = useConfig('app_font_size', 16);
     const [transparent, setTransparent] = useConfig('transparent', true);
     const [devMode, setDevMode] = useConfig('dev_mode', false);
+    const [realTimeTranslate, setRealTimeTranslate] = useConfig('real_time_translate', false);
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
@@ -486,6 +487,22 @@ export default function General() {
                                 isSelected={devMode}
                                 onValueChange={(v) => {
                                     setDevMode(v);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3>实时翻译</h3>
+                        {realTimeTranslate !== null && (
+                            <Switch
+                                isSelected={realTimeTranslate}
+                                onValueChange={(v) => {
+                                    setRealTimeTranslate(v);
+                                    invoke('update_realtime_translate_state', { enable: v });
+                                    toast.success(v ? '实时翻译已开启' : '实时翻译已关闭', {
+                                        duration: 1000,
+                                        style: toastStyle,
+                                    });
                                 }}
                             />
                         )}

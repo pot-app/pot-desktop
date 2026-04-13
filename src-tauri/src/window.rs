@@ -235,6 +235,7 @@ pub fn selection_translate() {
     }
 
     let window = translate_window();
+    
     window.emit("new_text", text).unwrap();
 }
 
