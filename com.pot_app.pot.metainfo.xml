@@ -234,4 +234,9 @@
         </release>
     </releases>
     <content_rating type="oars-1.1"/>
+    <keywords>
+        <keyword>ocr</keyword>
+        <keyword>text translation</keyword>
+        <keyword>keyboard translator</keyword>
+    </keywords>
 </component>
