@@ -121,7 +121,7 @@
             "iconAsTemplate": true
         },
         "updater": {
-            "active": true,
+            "active": false,
             "dialog": false,
             "endpoints": [
                 "https://dl.pot-app.com/https://github.com/pot-app/pot-desktop/releases/download/updater/update.json",
