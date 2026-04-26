@@ -1,6 +1,8 @@
 name: Build Windows Pot
 on:
-  workflow_dispatch: # 允许你在网页上手动点击运行
+  push:
+    branches: [ "test-spen" ] # 监听你这个测试分支的修改
+  workflow_dispatch: # 保留手动触发备用
 
 jobs:
   build:
