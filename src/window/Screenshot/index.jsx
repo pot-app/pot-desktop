@@ -57,7 +57,9 @@ export default function Screenshot() {
             />
             <div
                 className='fixed top-0 left-0 bottom-0 right-0 cursor-crosshair select-none'
-                onMouseDown={(e) => {
+                style={{ touchAction: 'none' }} // 关键修改1：强制禁用浏览器的默认触摸滚动/缩放手势
+                onPointerDown={(e) => { // 关键修改2：升级为统一的指针事件
+                    e.target.setPointerCapture(e.pointerId); // 关键修改3：捕获指针焦点，防止笔尖滑动过快脱离DOM
                     if (e.buttons === 1) {
                         setIsDown(true);
                         setMouseDownX(e.clientX);
@@ -66,14 +68,15 @@ export default function Screenshot() {
                         void appWindow.close();
                     }
                 }}
-                onMouseMove={(e) => {
+                onPointerMove={(e) => {
                     if (isDown) {
                         setIsMoved(true);
                         setMouseMoveX(e.clientX);
                         setMouseMoveY(e.clientY);
                     }
                 }}
-                onMouseUp={async (e) => {
+                onPointerUp={async (e) => {
+                    e.target.releasePointerCapture(e.pointerId); // 关键修改4：释放指针焦点
                     appWindow.hide();
                     setIsDown(false);
                     setIsMoved(false);
