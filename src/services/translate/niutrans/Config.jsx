@@ -18,6 +18,7 @@ export function Config(props) {
         {
             [INSTANCE_NAME_CONFIG_KEY]: t('services.translate.niutrans.title'),
             https: true,
+            is_campus: false,
             apikey: '',
         },
         { sync: false }
@@ -75,6 +76,19 @@ export function Config(props) {
                     >
                         {t('services.help')}
                     </Button>
+                </div>
+                <div className={'config-item'}>
+                    <Switch
+                        isSelected={config['is_campus'] ?? false}
+                        onValueChange={(v) => {
+                            setConfig({ ...config, is_campus: v });
+                        }}
+                        classNames={{
+                            base: 'flex flex-row-reverse justify-between w-full max-w-full',
+                        }}
+                    >
+                        NEU
+                    </Switch>
                 </div>
                 <div className={'config-item'}>
                     <Switch
