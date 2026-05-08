@@ -87,22 +87,24 @@ export function Config(props) {
                             base: 'flex flex-row-reverse justify-between w-full max-w-full',
                         }}
                     >
-                        NEU
+                        {t('services.translate.niutrans.is_campus')}
                     </Switch>
                 </div>
-                <div className={'config-item'}>
-                    <Switch
-                        isSelected={config['https'] ?? true}
-                        onValueChange={(v) => {
-                            setConfig({ ...config, https: v });
-                        }}
-                        classNames={{
-                            base: 'flex flex-row-reverse justify-between w-full max-w-full',
-                        }}
-                    >
-                        {t('services.translate.niutrans.https')}
-                    </Switch>
-                </div>
+                {!(config['is_campus'] ?? false) && (
+                    <div className={'config-item'}>
+                        <Switch
+                            isSelected={config['https'] ?? true}
+                            onValueChange={(v) => {
+                                setConfig({ ...config, https: v });
+                            }}
+                            classNames={{
+                                base: 'flex flex-row-reverse justify-between w-full max-w-full',
+                            }}
+                        >
+                            {t('services.translate.niutrans.https')}
+                        </Switch>
+                    </div>
+                )}
                 <div className={'config-item'}>
                     <Input
                         label={t('services.translate.niutrans.apikey')}

@@ -6,10 +6,10 @@ export async function translate(text, from, to, options = {}) {
     const { https, apikey, is_campus } = config;
 
     const url = is_campus 
-        ? `https://trans.neu.edu.cn/niutrans/textTranslation?apikey=${apikey}`
+        ? `https://trans.neu.edu.cn/niutrans/textTranslation`
         : `${https ? 'https' : 'http'}://api.niutrans.com/NiuTransServer/translation`;
 
-    let res = await fetch(url, {
+    let reqOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +20,13 @@ export async function translate(text, from, to, options = {}) {
             apikey: apikey, // 内部版如果不需要body里的apikey会自动忽略，公网版需要
             src_text: text,
         }),
-    });
+    };
+
+    if (is_campus) {
+        reqOptions.query = { apikey: apikey };
+    }
+
+    let res = await fetch(url, reqOptions);
 
     // 返回翻译结果
     if (res.ok) {
