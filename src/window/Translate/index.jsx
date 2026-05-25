@@ -32,7 +32,7 @@ const listenBlur = () => {
             // 如果直接关闭将导致窗口无法拖动
             blurTimeout = setTimeout(async () => {
                 info('Confirm Blur');
-                await appWindow.close();
+                await appWindow.hide();
             }, 100);
         }
     });
@@ -167,23 +167,27 @@ export default function Translate() {
         let temp = {};
         for (const serviceType of serviceTypeList) {
             temp[serviceType] = {};
-            if (await exists(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig })) {
-                const plugins = await readDir(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig });
-                for (const plugin of plugins) {
-                    const infoStr = await readTextFile(`plugins/${serviceType}/${plugin.name}/info.json`, {
-                        dir: BaseDirectory.AppConfig,
-                    });
-                    let pluginInfo = JSON.parse(infoStr);
-                    if ('icon' in pluginInfo) {
-                        const appConfigDirPath = await appConfigDir();
-                        const iconPath = await join(
-                            appConfigDirPath,
-                            `/plugins/${serviceType}/${plugin.name}/${pluginInfo.icon}`
-                        );
-                        pluginInfo.icon = convertFileSrc(iconPath);
+            try {
+                if (await exists(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig })) {
+                    const plugins = await readDir(`plugins/${serviceType}`, { dir: BaseDirectory.AppConfig });
+                    for (const plugin of plugins) {
+                        const infoStr = await readTextFile(`plugins/${serviceType}/${plugin.name}/info.json`, {
+                            dir: BaseDirectory.AppConfig,
+                        });
+                        let pluginInfo = JSON.parse(infoStr);
+                        if ('icon' in pluginInfo) {
+                            const appConfigDirPath = await appConfigDir();
+                            const iconPath = await join(
+                                appConfigDirPath,
+                                `/plugins/${serviceType}/${plugin.name}/${pluginInfo.icon}`
+                            );
+                            pluginInfo.icon = convertFileSrc(iconPath);
+                        }
+                        temp[serviceType][plugin.name] = pluginInfo;
                     }
-                    temp[serviceType][plugin.name] = pluginInfo;
                 }
+            } catch (e) {
+                info(`loadPluginList failed on ${serviceType}: ${e}`);
             }
         }
         setPluginList({ ...temp });
@@ -198,17 +202,21 @@ export default function Translate() {
 
     const loadServiceInstanceConfigMap = async () => {
         const config = {};
-        for (const serviceInstanceKey of translateServiceInstanceList) {
-            config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
-        }
-        for (const serviceInstanceKey of recognizeServiceInstanceList) {
-            config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
-        }
-        for (const serviceInstanceKey of ttsServiceInstanceList) {
-            config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
-        }
-        for (const serviceInstanceKey of collectionServiceInstanceList) {
-            config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+        try {
+            for (const serviceInstanceKey of translateServiceInstanceList) {
+                config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+            }
+            for (const serviceInstanceKey of recognizeServiceInstanceList) {
+                config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+            }
+            for (const serviceInstanceKey of ttsServiceInstanceList) {
+                config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+            }
+            for (const serviceInstanceKey of collectionServiceInstanceList) {
+                config[serviceInstanceKey] = (await store.get(serviceInstanceKey)) ?? {};
+            }
+        } catch (e) {
+            info(`loadServiceInstanceConfigMap failed: ${e}`);
         }
         setServiceInstanceConfigMap({ ...config });
     };
@@ -227,6 +235,16 @@ export default function Translate() {
         ttsServiceInstanceList,
         collectionServiceInstanceList,
     ]);
+
+    useEffect(() => {
+        if (
+            appWindow.label === 'translate' &&
+            pluginList !== null &&
+            serviceInstanceConfigMap !== null
+        ) {
+            void appWindow.emit('translate_ready');
+        }
+    }, [pluginList, serviceInstanceConfigMap]);
 
     return (
         pluginList && (
