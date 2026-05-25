@@ -228,6 +228,16 @@ export default function Translate() {
         collectionServiceInstanceList,
     ]);
 
+    useEffect(() => {
+        if (
+            appWindow.label === 'translate' &&
+            pluginList !== null &&
+            serviceInstanceConfigMap !== null
+        ) {
+            void appWindow.emit('translate_ready');
+        }
+    }, [pluginList, serviceInstanceConfigMap]);
+
     return (
         pluginList && (
             <div
