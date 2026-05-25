@@ -3,11 +3,13 @@ import { fetch, Body } from '@tauri-apps/api/http';
 export async function translate(text, from, to, options = {}) {
     const { config } = options;
 
-    const { https, apikey } = config;
+    const { https, apikey, is_campus } = config;
 
-    const url = `${https ? 'https' : 'http'}://api.niutrans.com/NiuTransServer/translation`;
+    const url = is_campus 
+        ? `https://trans.neu.edu.cn/niutrans/textTranslation`
+        : `${https ? 'https' : 'http'}://api.niutrans.com/NiuTransServer/translation`;
 
-    let res = await fetch(url, {
+    let reqOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,14 +17,29 @@ export async function translate(text, from, to, options = {}) {
         body: Body.json({
             from: from,
             to: to,
-            apikey: apikey,
+            apikey: apikey, // 内部版如果不需要body里的apikey会自动忽略，公网版需要
             src_text: text,
         }),
-    });
+    };
+
+    if (is_campus) {
+        reqOptions.query = { apikey: apikey };
+    }
+
+    let res = await fetch(url, reqOptions);
 
     // 返回翻译结果
     if (res.ok) {
         let result = res.data;
+        if (is_campus) {
+            if (result.code === 200 && result.data && result.data.length > 0) {
+                return result.data.map(d => 
+                    d.sentences.map(s => s.data).join('')
+                ).join('\n').trim();
+            } else {
+                throw JSON.stringify(result);
+            }
+        }
         if (result && result['tgt_text']) {
             return result['tgt_text'].trim();
         } else {

@@ -341,6 +341,7 @@
                 "niutrans": {
                     "title": "小牛翻译",
                     "https": "使用 Https",
+                    "is_campus": "NEU校园版",
                     "apikey": "API Key"
                 },
                 "youdao": {
