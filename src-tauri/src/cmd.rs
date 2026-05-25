@@ -193,11 +193,9 @@ pub fn run_binary(
     let plugin_path = config_path.join(plugin_name);
 
     #[cfg(target_os = "windows")]
-    let mut cmd = Command::new("cmd");
+    let mut cmd = Command::new(&cmd_name);
     #[cfg(target_os = "windows")]
     let cmd = cmd.creation_flags(0x08000000);
-    #[cfg(target_os = "windows")]
-    let cmd = cmd.args(["/c", &cmd_name]);
     #[cfg(not(target_os = "windows"))]
     let mut cmd = Command::new(&cmd_name);
 
