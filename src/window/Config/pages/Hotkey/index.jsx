@@ -1,4 +1,3 @@
-import { unregister, isRegistered } from '@tauri-apps/api/globalShortcut';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CardBody } from '@nextui-org/react';
@@ -46,10 +45,10 @@ const keyMap = {
 };
 
 export default function Hotkey() {
-    const [selectionTranslate, setSelectionTranslate] = useConfig('hotkey_selection_translate', '');
-    const [inputTranslate, setInputTranslate] = useConfig('hotkey_input_translate', '');
-    const [ocrRecognize, setOcrRecognize] = useConfig('hotkey_ocr_recognize', '');
-    const [ocrTranslate, setOcrTranslate] = useConfig('hotkey_ocr_translate', '');
+    const [selectionTranslate, setSelectionTranslate] = useConfig('hotkey_selection_translate', '', { sync: false });
+    const [inputTranslate, setInputTranslate] = useConfig('hotkey_input_translate', '', { sync: false });
+    const [ocrRecognize, setOcrRecognize] = useConfig('hotkey_ocr_recognize', '', { sync: false });
+    const [ocrTranslate, setOcrTranslate] = useConfig('hotkey_ocr_translate', '', { sync: false });
 
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
@@ -93,24 +92,19 @@ export default function Hotkey() {
         }
     }
 
-    function registerHandler(name, key) {
-        isRegistered(key).then((res) => {
-            if (res) {
-                toast.error(t('config.hotkey.is_register'), { style: toastStyle });
-            } else {
-                invoke('register_shortcut_by_frontend', {
-                    name: name,
-                    shortcut: key,
-                }).then(
-                    () => {
-                        toast.success(t('config.hotkey.success'), { style: toastStyle });
-                    },
-                    (e) => {
-                        toast.error(e, { style: toastStyle });
-                    }
-                );
+    function registerHandler(name, key, setKey) {
+        invoke('register_shortcut_by_frontend', {
+            name: name,
+            shortcut: key,
+        }).then(
+            () => {
+                setKey(key, true);
+                toast.success(t('config.hotkey.success'), { style: toastStyle });
+            },
+            (e) => {
+                toast.error(e, { style: toastStyle });
             }
-        });
+        );
     }
 
     return (
@@ -129,17 +123,16 @@ export default function Hotkey() {
                             onKeyDown={(e) => {
                                 keyDown(e, setSelectionTranslate);
                             }}
-                            onFocus={() => {
-                                unregister(selectionTranslate);
-                                setSelectionTranslate('');
-                            }}
                             endContent={
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    className={`${selectionTranslate === '' && 'hidden'}`}
                                     onPress={() => {
-                                        registerHandler('hotkey_selection_translate', selectionTranslate);
+                                        registerHandler(
+                                            'hotkey_selection_translate',
+                                            selectionTranslate,
+                                            setSelectionTranslate
+                                        );
                                     }}
                                 >
                                     {t('common.ok')}
@@ -160,17 +153,12 @@ export default function Hotkey() {
                             onKeyDown={(e) => {
                                 keyDown(e, setInputTranslate);
                             }}
-                            onFocus={() => {
-                                unregister(inputTranslate);
-                                setInputTranslate('');
-                            }}
                             endContent={
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    className={`${inputTranslate === '' && 'hidden'}`}
                                     onPress={() => {
-                                        registerHandler('hotkey_input_translate', inputTranslate);
+                                        registerHandler('hotkey_input_translate', inputTranslate, setInputTranslate);
                                     }}
                                 >
                                     {t('common.ok')}
@@ -191,17 +179,12 @@ export default function Hotkey() {
                             onKeyDown={(e) => {
                                 keyDown(e, setOcrRecognize);
                             }}
-                            onFocus={() => {
-                                unregister(ocrRecognize);
-                                setOcrRecognize('');
-                            }}
                             endContent={
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    className={`${ocrRecognize === '' && 'hidden'}`}
                                     onPress={() => {
-                                        registerHandler('hotkey_ocr_recognize', ocrRecognize);
+                                        registerHandler('hotkey_ocr_recognize', ocrRecognize, setOcrRecognize);
                                     }}
                                 >
                                     {t('common.ok')}
@@ -222,17 +205,12 @@ export default function Hotkey() {
                             onKeyDown={(e) => {
                                 keyDown(e, setOcrTranslate);
                             }}
-                            onFocus={() => {
-                                unregister(ocrTranslate);
-                                setOcrTranslate('');
-                            }}
                             endContent={
                                 <Button
                                     size='sm'
                                     variant='flat'
-                                    className={`${ocrTranslate === '' && 'hidden'}`}
                                     onPress={() => {
-                                        registerHandler('hotkey_ocr_translate', ocrTranslate);
+                                        registerHandler('hotkey_ocr_translate', ocrTranslate, setOcrTranslate);
                                     }}
                                 >
                                     {t('common.ok')}
