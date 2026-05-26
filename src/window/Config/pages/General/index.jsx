@@ -35,6 +35,7 @@ export default function General() {
     const [appFontSize, setAppFontSize] = useConfig('app_font_size', 16);
     const [transparent, setTransparent] = useConfig('transparent', true);
     const [devMode, setDevMode] = useConfig('dev_mode', false);
+    const [displayIconType, setDisplayIconType] = useConfig('display_icon_type', 'menubar');
     const [trayClickEvent, setTrayClickEvent] = useConfig('tray_click_event', 'config');
     const [proxyEnable, setProxyEnable] = useConfig('proxy_enable', false);
     const [proxyHost, setProxyHost] = useConfig('proxy_host', '');
@@ -76,6 +77,18 @@ export default function General() {
             setFontList(v);
         });
     }, []);
+
+    // 监听显示图标类型变化
+    useEffect(() => {
+        if (displayIconType !== null && displayIconType !== '') {
+            // 根据配置显示或隐藏悬浮图标
+            if (displayIconType === 'floating') {
+                invoke('show_floating_icon_window');
+            } else {
+                invoke('hide_floating_icon_window');
+            }
+        }
+    }, [displayIconType]);
 
     return (
         <>
@@ -438,6 +451,25 @@ export default function General() {
                                     <DropdownItem key={18}>{t(`config.general.font_size.18`)}</DropdownItem>
                                     <DropdownItem key={20}>{t(`config.general.font_size.20`)}</DropdownItem>
                                     <DropdownItem key={24}>{t(`config.general.font_size.24`)}</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        )}
+                    </div>
+                    <div className='config-item'>
+                        <h3 className='my-auto'>{t('config.general.display_icon')}</h3>
+                        {displayIconType !== null && (
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button variant='bordered'>{t(`config.general.display_icon_type.${displayIconType}`)}</Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    aria-label='display icon type'
+                                    onAction={(key) => {
+                                        setDisplayIconType(key);
+                                    }}
+                                >
+                                    <DropdownItem key='menubar'>{t('config.general.display_icon_type.menubar')}</DropdownItem>
+                                    <DropdownItem key='floating'>{t('config.general.display_icon_type.floating')}</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         )}

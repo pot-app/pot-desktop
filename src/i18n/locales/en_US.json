@@ -82,10 +82,15 @@
                 },
                 "proxy_change": "The proxy has been changed, Restart the application for the changes to take effect",
                 "proxy_error": "Please fill in the host and port",
+                "display_icon": "Display Icon",
+                "display_icon_type": {
+                    "menubar": "Menu Bar",
+                    "floating": "Floating Icon"
+                },
                 "tray_click_event": "Tray Click Event",
                 "event": {
-                    "config": "Preference",
-                    "translate": "Translate",
+                    "config": "Preferences",
+                    "translate": "Open Translate Window",
                     "disable": "Disable",
                     "ocr_recognize": "Text Recognition",
                     "ocr_translate": "Screenshot Translation"
@@ -458,7 +463,14 @@
             "copy": "Copy",
             "retry": "Try again",
             "delete_newline": "Delete Newline",
-            "translate_back": "Translation back to the original"
+            "translate_back": "Translation back to the original",
+            "mode": {
+                "normal": "Normal Mode (Translate each time)",
+                "remember_collapse": "Remember Collapse State",
+                "always_collapse": "Always Collapse",
+                "quit": "Disable This Service",
+                "disabled_success": "has been disabled"
+            }
         },
         "recognize": {
             "recognize": "Recognize",
