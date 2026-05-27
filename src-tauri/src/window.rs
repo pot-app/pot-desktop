@@ -268,6 +268,18 @@ pub fn text_translate(text: String) {
     window.emit("new_text", text).unwrap();
 }
 
+pub fn slide_translate(text: String) {
+    let app_handle = APP.get().unwrap();
+    // Clear State
+    let state: tauri::State<StringWrapper> = app_handle.state();
+    state.0.lock().unwrap().replace_range(.., &text);
+    let window = translateicon_window();
+    window.show().unwrap();
+    window.set_skip_taskbar(true).unwrap();
+    window.set_always_on_top(true).unwrap(); 
+    window.emit("new_text", text).unwrap();
+}
+
 pub fn image_translate() {
     let app_handle = APP.get().unwrap();
     let state: tauri::State<StringWrapper> = app_handle.state();
@@ -408,4 +420,141 @@ pub fn updater_window() {
         .unwrap();
     window.set_size(tauri::LogicalSize::new(600, 400)).unwrap();
     window.center().unwrap();
+}
+
+pub fn translateicon_window() -> Window {
+    use mouse_position::mouse_position::{Mouse, Position};
+    
+    // Mouse physical position
+    let mut mouse_position = match Mouse::get_mouse_position() {
+        Mouse::Position { x, y } => Position { x, y },
+        Mouse::Error => {
+            warn!("Mouse position not found, using (0, 0) as default");
+            Position { x: 0, y: 0 }
+        }
+    };
+
+    // Add offsets to avoid direct mouse triggered hovering
+    const OFFSET: i32 = 10;
+    mouse_position.x += OFFSET;
+    mouse_position.y += OFFSET;
+
+    let (window, exists) = build_window("translateicon", "TranslateIcon");
+    if exists {
+        // Initial small size (35x42)
+        let initial_width = 35.0;
+        let initial_height = 42.0;
+
+        // Get monitor info
+        let monitor = window.current_monitor().unwrap().unwrap();
+        let dpi = monitor.scale_factor();
+        // Adjust window position based on monitor boundaries
+        let monitor_size = monitor.size();
+        let monitor_size_width = monitor_size.width as f64;
+        let monitor_size_height = monitor_size.height as f64;
+        let monitor_position = monitor.position();
+        let monitor_position_x = monitor_position.x as f64;
+        let monitor_position_y = monitor_position.y as f64;
+
+        // Use initial size for positioning
+        if mouse_position.x as f64 + initial_width * dpi > monitor_position_x + monitor_size_width {
+            mouse_position.x -= (initial_width * dpi) as i32;
+            if (mouse_position.x as f64) < monitor_position_x {
+                mouse_position.x = monitor_position_x as i32;
+            }
+        }
+        if mouse_position.y as f64 + initial_height * dpi > monitor_position_y + monitor_size_height {
+            mouse_position.y -= (initial_height * dpi) as i32;
+            if (mouse_position.y as f64) < monitor_position_y {
+                mouse_position.y = monitor_position_y as i32;
+            }
+        }
+
+         window
+        .set_size(tauri::PhysicalSize::new(
+            initial_width * dpi,
+            initial_height * dpi,
+        ))
+        .unwrap();
+        window
+            .set_position(tauri::PhysicalPosition::new(
+                mouse_position.x,
+                mouse_position.y,
+            ))
+            .unwrap();
+        return window;
+    }
+
+    // Get monitor info
+    let monitor = window.current_monitor().unwrap().unwrap();
+    let dpi = monitor.scale_factor();
+
+    // Initial small size (35x42)
+    let initial_width = 35.0;
+    let initial_height = 42.0;
+
+    // Set initial small size
+    window
+        .set_size(tauri::PhysicalSize::new(
+            initial_width * dpi,
+            initial_height * dpi,
+        ))
+        .unwrap();
+
+    // Position the window
+    let position_type = match get("translate_window_position") {
+        Some(v) => v.as_str().unwrap().to_string(),
+        None => "mouse".to_string(),
+    };
+
+    match position_type.as_str() {
+        "mouse" => {
+            // Adjust window position based on monitor boundaries
+            let monitor_size = monitor.size();
+            let monitor_size_width = monitor_size.width as f64;
+            let monitor_size_height = monitor_size.height as f64;
+            let monitor_position = monitor.position();
+            let monitor_position_x = monitor_position.x as f64;
+            let monitor_position_y = monitor_position.y as f64;
+
+            // Use initial size for positioning
+            if mouse_position.x as f64 + initial_width * dpi > monitor_position_x + monitor_size_width {
+                mouse_position.x -= (initial_width * dpi) as i32;
+                if (mouse_position.x as f64) < monitor_position_x {
+                    mouse_position.x = monitor_position_x as i32;
+                }
+            }
+            if mouse_position.y as f64 + initial_height * dpi > monitor_position_y + monitor_size_height {
+                mouse_position.y -= (initial_height * dpi) as i32;
+                if (mouse_position.y as f64) < monitor_position_y {
+                    mouse_position.y = monitor_position_y as i32;
+                }
+            }
+
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    mouse_position.x,
+                    mouse_position.y,
+                ))
+                .unwrap();
+        }
+        _ => {
+            let position_x = match get("translate_window_position_x") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            let position_y = match get("translate_window_position_y") {
+                Some(v) => v.as_i64().unwrap(),
+                None => 0,
+            };
+            window
+                .set_position(tauri::PhysicalPosition::new(
+                    (position_x as f64) * dpi,
+                    (position_y as f64) * dpi,
+                ))
+                .unwrap();
+        }
+    }
+
+    window
 }
