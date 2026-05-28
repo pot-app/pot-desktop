@@ -436,6 +436,10 @@
                 "lingva_tts": {
                     "title": "Lingva",
                     "request_path": "Request Path"
+                },
+                "edge_tts": {
+                    "title": "Edge",
+                    "request_path": "Voice Short Name"
                 }
             },
             "collection": {

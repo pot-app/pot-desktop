@@ -204,6 +204,10 @@
                 "lingva_tts": {
                     "title": "Lingva",
                     "request_path": "Percorso richiesto"
+                },
+                "edge_tts": {
+                    "title": "Edge",
+                    "voice_short_name": "Nome Breve Voce"
                 }
             }
         },

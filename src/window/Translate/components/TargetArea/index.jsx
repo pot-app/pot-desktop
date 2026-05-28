@@ -62,7 +62,7 @@ export default function TargetArea(props) {
 
     const [appFontSize] = useConfig('app_font_size', 16);
     const [collectionServiceList] = useConfig('collection_service_list', []);
-    const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts']);
+    const [ttsServiceList] = useConfig('tts_service_list', ['lingva_tts', 'edge_tts']);
     const [translateSecondLanguage] = useConfig('translate_second_language', 'en');
     const [historyDisable] = useConfig('history_disable', false);
     const [isLoading, setIsLoading] = useState(false);
@@ -682,7 +682,7 @@ export default function TargetArea(props) {
                                         if (whetherPluginService(currentTranslateServiceInstanceKey)) {
                                             const pluginInfo =
                                                 pluginList['translate'][
-                                                    getServiceName(currentTranslateServiceInstanceKey)
+                                                getServiceName(currentTranslateServiceInstanceKey)
                                                 ];
                                             if (
                                                 newSourceLanguage in pluginInfo.language &&
@@ -858,13 +858,13 @@ export default function TargetArea(props) {
                                             <img
                                                 src={
                                                     getServiceSouceType(collectionServiceInstanceName) ===
-                                                    ServiceSourceType.PLUGIN
+                                                        ServiceSourceType.PLUGIN
                                                         ? pluginList['collection'][
-                                                              getServiceName(collectionServiceInstanceName)
-                                                          ].icon
+                                                            getServiceName(collectionServiceInstanceName)
+                                                        ].icon
                                                         : builtinCollectionServices[
-                                                              getServiceName(collectionServiceInstanceName)
-                                                          ].info.icon
+                                                            getServiceName(collectionServiceInstanceName)
+                                                        ].info.icon
                                                 }
                                                 className='h-[16px] w-[16px]'
                                             />
