@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
 function unwrapFencedMarkdown(value) {
@@ -49,7 +50,7 @@ export default function MarkdownResult({ content, fontSize }) {
     return (
         <ReactMarkdown
             className='translation-markdown select-text'
-            remarkPlugins={[remarkMath]}
+            remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
             components={{
                 p: ({ node, ...props }) => (

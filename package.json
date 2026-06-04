@@ -39,6 +39,7 @@
         "react-spinners": "^0.14.1",
         "react-use-measure": "^2.1.1",
         "rehype-katex": "^7.0.1",
+        "remark-gfm": "^4.0.1",
         "remark-math": "^6.0.0",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#v1",
         "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
