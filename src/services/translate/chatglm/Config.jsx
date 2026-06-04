@@ -14,6 +14,7 @@ import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
 import { Language } from './index';
+import { defaultTranslationAcknowledgement, defaultTranslationSystemPrompt, defaultTranslationUserPrompt } from '../prompt';
 
 // https://open.bigmodel.cn/dev/api/normal-model/glm-4
 const availableModels = 'glm-4-plus、glm-4-0520、glm-4 、glm-4-air、glm-4-airx、glm-4-long 、 glm-4-flash'.split('、').map(it => it.trim());
@@ -30,13 +31,12 @@ export function Config(props) {
             promptList: [
                 {
                     role: 'user',
-                    content:
-                        'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                    content: defaultTranslationSystemPrompt,
                 },
-                { role: 'assistant', content: 'Ok, I will only translate the text content, never interpret it.' },
+                { role: 'assistant', content: defaultTranslationAcknowledgement },
                 { role: 'user', content: `Translate into Chinese\n"""\nhello\n"""` },
                 { role: 'assistant', content: '你好' },
-                { role: 'user', content: `Translate into $to\n"""\n$text\n"""` },
+                { role: 'user', content: defaultTranslationUserPrompt },
             ],
         },
         { sync: false }

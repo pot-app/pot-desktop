@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
 import { invoke } from '@tauri-apps/api/tauri';
+import { getWebWindowLabel, isTauri } from './utils/runtime';
 import Screenshot from './window/Screenshot';
 import Translate from './window/Translate';
 import Recognize from './window/Recognize';
@@ -45,13 +46,13 @@ export default function App() {
                 if (e.ctrlKey && !allowKeys.includes(e.key.toLowerCase())) {
                     e.preventDefault();
                 }
-                if (e.key === 'F12') {
+                if (e.key === 'F12' && isTauri()) {
                     await invoke('open_devtools');
                 }
                 if (e.key.startsWith('F') && e.key.length > 1) {
                     e.preventDefault();
                 }
-                if (e.key === 'Escape') {
+                if (e.key === 'Escape' && isTauri()) {
                     await appWindow.close();
                 }
             });
@@ -64,7 +65,7 @@ export default function App() {
                 if (e.key.startsWith('F') && e.key.length > 1) {
                     e.preventDefault();
                 }
-                if (e.key === 'Escape') {
+                if (e.key === 'Escape' && isTauri()) {
                     await appWindow.close();
                 }
             });
@@ -113,5 +114,7 @@ export default function App() {
         }
     }, [appFont, appFallbackFont, appFontSize]);
 
-    return <BrowserRouter>{windowMap[appWindow.label]}</BrowserRouter>;
+    const windowLabel = isTauri() ? appWindow.label : getWebWindowLabel();
+
+    return <BrowserRouter>{windowMap[windowLabel] ?? windowMap.translate}</BrowserRouter>;
 }

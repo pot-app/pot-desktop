@@ -7,6 +7,7 @@ import React from 'react';
 import { initStore } from './utils/store';
 import { initEnv } from './utils/env';
 import App from './App';
+import 'katex/dist/katex.min.css';
 
 if (import.meta.env.PROD) {
     document.addEventListener('contextmenu', (e) => {

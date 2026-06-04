@@ -16,12 +16,17 @@ import { osType } from '../../utils/env';
 import { useConfig } from '../../hooks';
 import { store } from '../../utils/store';
 import { info } from 'tauri-plugin-log-api';
+import { isTauri } from '../../utils/runtime';
 
 let blurTimeout = null;
 let resizeTimeout = null;
 let moveTimeout = null;
 
 const listenBlur = () => {
+    if (!isTauri()) {
+        return Promise.resolve(() => {});
+    }
+
     return listen('tauri://blur', () => {
         if (appWindow.label === 'translate') {
             if (blurTimeout) {
@@ -47,21 +52,25 @@ const unlistenBlur = () => {
 };
 
 // 监听 focus 事件取消 blurTimeout 时间之内的关闭窗口
-void listen('tauri://focus', () => {
-    info('Focus');
-    if (blurTimeout) {
-        info('Cancel Close');
-        clearTimeout(blurTimeout);
-    }
-});
+if (isTauri()) {
+    void listen('tauri://focus', () => {
+        info('Focus');
+        if (blurTimeout) {
+            info('Cancel Close');
+            clearTimeout(blurTimeout);
+        }
+    });
+}
 // 监听 move 事件取消 blurTimeout 时间之内的关闭窗口
-void listen('tauri://move', () => {
-    info('Move');
-    if (blurTimeout) {
-        info('Cancel Close');
-        clearTimeout(blurTimeout);
-    }
-});
+if (isTauri()) {
+    void listen('tauri://move', () => {
+        info('Move');
+        if (blurTimeout) {
+            info('Cancel Close');
+            clearTimeout(blurTimeout);
+        }
+    });
+}
 
 export default function Translate() {
     const [closeOnBlur] = useConfig('translate_close_on_blur', true);
@@ -104,14 +113,16 @@ export default function Translate() {
     // 是否默认置顶
     useEffect(() => {
         if (alwaysOnTop !== null && alwaysOnTop) {
-            appWindow.setAlwaysOnTop(true);
+            if (isTauri()) {
+                appWindow.setAlwaysOnTop(true);
+            }
             unlistenBlur();
             setPined(true);
         }
     }, [alwaysOnTop]);
     // 保存窗口位置
     useEffect(() => {
-        if (windowPosition !== null && windowPosition === 'pre_state') {
+        if (isTauri() && windowPosition !== null && windowPosition === 'pre_state') {
             const unlistenMove = listen('tauri://move', async () => {
                 if (moveTimeout) {
                     clearTimeout(moveTimeout);
@@ -137,7 +148,7 @@ export default function Translate() {
     }, [windowPosition]);
     // 保存窗口大小
     useEffect(() => {
-        if (rememberWindowSize !== null && rememberWindowSize) {
+        if (isTauri() && rememberWindowSize !== null && rememberWindowSize) {
             const unlistenResize = listen('tauri://resize', async () => {
                 if (resizeTimeout) {
                     clearTimeout(resizeTimeout);
@@ -163,6 +174,11 @@ export default function Translate() {
     }, [rememberWindowSize]);
 
     const loadPluginList = async () => {
+        if (!isTauri()) {
+            setPluginList({ translate: {}, tts: {}, recognize: {}, collection: {} });
+            return;
+        }
+
         const serviceTypeList = ['translate', 'tts', 'recognize', 'collection'];
         let temp = {};
         for (const serviceType of serviceTypeList) {
@@ -191,7 +207,7 @@ export default function Translate() {
 
     useEffect(() => {
         loadPluginList();
-        if (!unlisten) {
+        if (isTauri() && !unlisten) {
             unlisten = listen('reload_plugin_list', loadPluginList);
         }
     }, []);
@@ -251,10 +267,14 @@ export default function Translate() {
                                 if (closeOnBlur) {
                                     unlisten = listenBlur();
                                 }
-                                appWindow.setAlwaysOnTop(false);
+                                if (isTauri()) {
+                                    appWindow.setAlwaysOnTop(false);
+                                }
                             } else {
                                 unlistenBlur();
-                                appWindow.setAlwaysOnTop(true);
+                                if (isTauri()) {
+                                    appWindow.setAlwaysOnTop(true);
+                                }
                             }
                             setPined(!pined);
                         }}
@@ -268,7 +288,9 @@ export default function Translate() {
                         disableAnimation
                         className={`my-auto ${osType === 'Darwin' && 'hidden'} bg-transparent`}
                         onPress={() => {
-                            void appWindow.close();
+                            if (isTauri()) {
+                                void appWindow.close();
+                            }
                         }}
                     >
                         <AiFillCloseCircle className='text-[20px] text-default-400' />

@@ -31,6 +31,7 @@ import { nanoid } from 'nanoid';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 
+import MarkdownResult from './MarkdownResult';
 import * as builtinCollectionServices from '../../../../services/collection';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { useConfig, useToastStyle, useVoice } from '../../../../hooks';
@@ -40,6 +41,7 @@ import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
 
 import { info, error as logError } from 'tauri-plugin-log-api';
+import { isTauri } from '../../../../utils/runtime';
 import {
     INSTANCE_NAME_CONFIG_KEY,
     ServiceSourceType,
@@ -106,7 +108,7 @@ export default function TargetArea(props) {
         ) {
             if (autoCopy === 'source' && !clipboardMonitor) {
                 writeText(sourceText).then(() => {
-                    if (hideWindow) {
+                    if (isTauri() && hideWindow) {
                         sendNotification({ title: t('common.write_clipboard'), body: sourceText });
                     }
                 });
@@ -125,6 +127,10 @@ export default function TargetArea(props) {
 
     // todo: history panel use service instance key
     const addToHistory = async (text, source, target, serviceInstanceKey, result) => {
+        if (!isTauri()) {
+            return;
+        }
+
         const db = await Database.load('sqlite:history.db');
 
         await db
@@ -210,14 +216,14 @@ export default function TargetArea(props) {
                             switch (autoCopy) {
                                 case 'target':
                                     writeText(v).then(() => {
-                                        if (hideWindow) {
+                                        if (isTauri() && hideWindow) {
                                             sendNotification({ title: t('common.write_clipboard'), body: v });
                                         }
                                     });
                                     break;
                                 case 'source_target':
                                     writeText(sourceText.trim() + '\n\n' + v).then(() => {
-                                        if (hideWindow) {
+                                        if (isTauri() && hideWindow) {
                                             sendNotification({
                                                 title: t('common.write_clipboard'),
                                                 body: sourceText.trim() + '\n\n' + v,
@@ -283,14 +289,14 @@ export default function TargetArea(props) {
                                 switch (autoCopy) {
                                     case 'target':
                                         writeText(v).then(() => {
-                                            if (hideWindow) {
+                                            if (isTauri() && hideWindow) {
                                                 sendNotification({ title: t('common.write_clipboard'), body: v });
                                             }
                                         });
                                         break;
                                     case 'source_target':
                                         writeText(sourceText.trim() + '\n\n' + v).then(() => {
-                                            if (hideWindow) {
+                                            if (isTauri() && hideWindow) {
                                                 sendNotification({
                                                     title: t('common.write_clipboard'),
                                                     body: sourceText.trim() + '\n\n' + v,
@@ -318,7 +324,7 @@ export default function TargetArea(props) {
 
     // hide empty textarea
     useEffect(() => {
-        if (textAreaRef.current !== null) {
+        if (textAreaRef.current) {
             textAreaRef.current.style.height = '0px';
             if (result !== '') {
                 textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
@@ -497,11 +503,9 @@ export default function TargetArea(props) {
                     {/* result content */}
                     <CardBody className={`p-[12px] pb-0 ${hide && 'h-0 p-0'}`}>
                         {typeof result === 'string' ? (
-                            <textarea
-                                ref={textAreaRef}
-                                className={`text-[${appFontSize}px] h-0 resize-none bg-transparent select-text outline-none`}
-                                readOnly
-                                value={result}
+                            <MarkdownResult
+                                content={result}
+                                fontSize={appFontSize}
                             />
                         ) : (
                             <div>

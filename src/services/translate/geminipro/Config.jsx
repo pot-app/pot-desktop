@@ -10,6 +10,7 @@ import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
 import { Language } from './index';
+import { defaultTranslationAcknowledgement, defaultTranslationSystemPrompt, defaultTranslationUserPrompt } from '../prompt';
 
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
@@ -26,7 +27,7 @@ export function Config(props) {
                     role: 'user',
                     parts: [
                         {
-                            text: 'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                            text: defaultTranslationSystemPrompt,
                         },
                     ],
                 },
@@ -34,7 +35,7 @@ export function Config(props) {
                     role: 'model',
                     parts: [
                         {
-                            text: 'Ok, I will only translate the text content, never interpret it.',
+                            text: defaultTranslationAcknowledgement,
                         },
                     ],
                 },
@@ -58,7 +59,7 @@ export function Config(props) {
                     role: 'user',
                     parts: [
                         {
-                            text: `Translate into $to\n"""\n$text\n"""`,
+                            text: defaultTranslationUserPrompt,
                         },
                     ],
                 },
