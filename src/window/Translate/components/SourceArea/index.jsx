@@ -22,7 +22,6 @@ import detect from '../../../../utils/lang_detect';
 import { store } from '../../../../utils/store';
 import { info } from 'tauri-plugin-log-api';
 import { debug } from 'tauri-plugin-log-api';
-import { isTauri } from '../../../../utils/runtime';
 
 export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
@@ -52,13 +51,11 @@ export default function SourceArea(props) {
 
     const handleNewText = async (text) => {
         text = text.trim();
-        if (isTauri()) {
-            if (hideWindow) {
-                appWindow.hide();
-            } else {
-                appWindow.show();
-                appWindow.setFocus();
-            }
+        if (hideWindow) {
+            appWindow.hide();
+        } else {
+            appWindow.show();
+            appWindow.setFocus();
         }
         // 清空检测语言
         setDetectLanguage('');
@@ -176,9 +173,7 @@ export default function SourceArea(props) {
             });
         }
         if (event.key === 'Escape') {
-            if (isTauri()) {
-                appWindow.close();
-            }
+            appWindow.close();
         }
     };
 
@@ -218,10 +213,6 @@ export default function SourceArea(props) {
 
     useEffect(() => {
         if (hideWindow !== null) {
-            if (!isTauri()) {
-                return;
-            }
-
             if (unlisten) {
                 unlisten.then((f) => {
                     f();
@@ -246,7 +237,6 @@ export default function SourceArea(props) {
 
     useEffect(() => {
         if (
-            isTauri() &&
             deleteNewline !== null &&
             incrementalTranslate !== null &&
             recognizeLanguage !== null &&

@@ -3,7 +3,6 @@ import { listen, emit } from '@tauri-apps/api/event';
 import { useGetState } from './useGetState';
 import { store } from '../utils/store';
 import { debounce } from '../utils';
-import { isTauri } from '../utils/runtime';
 
 export const useConfig = (key, defaultValue, options = {}) => {
     const [property, setPropertyState, getProperty] = useGetState(null);
@@ -15,11 +14,7 @@ export const useConfig = (key, defaultValue, options = {}) => {
             store.set(key, v);
             store.save();
             let eventKey = key.replaceAll('.', '_').replaceAll('@', ':');
-            if (isTauri()) {
-                emit(`${eventKey}_changed`, v);
-            } else {
-                window.dispatchEvent(new CustomEvent(`${eventKey}_changed`, { detail: v }));
-            }
+            emit(`${eventKey}_changed`, v);
         }),
         []
     );
@@ -51,13 +46,9 @@ export const useConfig = (key, defaultValue, options = {}) => {
     useEffect(() => {
         syncToState(null);
         const eventKey = key.replaceAll('.', '_').replaceAll('@', ':');
-        if (!isTauri()) {
-            const listener = (e) => syncToState(e.detail);
-            window.addEventListener(`${eventKey}_changed`, listener);
-            return () => window.removeEventListener(`${eventKey}_changed`, listener);
-        }
-
-        const unlisten = listen(`${eventKey}_changed`, (e) => syncToState(e.payload));
+        const unlisten = listen(`${eventKey}_changed`, (e) => {
+            syncToState(e.payload);
+        });
         return () => {
             unlisten.then((f) => {
                 f();

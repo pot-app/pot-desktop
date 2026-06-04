@@ -41,7 +41,6 @@ import * as builtinServices from '../../../../services/translate';
 import * as builtinTtsServices from '../../../../services/tts';
 
 import { info, error as logError } from 'tauri-plugin-log-api';
-import { isTauri } from '../../../../utils/runtime';
 import {
     INSTANCE_NAME_CONFIG_KEY,
     ServiceSourceType,
@@ -108,7 +107,7 @@ export default function TargetArea(props) {
         ) {
             if (autoCopy === 'source' && !clipboardMonitor) {
                 writeText(sourceText).then(() => {
-                    if (isTauri() && hideWindow) {
+                    if (hideWindow) {
                         sendNotification({ title: t('common.write_clipboard'), body: sourceText });
                     }
                 });
@@ -127,10 +126,6 @@ export default function TargetArea(props) {
 
     // todo: history panel use service instance key
     const addToHistory = async (text, source, target, serviceInstanceKey, result) => {
-        if (!isTauri()) {
-            return;
-        }
-
         const db = await Database.load('sqlite:history.db');
 
         await db
@@ -216,14 +211,14 @@ export default function TargetArea(props) {
                             switch (autoCopy) {
                                 case 'target':
                                     writeText(v).then(() => {
-                                        if (isTauri() && hideWindow) {
+                                        if (hideWindow) {
                                             sendNotification({ title: t('common.write_clipboard'), body: v });
                                         }
                                     });
                                     break;
                                 case 'source_target':
                                     writeText(sourceText.trim() + '\n\n' + v).then(() => {
-                                        if (isTauri() && hideWindow) {
+                                        if (hideWindow) {
                                             sendNotification({
                                                 title: t('common.write_clipboard'),
                                                 body: sourceText.trim() + '\n\n' + v,
@@ -289,14 +284,14 @@ export default function TargetArea(props) {
                                 switch (autoCopy) {
                                     case 'target':
                                         writeText(v).then(() => {
-                                            if (isTauri() && hideWindow) {
+                                            if (hideWindow) {
                                                 sendNotification({ title: t('common.write_clipboard'), body: v });
                                             }
                                         });
                                         break;
                                     case 'source_target':
                                         writeText(sourceText.trim() + '\n\n' + v).then(() => {
-                                            if (isTauri() && hideWindow) {
+                                            if (hideWindow) {
                                                 sendNotification({
                                                     title: t('common.write_clipboard'),
                                                     body: sourceText.trim() + '\n\n' + v,

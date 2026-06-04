@@ -11,12 +11,12 @@ export default defineConfig(async () => ({
     clearScreen: false,
     // tauri expects a fixed port, fail if that port is not available
     server: {
-        port: Number(process.env.VITE_PORT || process.env.PORT || 1420),
+        port: 1420,
         strictPort: true,
     },
     // to make use of `TAURI_DEBUG` and other env variables
     // https://tauri.studio/v1/api/config#buildconfig.beforedevcommand
-    envPrefix: ['VITE_', 'TAURI_', 'BASEURL', 'API_KEY', 'MODEL'],
+    envPrefix: ['VITE_', 'TAURI_'],
     build: {
         rollupOptions: {
             input: {

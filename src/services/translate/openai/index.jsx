@@ -2,7 +2,6 @@ import { fetch, Body } from '@tauri-apps/api/http';
 import { Language } from './info';
 import { defaultRequestArguments } from './Config';
 import { defaultTranslationSystemPrompt, defaultTranslationUserPrompt } from '../prompt';
-import { isTauri } from '../../../utils/runtime';
 
 export async function translate(text, from, to, options) {
     const { config, setResult, detect } = options;
@@ -18,7 +17,7 @@ export async function translate(text, from, to, options) {
     if (service === 'openai' && !apiUrl.pathname.endsWith('/chat/completions')) {
         // not openai like, populate completion endpoint
         apiUrl.pathname += apiUrl.pathname.endsWith('/') ? '' : '/';
-        apiUrl.pathname += apiUrl.pathname.endsWith('/v1/') ? 'chat/completions' : 'v1/chat/completions';
+        apiUrl.pathname += 'v1/chat/completions';
     }
 
     // 兼容旧版
@@ -119,25 +118,11 @@ export async function translate(text, from, to, options) {
             throw `Http Request Error\nHttp Status: ${res.status}\n${JSON.stringify(res.data)}`;
         }
     } else {
-        let res;
-        if (isTauri()) {
-            res = await fetch(apiUrl.href, {
-                method: 'POST',
-                headers: headers,
-                body: Body.json(body),
-            });
-        } else {
-            const response = await window.fetch(apiUrl.href, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(body),
-            });
-            res = {
-                ok: response.ok,
-                status: response.status,
-                data: await response.json(),
-            };
-        }
+        let res = await fetch(apiUrl.href, {
+            method: 'POST',
+            headers: headers,
+            body: Body.json(body),
+        });
         if (res.ok) {
             let result = res.data;
             const { choices } = result;
