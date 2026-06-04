@@ -17,7 +17,7 @@ import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
-import { TbTransformFilled } from 'react-icons/tb';
+import { TbCode, TbMarkdown, TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { semanticColors } from '@nextui-org/theme';
 import toast, { Toaster } from 'react-hot-toast';
@@ -68,6 +68,7 @@ export default function TargetArea(props) {
     const [historyDisable] = useConfig('history_disable', false);
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(true);
+    const [showRawMarkdown, setShowRawMarkdown] = useState(false);
 
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
@@ -498,10 +499,16 @@ export default function TargetArea(props) {
                     {/* result content */}
                     <CardBody className={`p-[12px] pb-0 ${hide && 'h-0 p-0'}`}>
                         {typeof result === 'string' ? (
-                            <MarkdownResult
-                                content={result}
-                                fontSize={appFontSize}
-                            />
+                            showRawMarkdown ? (
+                                <pre className='select-text overflow-x-auto whitespace-pre-wrap rounded-lg bg-default-100 p-3 leading-relaxed'>
+                                    <code style={{ fontSize: appFontSize }}>{result}</code>
+                                </pre>
+                            ) : (
+                                <MarkdownResult
+                                    content={result}
+                                    fontSize={appFontSize}
+                                />
+                            )
                         ) : (
                             <div>
                                 {result['pronunciations'] &&
@@ -781,6 +788,30 @@ export default function TargetArea(props) {
                                     }}
                                 >
                                     <TbTransformFilled className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                            {/* markdown preview/source button */}
+                            <Tooltip
+                                content={
+                                    showRawMarkdown
+                                        ? t('translate.markdown_preview', 'Markdown Preview')
+                                        : t('translate.markdown_source', 'Markdown Source')
+                                }
+                            >
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    isDisabled={typeof result !== 'string' || result === ''}
+                                    onPress={() => {
+                                        setShowRawMarkdown(!showRawMarkdown);
+                                    }}
+                                >
+                                    {showRawMarkdown ? (
+                                        <TbMarkdown className='text-[16px]' />
+                                    ) : (
+                                        <TbCode className='text-[16px]' />
+                                    )}
                                 </Button>
                             </Tooltip>
                             {/* error retry button */}
