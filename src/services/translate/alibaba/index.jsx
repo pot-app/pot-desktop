@@ -17,7 +17,7 @@ export async function translate(text, from, to, options = {}) {
 
     let today = new Date();
     let timestamp = today.toISOString().replaceAll(/\.[0-9]*/g, '');
-    let endpoint = 'http://mt.cn-hangzhou.aliyuncs.com/';
+    let endpoint = 'https://mt.cn-hangzhou.aliyuncs.com/';
     let url_path = 'api/translate/web/general';
 
     let query = `AccessKeyId=${accesskey_id}&Action=TranslateGeneral&Format=JSON&FormatType=text&Scene=general&SignatureMethod=HMAC-SHA1&SignatureNonce=${getRandomNumber()}&SignatureVersion=1.0&SourceLanguage=${from}&SourceText=${encodeURIComponent(
