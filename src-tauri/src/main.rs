@@ -8,6 +8,7 @@ mod config;
 mod error;
 mod hotkey;
 mod lang_detect;
+mod mouse_hotkey;
 mod screenshot;
 mod server;
 mod system_ocr;
@@ -139,6 +140,8 @@ fn main() {
             run_binary,
             open_devtools,
             register_shortcut_by_frontend,
+            is_shortcut_registered,
+            unregister_shortcut,
             update_tray,
             updater_window,
             screenshot,
@@ -153,9 +156,9 @@ fn main() {
         .build(tauri::generate_context!())
         .expect("error while running tauri application")
         // 窗口关闭不退出
-        .run(|_app_handle, event| {
-            if let tauri::RunEvent::ExitRequested { api, .. } = event {
-                api.prevent_exit();
-            }
+        .run(|_app_handle, event| match event {
+            tauri::RunEvent::ExitRequested { api, .. } => api.prevent_exit(),
+            tauri::RunEvent::Exit => mouse_hotkey::shutdown(),
+            _ => {}
         });
 }
