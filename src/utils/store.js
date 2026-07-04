@@ -3,14 +3,17 @@ import { appConfigDir, join } from '@tauri-apps/api/path';
 import { watch } from 'tauri-plugin-fs-watch-api';
 import { invoke } from '@tauri-apps/api';
 
-export let store = new Store();
+/** Initialized by initStore() before React renders. @see main.jsx */
+export let store = null;
 
 export async function initStore() {
-    const appConfigDirPath = await appConfigDir();
-    const appConfigPath = await join(appConfigDirPath, 'config.json');
-    store = new Store(appConfigPath);
-    const _ = await watch(appConfigPath, async () => {
+    if (store) return; // idempotent
+    const configDir = await appConfigDir();
+    const configPath = await join(configDir, 'config.json');
+    store = new Store(configPath);
+    await store.load().catch(() => {});
+    watch(configPath, async () => {
         await store.load();
         await invoke('reload_store');
-    });
+    }).catch(() => {});
 }

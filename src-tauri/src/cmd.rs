@@ -15,9 +15,12 @@ pub fn get_text(state: tauri::State<StringWrapper>) -> String {
 
 #[tauri::command]
 pub fn reload_store() {
+    use crate::hotkey::register_shortcut;
     let state = APP.get().unwrap().state::<StoreWrapper>();
     let mut store = state.0.lock().unwrap();
     store.load().unwrap();
+    drop(store);
+    let _ = register_shortcut("all");
 }
 
 #[tauri::command]

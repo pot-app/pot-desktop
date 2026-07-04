@@ -1,12 +1,8 @@
 import { INSTANCE_NAME_CONFIG_KEY } from '../../../utils/service_instance';
-import { Input, Button, Textarea } from '@nextui-org/react';
-import { DropdownTrigger } from '@nextui-org/react';
+import { Input, Button, Textarea, Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { DropdownMenu } from '@nextui-org/react';
-import { DropdownItem } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { Dropdown } from '@nextui-org/react';
 import { open } from '@tauri-apps/api/shell';
 import React, { useState } from 'react';
 
@@ -17,6 +13,7 @@ import { Language } from './index';
 
 // https://docs.bigmodel.cn/cn/guide/start/model-overview#%E6%96%87%E6%9C%AC%E6%A8%A1%E5%9E%8B
 const availableModels = ['glm-4.5', 'glm-4.5-x', 'glm-4.5-air', 'glm-4.5-airx', 'glm-4-plus', 'glm-4-air-250414', 'glm-4-long', 'glm-4-airx', 'glm-4-flashx-250414', 'glm-z1-air', 'glm-z1-airx', 'glm-z1-flashx', 'glm-4.5-flash', 'glm-4-flash-250414', 'glm-z1-flash']
+    .map(it => ({ key: it, label: it }));
 
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
@@ -97,27 +94,29 @@ export function Config(props) {
                 </div>
                 <div className='config-item'>
                     <h3 className='my-auto'>{t('services.translate.chatglm.model')}</h3>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button variant='bordered'>{serviceConfig.model}</Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            autoFocus='first'
-                            aria-label='model'
-                            onAction={(key) => {
+                    <Autocomplete
+                        defaultItems={availableModels}
+                        inputValue={serviceConfig.model}
+                        variant='bordered'
+                        className='max-w-[50%]'
+                        allowsCustomValue
+                        onSelectionChange={(key) => {
+                            if (key) {
                                 setServiceConfig({
                                     ...serviceConfig,
                                     model: key,
                                 });
-                            }}
-                        >
-                            {availableModels.map(it => (
-                                <DropdownItem key={it}>
-                                    {it}
-                                </DropdownItem>
-                            ))}
-                        </DropdownMenu>
-                    </Dropdown>
+                            }
+                        }}
+                        onInputChange={(value) => {
+                            setServiceConfig({
+                                ...serviceConfig,
+                                model: value,
+                            });
+                        }}
+                    >
+                        {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
+                    </Autocomplete>
                 </div>
                 <div className='config-item'>
                     <Input

@@ -6,6 +6,7 @@ use crate::window::ocr_recognize;
 use crate::window::ocr_translate;
 use crate::window::updater_window;
 use log::info;
+use std::sync::atomic::Ordering;
 use tauri::CustomMenuItem;
 use tauri::GlobalShortcutManager;
 use tauri::SystemTrayEvent;
@@ -154,11 +155,7 @@ fn on_clipboard_monitor_click(app: &AppHandle) {
     set("clipboard_monitor", current);
     // Update State and Start Monitor
     let state = app.state::<ClipboardMonitorEnableWrapper>();
-    state
-        .0
-        .lock()
-        .unwrap()
-        .replace_range(.., &current.to_string());
+    state.0.store(current, Ordering::SeqCst);
     if current {
         start_clipboard_monitor(app.app_handle());
     }

@@ -14,7 +14,7 @@ import { LuDelete } from 'react-icons/lu';
 import { invoke } from '@tauri-apps/api';
 import { atom, useAtom } from 'jotai';
 import { getServiceName, getServiceSouceType, ServiceSourceType } from '../../../../utils/service_instance';
-import { useConfig, useSyncAtom, useVoice, useToastStyle } from '../../../../hooks';
+import { useConfig, useSyncAtom, useVoice, useToastStyle, useDebounce } from '../../../../hooks';
 import { invoke_plugin } from '../../../../utils/invoke_plugin';
 import * as recognizeServices from '../../../../services/recognize';
 import * as builtinTtsServices from '../../../../services/tts';
@@ -27,7 +27,6 @@ export const sourceTextAtom = atom('');
 export const detectLanguageAtom = atom('');
 
 let unlisten = null;
-let timer = null;
 
 export default function SourceArea(props) {
     const { pluginList, serviceInstanceConfigMap } = props;
@@ -254,24 +253,25 @@ export default function SourceArea(props) {
         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
     }, [sourceText]);
 
+    const debouncedSourceText = useDebounce(sourceText, 1000);
+
+    useEffect(() => {
+        if (dynamicTranslate && debouncedSourceText) {
+            setDetectLanguage('');
+            detect_language(debouncedSourceText).then(() => {
+                syncSourceText();
+            });
+        }
+    }, [debouncedSourceText, dynamicTranslate]);
+
     const detect_language = async (text) => {
         setDetectLanguage(await detect(text));
     };
 
-    let sourceTextChangeTimer = null;
     const changeSourceText = async (text) => {
         setDetectLanguage('');
         await setSourceText(text);
-        if (dynamicTranslate) {
-            if (sourceTextChangeTimer) {
-                clearTimeout(sourceTextChangeTimer);
-            }
-            sourceTextChangeTimer = setTimeout(() => {
-                detect_language(text).then(() => {
-                    syncSourceText();
-                });
-            }, 1000);
-        }
+        // Translation is debounced via debouncedSourceText → useEffect
     }
 
     const transformVarName = function (str) {

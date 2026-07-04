@@ -1,8 +1,8 @@
 #!/bin/bash
 
-wget https://nodejs.org/dist/v19.8.1/node-v19.8.1-linux-x64.tar.xz
-tar -Jxvf ./node-v19.8.1-linux-x64.tar.xz
-export PATH=$(pwd)/node-v19.8.1-linux-x64/bin:$PATH
+wget https://nodejs.org/dist/v22.13.1/node-v22.13.1-linux-x64.tar.xz
+tar -Jxvf ./node-v22.13.1-linux-x64.tar.xz
+export PATH=$(pwd)/node-v22.13.1-linux-x64/bin:$PATH
 npm install pnpm -g
 
 rustup target add "$INPUT_TARGET"

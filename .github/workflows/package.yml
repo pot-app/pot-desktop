@@ -3,6 +3,7 @@ on:
     push:
         branches: [master]
         tags-ignore: [updater]
+    workflow_dispatch:
 permissions: write-all
 
 jobs:
@@ -29,7 +30,7 @@ jobs:
 
                   sed -i "s/\"version\":.*/\"version\": \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/tauri.conf.json
 
-                  sed -i "s/version = \"0.0.0\"/version = \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/Cargo.toml
+                  sed -i "s/^version = \".*\"/version = \"$(git describe --tags | sed 's/-[0-9]*-.*//g')\"/g" src-tauri/Cargo.toml
 
                   echo $(git describe --tags | sed 's/-[0-9]*-.*//g')
 

@@ -186,3 +186,10 @@ pub fn is_first_run() -> bool {
     let store = state.0.lock().unwrap();
     store.is_empty()
 }
+
+/// Returns the app's config directory: `$CONFIG_DIR/com.pot-app.desktop/`
+pub fn app_config_dir() -> std::path::PathBuf {
+    let config_dir = dirs::config_dir().expect("Get Config Dir Failed");
+    let app_handle = APP.get().expect("APP not initialized");
+    config_dir.join(&app_handle.config().tauri.bundle.identifier)
+}

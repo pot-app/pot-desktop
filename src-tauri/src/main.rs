@@ -25,6 +25,7 @@ use log::info;
 use once_cell::sync::OnceCell;
 use screenshot::screenshot;
 use server::*;
+use std::sync::atomic::AtomicBool;
 use std::sync::Mutex;
 use system_ocr::*;
 use tauri::api::notification::Notification;
@@ -109,11 +110,7 @@ fn main() {
             }
             // Check Update
             check_update(app.handle());
-            if let Some(engine) = get("translate_detect_engine") {
-                if engine.as_str().unwrap() == "local" {
-                    init_lang_detect();
-                }
-            }
+
             let clipboard_monitor = match get("clipboard_monitor") {
                 Some(v) => v.as_bool().unwrap(),
                 None => {
@@ -121,9 +118,7 @@ fn main() {
                     false
                 }
             };
-            app.manage(ClipboardMonitorEnableWrapper(Mutex::new(
-                clipboard_monitor.to_string(),
-            )));
+            app.manage(ClipboardMonitorEnableWrapper(AtomicBool::new(clipboard_monitor)));
             start_clipboard_monitor(app.handle());
             Ok(())
         })

@@ -1,6 +1,7 @@
-pub fn init_lang_detect() {
-    // https://crates.io/crates/lingua
-    use lingua::{Language, LanguageDetectorBuilder};
+use once_cell::sync::Lazy;
+use lingua::{Language, LanguageDetector, LanguageDetectorBuilder};
+
+static DETECTOR: Lazy<LanguageDetector> = Lazy::new(|| {
     let languages = vec![
         Language::Chinese,
         Language::Japanese,
@@ -25,62 +26,36 @@ pub fn init_lang_detect() {
         Language::Persian,
         Language::Ukrainian,
     ];
-    let detector = LanguageDetectorBuilder::from_languages(&languages).build();
-    let _ = detector.detect_language_of("Hello Language");
-}
+    LanguageDetectorBuilder::from_languages(&languages).build()
+});
+
 #[tauri::command]
-pub fn lang_detect(text: &str) -> Result<&str, ()> {
-    use lingua::{Language, LanguageDetectorBuilder};
-    let languages = vec![
-        Language::Chinese,
-        Language::Japanese,
-        Language::English,
-        Language::Korean,
-        Language::French,
-        Language::Spanish,
-        Language::German,
-        Language::Russian,
-        Language::Italian,
-        Language::Portuguese,
-        Language::Turkish,
-        Language::Arabic,
-        Language::Vietnamese,
-        Language::Thai,
-        Language::Indonesian,
-        Language::Malay,
-        Language::Hindi,
-        Language::Mongolian,
-        Language::Bokmal,
-        Language::Nynorsk,
-        Language::Persian,
-    ];
-    let detector = LanguageDetectorBuilder::from_languages(&languages).build();
-    if let Some(lang) = detector.detect_language_of(text) {
-        match lang {
-            Language::Chinese => Ok("zh_cn"),
-            Language::Japanese => Ok("ja"),
-            Language::English => Ok("en"),
-            Language::Korean => Ok("ko"),
-            Language::French => Ok("fr"),
-            Language::Spanish => Ok("es"),
-            Language::German => Ok("de"),
-            Language::Russian => Ok("ru"),
-            Language::Italian => Ok("it"),
-            Language::Portuguese => Ok("pt_pt"),
-            Language::Turkish => Ok("tr"),
-            Language::Arabic => Ok("ar"),
-            Language::Vietnamese => Ok("vi"),
-            Language::Thai => Ok("th"),
-            Language::Indonesian => Ok("id"),
-            Language::Malay => Ok("ms"),
-            Language::Hindi => Ok("hi"),
-            Language::Mongolian => Ok("mn_cy"),
-            Language::Bokmal => Ok("nb_no"),
-            Language::Nynorsk => Ok("nn_no"),
-            Language::Persian => Ok("fa"),
-            Language::Ukrainian => Ok("uk"),
-        }
-    } else {
-        return Ok("en");
+pub fn lang_detect(text: &str) -> &str {
+    match DETECTOR.detect_language_of(text) {
+        Some(lang) => match lang {
+            Language::Chinese => "zh_cn",
+            Language::Japanese => "ja",
+            Language::English => "en",
+            Language::Korean => "ko",
+            Language::French => "fr",
+            Language::Spanish => "es",
+            Language::German => "de",
+            Language::Russian => "ru",
+            Language::Italian => "it",
+            Language::Portuguese => "pt_pt",
+            Language::Turkish => "tr",
+            Language::Arabic => "ar",
+            Language::Vietnamese => "vi",
+            Language::Thai => "th",
+            Language::Indonesian => "id",
+            Language::Malay => "ms",
+            Language::Hindi => "hi",
+            Language::Mongolian => "mn_cy",
+            Language::Bokmal => "nb_no",
+            Language::Nynorsk => "nn_no",
+            Language::Persian => "fa",
+            Language::Ukrainian => "uk",
+        },
+        None => "en",
     }
 }
