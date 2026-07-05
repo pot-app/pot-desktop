@@ -341,6 +341,7 @@
                 "niutrans": {
                     "title": "NiuTrans",
                     "https": "Use Https",
+                    "is_campus": "NEU Campus Network",
                     "apikey": "API Key"
                 },
                 "youdao": {
