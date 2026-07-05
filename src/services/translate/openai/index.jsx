@@ -1,6 +1,7 @@
 import { fetch, Body } from '@tauri-apps/api/http';
 import { Language } from './info';
 import { defaultRequestArguments } from './Config';
+import { defaultTranslationSystemPrompt, defaultTranslationUserPrompt } from '../prompt';
 
 export async function translate(text, from, to, options) {
     const { config, setResult, detect } = options;
@@ -24,10 +25,9 @@ export async function translate(text, from, to, options) {
         promptList = [
             {
                 role: 'system',
-                content:
-                    'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                content: defaultTranslationSystemPrompt,
             },
-            { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
+            { role: 'user', content: defaultTranslationUserPrompt },
         ];
     }
 

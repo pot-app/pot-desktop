@@ -17,7 +17,7 @@ import { sendNotification } from '@tauri-apps/api/notification';
 import React, { useEffect, useState, useRef } from 'react';
 import { writeText } from '@tauri-apps/api/clipboard';
 import PulseLoader from 'react-spinners/PulseLoader';
-import { TbTransformFilled } from 'react-icons/tb';
+import { TbCode, TbMarkdown, TbTransformFilled } from 'react-icons/tb';
 import { HiOutlineVolumeUp } from 'react-icons/hi';
 import { semanticColors } from '@nextui-org/theme';
 import toast, { Toaster } from 'react-hot-toast';
@@ -31,6 +31,7 @@ import { nanoid } from 'nanoid';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 
+import MarkdownResult from './MarkdownResult';
 import * as builtinCollectionServices from '../../../../services/collection';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { useConfig, useToastStyle, useVoice } from '../../../../hooks';
@@ -67,6 +68,7 @@ export default function TargetArea(props) {
     const [historyDisable] = useConfig('history_disable', false);
     const [isLoading, setIsLoading] = useState(false);
     const [hide, setHide] = useState(true);
+    const [showRawMarkdown, setShowRawMarkdown] = useState(false);
 
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
@@ -318,7 +320,7 @@ export default function TargetArea(props) {
 
     // hide empty textarea
     useEffect(() => {
-        if (textAreaRef.current !== null) {
+        if (textAreaRef.current) {
             textAreaRef.current.style.height = '0px';
             if (result !== '') {
                 textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
@@ -497,12 +499,16 @@ export default function TargetArea(props) {
                     {/* result content */}
                     <CardBody className={`p-[12px] pb-0 ${hide && 'h-0 p-0'}`}>
                         {typeof result === 'string' ? (
-                            <textarea
-                                ref={textAreaRef}
-                                className={`text-[${appFontSize}px] h-0 resize-none bg-transparent select-text outline-none`}
-                                readOnly
-                                value={result}
-                            />
+                            showRawMarkdown ? (
+                                <pre className='select-text overflow-x-auto whitespace-pre-wrap rounded-lg bg-default-100 p-3 leading-relaxed'>
+                                    <code style={{ fontSize: appFontSize }}>{result}</code>
+                                </pre>
+                            ) : (
+                                <MarkdownResult
+                                    content={result}
+                                    fontSize={appFontSize}
+                                />
+                            )
                         ) : (
                             <div>
                                 {result['pronunciations'] &&
@@ -782,6 +788,30 @@ export default function TargetArea(props) {
                                     }}
                                 >
                                     <TbTransformFilled className='text-[16px]' />
+                                </Button>
+                            </Tooltip>
+                            {/* markdown preview/source button */}
+                            <Tooltip
+                                content={
+                                    showRawMarkdown
+                                        ? t('translate.markdown_preview', 'Markdown Preview')
+                                        : t('translate.markdown_source', 'Markdown Source')
+                                }
+                            >
+                                <Button
+                                    isIconOnly
+                                    variant='light'
+                                    size='sm'
+                                    isDisabled={typeof result !== 'string' || result === ''}
+                                    onPress={() => {
+                                        setShowRawMarkdown(!showRawMarkdown);
+                                    }}
+                                >
+                                    {showRawMarkdown ? (
+                                        <TbMarkdown className='text-[16px]' />
+                                    ) : (
+                                        <TbCode className='text-[16px]' />
+                                    )}
                                 </Button>
                             </Tooltip>
                             {/* error retry button */}

@@ -11,6 +11,7 @@ import { useConfig } from '../../../hooks/useConfig';
 import { useToastStyle } from '../../../hooks';
 import { translate } from './index';
 import { Language } from './index';
+import { defaultTranslationSystemPrompt, defaultTranslationUserPrompt } from '../prompt';
 
 export function Config(props) {
     const { instanceKey, updateServiceList, onClose } = props;
@@ -25,10 +26,9 @@ export function Config(props) {
             promptList: [
                 {
                     role: 'system',
-                    content:
-                        'You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.',
+                    content: defaultTranslationSystemPrompt,
                 },
-                { role: 'user', content: `Translate into $to:\n"""\n$text\n"""` },
+                { role: 'user', content: defaultTranslationUserPrompt },
             ],
         },
         { sync: false }
