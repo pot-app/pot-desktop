@@ -154,13 +154,10 @@ fn translate_window() -> Window {
     };
 
     let monitor = window.current_monitor().unwrap().unwrap();
-    let dpi = monitor.scale_factor();
-
+    
+    // NOTE: translate_window_width/height are stored as logical size (see frontend resize listener).
     window
-        .set_size(tauri::PhysicalSize::new(
-            (width as f64) * dpi,
-            (height as f64) * dpi,
-        ))
+        .set_size(tauri::LogicalSize::new(width as f64, height as f64))
         .unwrap();
 
     let position_type = match get("translate_window_position") {
