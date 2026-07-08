@@ -224,14 +224,27 @@ fn translate_window() -> Window {
 }
 
 pub fn selection_translate() {
-    use selection::get_text;
     // Get Selected Text
-    let text = get_text();
+    #[cfg(target_os = "macos")]
+    let text = {
+        use crate::macos_compat;
+        info!("Using macOS Tahoe-compatible selection method");
+        macos_compat::get_selected_text()
+    };
+    #[cfg(not(target_os = "macos"))]
+    let text = {
+        use selection::get_text;
+        get_text()
+    };
+
+    info!("Selection translate: got {} chars", text.len());
     if !text.trim().is_empty() {
         let app_handle = APP.get().unwrap();
         // Write into State
         let state: tauri::State<StringWrapper> = app_handle.state();
         state.0.lock().unwrap().replace_range(.., &text);
+    } else {
+        warn!("Selection translate: no text selected");
     }
 
     let window = translate_window();

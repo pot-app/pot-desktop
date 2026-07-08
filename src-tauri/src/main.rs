@@ -8,6 +8,8 @@ mod config;
 mod error;
 mod hotkey;
 mod lang_detect;
+#[cfg(target_os = "macos")]
+mod macos_compat;
 mod screenshot;
 mod server;
 mod system_ocr;
@@ -71,7 +73,10 @@ fn main() {
                 app.set_activation_policy(tauri::ActivationPolicy::Accessory);
                 let trusted =
                     macos_accessibility_client::accessibility::application_is_trusted_with_prompt();
-                info!("MacOS Accessibility Trusted: {}", trusted);
+                info!("macOS Accessibility Trusted: {}", trusted);
+                if !trusted {
+                    warn!("macOS Accessibility NOT trusted - selection translate will not work. Please grant permission in System Settings > Privacy & Security > Accessibility");
+                }
             }
             // Global AppHandle
             APP.get_or_init(|| app.handle());

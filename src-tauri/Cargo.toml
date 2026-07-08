@@ -42,7 +42,7 @@ font-kit = "0.14.2"
 image = "0.25.4"
 
 [target.'cfg(target_os = "macos")'.dependencies]
-macos-accessibility-client = "0.0.1"
+macos-accessibility-client = "0.0.2"
 window-shadows = "0.2"
 
 [target.'cfg(windows)'.dependencies]
