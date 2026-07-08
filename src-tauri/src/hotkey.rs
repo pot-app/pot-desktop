@@ -1,5 +1,7 @@
 use crate::config::{get, set};
-use crate::window::{input_translate, ocr_recognize, ocr_translate, selection_translate};
+use crate::window::{
+    input_translate_toggle, ocr_recognize, ocr_translate, selection_translate_toggle,
+};
 use crate::APP;
 use log::{info, warn};
 use tauri::{AppHandle, GlobalShortcutManager};
@@ -46,11 +48,16 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
         "hotkey_selection_translate" => register(
             app_handle,
             "hotkey_selection_translate",
-            selection_translate,
+            selection_translate_toggle,
             "",
         )?,
         "hotkey_input_translate" => {
-            register(app_handle, "hotkey_input_translate", input_translate, "")?
+            register(
+                app_handle,
+                "hotkey_input_translate",
+                input_translate_toggle,
+                "",
+            )?
         }
         "hotkey_ocr_recognize" => register(app_handle, "hotkey_ocr_recognize", ocr_recognize, "")?,
         "hotkey_ocr_translate" => register(app_handle, "hotkey_ocr_translate", ocr_translate, "")?,
@@ -58,10 +65,15 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
             register(
                 app_handle,
                 "hotkey_selection_translate",
-                selection_translate,
+                selection_translate_toggle,
                 "",
             )?;
-            register(app_handle, "hotkey_input_translate", input_translate, "")?;
+            register(
+                app_handle,
+                "hotkey_input_translate",
+                input_translate_toggle,
+                "",
+            )?;
             register(app_handle, "hotkey_ocr_recognize", ocr_recognize, "")?;
             register(app_handle, "hotkey_ocr_translate", ocr_translate, "")?;
         }
@@ -77,13 +89,13 @@ pub fn register_shortcut_by_frontend(name: &str, shortcut: &str) -> Result<(), S
         "hotkey_selection_translate" => register(
             app_handle,
             "hotkey_selection_translate",
-            selection_translate,
+            selection_translate_toggle,
             shortcut,
         )?,
         "hotkey_input_translate" => register(
             app_handle,
             "hotkey_input_translate",
-            input_translate,
+            input_translate_toggle,
             shortcut,
         )?,
         "hotkey_ocr_recognize" => {
