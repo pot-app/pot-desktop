@@ -1,4 +1,5 @@
 use crate::config::{get, set};
+use crate::mouse_hotkey;
 use crate::window::{input_translate, ocr_recognize, ocr_translate, selection_translate};
 use crate::APP;
 use log::{info, warn};
@@ -23,6 +24,9 @@ where
     };
 
     if !hotkey.is_empty() {
+        if mouse_hotkey::is_mouse_shortcut(&hotkey) {
+            return mouse_hotkey::register(name, &hotkey);
+        }
         match app_handle
             .global_shortcut_manager()
             .register(hotkey.as_str(), handler)
@@ -92,7 +96,38 @@ pub fn register_shortcut_by_frontend(name: &str, shortcut: &str) -> Result<(), S
         "hotkey_ocr_translate" => {
             register(app_handle, "hotkey_ocr_translate", ocr_translate, shortcut)?
         }
-        _ => {}
+        _ => return Err("Unknown hotkey action".to_string()),
     }
     Ok(())
+}
+
+#[tauri::command]
+pub fn is_shortcut_registered(shortcut: &str) -> Result<bool, String> {
+    if shortcut.is_empty() {
+        return Ok(false);
+    }
+    if mouse_hotkey::is_mouse_shortcut(shortcut) {
+        return Ok(mouse_hotkey::is_registered(shortcut));
+    }
+    APP.get()
+        .unwrap()
+        .global_shortcut_manager()
+        .is_registered(shortcut)
+        .map_err(|error| error.to_string())
+}
+
+#[tauri::command]
+pub fn unregister_shortcut(shortcut: &str) -> Result<(), String> {
+    if shortcut.is_empty() {
+        return Ok(());
+    }
+    if mouse_hotkey::is_mouse_shortcut(shortcut) {
+        mouse_hotkey::unregister(shortcut);
+        return Ok(());
+    }
+    APP.get()
+        .unwrap()
+        .global_shortcut_manager()
+        .unregister(shortcut)
+        .map_err(|error| error.to_string())
 }
