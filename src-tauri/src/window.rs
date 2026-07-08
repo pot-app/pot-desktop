@@ -1,4 +1,7 @@
 use std::fs;
+use std::sync::Mutex;
+use std::thread;
+use std::time::{Duration, Instant};
 
 use crate::config::get;
 use crate::config::set;
@@ -6,12 +9,15 @@ use crate::StringWrapper;
 use crate::APP;
 use dirs::cache_dir;
 use log::{info, warn};
+use once_cell::sync::Lazy;
 use tauri::Manager;
 use tauri::Monitor;
 use tauri::Window;
 use tauri::WindowBuilder;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use window_shadows::set_shadow;
+
+static TRANSLATE_READY: Lazy<Mutex<bool>> = Lazy::new(|| Mutex::new(false));
 
 // Get daemon window instance
 fn get_daemon_window() -> Window {
@@ -113,6 +119,43 @@ fn build_window(label: &str, title: &str) -> (Window, bool) {
     }
 }
 
+fn mark_translate_not_ready() {
+    let mut ready = TRANSLATE_READY.lock().unwrap();
+    *ready = false;
+}
+
+fn mark_translate_ready() {
+    let mut ready = TRANSLATE_READY.lock().unwrap();
+    *ready = true;
+}
+
+fn is_translate_ready() -> bool {
+    *TRANSLATE_READY.lock().unwrap()
+}
+
+fn show_translate_window(window: &Window) {
+    if is_translate_ready() {
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.set_focus();
+        return;
+    }
+
+    let window_ = window.clone();
+    thread::spawn(move || {
+        let deadline = Instant::now() + Duration::from_millis(1800);
+        loop {
+            if is_translate_ready() || Instant::now() >= deadline {
+                let _ = window_.unminimize();
+                let _ = window_.show();
+                let _ = window_.set_focus();
+                break;
+            }
+            thread::sleep(Duration::from_millis(20));
+        }
+    });
+}
+
 pub fn config_window() {
     let (window, _exists) = build_window("config", "Config");
     window
@@ -136,6 +179,10 @@ fn translate_window() -> Window {
     if exists {
         return window;
     }
+    mark_translate_not_ready();
+    window.once("translate_ready", move |_event| {
+        mark_translate_ready();
+    });
     window.set_skip_taskbar(true).unwrap();
     // Get Translate Window Size
     let width = match get("translate_window_width") {
@@ -235,6 +282,7 @@ pub fn selection_translate() {
     }
 
     let window = translate_window();
+    show_translate_window(&window);
     window.emit("new_text", text).unwrap();
 }
 
@@ -256,6 +304,7 @@ pub fn input_translate() {
         window.center().unwrap();
     }
 
+    show_translate_window(&window);
     window.emit("new_text", "[INPUT_TRANSLATE]").unwrap();
 }
 
@@ -265,6 +314,7 @@ pub fn text_translate(text: String) {
     let state: tauri::State<StringWrapper> = app_handle.state();
     state.0.lock().unwrap().replace_range(.., &text);
     let window = translate_window();
+    show_translate_window(&window);
     window.emit("new_text", text).unwrap();
 }
 
@@ -277,6 +327,7 @@ pub fn image_translate() {
         .unwrap()
         .replace_range(.., "[IMAGE_TRANSLATE]");
     let window = translate_window();
+    show_translate_window(&window);
     window.emit("new_text", "[IMAGE_TRANSLATE]").unwrap();
 }
 
