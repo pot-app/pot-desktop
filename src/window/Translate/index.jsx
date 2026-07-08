@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import { BsPinFill } from 'react-icons/bs';
 
+import SelectionPopup from './components/SelectionPopup';
 import LanguageArea from './components/LanguageArea';
 import SourceArea from './components/SourceArea';
 import TargetArea from './components/TargetArea';
@@ -339,6 +340,13 @@ export default function Translate() {
                         </DragDropContext>
                     </div>
                 </div>
+                {translateServiceInstanceList !== null && serviceInstanceConfigMap !== null && (
+                    <SelectionPopup
+                        translateServiceInstanceList={translateServiceInstanceList}
+                        pluginList={pluginList}
+                        serviceInstanceConfigMap={serviceInstanceConfigMap}
+                    />
+                )}
             </div>
         )
     );
