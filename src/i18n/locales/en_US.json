@@ -229,6 +229,10 @@
             "no_need": "No configuration required",
             "instance_name": "Configuration Name",
             "translate": {
+                "cambai": {
+                    "title": "CAMB AI",
+                    "api_key": "API Key"
+                },
                 "deepl": {
                     "title": "DeepL",
                     "custom_url": "DeepLX URL",
@@ -433,6 +437,12 @@
                 }
             },
             "tts": {
+                "cambai_tts": {
+                    "title": "CAMB AI TTS",
+                    "api_key": "API Key",
+                    "voice_id": "Voice ID",
+                    "model": "Model"
+                },
                 "lingva_tts": {
                     "title": "Lingva",
                     "request_path": "Request Path"
