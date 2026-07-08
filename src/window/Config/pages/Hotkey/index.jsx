@@ -1,4 +1,4 @@
-import { unregister, isRegistered } from '@tauri-apps/api/globalShortcut';
+import { unregister } from '@tauri-apps/api/globalShortcut';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CardBody } from '@nextui-org/react';
@@ -94,23 +94,25 @@ export default function Hotkey() {
     }
 
     function registerHandler(name, key) {
-        isRegistered(key).then((res) => {
-            if (res) {
-                toast.error(t('config.hotkey.is_register'), { style: toastStyle });
-            } else {
-                invoke('register_shortcut_by_frontend', {
-                    name: name,
-                    shortcut: key,
-                }).then(
-                    () => {
-                        toast.success(t('config.hotkey.success'), { style: toastStyle });
-                    },
-                    (e) => {
-                        toast.error(e, { style: toastStyle });
-                    }
-                );
+        // Always attempt registration: the backend unregisters any existing binding
+        // for this combination first, so pressing OK re-grabs the hotkey for pot even
+        // if pot itself previously held it (free & take). Genuine conflicts with other
+        // applications are reported with an explanatory message (and, for known system
+        // shortcuts, the owner).
+        invoke('register_shortcut_by_frontend', {
+            name: name,
+            shortcut: key,
+        }).then(
+            () => {
+                toast.success(t('config.hotkey.success'), { style: toastStyle });
+            },
+            (e) => {
+                toast.error(t('config.hotkey.failed', { error: e }), {
+                    style: toastStyle,
+                    duration: 5000,
+                });
             }
-        });
+        );
     }
 
     return (

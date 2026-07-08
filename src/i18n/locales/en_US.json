@@ -153,6 +153,7 @@
                 "ocr_translate": "Screenshot Translation",
                 "is_register": "The hotkey is already registered",
                 "success": "Hotkey register success",
+                "failed": "Failed to register hotkey (it may conflict with another app): {{error}}",
                 "set_hotkey": "Press to Set Hotkey"
             },
             "service": {

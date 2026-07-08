@@ -7,6 +7,8 @@ mod cmd;
 mod config;
 mod error;
 mod hotkey;
+#[cfg(windows)]
+mod hotkey_owner;
 mod lang_detect;
 mod screenshot;
 mod server;
@@ -21,7 +23,7 @@ use cmd::*;
 use config::*;
 use hotkey::*;
 use lang_detect::*;
-use log::info;
+use log::{info, warn};
 use once_cell::sync::OnceCell;
 use screenshot::screenshot;
 use server::*;
@@ -92,12 +94,26 @@ fn main() {
             // Register Global Shortcut
             match register_shortcut("all") {
                 Ok(()) => {}
-                Err(e) => Notification::new(app.config().tauri.bundle.identifier.clone())
-                    .title("Failed to register global shortcut")
-                    .body(&e)
-                    .icon("pot")
-                    .show()
-                    .unwrap(),
+                Err(e) => {
+                    // `e` lists every hotkey that failed (one per line) with its
+                    // key combination and the underlying reason, e.g. a conflict
+                    // with another application. The unaffected hotkeys are still
+                    // registered (see register_shortcut), so the app stays usable.
+                    warn!("Some global shortcuts failed to register:\n{}", e);
+                    // OS toast notifications cannot carry action buttons in Tauri 1,
+                    // so point the user to the Hotkey settings, where pressing OK
+                    // re-grabs the shortcut for pot (freeing pot's own stale binding).
+                    let body = format!(
+                        "{}\n\nOpen Settings → Hotkey to reassign or re-grab the shortcut.",
+                        e
+                    );
+                    Notification::new(app.config().tauri.bundle.identifier.clone())
+                        .title("Failed to register some hotkeys (likely a conflict)")
+                        .body(&body)
+                        .icon("pot")
+                        .show()
+                        .unwrap();
+                }
             }
             match get("proxy_enable") {
                 Some(v) => {
