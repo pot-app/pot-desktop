@@ -25,7 +25,7 @@ export async function translate(text, from, to, options = {}) {
         };
     });
 
-    const response = await ollama.chat({ model, messages: promptList, stream: stream });
+    const response = await ollama.chat({ model, messages: promptList, think: false, stream: stream });
 
     if (stream) {
         let target = '';
