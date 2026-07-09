@@ -31,6 +31,11 @@ import { nanoid } from 'nanoid';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 
+import { Switch } from '@nextui-org/react';
+import { MdCheckCircle, MdCancel } from 'react-icons/md';
+import { store } from '../../../../utils/store';
+
+
 import * as builtinCollectionServices from '../../../../services/collection';
 import { sourceLanguageAtom, targetLanguageAtom } from '../LanguageArea';
 import { useConfig, useToastStyle, useVoice } from '../../../../hooks';
@@ -48,6 +53,7 @@ import {
     getServiceSouceType,
     whetherPluginService,
 } from '../../../../utils/service_instance';
+import { appWindow } from '@tauri-apps/api/window';
 
 let translateID = [];
 
@@ -163,9 +169,15 @@ export default function TargetArea(props) {
     const translate = async () => {
         let id = nanoid();
         translateID[index] = id;
-
+        const instanceConfig = serviceInstanceConfigMap[currentTranslateServiceInstanceKey];
         const translateServiceName = getServiceName(currentTranslateServiceInstanceKey);
-
+        const isEnabled = instanceConfig['enable'] === 'true' || instanceConfig['enable'] === true;
+        if (!isEnabled) {
+            setResult('');
+            setError('Service is disabled');
+            setIsLoading(false);
+            return;
+        }
         if (whetherPluginService(currentTranslateServiceInstanceKey)) {
             const pluginInfo = pluginList['translate'][translateServiceName];
             if (sourceLanguage in pluginInfo.language && targetLanguage in pluginInfo.language) {
@@ -432,7 +444,32 @@ export default function TargetArea(props) {
                                 setCurrentTranslateServiceInstanceKey(key);
                             }}
                         >
-                            {translateServiceInstanceList.map((instanceKey) => {
+                            {translateServiceInstanceList
+                                .filter((instanceKey) => {
+                                    // 只显示与当前选中服务名称相同的服务实例
+                                    return getServiceName(instanceKey) === getServiceName(currentTranslateServiceInstanceKey);
+                                })
+                                .map((instanceKey) => {
+                                // 获取服务实例配置
+                                const instanceConfig = serviceInstanceConfigMap[instanceKey] || {};
+                                // 检查服务是否启用
+                                const isEnabled = instanceConfig['enable'] === 'true' || instanceConfig['enable'] === true;
+                                
+                                // 处理开关切换
+                                const handleToggleEnable = (enabled) => {
+                                    // 更新配置
+                                    const updatedConfig = {
+                                        ...instanceConfig,
+                                        enable: enabled ? 'true' : 'false'
+                                    };
+                                    
+                                    // 更新服务实例配置映射
+                                    props.serviceInstanceConfigMap[instanceKey] = updatedConfig;
+                                    
+                                    // 保存到配置文件
+                                    store.set(`translate_service_instance.${instanceKey}`, updatedConfig);
+                                    store.save();
+                                };
                                 return (
                                     <DropdownItem
                                         key={instanceKey}
@@ -449,6 +486,7 @@ export default function TargetArea(props) {
                                                 />
                                             )
                                         }
+                                        className='flex items-center justify-between'
                                     >
                                         {whetherPluginService(instanceKey) ? (
                                             <div className='my-auto'>{`${getInstanceName(instanceKey, () => pluginList['translate'][getServiceName(instanceKey)].display)} `}</div>
@@ -458,7 +496,14 @@ export default function TargetArea(props) {
                                                     t(`services.translate.${getServiceName(instanceKey)}.title`)
                                                 )}
                                             </div>
+                                            
                                         )}
+                                        <Switch
+                                                size='sm'
+                                                isSelected={isEnabled}
+                                                onValueChange={handleToggleEnable}
+                                                startContent={isEnabled ? <MdCheckCircle /> : <MdCancel />}
+                                        />
                                     </DropdownItem>
                                 );
                             })}

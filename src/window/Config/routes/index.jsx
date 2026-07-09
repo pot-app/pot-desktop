@@ -8,6 +8,7 @@ import History from '../pages/History';
 import Hotkey from '../pages/Hotkey';
 import Backup from '../pages/Backup';
 import About from '../pages/About';
+import Collection from '../pages/Collection';
 
 const routes = [
     {
@@ -33,6 +34,10 @@ const routes = [
     {
         path: '/history',
         element: <History />,
+    },
+    {
+        path: '/collection',
+        element: <Collection />,
     },
     {
         path: '/backup',

@@ -88,6 +88,11 @@ export default function SourceArea(props) {
                             } else {
                                 newText = v.trim();
                             }
+                            // 处理驼峰命名法，蛇形命名法，中划线命名，转换为空格分隔的字符串，并把大写字母转换为小写
+                            //newText = newText.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                            newText = newText.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                            newText = newText.replace(/_/g, ' ');
+                            newText = newText.replace(/-/g, ' ');
                             if (incrementalTranslate) {
                                 setSourceText((old) => {
                                     return old + ' ' + newText;
@@ -125,6 +130,10 @@ export default function SourceArea(props) {
                                 } else {
                                     newText = v.trim();
                                 }
+                                // 处理驼峰命名法，蛇形命名法，中划线命名，转换为空格分隔的字符串，并把大写字母转换为小写
+                                newText = newText.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                                newText = newText.replace(/_/g, ' ');
+                                newText = newText.replace(/-/g, ' ');
                                 if (incrementalTranslate) {
                                     setSourceText((old) => {
                                         return old + ' ' + newText;
@@ -152,6 +161,10 @@ export default function SourceArea(props) {
             } else {
                 newText = text.trim();
             }
+            // 处理驼峰命名法，蛇形命名法，中划线命名，转换为空格分隔的字符串，并把大写字母转换为小写
+            newText = newText.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+            newText = newText.replace(/_/g, ' ');
+            newText = newText.replace(/-/g, ' ');
             if (incrementalTranslate) {
                 setSourceText((old) => {
                     return old + ' ' + newText;

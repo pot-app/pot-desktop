@@ -1,14 +1,15 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/react';
-import { readDir, BaseDirectory, readTextFile, exists } from '@tauri-apps/api/fs';
+import { readDir, BaseDirectory, readTextFile, exists, writeTextFile } from '@tauri-apps/api/fs';
 import { Textarea, Button, ButtonGroup } from '@nextui-org/react';
-import { appConfigDir, join } from '@tauri-apps/api/path';
+import { appConfigDir, join, desktopDir } from '@tauri-apps/api/path';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Pagination } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 import Database from 'tauri-plugin-sql-api';
+import { save } from '@tauri-apps/api/dialog';
 
 import * as builtinCollectionServices from '../../../../services/collection';
 import { invoke_plugin } from '../../../../utils/invoke_plugin';
@@ -117,6 +118,45 @@ export default function History() {
             }
         }
         setPluginList({ ...temp });
+    };
+
+    // 修改：使用保存对话框的保存函数
+    const saveToDesktop = async () => {
+        if (!selectedItem) return;
+        
+        try {
+            // 使用保存对话框让用户选择保存位置
+            const selectedPath = await save({
+                defaultPath: `pot-collection-${new Date().toISOString().replace(/[:.]/g, '-')}.txt`,
+                filters: [
+                    {
+                        name: 'Text Files',
+                        extensions: ['txt']
+                    }
+                ]
+            });
+            
+            if (!selectedPath) {
+                // 用户取消了保存
+                return;
+            }
+            
+            // 准备文件内容
+            const content = `原文：${selectedItem.text}\n\n译文：${selectedItem.result}\n\n时间：${formatDate(new Date())}\n服务：${selectedItem.service}`;
+            
+            // 写入文件
+            await writeTextFile(selectedPath, content);
+            
+            // 显示成功提示
+            toast.success(t('history.save_to_desktop_success'), {
+                style: toastStyle,
+            });
+        } catch (error) {
+            // 显示错误提示
+            toast.error(t('history.save_to_desktop_error') + error.toString(), {
+                style: toastStyle,
+            });
+        }
     };
 
     return (
@@ -282,6 +322,16 @@ export default function History() {
                                             {t('common.save')}
                                         </Button>
                                         <ButtonGroup>
+                                            {/* 保存到桌面按钮 */}
+                                            <Button
+                                                isIconOnly
+                                                variant='light'
+                                                title={t('history.save_to_desktop')}
+                                                onPress={saveToDesktop}
+                                            >
+                                                💾
+                                            </Button>
+                                            {/* 收藏服务按钮列表 */}
                                             {collectionServiceList &&
                                                 collectionServiceList.map((instanceKey) => {
                                                     return (

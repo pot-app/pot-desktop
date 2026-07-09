@@ -34,7 +34,7 @@ use tray::*;
 use updater::check_update;
 use window::config_window;
 use window::updater_window;
-
+use clipboard::{RealTimeTranslateEnableWrapper, start_realtime_translate_monitor};
 // Global AppHandle
 pub static APP: OnceCell<tauri::AppHandle> = OnceCell::new();
 
@@ -43,14 +43,14 @@ pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, _, cwd| {
-            Notification::new(&app.config().tauri.bundle.identifier)
-                .title("The program is already running. Please do not start it again!")
-                .body(cwd)
-                .icon("pot")
-                .show()
-                .unwrap();
-        }))
+        // .plugin(tauri_plugin_single_instance::init(|app, _, cwd| {
+        //     Notification::new(&app.config().tauri.bundle.identifier)
+        //         .title("The program is already running. Please do not start it again!")
+        //         .body(cwd)
+        //         .icon("pot")
+        //         .show()
+        //         .unwrap();
+        // }))
         .plugin(
             tauri_plugin_log::Builder::default()
                 .targets([LogTarget::LogDir, LogTarget::Stdout])
@@ -125,6 +125,21 @@ fn main() {
                 clipboard_monitor.to_string(),
             )));
             start_clipboard_monitor(app.handle());
+            let realtime_translate = match get("realtime_translate") {
+                Some(v) => v.as_bool().unwrap(),
+                None => {
+                    set("realtime_translate", false);
+                    false
+                }
+            };
+            app.manage(RealTimeTranslateEnableWrapper(Mutex::new(
+                realtime_translate.to_string(),
+            )));
+            // 如果开启了实时翻译，启动监控
+            if realtime_translate {
+                start_realtime_translate_monitor(app.handle());
+            }
+            
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -147,7 +162,8 @@ fn main() {
             local,
             install_plugin,
             font_list,
-            aliyun
+            aliyun,
+            update_realtime_translate_state
         ])
         .on_system_tray_event(tray_event_handler)
         .build(tauri::generate_context!())

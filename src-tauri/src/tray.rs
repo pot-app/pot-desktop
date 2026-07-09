@@ -5,6 +5,7 @@ use crate::window::input_translate;
 use crate::window::ocr_recognize;
 use crate::window::ocr_translate;
 use crate::window::updater_window;
+use crate::clipboard::{RealTimeTranslateEnableWrapper, start_realtime_translate_monitor};
 use log::info;
 use tauri::CustomMenuItem;
 use tauri::GlobalShortcutManager;
@@ -94,6 +95,18 @@ pub fn update_tray(app_handle: tauri::AppHandle, mut language: String, mut copy_
             .unwrap(),
         _ => {}
     }
+    let enable_realtime_translate = match get("realtime_translate") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("realtime_translate", false);
+            false
+        }
+    };
+    
+    tray_handle
+        .get_item("realtime_translate")
+        .set_selected(enable_realtime_translate)
+        .unwrap();
 }
 
 pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
@@ -114,6 +127,7 @@ pub fn tray_event_handler<'a>(app: &'a AppHandle, event: SystemTrayEvent) {
             "view_log" => on_view_log_click(app),
             "restart" => on_restart_click(app),
             "quit" => on_quit_click(app),
+            "realtime_translate" => on_realtime_translate_click(app),
             _ => {}
         },
         _ => {}
@@ -140,6 +154,37 @@ fn on_tray_click() {
 }
 fn on_input_translate_click() {
     input_translate();
+}
+fn on_realtime_translate_click(app: &AppHandle) {
+    let enable_realtime_translate = match get("realtime_translate") {
+        Some(v) => v.as_bool().unwrap(),
+        None => {
+            set("realtime_translate", false);
+            false
+        }
+    };
+    let current = !enable_realtime_translate;
+    
+    // 更新配置文件
+    set("realtime_translate", current);
+    
+    // 更新状态并启动/停止监控
+    let state = app.state::<RealTimeTranslateEnableWrapper>();
+    state
+        .0
+        .lock()
+        .unwrap()
+        .replace_range(.., &current.to_string());
+    
+    if current {
+        start_realtime_translate_monitor(app.app_handle());
+    }
+    
+    // 更新托盘菜单状态
+    app.tray_handle()
+        .get_item("realtime_translate")
+        .set_selected(current)
+        .unwrap();
 }
 fn on_clipboard_monitor_click(app: &AppHandle) {
     let enable_clipboard_monitor = match get("clipboard_monitor") {
@@ -217,8 +262,10 @@ fn tray_menu_en() -> tauri::SystemTrayMenu {
     let view_log = CustomMenuItem::new("view_log", "View Log");
     let restart = CustomMenuItem::new("restart", "Restart");
     let quit = CustomMenuItem::new("quit", "Quit");
+    let realtime_translate = CustomMenuItem::new("realtime_translate", "Real-time Translation");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(realtime_translate)
         .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "Auto Copy",
@@ -246,7 +293,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let clipboard_monitor = CustomMenuItem::new("clipboard_monitor", "监听剪切板");
     let copy_source = CustomMenuItem::new("copy_source", "原文");
     let copy_target = CustomMenuItem::new("copy_target", "译文");
-
+    let realtime_translate = CustomMenuItem::new("realtime_translate", "实时翻译");
     let copy_source_target = CustomMenuItem::new("copy_source_target", "原文+译文");
     let copy_disable = CustomMenuItem::new("copy_disable", "关闭");
     let ocr_recognize = CustomMenuItem::new("ocr_recognize", "文字识别");
@@ -258,6 +305,7 @@ fn tray_menu_zh_cn() -> tauri::SystemTrayMenu {
     let quit = CustomMenuItem::new("quit", "退出");
     SystemTrayMenu::new()
         .add_item(input_translate)
+        .add_item(realtime_translate)
         .add_item(clipboard_monitor)
         .add_submenu(SystemTraySubmenu::new(
             "自动复制",
