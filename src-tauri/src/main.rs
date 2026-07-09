@@ -125,6 +125,19 @@ fn main() {
                 clipboard_monitor.to_string(),
             )));
             start_clipboard_monitor(app.handle());
+
+            let slide_translate = match get("slide_translate") {
+                Some(v) => v.as_bool().unwrap(),
+                None => {
+                    set("slide_translate", false);
+                    false
+                }
+            };
+            app.manage(SlideTranslateEnableWrapper(Mutex::new(
+                slide_translate.to_string(),
+            )));
+            start_slide_translate(app.handle());
+            
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
