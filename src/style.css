@@ -13,6 +13,16 @@ html {
     overflow: hidden;
 }
 
+/* 使整个页面背景透明，避免悬浮窗口出现黑色方块 */
+body {
+    background: transparent !important;
+}
+
+/* 某些情况下根节点可能被框架样式设置背景色，强制透明 */
+#root, body > div#root {
+    background: transparent !important;
+}
+
 *::-webkit-scrollbar {
     width: 5px;
 }

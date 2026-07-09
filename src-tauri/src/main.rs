@@ -34,6 +34,13 @@ use tray::*;
 use updater::check_update;
 use window::config_window;
 use window::updater_window;
+use window::floating_icon_window;
+use window::hide_floating_icon_window;
+use window::show_floating_icon_window;
+use window::open_config_window;
+use window::open_translate_window;
+use window::perform_ocr_recognize;
+use window::perform_screenshot_translate;
 
 // Global AppHandle
 pub static APP: OnceCell<tauri::AppHandle> = OnceCell::new();
@@ -87,6 +94,27 @@ fn main() {
             app.manage(StringWrapper(Mutex::new("".to_string())));
             // Update Tray Menu
             update_tray(app.app_handle(), "".to_string(), "".to_string());
+
+            // === 根据配置控制悬浮图标窗口的显示/隐藏 ===
+            // 说明：应用启动时即读取配置 display_icon_type，如果为 "floating" 则创建/显示悬浮窗口；
+            // 否则隐藏（若存在），避免必须手动进入设置页才生效。
+            let display_icon_type = match get("display_icon_type") {
+                Some(v) => v.as_str().unwrap_or("menubar").to_string(),
+                None => {
+                    // 若无配置，设置默认值为菜单栏显示
+                    set("display_icon_type", "menubar");
+                    "menubar".to_string()
+                }
+            };
+            if display_icon_type == "floating" {
+                // 创建/显示悬浮图标窗口
+                floating_icon_window();
+            } else {
+                // 确保不是悬浮模式时窗口被隐藏
+                hide_floating_icon_window();
+            }
+            // === 配置读取结束 ===
+
             // Start http server
             start_server();
             // Register Global Shortcut
@@ -141,6 +169,13 @@ fn main() {
             register_shortcut_by_frontend,
             update_tray,
             updater_window,
+            floating_icon_window,
+                hide_floating_icon_window,
+                show_floating_icon_window,
+                open_config_window,
+                open_translate_window,
+                perform_ocr_recognize,
+                perform_screenshot_translate,
             screenshot,
             lang_detect,
             webdav,

@@ -90,7 +90,7 @@ export default function LanguageArea() {
                                     if (targetLanguage === translateSecondLanguage) {
                                         setTargetLanguage(translateTargetLanguage);
                                     } else {
-                                        setTargetLanguage(secondLanguage);
+                                        setTargetLanguage(translateSecondLanguage);
                                     }
                                 }
                             }
