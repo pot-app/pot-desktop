@@ -274,6 +274,9 @@
                     "prompt_description": "By customizing the Prompt, you can customize the behavior of OpenAI. $text $from $to $detect will be replaced with the text to be translated, source language, target language and detected language.",
                     "add": "Add Prompt"
                 },
+                "atlascloud": {
+                    "title": "Atlas Cloud"
+                },
                 "geminipro": {
                     "title": "Gemini Pro",
                     "request_path": "Request Path",
