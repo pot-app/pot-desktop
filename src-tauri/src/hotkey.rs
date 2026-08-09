@@ -41,6 +41,11 @@ where
 
 // Register global shortcuts
 pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
+    #[cfg(target_os = "linux")]
+    if crate::wayland_shortcuts::is_wayland_session() {
+        return crate::wayland_shortcuts::start();
+    }
+
     let app_handle = APP.get().unwrap();
     match shortcut {
         "hotkey_selection_translate" => register(
@@ -72,6 +77,12 @@ pub fn register_shortcut(shortcut: &str) -> Result<(), String> {
 
 #[tauri::command]
 pub fn register_shortcut_by_frontend(name: &str, shortcut: &str) -> Result<(), String> {
+    #[cfg(target_os = "linux")]
+    if crate::wayland_shortcuts::is_wayland_session() {
+        set(name, shortcut);
+        return crate::wayland_shortcuts::reload();
+    }
+
     let app_handle = APP.get().unwrap();
     match name {
         "hotkey_selection_translate" => register(
@@ -95,4 +106,17 @@ pub fn register_shortcut_by_frontend(name: &str, shortcut: &str) -> Result<(), S
         _ => {}
     }
     Ok(())
+}
+
+#[tauri::command]
+pub fn uses_wayland_shortcuts() -> bool {
+    #[cfg(target_os = "linux")]
+    {
+        crate::wayland_shortcuts::is_wayland_session()
+    }
+
+    #[cfg(not(target_os = "linux"))]
+    {
+        false
+    }
 }

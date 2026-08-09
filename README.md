@@ -244,6 +244,17 @@ brew upgrade --cask pot
 
 ## Linux
 
+### AppImage
+
+从最新 Release 下载 x86_64 AppImage 和 `install-appimage.sh`，然后运行：
+
+```bash
+chmod +x install-appimage.sh
+./install-appimage.sh ./pot_{version}_amd64.AppImage
+```
+
+该脚本会为当前用户安装 `pot` 命令、桌面启动器、图标和桌面操作。运行 `./install-appimage.sh --uninstall` 可以移除这些集成。
+
 ### Debian/Ubuntu
 
 1. 从 [Release](https://github.com/pot-app/pot-desktop/releases/latest) 页面下载最新的对应架构的 `deb` 安装包。
@@ -373,7 +384,22 @@ Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 ## 快捷键无法使用
 
-由于 Tauri 的快捷键方案并没有支持 Wayland，所以 pot 应用内的快捷键设置在 Wayland 下无法使用。 您可以设置系统快捷用 curl 发送请求来触发 pot，详见[外部调用](#外部调用)
+Pot 在 Wayland 下使用 XDG Global Shortcuts Portal。首次设置快捷键时，桌面环境可能会显示系统对话框，让您确认或修改按键组合。
+
+如果合成器不支持该 Portal，请先安装 AppImage 桌面集成，再将以下命令绑定到系统快捷键：
+
+```bash
+pot --selection-translate
+pot --input-translate
+pot --ocr-recognize
+pot --ocr-translate
+```
+
+这些命令会与已运行的 Pot 进程通信，不依赖 `curl` 或 HTTP 服务端口。
+
+## 无法读取选中的文本
+
+Pot 会先读取 Wayland primary selection，失败后安全地回退到 X11 primary selection。只有合成器支持 primary-selection 协议时，外部应用才能读取原生 Wayland 应用中选中的文本；否则请先复制文本或使用剪贴板监听模式。
 
 ## 截图无法使用
 

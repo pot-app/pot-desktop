@@ -244,6 +244,17 @@ brew upgrade --cask pot
 
 ## Linux
 
+### AppImage
+
+Download the x86_64 AppImage and `install-appimage.sh` from the latest release, then run:
+
+```bash
+chmod +x install-appimage.sh
+./install-appimage.sh ./pot_{version}_amd64.AppImage
+```
+
+This installs Pot for the current user, adds the `pot` command, a desktop launcher, an icon, and desktop actions. To remove the integration, run `./install-appimage.sh --uninstall`.
+
 ### Debian/Ubuntu
 
 We provide `deb` packages for Linux.
@@ -369,8 +380,22 @@ Due to the varying levels of support for Wayland among different distributions, 
 
 ## Shortcut key cannot be used
 
-Due to Tauri's lack of support for Wayland, the shortcut key scheme in the pot application cannot be used under Wayland.
-You can set the system shortcut and send a request with `curl` to call pot, see [External Calls](#external-calls) for details
+Pot uses the XDG Global Shortcuts portal on Wayland. The first time a shortcut is configured, your desktop may show a system dialog where you can confirm or change the trigger.
+
+If your compositor does not provide that portal, install the AppImage desktop integration and bind a system shortcut to one of these commands instead:
+
+```bash
+pot --selection-translate
+pot --input-translate
+pot --ocr-recognize
+pot --ocr-translate
+```
+
+These commands communicate with the existing Pot process and do not depend on `curl` or the HTTP server port.
+
+## Selected text is empty
+
+Pot reads the native Wayland primary selection first and safely falls back to the X11 primary selection. Native Wayland applications can only expose selected text when the compositor supports the primary-selection protocol; otherwise copy the text or use clipboard monitoring mode.
 
 ## Screenshot doesn't work
 

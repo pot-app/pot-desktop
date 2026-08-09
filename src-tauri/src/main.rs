@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod backup;
+mod cli;
 mod clipboard;
 mod cmd;
 mod config;
@@ -9,13 +10,17 @@ mod error;
 mod hotkey;
 mod lang_detect;
 mod screenshot;
+mod selected_text;
 mod server;
 mod system_ocr;
 mod tray;
 mod updater;
+#[cfg(target_os = "linux")]
+mod wayland_shortcuts;
 mod window;
 
 use backup::*;
+use cli::handle_args;
 use clipboard::*;
 use cmd::*;
 use config::*;
@@ -43,13 +48,15 @@ pub struct StringWrapper(pub Mutex<String>);
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, _, cwd| {
-            Notification::new(&app.config().tauri.bundle.identifier)
-                .title("The program is already running. Please do not start it again!")
-                .body(cwd)
-                .icon("pot")
-                .show()
-                .unwrap();
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            if !handle_args(app, &args) {
+                Notification::new(&app.config().tauri.bundle.identifier)
+                    .title("The program is already running. Please do not start it again!")
+                    .body(cwd)
+                    .icon("pot")
+                    .show()
+                    .unwrap();
+            }
         }))
         .plugin(
             tauri_plugin_log::Builder::default()
@@ -85,6 +92,7 @@ fn main() {
                 config_window();
             }
             app.manage(StringWrapper(Mutex::new("".to_string())));
+            handle_args(&app.handle(), &std::env::args().collect::<Vec<_>>());
             // Update Tray Menu
             update_tray(app.app_handle(), "".to_string(), "".to_string());
             // Start http server
@@ -101,7 +109,10 @@ fn main() {
             }
             match get("proxy_enable") {
                 Some(v) => {
-                    if v.as_bool().unwrap() && get("proxy_host").map_or(false, |host| !host.as_str().unwrap().is_empty()) {
+                    if v.as_bool().unwrap()
+                        && get("proxy_host")
+                            .map_or(false, |host| !host.as_str().unwrap().is_empty())
+                    {
                         let _ = set_proxy();
                     }
                 }
@@ -139,6 +150,7 @@ fn main() {
             run_binary,
             open_devtools,
             register_shortcut_by_frontend,
+            uses_wayland_shortcuts,
             update_tray,
             updater_window,
             screenshot,

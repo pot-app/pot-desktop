@@ -224,9 +224,8 @@ fn translate_window() -> Window {
 }
 
 pub fn selection_translate() {
-    use selection::get_text;
     // Get Selected Text
-    let text = get_text();
+    let text = crate::selected_text::get_text();
     if !text.trim().is_empty() {
         let app_handle = APP.get().unwrap();
         // Write into State
