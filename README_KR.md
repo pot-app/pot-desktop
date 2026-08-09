@@ -245,6 +245,17 @@ brew upgrade --cask pot
 
 ## Linux
 
+### AppImage
+
+최신 릴리스에서 x86_64 AppImage와 `install-appimage.sh`를 받은 다음 아래 명령을 실행합니다.
+
+```bash
+chmod +x install-appimage.sh
+./install-appimage.sh ./pot_{version}_amd64.AppImage
+```
+
+현재 사용자 계정에 Pot 명령어, 데스크톱 실행기, 아이콘과 데스크톱 동작이 설치됩니다. 제거하려면 `./install-appimage.sh --uninstall`을 실행하세요.
+
 ### Debian/Ubuntu 데비안/우분투
 
 리눅스 환경을 위해 `deb` 파일이 제공됩니다
@@ -370,8 +381,22 @@ Github: [ccslykx/Starry](https://github.com/ccslykx/Starry)
 
 ## 단축키를 적용할 수 없을 때,
 
-타우리Tauri는 웨이랜드Wayland를 지원하지 않기 때문에, pot의 단축키 기능은 웨이랜드Waylan에서 사용할 수 없습니다.
-시스템 단축키를 설정하고 `curl`로 요청을 보내 팟을 호출할 수 있으며, 자세한 내용은[External Calls](#external-calls) 을 참조하세요.
+Pot은 Wayland에서 XDG Global Shortcuts 포털을 사용합니다. 단축키를 처음 설정하면 데스크톱의 시스템 대화상자에서 키 조합을 확인하거나 변경할 수 있습니다.
+
+컴포지터가 해당 포털을 제공하지 않는다면 AppImage 데스크톱 통합을 설치하고 아래 명령 중 하나를 시스템 단축키에 연결하세요.
+
+```bash
+pot --selection-translate
+pot --input-translate
+pot --ocr-recognize
+pot --ocr-translate
+```
+
+이 명령들은 실행 중인 Pot 프로세스와 직접 통신하므로 `curl`이나 HTTP 서버 포트에 의존하지 않습니다.
+
+## 선택한 텍스트가 비어 있을 때
+
+Pot은 Wayland primary selection을 먼저 읽고, 실패하면 X11 primary selection으로 안전하게 폴백합니다. 네이티브 Wayland 앱의 선택 텍스트는 컴포지터가 primary-selection 프로토콜을 지원할 때만 외부 앱에서 읽을 수 있습니다. 지원하지 않는 환경에서는 텍스트를 복사하거나 클립보드 감청 모드를 사용하세요.
 
 ## 단축키가 동작하지 않을 때,
 

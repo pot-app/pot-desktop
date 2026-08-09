@@ -10,7 +10,7 @@ rustup toolchain install --force-non-host "$INPUT_TOOLCHAIN"
 
 if [ "$INPUT_TARGET" = "x86_64-unknown-linux-gnu" ]; then
     apt-get update
-    apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3
+    apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev patchelf libxdo-dev libxcb1 libxrandr2 libdbus-1-3 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-libav
 elif [ "$INPUT_TARGET" = "i686-unknown-linux-gnu" ]; then
     dpkg --add-architecture i386
     apt-get update

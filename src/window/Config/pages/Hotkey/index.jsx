@@ -5,7 +5,7 @@ import { CardBody } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { Card } from '@nextui-org/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useConfig } from '../../../../hooks/useConfig';
 import { useToastStyle } from '../../../../hooks';
@@ -50,9 +50,16 @@ export default function Hotkey() {
     const [inputTranslate, setInputTranslate] = useConfig('hotkey_input_translate', '');
     const [ocrRecognize, setOcrRecognize] = useConfig('hotkey_ocr_recognize', '');
     const [ocrTranslate, setOcrTranslate] = useConfig('hotkey_ocr_translate', '');
+    const [waylandShortcuts, setWaylandShortcuts] = useState(false);
 
     const { t } = useTranslation();
     const toastStyle = useToastStyle();
+
+    useEffect(() => {
+        invoke('uses_wayland_shortcuts')
+            .then(setWaylandShortcuts)
+            .catch(() => {});
+    }, []);
 
     function keyDown(e, setKey) {
         e.preventDefault();
@@ -94,23 +101,37 @@ export default function Hotkey() {
     }
 
     function registerHandler(name, key) {
+        const register = () =>
+            invoke('register_shortcut_by_frontend', {
+                name: name,
+                shortcut: key,
+            }).then(
+                () => {
+                    toast.success(t('config.hotkey.success'), { style: toastStyle });
+                },
+                (e) => {
+                    toast.error(e, { style: toastStyle });
+                }
+            );
+
+        if (waylandShortcuts) {
+            register();
+            return;
+        }
+
         isRegistered(key).then((res) => {
             if (res) {
                 toast.error(t('config.hotkey.is_register'), { style: toastStyle });
             } else {
-                invoke('register_shortcut_by_frontend', {
-                    name: name,
-                    shortcut: key,
-                }).then(
-                    () => {
-                        toast.success(t('config.hotkey.success'), { style: toastStyle });
-                    },
-                    (e) => {
-                        toast.error(e, { style: toastStyle });
-                    }
-                );
+                register();
             }
         });
+    }
+
+    function unregisterHandler(key) {
+        if (!waylandShortcuts && key) {
+            unregister(key).catch(() => {});
+        }
     }
 
     return (
@@ -130,7 +151,7 @@ export default function Hotkey() {
                                 keyDown(e, setSelectionTranslate);
                             }}
                             onFocus={() => {
-                                unregister(selectionTranslate);
+                                unregisterHandler(selectionTranslate);
                                 setSelectionTranslate('');
                             }}
                             endContent={
@@ -161,7 +182,7 @@ export default function Hotkey() {
                                 keyDown(e, setInputTranslate);
                             }}
                             onFocus={() => {
-                                unregister(inputTranslate);
+                                unregisterHandler(inputTranslate);
                                 setInputTranslate('');
                             }}
                             endContent={
@@ -192,7 +213,7 @@ export default function Hotkey() {
                                 keyDown(e, setOcrRecognize);
                             }}
                             onFocus={() => {
-                                unregister(ocrRecognize);
+                                unregisterHandler(ocrRecognize);
                                 setOcrRecognize('');
                             }}
                             endContent={
@@ -223,7 +244,7 @@ export default function Hotkey() {
                                 keyDown(e, setOcrTranslate);
                             }}
                             onFocus={() => {
-                                unregister(ocrTranslate);
+                                unregisterHandler(ocrTranslate);
                                 setOcrTranslate('');
                             }}
                             endContent={
