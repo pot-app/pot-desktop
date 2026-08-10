@@ -319,6 +319,10 @@
             "tts": {
                 "lingva_tts": {
                     "title": "Lingva"
+                },
+                "edge_tts": {
+                    "title": "Edge",
+                    "voice_short_name": "Vioce Short Name"
                 }
             }
         },

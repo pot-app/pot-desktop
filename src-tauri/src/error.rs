@@ -27,6 +27,14 @@ pub enum Error {
     Selection(#[from] font_kit::error::SelectionError),
     #[error(transparent)]
     Reqwest(#[from] reqwest::Error),
+    #[error(transparent)]
+    EdgeTts(#[from] msedge_tts::error::Error),
+    #[error(transparent)]
+    AnyEdgeTts(#[from] anyhow::Error),
+    #[error(transparent)]
+    RodioPlay(#[from] rodio::PlayError),
+    #[error(transparent)]
+    RodioStream(#[from] rodio::StreamError),
 }
 
 // we must manually implement serde::Serialize
